@@ -48,6 +48,13 @@ public:
      */
     std::string toString();
 
+    /**
+     * @brief operator =
+     * @param p2
+     * @return
+     */
+    particle& operator=(const particle& p2);
+
 
     double getPx() const;
     void setPx(double value);

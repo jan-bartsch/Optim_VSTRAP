@@ -34,6 +34,13 @@ std::string particle::toString() {
             + " " + std::to_string(this->getVx()) + " " + std::to_string(this->getVy()) + " " + std::to_string(this->getVz());
 }
 
+/*particle &particle::operator=(const particle &p2)
+{
+    auto other = dynamic_cast<const particle*>(&p2);
+
+    return *this = particle(other->getPx(),other->getPy(),other->getPz(),other->getVx(),other->getVy(),other->getVz(),other->getWeight());
+}*/
+
 
 double particle::getPx() const {  return px; }
 

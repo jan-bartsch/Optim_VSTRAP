@@ -1,19 +1,12 @@
 #include <iostream>
 
-#include "test/test_io.h"
-
-using namespace std;
+#include "test/test_main.h"
 
 int main()
 {
 
+    test_main test = test_main();
+    test.testing();
 
-    /*Test I/O
-     *
-     */
-
-    test_io testIO = test_io();
-
-    testIO.test_inputController();
 
 }

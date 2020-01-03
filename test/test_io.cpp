@@ -23,4 +23,21 @@ int test_io::test_inputController()
     return 0;
 }
 
+int test_io::test_output_ControlUpdate()
+{
+    output_control_update outputControlUpdate = output_control_update();
+
+    //std::vector<double> test{0.5,1.5,2.5};
+
+    std::map<int,std::vector<double>> testControl = {
+        {1,{-1.0,-1-0,-1.0}},
+        {2,{-2.0,2.0,-2.0}},
+        {3,{-3.0,-2.0,-3.0}}
+    };
+
+    outputControlUpdate.writeControl_XML(testControl);
+
+    return 0;
+}
+
 
