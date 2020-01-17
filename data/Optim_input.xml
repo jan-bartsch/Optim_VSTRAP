@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<optimizer_input>
+
+    <globalParamters>
+        <paramter name="maximumIterations" value="100" />
+    </globalParamters>
+
+
+    <schedule>
+        <module group="control_update" name= "armijo_linesearch" />
+    </schedule>
+
+</optimizer_input>

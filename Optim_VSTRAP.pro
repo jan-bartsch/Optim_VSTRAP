@@ -13,6 +13,7 @@ SOURCES += \
     src/io/tinyXML/tinyxmlerror.cpp \
     src/io/tinyXML/tinyxmlparser.cpp \
     src/objects/particle.cpp \
+    src/optim/optim_controller.cpp \
     src/optimization/gradient_calculator.cpp \
     test/test_io.cpp \
     test/test_main.cpp
@@ -24,6 +25,7 @@ HEADERS += \
     src/io/tinyXML/tinystr.h \
     src/io/tinyXML/tinyxml.h \
     src/objects/particle.h \
+    src/optim/optim_controller.h \
     src/optimization/gradient_calculator.h \
     test/test_io.h \
     test/test_main.h
