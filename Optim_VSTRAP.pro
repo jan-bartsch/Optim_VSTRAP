@@ -33,3 +33,8 @@ HEADERS += \
 DISTFILES += \
     data/Optim_input.xml \
     data/csv_dummy_particles.csv
+
+LIBS +=
+
+SUBDIRS += \
+    test/test.pro

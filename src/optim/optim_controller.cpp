@@ -5,11 +5,8 @@ optim_controller::optim_controller()
 
 }
 
-int optim_controller::read_parameters()
+std::map<std::string,double> optim_controller::read_parameters(const char* filename)
 {
-
-    const char* filename = "/afs/ifm/home/bartsch/SPARC/Optim_VSTRAP/data/Optim_input.xml";
-
     std::map<std::string,double> globalParameters;
 
     TiXmlDocument inputFile(filename);
@@ -17,35 +14,23 @@ int optim_controller::read_parameters()
         throw std::runtime_error("File not found");
     }
 
-    TiXmlHandle hDoc(&inputFile);
-    TiXmlElement *parameter, *pRoot;
+    TiXmlElement *rootElement = inputFile.RootElement();
+    //std::cout << rootElement->Value() << std::endl; //optimizer_input
+    TiXmlElement *parameterRoot = rootElement->FirstChildElement("globalParameters"); //globalParameters
+    //std::cout << parameterRoot->Value() << std::endl;
+    TiXmlElement *parameter = parameterRoot->FirstChildElement("parameter");
+    int i = 0; // for sorting the entries
+    while(parameter)
+    {
+        TiXmlAttribute *name = parameter->FirstAttribute();
+        std::string name_string(name->Value());
 
-    try{
+        TiXmlAttribute *value = name->Next();
+        double value_double = std::atof(value->Value());
 
-
-        pRoot = inputFile.FirstChildElement();
-        if(pRoot)
-        {
-            parameter = pRoot->FirstChildElement();
-            int i = 0; // for sorting the entries
-            while(parameter)
-            {
-                double pValue = std::atof(parameter->Value());
-                std::string pText(parameter->GetText());
-                globalParameters.insert(std::pair<std::string,double>(pText,pValue));
-                parameter = parameter->NextSiblingElement();
-                i++;
-            }
-        }
-    //for( TiXmlElement* parameter; parameter1; parameter=parameter1->NextSiblingElement())
-    //{
-
-    //}
-
-    } catch(std::exception e) {
-        return 1;
+        globalParameters.insert(std::pair<std::string,double>(name_string,value_double));
+        parameter = parameter->NextSiblingElement();
+        i++;
     }
-
-
-    return 0;
+    return globalParameters;
 }

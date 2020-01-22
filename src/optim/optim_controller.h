@@ -5,6 +5,8 @@
 #include <string>
 #include <exception>
 
+#include <iostream>
+
 #include "src/io/tinyXML/tinyxml.h"
 
 
@@ -14,7 +16,7 @@ class optim_controller
 public:
     optim_controller();
 
-    int read_parameters();
+    std::map<std::string,double> read_parameters(const char *filename);
 
 };
 

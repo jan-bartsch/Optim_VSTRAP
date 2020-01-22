@@ -12,7 +12,7 @@ void test_main::testing()
     testIO.test_inputController();
     testIO.test_output_ControlUpdate();
 
-    //testIO.test_readInParameters();
+    testIO.test_readInParameters();
 
 
 }

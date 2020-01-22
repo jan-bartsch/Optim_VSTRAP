@@ -2,9 +2,10 @@
 
 <optimizer_input>
 
-    <globalParamters>
-        <paramter name="maximumIterations" value="100" />
-    </globalParamters>
+    <globalParameters>
+        <parameter name="maximumIterations" value="100" />
+	<parameter name="tolerance" value="1e-15" />
+    </globalParameters>
 
 
     <schedule>

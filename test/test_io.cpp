@@ -44,7 +44,9 @@ int test_io::test_readInParameters()
 {
     optim_controller optimController = optim_controller();
 
-    optimController.read_parameters();
+     const char* filename = "/afs/ifm/home/bartsch/SPARC/Optim_VSTRAP/data/Optim_input.xml";
+
+    optimController.read_parameters(filename);
 }
 
 
