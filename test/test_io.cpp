@@ -40,4 +40,11 @@ int test_io::test_output_ControlUpdate()
     return 0;
 }
 
+int test_io::test_readInParameters()
+{
+    optim_controller optimController = optim_controller();
+
+    optimController.read_parameters();
+}
+
 

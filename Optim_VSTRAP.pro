@@ -29,3 +29,7 @@ HEADERS += \
     src/optimization/gradient_calculator.h \
     test/test_io.h \
     test/test_main.h
+
+DISTFILES += \
+    data/Optim_input.xml \
+    data/csv_dummy_particles.csv
