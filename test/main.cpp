@@ -1,9 +1,8 @@
-#include "test_main.h"
 
-test_main::test_main() { }
+#include "basic/test_io.h"
 
-void test_main::testing()
-{
+int main() {
+
     /*Test I/O
          *
          */
@@ -14,5 +13,6 @@ void test_main::testing()
 
     testIO.test_readInParameters();
 
+    return 0;
 
 }

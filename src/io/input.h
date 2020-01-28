@@ -5,7 +5,7 @@
 #include <fstream>
 #include <stdexcept>
 
-#include "src/objects/particle.h"
+#include "../objects/particle.h"
 
 
 class input

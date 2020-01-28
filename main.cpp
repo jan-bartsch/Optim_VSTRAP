@@ -1,12 +1,9 @@
 #include <iostream>
 
-#include "test/test_main.h"
+using namespace std;
 
 int main()
 {
-
-    test_main test = test_main();
-    test.testing();
-
-
+    cout << "Hello World!" << endl;
+    return 0;
 }
