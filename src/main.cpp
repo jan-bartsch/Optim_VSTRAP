@@ -1,6 +1,10 @@
 #include <iostream>
+#include <string>
+
+#include "controller/optim_controller.h"
 
 int main() {
 
-    std::cout << "Hello world!" << std::endl;
+    optim_controller::start_optimizer();
+
 }

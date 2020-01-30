@@ -7,7 +7,7 @@
 
 #include "../../src/io/input.h"
 #include "../../src/io/output_control_update.h"
-#include "../../src/optim/optim_controller.h"
+#include "../../src/controller/initializer.h"
 
 class test_io
 {

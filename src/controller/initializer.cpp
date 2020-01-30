@@ -1,11 +1,11 @@
-#include "optim_controller.h"
+#include "initializer.h"
 
-optim_controller::optim_controller()
+initializer::initializer()
 {
 
 }
 
-std::map<std::string,double> optim_controller::read_parameters(const char* filename)
+std::map<std::string, double> initializer::read_parameters(const char* filename)
 {
     std::map<std::string,double> globalParameters;
 
