@@ -15,7 +15,7 @@ std::vector<particle> input::readParticleVector(std::string filename, std::strin
     std::string line = "";
 
     if( !file.is_open() ) {
-        throw  std::runtime_error("File not open");
+        throw  std::runtime_error("File could not be opened");
     }
 
 
@@ -35,7 +35,7 @@ std::vector<particle> input::readParticleVector(std::string filename, std::strin
         // push back last element
         vec.push_back(line);
 
-        if (vec.size() != 7 && counter != 0 ) {
+        if (vec.size() < 6 && counter != 0 ) {
             throw std::length_error("Too less particle attributes for writing particle vector");
         }
 
@@ -47,7 +47,9 @@ std::vector<particle> input::readParticleVector(std::string filename, std::strin
             particleTemp.setVx(std::stod(vec[3]));
             particleTemp.setVy(std::stod(vec[4]));
             particleTemp.setVz(std::stod(vec[5]));
-            particleTemp.setWeight(std::stod(vec[6]));
+            if(vec.size()==7) {
+                particleTemp.setWeight(std::stod(vec[6]));
+            }
             particleTemp.setTimestep(0.0);
             particleVector.push_back(particleTemp);
         }

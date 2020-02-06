@@ -5,6 +5,8 @@
     <globalParameters>
         <parameter name="maximumIterations" value="100" />
 	<parameter name="tolerance" value="1e-15" />
+	<parameter name="numberParticles_gp" value="100" />
+    <parameter name="ntimesteps_gp" value="20" />
     </globalParameters>
 
 
