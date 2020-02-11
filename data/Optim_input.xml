@@ -4,11 +4,18 @@
 
     <globalParameters>
         <parameter name="maximumIterations" value="100" />
-	<parameter name="tolerance" value="1e-15" />
-	<parameter name="numberParticles_gp" value="100" />
-    <parameter name="ntimesteps_gp" value="20" />
+        <parameter name="tolerance" value="1e-15" />
+        <parameter name="numberParticles_gp" value="100" />
+        <parameter name="ntimesteps_gp" value="10" />
     </globalParameters>
-
+    
+    
+    <paths>
+        <path name="BUILD_DIRECTORY_VSTRAP" value="/home/bartsch/SPARC/build-vstrap-Desktop-Debug/src/" />
+        <path name="BUILD_DIRECTORY_OPTIM" value="/home/bartsch/SPARC/build-Optim_VSTRAP-Desktop-Debug/src/" />
+        <path name="PARAM_VSTRAP_FORWARD" value="../../test_cases_Optim_VSTRAP/input_forward.xml" />
+        <path name="PARAM_VSTRAP_BACKWARD" value="../../test_cases_Optim_VSTRAP/input_backward.xml" />
+    </paths>
 
     <schedule>
         <module group="control_update" name= "armijo_linesearch" />

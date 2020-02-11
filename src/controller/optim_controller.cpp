@@ -5,10 +5,10 @@
 optim_controller::optim_controller() {
     logger::InitLog();
     logger::Info("Reading parameters ...");
-    this->setOPTIMIZATION_PARAMETERS( initializer::read_parameters("/home/bartsch/SPARC/Optim_VSTRAP/data/Optim_input.xml") );
+    this->setOPTIMIZATION_PARAMETERS( initializer::read_optimization_parameters("/home/bartsch/SPARC/Optim_VSTRAP/data/Optim_input.xml") );
 }
 
-void optim_controller::start_optimizer()
+void optim_controller::start_optimizer(int argc, const char **argv)
 {
 
     logger::Info("Starting optimizer...");
@@ -24,31 +24,49 @@ int optim_controller::start_optimization_iteration(std::vector<double> &control)
 {
 
     input in = input();
-    std::map<std::string, double> globalParameters = initializer::read_parameters("/home/bartsch/SPARC/Optim_VSTRAP/data/Optim_input.xml");
+    std::map<std::string, double> globalParameters = initializer::read_optimization_parameters("/home/bartsch/SPARC/Optim_VSTRAP/data/Optim_input.xml");
+    //std::map<std::string, double> globalParameters = initializer::read_optimization_parameters(argv[1]);
+    std::map<std::string, std::string> inputParameters = initializer::read_input_parameters("/home/bartsch/SPARC/Optim_VSTRAP/data/Optim_input.xml");
 
-    std::string BUILD_DIRECTORY_VSTRAP = "/home/bartsch/SPARC/build-vstrap-Desktop-Debug/src/"; //will be an input parameter
-    std::string BUILD_DIRECTORY_OPTIM = "/home/bartsch/SPARC/build-Optim_VSTRAP-Desktop-Debug/src/";
+    unsigned int ntimesteps_gp = static_cast<unsigned int>(globalParameters.find("ntimesteps_gp")->second);
 
-    std::vector<std::vector<particle>> forwardParticles(globalParameters.find("ntimesteps_gp")->second, std::vector<particle>(20));
+    std::string BUILD_DIRECTORY_VSTRAP = inputParameters.find("BUILD_DIRECTORY_VSTRAP")->second;
+    std::string BUILD_DIRECTORY_OPTIM = inputParameters.find("BUILD_DIRECTORY_OPTIM")->second;
+
+    std::vector<std::vector<particle>> forwardParticles(ntimesteps_gp);
+    std::vector<std::vector<particle>> backwardParticles(ntimesteps_gp);
 
 
 
     //std::string PARAM_VSTRAP = "../../vstrap/data/particle_initializer/unit_test/input.xml"; //will be an input parameter
-    std::string PARAM_VSTRAP = "../../vstrap/data/bgf/first_test/input_b.xml";
-    std::string START_VSTRAP = BUILD_DIRECTORY_VSTRAP + "vstrap" + " " + PARAM_VSTRAP;
+    std::string PARAM_VSTRAP_FORWARD = inputParameters.find("PARAM_VSTRAP_FORWARD")->second;
+    std::string PARAM_VSTRAP_BACKWARD = inputParameters.find("PARAM_VSTRAP_BACKWARD")->second;
 
-    logger::Info("Starting VSTRAP (foward)... with parameter"+PARAM_VSTRAP);
+    std::string START_VSTRAP_FORWARD = BUILD_DIRECTORY_VSTRAP + "vstrap" + " " + PARAM_VSTRAP_FORWARD;
+    std::string START_VSTRAP_BACKWARD = BUILD_DIRECTORY_VSTRAP + "vstrap" + " " + PARAM_VSTRAP_BACKWARD;
 
-    system(&START_VSTRAP[0]);
+    logger::Info("Starting VSTRAP (foward)... with parameter"+PARAM_VSTRAP_FORWARD);
+
+    system(&START_VSTRAP_FORWARD[0]);
 
     logger::Info("Finished VSTRAP... Reading particle files");
 
-    for(int k = 1; k<20; k++) {
+    for(unsigned int k = 1; k<ntimesteps_gp; k++) {
         forwardParticles[k] = in.readParticleVector(BUILD_DIRECTORY_OPTIM+"plasma_state_electrons_CPU_"+std::to_string(k)+".csv",",");
     }
 
     logger::Info("Finished reading files...");
     logger::Info("Starting VSTRAP (backward)...");
+
+    system(&START_VSTRAP_BACKWARD[0]);
+
+    logger::Info("Finished VSTRAP... Reading particle files");
+
+    for(unsigned int k = 1; k<ntimesteps_gp; k++) {
+        backwardParticles[k] = in.readParticleVector(BUILD_DIRECTORY_OPTIM+"plasma_state_adjoint_particles_CPU_"+std::to_string(k)+".csv",",");
+    }
+
+
 
     return 0;
 }
@@ -61,5 +79,15 @@ std::map<std::string, double> optim_controller::getOPTIMIZATION_PARAMETERS() con
 void optim_controller::setOPTIMIZATION_PARAMETERS(const std::map<std::string, double> &value)
 {
     OPTIMIZATION_PARAMETERS = value;
+}
+
+std::map<std::string, std::string> optim_controller::getINPUT_PARAMETERS() const
+{
+    return INPUT_PARAMETERS;
+}
+
+void optim_controller::setINPUT_PARAMETERS(const std::map<std::string, std::string> &value)
+{
+    INPUT_PARAMETERS = value;
 }
 

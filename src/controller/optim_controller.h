@@ -22,15 +22,19 @@ class optim_controller
 public:
     optim_controller();
 
-    static void start_optimizer();
-    static int start_optimization_iteration(std::vector<double> &control );
+    static void start_optimizer(int argc, const char** argv);
+    static int start_optimization_iteration(std::vector<double> &control);
 
 
     std::map<std::string, double> getOPTIMIZATION_PARAMETERS() const;
     void setOPTIMIZATION_PARAMETERS(const std::map<std::string, double> &value);
 
+    std::map<std::string, std::string> getINPUT_PARAMETERS() const;
+    void setINPUT_PARAMETERS(const std::map<std::string, std::string> &value);
+
 private:
     std::map<std::string,double> OPTIMIZATION_PARAMETERS;
+    std::map<std::string,std::string> INPUT_PARAMETERS;
 
 };
 

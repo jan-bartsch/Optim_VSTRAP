@@ -14,7 +14,9 @@ class initializer
 public:
     initializer();
 
-    static std::map<std::string, double> read_parameters(const char *filename);
+    static std::map<std::string, double> read_optimization_parameters(const char *filename);
+    static std::map<std::string, std::string> read_input_parameters(const char *filename);
+
 
 
 };
