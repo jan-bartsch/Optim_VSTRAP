@@ -23,7 +23,7 @@ public:
     optim_controller();
 
     static void start_optimizer(int argc, const char** argv);
-    static int start_optimization_iteration(std::vector<double> &control);
+    static int start_optimization_iteration(std::vector<double> &control, const char * input_xml_path);
 
 
     std::map<std::string, double> getOPTIMIZATION_PARAMETERS() const;

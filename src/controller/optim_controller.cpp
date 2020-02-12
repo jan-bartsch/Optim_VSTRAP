@@ -14,19 +14,33 @@ void optim_controller::start_optimizer(int argc, const char **argv)
     logger::Info("Starting optimizer...");
 
     std::vector<double> control;
+    std::string current_directory(get_current_dir_name());
+    std::string input_directory;
+    const char * input_xml_path;
 
-    optim_controller::start_optimization_iteration(control);
+    switch (argc) {
+    case 1:
+         input_directory = current_directory + "/Optim_input.xml";
+         input_xml_path = input_directory.c_str();
+        break;
+    case 2:
+        input_xml_path = argv[1];
+        break;
+    default:
+        throw std::runtime_error("Too many input parameters");
+    }
+
+    optim_controller::start_optimization_iteration(control,input_xml_path);
 
 
 }
 
-int optim_controller::start_optimization_iteration(std::vector<double> &control)
+int optim_controller::start_optimization_iteration(std::vector<double> &control, const char * input_xml_path)
 {
 
     input in = input();
-    std::map<std::string, double> globalParameters = initializer::read_optimization_parameters("/home/bartsch/SPARC/Optim_VSTRAP/data/Optim_input.xml");
-    //std::map<std::string, double> globalParameters = initializer::read_optimization_parameters(argv[1]);
-    std::map<std::string, std::string> inputParameters = initializer::read_input_parameters("/home/bartsch/SPARC/Optim_VSTRAP/data/Optim_input.xml");
+    std::map<std::string, double> globalParameters = initializer::read_optimization_parameters(input_xml_path);
+    std::map<std::string, std::string> inputParameters = initializer::read_input_parameters(input_xml_path);
 
     unsigned int ntimesteps_gp = static_cast<unsigned int>(globalParameters.find("ntimesteps_gp")->second);
 
