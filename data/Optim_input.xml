@@ -13,8 +13,8 @@
     <paths>
         <path name="BUILD_DIRECTORY_VSTRAP" value="/home/bartsch/SPARC/build-vstrap-Desktop-Debug/src/" />
         <path name="BUILD_DIRECTORY_OPTIM" value="/home/bartsch/SPARC/build-Optim_VSTRAP-Desktop-Debug/src/" />
-        <path name="PARAM_VSTRAP_FORWARD" value="../../test_cases_Optim_VSTRAP/input_forward.xml" />
-        <path name="PARAM_VSTRAP_BACKWARD" value="../../test_cases_Optim_VSTRAP/input_backward.xml" />
+        <path name="PATH_TO_SHARED_FILES" value="../../test_cases_Optim_VSTRAP/" />
+        <path name="DIRECTORY_TOOLSET" value="../../optim-vstrap-toolset/" />
     </paths>
 
     <schedule>

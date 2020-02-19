@@ -34,13 +34,16 @@ std::string particle::toString() {
             + " " + std::to_string(this->getVx()) + " " + std::to_string(this->getVy()) + " " + std::to_string(this->getVz());
 }
 
-/*particle &particle::operator=(const particle &p2)
+/*bool particle::operator==(const particle &particle) const
 {
-    auto other = dynamic_cast<const particle*>(&p2);
+    return (particle.getPx() == this->getPx() && particle.getPy() == this->getPy()
+            && particle.getPz() == this->getPz() && particle.getVx() == this->getVx()
+            && particle.getVy() == this->getVy() && particle.getVz() == this->getVz()
+            && particle.getTimestep() == this->getTimestep()
+            && particle.getWeight() == this->getWeight() && particle.getCell_id() == this->getCell_id()
+            );
 
-    return *this = particle(other->getPx(),other->getPy(),other->getPz(),other->getVx(),other->getVy(),other->getVz(),other->getWeight());
 }*/
-
 
 double particle::getPx() const {  return px; }
 

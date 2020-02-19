@@ -4,8 +4,11 @@
 #include <string>
 #include <map>
 #include <vector>
+#include <iostream>
 
 #include "tinyXML/tinyxml.h"
+
+#include "../controller/abstract_controller.h"
 
 
 /**
@@ -14,17 +17,17 @@
  * equation
  */
 
-class output_control_update
+class output_control_update : public abstract_controller
 {
 public:
-    output_control_update();
+    output_control_update(const char *filename);
 
     /**
      * @brief writeControl_XML
      * @param control
      * @return
      */
-    int writeControl_XML(std::map<int,std::vector<double>> control);
+    int writeControl_XML(arma::mat control);
 };
 
 #endif // OUTPUT_CONTROL_UPDATE_H

@@ -4,6 +4,8 @@
 #include <cmath>
 #include <vector>
 #include <map>
+#include <random>
+
 
 #include "../../src/io/input.h"
 #include "../../src/io/output_control_update.h"

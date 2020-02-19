@@ -34,7 +34,8 @@ public:
 
     particle(double px, double py, double pz, double vx, double vy, double vz, double timestep);
 
-     particle(double px, double py, double pz, double vx, double vy, double vz);
+    particle(double px, double py, double pz, double vx, double vy, double vz);
+
 
     /**
      * @brief getVelocityMagnitudeParticle calculates speed of particles using Euclidean Norm
@@ -47,13 +48,6 @@ public:
      * @return
      */
     std::string toString();
-
-    /**
-     * @brief operator =
-     * @param p2
-     * @return
-     */
-    particle& operator=(const particle& p2);
 
 
     double getPx() const;

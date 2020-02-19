@@ -13,6 +13,9 @@ int main() {
 
     testIO.test_readInParameters();
 
+    std::string test_python = "python3 ../../optim-vstrap-toolset/toolset/main.py ../../optim-vstrap-toolset/tests/test_data/box_vol_regular_refined.xml Control_field.xml control_new_c.xml";
+    system(&test_python[0]);
+
     return 0;
 
 }

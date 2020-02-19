@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.9.2, 2020-02-11T15:36:00. -->
+<!-- Written by QtCreator 4.9.2, 2020-02-19T13:45:59. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -113,6 +113,10 @@
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.BuildConfiguration.1">
     <valuelist type="QVariantList" key="CMake.Configuration">
      <value type="QString">CMAKE_BUILD_TYPE:STRING=Debug</value>
+     <value type="QString">CMAKE_CXX_COMPILER:FILEPATH=/usr/bin/c++</value>
+     <value type="QString">CMAKE_C_COMPILER:FILEPATH=/usr/bin/cc</value>
+     <value type="QString">CMAKE_PREFIX_PATH:STRING=%{Qt:QT_INSTALL_PREFIX}</value>
+     <value type="QString">QT_QMAKE_EXECUTABLE:STRING=%{Qt:qmakeExecutable}</value>
     </valuelist>
     <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">/home/bartsch/SPARC/build-Optim_VSTRAP-Desktop-Debug</value>
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
@@ -365,7 +369,7 @@
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
     <value type="QString" key="RunConfiguration.WorkingDirectory"></value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/bartsch/SPARC/build-Optim_VSTRAP-Desktop-Debug/test</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default"></value>
    </valuemap>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.RunConfiguration.1">
     <value type="QString" key="Analyzer.Perf.CallgraphMode">dwarf</value>

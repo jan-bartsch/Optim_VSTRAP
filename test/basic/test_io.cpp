@@ -29,11 +29,15 @@ int test_io::test_output_ControlUpdate()
 
     //std::vector<double> test{0.5,1.5,2.5};
 
-    std::map<int,std::vector<double>> testControl = {
-        {1,{-1.0,-1-0,-1.0}},
-        {2,{-2.0,2.0,-2.0}},
-        {3,{-3.0,-2.0,-3.0}}
-    };
+    std::mt19937_64 generator;
+    std::uniform_real_distribution<double> distribution(0.0,1.0);
+
+    std::map<int,std::vector<double>> testControl;
+
+    for (int k = 0; k < 1000; k++ ) {
+        std::vector<double> randomVec = {distribution(generator),10.0*distribution(generator),-100.0*distribution(generator)};
+        testControl.insert(std::pair<int,std::vector<double>> (k,randomVec));
+    }
 
     outputControlUpdate.writeControl_XML(testControl);
 
@@ -46,7 +50,7 @@ int test_io::test_readInParameters()
 
      const char* filename = "/afs/ifm/home/bartsch/SPARC/Optim_VSTRAP/data/Optim_input.xml";
 
-    init.read_parameters(filename);
+    init.read_optimization_parameters(filename);
 
     return 0;
 }

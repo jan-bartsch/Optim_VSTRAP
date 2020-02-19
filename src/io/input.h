@@ -13,7 +13,7 @@ class input
 public:
     input();
 
-    std::vector<particle> readParticleVector(std::string filename, std::string delimiter);
+    static std::vector<particle> readParticleVector(std::string filename, std::string delimiter);
 
 
 };
