@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.3)
 
 project(Optim_VSTRAP_CMAKE LANGUAGES CXX)
 
@@ -17,7 +17,7 @@ if(Boost_FOUND)
     file(GLOB_RECURSE sources *.cc *.cpp)
     add_executable(${PROJECT_NAME} ${sources})
     target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES} ${ARMADILLO_LIBRARIES}
-      libpthread.so.0 librt.so  -llapack -lblas -ltbb -ltbbmalloc)
+      libpthread.so.0 librt.so -llapack -lblas -ltbb -ltbbmalloc)
 endif()
 
 

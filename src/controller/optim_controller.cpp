@@ -12,7 +12,7 @@ void optim_controller::start_optimizer(int argc, const char **argv)
 
     logger::Info("Starting optimizer...");
 
-    arma::mat control(50,3,arma::fill::zeros);
+    arma::mat control(64,3,arma::fill::zeros);
     std::string current_directory(get_current_dir_name());
     std::string input_directory;
     const char * input_xml_path;
@@ -40,8 +40,10 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
 
     data_provider data_provider_opt = data_provider(input_xml_path);
     gradient_calculator gradient_calculator_opt = gradient_calculator(input_xml_path);
+    objective_calculator objective = objective_calculator(input_xml_path);
     output_control_update outController = output_control_update(input_xml_path);
 
+    output_diagnostics outDiag = output_diagnostics();
 
 
     std::map<std::string, double> optimizationParameters = data_provider_opt.getOptimizationParameters();
@@ -76,6 +78,7 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
     std::vector<std::vector<particle>> forwardParticles(ntimesteps_gp);
     std::vector<std::vector<particle>> backwardParticles(ntimesteps_gp);
     arma::mat gradient(static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second),2,arma::fill::zeros);
+    double value_objective = 0.0;
 
     unsigned int optimizationIteration_max_gp = static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second);
 
@@ -95,32 +98,37 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
 
         system(&START_VSTRAP_BACKWARD[0]);
 
-        logger::Info("Finished VSTRAP (backward)... Reading particle files");
+        logger::Info("Reading particle files...");
 
         for(unsigned int k = 1; k<=ntimesteps_gp; k++) {
             backwardParticles[k-1] = input::readParticleVector(BUILD_DIRECTORY_OPTIM+"plasma_state_adjoint_particles_batch_1_adjoint_particles_CPU_"+std::to_string(k)+".csv",",");
         }
 
-        logger::Info("Finished reading files ... Start building gradient");
+        logger::Info("Calculating functional...");
+        value_objective = objective.calculate_objective_L2(forwardParticles,control);
+        outDiag.writeDoubleToFile(value_objective,"objectiveTrack");
 
-        /*
-         * TODO: RELAXATION!!!
-         *
-         */
 
+        logger::Info("Start building gradient...");
         gradient = gradient_calculator_opt.calculateGradient_forceControl_space_L2(forwardParticles,backwardParticles,control);
+        outDiag.writeDoubleToFile(arma::norm(gradient,"fro"),"normGradientTrack");
 
-        control = control - pow(10,-2)*gradient;
+
+        logger::Info("Updateing the control...");
+        control = control - pow(10,5)*gradient;
 
         outController.writeControl_XML(control);
+        outDiag.writeDoubleToFile(arma::norm(control,"fro"),"normControlTrack");
 
 
 
-
-        std::string interpolating_control_python = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " + PATH_TO_SHARED_FILES + "/box_vol_regular_refined.xml" +
-                " " + PATH_TO_SHARED_FILES + "/Control_field.xml" + " " + PATH_TO_SHARED_FILES + "/Control_field_new.xml";
+        std::string interpolating_control_python = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " + PATH_TO_SHARED_FILES + "box_coarse.xml" +
+                " " + PATH_TO_SHARED_FILES + "control_field_cells.xml" + " " + PATH_TO_SHARED_FILES + "interpolated_control_field.xml";
         system(&interpolating_control_python[0]);
 
+        outDiag.writeGradientToFile(gradient,"gradient_"+std::to_string(r));
+
+        logger::Info("Starting " + std::to_string(r+1) + " iteration");
     }
 
 

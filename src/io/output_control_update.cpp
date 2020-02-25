@@ -24,28 +24,28 @@ int output_control_update::writeControl_XML(arma::mat control)
     headelement->SetAttribute("number_of_elements",number_of_nodes_string.data());
     doc.LinkEndChild( headelement );
 
-    for(int node_number = 1; node_number <= number_of_nodes; node_number++ ) {
+    for(int cell_id = 1; cell_id <= number_of_nodes; cell_id++ ) {
 
         std::string fieldVector = "";
 
-        fieldVector.append(std::to_string(control(node_number-1,0)));
+        fieldVector.append(std::to_string(control(cell_id-1,0)));
         fieldVector.append(",");
-        fieldVector.append(std::to_string(control(node_number-1,1)));
+        fieldVector.append(std::to_string(control(cell_id-1,1)));
         fieldVector.append(",");
-        fieldVector.append(std::to_string(control(node_number-1,2)));
+        fieldVector.append(std::to_string(control(cell_id-1,2)));
 
         TiXmlText* text = new TiXmlText( fieldVector.data() );
 
 
         TiXmlElement* node = new TiXmlElement( "value" );
-        node->SetAttribute("cell_id",std::to_string(node_number).data());
+        node->SetAttribute("cell_id",std::to_string(cell_id).data());
         node->LinkEndChild( text );
 
         headelement->LinkEndChild( node );
     }
 
     std::string PATH_TO_SHARED_FILES = this->getData_provider_optim().getPaths().find("PATH_TO_SHARED_FILES")->second;
-    std::string saveFile = PATH_TO_SHARED_FILES + "Control_new_TEST42.xml";
+    std::string saveFile = PATH_TO_SHARED_FILES + "control_field_cells.xml";
 
     doc.SaveFile(&saveFile[0]);
 

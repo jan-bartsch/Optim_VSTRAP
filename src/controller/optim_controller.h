@@ -14,10 +14,12 @@
 #include "../logger/logger.h"
 
 #include "../optimization/gradient_calculator.h"
+#include "../optimization/objective_calculator.h"
 
 #include "../io/input.h"
 #include "../io/tinyXML/tinyxml.h"
 #include "../io/output_control_update.h"
+#include "../io/output_diagnostics.h"
 
 
 class optim_controller : public abstract_controller
