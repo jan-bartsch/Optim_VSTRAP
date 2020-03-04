@@ -20,8 +20,9 @@ std::vector<double> desired_trajectory_controller::trajectory_desired_harmonic_o
     std::map<std::string, double> optimizationParameters = this->getData_provider_optim().getOptimizationParameters();
     double omega_gp = static_cast<double>(optimizationParameters.find("omega_gp")->second);
     double pmax_gp = static_cast<double>(optimizationParameters.find("pmax_gp")->second);
-    double finalTime_gp =  static_cast<double>(optimizationParameters.find("finalTime_gp")->second);
+    double dt_gp = static_cast<double>(optimizationParameters.find("dt_gp")->second);
     unsigned int ntimesteps_gp = static_cast<unsigned int>(optimizationParameters.find("ntimesteps_gp")->second);
+    double finalTime_gp =  static_cast<double>(ntimesteps_gp)*dt_gp;
 
     static arma::vec timeDiscr_gp = arma::linspace<arma::vec>(0,finalTime_gp,ntimesteps_gp);
 
@@ -38,8 +39,12 @@ std::vector<double> desired_trajectory_controller::trajectory_desired_concentrat
 
     double pmax_gp = static_cast<double>(this->getData_provider_optim().getOptimizationParameters().find("pmax_gp")->second);
 
-    p_d[0] = pmax_gp/2.0;
+    p_d[0] = 0.0;
+    p_d[1] = 0.0;
+    p_d[2] = 0.0;
     p_d[3] = 0.0;
+    p_d[4] = 0.0;
+    p_d[5] = 0.0;
 
     return p_d;
 

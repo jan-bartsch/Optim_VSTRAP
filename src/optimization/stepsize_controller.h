@@ -9,11 +9,14 @@
 class stepsize_controller : public abstract_controller
 {
 public:
-    stepsize_controller();
+    stepsize_controller(const char * filename);
 
-    double armijo_linesearch(arma::mat gradient, double J0, arma::vec control_F, arma::mat stepdirection, std::vector<particle> inputParticles,  double stepsize0);
+    double get_stepsize(arma::mat &gradient, double J0, arma::mat &control, arma::mat &stepdirection, std::vector<particle> &inputParticles,  double stepsize0);
 
-    double gradient_descent(arma::vec control, arma::mat stepdirection, std::vector<particle> inputParticles, double stepsize);
+
+private:
+    double armijo_linesearch(arma::mat &gradient, double J0, arma::mat &control, arma::mat &stepdirection, std::vector<particle> &inputParticles,  double stepsize0);
+    double gradient_descent(arma::mat &control, arma::mat &stepdirection, std::vector<particle> &inputParticles, double stepsize);
 
 };
 

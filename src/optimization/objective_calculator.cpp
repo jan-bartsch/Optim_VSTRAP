@@ -39,38 +39,23 @@ double objective_calculator::calculate_objective_L2(std::vector<std::vector<part
     double objective = 0.0;
     double costOfControl = 0.0;
 
+    std::vector<double> objective_time(ntimesteps_gp,0.0);
+
     std::unordered_map<coordinate_phase_space_time,double> forwardPDF = pdf_control.assemblingMultiDim(forwardParticles,0);
-    coordinate_phase_space_time coordinate = coordinate_phase_space_time();
-
-    /* unsigned int i,j,k,l,m,n,o;
-    i = 0; j = 0; k = 0; o = 0;
-
-    l = static_cast<int>(std::floor(0.0/dv_gp)) + static_cast<int>(vcell_gp/2.0);
-    m= static_cast<int>(std::floor(0.0/dv_gp)) + static_cast<int>(vcell_gp/2.0);
-    n = static_cast<int>(std::floor(0.0/dv_gp)) + static_cast<int>(vcell_gp/2.0);
-*/
 
 
     /*
     * Add terminal integral
     */
-    //std::vector<std::vector<double>> termPot(pcell_gp,std::vector<double> (vcell_gp));
-    //std::vector<std::vector<std::vector<double>>> trackPot(ntimesteps_gp,std::vector<std::vector<double>> (pcell_gp, std::vector<double> (vcell_gp)));
-
-    double current_termPot;
-    double current_trackPot;
-
-    //std::vector<std::vector<std::vector<double>>> forwardCube(ntimesteps_gp,std::vector<std::vector<double>> (pcell_gp, std::vector<double> (vcell_gp)));
-
-
-    std::vector<double> p_d;
 
     /*for(unsigned int i = 0; i<pcell_gp; i++)  {
+     double current_termPot;
+     std::vector<double> p_d;
         for(unsigned int l = 0; l<vcell_gp; l++) {
             for(unsigned int m = 0; m<vcell_gp; m++) {
                 for(unsigned int n = 0; n<vcell_gp; n++) {
                     p_d = trajectory_controller.trajectory_desired(i,l,m,n,ntimesteps_gp-1);
-                    coordinate = coordinate_phase_space_time(i,l,m,n,ntimesteps_gp-1);
+                    coordinate_phase_space_time coordinate = coordinate_phase_space_time(i,l,m,n,ntimesteps_gp-1);
                     //termPot[i][l][m][n]
                     current_termPot = - C_phi_gp/(2.0*M_PI*sigma_x_gp*sigma_v_gp)*exp(
                                 -(
@@ -89,18 +74,32 @@ double objective_calculator::calculate_objective_L2(std::vector<std::vector<part
     }*/
 
     /*
-     * Add tracking integral
+     * Add tracking integral using first-order(?) RULE
      */
 
-    //2D trapezodial rule
-    for(unsigned int  o = 0; o<ntimesteps_gp; o++) {
+    int numberThreadsTBB = tbb::task_scheduler_init::default_num_threads();
+    int usedThreads = numberThreadsTBB;
+
+    if(numberThreadsTBB > static_cast<int>(ntimesteps_gp)) {
+        usedThreads = static_cast<int>(ntimesteps_gp);
+    }
+    tbb::task_scheduler_init init(usedThreads);
+
+    std::cout << "Using " <<  usedThreads << " threads for assembling functional" << std::endl;
+
+    tbb::parallel_for(static_cast<unsigned int> (0), ntimesteps_gp , [&]( unsigned int o ) {
+        //for(unsigned int  o = 0; o<ntimesteps_gp; o++) {
+
+        double current_trackPot;
+        std::vector<double> p_d;
+
         std::cout << "Calculating functional in " << o << " timestep" << std::endl;
-        for(unsigned int  i = pcell_gp/2; i<pcell_gp; i++)  {
-            for( unsigned int l = vcell_gp/2; l<vcell_gp; l++) {
-                for(unsigned int  m = vcell_gp/2; m<vcell_gp; m++) {
-                    for(unsigned int n = vcell_gp/2; n<vcell_gp; n++) {
+        for(unsigned int  i = 0; i<pcell_gp; i++)  {
+            for( unsigned int l = 0; l<vcell_gp; l++) {
+                for(unsigned int  m = 0; m<vcell_gp; m++) {
+                    for(unsigned int n = 0; n<vcell_gp; n++) {
                         p_d = trajectory_controller.trajectory_desired(i,l,m,n,o);
-                        coordinate = coordinate_phase_space_time(i,l,m,n,o);
+                        coordinate_phase_space_time coordinate = coordinate_phase_space_time(i,l,m,n,o);
                         //trackPot[o][i][l][m][n]
                         current_trackPot = - C_theta_gp/(2.0*M_PI*sigma_x_gp*sigma_v_gp)*exp(
                                     -(
@@ -110,13 +109,20 @@ double objective_calculator::calculate_objective_L2(std::vector<std::vector<part
                                 pow(velocityDiscr_gp(n)-p_d[5],2.0)/(2.0*sigma_v_gp*sigma_v_gp)
                                 ));
                         if (forwardPDF.find(coordinate) != forwardPDF.end()) {
-                            objective += forwardPDF.at(coordinate)*current_trackPot*pow(dp_gp,3.0)*pow(dv_gp,2.0)*dt_gp;
+                            objective_time[o] += forwardPDF.at(coordinate)*current_trackPot*pow(dp_gp,3.0)*pow(dv_gp,2.0)*dt_gp;
+                        }
+                        if (objective_time[o]>0) {
+                            logger::Info("Functional tracking part positiv");
                         }
                     }
                 }
             }
 
         }
+    });
+
+    for(unsigned int o = 0; o<ntimesteps_gp; o++) {
+        objective += objective_time[o];
     }
 
     //add control, no trapezodial rule needed since control is zero at the boundary (?)

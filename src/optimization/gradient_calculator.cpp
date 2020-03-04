@@ -47,17 +47,20 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_L2(std::vect
 
         std::cout << "Cell_id: " << i << " " << std::endl;
 
-        std::vector<std::vector<std::vector<std::vector<double>>>> firstDerivativeForwardPDF_V1(ntimesteps_gp, std::vector<std::vector<std::vector<double>>>
+        /*std::vector<std::vector<std::vector<std::vector<double>>>> firstDerivativeForwardPDF_V1(ntimesteps_gp, std::vector<std::vector<std::vector<double>>>
                                                                                                 (vcell_gp, std::vector<std::vector<double>> (vcell_gp, std::vector<double> (vcell_gp,0.0))));
         std::vector<std::vector<std::vector<std::vector<double>>>> firstDerivativeForwardPDF_V2(ntimesteps_gp, std::vector<std::vector<std::vector<double>>>
                                                                                                 (vcell_gp, std::vector<std::vector<double>> (vcell_gp, std::vector<double> (vcell_gp,0.0))));
         std::vector<std::vector<std::vector<std::vector<double>>>> firstDerivativeForwardPDF_V3(ntimesteps_gp, std::vector<std::vector<std::vector<double>>>
                                                                                                 (vcell_gp, std::vector<std::vector<double>> (vcell_gp, std::vector<double> (vcell_gp,0.0))));
+
+        */
         std::vector<std::vector<std::vector<std::vector<double>>>> forwardPDFdouble(ntimesteps_gp, std::vector<std::vector<std::vector<double>>>
                                                                                     (vcell_gp, std::vector<std::vector<double>> (vcell_gp, std::vector<double> (vcell_gp,0.0))));
         std::vector<std::vector<std::vector<std::vector<double>>>> backwardPDFdouble(ntimesteps_gp, std::vector<std::vector<std::vector<double>>>
                                                                                      (vcell_gp, std::vector<std::vector<double>> (vcell_gp, std::vector<double> (vcell_gp,0.0))));
 
+        double firstDerivativeForwardPDF_V1_current, firstDerivativeForwardPDF_V2_current, firstDerivativeForwardPDF_V3_current;
 
         for(unsigned int o = 0; o<ntimesteps_gp; o++) {
             for(unsigned int l = 0; l<vcell_gp; l++) {
@@ -91,31 +94,31 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_L2(std::vect
                     for(unsigned int n = 0; n<vcell_gp; n++) {
                         // derivative v_x
                         if (l == 0) {
-                            firstDerivativeForwardPDF_V1[o][l][m][n] = (forwardPDFdouble[o][l+1][m][n]-forwardPDFdouble[o][l][m][n])/dv_gp;
+                            firstDerivativeForwardPDF_V1_current = (forwardPDFdouble[o][l+1][m][n]-forwardPDFdouble[o][l][m][n])/dv_gp;
                         } else if (l == vcell_gp-1) {
-                            firstDerivativeForwardPDF_V1[o][l][m][n] = (forwardPDFdouble[o][l][m][n]-forwardPDFdouble[o][l-1][m][n])/dv_gp;
+                            firstDerivativeForwardPDF_V1_current = (forwardPDFdouble[o][l][m][n]-forwardPDFdouble[o][l-1][m][n])/dv_gp;
                         } else {
-                            firstDerivativeForwardPDF_V1[o][l][m][n] = (forwardPDFdouble[o][l+1][m][n]-forwardPDFdouble[o][l-1][m][n])/(2.0*dv_gp);
+                            firstDerivativeForwardPDF_V1_current = (forwardPDFdouble[o][l+1][m][n]-forwardPDFdouble[o][l-1][m][n])/(2.0*dv_gp);
                         }
                         //derivative v_y
                         if (m== 0) {
-                            firstDerivativeForwardPDF_V2[o][l][m][n] = (forwardPDFdouble[o][l][m+1][n]-forwardPDFdouble[o][l][m][n])/dv_gp;
+                            firstDerivativeForwardPDF_V2_current = (forwardPDFdouble[o][l][m+1][n]-forwardPDFdouble[o][l][m][n])/dv_gp;
                         } else if (m == vcell_gp-1) {
-                            firstDerivativeForwardPDF_V2[o][l][m][n] = (forwardPDFdouble[o][l][m][n]-forwardPDFdouble[o][l][m-1][n])/dv_gp;
+                            firstDerivativeForwardPDF_V2_current = (forwardPDFdouble[o][l][m][n]-forwardPDFdouble[o][l][m-1][n])/dv_gp;
                         } else {
-                            firstDerivativeForwardPDF_V2[o][l][m][n] = (forwardPDFdouble[o][l][m+1][n]-forwardPDFdouble[o][l][m-1][n])/(2.0*dv_gp);
+                            firstDerivativeForwardPDF_V2_current = (forwardPDFdouble[o][l][m+1][n]-forwardPDFdouble[o][l][m-1][n])/(2.0*dv_gp);
                         }
                         //derivative v_z
                         if (n == 0) {
-                            firstDerivativeForwardPDF_V3[o][l][m][n] = (forwardPDFdouble[o][l][m][n+1]-forwardPDFdouble[o][l][m][n])/dv_gp;
+                             firstDerivativeForwardPDF_V3_current = (forwardPDFdouble[o][l][m][n+1]-forwardPDFdouble[o][l][m][n])/dv_gp;
                         } else if (n == vcell_gp-1) {
-                            firstDerivativeForwardPDF_V3[o][l][m][n] = (forwardPDFdouble[o][l][m][n]-forwardPDFdouble[o][l][m][n-1])/dv_gp;
+                            firstDerivativeForwardPDF_V3_current = (forwardPDFdouble[o][l][m][n]-forwardPDFdouble[o][l][m][n-1])/dv_gp;
                         } else {
-                            firstDerivativeForwardPDF_V3[o][l][m][n] = (forwardPDFdouble[o][l][m][n+1]-forwardPDFdouble[o][l][m][n-1])/(2.0*dv_gp);
+                            firstDerivativeForwardPDF_V3_current = (forwardPDFdouble[o][l][m][n+1]-forwardPDFdouble[o][l][m][n-1])/(2.0*dv_gp);
                         }
-                        gradient(i,0) += backwardPDFdouble[o][l][m][n]*firstDerivativeForwardPDF_V1[o][l][m][n]*pow(dv_gp,3.0)*pow(dt_gp,1.0);
-                        gradient(i,1) += backwardPDFdouble[o][l][m][n]*firstDerivativeForwardPDF_V2[o][l][m][n]*pow(dv_gp,3.0)*pow(dt_gp,1.0);
-                        gradient(i,2) += backwardPDFdouble[o][l][m][n]*firstDerivativeForwardPDF_V3[o][l][m][n]*pow(dv_gp,3.0)*pow(dt_gp,1.0);
+                        gradient(i,0) += backwardPDFdouble[o][l][m][n]*firstDerivativeForwardPDF_V1_current*pow(dv_gp,3.0)*pow(dt_gp,1.0);
+                        gradient(i,1) += backwardPDFdouble[o][l][m][n]*firstDerivativeForwardPDF_V2_current*pow(dv_gp,3.0)*pow(dt_gp,1.0);
+                        gradient(i,2) += backwardPDFdouble[o][l][m][n]*firstDerivativeForwardPDF_V3_current*pow(dv_gp,3.0)*pow(dt_gp,1.0);
                     }
                 }
             }

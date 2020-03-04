@@ -30,7 +30,7 @@ void optim_controller::start_optimizer(int argc, const char **argv)
         throw std::runtime_error("Too many input parameters");
     }
 
-    optim_controller::start_optimization_iteration(control,input_xml_path);
+   optim_controller::start_optimization_iteration(control,input_xml_path);
 
 
 }
@@ -42,6 +42,8 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
     gradient_calculator gradient_calculator_opt = gradient_calculator(input_xml_path);
     objective_calculator objective = objective_calculator(input_xml_path);
     output_control_update outController = output_control_update(input_xml_path);
+    stepdirection_controller stepdir_contr = stepdirection_controller(input_xml_path);
+    stepsize_controller stepsize_contr = stepsize_controller(input_xml_path);
 
     output_diagnostics outDiag = output_diagnostics();
 
@@ -65,9 +67,18 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
     std::string START_VSTRAP_FORWARD = BUILD_DIRECTORY_VSTRAP + "vstrap" + " " + PATH_TO_SHARED_FILES + "/input_forward.xml";
     std::string START_VSTRAP_BACKWARD = BUILD_DIRECTORY_VSTRAP + "vstrap" + " " + PATH_TO_SHARED_FILES + "/input_backward.xml";
 
-
-
     logger::Info("Reading paramters done");
+
+    outController.writeControl_XML(control);
+    std::string interpolating_control_python = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " + PATH_TO_SHARED_FILES + "box_coarse.xml" +
+            " " + PATH_TO_SHARED_FILES + "control_field_cells.xml" + " " + PATH_TO_SHARED_FILES + "interpolated_control_field.xml";
+    system(&interpolating_control_python[0]);
+
+    outController.writeControl_XML(-control);
+    std::string interpolating_control_python_adjoint = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " + PATH_TO_SHARED_FILES + "box_coarse.xml" +
+            " " + PATH_TO_SHARED_FILES + "control_field_cells.xml" + " " + PATH_TO_SHARED_FILES + "interpolated_control_field_adjoint.xml";
+    system(&interpolating_control_python_adjoint[0]);
+
 
 
 
@@ -78,7 +89,9 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
     std::vector<std::vector<particle>> forwardParticles(ntimesteps_gp);
     std::vector<std::vector<particle>> backwardParticles(ntimesteps_gp);
     arma::mat gradient(static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second),2,arma::fill::zeros);
+    arma::mat stepDirection(static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second),2,arma::fill::zeros);
     double value_objective = 0.0;
+    double stepsize = 0.0;
 
     unsigned int optimizationIteration_max_gp = static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second);
 
@@ -109,22 +122,26 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
         outDiag.writeDoubleToFile(value_objective,"objectiveTrack");
 
 
-        logger::Info("Start building gradient...");
+        logger::Info("Building gradient...");
         gradient = gradient_calculator_opt.calculateGradient_forceControl_space_L2(forwardParticles,backwardParticles,control);
         outDiag.writeDoubleToFile(arma::norm(gradient,"fro"),"normGradientTrack");
 
 
-        logger::Info("Updateing the control...");
-        control = control - pow(10,5)*gradient;
+        logger::Info("Updating the control...");
+        stepDirection = -gradient;
+        stepsize = stepsize_contr.get_stepsize(gradient,value_objective,control,stepDirection,forwardParticles[0],0.0);
+        control = control + stepsize*stepDirection;
 
         outController.writeControl_XML(control);
         outDiag.writeDoubleToFile(arma::norm(control,"fro"),"normControlTrack");
-
-
-
         std::string interpolating_control_python = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " + PATH_TO_SHARED_FILES + "box_coarse.xml" +
                 " " + PATH_TO_SHARED_FILES + "control_field_cells.xml" + " " + PATH_TO_SHARED_FILES + "interpolated_control_field.xml";
         system(&interpolating_control_python[0]);
+
+        outController.writeControl_XML(-pow(10,-4)*control);
+        std::string interpolating_control_python_adjoint = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " + PATH_TO_SHARED_FILES + "box_coarse.xml" +
+                " " + PATH_TO_SHARED_FILES + "control_field_cells.xml" + " " + PATH_TO_SHARED_FILES + "interpolated_control_field_adjoint.xml";
+        system(&interpolating_control_python_adjoint[0]);
 
         outDiag.writeGradientToFile(gradient,"gradient_"+std::to_string(r));
 

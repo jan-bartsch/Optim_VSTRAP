@@ -15,6 +15,8 @@
 
 #include "../optimization/gradient_calculator.h"
 #include "../optimization/objective_calculator.h"
+#include "../optimization/stepdirection_controller.h"
+#include "../optimization/stepsize_controller.h"
 
 #include "../io/input.h"
 #include "../io/tinyXML/tinyxml.h"
