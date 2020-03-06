@@ -65,7 +65,9 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
 
 
     std::string START_VSTRAP_FORWARD = BUILD_DIRECTORY_VSTRAP + "vstrap" + " " + PATH_TO_SHARED_FILES + "/input_forward.xml";
+    int forward_return = 0.0;
     std::string START_VSTRAP_BACKWARD = BUILD_DIRECTORY_VSTRAP + "vstrap" + " " + PATH_TO_SHARED_FILES + "/input_backward.xml";
+    int backward_return = 0.0;
 
     logger::Info("Reading paramters done");
 
@@ -74,11 +76,10 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
             " " + PATH_TO_SHARED_FILES + "control_field_cells.xml" + " " + PATH_TO_SHARED_FILES + "interpolated_control_field.xml";
     system(&interpolating_control_python[0]);
 
-    outController.writeControl_XML(-control);
+    outController.writeControl_XML(-pow(10,-6)*control);
     std::string interpolating_control_python_adjoint = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " + PATH_TO_SHARED_FILES + "box_coarse.xml" +
             " " + PATH_TO_SHARED_FILES + "control_field_cells.xml" + " " + PATH_TO_SHARED_FILES + "interpolated_control_field_adjoint.xml";
     system(&interpolating_control_python_adjoint[0]);
-
 
 
 
@@ -92,6 +93,7 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
     arma::mat stepDirection(static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second),2,arma::fill::zeros);
     double value_objective = 0.0;
     double stepsize = 0.0;
+    double norm_Gradient = 0.0;
 
     unsigned int optimizationIteration_max_gp = static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second);
 
@@ -99,7 +101,11 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
 
 
         logger::Info("Starting VSTRAP (foward)... ");
-        system(&START_VSTRAP_FORWARD[0]);
+        forward_return = system(&START_VSTRAP_FORWARD[0]);
+        if (forward_return != 0) {
+            logger::Info("Forward VSTRAP returned non-zero value: " + std::to_string(forward_return));
+            throw  std::system_error();
+        }
         logger::Info("Finished VSTRAP... Reading particle files");
 
         for(unsigned int k = 1; k<=ntimesteps_gp; k++) {
@@ -109,7 +115,11 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
         logger::Info("Finished reading files...");
         logger::Info("Starting VSTRAP (backward)...");
 
-        system(&START_VSTRAP_BACKWARD[0]);
+        backward_return  = system(&START_VSTRAP_BACKWARD[0]);
+        if (backward_return != 0)  {
+            logger::Info("Backward VSTRAP returned non-zero value: " + std::to_string(backward_return));
+            throw std::system_error();
+        }
 
         logger::Info("Reading particle files...");
 
@@ -117,9 +127,9 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
             backwardParticles[k-1] = input::readParticleVector(BUILD_DIRECTORY_OPTIM+"plasma_state_adjoint_particles_batch_1_adjoint_particles_CPU_"+std::to_string(k)+".csv",",");
         }
 
-        logger::Info("Calculating functional...");
-        value_objective = objective.calculate_objective_L2(forwardParticles,control);
-        outDiag.writeDoubleToFile(value_objective,"objectiveTrack");
+//        logger::Info("Calculating functional...");
+//        value_objective = objective.calculate_objective_L2(forwardParticles,control);
+//        outDiag.writeDoubleToFile(value_objective,"objectiveTrack");
 
 
         logger::Info("Building gradient...");
@@ -127,9 +137,12 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
         outDiag.writeDoubleToFile(arma::norm(gradient,"fro"),"normGradientTrack");
 
 
+        norm_Gradient = arma::norm(gradient,"fro");
+
+
         logger::Info("Updating the control...");
         stepDirection = -gradient;
-        stepsize = stepsize_contr.get_stepsize(gradient,value_objective,control,stepDirection,forwardParticles[0],0.0);
+        stepsize = stepsize_contr.get_stepsize(gradient,value_objective,control,stepDirection,forwardParticles[0],0.0)/std::max(1.0,norm_Gradient);
         control = control + stepsize*stepDirection;
 
         outController.writeControl_XML(control);

@@ -4,6 +4,8 @@
 #include <armadillo>
 #include "../objects/data_provider.h"
 
+#include <exception>
+
 class abstract_controller
 {
 public:

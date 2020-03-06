@@ -39,9 +39,9 @@ std::vector<double> desired_trajectory_controller::trajectory_desired_concentrat
 
     double pmax_gp = static_cast<double>(this->getData_provider_optim().getOptimizationParameters().find("pmax_gp")->second);
 
-    p_d[0] = 0.0;
-    p_d[1] = 0.0;
-    p_d[2] = 0.0;
+    p_d[0] = -0.4;
+    p_d[1] = -0.4;
+    p_d[2] = -0.4;
     p_d[3] = 0.0;
     p_d[4] = 0.0;
     p_d[5] = 0.0;
