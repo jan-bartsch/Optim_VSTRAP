@@ -5,7 +5,7 @@ objective_calculator::objective_calculator(const char *filename)
     this->setData_provider_optim(data_provider(filename));
 }
 
-double objective_calculator::calculate_objective_L2(std::vector<std::vector<particle> > forwardParticles, arma::mat control)
+double objective_calculator::calculate_objective_L2(std::unordered_map<coordinate_phase_space_time,double> forwardPDF, arma::mat control)
 {
 
     std::map<std::string, double> optimizationParameters = this->getData_provider_optim().getOptimizationParameters();
@@ -40,8 +40,6 @@ double objective_calculator::calculate_objective_L2(std::vector<std::vector<part
     double costOfControl = 0.0;
 
     std::vector<double> objective_time(ntimesteps_gp,0.0);
-
-    std::unordered_map<coordinate_phase_space_time,double> forwardPDF = pdf_control.assemblingMultiDim(forwardParticles,0);
 
 
     /*

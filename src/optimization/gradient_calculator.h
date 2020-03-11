@@ -20,7 +20,7 @@ class gradient_calculator : public abstract_controller
 public:
     gradient_calculator(const char * filename);
 
-   arma::mat calculateGradient_forceControl_space_L2(std::vector<std::vector<particle>> forwardParticles, std::vector<std::vector<particle>> backwardParticles, arma::mat control);
+   arma::mat calculateGradient_forceControl_space_L2(std::unordered_map<coordinate_phase_space_time, double> forwardPDF, std::unordered_map<coordinate_phase_space_time, double> backwardPDF, arma::mat control);
 
 
 };

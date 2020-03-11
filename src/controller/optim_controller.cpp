@@ -30,7 +30,7 @@ void optim_controller::start_optimizer(int argc, const char **argv)
         throw std::runtime_error("Too many input parameters");
     }
 
-   optim_controller::start_optimization_iteration(control,input_xml_path);
+    optim_controller::start_optimization_iteration(control,input_xml_path);
 
 
 }
@@ -45,16 +45,26 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
     stepdirection_controller stepdir_contr = stepdirection_controller(input_xml_path);
     stepsize_controller stepsize_contr = stepsize_controller(input_xml_path);
 
+    pdf_controller pdf_control = pdf_controller();
+    pdf_control.setData_provider_optim(data_provider_opt);
+
     output_diagnostics outDiag = output_diagnostics();
 
 
     std::map<std::string, double> optimizationParameters = data_provider_opt.getOptimizationParameters();
     std::map<std::string, std::string> paths = data_provider_opt.getPaths();
 
+    std::thread t1;
+    std::thread t2;
+
+
+
+
 
 
     unsigned int ntimesteps_gp = static_cast<unsigned int>(optimizationParameters.find("ntimesteps_gp")->second);
-
+    bool zero_control = static_cast<bool>(optimizationParameters.find("start_zero_control")->second);
+    unsigned int calculation_functional = static_cast<unsigned int>(optimizationParameters.find("calculation_functional")->second);
 
     std::string BUILD_DIRECTORY_VSTRAP = paths.find("BUILD_DIRECTORY_VSTRAP")->second;
     std::string BUILD_DIRECTORY_OPTIM = paths.find("BUILD_DIRECTORY_OPTIM")->second;
@@ -64,22 +74,27 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
 
 
 
-    std::string START_VSTRAP_FORWARD = BUILD_DIRECTORY_VSTRAP + "vstrap" + " " + PATH_TO_SHARED_FILES + "/input_forward.xml";
+
+
+    std::string START_VSTRAP_FORWARD = BUILD_DIRECTORY_VSTRAP + "vstrap" + " " + PATH_TO_SHARED_FILES + "input_forward.xml";
     int forward_return = 0.0;
-    std::string START_VSTRAP_BACKWARD = BUILD_DIRECTORY_VSTRAP + "vstrap" + " " + PATH_TO_SHARED_FILES + "/input_backward.xml";
+    std::string START_VSTRAP_BACKWARD = BUILD_DIRECTORY_VSTRAP + "vstrap" + " " + PATH_TO_SHARED_FILES + "input_backward.xml";
     int backward_return = 0.0;
 
     logger::Info("Reading paramters done");
 
-    outController.writeControl_XML(control);
-    std::string interpolating_control_python = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " + PATH_TO_SHARED_FILES + "box_coarse.xml" +
-            " " + PATH_TO_SHARED_FILES + "control_field_cells.xml" + " " + PATH_TO_SHARED_FILES + "interpolated_control_field.xml";
-    system(&interpolating_control_python[0]);
+    if(zero_control) {
+        logger::Info("Starting with zero control");
+        outController.writeControl_XML(control);
+        std::string interpolating_control_python = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " + PATH_TO_SHARED_FILES + "box_coarse.xml" +
+                " " + PATH_TO_SHARED_FILES + "control_field_cells.xml" + " " + PATH_TO_SHARED_FILES + "interpolated_control_field.xml";
+        system(&interpolating_control_python[0]);
 
-    outController.writeControl_XML(-pow(10,-6)*control);
-    std::string interpolating_control_python_adjoint = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " + PATH_TO_SHARED_FILES + "box_coarse.xml" +
-            " " + PATH_TO_SHARED_FILES + "control_field_cells.xml" + " " + PATH_TO_SHARED_FILES + "interpolated_control_field_adjoint.xml";
-    system(&interpolating_control_python_adjoint[0]);
+        outController.writeControl_XML(-pow(10,-6)*control);
+        std::string interpolating_control_python_adjoint = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " + PATH_TO_SHARED_FILES + "box_coarse.xml" +
+                " " + PATH_TO_SHARED_FILES + "control_field_cells.xml" + " " + PATH_TO_SHARED_FILES + "interpolated_control_field_adjoint.xml";
+        system(&interpolating_control_python_adjoint[0]);
+    }
 
 
 
@@ -88,12 +103,16 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
      */
 
     std::vector<std::vector<particle>> forwardParticles(ntimesteps_gp);
+    std::unordered_map<coordinate_phase_space_time,double> forwardPDF;
     std::vector<std::vector<particle>> backwardParticles(ntimesteps_gp);
+    std::unordered_map<coordinate_phase_space_time,double> backwardPDF;
     arma::mat gradient(static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second),2,arma::fill::zeros);
     arma::mat stepDirection(static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second),2,arma::fill::zeros);
     double value_objective = 0.0;
     double stepsize = 0.0;
     double norm_Gradient = 0.0;
+
+    std::chrono::time_point<std::chrono::system_clock> start, end;
 
     unsigned int optimizationIteration_max_gp = static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second);
 
@@ -109,7 +128,7 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
         logger::Info("Finished VSTRAP... Reading particle files");
 
         for(unsigned int k = 1; k<=ntimesteps_gp; k++) {
-            forwardParticles[k-1] = input::readParticleVector(BUILD_DIRECTORY_OPTIM+"plasma_state_batch_1_electrons_CPU_"+std::to_string(k)+".csv",",");
+            forwardParticles[k-1] = input::readParticleVector(BUILD_DIRECTORY_OPTIM+"plasma_state_batch_1_forward_particles_CPU_"+std::to_string(k)+".csv",",");
         }
 
         logger::Info("Finished reading files...");
@@ -124,16 +143,33 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
         logger::Info("Reading particle files...");
 
         for(unsigned int k = 1; k<=ntimesteps_gp; k++) {
-            backwardParticles[k-1] = input::readParticleVector(BUILD_DIRECTORY_OPTIM+"plasma_state_adjoint_particles_batch_1_adjoint_particles_CPU_"+std::to_string(k)+".csv",",");
+            backwardParticles[k-1] = input::readParticleVector(BUILD_DIRECTORY_OPTIM+"plasma_state_batch_1_adjoint_particles_CPU_"+std::to_string(k)+".csv",",");
         }
 
-//        logger::Info("Calculating functional...");
-//        value_objective = objective.calculate_objective_L2(forwardParticles,control);
-//        outDiag.writeDoubleToFile(value_objective,"objectiveTrack");
+        start = std::chrono::system_clock::now();
+        logger::Info("Assembling pdfs...");
+        t1 = std::thread(optim_controller::assemblePDF_thread,std::ref(forwardParticles),std::ref(forwardPDF),0,data_provider_opt);
+        t2 = std::thread(optim_controller::assemblePDF_thread,std::ref(backwardParticles),std::ref(backwardPDF),1,data_provider_opt);
+        t1.join();
+        t2.join();
 
+        //        forwardPDF = pdf_control.assemblingMultiDim(forwardParticles,0);
+        //        backwardPDF = pdf_control.assemblingMultiDim(backwardParticles,1);
+
+        end = std::chrono::system_clock::now();
+        logger::Info("Assembling of pdfs took: " + std::to_string(std::chrono::duration_cast<std::chrono::seconds>
+                                                                  (end-start).count()) + " seconds");
+
+
+
+        if (fmod(r,calculation_functional) == 0.0) {
+            logger::Info("Calculating functional...");
+            value_objective = objective.calculate_objective_L2(forwardPDF,control);
+            outDiag.writeDoubleToFile(value_objective,"objectiveTrack");
+        }
 
         logger::Info("Building gradient...");
-        gradient = gradient_calculator_opt.calculateGradient_forceControl_space_L2(forwardParticles,backwardParticles,control);
+        gradient = gradient_calculator_opt.calculateGradient_forceControl_space_L2(forwardPDF,backwardPDF,control);
         outDiag.writeDoubleToFile(arma::norm(gradient,"fro"),"normGradientTrack");
 
 
@@ -164,6 +200,14 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
 
 
     return 0;
+}
+
+void optim_controller::assemblePDF_thread(std::vector<std::vector<particle> > &particles, std::unordered_map<coordinate_phase_space_time,double> &particlePDF,unsigned int equation_type, data_provider data_provider_)
+{
+    pdf_controller pdf_control = pdf_controller();
+    pdf_control.setData_provider_optim(data_provider_);
+
+    particlePDF = pdf_control.assemblingMultiDim(particles,equation_type);
 }
 
 

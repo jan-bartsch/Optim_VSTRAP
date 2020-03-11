@@ -6,7 +6,8 @@ gradient_calculator::gradient_calculator(const char *filename) {
 
 }
 
-arma::mat gradient_calculator::calculateGradient_forceControl_space_L2(std::vector<std::vector<particle>> forwardParticles, std::vector<std::vector<particle>> backwardParticles, arma::mat control)
+arma::mat gradient_calculator::calculateGradient_forceControl_space_L2(std::unordered_map<coordinate_phase_space_time,double> forwardPDF,
+                                                                        std::unordered_map<coordinate_phase_space_time,double> backwardPDF, arma::mat control)
 {
 
     std::map<std::string, double> optimizationParameters = this->getData_provider_optim().getOptimizationParameters();
@@ -25,12 +26,6 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_L2(std::vect
 
 
     arma::mat gradient(pcell_gp,3,arma::fill::zeros);
-
-
-    //assemble pdfs
-    std::unordered_map<coordinate_phase_space_time,double> forwardPDF =pdf_control.assemblingMultiDim(forwardParticles,0);
-    std::unordered_map<coordinate_phase_space_time,double> backwardPDF = pdf_control.assemblingMultiDim(backwardParticles,0);
-
 
     //Caculate integral in gradient
     int numberThreadsTBB = tbb::task_scheduler_init::default_num_threads();
