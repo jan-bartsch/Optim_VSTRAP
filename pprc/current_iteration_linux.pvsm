@@ -2,7 +2,7 @@
   <ServerManagerState version="5.6.0">
     <Proxy group="animation" type="AnimationScene" id="263" servers="16">
       <Property name="AnimationTime" id="263.AnimationTime" number_of_elements="1">
-        <Element index="0" value="0"/>
+        <Element index="0" value="49"/>
       </Property>
       <Property name="Cues" id="263.Cues" number_of_elements="1">
         <Proxy value="265"/>
@@ -4591,7 +4591,7 @@
     <Proxy group="misc" type="TimeKeeper" id="259" servers="16">
       <Property name="SuppressedTimeSources" id="259.SuppressedTimeSources"/>
       <Property name="Time" id="259.Time" number_of_elements="1">
-        <Element index="0" value="0"/>
+        <Element index="0" value="49"/>
         <Domain name="range" id="259.Time.range"/>
       </Property>
       <Property name="TimeLabel" id="259.TimeLabel" number_of_elements="1">
@@ -5092,7 +5092,7 @@
         <Element index="1" value="808"/>
       </Property>
       <Property name="ViewTime" id="11191.ViewTime" number_of_elements="1">
-        <Element index="0" value="0"/>
+        <Element index="0" value="49"/>
         <Domain name="range" id="11191.ViewTime.range"/>
       </Property>
       <Property name="CameraFocalPoint" id="11191.CameraFocalPoint" number_of_elements="3">

@@ -90,7 +90,7 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
                 " " + PATH_TO_SHARED_FILES + "control_field_cells.xml" + " " + PATH_TO_SHARED_FILES + "interpolated_control_field.xml";
         system(&interpolating_control_python[0]);
 
-        outController.writeControl_XML(-pow(10,-6)*control);
+        outController.writeControl_XML(pow(10,-6)*control);
         std::string interpolating_control_python_adjoint = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " + PATH_TO_SHARED_FILES + "box_coarse.xml" +
                 " " + PATH_TO_SHARED_FILES + "control_field_cells.xml" + " " + PATH_TO_SHARED_FILES + "interpolated_control_field_adjoint.xml";
         system(&interpolating_control_python_adjoint[0]);
@@ -144,7 +144,6 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
 
         for(unsigned int k = 1; k<=ntimesteps_gp; k++) {
             backwardParticles[k-1] = input::readParticleVector(BUILD_DIRECTORY_OPTIM+"plasma_state_batch_1_adjoint_particles_CPU_"+std::to_string(k)+".csv",",");
-            //ntimesteps_gp-1-k+1
         }
 
         start = std::chrono::system_clock::now();
@@ -193,7 +192,7 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
                 " " + PATH_TO_SHARED_FILES + "control_field_cells.xml" + " " + PATH_TO_SHARED_FILES + "interpolated_control_field.xml";
         system(&interpolating_control_python[0]);
 
-        outController.writeControl_XML(-pow(10,-4)*control);
+        outController.writeControl_XML(pow(10,-4)*control);
         std::string interpolating_control_python_adjoint = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " + PATH_TO_SHARED_FILES + "box_coarse.xml" +
                 " " + PATH_TO_SHARED_FILES + "control_field_cells.xml" + " " + PATH_TO_SHARED_FILES + "interpolated_control_field_adjoint.xml";
         system(&interpolating_control_python_adjoint[0]);
