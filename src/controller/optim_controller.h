@@ -6,7 +6,7 @@
 #include <string>
 #include <exception>
 
-#include <thread>
+#include <future>
 
 #include <iostream>
 
@@ -35,8 +35,9 @@ public:
     static int start_optimization_iteration(arma::mat &control, const char * input_xml_path);
 
    // static void assemblePDF_thread(std::vector<std::vector<particle>> &particles, std::unordered_map<coordinate_phase_space_time,double> &particlePDF);
-    static void assemblePDF_thread(std::vector<std::vector<particle>> &particles, std::unordered_map<coordinate_phase_space_time,double> &particlePDF, unsigned int equation_type, data_provider data_provider_);
+   static std::unordered_map<coordinate_phase_space_time,double> assemblePDF_thread(std::vector<std::vector<particle>> &particles, unsigned int equation_type, data_provider data_provider_);
 
+   static int test(int testing);
 
 };
 

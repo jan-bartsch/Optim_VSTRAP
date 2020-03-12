@@ -30,6 +30,7 @@ std::unordered_map<coordinate_phase_space_time, double> pdf_controller::assembli
     std::vector<double> sizeParticles(ntimesteps_gp);
 
     for(unsigned int k = 0; k < ntimesteps_gp; k++) {
+        //std::cout << "Assembling for equation_type " << equationType << std::endl;
         particles = particlesTime[k];
         sizeParticles[k] = particles.size();
         for(unsigned int i = 0; i < particles.size(); i++) {
@@ -64,6 +65,8 @@ std::unordered_map<coordinate_phase_space_time, double> pdf_controller::assembli
                 } else {
                     pdf[coordinate]++;
                 }
+            } else {
+                // std::cout << "Particle " + std::to_string(i) + " exceeding velocity bound" << std::endl;
             }
         }
     }

@@ -14,7 +14,8 @@ std::map<std::string, double> data_provider::read_optimization_parameters(const 
 
     TiXmlDocument inputFile(filename);
     if (!inputFile.LoadFile()) {
-        throw std::runtime_error("File not found");
+        throw std::runtime_error("File could not be opened. Check if directory"
+                                 "and syntax are correct!");
     }
 
     TiXmlElement *rootElement = inputFile.RootElement();
@@ -45,7 +46,8 @@ std::map<std::string, std::string> data_provider::read_paths(const char *filenam
 
     TiXmlDocument inputFile(filename);
     if (!inputFile.LoadFile()) {
-        throw std::runtime_error("File not found");
+        throw std::runtime_error("File could not be opened. Check if directory"
+                                 "and syntax are correct!");
     }
 
     TiXmlElement *rootElement = inputFile.RootElement();

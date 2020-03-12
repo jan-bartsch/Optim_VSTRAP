@@ -144,17 +144,23 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
 
         for(unsigned int k = 1; k<=ntimesteps_gp; k++) {
             backwardParticles[k-1] = input::readParticleVector(BUILD_DIRECTORY_OPTIM+"plasma_state_batch_1_adjoint_particles_CPU_"+std::to_string(k)+".csv",",");
+            //ntimesteps_gp-1-k+1
         }
 
         start = std::chrono::system_clock::now();
         logger::Info("Assembling pdfs...");
-        t1 = std::thread(optim_controller::assemblePDF_thread,std::ref(forwardParticles),std::ref(forwardPDF),0,data_provider_opt);
-        t2 = std::thread(optim_controller::assemblePDF_thread,std::ref(backwardParticles),std::ref(backwardPDF),1,data_provider_opt);
-        t1.join();
-        t2.join();
+        //        t1 = std::thread(optim_controller::assemblePDF_thread,std::ref(forwardParticles),std::ref(forwardPDF),0,data_provider_opt);
+        //        t2 = std::thread(optim_controller::assemblePDF_thread,std::ref(backwardParticles),std::ref(backwardPDF),1,data_provider_opt);
+        //        t1.join();
+        //        t2.join();
 
-        //        forwardPDF = pdf_control.assemblingMultiDim(forwardParticles,0);
-        //        backwardPDF = pdf_control.assemblingMultiDim(backwardParticles,1);
+        //std::future<std::unordered_map<coordinate_phase_space_time,double>>
+
+        //std::future<std::unordered_map<coordinate_phase_space_time,double>> forward_thread =
+        //        std::async(std::launch::async,optim_controller::assemblePDF_thread,forwardParticles,0,data_provider_opt);
+
+        forwardPDF = pdf_control.assemblingMultiDim(forwardParticles,0);
+        backwardPDF = pdf_control.assemblingMultiDim(backwardParticles,1);
 
         end = std::chrono::system_clock::now();
         logger::Info("Assembling of pdfs took: " + std::to_string(std::chrono::duration_cast<std::chrono::seconds>
@@ -202,12 +208,19 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
     return 0;
 }
 
-void optim_controller::assemblePDF_thread(std::vector<std::vector<particle> > &particles, std::unordered_map<coordinate_phase_space_time,double> &particlePDF,unsigned int equation_type, data_provider data_provider_)
+std::unordered_map<coordinate_phase_space_time,double> optim_controller::assemblePDF_thread(std::vector<std::vector<particle>> &particles, unsigned int equation_type, data_provider data_provider_)
 {
     pdf_controller pdf_control = pdf_controller();
     pdf_control.setData_provider_optim(data_provider_);
 
-    particlePDF = pdf_control.assemblingMultiDim(particles,equation_type);
+    std::unordered_map<coordinate_phase_space_time,double> particlePDF = pdf_control.assemblingMultiDim(particles,equation_type);
+
+    return particlePDF;
+}
+
+int optim_controller::test(int testing)
+{
+    return testing;
 }
 
 

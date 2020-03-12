@@ -1,0 +1,69 @@
+<simulation>
+	<global_values>
+		<time_step value="1e-5"/>
+	</global_values>
+	<executables>
+		<executable name="mesh_initializer" mode="CPU">
+			<mesh name="vol_mesh">
+				<load>./box_coarse.xml</load>
+			</mesh>
+		</executable>
+		<executable name="particle_initializer" mode="CPU">
+			<group name="forward_particles" empty="false">
+				<geometry x_min="-0.5" x_max="0.5" y_min="-0.5" y_max="0.5" z_min="-0.5" z_max="0.5"/>
+				<values number_density="1e+13" weight="1e+9" charge_number="-1" mass="1e-26" species="e-"/>
+				<temperature x_val="5" y_val="5" z_val="5"/>
+				<v_drift x_val="0" y_val="0" z_val="0"/>
+			</group>
+		</executable>
+        <executable name="pwi" mode="CPU">
+            <boundary_type name="cuboid"/>
+            <geometry x_min="-0.5" x_max="0.5" y_min="-0.5" y_max="0.5" z_min="-0.5" z_max="0.5"/>
+            <particle_group name="forward_particles"/>
+        </executable>
+		<executable name="bgf" mode="CPU">
+			<volume_mesh name="vol_mesh"/>
+			<!--field name="bem_e_field" type="bem_electric_field" mesh_points="mesh_points" load_freq="1"/--> 
+			<load>./interpolated_control_field.xml</load>
+			<particle_batch>
+				<!--field name="bem_e_field"/-->
+				<field name="interpolated_control_field"/>
+				<particle_group name="forward_particles"/>
+			</particle_batch>
+		</executable>
+		<executable name="pusher" mode="CPU" type="forward">
+			<particle_group name="forward_particles"/>
+		</executable>
+         <executable name="dsmc" mode="CPU">
+                <particle_group name="forward_particles"/>
+                <load>./interaction_data.xml</load>
+         </executable>
+		<executable name="plasma_state" mode="CPU">
+			<batch file_name="batch_1" format="csv" output_interval="1">
+				<particle_group name="forward_particles"/>
+			</batch>
+			<file path = "." name="plasma_state" format="csv" output_interval="1"/>
+		</executable>
+	</executables>
+	<abort_criterium>
+		<max_itterations value="50"/>
+	</abort_criterium>
+	<schedule>
+		<init>
+			<executable name="mesh_initializer"/>
+			<executable name="particle_initializer"/>
+			<executable name="plasma_state"/>
+			<executable name="pusher"/>
+            		<executable name="pwi"/>
+			<executable name="dsmc" />
+			<executable name="bgf"/>
+		</init>
+		<exec>
+		  	<executable name="bgf"/>
+			<executable name="dsmc" />
+			<executable name="pusher"/>
+            		<executable name="pwi"/>
+			<executable name="plasma_state"/>
+		</exec>
+	</schedule>
+</simulation>
