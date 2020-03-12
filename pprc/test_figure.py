@@ -1,7 +1,5 @@
-#import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 import numpy as np
-import tikzplotlib
-
 
 plt.style.use("ggplot")
 
@@ -15,6 +13,6 @@ plt.ylabel("Voltage (mV)")
 plt.title("Simple plot $\\frac{\\alpha}{2}$")
 plt.grid(True)
 
+import tikzplotlib
 
-
-matplotlib2tikz.save("test.tex")
+tikzplotlib.save("test.tex")

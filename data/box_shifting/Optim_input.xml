@@ -10,7 +10,7 @@
         <parameter name="optimizationIteration_max_gp" value="100" />       <!-- number of maximal interations -->  
         <parameter name="dp_gp" value="0.1" />                              <!-- discretization size position -->
         <parameter name="dt_gp" value="0.01" />                             <!-- discretization size time -->
-        <parameter name="dv_gp" value="50.0" />                              <!-- discretization size velocity -->
+        <parameter name="dv_gp" value="100.0" />                              <!-- discretization size velocity -->
         <parameter name="numberParticles_gp" value="1000" />
         <parameter name="ntimesteps_gp" value="50" />
         <parameter name="pcell_gp" value="64" />
