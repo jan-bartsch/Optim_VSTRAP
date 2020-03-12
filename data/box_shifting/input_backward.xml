@@ -13,7 +13,7 @@
             </executable>
                  <executable name="particle_initializer" mode="CPU">
                     <group name="adjoint_particles" empty="false">
-                        <geometry x_min="-0.5" x_max="0.0" y_min="-0.5" y_max="0.0" z_min="-0.5" z_max="0"/>
+                        <geometry x_min="-0.5" x_max="0.0" y_min="-0.5" y_max="0.5" z_min="-0.5" z_max="0.5"/>
                         <values number_density="4e+13" weight="1e+9" charge_number="-1" mass="1e-26" species="e-"/>
                         <temperature x_val="5" y_val="5" z_val="5"/>
                         <v_drift x_val="0" y_val="0" z_val="0"/>
@@ -30,7 +30,7 @@
                 <geometry x_min="-0.5" x_max="0.5" y_min="-0.5" y_max="0.5" z_min="-0.5" z_max="0.5"/>
                 <particle_group name="adjoint_particles"/>
             </executable>
-            <executable name="pusher" mode="CPU" type="adjoint">
+            <executable name="pusher" mode="CPU" type="forward">
                 <particle_group name="adjoint_particles"/>
             </executable>
             <executable name="bgf" mode="CPU">

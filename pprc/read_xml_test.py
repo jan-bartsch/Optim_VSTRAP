@@ -1,18 +1,27 @@
-import matplotlib.pyplot as plt
-import numpy as np
+import xml.etree.ElementTree as ET
+import xml.dom.minidom as minidom
 
-plt.style.use("ggplot")
+tree = ET.parse("../data/box_shifting/interpolated_control_field.xml");
+root = tree.getroot()
 
-t = np.arange(0.0, 2.0, 0.1)
-s = np.sin(2 * np.pi * t)
-s2 = np.cos(2 * np.pi * t)
-plt.plot(t, s, "o-", lw=4.1)
-plt.plot(t, s2, "o-", lw=4.1)
-plt.xlabel("time (s)")
-plt.ylabel("Voltage (mV)")
-plt.title("Simple plot $\\frac{\\alpha}{2}$")
-plt.grid(True)
+#for child in root:
+#    print(child.tag, child.attrib, child.text)
 
-import tikzplotlib
 
-tikzplotlib.save("test.tex")
+#list of control vectors
+control = []
+
+
+doc = minidom.parse("../data/box_shifting/interpolated_control_field.xml");
+field = doc.getElementsByTagName('field')[0]
+
+#value = field.getElementsByTagName('value')[1]
+#print(value.getAttribute('node_number'))
+
+
+for v in field.getElementsByTagName('value'):
+	print(v.firstChild.data)
+	control.insert(1,v.firstChild.data)
+
+
+print(control)
