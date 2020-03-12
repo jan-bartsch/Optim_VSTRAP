@@ -21,7 +21,8 @@ field = doc.getElementsByTagName('field')[0]
 
 for v in field.getElementsByTagName('value'):
 	print(v.firstChild.data)
-	control.insert(1,v.firstChild.data)
+	u_x,u_y,u_z = v.firstChild.data.split(",")
+	control.insert(1,[float(u_x),float(u_y),float(u_z)])
 
 
 print(control)
