@@ -3,6 +3,7 @@
 <optimizer_input>
 
     <globalParameters>
+	<parameter name="calculation_functional" value="5" />
         <parameter name="C_theta_gp" value="1e+20" />
         <parameter name="C_phi_gp" value="1e+20" />
         <parameter name="dimensionOfControl_gp" value="64" />               <!-- number of elements of the control -->
