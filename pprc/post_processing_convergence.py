@@ -14,7 +14,6 @@ for i in range(0,len(objective_track)-1):
 
 plt.subplot(221)
 plt.plot(objective_track)
-plt.axis([0,2,-1,0])
 plt.title("History objective track")
 
 
