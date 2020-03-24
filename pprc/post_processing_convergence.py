@@ -1,4 +1,5 @@
 from matplotlib import pyplot as plt
+import tikzplotlib
 
 fig_objective = plt.figure()
 
@@ -12,10 +13,10 @@ for i in range(0,len(objective_track)-1):
 
 #print(objective_track)
 
-plt.subplot(221)
+ax1 = plt.subplot(221)
 plt.plot(objective_track)
 plt.title("History objective track")
-
+ax1.set_yscale('linear')
 
 
 #gradient
@@ -28,9 +29,10 @@ for i in range(0,len(norm_gradient)-1):
 
 #print(norm_gradient)
 
-plt.subplot(222)
+ax2 = plt.subplot(222)
 plt.plot(norm_gradient)
 plt.title("Norm relative gradient")
+ax2.set_yscale('linear')
 
 #control
 norm_control_file = open("../../build/src/normControlTrack.txt")
@@ -42,9 +44,13 @@ for i in range(0,len(norm_control)-1):
 
 #print(norm_control)
 
-plt.subplot(223)
+ax3 = plt.subplot(223)
 plt.plot(norm_control)
 plt.title("Norm control")
+ax3.set_yscale('linear')
+
+tikzplotlib.save("fig/post_processing_converging.tex")
 
 plt.show()
+
 
