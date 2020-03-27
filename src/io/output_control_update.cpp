@@ -1,5 +1,10 @@
 #include "output_control_update.h"
 
+output_control_update::output_control_update()
+{
+
+}
+
 output_control_update::output_control_update(const char *filename) {
     this->setData_provider_optim(data_provider(filename));
 }

@@ -53,18 +53,16 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
 
     std::map<std::string, double> optimizationParameters = data_provider_opt.getOptimizationParameters();
     std::map<std::string, std::string> paths = data_provider_opt.getPaths();
+    std::map<std::string,std::string> subroutines = data_provider_opt.getSubroutines();
 
     std::thread t1;
     std::thread t2;
 
 
-
-
-
-
     unsigned int ntimesteps_gp = static_cast<unsigned int>(optimizationParameters.find("ntimesteps_gp")->second);
     bool zero_control = static_cast<bool>(optimizationParameters.find("start_zero_control")->second);
     unsigned int calculation_functional = static_cast<unsigned int>(optimizationParameters.find("calculation_functional")->second);
+    double fixed_gradient_descent_stepsize = static_cast<double>(optimizationParameters.find("fixed_gradient_descent_stepsize")->second);
 
     std::string BUILD_DIRECTORY_VSTRAP = paths.find("BUILD_DIRECTORY_VSTRAP")->second;
     std::string BUILD_DIRECTORY_OPTIM = paths.find("BUILD_DIRECTORY_OPTIM")->second;
@@ -83,7 +81,7 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
 
     logger::Info("Reading paramters done");
 
-    if(zero_control) {
+    if(zero_control == 0) {
         logger::Info("Starting with zero control");
         outController.writeControl_XML(control);
         std::string interpolating_control_python = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " + PATH_TO_SHARED_FILES + "box_coarse.xml" +
@@ -183,7 +181,11 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
 
         logger::Info("Updating the control...");
         stepDirection = -gradient;
-        stepsize = stepsize_contr.get_stepsize(gradient,value_objective,control,stepDirection,forwardParticles[0],0.0)/std::max(1.0,norm_Gradient);
+        stepsize = stepsize_contr.get_stepsize(gradient,value_objective,control,stepDirection,forwardParticles[0],
+                fixed_gradient_descent_stepsize/std::max(1.0,arma::norm(gradient)));
+        outDiag.writeDoubleToFile(stepsize,"stepsizeTrack");
+
+
         control = control + stepsize*stepDirection;
 
         outController.writeControl_XML(control);

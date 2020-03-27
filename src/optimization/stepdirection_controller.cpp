@@ -8,7 +8,7 @@ stepdirection_controller::stepdirection_controller(const char *filename)
 
 arma::mat stepdirection_controller::get_stepdirection(arma::mat gradient, arma::mat gradient_old, arma::mat stepdirectionOld, unsigned int optimization_iteration)
 {
-    return fixed_gradient_descent(gradient,optimization_iteration);
+   return fixed_gradient_descent(gradient,optimization_iteration);
 }
 
 

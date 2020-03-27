@@ -1,5 +1,10 @@
 #include "objective_calculator.h"
 
+objective_calculator::objective_calculator()
+{
+
+}
+
 objective_calculator::objective_calculator(const char *filename)
 {
     this->setData_provider_optim(data_provider(filename));
@@ -35,6 +40,9 @@ double objective_calculator::calculate_objective_L2(std::unordered_map<coordinat
     desired_trajectory_controller trajectory_controller = desired_trajectory_controller();
     trajectory_controller.setData_provider_optim(this->getData_provider_optim());
 
+    std::map<int,std::vector<double>> baryc = trajectory_controller.getData_provider_optim().getMesh_barycenters();
+
+    //std::cout << baryc.at(0)[0] << std::endl;
 
     double objective = 0.0;
     double costOfControl = 0.0;
@@ -90,22 +98,29 @@ double objective_calculator::calculate_objective_L2(std::unordered_map<coordinat
 
         double current_trackPot;
         std::vector<double> p_d;
+        float temp;
 
         std::cout << "Calculating functional in " << o << " timestep" << std::endl;
-        for(unsigned int  i = 0; i<pcell_gp; i++)  {
+        for(unsigned int  i = 1; i<=pcell_gp; i++)  {
             for( unsigned int l = 0; l<vcell_gp; l++) {
                 for(unsigned int  m = 0; m<vcell_gp; m++) {
                     for(unsigned int n = 0; n<vcell_gp; n++) {
-                        p_d = trajectory_controller.trajectory_desired(i,l,m,n,o);
+                        std::vector<double> current_barycenter = baryc.find(static_cast<int> (i))->second;
+                        p_d = trajectory_controller.trajectory_desired(current_barycenter,l,m,n,o);
                         coordinate_phase_space_time coordinate = coordinate_phase_space_time(i,l,m,n,o);
                         //trackPot[o][i][l][m][n]
                         current_trackPot = - C_theta_gp/(2.0*M_PI*sigma_x_gp*sigma_v_gp)*exp(
-                                    -(
-                                        pow(positionDiscr_gp(i)-p_d[0],2.0)/(2.0*sigma_x_gp*sigma_x_gp)+
-                                    pow(velocityDiscr_gp(l)-p_d[3],2.0)/(2.0*sigma_v_gp*sigma_v_gp)+
-                                pow(velocityDiscr_gp(m)-p_d[4],2.0)/(2.0*sigma_v_gp*sigma_v_gp)+
-                                pow(velocityDiscr_gp(n)-p_d[5],2.0)/(2.0*sigma_v_gp*sigma_v_gp)
+                                    -(p_d[0]/(2.0*sigma_x_gp*sigma_x_gp)+
+                                    0.0*pow(velocityDiscr_gp(l)-p_d[3],2.0)/(2.0*sigma_v_gp*sigma_v_gp)+
+                                0.0*pow(velocityDiscr_gp(m)-p_d[4],2.0)/(2.0*sigma_v_gp*sigma_v_gp)+
+                                0.0*pow(velocityDiscr_gp(n)-p_d[5],2.0)/(2.0*sigma_v_gp*sigma_v_gp)
                                 ));
+//                        temp = static_cast<float>( exp(-(
+//                                                           pow(positionDiscr_gp(i)-p_d[0],2.0)/(2.0*sigma_x_gp*sigma_x_gp)+
+//                                                       0.0*pow(velocityDiscr_gp(l)-p_d[3],2.0)/(2.0*sigma_v_gp*sigma_v_gp)+
+//                                                   0.0*pow(velocityDiscr_gp(m)-p_d[4],2.0)/(2.0*sigma_v_gp*sigma_v_gp)+
+//                                0.0*pow(velocityDiscr_gp(n)-p_d[5],2.0)/(2.0*sigma_v_gp*sigma_v_gp)
+//                                )));
                         if (forwardPDF.find(coordinate) != forwardPDF.end()) {
                             objective_time[o] += forwardPDF.at(coordinate)*current_trackPot*pow(dp_gp,3.0)*pow(dv_gp,2.0)*dt_gp;
                         }
@@ -124,8 +139,9 @@ double objective_calculator::calculate_objective_L2(std::unordered_map<coordinat
     }
 
     //add control, no trapezodial rule needed since control is zero at the boundary (?)
-    costOfControl += weight_control_gp/2.0*arma::norm(control,"fro")*arma::norm(control,"fro")*pow(dv_gp,3.0);
+    costOfControl += 1.0/2.0*arma::norm(control,"fro")*arma::norm(control,"fro")*pow(dp_gp,1.0);
+    // dp_gp^1 since we have elements with volume dp_gp
 
-    return objective + costOfControl;
+    return objective + weight_control_gp*costOfControl;
 
 }

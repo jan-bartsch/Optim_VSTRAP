@@ -20,6 +20,7 @@
 class objective_calculator : public abstract_controller
 {
 public:
+    objective_calculator();
     objective_calculator(const char * filename);
 
     double calculate_objective_L2( std::unordered_map<coordinate_phase_space_time,double> forwardPDF, arma::mat control);

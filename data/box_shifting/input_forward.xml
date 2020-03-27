@@ -12,6 +12,7 @@
 			<group name="forward_particles" empty="false">
 				<geometry x_min="-0.5" x_max="0.5" y_min="-0.5" y_max="0.5" z_min="-0.5" z_max="0.5"/>
 				<values number_density="1e+13" weight="1e+9" charge_number="-1" mass="1e-26" species="e-"/>
+				<!-- values number_density="1e+13" weight="1e+11" charge_number="-1" mass="1e-26" species="e-"/ -->
 				<temperature x_val="5" y_val="5" z_val="5"/>
 				<v_drift x_val="0" y_val="0" z_val="0"/>
 			</group>
@@ -46,7 +47,7 @@
 		</executable>
 	</executables>
 	<abort_criterium>
-		<max_itterations value="50"/>
+		<max_itterations value="70"/>
 	</abort_criterium>
 	<schedule>
 		<init>

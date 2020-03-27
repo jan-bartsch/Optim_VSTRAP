@@ -1,6 +1,9 @@
 #ifndef STEPDIRECTION_CONTROLLER_H
 #define STEPDIRECTION_CONTROLLER_H
 
+#include <map>
+#include <string>
+
 #include "../controller/abstract_controller.h"
 
 class stepdirection_controller : public abstract_controller

@@ -1,8 +1,14 @@
 #ifndef STEPSIZE_CONTROLLER_H
 #define STEPSIZE_CONTROLLER_H
 
+#include "../io/input.h"
+#include "../io/output_control_update.h"
+#include "../io/output_diagnostics.h"
+
 #include "../controller/abstract_controller.h"
 #include "../objects/particle.h"
+
+#include "../optimization/objective_calculator.h"
 
 #include <vector>
 
