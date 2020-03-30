@@ -137,4 +137,25 @@ std::vector<std::vector<std::vector<std::vector<double>>>> pdf_controller::relax
     return relaxated_pdf_New;
 }
 
+double pdf_controller::calculate_wasserstein_metric(std::vector<std::vector<particle> > dist1, std::vector<std::vector<particle> > dist2)
+{
+    unsigned int ntimesteps_gp = static_cast<unsigned int>(this->getData_provider_optim().getOptimizationParameters().find("ntimesteps_gp")->second);
+    unsigned int numberParticles = static_cast<unsigned int>(dist1[0].size());
+
+    double wasserstein_value = 0;
+
+    for(unsigned int o = 0; o<ntimesteps_gp; o++) {
+        for(unsigned int p = 0; p<numberParticles; p++) {
+            wasserstein_value += pow(dist1[o][p].getPx()-dist2[o][p].getPx(),2.0) +
+                    pow(dist1[o][p].getPy()-dist2[o][p].getPy(),2.0)+
+                     pow(dist1[o][p].getPz()-dist2[o][p].getPz(),2.0)+
+                     pow(dist1[o][p].getVx()-dist2[o][p].getVx(),2.0)+
+                     pow(dist1[o][p].getVx()-dist2[o][p].getVx(),2.0)+
+                     pow(dist1[o][p].getVx()-dist2[o][p].getVx(),2.0);
+        }
+    }
+
+    return wasserstein_value;
+}
+
 

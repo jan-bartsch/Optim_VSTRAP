@@ -20,6 +20,8 @@ public:
     std::vector<std::vector<std::vector<std::vector<double>>>> relaxating_GaussSeidel_4D(std::vector<std::vector<std::vector<std::vector<double>>>> pdf,
                                                                                          unsigned int numberOfRelaxationSteps);
 
+    double calculate_wasserstein_metric(std::vector<std::vector<particle>> dist1, std::vector<std::vector<particle>> dist2);
+
 
 };
 

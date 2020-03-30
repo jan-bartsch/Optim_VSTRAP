@@ -186,7 +186,7 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
         outDiag.writeDoubleToFile(stepsize,"stepsizeTrack");
 
 
-        control = control + stepsize*stepDirection;
+        //control = control + stepsize*stepDirection;
 
         outController.writeControl_XML(control);
         outDiag.writeDoubleToFile(arma::norm(control,"fro"),"normControlTrack");
