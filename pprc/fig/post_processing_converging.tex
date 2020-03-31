@@ -7,20 +7,22 @@
 \nextgroupplot[
 tick align=outside,
 tick pos=left,
-title={History objective track},
+title={History of convergence of relative value of objective},
 x grid style={white!69.0196078431373!black},
-xmin=-0.15, xmax=3.15,
+xmin=-0.25, xmax=5.25,
 xtick style={color=black},
 y grid style={white!69.0196078431373!black},
-ymin=-1.00305288207805, ymax=-0.99985462466295,
+ymin=-1.0028916737835, ymax=-0.999862301248405,
 ytick style={color=black}
 ]
 \addplot [semithick, color0]
 table {%
 0 -1
-1 -1.00079644574093
-2 -1.00201030581597
-3 -1.002907506741
+1 -1.00039822287047
+2 -1.0010363390364
+3 -1.00166965733642
+4 -1.00227418844098
+5 -1.00275397503191
 };
 
 \nextgroupplot[
@@ -28,18 +30,20 @@ tick align=outside,
 tick pos=left,
 title={Norm relative gradient},
 x grid style={white!69.0196078431373!black},
-xmin=-0.15, xmax=3.15,
+xmin=-0.25, xmax=5.25,
 xtick style={color=black},
 y grid style={white!69.0196078431373!black},
-ymin=0.918814765623004, ymax=1.76459637034555,
+ymin=0.876064083128372, ymax=1.9102448566874,
 ytick style={color=black}
 ]
 \addplot [semithick, color0]
 table {%
 0 1
-1 1.72615175194907
-2 1.11496259613897
-3 0.957259384019484
+1 1.86323663970744
+2 1.51834584636096
+3 1.16020030860627
+4 0.9987529542214
+5 0.923072300108328
 };
 
 \nextgroupplot[
@@ -47,33 +51,39 @@ tick align=outside,
 tick pos=left,
 title={Norm control},
 x grid style={white!69.0196078431373!black},
-xmin=-0.9, xmax=18.9,
+xmin=-0.2, xmax=4.2,
 xtick style={color=black},
 y grid style={white!69.0196078431373!black},
-ymin=-0.2869735, ymax=6.0264435,
+ymin=0.5250286, ymax=3.0012034,
 ytick style={color=black}
 ]
 \addplot [semithick, color0]
 table {%
-0 0
-1 1.27516
-2 1.27516
-3 1.27516
-4 2.32134
-5 2.32134
-6 2.32134
-7 3.33686
-8 3.33686
-9 3.33686
-10 4.48765
-11 5.10756
-12 5.42427
-13 5.58399
-14 5.66415
-15 5.7043
-16 5.7244
-17 5.73445
-18 5.73947
+0 0.637582
+1 1.21871
+2 1.78336
+3 2.33713
+4 2.88865
+};
+
+\nextgroupplot[
+tick align=outside,
+tick pos=left,
+title={Wasserstein distance (pre/post linesearch)},
+x grid style={white!69.0196078431373!black},
+xmin=-0.2, xmax=4.2,
+xtick style={color=black},
+y grid style={white!69.0196078431373!black},
+ymin=-1384285000, ymax=65539385000,
+ytick style={color=black}
+]
+\addplot [semithick, color0]
+table {%
+0 1657700000
+1 5459160000
+2 14561700000
+3 36105600000
+4 62497400000
 };
 \end{groupplot}
 

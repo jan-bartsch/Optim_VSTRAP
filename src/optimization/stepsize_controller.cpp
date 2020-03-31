@@ -76,7 +76,6 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
     double wasserstein_distance;
 
     outController.writeControl_XML(control);
-    outDiag.writeDoubleToFile(arma::norm(control,"fro"),"normControlTrack");
     std::string interpolating_control_python = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " + PATH_TO_SHARED_FILES + "box_coarse.xml" +
             " " + PATH_TO_SHARED_FILES + "control_field_cells.xml" + " " + PATH_TO_SHARED_FILES + "interpolated_control_field.xml";
     system(&interpolating_control_python[0]);
@@ -95,7 +94,6 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
 
     control = control + alpha*stepdirection;
     outController.writeControl_XML(control);
-    outDiag.writeDoubleToFile(arma::norm(control,"fro"),"normControlTrack");
     system(&interpolating_control_python[0]);
 
     forward_return = system(&START_VSTRAP_FORWARD[0]);
@@ -114,7 +112,6 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
 
         control = control + alpha*stepdirection;
         outController.writeControl_XML(control);
-        outDiag.writeDoubleToFile(arma::norm(control,"fro"),"normControlTrack");
         std::string interpolating_control_python = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " + PATH_TO_SHARED_FILES + "box_coarse.xml" +
                 " " + PATH_TO_SHARED_FILES + "control_field_cells.xml" + " " + PATH_TO_SHARED_FILES + "interpolated_control_field.xml";
         system(&interpolating_control_python[0]);
@@ -137,6 +134,14 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
     }
 
     if (alpha < tolerance) {
+        //Calculate with old control
+        control = control - alpha*stepdirection;
+        outController.writeControl_XML(control);
+        std::string interpolating_control_python = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " + PATH_TO_SHARED_FILES + "box_coarse.xml" +
+                " " + PATH_TO_SHARED_FILES + "control_field_cells.xml" + " " + PATH_TO_SHARED_FILES + "interpolated_control_field.xml";
+        system(&interpolating_control_python[0]);
+
+        forward_return = system(&START_VSTRAP_FORWARD[0]);
         std::cout << "Minimum already reached. You may want to decrease your tolerance?" << std::endl;
         return_flag = 1;
         return return_flag;
@@ -149,6 +154,8 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
     }
     wasserstein_distance = pdf_control.calculate_wasserstein_metric(forwardParticles0,forwardParticles);
     std::cout << "Wasserstein distance: " << wasserstein_distance << std::endl;
+    outDiag.writeDoubleToFile(alpha,"stepsizeTrack");
+    outDiag.writeDoubleToFile(wasserstein_distance,"wassersteinDistanceTrack");
     return return_flag;
 }
 

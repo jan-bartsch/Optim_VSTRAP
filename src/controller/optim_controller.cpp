@@ -30,7 +30,13 @@ void optim_controller::start_optimizer(int argc, const char **argv)
         throw std::runtime_error("Too many input parameters");
     }
 
+    std::chrono::time_point<std::chrono::system_clock> start_optim = std::chrono::system_clock::now();
+
     int optim_flag = optim_controller::start_optimization_iteration(control,input_xml_path);
+
+    std::chrono::time_point<std::chrono::system_clock> end_optim = std::chrono::system_clock::now();
+    logger::Info("Assembling of pdfs took: " + std::to_string(std::chrono::duration_cast<std::chrono::minutes>
+                                                              (end_optim-start_optim).count()) + " minutes");
 
     if (optim_flag == 0) {
         logger::Info("Optimization ended successfully");
@@ -69,15 +75,14 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
     bool zero_control = static_cast<bool>(optimizationParameters.find("start_zero_control")->second);
     unsigned int calculation_functional = static_cast<unsigned int>(optimizationParameters.find("calculation_functional")->second);
     double fixed_gradient_descent_stepsize = static_cast<double>(optimizationParameters.find("fixed_gradient_descent_stepsize")->second);
+    double fraction_of_optimal_control = static_cast<double>(optimizationParameters.find("fraction_of_optimal_control")->second);
+
 
     std::string BUILD_DIRECTORY_VSTRAP = paths.find("BUILD_DIRECTORY_VSTRAP")->second;
     std::string BUILD_DIRECTORY_OPTIM = paths.find("BUILD_DIRECTORY_OPTIM")->second;
     std::string DIRECTORY_TOOLSET = paths.find("DIRECTORY_TOOLSET")->second;
 
     std::string PATH_TO_SHARED_FILES = paths.find("PATH_TO_SHARED_FILES")->second;
-
-
-
 
 
     std::string START_VSTRAP_FORWARD = BUILD_DIRECTORY_VSTRAP + "vstrap" + " " + PATH_TO_SHARED_FILES + "input_forward.xml";
@@ -98,8 +103,16 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
         std::string interpolating_control_python_adjoint = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " + PATH_TO_SHARED_FILES + "box_coarse.xml" +
                 " " + PATH_TO_SHARED_FILES + "control_field_cells.xml" + " " + PATH_TO_SHARED_FILES + "interpolated_control_field_adjoint.xml";
         system(&interpolating_control_python_adjoint[0]);
+    } else {
+        logger::Info("Starting with existing control");
+        std::string READ_CONTROL = PATH_TO_SHARED_FILES + "control_field_cells_optimal.xml";
+        control = input::readControl(&READ_CONTROL[0]);
+        outController.writeControl_XML(fraction_of_optimal_control*control);
+        std::string interpolating_control_python = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " + PATH_TO_SHARED_FILES + "box_coarse.xml" +
+                " " + PATH_TO_SHARED_FILES + "control_field_cells.xml" + " " + PATH_TO_SHARED_FILES + "interpolated_control_field.xml";
+        system(&interpolating_control_python[0]);
+        std::cout << control << std::endl;
     }
-
 
 
     /**
@@ -189,7 +202,6 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
         stepDirection = -gradient;
         stepsize_flag = stepsize_contr.calculate_stepsize(gradient,value_objective,control,stepDirection,forwardParticles[0],
                 fixed_gradient_descent_stepsize/std::max(1.0,arma::norm(gradient)));
-        //outDiag.writeDoubleToFile(stepsize,"stepsizeTrack");
 
         if (stepsize_flag == 1) {
             std::string small_stepsize = "Linesearch returned too small stepsize; Found minimum after " + std::to_string(r+1) + " iterations";
