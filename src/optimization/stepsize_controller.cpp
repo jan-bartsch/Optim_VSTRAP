@@ -6,7 +6,7 @@ stepsize_controller::stepsize_controller(const char *filename)
 
 }
 
-double stepsize_controller::get_stepsize(arma::mat &gradient, double J0, arma::mat &control, arma::mat &stepdirection, std::vector<particle> &inputParticles, double stepsize0)
+int stepsize_controller::calculate_stepsize(arma::mat &gradient, double J0, arma::mat &control, arma::mat &stepdirection, std::vector<particle> &inputParticles, double stepsize0)
 {
     std::map<std::string,std::string> subroutines = this->getData_provider_optim().getSubroutines();
     std::string control_update = subroutines.find("control_update")->second;
@@ -21,8 +21,10 @@ double stepsize_controller::get_stepsize(arma::mat &gradient, double J0, arma::m
     }
 }
 
-double stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma::mat &control, arma::mat &stepdirection, std::vector<particle> &inputParticles, double stepsize0)
+int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma::mat &control, arma::mat &stepdirection, std::vector<particle> &inputParticles, double stepsize0)
 {
+    int return_flag = 0;
+
     output_control_update outController = output_control_update();
     outController.setData_provider_optim(this->getData_provider_optim());
     objective_calculator objective = objective_calculator();
@@ -136,21 +138,26 @@ double stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, ar
 
     if (alpha < tolerance) {
         std::cout << "Minimum already reached. You may want to decrease your tolerance?" << std::endl;
-        std::system_error();
+        return_flag = 1;
+        return return_flag;
     } else if (counter > optimizationIteration_max_gp) {
         std::cout << "Maximum interation depth reached without decrease!" << std::endl;
-        std::system_error();
+        return_flag = 2;
+        return return_flag;
     } else {
         std::cout << "Armijo-linesearch found stepsize " << alpha << " after " << counter << " iterations." << std::endl;
     }
     wasserstein_distance = pdf_control.calculate_wasserstein_metric(forwardParticles0,forwardParticles);
     std::cout << "Wasserstein distance: " << wasserstein_distance << std::endl;
-    return alpha;
+    return return_flag;
 }
 
-double stepsize_controller::gradient_descent(arma::mat &control, arma::mat &stepdirection, std::vector<particle> &nputParticles, double stepsize)
+int stepsize_controller::gradient_descent(arma::mat &control, arma::mat &stepdirection, std::vector<particle> &nputParticles, double stepsize)
 {
 
-    return static_cast<double>(this->getData_provider_optim().getOptimizationParameters().find("fixed_gradient_descent_stepsize")->second);
+    int return_flag = 0;
+    double stepsize_gradient = static_cast<double>(this->getData_provider_optim().getOptimizationParameters().find("fixed_gradient_descent_stepsize")->second);
+    control = control + stepsize_gradient*stepdirection;
 
+    return return_flag;
 }

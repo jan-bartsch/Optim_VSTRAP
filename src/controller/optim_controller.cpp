@@ -30,8 +30,14 @@ void optim_controller::start_optimizer(int argc, const char **argv)
         throw std::runtime_error("Too many input parameters");
     }
 
-    optim_controller::start_optimization_iteration(control,input_xml_path);
+    int optim_flag = optim_controller::start_optimization_iteration(control,input_xml_path);
 
+    if (optim_flag == 0) {
+        logger::Info("Optimization ended successfully");
+    } else {
+        std::string return_string = "Optimization returned non-zero value: " + std::to_string(optim_flag);
+        logger::Info(return_string);
+    }
 
 }
 
@@ -107,7 +113,7 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
     arma::mat gradient(static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second),2,arma::fill::zeros);
     arma::mat stepDirection(static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second),2,arma::fill::zeros);
     double value_objective = 0.0;
-    double stepsize = 0.0;
+    int stepsize_flag;
     double norm_Gradient = 0.0;
 
     std::chrono::time_point<std::chrono::system_clock> start, end;
@@ -181,9 +187,19 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
 
         logger::Info("Updating the control...");
         stepDirection = -gradient;
-        stepsize = stepsize_contr.get_stepsize(gradient,value_objective,control,stepDirection,forwardParticles[0],
+        stepsize_flag = stepsize_contr.calculate_stepsize(gradient,value_objective,control,stepDirection,forwardParticles[0],
                 fixed_gradient_descent_stepsize/std::max(1.0,arma::norm(gradient)));
-        outDiag.writeDoubleToFile(stepsize,"stepsizeTrack");
+        //outDiag.writeDoubleToFile(stepsize,"stepsizeTrack");
+
+        if (stepsize_flag == 1) {
+            std::string small_stepsize = "Linesearch returned too small stepsize; Found minimum after " + std::to_string(r+1) + " iterations";
+            logger::Info(small_stepsize);
+            return 0;
+        } else if (stepsize_flag == 2) {
+            std::string iteration_depth_reached = "Linesearch reached maximum iteration depth ("
+                    + std::to_string(optimizationIteration_max_gp) + "), try to increase tolerance_gp";
+            return 1;
+        }
 
 
         //control = control + stepsize*stepDirection;

@@ -12,7 +12,7 @@ objective_track_float = [];
 
 for i in range(0,len(objective_track)-1):
 	print(i)
-	objective_track_float.insert(len(objective_track_float),float(objective_track[i]))
+	objective_track_float.insert(len(objective_track_float),float(objective_track[i])/abs(float(objective_track[0])))
 
 
 ax1 = plt.subplot(221)
