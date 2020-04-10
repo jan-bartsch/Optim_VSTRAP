@@ -47,7 +47,7 @@ std::vector<particle> input::readParticleVector(std::string filename, std::strin
             particleTemp.setVx(std::stod(vec[3]));
             particleTemp.setVy(std::stod(vec[4]));
             particleTemp.setVz(std::stod(vec[5]));
-            particleTemp.setCell_id(std::stoi(vec[10]));
+            particleTemp.setCell_id(std::stoi(vec[11]));
             if(vec.size()>=7) {
                 particleTemp.setWeight(std::stod(vec[6]));
             }

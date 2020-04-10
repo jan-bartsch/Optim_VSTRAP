@@ -3,7 +3,7 @@
             <time_step value="1e-5"/>
         </global_values>
         <abort_criterium>
-            <max_itterations value="70"/>
+            <max_itterations value="31"/>
         </abort_criterium>
         <executables>
             <executable name="mesh_initializer" mode="CPU">
@@ -11,15 +11,23 @@
                     <load>./box_coarse.xml</load>
                 </mesh>
             </executable>
-                 <executable name="particle_initializer" mode="CPU">
+		<executable name="particle_initializer" mode="CPU">
+			<group name="adjoint_particles" empty="true"/>
+		</executable>
+                 <!-- executable name="particle_initializer" mode="CPU">
                     <group name="adjoint_particles" empty="false">
                         <geometry x_min="-0.5" x_max="0.0" y_min="-0.5" y_max="0.5" z_min="-0.5" z_max="0.5"/>
                         <values number_density="4e+13" weight="1e+10" charge_number="-1" mass="1e-26" species="e-"/>
-			<!-- values number_density="4e+13" weight="1e+9" charge_number="-1" mass="1e-26" species="e-"/ -->
+			< values number_density="4e+13" weight="1e+9" charge_number="-1" mass="1e-26" species="e-"/>
                         <temperature x_val="5" y_val="5" z_val="5"/>
                         <v_drift x_val="0" y_val="0" z_val="0"/>
                     </group>
-                </executable>
+                </executable -->
+		<executable name="adjoint_particle_creator" mode="CPU">
+			<geometry x_min="-0.5" x_max="0.5" y_min="-0.5" y_max="0.5" z_min="-0.5" z_max="0.5"/>
+			<particle_group name="adjoint_particles"/>
+			<load>./creation_adjoint_particles.xml</load>
+		</executable>
                 <executable name="plasma_state" mode="CPU">
                 <batch file_name="batch_1" output_interval="1" format="csv">
                     <particle_group name="adjoint_particles"/>
@@ -31,7 +39,7 @@
                 <geometry x_min="-0.5" x_max="0.5" y_min="-0.5" y_max="0.5" z_min="-0.5" z_max="0.5"/>
                 <particle_group name="adjoint_particles"/>
             </executable>
-            <executable name="pusher" mode="CPU" type="forward">
+            <executable name="pusher" mode="CPU" type="adjoint">
                 <particle_group name="adjoint_particles"/>
             </executable>
             <executable name="bgf" mode="CPU">
@@ -61,6 +69,7 @@
 		<init>
 			<executable name="mesh_initializer"/>
 			<executable name="particle_initializer"/>
+			<executable name="adjoint_particle_creator"/>
 			<executable name="plasma_state"/>
 			<executable name="pusher"/>
 			<!-- executable name="mcc"/> -->
@@ -69,6 +78,7 @@
 		</init>
 		<exec>
 			<!-- executable name="mcc"/> -->
+			<executable name="adjoint_particle_creator"/>
 		  	<executable name="bgf"/>
 			<executable name="pusher"/>
            		<executable name="pwi"/>
