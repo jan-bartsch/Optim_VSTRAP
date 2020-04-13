@@ -7,7 +7,7 @@
 		</position>
 		<velocity>
 			<mu x_val = "0.0" y_val = "0.0" z_val = "0.0"/>
-			<sigma x_val = "5.0" y_val = "5.0" z_val = "5.0"/>
+			<sigma x_val = "1e+3" y_val = "1e+3" z_val = "1e+3"/>
 		</velocity>
 	</set>
 	<set iteration="1">

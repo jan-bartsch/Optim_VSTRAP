@@ -11,18 +11,18 @@
                     <load>./box_coarse.xml</load>
                 </mesh>
             </executable>
-		<!--executable name="particle_initializer" mode="CPU">
+		<executable name="particle_initializer" mode="CPU">
 			<group name="adjoint_particles" empty="true"/>
-		</executable -->
-                 <executable name="particle_initializer" mode="CPU">
+		</executable>
+                 <!-- executable name="particle_initializer" mode="CPU">
                     <group name="adjoint_particles" empty="false">
                         <geometry x_min="-0.5" x_max="0.0" y_min="-0.5" y_max="0.5" z_min="-0.5" z_max="0.5"/>
-                        <values number_density="4e+13" weight="1e+10" charge_number="-1" mass="1e-26" species="e-"/>
+                        <values number_density="4e+13" weight="1e+9" charge_number="-1" mass="1e-26" species="e-"/>
 			< values number_density="4e+13" weight="1e+9" charge_number="-1" mass="1e-26" species="e-"/>
                         <temperature x_val="5" y_val="5" z_val="5"/>
                         <v_drift x_val="0" y_val="0" z_val="0"/>
                     </group>
-                </executable>
+                </executable-->
 		<executable name="adjoint_particle_creator" mode="CPU">
 			<geometry x_min="-0.5" x_max="0.0" y_min="-0.5" y_max="0.5" z_min="-0.5" z_max="0.5"/>
 			<particle_group name="adjoint_particles"/>
@@ -69,7 +69,7 @@
 		<init>
 			<executable name="mesh_initializer"/>
 			<executable name="particle_initializer"/>
-			<!--executable name="adjoint_particle_creator"/-->
+			<executable name="adjoint_particle_creator"/>
 			<executable name="plasma_state"/>
 			<executable name="pusher"/>
 			<!-- executable name="mcc"/> -->
@@ -78,7 +78,7 @@
 		</init>
 		<exec>
 			<!-- executable name="mcc"/> -->
-			<!-- executable name="adjoint_particle_creator"/-->
+			<executable name="adjoint_particle_creator"/>
 		  	<executable name="bgf"/>
 			<executable name="pusher"/>
            		<executable name="pwi"/>
