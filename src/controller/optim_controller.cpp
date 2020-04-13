@@ -160,7 +160,7 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
         logger::Info("Reading particle files...");
 
         for(unsigned int k = 1; k<=ntimesteps_gp; k++) {
-            backwardParticles[ntimesteps_gp-k] = input::readParticleVector(BUILD_DIRECTORY_OPTIM+"plasma_state_batch_1_adjoint_particles_CPU_"+std::to_string(k)+".csv",",");
+            backwardParticles[k-1] = input::readParticleVector(BUILD_DIRECTORY_OPTIM+"plasma_state_batch_1_adjoint_particles_CPU_"+std::to_string(k)+".csv",",");
         }
 
         start = std::chrono::system_clock::now();

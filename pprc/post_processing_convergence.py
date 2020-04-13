@@ -60,18 +60,22 @@ ax3.set_yscale('linear')
 ####
 # wasserstein distance
 ####
-wd_file = open("../../build/src/wassersteinDistanceTrack.txt")
+try:
+	wd_file = open("../../build/src/wassersteinDistanceTrack.txt")
 
-wd = wd_file.read().split("\n")
-wd_float = []
 
-for i in range(0,len(wd)-1):
-	wd_float.insert(len(wd_float),float(wd[i]))
+	wd = wd_file.read().split("\n")
+	wd_float = []
 
-ax4 = plt.subplot(224)
-plt.plot(wd_float)
-plt.title("Wasserstein distance (pre/post linesearch)")
-ax4.set_yscale('linear')
+	for i in range(0,len(wd)-1):
+		wd_float.insert(len(wd_float),float(wd[i]))
+
+	ax4 = plt.subplot(224)
+	plt.plot(wd_float)
+	plt.title("Wasserstein distance (pre/post linesearch)")
+	ax4.set_yscale('linear')
+except:
+	print("No wasserstein Distance file existing")
 
 tikzplotlib.save("fig/post_processing_converging.tex")
 plt.show()
