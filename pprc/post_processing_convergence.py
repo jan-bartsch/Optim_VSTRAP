@@ -31,6 +31,8 @@ norm_gradient_file = open("../../build/src/normGradientTrack.txt")
 norm_gradient = norm_gradient_file.read().split("\n")
 norm_gradient_float = []
 
+print(norm_gradient)
+
 for i in range(0,len(norm_gradient)-1):
 	norm_gradient_float.insert(len(norm_gradient_float),float(norm_gradient[i])/float(norm_gradient[0]))
 

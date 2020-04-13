@@ -128,7 +128,7 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
 
         std::cout << "Armijo: " << "Jtemp = " << Jtemp << std::endl
                   << "J0 + scalarProduct*armijo_descent_fraction = " << J0 + scalarProduct*armijo_descent_fraction << std::endl
-                  << "Stepsize " << alpha << "in " << counter << ". iteration" << std::endl;
+                  << "Stepsize " << alpha << " in " << counter << ". iteration" << std::endl;
         counter++;
         wasserstein_distance = pdf_control.calculate_wasserstein_metric(forwardParticles0,forwardParticles);
         std::cout << "Wasserstein distance: " << wasserstein_distance << std::endl;
@@ -143,7 +143,7 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
         system(&interpolating_control_python[0]);
 
         forward_return = system(&START_VSTRAP_FORWARD[0]);
-        std::cout << "Minimum already reached. You may want to decrease your tolerance? (Was" << tolerance << ")" << std::endl;
+        std::cout << "Minimum already reached. You may want to decrease your tolerance? (Was " << tolerance << ")" << std::endl;
         return_flag = 1;
         return return_flag;
     } else if (counter > optimizationIteration_max_gp) {

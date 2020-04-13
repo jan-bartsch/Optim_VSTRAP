@@ -1,0 +1,49 @@
+[2020-04-13 14:08:39.184412] [info] VSTRAP started
+[2020-04-13 14:08:39.210674] [info] Initialize mesh_initializer:
+[2020-04-13 14:08:39.223596] [info] Volume mesh <vol_mesh> has been initialized.
+[2020-04-13 14:08:39.224213] [info] Mesh initialized without node_data.
+[2020-04-13 14:08:39.224238] [info] Mesh initialized without face_data.
+[2020-04-13 14:08:39.224252] [info] Mesh initialized without cell_data.
+[2020-04-13 14:08:39.229977] [info] Initialize particle_initializer:
+[2020-04-13 14:08:39.282070] [info] Particle group <forward_particles> has been initialized with 10000 particles of species "e-" in the domain.
+[2020-04-13 14:08:39.287068] [info] Initialize plasma_state:
+[2020-04-13 14:08:39.295307] [info] Initialize pusher:
+[2020-04-13 14:08:39.301804] [info] Initialize pwi:
+[2020-04-13 14:08:39.312352] [info] Initialize dsmc:
+[2020-04-13 14:08:39.320977] [info] Initialize bgf:
+[2020-04-13 14:08:39.323061] [info] Mesh <vol_mesh> has been loaded.
+[2020-04-13 14:08:39.324002] [info] Field <interpolated_control_field> has been loaded.
+[2020-04-13 14:08:39.324154] [info] Particle group <forward_particles> has been successfully loaded with fields <interpolated_control_field>
+[2020-04-13 14:08:39.324256] [info] Initialization took 137 milliseconds.
+[2020-04-13 14:08:39.503043] [info] Itteration 1 complete. Itteration took 178 milliseconds.
+[2020-04-13 14:08:39.677502] [info] Itteration 2 complete. Itteration took 174 milliseconds.
+[2020-04-13 14:08:39.852810] [info] Itteration 3 complete. Itteration took 175 milliseconds.
+[2020-04-13 14:08:40.029122] [info] Itteration 4 complete. Itteration took 176 milliseconds.
+[2020-04-13 14:08:40.204190] [info] Itteration 5 complete. Itteration took 175 milliseconds.
+[2020-04-13 14:08:40.379481] [info] Itteration 6 complete. Itteration took 175 milliseconds.
+[2020-04-13 14:08:40.558944] [info] Itteration 7 complete. Itteration took 179 milliseconds.
+[2020-04-13 14:08:40.734064] [info] Itteration 8 complete. Itteration took 175 milliseconds.
+[2020-04-13 14:08:40.908527] [info] Itteration 9 complete. Itteration took 174 milliseconds.
+[2020-04-13 14:08:41.083160] [info] Itteration 10 complete. Itteration took 174 milliseconds.
+[2020-04-13 14:08:41.257516] [info] Itteration 11 complete. Itteration took 174 milliseconds.
+[2020-04-13 14:08:41.432743] [info] Itteration 12 complete. Itteration took 175 milliseconds.
+[2020-04-13 14:08:41.606986] [info] Itteration 13 complete. Itteration took 174 milliseconds.
+[2020-04-13 14:08:41.781729] [info] Itteration 14 complete. Itteration took 174 milliseconds.
+[2020-04-13 14:08:41.956922] [info] Itteration 15 complete. Itteration took 175 milliseconds.
+[2020-04-13 14:08:42.131671] [info] Itteration 16 complete. Itteration took 174 milliseconds.
+[2020-04-13 14:08:42.307494] [info] Itteration 17 complete. Itteration took 175 milliseconds.
+[2020-04-13 14:08:42.482431] [info] Itteration 18 complete. Itteration took 174 milliseconds.
+[2020-04-13 14:08:42.658109] [info] Itteration 19 complete. Itteration took 175 milliseconds.
+[2020-04-13 14:08:42.831852] [info] Itteration 20 complete. Itteration took 173 milliseconds.
+[2020-04-13 14:08:43.005893] [info] Itteration 21 complete. Itteration took 173 milliseconds.
+[2020-04-13 14:08:43.180585] [info] Itteration 22 complete. Itteration took 174 milliseconds.
+[2020-04-13 14:08:43.355433] [info] Itteration 23 complete. Itteration took 174 milliseconds.
+[2020-04-13 14:08:43.529878] [info] Itteration 24 complete. Itteration took 174 milliseconds.
+[2020-04-13 14:08:43.704052] [info] Itteration 25 complete. Itteration took 174 milliseconds.
+[2020-04-13 14:08:43.883886] [info] Itteration 26 complete. Itteration took 179 milliseconds.
+[2020-04-13 14:08:44.058781] [info] Itteration 27 complete. Itteration took 174 milliseconds.
+[2020-04-13 14:08:44.233940] [info] Itteration 28 complete. Itteration took 175 milliseconds.
+[2020-04-13 14:08:44.409400] [info] Itteration 29 complete. Itteration took 175 milliseconds.
+[2020-04-13 14:08:44.583981] [info] Itteration 30 complete. Itteration took 174 milliseconds.
+[2020-04-13 14:08:44.584019] [info] Simulation took 5259 milliseconds.
+[2020-04-13 14:08:44.584036] [info] VSTRAP finished

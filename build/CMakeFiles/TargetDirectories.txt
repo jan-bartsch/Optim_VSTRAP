@@ -1,0 +1,5 @@
+/home/jan/Promotion_linuxPC/build/CMakeFiles/rebuild_cache.dir
+/home/jan/Promotion_linuxPC/build/CMakeFiles/edit_cache.dir
+/home/jan/Promotion_linuxPC/build/src/CMakeFiles/rebuild_cache.dir
+/home/jan/Promotion_linuxPC/build/src/CMakeFiles/Optim_VSTRAP_CMAKE.dir
+/home/jan/Promotion_linuxPC/build/src/CMakeFiles/edit_cache.dir
