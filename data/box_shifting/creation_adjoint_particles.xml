@@ -318,4 +318,15 @@
 			<sigma x_val = "1000.0" y_val = "1000.0" z_val = "1000.0"/> 
  		</velocity>
 	</set>
+	<set iteration="29">
+		<particle_values number_density="4e+13" weight="1e+10" charge_number="-1" mass="1e-26" species="e-"/>
+		<position>
+ 			<mu x_val = "-0.35" y_val = "0.0" z_val = "0.0" />
+			<sigma x_val = "0.05" y_val = "0.25" z_val = "0.25"/> 
+ 		</position>
+		<velocity> 
+ 			<mu x_val = "0.0 " y_val = "0.0" z_val = "0.0" />
+			<sigma x_val = "1000.0" y_val = "1000.0" z_val = "1000.0"/> 
+ 		</velocity>
+	</set>
 </parameraters>

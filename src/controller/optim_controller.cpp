@@ -35,11 +35,11 @@ void optim_controller::start_optimizer(int argc, const char **argv)
     int optim_flag = optim_controller::start_optimization_iteration(control,input_xml_path);
 
     std::chrono::time_point<std::chrono::system_clock> end_optim = std::chrono::system_clock::now();
-    logger::Info("Assembling of pdfs took: " + std::to_string(std::chrono::duration_cast<std::chrono::minutes>
+    logger::Info("Optimization took: " + std::to_string(std::chrono::duration_cast<std::chrono::minutes>
                                                               (end_optim-start_optim).count()) + " minutes");
 
     if (optim_flag == 0) {
-        logger::Info("Optimization ended successfully");
+        logger::Info("Optimization ended without errors");
     } else {
         std::string return_string = "Optimization returned non-zero value: " + std::to_string(optim_flag);
         logger::Info(return_string);

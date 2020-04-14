@@ -48,6 +48,7 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_L2(std::unor
                   << current_barycenter[1] << "," << current_barycenter[2] << ")" << std::endl;
 
         if (current_barycenter[0]< - 0.2 || current_barycenter[0] > 0.2) {
+        //if(false) {
             std::cout << "Gradient will stay zero here" << std::endl;
         } else {
             std::vector<std::vector<std::vector<std::vector<double>>>> forwardPDFdouble(ntimesteps_gp, std::vector<std::vector<std::vector<double>>>
