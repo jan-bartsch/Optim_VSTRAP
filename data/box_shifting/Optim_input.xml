@@ -9,11 +9,11 @@
         <parameter name="C_phi_gp" value="1e+20" />
         <parameter name="dimensionOfControl_gp" value="64" />               <!-- number of elements of the control -->
         <parameter name="fixed_gradient_descent_stepsize" value="5e-1" />
-	<parameter name="fraction_of_optimal_control" value="1e-1" />
+	<parameter name="fraction_of_optimal_control" value="1e-5" />
         <parameter name="optimizationIteration_max_gp" value="100" />       <!-- number of maximal interations -->  
         <parameter name="dp_gp" value="0.0156" />                              <!-- discretization size position -->
         <parameter name="dt_gp" value="1e-5" />                             <!-- discretization size time -->
-        <parameter name="dv_gp" value="1000.0" />                              <!-- discretization size velocity -->
+        <parameter name="dv_gp" value="600.0" />                              <!-- discretization size velocity -->
         <parameter name="numberParticles_gp" value="1000" />
         <parameter name="ntimesteps_gp" value="35" />
         <parameter name="pcell_gp" value="64" />
@@ -23,7 +23,7 @@
 	<parameter name="start_zero_control" value="0" />		<!-- 0=true, 1=false -->
         <parameter name="tolerance_gp" value="1e-10" />
         <parameter name="tolerance_relaxation_gp" value="1e-8" />
-        <parameter name="vcell_gp" value="6" />
+        <parameter name="vcell_gp" value="10" />
         <parameter name="vmax_gp" value="3000" />                           <!-- maximal velocity (support of forward equaiton) -->
         <parameter name="weight_control_gp" value="0.0" />
     </globalParameters>
