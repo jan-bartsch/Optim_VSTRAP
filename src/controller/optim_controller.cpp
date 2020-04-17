@@ -193,6 +193,8 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
         logger::Info("Building gradient...");
         gradient = gradient_calculator_opt.calculateGradient_forceControl_space_L2(forwardPDF,backwardPDF,control);
         outDiag.writeDoubleToFile(arma::norm(gradient,"fro"),"normGradientTrack");
+        outDiag.writeGradientToFile(gradient,"not_working_gradient_"+std::to_string(r));
+
 
 
         norm_Gradient = arma::norm(gradient,"fro");
@@ -227,7 +229,6 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
                 " " + PATH_TO_SHARED_FILES + "control_field_cells.xml" + " " + PATH_TO_SHARED_FILES + "interpolated_control_field_adjoint.xml";
         system(&interpolating_control_python_adjoint[0]);
 
-        outDiag.writeGradientToFile(gradient,"gradient_"+std::to_string(r));
 
         logger::Info("Starting " + std::to_string(r+1) + " iteration");
     }

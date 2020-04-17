@@ -65,6 +65,7 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
 
 
     double alpha = stepsize0; //stepsize
+    arma::mat control0 = control;
 
     //std::vector<particle> inputParticles = dsmc.createInitialDistribution_Gauss_positionVelocity(1.0,0.0);
 
@@ -92,7 +93,7 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
      * Generate new control
      */
 
-    control = control + alpha*stepdirection;
+    control = control0 + alpha*stepdirection;
     outController.writeControl_XML(control);
     system(&interpolating_control_python[0]);
 
@@ -110,7 +111,7 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
            && counter <= optimizationIteration_max_gp) {
         alpha = pow(1.0,counter)*0.5*alpha;
 
-        control = control + alpha*stepdirection;
+        control = control0 + alpha*stepdirection;
         outController.writeControl_XML(control);
         std::string interpolating_control_python = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " + PATH_TO_SHARED_FILES + "box_coarse.xml" +
                 " " + PATH_TO_SHARED_FILES + "control_field_cells.xml" + " " + PATH_TO_SHARED_FILES + "interpolated_control_field.xml";
@@ -136,7 +137,7 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
 
     if (alpha < tolerance) {
         //Calculate with old control
-        control = control - alpha*stepdirection;
+        control = control0;
         outController.writeControl_XML(control);
         std::string interpolating_control_python = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " + PATH_TO_SHARED_FILES + "box_coarse.xml" +
                 " " + PATH_TO_SHARED_FILES + "control_field_cells.xml" + " " + PATH_TO_SHARED_FILES + "interpolated_control_field.xml";
