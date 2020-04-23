@@ -9,10 +9,10 @@ tick align=outside,
 tick pos=left,
 title={History of convergence of relative value of objective},
 x grid style={white!69.0196078431373!black},
-xmin=-0.2, xmax=4.2,
+xmin=-0.35, xmax=7.35,
 xtick style={color=black},
 y grid style={white!69.0196078431373!black},
-ymin=-1.0016156234042, ymax=-0.999923065552181,
+ymin=-1.00274444324993, ymax=-0.999869312226194,
 ytick style={color=black}
 ]
 \addplot [semithick, color0]
@@ -22,6 +22,9 @@ table {%
 2 -1.00068535490633
 3 -1.00107506651974
 4 -1.00153868895638
+5 -1.0016529147741
+6 -1.00196871556428
+7 -1.00261375547612
 };
 
 \nextgroupplot[
@@ -29,7 +32,7 @@ tick align=outside,
 tick pos=left,
 title={Norm relative gradient},
 x grid style={white!69.0196078431373!black},
-xmin=-0.2, xmax=4.2,
+xmin=-0.35, xmax=7.35,
 xtick style={color=black},
 y grid style={white!69.0196078431373!black},
 ymin=0.783358267346875, ymax=1.46263090357109,
@@ -42,6 +45,9 @@ table {%
 2 1.08654502206504
 3 0.925805139119276
 4 0.814234296266158
+5 1.03991737347814
+6 0.944521298237927
+7 1.1330161810272
 };
 
 \nextgroupplot[
@@ -49,10 +55,10 @@ tick align=outside,
 tick pos=left,
 title={Norm control},
 x grid style={white!69.0196078431373!black},
-xmin=-0.15, xmax=3.15,
+xmin=-0.3, xmax=6.3,
 xtick style={color=black},
 y grid style={white!69.0196078431373!black},
-ymin=0.12636265, ymax=1.55769035,
+ymin=0.08291515, ymax=2.47008785,
 ytick style={color=black}
 ]
 \addplot [semithick, color0]
@@ -61,6 +67,9 @@ table {%
 1 0.729772
 2 1.12843
 3 1.49263
+4 1.76706
+5 2.09159
+6 2.36158
 };
 
 \nextgroupplot[
@@ -68,10 +77,10 @@ tick align=outside,
 tick pos=left,
 title={Wasserstein distance (pre/post linesearch)},
 x grid style={white!69.0196078431373!black},
-xmin=-0.2, xmax=4.2,
+xmin=-0.3, xmax=6.3,
 xtick style={color=black},
 y grid style={white!69.0196078431373!black},
-ymin=4011410000, ymax=439540790000,
+ymin=-12787840000, ymax=792325040000,
 ytick style={color=black}
 ]
 \addplot [semithick, color0]
@@ -81,6 +90,8 @@ table {%
 2 133565000000
 3 250223000000
 4 419744000000
+5 580789000000
+6 755729000000
 };
 \end{groupplot}
 
