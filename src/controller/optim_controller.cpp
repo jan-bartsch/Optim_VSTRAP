@@ -36,7 +36,7 @@ void optim_controller::start_optimizer(int argc, const char **argv)
 
     std::chrono::time_point<std::chrono::system_clock> end_optim = std::chrono::system_clock::now();
     logger::Info("Optimization took: " + std::to_string(std::chrono::duration_cast<std::chrono::minutes>
-                                                              (end_optim-start_optim).count()) + " minutes");
+                                                        (end_optim-start_optim).count()) + " minutes");
 
     if (optim_flag == 0) {
         logger::Info("Optimization ended without errors");
@@ -118,8 +118,8 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
     std::unordered_map<coordinate_phase_space_time,double> forwardPDF;
     std::vector<std::vector<particle>> backwardParticles(ntimesteps_gp);
     std::unordered_map<coordinate_phase_space_time,double> backwardPDF;
-    arma::mat gradient(static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second),2,arma::fill::zeros);
-    arma::mat stepDirection(static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second),2,arma::fill::zeros);
+    arma::mat gradient(static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second),3,arma::fill::zeros);
+    arma::mat stepDirection(static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second),3,arma::fill::zeros);
     double value_objective = 0.0;
     int stepsize_flag;
     double norm_Gradient = 0.0;
@@ -129,7 +129,6 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
     unsigned int optimizationIteration_max_gp = static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second);
 
     for(unsigned int r = 0; r < optimizationIteration_max_gp; r++) {
-
 
         logger::Info("Starting VSTRAP (foward)... ");
         forward_return = system(&START_VSTRAP_FORWARD[0]);
@@ -179,16 +178,30 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
 
 
 
-        if (fmod(r,calculation_functional) == 0.0) {
+        if (calculation_functional == 0) {
+            logger::Info("No calculation of functional");
+        }
+        else if (fmod(r,calculation_functional) == 0.0) {
             logger::Info("Calculating functional...");
             value_objective = objective.calculate_objective_L2(forwardPDF,control);
             outDiag.writeDoubleToFile(value_objective,"objectiveTrack");
         }
 
+        //        forward_return = system(&START_VSTRAP_FORWARD[0]);
+        //        if (forward_return != 0) {
+        //            logger::Info("Forward VSTRAP returned non-zero value: " + std::to_string(forward_return));
+        //            throw  std::system_error();
+        //        }
+        //        for(unsigned int k = 1; k<=ntimesteps_gp; k++) {
+        //            forwardParticles[k-1] = input::readParticleVector(BUILD_DIRECTORY_OPTIM+"plasma_state_batch_1_forward_particles_CPU_"+std::to_string(k)+".csv",",");
+        //        }
+        //        forwardPDF = pdf_control.assemblingMultiDim(forwardParticles,0);
+        //        double value_objective2 = objective.calculate_objective_L2(forwardPDF,control);
+
         logger::Info("Building gradient...");
         gradient = gradient_calculator_opt.calculateGradient_forceControl_space_L2(forwardPDF,backwardPDF,control);
         outDiag.writeDoubleToFile(arma::norm(gradient,"fro"),"normGradientTrack");
-        outDiag.writeGradientToFile(gradient,"not_working_gradient_"+std::to_string(r));
+        outDiag.writeGradientToFile(gradient,"gradient_"+std::to_string(r));
 
 
 
@@ -210,19 +223,11 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
             return 1;
         }
 
-
-        //control = control + stepsize*stepDirection;
-
         outController.writeControl_XML(control);
         outDiag.writeDoubleToFile(arma::norm(control,"fro"),"normControlTrack");
         std::string interpolating_control_python = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " + PATH_TO_SHARED_FILES + "box_coarse.xml" +
                 " " + PATH_TO_SHARED_FILES + "control_field_cells.xml" + " " + PATH_TO_SHARED_FILES + "interpolated_control_field.xml";
         system(&interpolating_control_python[0]);
-
-//        outController.writeControl_XML(pow(10,-4)*control);
-//        std::string interpolating_control_python_adjoint = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " + PATH_TO_SHARED_FILES + "box_coarse.xml" +
-//                " " + PATH_TO_SHARED_FILES + "control_field_cells.xml" + " " + PATH_TO_SHARED_FILES + "interpolated_control_field_adjoint.xml";
-//        system(&interpolating_control_python_adjoint[0]);
 
 
         logger::Info("Starting " + std::to_string(r+1) + " iteration");

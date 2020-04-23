@@ -9,21 +9,15 @@ tick align=outside,
 tick pos=left,
 title={History of convergence of relative value of objective},
 x grid style={white!69.0196078431373!black},
-xmin=-0.3, xmax=6.3,
+xmin=-0.055, xmax=0.055,
 xtick style={color=black},
 y grid style={white!69.0196078431373!black},
-ymin=-1.00082465161238, ymax=-0.999960730875601,
+ymin=-1.055, ymax=-0.945,
 ytick style={color=black}
 ]
 \addplot [semithick, color0]
 table {%
 0 -1
-1 -1.00042289826276
-2 -1.00033563354187
-3 -1.00045646161695
-4 -1.00041618559192
-5 -1.00055043900867
-6 -1.00078538248798
 };
 
 \nextgroupplot[
@@ -31,21 +25,15 @@ tick align=outside,
 tick pos=left,
 title={Norm relative gradient},
 x grid style={white!69.0196078431373!black},
-xmin=-0.3, xmax=6.3,
+xmin=-0.055, xmax=0.055,
 xtick style={color=black},
 y grid style={white!69.0196078431373!black},
-ymin=0.805005665979736, ymax=1.28443552975715,
+ymin=0.945, ymax=1.055,
 ytick style={color=black}
 ]
 \addplot [semithick, color0]
 table {%
 0 1
-1 1.26264326322181
-2 1.1649158709591
-3 0.826797932515073
-4 0.832659950368886
-5 1.07033465141076
-6 0.847348464925912
 };
 
 \nextgroupplot[
@@ -53,20 +41,15 @@ tick align=outside,
 tick pos=left,
 title={Norm control},
 x grid style={white!69.0196078431373!black},
-xmin=-0.25, xmax=5.25,
+xmin=-0.055, xmax=0.055,
 xtick style={color=black},
 y grid style={white!69.0196078431373!black},
-ymin=0.52666335, ymax=1.79812365,
+ymin=0.18459441, ymax=0.20608159,
 ytick style={color=black}
 ]
 \addplot [semithick, color0]
 table {%
-0 0.584457
-1 0.588826
-2 1.1396
-3 1.16203
-4 1.60172
-5 1.74033
+0 0.195338
 };
 
 \nextgroupplot[
@@ -74,20 +57,15 @@ tick align=outside,
 tick pos=left,
 title={Wasserstein distance (pre/post linesearch)},
 x grid style={white!69.0196078431373!black},
-xmin=-0.25, xmax=5.25,
+xmin=-0.055, xmax=0.055,
 xtick style={color=black},
 y grid style={white!69.0196078431373!black},
-ymin=87942505000, ymax=91075195000,
+ymin=23125095000, ymax=25816905000,
 ytick style={color=black}
 ]
 \addplot [semithick, color0]
 table {%
-0 88084900000
-1 88849300000
-2 90932800000
-3 89178600000
-4 90015600000
-5 88919200000
+0 24471000000
 };
 \end{groupplot}
 

@@ -104,7 +104,7 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
             forwardParticles[k-1] = input::readParticleVector(BUILD_DIRECTORY_OPTIM+"plasma_state_batch_1_forward_particles_CPU_"+std::to_string(k)+".csv",",");
         }
         forwardPDF = pdf_control.assemblingMultiDim(forwardParticles,0);
-        Jtemp = objective.calculate_objective_L2(forwardPDF,control+alpha*control);
+        Jtemp = objective.calculate_objective_L2(forwardPDF,control0 + alpha*stepdirection);
     }
 
     while (Jtemp > J0 + scalarProduct*armijo_descent_fraction && alpha > tolerance
@@ -112,9 +112,7 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
         alpha = pow(1.0,counter)*0.5*alpha;
 
         control = control0 + alpha*stepdirection;
-        outController.writeControl_XML(control);
-        std::string interpolating_control_python = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " + PATH_TO_SHARED_FILES + "box_coarse.xml" +
-                " " + PATH_TO_SHARED_FILES + "control_field_cells.xml" + " " + PATH_TO_SHARED_FILES + "interpolated_control_field.xml";
+        outController.writeControl_XML(control0 + alpha*stepdirection);
         system(&interpolating_control_python[0]);
 
         forward_return = system(&START_VSTRAP_FORWARD[0]);
@@ -124,7 +122,7 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
                 forwardParticles[k-1] = input::readParticleVector(BUILD_DIRECTORY_OPTIM+"plasma_state_batch_1_forward_particles_CPU_"+std::to_string(k)+".csv",",");
             }
             forwardPDF = pdf_control.assemblingMultiDim(forwardParticles,0);
-            Jtemp = objective.calculate_objective_L2(forwardPDF,control+alpha*stepdirection);
+            Jtemp = objective.calculate_objective_L2(forwardPDF,control0 + alpha*stepdirection);
         }
 
         std::cout << "Armijo: " << "Jtemp = " << Jtemp << std::endl
@@ -138,9 +136,7 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
     if (alpha < tolerance) {
         //Calculate with old control
         control = control0;
-        outController.writeControl_XML(control);
-        std::string interpolating_control_python = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " + PATH_TO_SHARED_FILES + "box_coarse.xml" +
-                " " + PATH_TO_SHARED_FILES + "control_field_cells.xml" + " " + PATH_TO_SHARED_FILES + "interpolated_control_field.xml";
+        outController.writeControl_XML(control0);
         system(&interpolating_control_python[0]);
 
         forward_return = system(&START_VSTRAP_FORWARD[0]);
@@ -158,6 +154,7 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
     std::cout << "Wasserstein distance: " << wasserstein_distance << std::endl;
     outDiag.writeDoubleToFile(alpha,"stepsizeTrack");
     outDiag.writeDoubleToFile(wasserstein_distance,"wassersteinDistanceTrack");
+
     return return_flag;
 }
 
