@@ -12,7 +12,7 @@ void optim_controller::start_optimizer(int argc, const char **argv)
 
     logger::Info("Starting optimizer...");
 
-    arma::mat control(64,3,arma::fill::zeros);
+    arma::mat control(512,3,arma::fill::zeros);
     std::string current_directory(get_current_dir_name());
     std::string input_directory;
     const char * input_xml_path;
@@ -32,7 +32,7 @@ void optim_controller::start_optimizer(int argc, const char **argv)
 
     std::chrono::time_point<std::chrono::system_clock> start_optim = std::chrono::system_clock::now();
 
-    int optim_flag = optim_controller::start_optimization_iteration(control,input_xml_path);
+     int optim_flag = optim_controller::start_optimization_iteration(control,input_xml_path);
 
     std::chrono::time_point<std::chrono::system_clock> end_optim = std::chrono::system_clock::now();
     logger::Info("Optimization took: " + std::to_string(std::chrono::duration_cast<std::chrono::minutes>
