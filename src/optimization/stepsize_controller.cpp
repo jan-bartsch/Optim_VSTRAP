@@ -47,6 +47,8 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
     std::string DIRECTORY_TOOLSET = paths.find("DIRECTORY_TOOLSET")->second;
 
     std::string PATH_TO_SHARED_FILES = paths.find("PATH_TO_SHARED_FILES")->second;
+    std::string DOMAIN_MESH = paths.find("DOMAIN_MESH")->second;
+
 
     std::string START_VSTRAP_FORWARD = BUILD_DIRECTORY_VSTRAP + "vstrap" + " " + PATH_TO_SHARED_FILES + "input_forward.xml";
 
@@ -77,7 +79,7 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
     double wasserstein_distance;
 
     outController.writeControl_XML(control);
-    std::string interpolating_control_python = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " + PATH_TO_SHARED_FILES + "box_coarse.xml" +
+    std::string interpolating_control_python = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " + DOMAIN_MESH +
             " " + PATH_TO_SHARED_FILES + "control_field_cells.xml" + " " + PATH_TO_SHARED_FILES + "interpolated_control_field.xml";
     system(&interpolating_control_python[0]);
 

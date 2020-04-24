@@ -36,6 +36,7 @@
         <path name="PATH_TO_SHARED_FILES" value="../../Optim_VSTRAP/data/box_shifting/" />
 	<path name="BARYCENTERS_MESH" value="../../Optim_VSTRAP/data/box_shifting/mesh_barycenters.xml" />
         <path name="DIRECTORY_TOOLSET" value="../../optim-vstrap-toolset/toolset/" />
+	<path name="DOMAIN_MESH" value="../../Optim_VSTRAP/data/box_shifting/box_vol_regular_refined.xml" />
     </paths>
 
     <subroutines>

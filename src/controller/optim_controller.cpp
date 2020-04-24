@@ -83,6 +83,7 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
     std::string DIRECTORY_TOOLSET = paths.find("DIRECTORY_TOOLSET")->second;
 
     std::string PATH_TO_SHARED_FILES = paths.find("PATH_TO_SHARED_FILES")->second;
+    std::string DOMAIN_MESH = paths.find("DOMAIN_MESH")->second;
 
 
     std::string START_VSTRAP_FORWARD = BUILD_DIRECTORY_VSTRAP + "vstrap" + " " + PATH_TO_SHARED_FILES + "input_forward.xml";
@@ -95,7 +96,7 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
     if(zero_control == 0) {
         logger::Info("Starting with zero control");
         outController.writeControl_XML(control);
-        std::string interpolating_control_python = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " + PATH_TO_SHARED_FILES + "box_coarse.xml" +
+        std::string interpolating_control_python = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " + DOMAIN_MESH +
                 " " + PATH_TO_SHARED_FILES + "control_field_cells.xml" + " " + PATH_TO_SHARED_FILES + "interpolated_control_field.xml";
         system(&interpolating_control_python[0]);
     } else {
@@ -103,7 +104,7 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
         std::string READ_CONTROL = PATH_TO_SHARED_FILES + "control_field_cells_optimal.xml";
         control = input::readControl(&READ_CONTROL[0]);
         outController.writeControl_XML(fraction_of_optimal_control*control);
-        std::string interpolating_control_python = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " + PATH_TO_SHARED_FILES + "box_coarse.xml" +
+        std::string interpolating_control_python = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " + DOMAIN_MESH +
                 " " + PATH_TO_SHARED_FILES + "control_field_cells.xml" + " " + PATH_TO_SHARED_FILES + "interpolated_control_field.xml";
         system(&interpolating_control_python[0]);
         std::cout << control << std::endl;
@@ -225,7 +226,7 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
 
         outController.writeControl_XML(control);
         outDiag.writeDoubleToFile(arma::norm(control,"fro"),"normControlTrack");
-        std::string interpolating_control_python = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " + PATH_TO_SHARED_FILES + "box_coarse.xml" +
+        std::string interpolating_control_python = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " + DOMAIN_MESH +
                 " " + PATH_TO_SHARED_FILES + "control_field_cells.xml" + " " + PATH_TO_SHARED_FILES + "interpolated_control_field.xml";
         system(&interpolating_control_python[0]);
 
