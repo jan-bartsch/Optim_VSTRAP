@@ -21,7 +21,7 @@
         <parameter name="sigma_x_gp" value="2" />
         <parameter name="sigma_v_gp" value="10" />
 	<parameter name="start_zero_control" value="0" />		<!-- 0=true, 1=false -->
-        <parameter name="tolerance_gp" value="1e-13" />
+        <parameter name="tolerance_gp" value="1e-14" />
         <parameter name="tolerance_relaxation_gp" value="1e-8" />
         <parameter name="vcell_gp" value="6" />
         <parameter name="vmax_gp" value="3000" />                           <!-- maximal velocity (support of forward equaiton) -->

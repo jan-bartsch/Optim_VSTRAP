@@ -217,11 +217,11 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
         if (stepsize_flag == 1) {
             std::string small_stepsize = "Linesearch returned too small stepsize; Found minimum after " + std::to_string(r+1) + " iterations";
             logger::Info(small_stepsize);
-            return 0;
+            //return 0;
         } else if (stepsize_flag == 2) {
             std::string iteration_depth_reached = "Linesearch reached maximum iteration depth ("
                     + std::to_string(optimizationIteration_max_gp) + "), try to increase tolerance_gp";
-            return 1;
+            //return 1;
         }
 
         outController.writeControl_XML(control);
