@@ -15,13 +15,13 @@
         <parameter name="dt_gp" value="1e-5" />                             <!-- discretization size time -->
         <parameter name="dv_gp" value="1000.0" />                              <!-- discretization size velocity -->
         <parameter name="numberParticles_gp" value="1000" />
-        <parameter name="ntimesteps_gp" value="50" />
+        <parameter name="ntimesteps_gp" value="40" />
         <parameter name="pcell_gp" value="512" />
         <parameter name="pmax_gp" value="0.5" />
         <parameter name="sigma_x_gp" value="2" />
         <parameter name="sigma_v_gp" value="10" />
 	<parameter name="start_zero_control" value="0" />		<!-- 0=true, 1=false -->
-        <parameter name="tolerance_gp" value="1e-14" />
+        <parameter name="tolerance_gp" value="1e-10" />
         <parameter name="tolerance_relaxation_gp" value="1e-8" />
         <parameter name="vcell_gp" value="6" />
         <parameter name="vmax_gp" value="3000" />                           <!-- maximal velocity (support of forward equaiton) -->

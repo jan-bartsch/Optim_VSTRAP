@@ -32,7 +32,7 @@ void optim_controller::start_optimizer(int argc, const char **argv)
 
     std::chrono::time_point<std::chrono::system_clock> start_optim = std::chrono::system_clock::now();
 
-     int optim_flag = optim_controller::start_optimization_iteration(control,input_xml_path);
+    int optim_flag = optim_controller::start_optimization_iteration(control,input_xml_path);
 
     std::chrono::time_point<std::chrono::system_clock> end_optim = std::chrono::system_clock::now();
     logger::Info("Optimization took: " + std::to_string(std::chrono::duration_cast<std::chrono::minutes>
@@ -160,24 +160,26 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
 
         start = std::chrono::system_clock::now();
         logger::Info("Assembling pdfs...");
-        //        t1 = std::thread(optim_controller::assemblePDF_thread,std::ref(forwardParticles),std::ref(forwardPDF),0,data_provider_opt);
-        //        t2 = std::thread(optim_controller::assemblePDF_thread,std::ref(backwardParticles),std::ref(backwardPDF),1,data_provider_opt);
-        //        t1.join();
-        //        t2.join();
+        // t1 = std::thread(optim_controller::assemblePDF_thread,std::ref(forwardParticles),std::ref(forwardPDF),0,data_provider_opt);
+        //t2 = std::thread(optim_controller::assemblePDF_thread,std::ref(backwardParticles),std::ref(backwardPDF),1,data_provider_opt);
+        //t1.join();
+        //t2.join();
 
-        //std::future<std::unordered_map<coordinate_phase_space_time,double>>
 
-        //std::future<std::unordered_map<coordinate_phase_space_time,double>> forward_thread =
-        //        std::async(std::launch::async,optim_controller::assemblePDF_thread,forwardParticles,0,data_provider_opt);
+        std::future<std::unordered_map<coordinate_phase_space_time,double>> forward_thread =
+                std::async(std::launch::async,optim_controller::assemblePDF_thread,std::ref(forwardParticles),0,data_provider_opt);
+        std::future<std::unordered_map<coordinate_phase_space_time,double>> backward_thread =
+                std::async(std::launch::async,optim_controller::assemblePDF_thread,std::ref(backwardParticles),0,data_provider_opt);
 
-        forwardPDF = pdf_control.assemblingMultiDim(forwardParticles,0);
-        backwardPDF = pdf_control.assemblingMultiDim(backwardParticles,1);
+        forwardPDF = forward_thread.get();
+        backwardPDF = backward_thread.get();
+
+        //        forwardPDF = pdf_control.assemblingMultiDim(forwardParticles,0);
+        //        backwardPDF = pdf_control.assemblingMultiDim(backwardParticles,1);
 
         end = std::chrono::system_clock::now();
         logger::Info("Assembling of pdfs took: " + std::to_string(std::chrono::duration_cast<std::chrono::seconds>
                                                                   (end-start).count()) + " seconds");
-
-
 
         if (calculation_functional == 0) {
             logger::Info("No calculation of functional");
@@ -199,11 +201,11 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
         //        forwardPDF = pdf_control.assemblingMultiDim(forwardParticles,0);
         //        double value_objective2 = objective.calculate_objective_L2(forwardPDF,control);
 
+
         logger::Info("Building gradient...");
         gradient = gradient_calculator_opt.calculateGradient_forceControl_space_L2(forwardPDF,backwardPDF,control);
         outDiag.writeDoubleToFile(arma::norm(gradient,"fro"),"normGradientTrack");
         outDiag.writeGradientToFile(gradient,"gradient_"+std::to_string(r));
-
 
 
         norm_Gradient = arma::norm(gradient,"fro");

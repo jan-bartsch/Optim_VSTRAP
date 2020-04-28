@@ -10,14 +10,6 @@ std::unordered_map<coordinate_phase_space_time, double> pdf_controller::assembli
     std::unordered_map<coordinate_phase_space_time,double> pdf;
 
 
-    double px,py,pz,vx,vy,vz;
-    std::vector<particle> particles;
-    coordinate_phase_space_time coordinate;
-
-    int binNumberPx, binNumberPy, binNumberPz, binNumberVx, binNumberVy, binNumberVz;
-    int binNumberTime;
-    int cell_id;
-
     double scaling = 1.0;
 
     unsigned int ntimesteps_gp = static_cast<unsigned int>(this->getData_provider_optim().getOptimizationParameters().find("ntimesteps_gp")->second);
@@ -30,6 +22,13 @@ std::unordered_map<coordinate_phase_space_time, double> pdf_controller::assembli
     std::vector<double> sizeParticles(ntimesteps_gp);
 
     for(unsigned int k = 0; k < ntimesteps_gp; k++) {
+        double px,py,pz,vx,vy,vz;
+        std::vector<particle> particles;
+        coordinate_phase_space_time coordinate;
+
+        int binNumberPx, binNumberPy, binNumberPz, binNumberVx, binNumberVy, binNumberVz;
+        int binNumberTime;
+        int cell_id;
         //std::cout << "Assembling for equation_type " << equationType << std::endl;
         particles = particlesTime[k];
         sizeParticles[k] = particles.size();
