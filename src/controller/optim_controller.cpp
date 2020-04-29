@@ -12,7 +12,7 @@ void optim_controller::start_optimizer(int argc, const char **argv)
 
     logger::Info("Starting optimizer...");
 
-    arma::mat control(512,3,arma::fill::zeros);
+    arma::mat control(64,3,arma::fill::zeros);
     std::string current_directory(get_current_dir_name());
     std::string input_directory;
     const char * input_xml_path;
