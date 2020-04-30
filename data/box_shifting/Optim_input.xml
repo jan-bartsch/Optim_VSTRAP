@@ -7,7 +7,7 @@
 	<parameter name="calculation_functional" value="1" />
         <parameter name="C_theta_gp" value="1e+20" />
         <parameter name="C_phi_gp" value="1e+20" />
-        <parameter name="dimensionOfControl_gp" value="64" />               <!-- number of elements of the control -->
+        <parameter name="dimensionOfControl_gp" value="512" />               <!-- number of elements of the control -->
         <parameter name="fixed_gradient_descent_stepsize" value="5e-1" />
 	<parameter name="fraction_of_optimal_control" value="1e-5" />
         <parameter name="optimizationIteration_max_gp" value="100" />       <!-- number of maximal interations -->  
@@ -16,7 +16,7 @@
         <parameter name="dv_gp" value="1000.0" />                              <!-- discretization size velocity -->
         <parameter name="numberParticles_gp" value="1000" />
         <parameter name="ntimesteps_gp" value="50" />
-        <parameter name="pcell_gp" value="64" />
+        <parameter name="pcell_gp" value="512" />
         <parameter name="pmax_gp" value="0.5" />
         <parameter name="sigma_x_gp" value="2" />
         <parameter name="sigma_v_gp" value="10" />
@@ -34,9 +34,9 @@
         <path name="BUILD_DIRECTORY_VSTRAP" value="/home/jan/Promotion_linuxPC/build-vstrap/src/" />
         <path name="BUILD_DIRECTORY_OPTIM" value="/home/jan/Promotion_linuxPC/build/src/" />
         <path name="PATH_TO_SHARED_FILES" value="../../Optim_VSTRAP/data/box_shifting/" />
-	<path name="BARYCENTERS_MESH" value="../../Optim_VSTRAP/data/box_shifting/mesh_barycenters.xml" />
+	<path name="BARYCENTERS_MESH" value="../../Optim_VSTRAP/data/box_shifting/mesh_barycenters_512.xml" />
         <path name="DIRECTORY_TOOLSET" value="../../optim-vstrap-toolset/toolset/" />
-	<path name="DOMAIN_MESH" value="../../Optim_VSTRAP/data/box_shifting/box_coarse.xml" />
+	<path name="DOMAIN_MESH" value="../../Optim_VSTRAP/data/box_shifting/box_coarse_512.xml" />
     </paths>
 
     <subroutines>

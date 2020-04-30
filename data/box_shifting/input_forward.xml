@@ -5,7 +5,7 @@
 	<executables>
 		<executable name="mesh_initializer" mode="CPU">
 			<mesh name="vol_mesh">
-				<load>./box_coarse.xml</load>
+				<load>./box_coarse_512.xml</load>
 			</mesh>
 		</executable>
 		<executable name="particle_initializer" mode="CPU">
