@@ -12,7 +12,7 @@ void optim_controller::start_optimizer(int argc, const char **argv)
 
     logger::Info("Starting optimizer...");
 
-    arma::mat control(512,3,arma::fill::zeros);
+    arma::mat control(64,3,arma::fill::zeros);
     std::string current_directory(get_current_dir_name());
     std::string input_directory;
     const char * input_xml_path;
@@ -66,10 +66,6 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
     std::map<std::string, double> optimizationParameters = data_provider_opt.getOptimizationParameters();
     std::map<std::string, std::string> paths = data_provider_opt.getPaths();
     std::map<std::string,std::string> subroutines = data_provider_opt.getSubroutines();
-
-    std::thread t1;
-    std::thread t2;
-
 
     unsigned int ntimesteps_gp = static_cast<unsigned int>(optimizationParameters.find("ntimesteps_gp")->second);
     bool zero_control = static_cast<bool>(optimizationParameters.find("start_zero_control")->second);
@@ -125,7 +121,7 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
     int stepsize_flag;
     double norm_Gradient = 0.0;
 
-    std::chrono::time_point<std::chrono::system_clock> start, end;
+    std::chrono::time_point<std::chrono::system_clock> start, end, end1;
 
     unsigned int optimizationIteration_max_gp = static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second);
 
@@ -174,12 +170,19 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
         forwardPDF = forward_thread.get();
         backwardPDF = backward_thread.get();
 
-        //        forwardPDF = pdf_control.assemblingMultiDim(forwardParticles,0);
-        //        backwardPDF = pdf_control.assemblingMultiDim(backwardParticles,1);
+        end1 = std::chrono::system_clock::now();
 
-        end = std::chrono::system_clock::now();
-        logger::Info("Assembling of pdfs took: " + std::to_string(std::chrono::duration_cast<std::chrono::seconds>
-                                                                  (end-start).count()) + " seconds");
+        logger::Info("Assembling of pdfs (parallel) took: " + std::to_string(std::chrono::duration_cast<std::chrono::seconds>
+                                                                  (end1-start).count()) + " seconds");
+
+//        start = std::chrono::system_clock::now();
+
+//        forwardPDF = pdf_control.assemblingMultiDim(forwardParticles,0);
+//        backwardPDF = pdf_control.assemblingMultiDim(backwardParticles,1);
+
+//        end = std::chrono::system_clock::now();
+//        logger::Info("Assembling of pdfs took: " + std::to_string(std::chrono::duration_cast<std::chrono::seconds>
+//                                                                  (end-start).count()) + " seconds");
 
         if (calculation_functional == 0) {
             logger::Info("No calculation of functional");

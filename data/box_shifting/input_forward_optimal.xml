@@ -17,11 +17,6 @@
 				<v_drift x_val="0" y_val="0" z_val="0"/>
 			</group>
 		</executable>
-	<!--executable name="particle_initializer" mode="CPU"> 
-			    <group name="forward_particles"> 
-				<load>./plasma_state_batch_1_forward_particles_CPU_50.csv</load> 
-			    </group> 
-	</executable-->
         <executable name="pwi" mode="CPU">
             <boundary_type name="cuboid"/>
             <geometry x_min="-0.5" x_max="0.5" y_min="-0.5" y_max="0.5" z_min="-0.5" z_max="0.5"/>
@@ -30,7 +25,7 @@
 		<executable name="bgf" mode="CPU">
 			<volume_mesh name="vol_mesh"/>
 			<!--field name="bem_e_field" type="bem_electric_field" mesh_points="mesh_points" load_freq="1"/--> 
-			<load>./interpolated_control_field.xml</load>
+			<load>./interpolated_control_field_optimal.xml</load>
 			<particle_batch>
 				<!--field name="bem_e_field"/-->
 				<field name="interpolated_control_field"/>
@@ -52,7 +47,7 @@
 		</executable>
 	</executables>
 	<abort_criterium>
-		<max_itterations value="50"/>
+		<max_itterations value="500"/>
 	</abort_criterium>
 	<schedule>
 		<init>
