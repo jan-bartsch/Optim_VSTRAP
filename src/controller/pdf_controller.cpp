@@ -76,6 +76,86 @@ std::unordered_map<coordinate_phase_space_time, double> pdf_controller::assembli
 
 }
 
+std::unordered_map<coordinate_phase_space_time, double> pdf_controller::assemblingMultiDim_parallel(std::vector<std::vector<particle>> &particlesTime, unsigned int equationType)
+{
+    unsigned int ntimesteps_gp = static_cast<unsigned int>(this->getData_provider_optim().getOptimizationParameters().find("ntimesteps_gp")->second);
+    double vmax_gp = this->getData_provider_optim().getOptimizationParameters().find("vmax_gp")->second;
+
+    double dv_gp = this->getData_provider_optim().getOptimizationParameters().find("dv_gp")->second;
+    double vcell_gp = this->getData_provider_optim().getOptimizationParameters().find("vcell_gp")->second;
+
+    std::unordered_map<coordinate_phase_space_time,double> pdf;
+
+    std::vector<std::unordered_map<coordinate_phase_space_time,double>> pdf_time(ntimesteps_gp);
+
+    std::vector<double> sizeParticles(ntimesteps_gp);
+
+    int numberThreadsTBB = tbb::task_scheduler_init::default_num_threads();
+    int usedThreads = numberThreadsTBB;
+
+    if(numberThreadsTBB > static_cast<int>(ntimesteps_gp)) {
+        usedThreads = static_cast<int>(ntimesteps_gp);
+    }
+    tbb::task_scheduler_init init(usedThreads);
+
+    std::cout << "Using " <<  usedThreads << " threads for assembling pdfs" << std::endl;
+
+    tbb::parallel_for(static_cast<unsigned int> (0), ntimesteps_gp , [&]( unsigned int o ) {
+        //for(unsigned int o=0; o<ntimesteps_gp; o++) {
+        std::cout << "Assembling pdf in timestep " << o << std::endl;
+        double px,py,pz,vx,vy,vz;
+        std::vector<particle> particles;
+        coordinate_phase_space_time coordinate;
+
+        int binNumberVx, binNumberVy, binNumberVz;
+        int binNumberTime;
+        int cell_id;
+
+        particles = particlesTime[o];
+        sizeParticles[o] = particles.size();
+        for(unsigned int i = 0; i < particles.size(); i++) {
+            px = particles[i].getPx(); py = particles[i].getPy(); pz = particles[i].getPz();
+            vx = particles[i].getVx(); vy = particles[i].getVy(); vz = particles[i].getVz();
+
+            if (sqrt(vx*vx+vy*vy+vz*vz) <= vmax_gp ) { //else not needed
+
+                binNumberTime = static_cast<int>(o);
+
+                cell_id = particles[i].getCell_id();
+
+                binNumberVx = static_cast<int>(std::floor(vx/dv_gp)) +  static_cast<int>(std::floor((vcell_gp/2.0))); //adding what is left of zero
+                binNumberVy = static_cast<int>(std::floor(vy/dv_gp)) +  static_cast<int>(std::floor((vcell_gp/2.0)));
+                binNumberVz = static_cast<int>(std::floor(vz/dv_gp)) +  static_cast<int>(std::floor((vcell_gp/2.0)));
+
+                coordinate = coordinate_phase_space_time(cell_id,binNumberVx,binNumberVy,binNumberVz,binNumberTime);
+
+                if (pdf_time[o].find(coordinate) == pdf_time[o].end()) {
+                    pdf_time[o].insert(std::pair<coordinate_phase_space_time,double>(coordinate,1.0));
+                } else {
+                    pdf_time[o][coordinate]++;
+                }
+            } else {
+                // std::cout << "Particle " + std::to_string(i) + " exceeding velocity bound" << std::endl;
+            }
+        }
+    });
+
+//    std::vector<std::unordered_map<coordinate_phase_space_time,double>> pdf_time_merged(ntimesteps_gp/usedThreads +1);
+
+//    tbb::parallel_for(static_cast<unsigned int> (0), ntimesteps_gp/usedThreads +1 , [&]( unsigned int o ) {
+//        pdf_time_merged[o]
+//    }
+
+    for(unsigned int o= 0; o<ntimesteps_gp; o++) {
+       pdf.insert(pdf_time[o].begin(),pdf_time[o].end());
+    }
+
+
+
+    return pdf;
+
+}
+
 std::vector<std::vector<std::vector<std::vector<double>>>> pdf_controller::relaxating_GaussSeidel_4D(std::vector<std::vector<std::vector<std::vector<double>>>> pdf,
                                                                                                      unsigned int numberOfRelaxationSteps)
 {
@@ -147,10 +227,10 @@ double pdf_controller::calculate_wasserstein_metric(std::vector<std::vector<part
         for(unsigned int p = 0; p<numberParticles; p++) {
             wasserstein_value += pow(dist1[o][p].getPx()-dist2[o][p].getPx(),2.0) +
                     pow(dist1[o][p].getPy()-dist2[o][p].getPy(),2.0)+
-                     pow(dist1[o][p].getPz()-dist2[o][p].getPz(),2.0)+
-                     pow(dist1[o][p].getVx()-dist2[o][p].getVx(),2.0)+
-                     pow(dist1[o][p].getVx()-dist2[o][p].getVx(),2.0)+
-                     pow(dist1[o][p].getVx()-dist2[o][p].getVx(),2.0);
+                    pow(dist1[o][p].getPz()-dist2[o][p].getPz(),2.0)+
+                    pow(dist1[o][p].getVx()-dist2[o][p].getVx(),2.0)+
+                    pow(dist1[o][p].getVx()-dist2[o][p].getVx(),2.0)+
+                    pow(dist1[o][p].getVx()-dist2[o][p].getVx(),2.0);
         }
     }
 

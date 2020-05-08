@@ -4,6 +4,10 @@
 #include <unordered_map>
 #include <vector>
 
+#include <tbb/tbb.h>
+#include <tbb/parallel_for.h>
+#include <tbb/blocked_range.h>
+
 #include "../objects/coordinate_phase_space_time.h"
 #include "../objects/particle.h"
 
@@ -16,6 +20,9 @@ public:
 
 
     std::unordered_map<coordinate_phase_space_time,double> assemblingMultiDim(std::vector<std::vector<particle> > &particlesTime, unsigned int equationType);
+
+    std::unordered_map<coordinate_phase_space_time,double> assemblingMultiDim_parallel(std::vector<std::vector<particle> > &particlesTime, unsigned int equationType);
+
 
     std::vector<std::vector<std::vector<std::vector<double>>>> relaxating_GaussSeidel_4D(std::vector<std::vector<std::vector<std::vector<double>>>> pdf,
                                                                                          unsigned int numberOfRelaxationSteps);
