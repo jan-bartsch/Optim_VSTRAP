@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.3)
 project(Optim_VSTRAP_CMAKE)
 
 set(CMAKE_CXX_STANDARD 11)
-
+set(CMAKE_BUILD_TYPE DEBUG)
 
 SET(CMAKE_INCLUDE_PATH ${CMAKE_INCLUDE_PATH} "/home/bartsch/include/boost_1_72_0/boost/builddirectory/include")
 SET(CMAKE_LIBRARY_PATH ${CMAKE_LIBRARY_PATH} "/home/bartsch/include/boost_1_72_0/boost/builddirectory/lib")

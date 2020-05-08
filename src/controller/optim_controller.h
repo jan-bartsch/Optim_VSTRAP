@@ -6,6 +6,8 @@
 #include <string>
 #include <exception>
 
+#include <future>
+
 #include <iostream>
 
 
@@ -32,9 +34,10 @@ public:
     static void start_optimizer(int argc, const char** argv);
     static int start_optimization_iteration(arma::mat &control, const char * input_xml_path);
 
-    std::shared_ptr<data_provider> getData_provider() const;
-    void setData_provider(const std::shared_ptr<data_provider> &value);
+   // static void assemblePDF_thread(std::vector<std::vector<particle>> &particles, std::unordered_map<coordinate_phase_space_time,double> &particlePDF);
+   static std::unordered_map<coordinate_phase_space_time,double> assemblePDF_thread(std::vector<std::vector<particle>> &particles, unsigned int equation_type, data_provider data_provider_);
 
+   static int test(int testing);
 
 };
 

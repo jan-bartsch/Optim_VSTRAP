@@ -20,6 +20,7 @@
 class output_control_update : public abstract_controller
 {
 public:
+    output_control_update();
     output_control_update(const char *filename);
 
     /**

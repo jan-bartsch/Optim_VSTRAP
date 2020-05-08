@@ -1,0 +1,658 @@
+<mesh  type="Gmsh">
+
+<mesh  version_number ="2.2" file_type ="0" data_size ="8" mesh_type="volume_mesh"/>
+
+<physical_names number_of_names="1">
+
+<physical_name physical_dimension="3" physical_number="1" physical_name="Volume"/>
+
+</physical_names>
+
+<nodes number_of_nodes="125">
+
+<node node_number="1" x_coord="-500" y_coord="-500" z_coord="-500"/>
+<node node_number="2" x_coord="500" y_coord="-500" z_coord="-500"/>
+<node node_number="3" x_coord="500" y_coord="500" z_coord="-500"/>
+<node node_number="4" x_coord="-500" y_coord="500" z_coord="-500"/>
+<node node_number="5" x_coord="-500" y_coord="-500" z_coord="500"/>
+<node node_number="6" x_coord="500" y_coord="-500" z_coord="500"/>
+<node node_number="7" x_coord="500" y_coord="500" z_coord="500"/>
+<node node_number="8" x_coord="-500" y_coord="500" z_coord="500"/>
+<node node_number="9" x_coord="-250" y_coord="-500" z_coord="-500"/>
+<node node_number="10" x_coord="0" y_coord="-500" z_coord="-500"/>
+<node node_number="11" x_coord="250" y_coord="-500" z_coord="-500"/>
+<node node_number="12" x_coord="500" y_coord="-250" z_coord="-500"/>
+<node node_number="13" x_coord="500" y_coord="0" z_coord="-500"/>
+<node node_number="14" x_coord="500" y_coord="250" z_coord="-500"/>
+<node node_number="15" x_coord="250" y_coord="500" z_coord="-500"/>
+<node node_number="16" x_coord="0" y_coord="500" z_coord="-500"/>
+<node node_number="17" x_coord="-250" y_coord="500" z_coord="-500"/>
+<node node_number="18" x_coord="-500" y_coord="250" z_coord="-500"/>
+<node node_number="19" x_coord="-500" y_coord="0" z_coord="-500"/>
+<node node_number="20" x_coord="-500" y_coord="-250" z_coord="-500"/>
+<node node_number="21" x_coord="-250" y_coord="-500" z_coord="500"/>
+<node node_number="22" x_coord="0" y_coord="-500" z_coord="500"/>
+<node node_number="23" x_coord="250" y_coord="-500" z_coord="500"/>
+<node node_number="24" x_coord="500" y_coord="-250" z_coord="500"/>
+<node node_number="25" x_coord="500" y_coord="0" z_coord="500"/>
+<node node_number="26" x_coord="500" y_coord="250" z_coord="500"/>
+<node node_number="27" x_coord="250" y_coord="500" z_coord="500"/>
+<node node_number="28" x_coord="0" y_coord="500" z_coord="500"/>
+<node node_number="29" x_coord="-250" y_coord="500" z_coord="500"/>
+<node node_number="30" x_coord="-500" y_coord="250" z_coord="500"/>
+<node node_number="31" x_coord="-500" y_coord="0" z_coord="500"/>
+<node node_number="32" x_coord="-500" y_coord="-250" z_coord="500"/>
+<node node_number="33" x_coord="-500" y_coord="-500" z_coord="-250"/>
+<node node_number="34" x_coord="-500" y_coord="-500" z_coord="0"/>
+<node node_number="35" x_coord="-500" y_coord="-500" z_coord="250"/>
+<node node_number="36" x_coord="500" y_coord="-500" z_coord="-250"/>
+<node node_number="37" x_coord="500" y_coord="-500" z_coord="0"/>
+<node node_number="38" x_coord="500" y_coord="-500" z_coord="250"/>
+<node node_number="39" x_coord="500" y_coord="500" z_coord="-250"/>
+<node node_number="40" x_coord="500" y_coord="500" z_coord="0"/>
+<node node_number="41" x_coord="500" y_coord="500" z_coord="250"/>
+<node node_number="42" x_coord="-500" y_coord="500" z_coord="-250"/>
+<node node_number="43" x_coord="-500" y_coord="500" z_coord="0"/>
+<node node_number="44" x_coord="-500" y_coord="500" z_coord="250"/>
+<node node_number="45" x_coord="-250" y_coord="250" z_coord="-500"/>
+<node node_number="46" x_coord="-250" y_coord="0" z_coord="-500"/>
+<node node_number="47" x_coord="-250" y_coord="-250" z_coord="-500"/>
+<node node_number="48" x_coord="0" y_coord="250" z_coord="-500"/>
+<node node_number="49" x_coord="0" y_coord="0" z_coord="-500"/>
+<node node_number="50" x_coord="0" y_coord="-250" z_coord="-500"/>
+<node node_number="51" x_coord="250" y_coord="250" z_coord="-500"/>
+<node node_number="52" x_coord="250" y_coord="0" z_coord="-500"/>
+<node node_number="53" x_coord="250" y_coord="-250" z_coord="-500"/>
+<node node_number="54" x_coord="-250" y_coord="-250" z_coord="500"/>
+<node node_number="55" x_coord="-250" y_coord="0" z_coord="500"/>
+<node node_number="56" x_coord="-250" y_coord="250" z_coord="500"/>
+<node node_number="57" x_coord="0" y_coord="-250" z_coord="500"/>
+<node node_number="58" x_coord="0" y_coord="0" z_coord="500"/>
+<node node_number="59" x_coord="0" y_coord="250" z_coord="500"/>
+<node node_number="60" x_coord="250" y_coord="-250" z_coord="500"/>
+<node node_number="61" x_coord="250" y_coord="0" z_coord="500"/>
+<node node_number="62" x_coord="250" y_coord="250" z_coord="500"/>
+<node node_number="63" x_coord="-250" y_coord="-500" z_coord="-250"/>
+<node node_number="64" x_coord="-250" y_coord="-500" z_coord="0"/>
+<node node_number="65" x_coord="-250" y_coord="-500" z_coord="250"/>
+<node node_number="66" x_coord="0" y_coord="-500" z_coord="-250"/>
+<node node_number="67" x_coord="0" y_coord="-500" z_coord="0"/>
+<node node_number="68" x_coord="0" y_coord="-500" z_coord="250"/>
+<node node_number="69" x_coord="250" y_coord="-500" z_coord="-250"/>
+<node node_number="70" x_coord="250" y_coord="-500" z_coord="0"/>
+<node node_number="71" x_coord="250" y_coord="-500" z_coord="250"/>
+<node node_number="72" x_coord="500" y_coord="-250" z_coord="-250"/>
+<node node_number="73" x_coord="500" y_coord="-250" z_coord="0"/>
+<node node_number="74" x_coord="500" y_coord="-250" z_coord="250"/>
+<node node_number="75" x_coord="500" y_coord="0" z_coord="-250"/>
+<node node_number="76" x_coord="500" y_coord="0" z_coord="0"/>
+<node node_number="77" x_coord="500" y_coord="0" z_coord="250"/>
+<node node_number="78" x_coord="500" y_coord="250" z_coord="-250"/>
+<node node_number="79" x_coord="500" y_coord="250" z_coord="0"/>
+<node node_number="80" x_coord="500" y_coord="250" z_coord="250"/>
+<node node_number="81" x_coord="250" y_coord="500" z_coord="-250"/>
+<node node_number="82" x_coord="250" y_coord="500" z_coord="0"/>
+<node node_number="83" x_coord="250" y_coord="500" z_coord="250"/>
+<node node_number="84" x_coord="0" y_coord="500" z_coord="-250"/>
+<node node_number="85" x_coord="0" y_coord="500" z_coord="0"/>
+<node node_number="86" x_coord="0" y_coord="500" z_coord="250"/>
+<node node_number="87" x_coord="-250" y_coord="500" z_coord="-250"/>
+<node node_number="88" x_coord="-250" y_coord="500" z_coord="0"/>
+<node node_number="89" x_coord="-250" y_coord="500" z_coord="250"/>
+<node node_number="90" x_coord="-500" y_coord="250" z_coord="-250"/>
+<node node_number="91" x_coord="-500" y_coord="250" z_coord="0"/>
+<node node_number="92" x_coord="-500" y_coord="250" z_coord="250"/>
+<node node_number="93" x_coord="-500" y_coord="0" z_coord="-250"/>
+<node node_number="94" x_coord="-500" y_coord="0" z_coord="0"/>
+<node node_number="95" x_coord="-500" y_coord="0" z_coord="250"/>
+<node node_number="96" x_coord="-500" y_coord="-250" z_coord="-250"/>
+<node node_number="97" x_coord="-500" y_coord="-250" z_coord="0"/>
+<node node_number="98" x_coord="-500" y_coord="-250" z_coord="250"/>
+<node node_number="99" x_coord="-250" y_coord="250" z_coord="-250"/>
+<node node_number="100" x_coord="-250" y_coord="250" z_coord="0"/>
+<node node_number="101" x_coord="-250" y_coord="250" z_coord="250"/>
+<node node_number="102" x_coord="-250" y_coord="0" z_coord="-250"/>
+<node node_number="103" x_coord="-250" y_coord="0" z_coord="0"/>
+<node node_number="104" x_coord="-250" y_coord="0" z_coord="250"/>
+<node node_number="105" x_coord="-250" y_coord="-250" z_coord="-250"/>
+<node node_number="106" x_coord="-250" y_coord="-250" z_coord="0"/>
+<node node_number="107" x_coord="-250" y_coord="-250" z_coord="250"/>
+<node node_number="108" x_coord="0" y_coord="250" z_coord="-250"/>
+<node node_number="109" x_coord="0" y_coord="250" z_coord="0"/>
+<node node_number="110" x_coord="0" y_coord="250" z_coord="250"/>
+<node node_number="111" x_coord="0" y_coord="0" z_coord="-250"/>
+<node node_number="112" x_coord="0" y_coord="0" z_coord="0"/>
+<node node_number="113" x_coord="0" y_coord="0" z_coord="250"/>
+<node node_number="114" x_coord="0" y_coord="-250" z_coord="-250"/>
+<node node_number="115" x_coord="0" y_coord="-250" z_coord="0"/>
+<node node_number="116" x_coord="0" y_coord="-250" z_coord="250"/>
+<node node_number="117" x_coord="250" y_coord="250" z_coord="-250"/>
+<node node_number="118" x_coord="250" y_coord="250" z_coord="0"/>
+<node node_number="119" x_coord="250" y_coord="250" z_coord="250"/>
+<node node_number="120" x_coord="250" y_coord="0" z_coord="-250"/>
+<node node_number="121" x_coord="250" y_coord="0" z_coord="0"/>
+<node node_number="122" x_coord="250" y_coord="0" z_coord="250"/>
+<node node_number="123" x_coord="250" y_coord="-250" z_coord="-250"/>
+<node node_number="124" x_coord="250" y_coord="-250" z_coord="0"/>
+<node node_number="125" x_coord="250" y_coord="-250" z_coord="250"/>
+
+</nodes>
+
+<elements number_of_elements="64">
+
+<element elem_number="1" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+45,17,4,18,99,87,42,90
+</nodes>
+</element>
+<element elem_number="2" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+99,87,42,90,100,88,43,91
+</nodes>
+</element>
+<element elem_number="3" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+100,88,43,91,101,89,44,92
+</nodes>
+</element>
+<element elem_number="4" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+101,89,44,92,56,29,8,30
+</nodes>
+</element>
+<element elem_number="5" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+46,45,18,19,102,99,90,93
+</nodes>
+</element>
+<element elem_number="6" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+102,99,90,93,103,100,91,94
+</nodes>
+</element>
+<element elem_number="7" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+103,100,91,94,104,101,92,95
+</nodes>
+</element>
+<element elem_number="8" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+104,101,92,95,55,56,30,31
+</nodes>
+</element>
+<element elem_number="9" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+47,46,19,20,105,102,93,96
+</nodes>
+</element>
+<element elem_number="10" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+105,102,93,96,106,103,94,97
+</nodes>
+</element>
+<element elem_number="11" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+106,103,94,97,107,104,95,98
+</nodes>
+</element>
+<element elem_number="12" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+107,104,95,98,54,55,31,32
+</nodes>
+</element>
+<element elem_number="13" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+9,47,20,1,63,105,96,33
+</nodes>
+</element>
+<element elem_number="14" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+63,105,96,33,64,106,97,34
+</nodes>
+</element>
+<element elem_number="15" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+64,106,97,34,65,107,98,35
+</nodes>
+</element>
+<element elem_number="16" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+65,107,98,35,21,54,32,5
+</nodes>
+</element>
+<element elem_number="17" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+48,16,17,45,108,84,87,99
+</nodes>
+</element>
+<element elem_number="18" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+108,84,87,99,109,85,88,100
+</nodes>
+</element>
+<element elem_number="19" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+109,85,88,100,110,86,89,101
+</nodes>
+</element>
+<element elem_number="20" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+110,86,89,101,59,28,29,56
+</nodes>
+</element>
+<element elem_number="21" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+49,48,45,46,111,108,99,102
+</nodes>
+</element>
+<element elem_number="22" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+111,108,99,102,112,109,100,103
+</nodes>
+</element>
+<element elem_number="23" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+112,109,100,103,113,110,101,104
+</nodes>
+</element>
+<element elem_number="24" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+113,110,101,104,58,59,56,55
+</nodes>
+</element>
+<element elem_number="25" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+50,49,46,47,114,111,102,105
+</nodes>
+</element>
+<element elem_number="26" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+114,111,102,105,115,112,103,106
+</nodes>
+</element>
+<element elem_number="27" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+115,112,103,106,116,113,104,107
+</nodes>
+</element>
+<element elem_number="28" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+116,113,104,107,57,58,55,54
+</nodes>
+</element>
+<element elem_number="29" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+10,50,47,9,66,114,105,63
+</nodes>
+</element>
+<element elem_number="30" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+66,114,105,63,67,115,106,64
+</nodes>
+</element>
+<element elem_number="31" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+67,115,106,64,68,116,107,65
+</nodes>
+</element>
+<element elem_number="32" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+68,116,107,65,22,57,54,21
+</nodes>
+</element>
+<element elem_number="33" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+51,15,16,48,117,81,84,108
+</nodes>
+</element>
+<element elem_number="34" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+117,81,84,108,118,82,85,109
+</nodes>
+</element>
+<element elem_number="35" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+118,82,85,109,119,83,86,110
+</nodes>
+</element>
+<element elem_number="36" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+119,83,86,110,62,27,28,59
+</nodes>
+</element>
+<element elem_number="37" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+52,51,48,49,120,117,108,111
+</nodes>
+</element>
+<element elem_number="38" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+120,117,108,111,121,118,109,112
+</nodes>
+</element>
+<element elem_number="39" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+121,118,109,112,122,119,110,113
+</nodes>
+</element>
+<element elem_number="40" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+122,119,110,113,61,62,59,58
+</nodes>
+</element>
+<element elem_number="41" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+53,52,49,50,123,120,111,114
+</nodes>
+</element>
+<element elem_number="42" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+123,120,111,114,124,121,112,115
+</nodes>
+</element>
+<element elem_number="43" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+124,121,112,115,125,122,113,116
+</nodes>
+</element>
+<element elem_number="44" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+125,122,113,116,60,61,58,57
+</nodes>
+</element>
+<element elem_number="45" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+11,53,50,10,69,123,114,66
+</nodes>
+</element>
+<element elem_number="46" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+69,123,114,66,70,124,115,67
+</nodes>
+</element>
+<element elem_number="47" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+70,124,115,67,71,125,116,68
+</nodes>
+</element>
+<element elem_number="48" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+71,125,116,68,23,60,57,22
+</nodes>
+</element>
+<element elem_number="49" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+14,3,15,51,78,39,81,117
+</nodes>
+</element>
+<element elem_number="50" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+78,39,81,117,79,40,82,118
+</nodes>
+</element>
+<element elem_number="51" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+79,40,82,118,80,41,83,119
+</nodes>
+</element>
+<element elem_number="52" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+80,41,83,119,26,7,27,62
+</nodes>
+</element>
+<element elem_number="53" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+13,14,51,52,75,78,117,120
+</nodes>
+</element>
+<element elem_number="54" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+75,78,117,120,76,79,118,121
+</nodes>
+</element>
+<element elem_number="55" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+76,79,118,121,77,80,119,122
+</nodes>
+</element>
+<element elem_number="56" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+77,80,119,122,25,26,62,61
+</nodes>
+</element>
+<element elem_number="57" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+12,13,52,53,72,75,120,123
+</nodes>
+</element>
+<element elem_number="58" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+72,75,120,123,73,76,121,124
+</nodes>
+</element>
+<element elem_number="59" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+73,76,121,124,74,77,122,125
+</nodes>
+</element>
+<element elem_number="60" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+74,77,122,125,24,25,61,60
+</nodes>
+</element>
+<element elem_number="61" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+2,12,53,11,36,72,123,69
+</nodes>
+</element>
+<element elem_number="62" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+36,72,123,69,37,73,124,70
+</nodes>
+</element>
+<element elem_number="63" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+37,73,124,70,38,74,125,71
+</nodes>
+</element>
+<element elem_number="64" elm_type="5">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+38,74,125,71,6,24,60,23
+</nodes>
+</element>
+
+</elements>
+
+</mesh>

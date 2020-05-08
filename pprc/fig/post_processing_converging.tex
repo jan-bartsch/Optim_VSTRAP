@@ -1,0 +1,84 @@
+% This file was created by tikzplotlib v0.9.1.
+\begin{tikzpicture}
+
+\definecolor{color0}{rgb}{0.12156862745098,0.466666666666667,0.705882352941177}
+
+\begin{groupplot}[group style={group size=2 by 2}]
+\nextgroupplot[
+tick align=outside,
+tick pos=left,
+title={History of convergence of relative value of objective},
+x grid style={white!69.0196078431373!black},
+xmin=-0.15, xmax=3.15,
+xtick style={color=black},
+y grid style={white!69.0196078431373!black},
+ymin=-1.04727946938895, ymax=-0.995291249665333,
+ytick style={color=black}
+]
+\addplot [semithick, color0]
+table {%
+0 -1
+1 -1.01610411908615
+2 -0.997654350561861
+3 -1.04491636849242
+};
+
+\nextgroupplot[
+tick align=outside,
+tick pos=left,
+title={Norm relative gradient},
+x grid style={white!69.0196078431373!black},
+xmin=-0.15, xmax=3.15,
+xtick style={color=black},
+y grid style={white!69.0196078431373!black},
+ymin=0.910872131000474, ymax=1.10940815977527,
+ytick style={color=black}
+]
+\addplot [semithick, color0]
+table {%
+0 1
+1 0.919896495944783
+2 0.944970717772028
+3 1.10038379483096
+};
+
+\nextgroupplot[
+tick align=outside,
+tick pos=left,
+title={Norm control},
+x grid style={white!69.0196078431373!black},
+xmin=-0.15, xmax=3.15,
+xtick style={color=black},
+y grid style={white!69.0196078431373!black},
+ymin=0.62472145, ymax=1.06224755,
+ytick style={color=black}
+]
+\addplot [semithick, color0]
+table {%
+0 0.644609
+1 0.658031
+2 0.981185
+3 1.04236
+};
+
+\nextgroupplot[
+tick align=outside,
+tick pos=left,
+title={Wasserstein distance (pre/post linesearch)},
+x grid style={white!69.0196078431373!black},
+xmin=-0.15, xmax=3.15,
+xtick style={color=black},
+y grid style={white!69.0196078431373!black},
+ymin=21586705000, ymax=32423795000,
+ytick style={color=black}
+]
+\addplot [semithick, color0]
+table {%
+0 22079300000
+1 23804600000
+2 28412200000
+3 31931200000
+};
+\end{groupplot}
+
+\end{tikzpicture}
