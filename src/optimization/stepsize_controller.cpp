@@ -74,7 +74,7 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
 
     std::vector<std::vector<particle>> forwardParticles(ntimesteps_gp);
     std::vector<std::vector<particle>> forwardParticles0(ntimesteps_gp);
-    std::unordered_map<coordinate_phase_space_time,double> forwardPDF;
+    std::vector<std::unordered_map<coordinate_phase_space_time,double>> forwardPDF_time;
 
     double wasserstein_distance;
 
@@ -91,6 +91,7 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
         }
     }
 
+
     /*
      * Generate new control
      */
@@ -105,8 +106,8 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
         for(unsigned int k = 1; k<=ntimesteps_gp; k++) {
             forwardParticles[k-1] = input::readParticleVector(BUILD_DIRECTORY_OPTIM+"plasma_state_batch_1_forward_particles_CPU_"+std::to_string(k)+".csv",",");
         }
-        forwardPDF = pdf_control.assemblingMultiDim(forwardParticles,0);
-        Jtemp = objective.calculate_objective_L2(forwardPDF,control0 + alpha*stepdirection);
+        forwardPDF_time = pdf_control.assemblingMultiDim_parallel(forwardParticles,0);
+        Jtemp = objective.calculate_objective_L2(forwardPDF_time,control0 + alpha*stepdirection);
     }
 
     while (Jtemp > J0 + scalarProduct*armijo_descent_fraction && alpha > tolerance
@@ -123,8 +124,8 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
             for(unsigned int k = 1; k<=ntimesteps_gp; k++) {
                 forwardParticles[k-1] = input::readParticleVector(BUILD_DIRECTORY_OPTIM+"plasma_state_batch_1_forward_particles_CPU_"+std::to_string(k)+".csv",",");
             }
-            forwardPDF = pdf_control.assemblingMultiDim(forwardParticles,0);
-            Jtemp = objective.calculate_objective_L2(forwardPDF,control0 + alpha*stepdirection);
+            forwardPDF_time = pdf_control.assemblingMultiDim_parallel(forwardParticles,0);
+            Jtemp = objective.calculate_objective_L2(forwardPDF_time,control0 + alpha*stepdirection);
         }
 
         std::cout << "Armijo: " << "Jtemp = " << Jtemp << std::endl
