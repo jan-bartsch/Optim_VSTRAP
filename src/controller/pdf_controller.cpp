@@ -76,7 +76,7 @@ std::unordered_map<coordinate_phase_space_time, double> pdf_controller::assembli
 
 }
 
-std::unordered_map<coordinate_phase_space_time, double> pdf_controller::assemblingMultiDim_parallel(std::vector<std::vector<particle>> &particlesTime, unsigned int equationType)
+std::vector<std::unordered_map<coordinate_phase_space_time, double> > pdf_controller::assemblingMultiDim_parallel(std::vector<std::vector<particle>> &particlesTime, unsigned int equationType)
 {
     unsigned int ntimesteps_gp = static_cast<unsigned int>(this->getData_provider_optim().getOptimizationParameters().find("ntimesteps_gp")->second);
     double vmax_gp = this->getData_provider_optim().getOptimizationParameters().find("vmax_gp")->second;
@@ -140,19 +140,14 @@ std::unordered_map<coordinate_phase_space_time, double> pdf_controller::assembli
         }
     });
 
-//    std::vector<std::unordered_map<coordinate_phase_space_time,double>> pdf_time_merged(ntimesteps_gp/usedThreads +1);
 
-//    tbb::parallel_for(static_cast<unsigned int> (0), ntimesteps_gp/usedThreads +1 , [&]( unsigned int o ) {
-//        pdf_time_merged[o]
+//    for(unsigned int o= 0; o<ntimesteps_gp; o++) {
+//       pdf.insert(pdf_time[o].begin(),pdf_time[o].end());
 //    }
 
-    for(unsigned int o= 0; o<ntimesteps_gp; o++) {
-       pdf.insert(pdf_time[o].begin(),pdf_time[o].end());
-    }
 
 
-
-    return pdf;
+    return pdf_time;
 
 }
 

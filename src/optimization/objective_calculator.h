@@ -23,7 +23,17 @@ public:
     objective_calculator();
     objective_calculator(const char * filename);
 
+    /**
+     * DEPRECATED
+     *
+     * @brief calculate_objective_L2
+     * @param forwardPDF
+     * @param control
+     * @return
+     */
     double calculate_objective_L2( std::unordered_map<coordinate_phase_space_time,double> forwardPDF, arma::mat control);
+
+    double calculate_objective_L2(std::vector<std::unordered_map<coordinate_phase_space_time,double>> forwardPDF_time, arma::mat control);
 };
 
 #endif // OBJECTIVE_CALCULATOR_H

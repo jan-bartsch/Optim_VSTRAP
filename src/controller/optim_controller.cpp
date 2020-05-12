@@ -90,6 +90,9 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
     logger::Info("Reading paramters done");
 
     if(zero_control == 0) {
+        logger::Info("Deleting old files");
+        std::string COMMAND_DELETE_FILES = "rm *.log | rm *.csv | rm *.txt";
+        system(&COMMAND_DELETE_FILES[0]);
         logger::Info("Starting with zero control");
         outController.writeControl_XML(control);
         std::string interpolating_control_python = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " + DOMAIN_MESH +
@@ -112,9 +115,12 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
      */
 
     std::vector<std::vector<particle>> forwardParticles(ntimesteps_gp);
-    std::unordered_map<coordinate_phase_space_time,double> forwardPDF;
+    std::unordered_map<coordinate_phase_space_time,double> forwardPDF_map;
+    std::vector<std::unordered_map<coordinate_phase_space_time,double>> forwardPDF;
+
     std::vector<std::vector<particle>> backwardParticles(ntimesteps_gp);
-    std::unordered_map<coordinate_phase_space_time,double> backwardPDF;
+    std::unordered_map<coordinate_phase_space_time,double> backwardPDF_map;
+    std::vector<std::unordered_map<coordinate_phase_space_time,double>> backwardPDF;
     arma::mat gradient(static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second),3,arma::fill::zeros);
     arma::mat stepDirection(static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second),3,arma::fill::zeros);
     double value_objective = 0.0;
@@ -189,17 +195,6 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
             value_objective = objective.calculate_objective_L2(forwardPDF,control);
             outDiag.writeDoubleToFile(value_objective,"objectiveTrack");
         }
-
-        //        forward_return = system(&START_VSTRAP_FORWARD[0]);
-        //        if (forward_return != 0) {
-        //            logger::Info("Forward VSTRAP returned non-zero value: " + std::to_string(forward_return));
-        //            throw  std::system_error();
-        //        }
-        //        for(unsigned int k = 1; k<=ntimesteps_gp; k++) {
-        //            forwardParticles[k-1] = input::readParticleVector(BUILD_DIRECTORY_OPTIM+"plasma_state_batch_1_forward_particles_CPU_"+std::to_string(k)+".csv",",");
-        //        }
-        //        forwardPDF = pdf_control.assemblingMultiDim(forwardParticles,0);
-        //        double value_objective2 = objective.calculate_objective_L2(forwardPDF,control);
 
 
         logger::Info("Building gradient...");
