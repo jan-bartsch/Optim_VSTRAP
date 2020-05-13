@@ -3,17 +3,18 @@ import tikzplotlib
 
 fig_objective = plt.figure()
 
+pathToBuildSRC = "../../build-Optim/src/"
+
 ####
 # objective
 ####
-objective_track_file = open("../../build/src/objectiveTrack.txt")
+objective_track_file = open(pathToBuildSRC + "objectiveTrack.txt")
 
 objective_track = objective_track_file.read().split("\n")
 objective_track_float = [];
 
 
 for i in range(0,len(objective_track)-1):
-	print(i)
 	objective_track_float.insert(len(objective_track_float),float(objective_track[i])/abs(float(objective_track[0])))
 
 
@@ -26,12 +27,12 @@ ax1.set_yscale('linear')
 ####
 # gradient
 ####
-norm_gradient_file = open("../../build/src/normGradientTrack.txt")
+norm_gradient_file = open(pathToBuildSRC + "normGradientTrack.txt")
 
 norm_gradient = norm_gradient_file.read().split("\n")
 norm_gradient_float = []
 
-print(norm_gradient)
+#print(norm_gradient)
 
 for i in range(0,len(norm_gradient)-1):
 	norm_gradient_float.insert(len(norm_gradient_float),float(norm_gradient[i])/float(norm_gradient[0]))
@@ -44,7 +45,7 @@ ax2.set_yscale('linear')
 ####
 # control
 ####
-norm_control_file = open("../../build/src/normControlTrack.txt")
+norm_control_file = open(pathToBuildSRC + "normControlTrack.txt")
 
 norm_control = norm_control_file.read().split("\n")
 norm_control_float = []
@@ -63,7 +64,7 @@ ax3.set_yscale('linear')
 # wasserstein distance
 ####
 try:
-	wd_file = open("../../build/src/wassersteinDistanceTrack.txt")
+	wd_file = open(pathToBuildSRC + "wassersteinDistanceTrack.txt")
 
 
 	wd = wd_file.read().split("\n")

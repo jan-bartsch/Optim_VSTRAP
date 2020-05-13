@@ -1,552 +1,552 @@
 <parameraters>
 	<set iteration="0">
-		<particle_values number_density="4e+13" weight="1e+10" charge_number="-1" mass="1e-26" species="e-"/>
+		<particle_values number_density="4e+13" weight="1e+11" charge_number="-1" mass="1e-26" species="e-"/>
 		<position>
  			<mu x_val = "-0.35" y_val = "0.0" z_val = "0.0" />
 			<sigma x_val = "0.2" y_val = "0.25" z_val = "0.25"/> 
  		</position>
 		<velocity> 
  			<mu x_val = "0.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "100.0" y_val = "100.0" z_val = "100.0"/> 
+			<sigma x_val = "500.0" y_val = "500.0" z_val = "500.0"/> 
  		</velocity>
 	</set>
 	<set iteration="1">
-		<particle_values number_density="4e+13" weight="1e+10" charge_number="-1" mass="1e-26" species="e-"/>
+		<particle_values number_density="4e+13" weight="1e+11" charge_number="-1" mass="1e-26" species="e-"/>
 		<position>
  			<mu x_val = "-0.35" y_val = "0.0" z_val = "0.0" />
 			<sigma x_val = "0.2" y_val = "0.25" z_val = "0.25"/> 
  		</position>
 		<velocity> 
  			<mu x_val = "0.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "100.0" y_val = "100.0" z_val = "100.0"/> 
+			<sigma x_val = "500.0" y_val = "500.0" z_val = "500.0"/> 
  		</velocity>
 	</set>
 	<set iteration="2">
-		<particle_values number_density="4e+13" weight="1e+10" charge_number="-1" mass="1e-26" species="e-"/>
+		<particle_values number_density="4e+13" weight="1e+11" charge_number="-1" mass="1e-26" species="e-"/>
 		<position>
  			<mu x_val = "-0.35" y_val = "0.0" z_val = "0.0" />
 			<sigma x_val = "0.2" y_val = "0.25" z_val = "0.25"/> 
  		</position>
 		<velocity> 
  			<mu x_val = "0.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "100.0" y_val = "100.0" z_val = "100.0"/> 
+			<sigma x_val = "500.0" y_val = "500.0" z_val = "500.0"/> 
  		</velocity>
 	</set>
 	<set iteration="3">
-		<particle_values number_density="4e+13" weight="1e+10" charge_number="-1" mass="1e-26" species="e-"/>
+		<particle_values number_density="4e+13" weight="1e+11" charge_number="-1" mass="1e-26" species="e-"/>
 		<position>
  			<mu x_val = "-0.35" y_val = "0.0" z_val = "0.0" />
 			<sigma x_val = "0.2" y_val = "0.25" z_val = "0.25"/> 
  		</position>
 		<velocity> 
  			<mu x_val = "0.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "100.0" y_val = "100.0" z_val = "100.0"/> 
+			<sigma x_val = "500.0" y_val = "500.0" z_val = "500.0"/> 
  		</velocity>
 	</set>
 	<set iteration="4">
-		<particle_values number_density="4e+13" weight="1e+10" charge_number="-1" mass="1e-26" species="e-"/>
+		<particle_values number_density="4e+13" weight="1e+11" charge_number="-1" mass="1e-26" species="e-"/>
 		<position>
  			<mu x_val = "-0.35" y_val = "0.0" z_val = "0.0" />
 			<sigma x_val = "0.2" y_val = "0.25" z_val = "0.25"/> 
  		</position>
 		<velocity> 
  			<mu x_val = "0.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "100.0" y_val = "100.0" z_val = "100.0"/> 
+			<sigma x_val = "500.0" y_val = "500.0" z_val = "500.0"/> 
  		</velocity>
 	</set>
 	<set iteration="5">
-		<particle_values number_density="4e+13" weight="1e+10" charge_number="-1" mass="1e-26" species="e-"/>
+		<particle_values number_density="4e+13" weight="1e+11" charge_number="-1" mass="1e-26" species="e-"/>
 		<position>
  			<mu x_val = "-0.35" y_val = "0.0" z_val = "0.0" />
 			<sigma x_val = "0.2" y_val = "0.25" z_val = "0.25"/> 
  		</position>
 		<velocity> 
  			<mu x_val = "0.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "100.0" y_val = "100.0" z_val = "100.0"/> 
+			<sigma x_val = "500.0" y_val = "500.0" z_val = "500.0"/> 
  		</velocity>
 	</set>
 	<set iteration="6">
-		<particle_values number_density="4e+13" weight="1e+10" charge_number="-1" mass="1e-26" species="e-"/>
+		<particle_values number_density="4e+13" weight="1e+11" charge_number="-1" mass="1e-26" species="e-"/>
 		<position>
  			<mu x_val = "-0.35" y_val = "0.0" z_val = "0.0" />
 			<sigma x_val = "0.2" y_val = "0.25" z_val = "0.25"/> 
  		</position>
 		<velocity> 
  			<mu x_val = "0.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "100.0" y_val = "100.0" z_val = "100.0"/> 
+			<sigma x_val = "500.0" y_val = "500.0" z_val = "500.0"/> 
  		</velocity>
 	</set>
 	<set iteration="7">
-		<particle_values number_density="4e+13" weight="1e+10" charge_number="-1" mass="1e-26" species="e-"/>
+		<particle_values number_density="4e+13" weight="1e+11" charge_number="-1" mass="1e-26" species="e-"/>
 		<position>
  			<mu x_val = "-0.35" y_val = "0.0" z_val = "0.0" />
 			<sigma x_val = "0.2" y_val = "0.25" z_val = "0.25"/> 
  		</position>
 		<velocity> 
  			<mu x_val = "0.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "100.0" y_val = "100.0" z_val = "100.0"/> 
+			<sigma x_val = "500.0" y_val = "500.0" z_val = "500.0"/> 
  		</velocity>
 	</set>
 	<set iteration="8">
-		<particle_values number_density="4e+13" weight="1e+10" charge_number="-1" mass="1e-26" species="e-"/>
+		<particle_values number_density="4e+13" weight="1e+11" charge_number="-1" mass="1e-26" species="e-"/>
 		<position>
  			<mu x_val = "-0.35" y_val = "0.0" z_val = "0.0" />
 			<sigma x_val = "0.2" y_val = "0.25" z_val = "0.25"/> 
  		</position>
 		<velocity> 
  			<mu x_val = "0.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "100.0" y_val = "100.0" z_val = "100.0"/> 
+			<sigma x_val = "500.0" y_val = "500.0" z_val = "500.0"/> 
  		</velocity>
 	</set>
 	<set iteration="9">
-		<particle_values number_density="4e+13" weight="1e+10" charge_number="-1" mass="1e-26" species="e-"/>
+		<particle_values number_density="4e+13" weight="1e+11" charge_number="-1" mass="1e-26" species="e-"/>
 		<position>
  			<mu x_val = "-0.35" y_val = "0.0" z_val = "0.0" />
 			<sigma x_val = "0.2" y_val = "0.25" z_val = "0.25"/> 
  		</position>
 		<velocity> 
  			<mu x_val = "0.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "100.0" y_val = "100.0" z_val = "100.0"/> 
+			<sigma x_val = "500.0" y_val = "500.0" z_val = "500.0"/> 
  		</velocity>
 	</set>
 	<set iteration="10">
-		<particle_values number_density="4e+13" weight="1e+10" charge_number="-1" mass="1e-26" species="e-"/>
+		<particle_values number_density="4e+13" weight="1e+11" charge_number="-1" mass="1e-26" species="e-"/>
 		<position>
  			<mu x_val = "-0.35" y_val = "0.0" z_val = "0.0" />
 			<sigma x_val = "0.2" y_val = "0.25" z_val = "0.25"/> 
  		</position>
 		<velocity> 
  			<mu x_val = "0.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "100.0" y_val = "100.0" z_val = "100.0"/> 
+			<sigma x_val = "500.0" y_val = "500.0" z_val = "500.0"/> 
  		</velocity>
 	</set>
 	<set iteration="11">
-		<particle_values number_density="4e+13" weight="1e+10" charge_number="-1" mass="1e-26" species="e-"/>
+		<particle_values number_density="4e+13" weight="1e+11" charge_number="-1" mass="1e-26" species="e-"/>
 		<position>
  			<mu x_val = "-0.35" y_val = "0.0" z_val = "0.0" />
 			<sigma x_val = "0.2" y_val = "0.25" z_val = "0.25"/> 
  		</position>
 		<velocity> 
  			<mu x_val = "0.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "100.0" y_val = "100.0" z_val = "100.0"/> 
+			<sigma x_val = "500.0" y_val = "500.0" z_val = "500.0"/> 
  		</velocity>
 	</set>
 	<set iteration="12">
-		<particle_values number_density="4e+13" weight="1e+10" charge_number="-1" mass="1e-26" species="e-"/>
+		<particle_values number_density="4e+13" weight="1e+11" charge_number="-1" mass="1e-26" species="e-"/>
 		<position>
  			<mu x_val = "-0.35" y_val = "0.0" z_val = "0.0" />
 			<sigma x_val = "0.2" y_val = "0.25" z_val = "0.25"/> 
  		</position>
 		<velocity> 
  			<mu x_val = "0.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "100.0" y_val = "100.0" z_val = "100.0"/> 
+			<sigma x_val = "500.0" y_val = "500.0" z_val = "500.0"/> 
  		</velocity>
 	</set>
 	<set iteration="13">
-		<particle_values number_density="4e+13" weight="1e+10" charge_number="-1" mass="1e-26" species="e-"/>
+		<particle_values number_density="4e+13" weight="1e+11" charge_number="-1" mass="1e-26" species="e-"/>
 		<position>
  			<mu x_val = "-0.35" y_val = "0.0" z_val = "0.0" />
 			<sigma x_val = "0.2" y_val = "0.25" z_val = "0.25"/> 
  		</position>
 		<velocity> 
  			<mu x_val = "0.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "100.0" y_val = "100.0" z_val = "100.0"/> 
+			<sigma x_val = "500.0" y_val = "500.0" z_val = "500.0"/> 
  		</velocity>
 	</set>
 	<set iteration="14">
-		<particle_values number_density="4e+13" weight="1e+10" charge_number="-1" mass="1e-26" species="e-"/>
+		<particle_values number_density="4e+13" weight="1e+11" charge_number="-1" mass="1e-26" species="e-"/>
 		<position>
  			<mu x_val = "-0.35" y_val = "0.0" z_val = "0.0" />
 			<sigma x_val = "0.2" y_val = "0.25" z_val = "0.25"/> 
  		</position>
 		<velocity> 
  			<mu x_val = "0.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "100.0" y_val = "100.0" z_val = "100.0"/> 
+			<sigma x_val = "500.0" y_val = "500.0" z_val = "500.0"/> 
  		</velocity>
 	</set>
 	<set iteration="15">
-		<particle_values number_density="4e+13" weight="1e+10" charge_number="-1" mass="1e-26" species="e-"/>
+		<particle_values number_density="4e+13" weight="1e+11" charge_number="-1" mass="1e-26" species="e-"/>
 		<position>
  			<mu x_val = "-0.35" y_val = "0.0" z_val = "0.0" />
 			<sigma x_val = "0.2" y_val = "0.25" z_val = "0.25"/> 
  		</position>
 		<velocity> 
  			<mu x_val = "0.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "100.0" y_val = "100.0" z_val = "100.0"/> 
+			<sigma x_val = "500.0" y_val = "500.0" z_val = "500.0"/> 
  		</velocity>
 	</set>
 	<set iteration="16">
-		<particle_values number_density="4e+13" weight="1e+10" charge_number="-1" mass="1e-26" species="e-"/>
+		<particle_values number_density="4e+13" weight="1e+11" charge_number="-1" mass="1e-26" species="e-"/>
 		<position>
  			<mu x_val = "-0.35" y_val = "0.0" z_val = "0.0" />
 			<sigma x_val = "0.2" y_val = "0.25" z_val = "0.25"/> 
  		</position>
 		<velocity> 
  			<mu x_val = "0.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "100.0" y_val = "100.0" z_val = "100.0"/> 
+			<sigma x_val = "500.0" y_val = "500.0" z_val = "500.0"/> 
  		</velocity>
 	</set>
 	<set iteration="17">
-		<particle_values number_density="4e+13" weight="1e+10" charge_number="-1" mass="1e-26" species="e-"/>
+		<particle_values number_density="4e+13" weight="1e+11" charge_number="-1" mass="1e-26" species="e-"/>
 		<position>
  			<mu x_val = "-0.35" y_val = "0.0" z_val = "0.0" />
 			<sigma x_val = "0.2" y_val = "0.25" z_val = "0.25"/> 
  		</position>
 		<velocity> 
  			<mu x_val = "0.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "100.0" y_val = "100.0" z_val = "100.0"/> 
+			<sigma x_val = "500.0" y_val = "500.0" z_val = "500.0"/> 
  		</velocity>
 	</set>
 	<set iteration="18">
-		<particle_values number_density="4e+13" weight="1e+10" charge_number="-1" mass="1e-26" species="e-"/>
+		<particle_values number_density="4e+13" weight="1e+11" charge_number="-1" mass="1e-26" species="e-"/>
 		<position>
  			<mu x_val = "-0.35" y_val = "0.0" z_val = "0.0" />
 			<sigma x_val = "0.2" y_val = "0.25" z_val = "0.25"/> 
  		</position>
 		<velocity> 
  			<mu x_val = "0.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "100.0" y_val = "100.0" z_val = "100.0"/> 
+			<sigma x_val = "500.0" y_val = "500.0" z_val = "500.0"/> 
  		</velocity>
 	</set>
 	<set iteration="19">
-		<particle_values number_density="4e+13" weight="1e+10" charge_number="-1" mass="1e-26" species="e-"/>
+		<particle_values number_density="4e+13" weight="1e+11" charge_number="-1" mass="1e-26" species="e-"/>
 		<position>
  			<mu x_val = "-0.35" y_val = "0.0" z_val = "0.0" />
 			<sigma x_val = "0.2" y_val = "0.25" z_val = "0.25"/> 
  		</position>
 		<velocity> 
  			<mu x_val = "0.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "100.0" y_val = "100.0" z_val = "100.0"/> 
+			<sigma x_val = "500.0" y_val = "500.0" z_val = "500.0"/> 
  		</velocity>
 	</set>
 	<set iteration="20">
-		<particle_values number_density="4e+13" weight="1e+10" charge_number="-1" mass="1e-26" species="e-"/>
+		<particle_values number_density="4e+13" weight="1e+11" charge_number="-1" mass="1e-26" species="e-"/>
 		<position>
  			<mu x_val = "-0.35" y_val = "0.0" z_val = "0.0" />
 			<sigma x_val = "0.2" y_val = "0.25" z_val = "0.25"/> 
  		</position>
 		<velocity> 
  			<mu x_val = "0.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "100.0" y_val = "100.0" z_val = "100.0"/> 
+			<sigma x_val = "500.0" y_val = "500.0" z_val = "500.0"/> 
  		</velocity>
 	</set>
 	<set iteration="21">
-		<particle_values number_density="4e+13" weight="1e+10" charge_number="-1" mass="1e-26" species="e-"/>
+		<particle_values number_density="4e+13" weight="1e+11" charge_number="-1" mass="1e-26" species="e-"/>
 		<position>
  			<mu x_val = "-0.35" y_val = "0.0" z_val = "0.0" />
 			<sigma x_val = "0.2" y_val = "0.25" z_val = "0.25"/> 
  		</position>
 		<velocity> 
  			<mu x_val = "0.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "100.0" y_val = "100.0" z_val = "100.0"/> 
+			<sigma x_val = "500.0" y_val = "500.0" z_val = "500.0"/> 
  		</velocity>
 	</set>
 	<set iteration="22">
-		<particle_values number_density="4e+13" weight="1e+10" charge_number="-1" mass="1e-26" species="e-"/>
+		<particle_values number_density="4e+13" weight="1e+11" charge_number="-1" mass="1e-26" species="e-"/>
 		<position>
  			<mu x_val = "-0.35" y_val = "0.0" z_val = "0.0" />
 			<sigma x_val = "0.2" y_val = "0.25" z_val = "0.25"/> 
  		</position>
 		<velocity> 
  			<mu x_val = "0.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "100.0" y_val = "100.0" z_val = "100.0"/> 
+			<sigma x_val = "500.0" y_val = "500.0" z_val = "500.0"/> 
  		</velocity>
 	</set>
 	<set iteration="23">
-		<particle_values number_density="4e+13" weight="1e+10" charge_number="-1" mass="1e-26" species="e-"/>
+		<particle_values number_density="4e+13" weight="1e+11" charge_number="-1" mass="1e-26" species="e-"/>
 		<position>
  			<mu x_val = "-0.35" y_val = "0.0" z_val = "0.0" />
 			<sigma x_val = "0.2" y_val = "0.25" z_val = "0.25"/> 
  		</position>
 		<velocity> 
  			<mu x_val = "0.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "100.0" y_val = "100.0" z_val = "100.0"/> 
+			<sigma x_val = "500.0" y_val = "500.0" z_val = "500.0"/> 
  		</velocity>
 	</set>
 	<set iteration="24">
-		<particle_values number_density="4e+13" weight="1e+10" charge_number="-1" mass="1e-26" species="e-"/>
+		<particle_values number_density="4e+13" weight="1e+11" charge_number="-1" mass="1e-26" species="e-"/>
 		<position>
  			<mu x_val = "-0.35" y_val = "0.0" z_val = "0.0" />
 			<sigma x_val = "0.2" y_val = "0.25" z_val = "0.25"/> 
  		</position>
 		<velocity> 
  			<mu x_val = "0.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "100.0" y_val = "100.0" z_val = "100.0"/> 
+			<sigma x_val = "500.0" y_val = "500.0" z_val = "500.0"/> 
  		</velocity>
 	</set>
 	<set iteration="25">
-		<particle_values number_density="4e+13" weight="1e+10" charge_number="-1" mass="1e-26" species="e-"/>
+		<particle_values number_density="4e+13" weight="1e+11" charge_number="-1" mass="1e-26" species="e-"/>
 		<position>
  			<mu x_val = "-0.35" y_val = "0.0" z_val = "0.0" />
 			<sigma x_val = "0.2" y_val = "0.25" z_val = "0.25"/> 
  		</position>
 		<velocity> 
  			<mu x_val = "0.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "100.0" y_val = "100.0" z_val = "100.0"/> 
+			<sigma x_val = "500.0" y_val = "500.0" z_val = "500.0"/> 
  		</velocity>
 	</set>
 	<set iteration="26">
-		<particle_values number_density="4e+13" weight="1e+10" charge_number="-1" mass="1e-26" species="e-"/>
+		<particle_values number_density="4e+13" weight="1e+11" charge_number="-1" mass="1e-26" species="e-"/>
 		<position>
  			<mu x_val = "-0.35" y_val = "0.0" z_val = "0.0" />
 			<sigma x_val = "0.2" y_val = "0.25" z_val = "0.25"/> 
  		</position>
 		<velocity> 
  			<mu x_val = "0.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "100.0" y_val = "100.0" z_val = "100.0"/> 
+			<sigma x_val = "500.0" y_val = "500.0" z_val = "500.0"/> 
  		</velocity>
 	</set>
 	<set iteration="27">
-		<particle_values number_density="4e+13" weight="1e+10" charge_number="-1" mass="1e-26" species="e-"/>
+		<particle_values number_density="4e+13" weight="1e+11" charge_number="-1" mass="1e-26" species="e-"/>
 		<position>
  			<mu x_val = "-0.35" y_val = "0.0" z_val = "0.0" />
 			<sigma x_val = "0.2" y_val = "0.25" z_val = "0.25"/> 
  		</position>
 		<velocity> 
  			<mu x_val = "0.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "100.0" y_val = "100.0" z_val = "100.0"/> 
+			<sigma x_val = "500.0" y_val = "500.0" z_val = "500.0"/> 
  		</velocity>
 	</set>
 	<set iteration="28">
-		<particle_values number_density="4e+13" weight="1e+10" charge_number="-1" mass="1e-26" species="e-"/>
+		<particle_values number_density="4e+13" weight="1e+11" charge_number="-1" mass="1e-26" species="e-"/>
 		<position>
  			<mu x_val = "-0.35" y_val = "0.0" z_val = "0.0" />
 			<sigma x_val = "0.2" y_val = "0.25" z_val = "0.25"/> 
  		</position>
 		<velocity> 
  			<mu x_val = "0.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "100.0" y_val = "100.0" z_val = "100.0"/> 
+			<sigma x_val = "500.0" y_val = "500.0" z_val = "500.0"/> 
  		</velocity>
 	</set>
 	<set iteration="29">
-		<particle_values number_density="4e+13" weight="1e+10" charge_number="-1" mass="1e-26" species="e-"/>
+		<particle_values number_density="4e+13" weight="1e+11" charge_number="-1" mass="1e-26" species="e-"/>
 		<position>
  			<mu x_val = "-0.35" y_val = "0.0" z_val = "0.0" />
 			<sigma x_val = "0.2" y_val = "0.25" z_val = "0.25"/> 
  		</position>
 		<velocity> 
  			<mu x_val = "0.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "100.0" y_val = "100.0" z_val = "100.0"/> 
+			<sigma x_val = "500.0" y_val = "500.0" z_val = "500.0"/> 
  		</velocity>
 	</set>
 	<set iteration="30">
-		<particle_values number_density="4e+13" weight="1e+10" charge_number="-1" mass="1e-26" species="e-"/>
+		<particle_values number_density="4e+13" weight="1e+11" charge_number="-1" mass="1e-26" species="e-"/>
 		<position>
  			<mu x_val = "-0.35" y_val = "0.0" z_val = "0.0" />
 			<sigma x_val = "0.2" y_val = "0.25" z_val = "0.25"/> 
  		</position>
 		<velocity> 
  			<mu x_val = "0.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "100.0" y_val = "100.0" z_val = "100.0"/> 
+			<sigma x_val = "500.0" y_val = "500.0" z_val = "500.0"/> 
  		</velocity>
 	</set>
 	<set iteration="31">
-		<particle_values number_density="4e+13" weight="1e+10" charge_number="-1" mass="1e-26" species="e-"/>
+		<particle_values number_density="4e+13" weight="1e+11" charge_number="-1" mass="1e-26" species="e-"/>
 		<position>
  			<mu x_val = "-0.35" y_val = "0.0" z_val = "0.0" />
 			<sigma x_val = "0.2" y_val = "0.25" z_val = "0.25"/> 
  		</position>
 		<velocity> 
  			<mu x_val = "0.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "100.0" y_val = "100.0" z_val = "100.0"/> 
+			<sigma x_val = "500.0" y_val = "500.0" z_val = "500.0"/> 
  		</velocity>
 	</set>
 	<set iteration="32">
-		<particle_values number_density="4e+13" weight="1e+10" charge_number="-1" mass="1e-26" species="e-"/>
+		<particle_values number_density="4e+13" weight="1e+11" charge_number="-1" mass="1e-26" species="e-"/>
 		<position>
  			<mu x_val = "-0.35" y_val = "0.0" z_val = "0.0" />
 			<sigma x_val = "0.2" y_val = "0.25" z_val = "0.25"/> 
  		</position>
 		<velocity> 
  			<mu x_val = "0.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "100.0" y_val = "100.0" z_val = "100.0"/> 
+			<sigma x_val = "500.0" y_val = "500.0" z_val = "500.0"/> 
  		</velocity>
 	</set>
 	<set iteration="33">
-		<particle_values number_density="4e+13" weight="1e+10" charge_number="-1" mass="1e-26" species="e-"/>
+		<particle_values number_density="4e+13" weight="1e+11" charge_number="-1" mass="1e-26" species="e-"/>
 		<position>
  			<mu x_val = "-0.35" y_val = "0.0" z_val = "0.0" />
 			<sigma x_val = "0.2" y_val = "0.25" z_val = "0.25"/> 
  		</position>
 		<velocity> 
  			<mu x_val = "0.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "100.0" y_val = "100.0" z_val = "100.0"/> 
+			<sigma x_val = "500.0" y_val = "500.0" z_val = "500.0"/> 
  		</velocity>
 	</set>
 	<set iteration="34">
-		<particle_values number_density="4e+13" weight="1e+10" charge_number="-1" mass="1e-26" species="e-"/>
+		<particle_values number_density="4e+13" weight="1e+11" charge_number="-1" mass="1e-26" species="e-"/>
 		<position>
  			<mu x_val = "-0.35" y_val = "0.0" z_val = "0.0" />
 			<sigma x_val = "0.2" y_val = "0.25" z_val = "0.25"/> 
  		</position>
 		<velocity> 
  			<mu x_val = "0.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "100.0" y_val = "100.0" z_val = "100.0"/> 
+			<sigma x_val = "500.0" y_val = "500.0" z_val = "500.0"/> 
  		</velocity>
 	</set>
 	<set iteration="35">
-		<particle_values number_density="4e+13" weight="1e+10" charge_number="-1" mass="1e-26" species="e-"/>
+		<particle_values number_density="4e+13" weight="1e+11" charge_number="-1" mass="1e-26" species="e-"/>
 		<position>
  			<mu x_val = "-0.35" y_val = "0.0" z_val = "0.0" />
 			<sigma x_val = "0.2" y_val = "0.25" z_val = "0.25"/> 
  		</position>
 		<velocity> 
  			<mu x_val = "0.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "100.0" y_val = "100.0" z_val = "100.0"/> 
+			<sigma x_val = "500.0" y_val = "500.0" z_val = "500.0"/> 
  		</velocity>
 	</set>
 	<set iteration="36">
-		<particle_values number_density="4e+13" weight="1e+10" charge_number="-1" mass="1e-26" species="e-"/>
+		<particle_values number_density="4e+13" weight="1e+11" charge_number="-1" mass="1e-26" species="e-"/>
 		<position>
  			<mu x_val = "-0.35" y_val = "0.0" z_val = "0.0" />
 			<sigma x_val = "0.2" y_val = "0.25" z_val = "0.25"/> 
  		</position>
 		<velocity> 
  			<mu x_val = "0.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "100.0" y_val = "100.0" z_val = "100.0"/> 
+			<sigma x_val = "500.0" y_val = "500.0" z_val = "500.0"/> 
  		</velocity>
 	</set>
 	<set iteration="37">
-		<particle_values number_density="4e+13" weight="1e+10" charge_number="-1" mass="1e-26" species="e-"/>
+		<particle_values number_density="4e+13" weight="1e+11" charge_number="-1" mass="1e-26" species="e-"/>
 		<position>
  			<mu x_val = "-0.35" y_val = "0.0" z_val = "0.0" />
 			<sigma x_val = "0.2" y_val = "0.25" z_val = "0.25"/> 
  		</position>
 		<velocity> 
  			<mu x_val = "0.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "100.0" y_val = "100.0" z_val = "100.0"/> 
+			<sigma x_val = "500.0" y_val = "500.0" z_val = "500.0"/> 
  		</velocity>
 	</set>
 	<set iteration="38">
-		<particle_values number_density="4e+13" weight="1e+10" charge_number="-1" mass="1e-26" species="e-"/>
+		<particle_values number_density="4e+13" weight="1e+11" charge_number="-1" mass="1e-26" species="e-"/>
 		<position>
  			<mu x_val = "-0.35" y_val = "0.0" z_val = "0.0" />
 			<sigma x_val = "0.2" y_val = "0.25" z_val = "0.25"/> 
  		</position>
 		<velocity> 
  			<mu x_val = "0.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "100.0" y_val = "100.0" z_val = "100.0"/> 
+			<sigma x_val = "500.0" y_val = "500.0" z_val = "500.0"/> 
  		</velocity>
 	</set>
 	<set iteration="39">
-		<particle_values number_density="4e+13" weight="1e+10" charge_number="-1" mass="1e-26" species="e-"/>
+		<particle_values number_density="4e+13" weight="1e+11" charge_number="-1" mass="1e-26" species="e-"/>
 		<position>
  			<mu x_val = "-0.35" y_val = "0.0" z_val = "0.0" />
 			<sigma x_val = "0.2" y_val = "0.25" z_val = "0.25"/> 
  		</position>
 		<velocity> 
  			<mu x_val = "0.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "100.0" y_val = "100.0" z_val = "100.0"/> 
+			<sigma x_val = "500.0" y_val = "500.0" z_val = "500.0"/> 
  		</velocity>
 	</set>
 	<set iteration="40">
-		<particle_values number_density="4e+13" weight="1e+10" charge_number="-1" mass="1e-26" species="e-"/>
+		<particle_values number_density="4e+13" weight="1e+11" charge_number="-1" mass="1e-26" species="e-"/>
 		<position>
  			<mu x_val = "-0.35" y_val = "0.0" z_val = "0.0" />
 			<sigma x_val = "0.2" y_val = "0.25" z_val = "0.25"/> 
  		</position>
 		<velocity> 
  			<mu x_val = "0.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "100.0" y_val = "100.0" z_val = "100.0"/> 
+			<sigma x_val = "500.0" y_val = "500.0" z_val = "500.0"/> 
  		</velocity>
 	</set>
 	<set iteration="41">
-		<particle_values number_density="4e+13" weight="1e+10" charge_number="-1" mass="1e-26" species="e-"/>
+		<particle_values number_density="4e+13" weight="1e+11" charge_number="-1" mass="1e-26" species="e-"/>
 		<position>
  			<mu x_val = "-0.35" y_val = "0.0" z_val = "0.0" />
 			<sigma x_val = "0.2" y_val = "0.25" z_val = "0.25"/> 
  		</position>
 		<velocity> 
  			<mu x_val = "0.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "100.0" y_val = "100.0" z_val = "100.0"/> 
+			<sigma x_val = "500.0" y_val = "500.0" z_val = "500.0"/> 
  		</velocity>
 	</set>
 	<set iteration="42">
-		<particle_values number_density="4e+13" weight="1e+10" charge_number="-1" mass="1e-26" species="e-"/>
+		<particle_values number_density="4e+13" weight="1e+11" charge_number="-1" mass="1e-26" species="e-"/>
 		<position>
  			<mu x_val = "-0.35" y_val = "0.0" z_val = "0.0" />
 			<sigma x_val = "0.2" y_val = "0.25" z_val = "0.25"/> 
  		</position>
 		<velocity> 
  			<mu x_val = "0.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "100.0" y_val = "100.0" z_val = "100.0"/> 
+			<sigma x_val = "500.0" y_val = "500.0" z_val = "500.0"/> 
  		</velocity>
 	</set>
 	<set iteration="43">
-		<particle_values number_density="4e+13" weight="1e+10" charge_number="-1" mass="1e-26" species="e-"/>
+		<particle_values number_density="4e+13" weight="1e+11" charge_number="-1" mass="1e-26" species="e-"/>
 		<position>
  			<mu x_val = "-0.35" y_val = "0.0" z_val = "0.0" />
 			<sigma x_val = "0.2" y_val = "0.25" z_val = "0.25"/> 
  		</position>
 		<velocity> 
  			<mu x_val = "0.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "100.0" y_val = "100.0" z_val = "100.0"/> 
+			<sigma x_val = "500.0" y_val = "500.0" z_val = "500.0"/> 
  		</velocity>
 	</set>
 	<set iteration="44">
-		<particle_values number_density="4e+13" weight="1e+10" charge_number="-1" mass="1e-26" species="e-"/>
+		<particle_values number_density="4e+13" weight="1e+11" charge_number="-1" mass="1e-26" species="e-"/>
 		<position>
  			<mu x_val = "-0.35" y_val = "0.0" z_val = "0.0" />
 			<sigma x_val = "0.2" y_val = "0.25" z_val = "0.25"/> 
  		</position>
 		<velocity> 
  			<mu x_val = "0.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "100.0" y_val = "100.0" z_val = "100.0"/> 
+			<sigma x_val = "500.0" y_val = "500.0" z_val = "500.0"/> 
  		</velocity>
 	</set>
 	<set iteration="45">
-		<particle_values number_density="4e+13" weight="1e+10" charge_number="-1" mass="1e-26" species="e-"/>
+		<particle_values number_density="4e+13" weight="1e+11" charge_number="-1" mass="1e-26" species="e-"/>
 		<position>
  			<mu x_val = "-0.35" y_val = "0.0" z_val = "0.0" />
 			<sigma x_val = "0.2" y_val = "0.25" z_val = "0.25"/> 
  		</position>
 		<velocity> 
  			<mu x_val = "0.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "100.0" y_val = "100.0" z_val = "100.0"/> 
+			<sigma x_val = "500.0" y_val = "500.0" z_val = "500.0"/> 
  		</velocity>
 	</set>
 	<set iteration="46">
-		<particle_values number_density="4e+13" weight="1e+10" charge_number="-1" mass="1e-26" species="e-"/>
+		<particle_values number_density="4e+13" weight="1e+11" charge_number="-1" mass="1e-26" species="e-"/>
 		<position>
  			<mu x_val = "-0.35" y_val = "0.0" z_val = "0.0" />
 			<sigma x_val = "0.2" y_val = "0.25" z_val = "0.25"/> 
  		</position>
 		<velocity> 
  			<mu x_val = "0.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "100.0" y_val = "100.0" z_val = "100.0"/> 
+			<sigma x_val = "500.0" y_val = "500.0" z_val = "500.0"/> 
  		</velocity>
 	</set>
 	<set iteration="47">
-		<particle_values number_density="4e+13" weight="1e+10" charge_number="-1" mass="1e-26" species="e-"/>
+		<particle_values number_density="4e+13" weight="1e+11" charge_number="-1" mass="1e-26" species="e-"/>
 		<position>
  			<mu x_val = "-0.35" y_val = "0.0" z_val = "0.0" />
 			<sigma x_val = "0.2" y_val = "0.25" z_val = "0.25"/> 
  		</position>
 		<velocity> 
  			<mu x_val = "0.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "100.0" y_val = "100.0" z_val = "100.0"/> 
+			<sigma x_val = "500.0" y_val = "500.0" z_val = "500.0"/> 
  		</velocity>
 	</set>
 	<set iteration="48">
-		<particle_values number_density="4e+13" weight="1e+10" charge_number="-1" mass="1e-26" species="e-"/>
+		<particle_values number_density="4e+13" weight="1e+11" charge_number="-1" mass="1e-26" species="e-"/>
 		<position>
  			<mu x_val = "-0.35" y_val = "0.0" z_val = "0.0" />
 			<sigma x_val = "0.2" y_val = "0.25" z_val = "0.25"/> 
  		</position>
 		<velocity> 
  			<mu x_val = "0.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "100.0" y_val = "100.0" z_val = "100.0"/> 
+			<sigma x_val = "500.0" y_val = "500.0" z_val = "500.0"/> 
  		</velocity>
 	</set>
 	<set iteration="49">
-		<particle_values number_density="4e+13" weight="1e+10" charge_number="-1" mass="1e-26" species="e-"/>
+		<particle_values number_density="4e+13" weight="1e+11" charge_number="-1" mass="1e-26" species="e-"/>
 		<position>
  			<mu x_val = "-0.35" y_val = "0.0" z_val = "0.0" />
 			<sigma x_val = "0.2" y_val = "0.25" z_val = "0.25"/> 
  		</position>
 		<velocity> 
  			<mu x_val = "0.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "100.0" y_val = "100.0" z_val = "100.0"/> 
+			<sigma x_val = "500.0" y_val = "500.0" z_val = "500.0"/> 
  		</velocity>
 	</set>
 </parameraters>

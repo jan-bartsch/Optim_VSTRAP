@@ -3,28 +3,28 @@
 <optimizer_input>
 
     <globalParameters>
-	<parameter name="armijo_descent_fraction" value="1e-10" />
+	<parameter name="armijo_descent_fraction" value="1e-30" />
 	<parameter name="calculation_functional" value="1" />
         <parameter name="C_theta_gp" value="1e+20" />
         <parameter name="C_phi_gp" value="1e+20" />
         <parameter name="dimensionOfControl_gp" value="64" />               <!-- number of elements of the control -->
-        <parameter name="fixed_gradient_descent_stepsize" value="5e-1" />
+        <parameter name="fixed_gradient_descent_stepsize" value="1" />
 	<parameter name="fraction_of_optimal_control" value="1e-5" />
         <parameter name="optimizationIteration_max_gp" value="100" />       <!-- number of maximal interations -->  
         <parameter name="dp_gp" value="0.0156" />                              <!-- discretization size position 64:0.0156 1000:0.0001 512:0.002 -->
         <parameter name="dt_gp" value="1e-5" />                             <!-- discretization size time -->
-        <parameter name="dv_gp" value="40.0" />                              <!-- discretization size velocity -->
+        <parameter name="dv_gp" value="333.33" />                              <!-- discretization size velocity -->
         <parameter name="numberParticles_gp" value="1000" />
         <parameter name="ntimesteps_gp" value="50" />
         <parameter name="pcell_gp" value="64" />
         <parameter name="pmax_gp" value="0.5" />
-        <parameter name="sigma_x_gp" value="1" />
-        <parameter name="sigma_v_gp" value="6" />
+        <parameter name="sigma_x_gp" value="3" />
+        <parameter name="sigma_v_gp" value="10" />
 	<parameter name="start_zero_control" value="0" />		<!-- 0=true, 1=false -->
-        <parameter name="tolerance_gp" value="1e-10" />
-        <parameter name="tolerance_relaxation_gp" value="1e-8" />
-        <parameter name="vcell_gp" value="15" />
-        <parameter name="vmax_gp" value="300" />                           <!-- maximal velocity (support of forward equaiton) -->
+        <parameter name="tolerance_gp" value="1e-13" />
+        <parameter name="tolerance_relaxation_gp" value="1e-10" />
+        <parameter name="vcell_gp" value="6" />
+        <parameter name="vmax_gp" value="1000" />                           <!-- maximal velocity (support of forward equaiton) -->
         <parameter name="weight_control_gp" value="0.0" />
     </globalParameters>
 
@@ -32,7 +32,7 @@
     
     <paths>
         <path name="BUILD_DIRECTORY_VSTRAP" value="/home/jan/Promotion_linuxPC/build-vstrap/src/" />
-        <path name="BUILD_DIRECTORY_OPTIM" value="/home/jan/Promotion_linuxPC/build/src/" />
+        <path name="BUILD_DIRECTORY_OPTIM" value="/home/jan/Promotion_linuxPC/build-Optim/src/" />
         <path name="PATH_TO_SHARED_FILES" value="../../Optim_VSTRAP/data/box_shifting/" />
 	<path name="BARYCENTERS_MESH" value="../../Optim_VSTRAP/data/box_shifting/mesh_barycenters.xml" />
         <path name="DIRECTORY_TOOLSET" value="../../optim-vstrap-toolset/toolset/" />
