@@ -228,7 +228,8 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
         system(&interpolating_control_python[0]);
 
 
-        logger::Info("Starting " + std::to_string(r+1) + " iteration");
+
+      logger::Info("Starting " + std::to_string(r+1) + " iteration");
     }
 
 
