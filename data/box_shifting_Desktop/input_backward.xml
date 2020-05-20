@@ -1,4 +1,4 @@
-    <simulation>
+<simulation>
         <global_values>
             <time_step value="1e-5"/>
         </global_values>

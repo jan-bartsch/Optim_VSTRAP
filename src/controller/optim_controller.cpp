@@ -61,6 +61,7 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
     pdf_control.setData_provider_optim(data_provider_opt);
 
     output_diagnostics outDiag = output_diagnostics();
+    equation_solving_controller model_solver = equation_solving_controller();
 
 
     std::map<std::string, double> optimizationParameters = data_provider_opt.getOptimizationParameters();
@@ -109,6 +110,13 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
         std::cout << control << std::endl;
     }
 
+    int numberThreadsTBB = tbb::task_scheduler_init::default_num_threads();
+    int usedThreads = numberThreadsTBB;
+    if(numberThreadsTBB > static_cast<int>(ntimesteps_gp)) {
+        usedThreads = static_cast<int>(ntimesteps_gp);
+    }
+    tbb::task_scheduler_init init(usedThreads);
+
 
     /**
      * START OPTIMIZATION ITERATION
@@ -134,21 +142,25 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
     for(unsigned int r = 0; r < optimizationIteration_max_gp; r++) {
 
         logger::Info("Starting VSTRAP (foward)... ");
+        //forward_return = model_solver.start_solving_forward(START_VSTRAP_FORWARD);
         forward_return = system(&START_VSTRAP_FORWARD[0]);
         if (forward_return != 0) {
             logger::Info("Forward VSTRAP returned non-zero value: " + std::to_string(forward_return));
             throw  std::system_error();
         }
         logger::Info("Finished VSTRAP... Reading particle files");
+        std::cout << "Using " <<  usedThreads << " threads for reading particle vector (forward)" << std::endl;
 
-        for(unsigned int k = 1; k<=ntimesteps_gp; k++) {
-            forwardParticles[k-1] = input::readParticleVector(BUILD_DIRECTORY_OPTIM+"plasma_state_batch_1_forward_particles_CPU_"+std::to_string(k)+".csv",",");
+        //tbb::parallel_for(static_cast<unsigned int> (1), ntimesteps_gp+1 , [&]( unsigned int o ) {
+        for(unsigned int o = 1; o<=ntimesteps_gp; o++) {
+            forwardParticles[o-1] = input::readParticleVector(BUILD_DIRECTORY_OPTIM+"plasma_state_batch_1_forward_particles_CPU_"+std::to_string(o)+".csv",",");
         }
 
         logger::Info("Finished reading files...");
         logger::Info("Starting VSTRAP (backward)...");
 
-        backward_return  = system(&START_VSTRAP_BACKWARD[0]);
+        //backward_return = model_solver.start_solving_backward(START_VSTRAP_BACKWARD);
+        backward_return = system(&START_VSTRAP_BACKWARD[0]);
         if (backward_return != 0)  {
             logger::Info("Backward VSTRAP returned non-zero value: " + std::to_string(backward_return));
             throw std::system_error();
@@ -156,8 +168,11 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
 
         logger::Info("Reading particle files...");
 
-        for(unsigned int k = 1; k<=ntimesteps_gp; k++) {
-            backwardParticles[ntimesteps_gp - k] = input::readParticleVector(BUILD_DIRECTORY_OPTIM+"plasma_state_batch_1_adjoint_particles_CPU_"+std::to_string(k)+".csv",",");
+        std::cout << "Using " <<  usedThreads << " threads for reading particle vector (forward)" << std::endl;
+
+        //tbb::parallel_for(static_cast<unsigned int> (1), ntimesteps_gp+1, [&]( unsigned int o ) {
+        for(unsigned int o = 1; o<=ntimesteps_gp; o++) {
+            backwardParticles[ntimesteps_gp - o] = input::readParticleVector(BUILD_DIRECTORY_OPTIM+"plasma_state_batch_1_adjoint_particles_CPU_"+std::to_string(o)+".csv",",");
         }
 
         start = std::chrono::system_clock::now();

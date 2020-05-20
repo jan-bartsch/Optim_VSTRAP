@@ -10,6 +10,8 @@
 
 #include <iostream>
 
+#include "equation_solving_controller.h"
+
 
 #include "../objects/particle.h"
 #include "../objects/data_provider.h"
