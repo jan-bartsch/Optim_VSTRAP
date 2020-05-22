@@ -1,15 +1,11 @@
 #include "optim_controller.h"
 
-
-
 optim_controller::optim_controller() {
     std::cout << "Initialising optim_controller" << std::endl;
 }
 
 void optim_controller::start_optimizer(int argc, const char **argv)
 {
-
-
     logger::Info("Starting optimizer...");
 
     arma::mat control(64,3,arma::fill::zeros);
@@ -60,9 +56,11 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
     pdf_controller pdf_control = pdf_controller();
     pdf_control.setData_provider_optim(data_provider_opt);
 
+    input input_control = input();
+    input_control.setData_provider_optim(data_provider_opt);
+
     output_diagnostics outDiag = output_diagnostics();
     equation_solving_controller model_solver = equation_solving_controller();
-
 
     std::map<std::string, double> optimizationParameters = data_provider_opt.getOptimizationParameters();
     std::map<std::string, std::string> paths = data_provider_opt.getPaths();
@@ -110,12 +108,7 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
         std::cout << control << std::endl;
     }
 
-    int numberThreadsTBB = tbb::task_scheduler_init::default_num_threads();
-    int usedThreads = numberThreadsTBB;
-    if(numberThreadsTBB > static_cast<int>(ntimesteps_gp)) {
-        usedThreads = static_cast<int>(ntimesteps_gp);
-    }
-    tbb::task_scheduler_init init(usedThreads);
+
 
 
     /**
@@ -137,61 +130,36 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
 
     std::chrono::time_point<std::chrono::system_clock> start, end, end1;
 
-    unsigned int optimizationIteration_max_gp = static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second);
+    unsigned int optimizationIteration_max_gp = static_cast<unsigned int>(optimizationParameters.find("optimizationIteration_max_gp")->second);
 
     for(unsigned int r = 0; r < optimizationIteration_max_gp; r++) {
 
         logger::Info("Starting VSTRAP (foward)... ");
-        //forward_return = model_solver.start_solving_forward(START_VSTRAP_FORWARD);
-        forward_return = system(&START_VSTRAP_FORWARD[0]);
+        forward_return = model_solver.start_solving_forward(START_VSTRAP_FORWARD);
+        //forward_return = system(&START_VSTRAP_FORWARD[0]);
         if (forward_return != 0) {
             logger::Info("Forward VSTRAP returned non-zero value: " + std::to_string(forward_return));
             throw  std::system_error();
         }
         logger::Info("Finished VSTRAP... Reading particle files");
-        std::cout << "Using " <<  usedThreads << " threads for reading particle vector (forward)" << std::endl;
 
-        //tbb::parallel_for(static_cast<unsigned int> (1), ntimesteps_gp+1 , [&]( unsigned int o ) {
-        for(unsigned int o = 1; o<=ntimesteps_gp; o++) {
-            forwardParticles[o-1] = input::readParticleVector(BUILD_DIRECTORY_OPTIM+"plasma_state_batch_1_forward_particles_CPU_"+std::to_string(o)+".csv",",");
-        }
+        input_control.read_plasma_state_forward(forwardParticles);
 
         logger::Info("Finished reading files...");
         logger::Info("Starting VSTRAP (backward)...");
 
-        //backward_return = model_solver.start_solving_backward(START_VSTRAP_BACKWARD);
-        backward_return = system(&START_VSTRAP_BACKWARD[0]);
+        backward_return = model_solver.start_solving_backward(START_VSTRAP_BACKWARD);
+        //backward_return = system(&START_VSTRAP_BACKWARD[0]);
         if (backward_return != 0)  {
             logger::Info("Backward VSTRAP returned non-zero value: " + std::to_string(backward_return));
             throw std::system_error();
         }
 
         logger::Info("Reading particle files...");
+        input_control.read_plasma_state_backward(backwardParticles);
 
-        std::cout << "Using " <<  usedThreads << " threads for reading particle vector (forward)" << std::endl;
 
-        //tbb::parallel_for(static_cast<unsigned int> (1), ntimesteps_gp+1, [&]( unsigned int o ) {
-        for(unsigned int o = 1; o<=ntimesteps_gp; o++) {
-            backwardParticles[ntimesteps_gp - o] = input::readParticleVector(BUILD_DIRECTORY_OPTIM+"plasma_state_batch_1_adjoint_particles_CPU_"+std::to_string(o)+".csv",",");
-        }
-
-        start = std::chrono::system_clock::now();
         logger::Info("Assembling pdfs...");
-
-        //        std::future<std::unordered_map<coordinate_phase_space_time,double>> forward_thread =
-        //                std::async(std::launch::async,optim_controller::assemblePDF_thread,std::ref(forwardParticles),0,data_provider_opt);
-        //        std::future<std::unordered_map<coordinate_phase_space_time,double>> backward_thread =
-        //                std::async(std::launch::async,optim_controller::assemblePDF_thread,std::ref(backwardParticles),0,data_provider_opt);
-
-        //        forwardPDF = forward_thread.get();
-        //        backwardPDF = backward_thread.get();
-
-        //        forwardPDF = pdf_control.assemblingMultiDim(forwardParticles,0);
-        //        backwardPDF = pdf_control.assemblingMultiDim(backwardParticles,1);
-
-        //        end1 = std::chrono::system_clock::now();
-        //        logger::Info("Assembling of pdfs (parallel) took: " + std::to_string(std::chrono::duration_cast<std::chrono::seconds>
-        //                                                                             (end1-start).count()) + " seconds");
 
         start = std::chrono::system_clock::now();
 
@@ -216,8 +184,6 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
         gradient = gradient_calculator_opt.calculateGradient_forceControl_space_L2(forwardPDF,backwardPDF,control);
         outDiag.writeDoubleToFile(arma::norm(gradient,"fro"),"normGradientTrack");
         outDiag.writeGradientToFile(gradient,"gradient_"+std::to_string(r));
-
-
         norm_Gradient = arma::norm(gradient,"fro");
 
 

@@ -4,6 +4,54 @@
 
 input::input() { }
 
+unsigned int input::read_plasma_state_forward(std::vector<std::vector<particle> > &forwardParticles)
+{
+    std::map<std::string, std::string> paths = this->getData_provider_optim().getPaths();
+    std::string BUILD_DIRECTORY_OPTIM = paths.find("BUILD_DIRECTORY_OPTIM")->second;
+
+    std::map<std::string, double> optimizationParameters = this->getData_provider_optim().getOptimizationParameters();
+    unsigned int ntimesteps_gp = static_cast<unsigned int>(optimizationParameters.find("ntimesteps_gp")->second);
+
+    int numberThreadsTBB = tbb::task_scheduler_init::default_num_threads();
+    int usedThreads = numberThreadsTBB;
+    if(numberThreadsTBB > static_cast<int>(ntimesteps_gp)) {
+        usedThreads = static_cast<int>(ntimesteps_gp);
+    }
+    tbb::task_scheduler_init init(usedThreads);
+    std::cout << "Using " <<  usedThreads << " threads for reading particle vector (forward)" << std::endl;
+
+    tbb::parallel_for(static_cast<unsigned int> (1), ntimesteps_gp+1 , [&]( unsigned int o ) {
+        //for(unsigned int o = 1; o<=ntimesteps_gp; o++) {
+        forwardParticles[o-1] = input::readParticleVector(BUILD_DIRECTORY_OPTIM+"plasma_state_batch_1_forward_particles_CPU_"+std::to_string(o)+".csv",",");
+    });
+
+    return 0;
+}
+
+unsigned int input::read_plasma_state_backward(std::vector<std::vector<particle> > &backwardParticles)
+{
+    std::map<std::string, std::string> paths = this->getData_provider_optim().getPaths();
+    std::string BUILD_DIRECTORY_OPTIM = paths.find("BUILD_DIRECTORY_OPTIM")->second;
+
+    std::map<std::string, double> optimizationParameters = this->getData_provider_optim().getOptimizationParameters();
+    unsigned int ntimesteps_gp = static_cast<unsigned int>(optimizationParameters.find("ntimesteps_gp")->second);
+
+    int numberThreadsTBB = tbb::task_scheduler_init::default_num_threads();
+    int usedThreads = numberThreadsTBB;
+    if(numberThreadsTBB > static_cast<int>(ntimesteps_gp)) {
+        usedThreads = static_cast<int>(ntimesteps_gp);
+    }
+    tbb::task_scheduler_init init(usedThreads);
+    std::cout << "Using " <<  usedThreads << " threads for reading particle vector (backward)" << std::endl;
+
+    tbb::parallel_for(static_cast<unsigned int> (1), ntimesteps_gp+1, [&]( unsigned int o ) {
+    //for(unsigned int o = 1; o<=ntimesteps_gp; o++) {
+        backwardParticles[ntimesteps_gp - o] = input::readParticleVector(BUILD_DIRECTORY_OPTIM+"plasma_state_batch_1_adjoint_particles_CPU_"+std::to_string(o)+".csv",",");
+    });
+
+    return 0;
+}
+
 
 std::vector<particle> input::readParticleVector(std::string filename, std::string delimiter)
 {
@@ -21,7 +69,7 @@ std::vector<particle> input::readParticleVector(std::string filename, std::strin
 
     while(std::getline(file,line) ) {
 
-       // std::cout << line << std::endl;
+        // std::cout << line << std::endl;
 
         size_t pos = 0;
         std::string token;

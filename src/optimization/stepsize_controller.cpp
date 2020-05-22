@@ -32,6 +32,8 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
     output_diagnostics outDiag = output_diagnostics();
     pdf_controller pdf_control = pdf_controller();
     pdf_control.setData_provider_optim(this->getData_provider_optim());
+    input input_control = input();
+    input_control.setData_provider_optim(this->getData_provider_optim());
 
     std::map<std::string, double> optimizationParameters = this->getData_provider_optim().getOptimizationParameters();
     std::map<std::string, std::string> paths = this->getData_provider_optim().getPaths();
@@ -86,9 +88,10 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
     int forward_return = system(&START_VSTRAP_FORWARD[0]);
 
     if (forward_return == 0) {
-        for(unsigned int k = 1; k<=ntimesteps_gp; k++) {
+        /*for(unsigned int k = 1; k<=ntimesteps_gp; k++) {
             forwardParticles0[k-1] = input::readParticleVector(BUILD_DIRECTORY_OPTIM+"plasma_state_batch_1_forward_particles_CPU_"+std::to_string(k)+".csv",",");
-        }
+        }*/
+        input_control.read_plasma_state_forward(forwardParticles0);
     }
 
 
@@ -103,9 +106,10 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
     forward_return = system(&START_VSTRAP_FORWARD[0]);
 
     if (forward_return == 0) {
-        for(unsigned int k = 1; k<=ntimesteps_gp; k++) {
+        /*for(unsigned int k = 1; k<=ntimesteps_gp; k++) {
             forwardParticles[k-1] = input::readParticleVector(BUILD_DIRECTORY_OPTIM+"plasma_state_batch_1_forward_particles_CPU_"+std::to_string(k)+".csv",",");
-        }
+        }*/
+        input_control.read_plasma_state_forward(forwardParticles);
         forwardPDF_time = pdf_control.assemblingMultiDim_parallel(forwardParticles,0);
         Jtemp = objective.calculate_objective_L2(forwardPDF_time,control0 + alpha*stepdirection);
     }
@@ -121,9 +125,10 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
         forward_return = system(&START_VSTRAP_FORWARD[0]);
 
         if (forward_return == 0) {
-            for(unsigned int k = 1; k<=ntimesteps_gp; k++) {
+            /*for(unsigned int k = 1; k<=ntimesteps_gp; k++) {
                 forwardParticles[k-1] = input::readParticleVector(BUILD_DIRECTORY_OPTIM+"plasma_state_batch_1_forward_particles_CPU_"+std::to_string(k)+".csv",",");
-            }
+            }*/
+            input_control.read_plasma_state_forward(forwardParticles);
             forwardPDF_time = pdf_control.assemblingMultiDim_parallel(forwardParticles,0);
             Jtemp = objective.calculate_objective_L2(forwardPDF_time,control0 + alpha*stepdirection);
         }
