@@ -20,7 +20,7 @@
         <parameter name="pmax_gp" value="0.5" />
         <parameter name="sigma_x_gp" value="3" />
         <parameter name="sigma_v_gp" value="10" />
-	<parameter name="start_zero_control" value="1" />		<!-- 0=true, 1=false -->
+	<parameter name="start_zero_control" value="0" />		<!-- 0=true, 1=false -->
         <parameter name="tolerance_gp" value="1e-13" />
         <parameter name="tolerance_relaxation_gp" value="1e-10" />
         <parameter name="vcell_gp" value="6" />
