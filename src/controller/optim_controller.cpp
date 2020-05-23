@@ -62,6 +62,12 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
     output_diagnostics outDiag = output_diagnostics();
     equation_solving_controller model_solver = equation_solving_controller();
 
+    model_solver.setData_provider_optim(data_provider_opt);
+//    arma::mat Laplace = model_solver.Laplacian_3D();
+//    arma::mat Laplace_Squared = model_solver.Laplacian_Squared_3D();
+//    std::cout << arma::eye(32,32)-Laplace+Laplace_Squared << std::endl;
+
+
     std::map<std::string, double> optimizationParameters = data_provider_opt.getOptimizationParameters();
     std::map<std::string, std::string> paths = data_provider_opt.getPaths();
     std::map<std::string,std::string> subroutines = data_provider_opt.getSubroutines();
@@ -160,12 +166,9 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
 
 
         logger::Info("Assembling pdfs...");
-
         start = std::chrono::system_clock::now();
-
         forwardPDF = pdf_control.assemblingMultiDim_parallel(forwardParticles,0);
         backwardPDF = pdf_control.assemblingMultiDim_parallel(backwardParticles,1);
-
         end = std::chrono::system_clock::now();
         logger::Info("Assembling of pdfs took: " + std::to_string(std::chrono::duration_cast<std::chrono::seconds>
                                                                   (end-start).count()) + " seconds");
@@ -181,7 +184,7 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
 
 
         logger::Info("Building gradient...");
-        gradient = gradient_calculator_opt.calculateGradient_forceControl_space_L2(forwardPDF,backwardPDF,control);
+        gradient = gradient_calculator_opt.calculateGradient_forceControl_space_Hm(forwardPDF,backwardPDF,control);
         outDiag.writeDoubleToFile(arma::norm(gradient,"fro"),"normGradientTrack");
         outDiag.writeGradientToFile(gradient,"gradient_"+std::to_string(r));
         norm_Gradient = arma::norm(gradient,"fro");
@@ -210,7 +213,7 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
 
 
 
-      logger::Info("Starting " + std::to_string(r+1) + " iteration");
+     logger::Info("Starting " + std::to_string(r+1) + " iteration");
     }
 
 

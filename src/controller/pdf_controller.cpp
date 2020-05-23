@@ -102,7 +102,7 @@ std::vector<std::unordered_map<coordinate_phase_space_time, double> > pdf_contro
 
     tbb::parallel_for(static_cast<unsigned int> (0), ntimesteps_gp , [&]( unsigned int o ) {
         //for(unsigned int o=0; o<ntimesteps_gp; o++) {
-        std::cout << "Assembling pdf in timestep " << o << std::endl;
+        //std::cout << "Assembling pdf in timestep " << o << std::endl;
         double px,py,pz,vx,vy,vz;
         std::vector<particle> particles;
         coordinate_phase_space_time coordinate;

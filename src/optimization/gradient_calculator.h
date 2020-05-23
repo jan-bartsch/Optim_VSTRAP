@@ -14,6 +14,7 @@
 
 #include "../controller/abstract_controller.h"
 #include "../controller/pdf_controller.h"
+#include "../controller/equation_solving_controller.h"
 
 class gradient_calculator : public abstract_controller
 {
@@ -24,8 +25,8 @@ public:
                                                       std::vector<std::unordered_map<coordinate_phase_space_time, double>> backwardPDF_time,
                                                       arma::mat control);
 
-    arma::mat calculateGradient_forceControl_space_L2(std::unordered_map<coordinate_phase_space_time, double> forwardPDF,
-                                                      std::unordered_map<coordinate_phase_space_time, double> backwardPDF,
+    arma::mat calculateGradient_forceControl_space_Hm(std::vector<std::unordered_map<coordinate_phase_space_time, double>> forwardPDF_time,
+                                                      std::vector<std::unordered_map<coordinate_phase_space_time, double>> backwardPDF_time,
                                                       arma::mat control);
 
 

@@ -8,7 +8,7 @@
         <parameter name="C_theta_gp" value="1e+20" />
         <parameter name="C_phi_gp" value="1e+20" />
         <parameter name="dimensionOfControl_gp" value="64" />               <!-- number of elements of the control -->
-        <parameter name="fixed_gradient_descent_stepsize" value="6" />
+        <parameter name="fixed_gradient_descent_stepsize" value="1e+1" />
 	<parameter name="fraction_of_optimal_control" value="1e-5" />
         <parameter name="optimizationIteration_max_gp" value="100" />       <!-- number of maximal interations -->  
         <parameter name="dp_gp" value="0.0156" />                              <!-- discretization size position 64:0.0156 1000:0.0001 512:0.002 -->
@@ -25,7 +25,7 @@
         <parameter name="tolerance_relaxation_gp" value="1e-10" />
         <parameter name="vcell_gp" value="6" />
         <parameter name="vmax_gp" value="1000" />                           <!-- maximal velocity (support of forward equaiton) -->
-        <parameter name="weight_control_gp" value="0.0" />
+        <parameter name="weight_control_gp" value="1e-2" />
     </globalParameters>
 
     
