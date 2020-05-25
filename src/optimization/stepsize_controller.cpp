@@ -6,7 +6,7 @@ stepsize_controller::stepsize_controller(const char *filename)
 
 }
 
-int stepsize_controller::calculate_stepsize(arma::mat &gradient, double J0, arma::mat &control, arma::mat &stepdirection, std::vector<particle> &inputParticles, double stepsize0)
+int stepsize_controller::calculate_stepsize(arma::mat &gradient, double J0, arma::mat &control, arma::mat &stepdirection, std::vector<particle> &inputParticles, double &stepsize0)
 {
     std::map<std::string,std::string> subroutines = this->getData_provider_optim().getSubroutines();
     std::string control_update = subroutines.find("control_update")->second;
@@ -21,7 +21,8 @@ int stepsize_controller::calculate_stepsize(arma::mat &gradient, double J0, arma
     }
 }
 
-int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma::mat &control, arma::mat &stepdirection, std::vector<particle> &inputParticles, double stepsize0)
+int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma::mat &control, arma::mat &stepdirection,
+                                           std::vector<particle> &inputParticles, double &stepsize0)
 {
     int return_flag = 0;
 
@@ -105,6 +106,7 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
 
     forward_return = system(&START_VSTRAP_FORWARD[0]);
 
+
     if (forward_return == 0) {
         /*for(unsigned int k = 1; k<=ntimesteps_gp; k++) {
             forwardParticles[k-1] = input::readParticleVector(BUILD_DIRECTORY_OPTIM+"plasma_state_batch_1_forward_particles_CPU_"+std::to_string(k)+".csv",",");
@@ -163,10 +165,12 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
     outDiag.writeDoubleToFile(alpha,"stepsizeTrack");
     outDiag.writeDoubleToFile(wasserstein_distance,"wassersteinDistanceTrack");
 
+    stepsize0 = alpha;
+
     return return_flag;
 }
 
-int stepsize_controller::gradient_descent(arma::mat &control, arma::mat &stepdirection, std::vector<particle> &nputParticles, double stepsize)
+int stepsize_controller::gradient_descent(arma::mat &control, arma::mat &stepdirection, std::vector<particle> &nputParticles, double &stepsize)
 {
 
     int return_flag = 0;

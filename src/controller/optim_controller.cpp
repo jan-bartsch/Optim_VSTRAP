@@ -132,9 +132,12 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
     arma::mat stepDirection(static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second),3,arma::fill::zeros);
     double value_objective = 0.0;
     int stepsize_flag;
+    double stepsize0 = fixed_gradient_descent_stepsize/std::max(1.0,arma::norm(gradient));
+    double stepsize = stepsize0;
+    double stepsize_before;
     double norm_Gradient = 0.0;
 
-    std::chrono::time_point<std::chrono::system_clock> start, end, end1;
+    std::chrono::time_point<std::chrono::system_clock> start, end;
 
     unsigned int optimizationIteration_max_gp = static_cast<unsigned int>(optimizationParameters.find("optimizationIteration_max_gp")->second);
 
@@ -192,8 +195,12 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
 
         logger::Info("Updating the control...");
         stepDirection = -gradient;
-        stepsize_flag = stepsize_contr.calculate_stepsize(gradient,value_objective,control,stepDirection,forwardParticles[0],
-                fixed_gradient_descent_stepsize/std::max(1.0,arma::norm(gradient)));
+        stepsize_before = stepsize;
+        stepsize_flag = stepsize_contr.calculate_stepsize(gradient,value_objective,control,
+                                                          stepDirection,forwardParticles[0],stepsize);
+        if (stepsize == stepsize_before) {
+            stepsize = 2.0*stepsize; //Increase stepsize if too small (orthwise start with last stepsize)
+        }
 
         if (stepsize_flag == 1) {
             std::string small_stepsize = "Linesearch returned too small stepsize; Found minimum after " + std::to_string(r+1) + " iterations";
