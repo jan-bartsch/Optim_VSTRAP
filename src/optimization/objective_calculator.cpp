@@ -142,6 +142,6 @@ double objective_calculator::calculate_objective_L2(std::vector<std::unordered_m
     costOfControl += 1.0/2.0*arma::norm(control,"fro")*arma::norm(control,"fro")*pow(dp_gp,1.0);
     // dp_gp^1 since we have elements with volume dp_gp
 
-    return objective + weight_control_gp*costOfControl;
+    return objective; //+weight_control_gp*costOfControl;
 
 }
