@@ -107,7 +107,7 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
     forward_return = system(&START_VSTRAP_FORWARD[0]);
 
 
-    if (forward_return == 0) {
+     if (forward_return == 0) {
         /*for(unsigned int k = 1; k<=ntimesteps_gp; k++) {
             forwardParticles[k-1] = input::readParticleVector(BUILD_DIRECTORY_OPTIM+"plasma_state_batch_1_forward_particles_CPU_"+std::to_string(k)+".csv",",");
         }*/

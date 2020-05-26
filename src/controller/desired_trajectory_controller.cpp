@@ -2,7 +2,6 @@
 
 desired_trajectory_controller::desired_trajectory_controller()
 {
-    // std::map<int,std::vector<double>> barycenters = this->getData_provider_optim().getMesh_barycenters();
 
 }
 

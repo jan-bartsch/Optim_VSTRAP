@@ -91,36 +91,33 @@ double objective_calculator::calculate_objective_L2(std::vector<std::unordered_m
     }
     tbb::task_scheduler_init init(usedThreads);
 
-    std::cout << "Using " <<  usedThreads << " threads for assembling functional" << std::endl;
+    //std::cout << "Using " <<  usedThreads << " threads for assembling functional" << std::endl;
 
-    tbb::parallel_for(static_cast<unsigned int> (0), ntimesteps_gp , [&]( unsigned int o ) {
-        //for(unsigned int  o = 0; o<ntimesteps_gp; o++) {
-
-        double current_trackPot;
-        std::vector<double> p_d;
-        float temp;
-
+    //tbb::parallel_for(static_cast<unsigned int> (0), ntimesteps_gp , [&]( unsigned int o ) {
+    for(unsigned int  o = 0; o<ntimesteps_gp; o++) {
         //std::cout << "Calculating functional in " << o << " timestep" << std::endl;
         for(unsigned int  i = 1; i<=pcell_gp; i++)  {
             for( unsigned int l = 0; l<vcell_gp; l++) {
                 for(unsigned int  m = 0; m<vcell_gp; m++) {
                     for(unsigned int n = 0; n<vcell_gp; n++) {
                         std::vector<double> current_barycenter = baryc.find(static_cast<int> (i))->second;
+                        double current_trackPot;
+                        std::vector<double> p_d;
                         p_d = trajectory_controller.trajectory_desired(current_barycenter,l,m,n,o);
                         coordinate_phase_space_time coordinate = coordinate_phase_space_time(i,l,m,n,o);
                         //trackPot[o][i][l][m][n]
                         current_trackPot = - C_theta_gp/(2.0*M_PI*sigma_x_gp*sigma_v_gp)*exp(
-                                    -(p_d[0]/(2.0*sigma_x_gp*sigma_x_gp)+
-                                    0.0*pow(velocityDiscr_gp(l)-p_d[3],2.0)/(2.0*sigma_v_gp*sigma_v_gp)+
+                                    -(p_d[0]*p_d[0]/(2.0*sigma_x_gp*sigma_x_gp)+
+                                0.0*pow(velocityDiscr_gp(l)-p_d[3],2.0)/(2.0*sigma_v_gp*sigma_v_gp)+
                                 0.0*pow(velocityDiscr_gp(m)-p_d[4],2.0)/(2.0*sigma_v_gp*sigma_v_gp)+
                                 0.0*pow(velocityDiscr_gp(n)-p_d[5],2.0)/(2.0*sigma_v_gp*sigma_v_gp)
                                 ));
-//                        temp = static_cast<float>( exp(-(
-//                                                           pow(positionDiscr_gp(i)-p_d[0],2.0)/(2.0*sigma_x_gp*sigma_x_gp)+
-//                                                       0.0*pow(velocityDiscr_gp(l)-p_d[3],2.0)/(2.0*sigma_v_gp*sigma_v_gp)+
-//                                                   0.0*pow(velocityDiscr_gp(m)-p_d[4],2.0)/(2.0*sigma_v_gp*sigma_v_gp)+
-//                                0.0*pow(velocityDiscr_gp(n)-p_d[5],2.0)/(2.0*sigma_v_gp*sigma_v_gp)
-//                                )));
+                        //                        temp = static_cast<float>( exp(-(
+                        //                                                           pow(positionDiscr_gp(i)-p_d[0],2.0)/(2.0*sigma_x_gp*sigma_x_gp)+
+                        //                                                       0.0*pow(velocityDiscr_gp(l)-p_d[3],2.0)/(2.0*sigma_v_gp*sigma_v_gp)+
+                        //                                                   0.0*pow(velocityDiscr_gp(m)-p_d[4],2.0)/(2.0*sigma_v_gp*sigma_v_gp)+
+                        //                                0.0*pow(velocityDiscr_gp(n)-p_d[5],2.0)/(2.0*sigma_v_gp*sigma_v_gp)
+                        //                                )));
                         if (forwardPDF_time[o].find(coordinate) != forwardPDF_time[o].end()) {
                             objective_time[o] += forwardPDF_time[o].at(coordinate)*current_trackPot*pow(dp_gp,3.0)*pow(dv_gp,2.0)*dt_gp;
                         }
@@ -132,7 +129,7 @@ double objective_calculator::calculate_objective_L2(std::vector<std::unordered_m
             }
 
         }
-    });
+    }
 
     for(unsigned int o = 0; o<ntimesteps_gp; o++) {
         objective += objective_time[o];
