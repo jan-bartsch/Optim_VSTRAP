@@ -91,10 +91,10 @@ double objective_calculator::calculate_objective_L2(std::vector<std::unordered_m
     }
     tbb::task_scheduler_init init(usedThreads);
 
-    //std::cout << "Using " <<  usedThreads << " threads for assembling functional" << std::endl;
+    std::cout << "Using " <<  usedThreads << " threads for assembling functional" << std::endl;
 
-    //tbb::parallel_for(static_cast<unsigned int> (0), ntimesteps_gp , [&]( unsigned int o ) {
-    for(unsigned int  o = 0; o<ntimesteps_gp; o++) {
+    tbb::parallel_for(static_cast<unsigned int> (0), ntimesteps_gp , [&]( unsigned int o ) {
+    //for(unsigned int  o = 0; o<ntimesteps_gp; o++) {
         //std::cout << "Calculating functional in " << o << " timestep" << std::endl;
         for(unsigned int  i = 1; i<=pcell_gp; i++)  {
             for( unsigned int l = 0; l<vcell_gp; l++) {
@@ -129,7 +129,7 @@ double objective_calculator::calculate_objective_L2(std::vector<std::unordered_m
             }
 
         }
-    }
+    });
 
     for(unsigned int o = 0; o<ntimesteps_gp; o++) {
         objective += objective_time[o];
