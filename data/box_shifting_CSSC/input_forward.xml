@@ -5,18 +5,22 @@
 	<executables>
 		<executable name="mesh_initializer" mode="CPU">
 			<mesh name="vol_mesh">
-				<load>./box_coarse_512.xml</load>
+				<load>./box_coarse.xml</load>
 			</mesh>
 		</executable>
-		<executable name="particle_initializer" mode="CPU">
+		<!--executable name="particle_initializer" mode="CPU">
 			<group name="forward_particles" empty="false">
 				<geometry x_min="-0.5" x_max="0.5" y_min="-0.5" y_max="0.5" z_min="-0.5" z_max="0.5"/>
-				<values number_density="1e+13" weight="1e+9" charge_number="-1" mass="1e-26" species="e-"/>
-				<!-- values number_density="1e+13" weight="1e+10" charge_number="-1" mass="1e-26" species="e-"/ -->
-				<temperature x_val="5" y_val="5" z_val="5"/>
+				<values number_density="1e+13" weight="5e+8" charge_number="+1" mass="6.63e-26" species="40Ar+"/>
+				<temperature x_val="4" y_val="4" z_val="4"/>
 				<v_drift x_val="0" y_val="0" z_val="0"/>
 			</group>
-		</executable>
+		</executable-->
+	<executable name="particle_initializer" mode="CPU"> 
+			    <group name="forward_particles"> 
+				<load>plasma_state_batch_1_forward_particles_CPU_1.csv</load>  
+			    </group> 
+	</executable>
         <executable name="pwi" mode="CPU">
             <boundary_type name="cuboid"/>
             <geometry x_min="-0.5" x_max="0.5" y_min="-0.5" y_max="0.5" z_min="-0.5" z_max="0.5"/>
@@ -25,7 +29,7 @@
 		<executable name="bgf" mode="CPU">
 			<volume_mesh name="vol_mesh"/>
 			<!--field name="bem_e_field" type="bem_electric_field" mesh_points="mesh_points" load_freq="1"/--> 
-			<load>./interpolated_control_field_optimal.xml</load>
+			<load>./interpolated_control_field.xml</load>
 			<particle_batch>
 				<!--field name="bem_e_field"/-->
 				<field name="interpolated_control_field"/>
@@ -47,7 +51,7 @@
 		</executable>
 	</executables>
 	<abort_criterium>
-		<max_itterations value="500"/>
+		<max_itterations value="40"/>
 	</abort_criterium>
 	<schedule>
 		<init>
@@ -56,12 +60,12 @@
 			<executable name="plasma_state"/>
 			<executable name="pusher"/>
             		<executable name="pwi"/>
-			<executable name="dsmc" />
+			<!--executable name="dsmc" /-->
 			<executable name="bgf"/>
 		</init>
 		<exec>
 		  	<executable name="bgf"/>
-			<executable name="dsmc" />
+			<!--executable name="dsmc" /-->
 			<executable name="pusher"/>
             		<executable name="pwi"/>
 			<executable name="plasma_state"/>
