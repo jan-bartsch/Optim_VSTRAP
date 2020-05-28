@@ -6,6 +6,7 @@ optim_controller::optim_controller() {
 
 void optim_controller::start_optimizer(int argc, const char **argv)
 {
+
     logger::Info("Starting optimizer...");
 
     arma::mat control(64,3,arma::fill::zeros);
@@ -63,9 +64,9 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
     equation_solving_controller model_solver = equation_solving_controller();
 
     model_solver.setData_provider_optim(data_provider_opt);
-//    arma::mat Laplace = model_solver.Laplacian_3D();
-//    arma::mat Laplace_Squared = model_solver.Laplacian_Squared_3D();
-//    std::cout << arma::eye(32,32)-Laplace+Laplace_Squared << std::endl;
+    //    arma::mat Laplace = model_solver.Laplacian_3D();
+    //    arma::mat Laplace_Squared = model_solver.Laplacian_Squared_3D();
+    //    std::cout << arma::eye(32,32)-Laplace+Laplace_Squared << std::endl;
 
 
     std::map<std::string, double> optimizationParameters = data_provider_opt.getOptimizationParameters();
@@ -154,6 +155,9 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
 
         input_control.read_plasma_state_forward(forwardParticles);
 
+        //forwardPDF = pdf_control.assemblingMultiDim_parallel(forwardParticles,0);
+        //value_objective = objective.calculate_objective_L2(forwardPDF,control);
+
         logger::Info("Finished reading files...");
         logger::Info("Starting VSTRAP (backward)...");
 
@@ -220,7 +224,7 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
 
 
 
-     logger::Info("Starting " + std::to_string(r+1) + " iteration");
+        logger::Info("Starting " + std::to_string(r+1) + " iteration");
     }
 
 
