@@ -33,7 +33,7 @@
      <paths>
         <path name="BUILD_DIRECTORY_VSTRAP" value="/home/bartsch/SPARC/build-vstrap-Desktop/src/" />
         <path name="BUILD_DIRECTORY_OPTIM" value="/home/bartsch/SPARC/build-Optim_VSTRAP-Desktop/src/" />
-        <path name="PATH_TO_SHARED_FILES" value="../../Optim_VSTRAP/data/box_shifting_Desktop/" />
+        <path name="PATH_TO_SHARED_FILES" value="../../Optim_VSTRAP/data/box_shifting_CSSC/" />
 	<path name="BARYCENTERS_MESH" value="../../Optim_VSTRAP/data/box_shifting/mesh_barycenters.xml" />
         <path name="DIRECTORY_TOOLSET" value="../../optim-vstrap-toolset/toolset/" />
 	<path name="DOMAIN_MESH" value="../../Optim_VSTRAP/data/box_shifting_Desktop/box_coarse.xml" />
