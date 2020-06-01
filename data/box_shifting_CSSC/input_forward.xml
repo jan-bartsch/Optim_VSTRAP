@@ -1,4 +1,4 @@
-<simulation>
+﻿<simulation>
 	<global_values>
 		<time_step value="1e-5"/>
 	</global_values>
@@ -60,12 +60,12 @@
 			<executable name="plasma_state"/>
 			<executable name="pusher"/>
             		<executable name="pwi"/>
-			<executable name="dsmc">
+			<executable name="dsmc"/>
 			<executable name="bgf"/>
 		</init>
 		<exec>
 		  	<executable name="bgf"/>
-			<executable name="dsmc">
+			<executable name="dsmc"/>
 			<executable name="pusher"/>
             		<executable name="pwi"/>
 			<executable name="plasma_state"/>
