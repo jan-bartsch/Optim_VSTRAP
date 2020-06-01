@@ -72,29 +72,13 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
     double alpha = stepsize0; //stepsize
     arma::mat control0 = control;
 
-    //std::vector<particle> inputParticles = dsmc.createInitialDistribution_Gauss_positionVelocity(1.0,0.0);
-
-
     std::vector<std::vector<particle>> forwardParticles(ntimesteps_gp);
-    std::vector<std::vector<particle>> forwardParticles0(ntimesteps_gp);
     std::vector<std::unordered_map<coordinate_phase_space_time,double>> forwardPDF_time;
 
-    double wasserstein_distance;
-
-    outController.writeControl_XML(control);
     std::string interpolating_control_python = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " + DOMAIN_MESH +
             " " + PATH_TO_SHARED_FILES + "control_field_cells.xml" + " " + PATH_TO_SHARED_FILES + "interpolated_control_field.xml";
-    system(&interpolating_control_python[0]);
 
-    int forward_return = system(&START_VSTRAP_FORWARD[0]);
-
-    if (forward_return == 0) {
-        /*for(unsigned int k = 1; k<=ntimesteps_gp; k++) {
-            forwardParticles0[k-1] = input::readParticleVector(BUILD_DIRECTORY_OPTIM+"plasma_state_batch_1_forward_particles_CPU_"+std::to_string(k)+".csv",",");
-        }*/
-        input_control.read_plasma_state_forward(forwardParticles0);
-    }
-
+    int forward_return;
 
     /*
      * Generate new control
@@ -107,10 +91,7 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
     forward_return = system(&START_VSTRAP_FORWARD[0]);
 
 
-     if (forward_return == 0) {
-        /*for(unsigned int k = 1; k<=ntimesteps_gp; k++) {
-            forwardParticles[k-1] = input::readParticleVector(BUILD_DIRECTORY_OPTIM+"plasma_state_batch_1_forward_particles_CPU_"+std::to_string(k)+".csv",",");
-        }*/
+    if (forward_return == 0) {
         input_control.read_plasma_state_forward(forwardParticles);
         forwardPDF_time = pdf_control.assemblingMultiDim_parallel(forwardParticles,0);
         Jtemp = objective.calculate_objective_L2(forwardPDF_time,control0 + alpha*stepdirection);
@@ -127,9 +108,6 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
         forward_return = system(&START_VSTRAP_FORWARD[0]);
 
         if (forward_return == 0) {
-            /*for(unsigned int k = 1; k<=ntimesteps_gp; k++) {
-                forwardParticles[k-1] = input::readParticleVector(BUILD_DIRECTORY_OPTIM+"plasma_state_batch_1_forward_particles_CPU_"+std::to_string(k)+".csv",",");
-            }*/
             input_control.read_plasma_state_forward(forwardParticles);
             forwardPDF_time = pdf_control.assemblingMultiDim_parallel(forwardParticles,0);
             Jtemp = objective.calculate_objective_L2(forwardPDF_time,control0 + alpha*stepdirection);
@@ -139,8 +117,6 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
                   << "J0 + scalarProduct*armijo_descent_fraction = " << J0 + scalarProduct*armijo_descent_fraction << std::endl
                   << "Stepsize " << alpha << " in " << counter << ". iteration" << std::endl;
         counter++;
-        wasserstein_distance = pdf_control.calculate_wasserstein_metric(forwardParticles0,forwardParticles);
-        std::cout << "Wasserstein distance: " << wasserstein_distance << std::endl;
     }
 
     if (alpha < tolerance) {
@@ -160,11 +136,8 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
     } else {
         std::cout << "Armijo-linesearch found stepsize " << alpha << " after " << counter << " iterations." << std::endl;
     }
-    wasserstein_distance = pdf_control.calculate_wasserstein_metric(forwardParticles0,forwardParticles);
-    std::cout << "Wasserstein distance: " << wasserstein_distance << std::endl;
-    outDiag.writeDoubleToFile(alpha,"stepsizeTrack");
-    outDiag.writeDoubleToFile(wasserstein_distance,"wassersteinDistanceTrack");
 
+    outDiag.writeDoubleToFile(alpha,"stepsizeTrack");
     stepsize0 = alpha;
 
     return return_flag;

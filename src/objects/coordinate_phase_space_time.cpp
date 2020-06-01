@@ -31,6 +31,17 @@ bool coordinate_phase_space_time::operator==(const coordinate_phase_space_time &
             && coordinate.getTime() == this->getTime());
 }
 
+coordinate_phase_space_time coordinate_phase_space_time::operator-(const coordinate_phase_space_time &coordinate) const
+{
+    return coordinate_phase_space_time(
+                this->getTime() - coordinate.getTime(),
+               this->getCell_id() - coordinate.getCell_id(),
+                this->getVx() - coordinate.getVx(),
+                this->getVy() - coordinate.getVy(),
+                this->getVz() - coordinate.getVz()
+                );
+}
+
 
 
 int coordinate_phase_space_time::getPx() const

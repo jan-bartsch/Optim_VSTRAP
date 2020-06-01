@@ -15,6 +15,7 @@ public:
     std::string toString() const;
 
     bool operator==(const coordinate_phase_space_time &coordinate) const;
+    coordinate_phase_space_time operator-(const coordinate_phase_space_time &coordinate) const;
 
 
 
@@ -41,8 +42,6 @@ public:
 
     double getNorm() const;
     void setNorm(double value);
-
-
 
     int getCell_id() const;
     void setCell_id(int value);

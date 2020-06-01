@@ -7,6 +7,7 @@
 #include "../objects/coordinate_phase_space_time.h"
 #include "../objects/particle.h"
 
+
 #include "abstract_controller.h"
 
 class pdf_controller : public abstract_controller
@@ -24,6 +25,10 @@ public:
                                                                                          unsigned int numberOfRelaxationSteps);
 
     double calculate_wasserstein_metric(std::vector<std::vector<particle>> dist1, std::vector<std::vector<particle>> dist2);
+
+    double calculate_wasserstein_metric_histogramm(std::vector<std::unordered_map<coordinate_phase_space_time,double>> dist1,
+                                        std::vector<std::unordered_map<coordinate_phase_space_time,double>> dist2);
+
 
 
 };

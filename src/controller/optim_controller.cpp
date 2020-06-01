@@ -93,6 +93,8 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
     std::string START_VSTRAP_BACKWARD = BUILD_DIRECTORY_VSTRAP + "vstrap" + " " + PATH_TO_SHARED_FILES + "input_backward.xml";
     int backward_return = 0.0;
 
+    double wasserstein_distance = 0.0;
+
     logger::Info("Reading paramters done");
 
     if(zero_control == 0) {
@@ -123,8 +125,10 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
      */
 
     std::vector<std::vector<particle>> forwardParticles(ntimesteps_gp);
+    std::vector<std::vector<particle>> forwardParticles_initialControl(ntimesteps_gp);
     std::unordered_map<coordinate_phase_space_time,double> forwardPDF_map;
     std::vector<std::unordered_map<coordinate_phase_space_time,double>> forwardPDF;
+    std::vector<std::unordered_map<coordinate_phase_space_time,double>> forwardPDF_initial;
 
     std::vector<std::vector<particle>> backwardParticles(ntimesteps_gp);
     std::unordered_map<coordinate_phase_space_time,double> backwardPDF_map;
@@ -153,8 +157,6 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
         }
         logger::Info("Finished VSTRAP... Reading particle files");
 
-        input_control.read_plasma_state_forward(forwardParticles);
-
         //forwardPDF = pdf_control.assemblingMultiDim_parallel(forwardParticles,0);
         //value_objective = objective.calculate_objective_L2(forwardPDF,control);
 
@@ -179,6 +181,18 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
         end = std::chrono::system_clock::now();
         logger::Info("Assembling of pdfs took: " + std::to_string(std::chrono::duration_cast<std::chrono::seconds>
                                                                   (end-start).count()) + " seconds");
+
+        input_control.read_plasma_state_forward(forwardParticles);
+//        if (r == 0) {
+//            //save plasma states using initial control
+//           //input_control.read_plasma_state_forward(forwardParticles_initialControl);
+//           forwardPDF_initial = pdf_control.assemblingMultiDim_parallel(forwardParticles,0);
+//        } else {
+//            //wasserstein_distance = pdf_control.calculate_wasserstein_metric(forwardParticles_initialControl,forwardParticles);
+//            wasserstein_distance = pdf_control.calculate_wasserstein_metric_histogramm(forwardPDF_initial,forwardPDF);
+//            std::cout << "Wasserstein distance: " << wasserstein_distance << std::endl;
+//            outDiag.writeDoubleToFile(wasserstein_distance,"wassersteinDistanceTrack");
+//        }
 
         if (calculation_functional == 0) {
             logger::Info("No calculation of functional");
