@@ -4,10 +4,6 @@
 #include <unordered_map>
 #include <vector>
 
-#include <tbb/tbb.h>
-#include <tbb/parallel_for.h>
-#include <tbb/blocked_range.h>
-
 #include "../objects/coordinate_phase_space_time.h"
 #include "../objects/particle.h"
 

@@ -4,10 +4,6 @@
 #include <armadillo>
 #include <vector>
 
-#include <tbb/tbb.h>
-#include <tbb/parallel_for.h>
-#include <tbb/blocked_range.h>
-
 #include "../controller/abstract_controller.h"
 #include "../controller/pdf_controller.h"
 #include "../controller/desired_trajectory_controller.h"

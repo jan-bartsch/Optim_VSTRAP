@@ -30,17 +30,10 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_L2(std::vect
     arma::mat gradient(pcell_gp,3,arma::fill::zeros);
 
     //Caculate integral in gradient
-    int numberThreadsTBB = tbb::task_scheduler_init::default_num_threads();
-    int usedThreads = numberThreadsTBB;
-
-    if(numberThreadsTBB > static_cast<int>(pcell_gp)) {
-        usedThreads = static_cast<int>(pcell_gp);
-    }
-    tbb::task_scheduler_init init(usedThreads);
-
-    std::cout << "Using " <<  usedThreads << " threads for assembling gradient" << std::endl;
     const unsigned int n = pcell_gp;
-    tbb::parallel_for(static_cast<unsigned int> (1), n+1 , [&]( unsigned int i ) {
+
+#pragma omp parallel for
+    for(unsigned int i = 1; i<n+1 ; i++) {
 
         std::vector<double> current_barycenter = barycenters.find(static_cast<int>(i))->second;
 
@@ -120,7 +113,7 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_L2(std::vect
                 }
             }
         }
-    });
+    }
 
 
 
@@ -171,17 +164,10 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm(std::vect
     arma::mat rhs_Riesz(32,3,arma::fill::zeros);
 
     //Caculate integral in gradient
-    int numberThreadsTBB = tbb::task_scheduler_init::default_num_threads();
-    int usedThreads = numberThreadsTBB;
-
-    if(numberThreadsTBB > static_cast<int>(pcell_gp)) {
-        usedThreads = static_cast<int>(pcell_gp);
-    }
-    tbb::task_scheduler_init init(usedThreads);
-
-    std::cout << "Using " <<  usedThreads << " threads for assembling gradient" << std::endl;
     const unsigned int n = pcell_gp;
-    tbb::parallel_for(static_cast<unsigned int> (1), n+1 , [&]( unsigned int i ) {
+
+#pragma omp parallel for
+    for(unsigned int i = 1; i< n+1; i++) {
 
         std::vector<double> current_barycenter = barycenters.find(static_cast<int>(i))->second;
 
@@ -261,7 +247,7 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm(std::vect
                 }
             }
         }
-    });
+    }
 
 
 

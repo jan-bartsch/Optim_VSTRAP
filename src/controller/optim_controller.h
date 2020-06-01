@@ -27,11 +27,6 @@
 #include "../io/output_control_update.h"
 #include "../io/output_diagnostics.h"
 
-#include <tbb/tbb.h>
-#include <tbb/parallel_for.h>
-#include <tbb/blocked_range.h>
-
-
 class optim_controller : public abstract_controller
 {
 public:

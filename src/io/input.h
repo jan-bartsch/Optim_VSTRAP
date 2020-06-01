@@ -7,10 +7,6 @@
 #include <fstream>
 #include <stdexcept>
 
-#include <tbb/tbb.h>
-#include <tbb/parallel_for.h>
-#include <tbb/blocked_range.h>
-
 #include "../objects/particle.h"
 #include "../io/tinyXML/tinyxml.h"
 

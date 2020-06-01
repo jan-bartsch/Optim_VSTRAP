@@ -4,10 +4,6 @@
 #include <vector>
 #include <map>
 
-#include <tbb/tbb.h>
-#include <tbb/parallel_for.h>
-#include <tbb/blocked_range.h>
-
 #include "../objects/particle.h"
 #include "../objects/data_provider.h"
 #include "../objects/coordinate_phase_space_time.h"
