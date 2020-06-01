@@ -90,18 +90,10 @@ std::vector<std::unordered_map<coordinate_phase_space_time, double> > pdf_contro
 
     std::vector<double> sizeParticles(ntimesteps_gp);
 
-    int numberThreadsTBB = tbb::task_scheduler_init::default_num_threads();
-    int usedThreads = numberThreadsTBB;
+    //std::cout << "Using " <<  usedThreads << " threads for assembling pdfs" << std::endl;
 
-    if(numberThreadsTBB > static_cast<int>(ntimesteps_gp)) {
-        usedThreads = static_cast<int>(ntimesteps_gp);
-    }
-    tbb::task_scheduler_init init(usedThreads);
-
-    std::cout << "Using " <<  usedThreads << " threads for assembling pdfs" << std::endl;
-
-    tbb::parallel_for(static_cast<unsigned int> (0), ntimesteps_gp , [&]( unsigned int o ) {
-        //for(unsigned int o=0; o<ntimesteps_gp; o++) {
+#pragma omp parallel for
+    for (unsigned int o=0; o<ntimesteps_gp; o++) {
         //std::cout << "Assembling pdf in timestep " << o << std::endl;
         double px,py,pz,vx,vy,vz;
         std::vector<particle> particles;
@@ -138,17 +130,9 @@ std::vector<std::unordered_map<coordinate_phase_space_time, double> > pdf_contro
                 // std::cout << "Particle " + std::to_string(i) + " exceeding velocity bound" << std::endl;
             }
         }
-    });
-
-
-//    for(unsigned int o= 0; o<ntimesteps_gp; o++) {
-//       pdf.insert(pdf_time[o].begin(),pdf_time[o].end());
-//    }
-
-
+    }
 
     return pdf_time;
-
 }
 
 std::vector<std::vector<std::vector<std::vector<double>>>> pdf_controller::relaxating_GaussSeidel_4D(std::vector<std::vector<std::vector<std::vector<double>>>> pdf,

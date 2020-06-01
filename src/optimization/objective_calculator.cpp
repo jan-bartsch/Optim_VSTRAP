@@ -83,20 +83,6 @@ double objective_calculator::calculate_objective_L2(std::vector<std::unordered_m
      * Add tracking integral using first-order(?) RULE
      */
 
-    int numberThreadsTBB = tbb::task_scheduler_init::default_num_threads();
-    int usedThreads = numberThreadsTBB;
-
-    if(numberThreadsTBB > static_cast<int>(ntimesteps_gp)) {
-        usedThreads = static_cast<int>(ntimesteps_gp);
-    }
-    tbb::task_scheduler_init init(1);
-
-    std::cout << "Using " <<  usedThreads << " threads for assembling functional" << std::endl;
-
-    unsigned int bound = 10;
-
-    //tbb::parallel_for(static_cast<unsigned int> (0), bound , [&]( unsigned int o ) {
-    //#pragma omp parallel num_threads(4) {
 #pragma omp parallel for
     for(unsigned int  o = 0; o<ntimesteps_gp; o++) {
         std::cout << "Calculating functional in " << o << " timestep" << std::endl;
