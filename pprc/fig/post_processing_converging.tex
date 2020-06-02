@@ -9,21 +9,22 @@ tick align=outside,
 tick pos=left,
 title={History of convergence of relative value of objective},
 x grid style={white!69.0196078431373!black},
-xmin=-0.3, xmax=6.3,
+xmin=-0.35, xmax=7.35,
 xtick style={color=black},
 y grid style={white!69.0196078431373!black},
-ymin=-1.60536894321906, ymax=11.7127478076003,
+ymin=-1.1928611923111, ymax=-0.990816133699471,
 ytick style={color=black}
 ]
 \addplot [semithick, color0]
 table {%
 0 -1
-1 10.654548675702
-2 -0.998533085304279
-3 11.1073788643813
-4 -0.998805917264594
-5 10.9087075914607
-6 -0.998813003809018
+1 -1.1008946762335
+2 -1.11914016594325
+3 -1.16146100924203
+4 -1.16886644816488
+5 -1.17654471904804
+6 -1.18367732601057
+7 -1.18367732601057
 };
 
 \nextgroupplot[
@@ -31,21 +32,22 @@ tick align=outside,
 tick pos=left,
 title={Norm relative gradient},
 x grid style={white!69.0196078431373!black},
-xmin=-0.3, xmax=6.3,
+xmin=-0.35, xmax=7.35,
 xtick style={color=black},
 y grid style={white!69.0196078431373!black},
-ymin=-0.0510449913160193, ymax=1.07207351326045,
+ymin=0.0651227215039613, ymax=1.04451796564267,
 ytick style={color=black}
 ]
 \addplot [semithick, color0]
 table {%
 0 1
-1 1.15379775307328e-05
-2 1.02102267214334
-3 5.84980109317895e-06
-4 1.01185208271466
-5 6.69017873681673e-06
-6 1.01398081203379
+1 0.740432441621553
+2 0.428308893571996
+3 0.282561939626999
+4 0.194335524753868
+5 0.135573994882452
+6 0.10964068714663
+7 0.118994721246032
 };
 
 \nextgroupplot[
@@ -56,18 +58,18 @@ x grid style={white!69.0196078431373!black},
 xmin=-0.3, xmax=6.3,
 xtick style={color=black},
 y grid style={white!69.0196078431373!black},
-ymin=-173.608609515, ymax=3646.218505215,
+ymin=3.0578485, ymax=13.8163215,
 ytick style={color=black}
 ]
 \addplot [semithick, color0]
 table {%
-0 3401.09
-1 0.0392417
-2 3472.59
-3 0.0198957
-4 3441.4
-5 0.0227539
-6 3448.64
+0 13.3273
+1 3.54687
+2 9.11438
+3 5.63685
+4 8.08588
+5 6.63244
+6 6.63692
 };
 
 \nextgroupplot[
@@ -75,7 +77,7 @@ tick align=outside,
 tick pos=left,
 title={Wasserstein distance (pre/post linesearch)},
 x grid style={white!69.0196078431373!black},
-xmin=-0.25, xmax=5.25,
+xmin=-0.3, xmax=6.3,
 xtick style={color=black},
 y grid style={white!69.0196078431373!black},
 ymin=-0.055, ymax=0.055,
@@ -89,6 +91,7 @@ table {%
 3 0
 4 0
 5 0
+6 0
 };
 \end{groupplot}
 
