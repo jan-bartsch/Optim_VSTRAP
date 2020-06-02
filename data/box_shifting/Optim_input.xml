@@ -24,9 +24,9 @@
 	<parameter name="start_zero_control" value="0" />		<!-- 0=true, 1=false -->
         <parameter name="tolerance_gp" value="1e-13" />
         <parameter name="tolerance_relaxation_gp" value="1e-10" />
-        <parameter name="vcell_gp" value="6" /> <!-- 10 -->
-        <parameter name="vmax_gp" value="1000" /> <!-- 2000 -->                           <!-- maximal velocity (support of forward equaiton) -->
-        <parameter name="weight_control_gp" value="10" />
+        <parameter name="vcell_gp" value="10" /> <!-- 10 -->
+        <parameter name="vmax_gp" value="2000" /> <!-- 2000 -->                           <!-- maximal velocity (support of forward equaiton) -->
+        <parameter name="weight_control_gp" value="1" />
     </globalParameters>
 
     
@@ -42,8 +42,8 @@
 
     <subroutines>
         <!--subroutine group="control_update" name= "gradient_descent" /-->
-	<!--subroutine group="control_update" name="armijo_linesearch" /-->
-	<subroutine group="control_update" name="successive_approximation" />
+	<!--subroutine group="control_update" name="successive_approximation" /-->
+	<subroutine group="control_update" name="armijo_linesearch" />
     </subroutines>
 
 </optimizer_input>
