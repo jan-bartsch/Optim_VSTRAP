@@ -68,6 +68,7 @@ std::vector<particle> input::readParticleVector(std::string filename, std::strin
         vec.push_back(line);
 
         if (vec.size() < 11 && counter != 0 ) {
+            std::cout << "Linew was: " << line << std::endl;
             throw std::length_error("Too less particle attributes for writing particle vector");
         }
 

@@ -197,6 +197,8 @@ std::vector<std::vector<std::vector<std::vector<double>>>> pdf_controller::relax
 
 double pdf_controller::calculate_wasserstein_metric(std::vector<std::vector<particle> > dist1, std::vector<std::vector<particle> > dist2)
 {
+
+
     unsigned int ntimesteps_gp = static_cast<unsigned int>(this->getData_provider_optim().getOptimizationParameters().find("ntimesteps_gp")->second);
     unsigned int numberParticles = static_cast<unsigned int>(dist1[0].size());
 
@@ -223,32 +225,55 @@ double pdf_controller::calculate_wasserstein_metric_histogramm(std::vector<std::
 
     unsigned int ntimesteps_gp = static_cast<unsigned int>(optimization_parameters.find("ntimesteps_gp")->second);
     double vcell_gp = static_cast<unsigned int>(optimization_parameters.find("vcell_gp")->second);
+    double dv_gp = static_cast<unsigned int>(optimization_parameters.find("dv_gp")->second);
+    double vmax_gp = static_cast<unsigned int>(optimization_parameters.find("vmax_gp")->second);
     double pcell_gp = static_cast<unsigned int>(optimization_parameters.find("pcell_gp")->second);
 
-    std::vector<std::vector<std::vector<double>>> combined_distribution(ntimesteps_gp, std::vector<std::vector<double>>
-                                                                        (vcell_gp, std::vector<double> (vcell_gp,0.0)));
+    std::map<int,std::vector<double>> barycenters = this->getData_provider_optim().getMesh_barycenters();
 
-//#pragma omp parallel for
+#pragma omp parallel for
     for (unsigned int o = 0; o < ntimesteps_gp; o++) {
         std::cout << "Wasserstein in " << o << std::endl;
         for (unsigned int i1 = 1; i1<=pcell_gp; i1++) {
             for (unsigned int l1 = 0; l1<vcell_gp; l1++) {
                 for (unsigned int m1 = 0; m1<vcell_gp; m1++ ) {
                     for (unsigned int n1 = 0; n1<vcell_gp; n1++) {
+
+                        coordinate_phase_space_time c1(o,i1,l1,m1,n1);
+
                         for(unsigned int i2 = 1; i2 <= pcell_gp; i2++) {
                             for (unsigned int l2 = 0; l2<vcell_gp; l2++) {
                                 for (unsigned int m2 = 0; m2<vcell_gp; m2++ ) {
                                     for (unsigned int n2 = 0; n2<vcell_gp; n2++) {
-                                        coordinate_phase_space_time c1(o,i1,l1,m1,n1);
+
                                         coordinate_phase_space_time c2(o,i2,l2,m2,n2);
-                                        coordinate_phase_space_time diff = c1-c2;
+
 
                                         if(dist1[o].find(c1) != dist1[o].end() || dist2[o].find(c2) != dist2[o].end()) {
-                                            std::cout << "Dist: " << diff.toString() << std::endl;
-                                            std::cout << "Dist norm: " << diff.getNorm() << std::endl;
-                                            std::cout << "Dist1 norm: " << dist1[o].at(c1) << std::endl;
-                                            std::cout << "Dist2 norm: " << dist2[o].at(c2) << std::endl;
-                                            wasserstein_value += diff.getNorm()*dist1[o].at(c1)*dist2[o].at(c2);
+
+                                            std::vector<double> c1_bc = barycenters.find(static_cast<int>(i1))->second;
+
+                                            std::vector<double> c2_bc = barycenters.find(static_cast<int>(i2))->second;
+
+                                            //-vmax_gp - (-vmax_gp) = 0
+                                            double distance = (c1_bc[0]-c2_bc[0])*(c1_bc[0]-c2_bc[0]) +
+                                                    (c1_bc[1]-c2_bc[1])*(c1_bc[1]-c2_bc[1]) +
+                                                    (c1_bc[1]-c2_bc[1])*(c1_bc[1]-c2_bc[1]) +
+                                                    (l1*dv_gp  - l2*dv_gp)*(l1*dv_gp  - l2*dv_gp)+
+                                                    (m1*dv_gp  - m2*dv_gp)*(m1*dv_gp  - m2*dv_gp)+
+                                                    (n1*dv_gp  - n2*dv_gp)*(n1*dv_gp  - n2*dv_gp);
+
+                                            double occupation1 = 0.0;
+                                            double occupation2 = 0.0;
+
+                                            if(dist1[o].find(c1) != dist1[o].end()) {
+                                                occupation1 = dist1[o].at(c1); //else it stays 0
+                                            }
+                                            if(dist2[o].find(c2) != dist2[o].end()) {
+                                                occupation2 = dist2[o].at(c2); //else it stays 0
+                                            }
+
+                                            wasserstein_value += distance*(occupation1+occupation2);
                                         }
                                     }
                                 }
@@ -263,6 +288,7 @@ double pdf_controller::calculate_wasserstein_metric_histogramm(std::vector<std::
         }
     }
 
+    std::cout << "Wasserstein distance: " << wasserstein_value << std::endl;
     return wasserstein_value;
 }
 

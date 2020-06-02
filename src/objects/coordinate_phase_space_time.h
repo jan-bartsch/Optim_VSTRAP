@@ -14,6 +14,8 @@ public:
 
     std::string toString() const;
 
+    double calculateNorm();
+
     bool operator==(const coordinate_phase_space_time &coordinate) const;
     coordinate_phase_space_time operator-(const coordinate_phase_space_time &coordinate) const;
 

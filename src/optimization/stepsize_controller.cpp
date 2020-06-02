@@ -12,9 +12,14 @@ int stepsize_controller::calculate_stepsize(arma::mat &gradient, double J0, arma
     std::string control_update = subroutines.find("control_update")->second;
 
     if(control_update.compare("armijo_linesearch")==0) {
+        logger::Info("Updating control using stepsize-selection strategy: Armijo lineasearch");
         return armijo_linesearch(gradient,J0,control,stepdirection,inputParticles,stepsize0);
     } else if (control_update.compare("gradient_descent")==0) {
+        logger::Info("Updating control using stepsize-selection strategy: gradient descent");
         return gradient_descent(control,stepdirection,inputParticles,stepsize0);
+    } else if (control_update.compare("successive_approximation")==0) {
+        logger::Info("Updating control using stepsize-selection strategy: successive approximation");
+        return successive_approximation(gradient,J0,control,stepdirection,inputParticles,stepsize0);
     } else {
         std::invalid_argument("No such control update subroutine");
         return 1;
@@ -152,3 +157,14 @@ int stepsize_controller::gradient_descent(arma::mat &control, arma::mat &stepdir
 
     return return_flag;
 }
+
+int stepsize_controller::successive_approximation(arma::mat &gradient, double J0, arma::mat &control, arma::mat &stepdirection, std::vector<particle> &inputParticles, double &stepsize0)
+{
+
+    int flag = 0;
+
+    control = -gradient;
+
+    return flag;
+}
+

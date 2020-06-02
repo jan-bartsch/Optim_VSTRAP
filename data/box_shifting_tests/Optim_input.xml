@@ -25,7 +25,7 @@
         <parameter name="tolerance_relaxation_gp" value="1e-10" />
         <parameter name="vcell_gp" value="3" />
         <parameter name="vmax_gp" value="1000" />                           <!-- maximal velocity (support of forward equaiton) -->
-        <parameter name="weight_control_gp" value="0.0" />
+        <parameter name="weight_control_gp" value="0.5" />
     </globalParameters>
 
     
@@ -40,7 +40,8 @@
     </paths>
 
     <subroutines>
-        <subroutine group="control_update" name= "armijo_linesearch" />
+        <!--subroutine group="control_update" name="armijo_linesearch" /-->
+	<subroutine group="control_update" name="successive_approximation" />
 	<!--subroutine group="control_update" name="gradient_descent" /-->
     </subroutines>
 

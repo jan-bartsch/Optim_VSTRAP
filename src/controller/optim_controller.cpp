@@ -76,6 +76,7 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
     unsigned int ntimesteps_gp = static_cast<unsigned int>(optimizationParameters.find("ntimesteps_gp")->second);
     bool zero_control = static_cast<bool>(optimizationParameters.find("start_zero_control")->second);
     unsigned int calculation_functional = static_cast<unsigned int>(optimizationParameters.find("calculation_functional")->second);
+    unsigned int calculation_wasserstein = static_cast<unsigned int>(optimizationParameters.find("calculation_wasserstein")->second);
     double fixed_gradient_descent_stepsize = static_cast<double>(optimizationParameters.find("fixed_gradient_descent_stepsize")->second);
     double fraction_of_optimal_control = static_cast<double>(optimizationParameters.find("fraction_of_optimal_control")->second);
 
@@ -156,6 +157,7 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
             throw  std::system_error();
         }
         logger::Info("Finished VSTRAP... Reading particle files");
+        input_control.read_plasma_state_forward(forwardParticles);
 
         //forwardPDF = pdf_control.assemblingMultiDim_parallel(forwardParticles,0);
         //value_objective = objective.calculate_objective_L2(forwardPDF,control);
@@ -182,17 +184,18 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
         logger::Info("Assembling of pdfs took: " + std::to_string(std::chrono::duration_cast<std::chrono::seconds>
                                                                   (end-start).count()) + " seconds");
 
-        input_control.read_plasma_state_forward(forwardParticles);
-//        if (r == 0) {
-//            //save plasma states using initial control
-//           //input_control.read_plasma_state_forward(forwardParticles_initialControl);
-//           forwardPDF_initial = pdf_control.assemblingMultiDim_parallel(forwardParticles,0);
-//        } else {
-//            //wasserstein_distance = pdf_control.calculate_wasserstein_metric(forwardParticles_initialControl,forwardParticles);
-//            wasserstein_distance = pdf_control.calculate_wasserstein_metric_histogramm(forwardPDF_initial,forwardPDF);
-//            std::cout << "Wasserstein distance: " << wasserstein_distance << std::endl;
-//            outDiag.writeDoubleToFile(wasserstein_distance,"wassersteinDistanceTrack");
-//        }
+        if (r == 0) {
+            //save plasma states using initial control
+           //input_control.read_plasma_state_forward(forwardParticles_initialControl);
+           forwardPDF_initial = pdf_control.assemblingMultiDim_parallel(forwardParticles,0);
+        } else if (fmod(r,calculation_wasserstein) == 0.0) {
+            wasserstein_distance = pdf_control.calculate_wasserstein_metric(forwardParticles_initialControl,forwardParticles);
+            //wasserstein_distance = pdf_control.calculate_wasserstein_metric_histogramm(forwardPDF_initial,forwardPDF);
+            std::cout << "Wasserstein distance: " << wasserstein_distance << std::endl;
+            outDiag.writeDoubleToFile(wasserstein_distance,"wassersteinDistanceTrack");
+        } else {
+            std::cout << "No calculation of wasserstein distance" << std::endl;
+        }
 
         if (calculation_functional == 0) {
             logger::Info("No calculation of functional");
@@ -201,6 +204,8 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
             logger::Info("Calculating functional...");
             value_objective = objective.calculate_objective_L2(forwardPDF,control);
             outDiag.writeDoubleToFile(value_objective,"objectiveTrack");
+        } else {
+            std::cout << "No calculation of functional" << std::endl;
         }
 
 
@@ -219,6 +224,9 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
         if (stepsize == stepsize_before) {
             stepsize = 2.0*stepsize; //Increase stepsize if too small (orthwise start with last stepsize)
         }
+
+        std::cout << "Control in iteration " << r << std::endl;
+        std::cout << control << std::endl;
 
         if (stepsize_flag == 1) {
             std::string small_stepsize = "Linesearch returned too small stepsize; Found minimum after " + std::to_string(r+1) + " iterations";

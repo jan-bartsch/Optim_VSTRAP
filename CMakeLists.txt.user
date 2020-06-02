@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.7.2, 2020-06-01T15:19:44. -->
+<!-- Written by QtCreator 4.7.2, 2020-06-02T09:13:12. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -347,7 +347,7 @@
      <value type="int">13</value>
      <value type="int">14</value>
     </valuelist>
-    <value type="QString" key="CMakeProjectManager.CMakeRunConfiguration.Arguments">../../Optim_VSTRAP/data/box_shifting_tests/Optim_input.xml</value>
+    <value type="QString" key="CMakeProjectManager.CMakeRunConfiguration.Arguments">../../Optim_VSTRAP/data/box_shifting/Optim_input.xml</value>
     <value type="QString" key="CMakeProjectManager.CMakeRunConfiguration.UserWorkingDirectory"></value>
     <value type="QString" key="CMakeProjectManager.CMakeRunConfiguration.UserWorkingDirectory.default">/home/jan/Promotion_linuxPC/build-Optim/src</value>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
