@@ -13,6 +13,9 @@ objective_calculator::objective_calculator(const char *filename)
 double objective_calculator::calculate_objective_L2(std::vector<std::unordered_map<coordinate_phase_space_time, double> > forwardPDF_time, arma::mat control)
 {
 
+    equation_solving_controller solver = equation_solving_controller();
+    solver.setData_provider_optim(this->getData_provider_optim());
+
     std::map<std::string, double> optimizationParameters = this->getData_provider_optim().getOptimizationParameters();
 
     unsigned int pcell_gp = static_cast<unsigned int>(optimizationParameters.find("pcell_gp")->second);
@@ -128,6 +131,10 @@ double objective_calculator::calculate_objective_L2(std::vector<std::unordered_m
     //add control, no trapezodial rule needed since control is zero at the boundary (?)
     costOfControl += 1.0/2.0*arma::norm(control,"fro")*arma::norm(control,"fro")*pow(dp_gp,1.0);
     // dp_gp^1 since we have elements with volume dp_gp
+
+    arma::mat second_derivative = solver.Laplacian_3D();
+    costOfControl += arma::accu(second_derivative*control)/(dp_gp*dp_gp);
+
 
     objective += weight_control_gp*costOfControl;
 

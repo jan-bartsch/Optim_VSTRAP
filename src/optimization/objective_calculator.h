@@ -7,6 +7,7 @@
 #include "../controller/abstract_controller.h"
 #include "../controller/pdf_controller.h"
 #include "../controller/desired_trajectory_controller.h"
+#include "../controller/equation_solving_controller.h"
 
 #include "../objects/particle.h"
 #include "../objects/coordinate_phase_space_time.h"
