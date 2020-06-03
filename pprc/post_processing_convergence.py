@@ -1,7 +1,7 @@
 from matplotlib import pyplot as plt
 import tikzplotlib
 
-fig_objective = plt.figure()
+fig_objective = plt.figure(figsize=(10, 10))
 
 pathToBuildSRC = "../../build-Optim/src/"
 
@@ -20,7 +20,7 @@ for i in range(0,len(objective_track)-1):
 
 ax1 = plt.subplot(221)
 plt.plot(objective_track_float)
-plt.title("History of convergence of relative value of objective")
+plt.title("Relative value of objective")
 ax1.set_yscale('linear')
 
 
@@ -75,12 +75,13 @@ try:
 
 	ax4 = plt.subplot(224)
 	plt.plot(wd_float)
-	plt.title("Wasserstein distance (pre/post linesearch)")
+	plt.title("Wasserstein distance (init/curr)")
 	ax4.set_yscale('linear')
 except:
 	print("No wasserstein Distance file existing")
 
 tikzplotlib.save("fig/post_processing_converging.tex")
+plt.savefig("../results/optimization_monitoring.png")
 plt.show()
 
 
