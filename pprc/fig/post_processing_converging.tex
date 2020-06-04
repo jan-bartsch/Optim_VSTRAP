@@ -9,19 +9,20 @@ tick align=outside,
 tick pos=left,
 title={Relative value of objective},
 x grid style={white!69.0196078431373!black},
-xmin=-0.2, xmax=4.2,
+xmin=-0.25, xmax=5.25,
 xtick style={color=black},
 y grid style={white!69.0196078431373!black},
-ymin=-4.5454339209346, ymax=-0.831169813288829,
+ymin=-2.88880254511317, ymax=-0.910057021661277,
 ytick style={color=black}
 ]
 \addplot [semithick, color0]
 table {%
 0 -1
-1 -1.58549772261048
-2 -2.65331525329439
-3 -4.37656896491777
-4 -4.37660373422343
+1 -2.79885956677445
+2 -1.41610166544974
+3 -2.55149334167797
+4 -1.60606376690657
+5 -2.40828726400334
 };
 
 \nextgroupplot[
@@ -32,16 +33,16 @@ x grid style={white!69.0196078431373!black},
 xmin=-0.2, xmax=4.2,
 xtick style={color=black},
 y grid style={white!69.0196078431373!black},
-ymin=0.266737121021788, ymax=1.13242210095179,
+ymin=0.242116873617355, ymax=1.03608967268489,
 ytick style={color=black}
 ]
 \addplot [semithick, color0]
 table {%
 0 1
-1 1.09307278368225
-2 0.598129721707732
-3 0.315531314453319
-4 0.306086438291333
+1 0.278206546302243
+2 0.868729037322486
+3 0.381059849187659
+4 0.793926473036942
 };
 
 \nextgroupplot[
@@ -49,18 +50,19 @@ tick align=outside,
 tick pos=left,
 title={Norm control},
 x grid style={white!69.0196078431373!black},
-xmin=-0.15, xmax=3.15,
+xmin=-0.2, xmax=4.2,
 xtick style={color=black},
 y grid style={white!69.0196078431373!black},
-ymin=3.398548, ymax=27.854012,
+ymin=0.08142681, ymax=0.34844939,
 ytick style={color=black}
 ]
 \addplot [semithick, color0]
 table {%
-0 26.7424
-1 12.2959
-2 4.51016
-3 4.51022
+0 0.336312
+1 0.0935642
+2 0.292164
+3 0.128155
+4 0.267007
 };
 
 \nextgroupplot[
@@ -68,18 +70,19 @@ tick align=outside,
 tick pos=left,
 title={Wasserstein distance (init/curr)},
 x grid style={white!69.0196078431373!black},
-xmin=-0.15, xmax=3.15,
+xmin=-0.2, xmax=4.2,
 xtick style={color=black},
 y grid style={white!69.0196078431373!black},
-ymin=46150100000, ymax=3437271900000,
+ymin=35791355, ymax=1339153745,
 ytick style={color=black}
 ]
 \addplot [semithick, color0]
 table {%
-0 3283130000000
-1 1447890000000
-2 200292000000
-3 200296000000
+0 1279910000
+1 95035100
+2 912873000
+3 191673000
+4 737283000
 };
 \end{groupplot}
 

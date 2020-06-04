@@ -81,7 +81,7 @@ except:
 	print("No wasserstein Distance file existing")
 
 tikzplotlib.save("fig/post_processing_converging.tex")
-plt.savefig("../results/optimization_monitoring.png")
+#plt.savefig("../results/optimization_monitoring.png")
 plt.show()
 
 

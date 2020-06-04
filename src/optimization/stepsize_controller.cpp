@@ -163,7 +163,7 @@ int stepsize_controller::successive_approximation(arma::mat &gradient, double J0
 
     int flag = 0;
 
-    control = gradient;
+    control = -gradient;
 
     return flag;
 }
