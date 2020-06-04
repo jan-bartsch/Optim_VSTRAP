@@ -53,16 +53,16 @@ std::vector<double> desired_trajectory_controller::trajectory_desired_shifting_h
 {
     std::vector<double> p_d(6,0.0);
 
-   if (barycenter[0] < 0) {
+   if (barycenter[0] > 0) {
         p_d[0] = 0;
     } else {
         p_d[0] = barycenter[0]*barycenter[0]+
                 barycenter[1]*barycenter[1]+
                 barycenter[2]*barycenter[2];
     }
-    p_d[1] = -100.0;
-    p_d[2] = 100.0;
-    p_d[3] = 100.0;
+    p_d[1] = 200.0;
+    p_d[2] = 200.0;
+    p_d[3] = 200.0;
 
    return p_d;
 
