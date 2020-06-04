@@ -17,14 +17,8 @@ int equation_solving_controller::start_solving_backward(std::string start_backwa
 
 arma::mat equation_solving_controller::Laplacian_3D()
 {
-    unsigned int dimesion = 32;
-
-    arma::mat Laplace(dimesion,dimesion,arma::fill::zeros);
-
     std::map<std::string, double> optimizationParameters = this->getData_provider_optim().getOptimizationParameters();
     std::map<int,std::vector<double>> barycenters = this->getData_provider_optim().getMesh_barycenters();
-
-
 
     unsigned int pcell_gp = static_cast<unsigned int>(optimizationParameters.find("pcell_gp")->second);
     unsigned int vcell_gp = static_cast<unsigned int>(optimizationParameters.find("vcell_gp")->second);
@@ -41,10 +35,12 @@ arma::mat equation_solving_controller::Laplacian_3D()
     int cell_id;
 
     arma::mat gradient(pcell_gp,3,arma::fill::zeros);
+    arma::mat Laplace(pcell_gp,pcell_gp,arma::fill::zeros);
 
-    for(int i = 17; i<=48; i++) {
+    //for(int i = 17; i<=48; i++) {
+    for(int i = 1; i<=pcell_gp; i++) {
         current_barycenter = barycenters.find(static_cast<int>(i))->second;
-        Laplace(i-17,i-17) = -6.0;
+        Laplace(i-1,i-1) = -6.0;
 
         next_cell_xm = current_barycenter;
         next_cell_xp = current_barycenter;
@@ -72,11 +68,11 @@ arma::mat equation_solving_controller::Laplacian_3D()
             next_cell_zp[2] = current_barycenter[2]+0.25;
         }
 
-        for(int l = 17; l<=48;l++) {
+        for(int l = 1; l<=pcell_gp;l++) {
             std::vector<double> temp = barycenters.find(l)->second;
             if (temp == next_cell_xm || temp == next_cell_xp || temp == next_cell_ym || temp == next_cell_yp || temp == next_cell_zm || temp == next_cell_zp) {
                 if (i != l) {
-                    Laplace(i-17,l-17) = 1.0;
+                    Laplace(i-1,l-1) = 1.0;
                 }
             }
         }
@@ -87,14 +83,8 @@ arma::mat equation_solving_controller::Laplacian_3D()
 
 arma::mat equation_solving_controller::Laplacian_Squared_3D()
 {
-    unsigned int dimesion = 32;
-
-    arma::mat Laplace(dimesion,dimesion,arma::fill::zeros);
-
     std::map<std::string, double> optimizationParameters = this->getData_provider_optim().getOptimizationParameters();
     std::map<int,std::vector<double>> barycenters = this->getData_provider_optim().getMesh_barycenters();
-
-
 
     unsigned int pcell_gp = static_cast<unsigned int>(optimizationParameters.find("pcell_gp")->second);
     unsigned int vcell_gp = static_cast<unsigned int>(optimizationParameters.find("vcell_gp")->second);
@@ -114,11 +104,11 @@ arma::mat equation_solving_controller::Laplacian_Squared_3D()
     std::vector<double> next_cell_zmm;std::vector<double> next_cell_zpp;
 
 
-    arma::mat gradient(pcell_gp,3,arma::fill::zeros);
+     arma::mat Laplace(pcell_gp,pcell_gp,arma::fill::zeros);
 
-    for(int i = 17; i<=48; i++) {
+    for(int i = 1; i<=pcell_gp; i++) {
         current_barycenter = barycenters.find(static_cast<int>(i))->second;
-        Laplace(i-17,i-17) = 18.0;
+        Laplace(i-1,i-1) = 18.0;
 
         next_cell_xm = current_barycenter;
         next_cell_xp = current_barycenter;
@@ -172,16 +162,16 @@ arma::mat equation_solving_controller::Laplacian_Squared_3D()
             next_cell_zpp[2] = current_barycenter[2]+0.5;
         }
 
-        for(int l = 17; l<=48;l++) {
+        for(int l = 1; l<=pcell_gp;l++) {
             std::vector<double> temp = barycenters.find(l)->second;
             if (temp == next_cell_xm || temp == next_cell_xp || temp == next_cell_ym || temp == next_cell_yp || temp == next_cell_zm || temp == next_cell_zp) {
                 if (i != l) {
-                    Laplace(i-17,l-17) = -4.0;
+                    Laplace(i-1,l-1) = -4.0;
                 }
             }
             if (temp == next_cell_xmm || temp == next_cell_xpp || temp == next_cell_ymm || temp == next_cell_ypp || temp == next_cell_zmm || temp == next_cell_zpp) {
                 if (i != l) {
-                    Laplace(i-17,l-17) = -1.0;
+                    Laplace(i-1,l-1) = -1.0;
                 }
             }
         }

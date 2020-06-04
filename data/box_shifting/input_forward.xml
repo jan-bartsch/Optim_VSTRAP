@@ -49,7 +49,7 @@
 			</batch>
 			<file path = "." name="plasma_state" format="csv" output_interval="1"/>
 		</executable>
-		<executable name="log_initializer">
+		<executable name="log_initializer" mode="CPU">
 			<status enabled="false"/>
 		</executable>
 	</executables>
@@ -59,8 +59,8 @@
 
 	<schedule>
 		<init>
-			<executable name="mesh_initializer"/>
 			<executable name="log_initializer"/>
+			<executable name="mesh_initializer"/>
 			<executable name="particle_initializer"/>
 			<executable name="plasma_state"/>
 			<executable name="pusher"/>
@@ -70,7 +70,6 @@
 		</init>
 		<exec>
 		  	<executable name="bgf"/>
-			<executable name="log_initializer"/>
 			<executable name="dsmc" />
 			<executable name="pusher"/>
             		<executable name="pwi"/>

@@ -26,6 +26,10 @@ public:
                                            unsigned int l, unsigned int m, unsigned int n,
                                            unsigned int o);
 
+    std::vector<double> trajectory_desired_concentrating_center(std::vector<double> barycenter,
+                                           unsigned int l, unsigned int m, unsigned int n,
+                                           unsigned int o);
+
 private:
     std::map<int,std::vector<double>> barycenters;
 

@@ -63,10 +63,10 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
     output_diagnostics outDiag = output_diagnostics();
     equation_solving_controller model_solver = equation_solving_controller();
 
-    model_solver.setData_provider_optim(data_provider_opt);
+    //    model_solver.setData_provider_optim(data_provider_opt);
     //    arma::mat Laplace = model_solver.Laplacian_3D();
     //    arma::mat Laplace_Squared = model_solver.Laplacian_Squared_3D();
-    //    std::cout << arma::eye(32,32)-Laplace+Laplace_Squared << std::endl;
+    //    std::cout << arma::eye(64,64)-Laplace+Laplace_Squared << std::endl;
 
 
     std::map<std::string, double> optimizationParameters = data_provider_opt.getOptimizationParameters();
@@ -159,8 +159,8 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
         logger::Info("Finished VSTRAP... Reading particle files");
         input_control.read_plasma_state_forward(forwardParticles);
 
-        forwardPDF = pdf_control.assemblingMultiDim_parallel(forwardParticles,0);
-        value_objective = objective.calculate_objective_L2(forwardPDF,control);
+        //        forwardPDF = pdf_control.assemblingMultiDim_parallel(forwardParticles,0);
+        //        value_objective = objective.calculate_objective_L2(forwardPDF,control);
 
         logger::Info("Finished reading files...");
         logger::Info("Starting VSTRAP (backward)...");
@@ -182,13 +182,13 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
         backwardPDF = pdf_control.assemblingMultiDim_parallel(backwardParticles,1);
         end = std::chrono::system_clock::now();
         logger::Info("Assembling of pdfs took: " + std::to_string(std::chrono::duration_cast<std::chrono::seconds>
-                                                                  (end-start).count()) + " seconds");
+                                                                  (end-start).count()) + " second(s)");
 
         if (r == 0) {
             //save plasma states using initial control
-           //input_control.read_plasma_state_forward(forwardParticles_initialControl);
-           forwardParticles_initialControl = forwardParticles;
-           forwardPDF_initial = pdf_control.assemblingMultiDim_parallel(forwardParticles,0);
+            //input_control.read_plasma_state_forward(forwardParticles_initialControl);
+            forwardParticles_initialControl = forwardParticles;
+            forwardPDF_initial = pdf_control.assemblingMultiDim_parallel(forwardParticles,0);
         } else if (fmod(r,calculation_wasserstein) == 0.0) {
             wasserstein_distance = pdf_control.calculate_wasserstein_metric(forwardParticles_initialControl,forwardParticles);
             //wasserstein_distance = pdf_control.calculate_wasserstein_metric_histogramm(forwardPDF_initial,forwardPDF);

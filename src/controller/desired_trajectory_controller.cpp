@@ -9,7 +9,7 @@ std::vector<double> desired_trajectory_controller::trajectory_desired(std::vecto
 {
     std::vector<double> p_d(6,0.0);
 
-    p_d = this->trajectory_desired_shifting_halfbox(barycenter,l,m,n,o);
+    p_d = this->trajectory_desired_concentrating_center(barycenter,l,m,n,o);
 
     return p_d;
 }
@@ -53,7 +53,7 @@ std::vector<double> desired_trajectory_controller::trajectory_desired_shifting_h
 {
     std::vector<double> p_d(6,0.0);
 
-   if (barycenter[0] > 0) {
+    if (barycenter[0] > 0) {
         p_d[0] = 0;
     } else {
         p_d[0] = barycenter[0]*barycenter[0]+
@@ -64,7 +64,18 @@ std::vector<double> desired_trajectory_controller::trajectory_desired_shifting_h
     p_d[2] = 200.0;
     p_d[3] = 200.0;
 
-   return p_d;
+    return p_d;
 
 
+}
+
+std::vector<double> desired_trajectory_controller::trajectory_desired_concentrating_center(std::vector<double> barycenter, unsigned int l, unsigned int m, unsigned int n, unsigned int o)
+{
+    std::vector<double> p_d(6,0.0);
+
+
+    p_d[0] = barycenter[0]*barycenter[0]+
+            barycenter[1]*barycenter[1]+
+            barycenter[2]*barycenter[2];
+    return p_d;
 }
