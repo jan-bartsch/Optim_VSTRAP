@@ -13,10 +13,6 @@ class initializer
 {
 public:
     initializer();
-
-
-
-
 };
 
 #endif // INITIALIZER_H

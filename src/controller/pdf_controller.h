@@ -15,7 +15,6 @@ class pdf_controller : public abstract_controller
 public:
     pdf_controller();
 
-
     std::unordered_map<coordinate_phase_space_time,double> assemblingMultiDim(std::vector<std::vector<particle> > &particlesTime, unsigned int equationType);
 
     std::vector<std::unordered_map<coordinate_phase_space_time,double>> assemblingMultiDim_parallel(std::vector<std::vector<particle> > &particlesTime, unsigned int equationType);

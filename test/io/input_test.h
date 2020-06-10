@@ -16,7 +16,6 @@ TEST(io, readParticlesLengthError) {
     ASSERT_TRUE(expected_exception);
 }
 
-
 TEST(io, readParticleCellId) {
     bool all_correct(true);
     input inputController = input();
