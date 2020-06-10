@@ -25,6 +25,30 @@ particle::particle(double px, double py, double pz, double vx, double vy, double
 
 }
 
+particle::particle(double px, double py, double pz, double vx, double vy, double vz, int cell_id)
+{
+    particle::setPx(px);
+    particle::setPy(py);
+    particle::setPz(pz);
+    particle::setVx(vx);
+    particle::setVy(vy);
+    particle::setVz(vz);
+    particle::setCell_id(cell_id);
+
+}
+
+bool particle::operator==(const particle &particle) const
+{
+    double tol = std::pow(10.0,-10);
+    return (std::fabs(particle.getPx() - this->getPx()) < tol &&
+            std::fabs(particle.getPy() - this->getPy()) < tol &&
+            std::fabs(particle.getPz() - this->getPz()) < tol &&
+            std::fabs(particle.getVx() - this->getVx()) < tol &&
+            std::fabs(particle.getVy() - this->getVy()) < tol &&
+            std::fabs(particle.getVz() - this->getVz()) < tol &&
+            particle.getCell_id() == this->getCell_id());
+}
+
 double particle::getVelocityMagnitudeParticle() {
     return sqrt(pow(vx,2.0)+pow(vy,2)+pow(vz,2.0));
 }

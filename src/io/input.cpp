@@ -68,7 +68,7 @@ std::vector<particle> input::readParticleVector(std::string filename, std::strin
         vec.push_back(line);
 
         if (vec.size() < 11 && counter != 0 ) {
-            std::cout << "Linew was: " << line << std::endl;
+            std::cout << "Line was: " << line << std::endl;
             throw std::length_error("Too less particle attributes for writing particle vector");
         }
 
@@ -81,10 +81,6 @@ std::vector<particle> input::readParticleVector(std::string filename, std::strin
             particleTemp.setVy(std::stod(vec[4]));
             particleTemp.setVz(std::stod(vec[5]));
             particleTemp.setCell_id(std::stoi(vec[11]));
-            if(vec.size()>=7) {
-                particleTemp.setWeight(std::stod(vec[6]));
-            }
-            particleTemp.setTimestep(0.0);
             particleVector.push_back(particleTemp);
         }
         counter++;

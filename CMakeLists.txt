@@ -8,6 +8,9 @@ set(CMAKE_BUILD_TYPE DEBUG)
 if("${CMAKE_SYSTEM}" STREQUAL "Linux-4.15.0-45-generic")
 message("INFO: all libraries are installed as root")
 
+add_subdirectory(src)
+add_subdirectory(test)
+
 else()
 message("INFO: some libraries are included manually")
 SET(CMAKE_INCLUDE_PATH ${CMAKE_INCLUDE_PATH} "/home/bartsch/include/boost_1_72_0/boost/builddirectory/include")
@@ -28,7 +31,9 @@ set(ARMADILLO_LIBRARY "/home/bartsch/Spaces/Promotion/codes/armadillo-8.500.1/li
 set(ARMADILLO_INCLUDE_DIRS "/home/bartsch/Spaces/Promotion/codes/armadillo-8.500.1/include")
 set(ARMADILLO_LIBRARIES "/home/bartsch/Spaces/Promotion/codes/armadillo-8.500.1/libarmadillo.so")
 
+add_subdirectory(src)
+
 endif()
 
-add_subdirectory(src)
-#add_subdirectory(test)
+
+
