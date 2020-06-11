@@ -160,8 +160,8 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm(std::vect
     arma::mat Laplace_Squared = model_solver.Laplacian_Squared_3D();
 
     arma::mat gradient(pcell_gp,3,arma::fill::zeros);
-    arma::mat gradient_Riesz(pcell_gp,3,arma::fill::zeros);
-    arma::mat rhs_Riesz(pcell_gp,3,arma::fill::zeros);
+    arma::mat gradient_Riesz(dimensionOfControl_gp,3,arma::fill::zeros);
+    arma::mat rhs_Riesz(dimensionOfControl_gp,3,arma::fill::zeros);
 
     //Caculate integral in gradient
     const unsigned int n = pcell_gp;
@@ -174,8 +174,8 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm(std::vect
 //        std::cout << "Cell_id: " << i << " with barycenter (" << current_barycenter[0] << ","
 //                  << current_barycenter[1] << "," << current_barycenter[2] << ")" << std::endl;
 
-        //if (current_barycenter[0]< - 0.2 || current_barycenter[0] > 0.2) {
-        if(false) {
+       if (current_barycenter[0]< - 0.2 || current_barycenter[0] > 0.2) {
+        //if(false) {
             std::cout << "Gradient will stay zero here" << std::endl;
         } else {
             std::vector<std::vector<std::vector<std::vector<double>>>> forwardPDFdouble(ntimesteps_gp, std::vector<std::vector<std::vector<double>>>
@@ -258,28 +258,31 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm(std::vect
     std::cout << "Gradient:" << std::endl;
     std::cout << gradient << std::endl;
 
+    int start_control = 17;
+    int end_control = 48;
+
     for(unsigned int j = 0; j < pcell_gp; j++) {
-        //if (j>15 && j<48) {
-            rhs_Riesz(j,0) = gradient(j,0);
-            rhs_Riesz(j,1) = gradient(j,1);
-            rhs_Riesz(j,2) = gradient(j,2);
-        //}
+        if (j>start_control-2 && j<end_control) {
+            rhs_Riesz(j-start_control+1,0) = gradient(j,0);
+            rhs_Riesz(j-start_control+1,1) = gradient(j,1);
+            rhs_Riesz(j-start_control+1,2) = gradient(j,2);
+        }
     }
 
-    arma::mat Riesz = weight_control_gp*(arma::eye(pcell_gp,pcell_gp) - 1.0/(pow(0.25,2))*Laplace + 1.0/(pow(0.25,4))*Laplace_Squared);
+	std::cout << "Riesz Matrix" << std::endl;
+    arma::mat Riesz = weight_control_gp*(arma::eye(dimensionOfControl_gp,dimensionOfControl_gp) - 1.0/(pow(0.25,2))*Laplace + 1.0/(pow(0.25,4))*Laplace_Squared);
     //std::cout << Riesz << std::endl;
     //std::cout << "Condition number Matrix Riesz: " << arma::cond(Riesz) << std::endl;
 
     gradient_Riesz = arma::solve(Riesz,-rhs_Riesz);
-
     arma::mat return_gradient(pcell_gp,3,arma::fill::zeros);
 
     for(unsigned int j = 0; j < pcell_gp; j++) {
-        //if (j>15 && j<48) {
-            return_gradient(j,0) = gradient_Riesz(j,0);
-            return_gradient(j,1) = gradient_Riesz(j,1);
-            return_gradient(j,2) = gradient_Riesz(j,2);
-        //}
+        if (j>start_control-2 && j<end_control) {
+            return_gradient(j,0) = gradient_Riesz(j-start_control+1,0);
+            return_gradient(j,1) = gradient_Riesz(j-start_control+1,1);
+            return_gradient(j,2) = gradient_Riesz(j-start_control+1,2);
+        }
     }
 
     //std::cout << "Return_Gradient:" << std::endl;

@@ -34,13 +34,16 @@ arma::mat equation_solving_controller::Laplacian_3D()
     std::vector<double> next_cell_zm;std::vector<double> next_cell_zp;
     int cell_id;
 
-    arma::mat gradient(pcell_gp,3,arma::fill::zeros);
-    arma::mat Laplace(pcell_gp,pcell_gp,arma::fill::zeros);
+    arma::mat gradient(dimensionOfControl_gp,3,arma::fill::zeros);
+    arma::mat Laplace(dimensionOfControl_gp,dimensionOfControl_gp,arma::fill::zeros);
 
-    //for(int i = 17; i<=48; i++) {
-    for(int i = 1; i<=pcell_gp; i++) {
+    int start_control = 17;
+    int end_control = 48;
+
+    for(int i = start_control; i<=end_control; i++) {
+    //for(int i = 1; i<=dimensionOfControl_gp; i++) {
         current_barycenter = barycenters.find(static_cast<int>(i))->second;
-        Laplace(i-1,i-1) = -6.0;
+        Laplace(i-start_control,i-start_control) = -6.0;
 
         next_cell_xm = current_barycenter;
         next_cell_xp = current_barycenter;
@@ -68,11 +71,11 @@ arma::mat equation_solving_controller::Laplacian_3D()
             next_cell_zp[2] = current_barycenter[2]+0.25;
         }
 
-        for(int l = 1; l<=pcell_gp;l++) {
+        for(int l = start_control; l<=end_control;l++) {
             std::vector<double> temp = barycenters.find(l)->second;
             if (temp == next_cell_xm || temp == next_cell_xp || temp == next_cell_ym || temp == next_cell_yp || temp == next_cell_zm || temp == next_cell_zp) {
                 if (i != l) {
-                    Laplace(i-1,l-1) = 1.0;
+                    Laplace(i-start_control,l-start_control) = 1.0;
                 }
             }
         }
@@ -104,11 +107,15 @@ arma::mat equation_solving_controller::Laplacian_Squared_3D()
     std::vector<double> next_cell_zmm;std::vector<double> next_cell_zpp;
 
 
-     arma::mat Laplace(pcell_gp,pcell_gp,arma::fill::zeros);
+     arma::mat Laplace(dimensionOfControl_gp,dimensionOfControl_gp,arma::fill::zeros);
 
-    for(int i = 1; i<=pcell_gp; i++) {
+	int start_control = 17;
+	int end_control = 48;
+
+    for(int i = start_control; i<=end_control; i++) {
+    //for(int i = 1; i<=dimensionOfControl_gp; i++) {
         current_barycenter = barycenters.find(static_cast<int>(i))->second;
-        Laplace(i-1,i-1) = 18.0;
+        Laplace(i-start_control,i-start_control) = 18.0;
 
         next_cell_xm = current_barycenter;
         next_cell_xp = current_barycenter;
@@ -162,16 +169,16 @@ arma::mat equation_solving_controller::Laplacian_Squared_3D()
             next_cell_zpp[2] = current_barycenter[2]+0.5;
         }
 
-        for(int l = 1; l<=pcell_gp;l++) {
+        for(int l = start_control; l<=end_control;l++) {
             std::vector<double> temp = barycenters.find(l)->second;
             if (temp == next_cell_xm || temp == next_cell_xp || temp == next_cell_ym || temp == next_cell_yp || temp == next_cell_zm || temp == next_cell_zp) {
                 if (i != l) {
-                    Laplace(i-1,l-1) = -4.0;
+                    Laplace(i-start_control,l-start_control) = -4.0;
                 }
             }
             if (temp == next_cell_xmm || temp == next_cell_xpp || temp == next_cell_ymm || temp == next_cell_ypp || temp == next_cell_zmm || temp == next_cell_zpp) {
                 if (i != l) {
-                    Laplace(i-1,l-1) = -1.0;
+                    Laplace(i-start_control,l-start_control) = -1.0;
                 }
             }
         }
