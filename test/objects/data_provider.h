@@ -25,7 +25,7 @@ TEST(dataprovider,globalParameters) {
     parameters_test.insert(std::pair<std::string,double>("dt_gp",pow(10,-5)));
     parameters_test.insert(std::pair<std::string,double>("dv_gp",400.0));
     parameters_test.insert(std::pair<std::string,double>("numberParticles_gp",2000.0));
-    parameters_test.insert(std::pair<std::string,double>("ntimesteps_gp",40.0));
+    parameters_test.insert(std::pair<std::string,double>("ntimesteps_gp",10.0));
     parameters_test.insert(std::pair<std::string,double>("pcell_gp",64.0));
     parameters_test.insert(std::pair<std::string,double>("pmax_gp",0.5));
     parameters_test.insert(std::pair<std::string,double>("sigma_x_gp",0.25));
@@ -47,13 +47,15 @@ TEST(dataprovider,globalParameters) {
 
 TEST(dataprovider,currentDirectory) {
     bool all_clear(true);
+
     std::string input_directory = "/home/jan/Promotion_linuxPC/Optim_VSTRAP/test/data/Optim_input_gTest.xml";
     const char *  filename = input_directory.c_str();
+
     data_provider provider = data_provider(filename);
     std::map<std::string, std::string> paths = provider.getPaths();
+    std::string BUILD_DIRECTORY_OPTIM = paths.find("BUILD_DIRECTORY_OPTIM_TEST")->second;
 
     std::string current_directory(get_current_dir_name());
-    std::string BUILD_DIRECTORY_OPTIM = paths.find("BUILD_DIRECTORY_OPTIM_TEST")->second;
 
     EXPECT_EQ(current_directory,BUILD_DIRECTORY_OPTIM);
 }

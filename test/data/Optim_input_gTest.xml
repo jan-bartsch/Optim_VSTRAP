@@ -17,7 +17,7 @@
         <parameter name="dt_gp" value="1e-5" />                             <!-- discretization size time -->
         <parameter name="dv_gp" value="400.00" />                              <!-- discretization size velocity -->
         <parameter name="numberParticles_gp" value="2000" />
-        <parameter name="ntimesteps_gp" value="40" />
+        <parameter name="ntimesteps_gp" value="10" />
         <parameter name="pcell_gp" value="64" />
         <parameter name="pmax_gp" value="0.5" />
         <parameter name="sigma_x_gp" value="0.25" />
@@ -36,7 +36,7 @@
     <paths>
         <path name="BUILD_DIRECTORY_VSTRAP" value="/home/jan/Promotion_linuxPC/build-vstrap/src/" />
         <path name="BUILD_DIRECTORY_OPTIM" value="/home/jan/Promotion_linuxPC/build-Optim/src/" />
- 	<path name="BUILD_DIRECTORY_OPTIM_TEST" value="/home/jan/Promotion_linuxPC/build-Optim/test/" />
+ 	<path name="BUILD_DIRECTORY_OPTIM_TEST" value="/home/jan/Promotion_linuxPC/build-Optim/test" />
         <path name="PATH_TO_SHARED_FILES" value="../../Optim_VSTRAP/data/box_shifting/" />
 	<path name="BARYCENTERS_MESH" value="../../Optim_VSTRAP/data/box_shifting/mesh_barycenters.xml" />
         <path name="DIRECTORY_TOOLSET" value="../../optim-vstrap-toolset/toolset/" />

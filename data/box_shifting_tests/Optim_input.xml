@@ -16,7 +16,7 @@
         <parameter name="dt_gp" value="1e-5" />                             <!-- discretization size time -->
         <parameter name="dv_gp" value="333.33" />                              <!-- discretization size velocity -->
         <parameter name="numberParticles_gp" value="1000" />
-        <parameter name="ntimesteps_gp" value="5" />
+        <parameter name="ntimesteps_gp" value="10" />
         <parameter name="pcell_gp" value="64" />
         <parameter name="pmax_gp" value="0.5" />
         <parameter name="sigma_x_gp" value="3" />
