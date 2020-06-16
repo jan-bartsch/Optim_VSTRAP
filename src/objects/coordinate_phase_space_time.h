@@ -14,12 +14,10 @@ public:
 
     std::string toString() const;
 
-    double calculateNorm();
+    //double calculateNorm();
 
     bool operator==(const coordinate_phase_space_time &coordinate) const;
     coordinate_phase_space_time operator-(const coordinate_phase_space_time &coordinate) const;
-
-
 
     int getPx() const;
     void setPx(int value);
@@ -42,8 +40,8 @@ public:
     int getTime() const;
     void setTime(int value);
 
-    double getNorm() const;
-    void setNorm(double value);
+//    double getNorm() const;
+//    void setNorm(double value);
 
     int getCell_id() const;
     void setCell_id(int value);
@@ -63,7 +61,7 @@ private:
     int time;
 
     //
-    double norm;
+    //double norm;
 
 };
 
@@ -76,14 +74,10 @@ struct hash<coordinate_phase_space_time>
 
    size_t operator () (const argument_type& x) const
    {
-     return (hash<int>()(x.getNorm())^hash<int>()(x.getPx())^hash<int>()(x.getPy())^hash<int>()(x.getPz())^hash<int>()(x.getCell_id())
+     return (hash<int>()(x.getPx())^hash<int>()(x.getPy())^hash<int>()(x.getPz())^hash<int>()(x.getCell_id())
              ^hash<int>()(x.getVx())^hash<int>()(x.getVy())^hash<int>()(x.getVz())^
              hash<int>()(x.getTime())
              );
-     /*return (hash<int>()(x.getNorm())*hash<int>()(x.getPx())*hash<int>()(x.getPy())
-             *hash<int>()(x.getVx())*hash<int>()(x.getVy())*hash<int>()(x.getVz())*
-             hash<int>()(x.getTime())
-             );*/
    }
 };
 }

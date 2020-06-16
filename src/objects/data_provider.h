@@ -22,10 +22,10 @@ public:
     std::map<std::string, double> read_optimization_parameters(const char* filename);
     std::map<std::string,std::string> read_subroutines(const char* filename);
     std::map<int,std::vector<double>> read_mesh_barycenters(const char* filename);
+
     /*
      * Getters and Setters
      */
-
     std::map<std::string, std::string> getPaths() const;
     void setPaths(const std::map<std::string, std::string> &value);
 

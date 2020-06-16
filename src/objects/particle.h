@@ -19,7 +19,7 @@ private:
     int cell_id;
     double weight;
 
-    double timestep;
+    //double timestep;
 
 public:
 
@@ -28,14 +28,9 @@ public:
      */
     particle();
 
-    particle(double vx, double vy, double vz, double timestep);
-
-    particle(double px, double py, double pz, double vx, double vy, double vz, double timestep);
-
+    particle(double vx, double vy, double vz);
     particle(double px, double py, double pz, double vx, double vy, double vz);
-
     particle(double px, double py, double pz, double vx, double vy, double vz, int cell_id);
-
     bool operator==(const particle &particle) const;
 
 
@@ -65,8 +60,8 @@ public:
     double getVz() const;
     void setVz(double value);
 
-    double getTimestep() const;
-    void setTimestep(double value);
+    //    double getTimestep() const;
+    //    void setTimestep(double value);
 
 
     int getCell_id() const;

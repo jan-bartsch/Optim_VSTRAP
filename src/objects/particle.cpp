@@ -2,18 +2,20 @@
 
 #include <cmath>
 
-particle::particle() { vx = 0.0; vy = 0.0; vz = 0.0; px = 0.0; py = 0.0; pz = 0.0; timestep = 0.0; cell_id = -1; weight = 0.0; }
+particle::particle() { vx = 0.0; vy = 0.0; vz = 0.0; px = 0.0; py = 0.0; pz = 0.0;
+                       //timestep = 0.0;
+                       cell_id = -1; weight = 0.0; }
 
-particle::particle(double vx, double vy, double vz,  double timestep) {
+particle::particle(double vx, double vy, double vz) {
     particle::setVx(vx);
     particle::setVy(vy);
     particle::setVz(vz);
-    particle::setTimestep(timestep);
+    //particle::setTimestep(timestep);
     px = 0.0; py = 0.0; pz = 0.0;
     cell_id = -1; weight = 0.0;
 }
 
-particle::particle(double px, double py, double pz, double vx, double vy, double vz,double weight) {
+particle::particle(double px, double py, double pz, double vx, double vy, double vz) {
     particle::setPx(px);
     particle::setPy(py);
     particle::setPz(pz);
@@ -93,9 +95,9 @@ void particle::setVz(double value) {  vz = value;}
 
 void particle::setVy(double value) {  vy = value;}
 
-double particle::getTimestep() const { return timestep; }
+//double particle::getTimestep() const { return timestep; }
 
-void particle::setTimestep(double value) { timestep = value;}
+//void particle::setTimestep(double value) { timestep = value;}
 
 int particle::getCell_id() const { return cell_id; }
 

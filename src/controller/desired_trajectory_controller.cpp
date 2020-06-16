@@ -1,9 +1,6 @@
 #include "desired_trajectory_controller.h"
 
-desired_trajectory_controller::desired_trajectory_controller()
-{
-
-}
+desired_trajectory_controller::desired_trajectory_controller() { }
 
 std::vector<double> desired_trajectory_controller::trajectory_desired(std::vector<double> barycenter, unsigned int l, unsigned int m, unsigned int n, unsigned int o)
 {
@@ -73,7 +70,6 @@ std::vector<double> desired_trajectory_controller::trajectory_desired_shifting_h
 std::vector<double> desired_trajectory_controller::trajectory_desired_concentrating_center(std::vector<double> barycenter, unsigned int l, unsigned int m, unsigned int n, unsigned int o)
 {
     std::vector<double> p_d(6,0.0);
-
 
     p_d[0] = barycenter[0]*barycenter[0]+
             barycenter[1]*barycenter[1]+

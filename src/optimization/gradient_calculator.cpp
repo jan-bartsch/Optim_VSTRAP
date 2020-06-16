@@ -156,6 +156,9 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm(std::vect
     double dp_gp = static_cast<double>(optimizationParameters.find("dp_gp")->second);
     double weight_control_gp = static_cast<double>(optimizationParameters.find("weight_control_gp")->second);
 
+    int start_control = static_cast<int>(optimizationParameters.find("start_control_gp")->second);
+    int end_control = static_cast<int>(optimizationParameters.find("end_control_gp")->second);
+
     arma::mat Laplace = model_solver.Laplacian_3D();
     arma::mat Laplace_Squared = model_solver.Laplacian_Squared_3D();
 
@@ -257,9 +260,6 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm(std::vect
 
     std::cout << "Gradient:" << std::endl;
     std::cout << gradient << std::endl;
-
-    int start_control = 17;
-    int end_control = 48;
 
     for(unsigned int j = 0; j < pcell_gp; j++) {
         if (j>start_control-2 && j<end_control) {

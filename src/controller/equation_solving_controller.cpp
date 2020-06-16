@@ -37,8 +37,9 @@ arma::mat equation_solving_controller::Laplacian_3D()
     arma::mat gradient(dimensionOfControl_gp,3,arma::fill::zeros);
     arma::mat Laplace(dimensionOfControl_gp,dimensionOfControl_gp,arma::fill::zeros);
 
-    int start_control = 17;
-    int end_control = 48;
+    int start_control = static_cast<int>(optimizationParameters.find("start_control_gp")->second);
+    int end_control = static_cast<int>(optimizationParameters.find("end_control_gp")->second);
+
 
     for(int i = start_control; i<=end_control; i++) {
     //for(int i = 1; i<=dimensionOfControl_gp; i++) {
@@ -109,8 +110,9 @@ arma::mat equation_solving_controller::Laplacian_Squared_3D()
 
      arma::mat Laplace(dimensionOfControl_gp,dimensionOfControl_gp,arma::fill::zeros);
 
-	int start_control = 17;
-	int end_control = 48;
+     int start_control = static_cast<int>(optimizationParameters.find("start_control_gp")->second);
+     int end_control = static_cast<int>(optimizationParameters.find("end_control_gp")->second);
+
 
     for(int i = start_control; i<=end_control; i++) {
     //for(int i = 1; i<=dimensionOfControl_gp; i++) {
@@ -183,10 +185,7 @@ arma::mat equation_solving_controller::Laplacian_Squared_3D()
             }
         }
     }
-
     return Laplace;
-
-
 }
 
 
