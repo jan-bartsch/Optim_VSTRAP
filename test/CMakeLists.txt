@@ -23,3 +23,5 @@ list(FILTER sources EXCLUDE REGEX "../src/main.cpp")
 add_executable(run_tests ${sources})
 target_link_libraries(run_tests ${Boost_LIBRARIES} OpenMP::OpenMP_CXX ${GTEST_LIBRARIES}
     ${ARMADILLO_LIBRARIES} -lstdc++fs pthread --coverage)
+
+

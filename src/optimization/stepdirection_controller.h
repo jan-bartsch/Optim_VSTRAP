@@ -5,6 +5,7 @@
 #include <string>
 
 #include "../controller/abstract_controller.h"
+#include "../logger/logger.h"
 
 class stepdirection_controller : public abstract_controller
 {

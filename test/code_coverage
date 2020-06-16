@@ -1,0 +1,6 @@
+# execute from /test/
+ 
+sudo lcov --no-external --capture --directory .  --output-file main_coverage.info
+sudo lcov --capture --directory .  --output-file main_coverage.info
+genhtml main_coverage.info --output-directory lcoverage 
+

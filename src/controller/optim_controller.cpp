@@ -218,7 +218,7 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
 
 
         logger::Info("Updating the control...");
-        stepDirection = -gradient;
+        stepDirection = stepdir_contr.get_stepdirection(gradient,gradient,stepDirection,r);
         stepsize_before = stepsize;
         stepsize_flag = stepsize_contr.calculate_stepsize(gradient,value_objective,control,
                                                           stepDirection,forwardParticles[0],stepsize);

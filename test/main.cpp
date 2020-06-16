@@ -12,6 +12,7 @@
 
 #include "optimization/gradient_calculator.h"
 #include "optimization/objective_calculator.h"
+#include "optimization/stepdirection_controller.h"
 
 int main(int argc, char **argv) {
     testing::InitGoogleTest(&argc, argv);

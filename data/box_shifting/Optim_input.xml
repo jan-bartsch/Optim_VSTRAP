@@ -46,6 +46,8 @@
         <!--subroutine group="control_update" name= "gradient_descent" /-->
 	<subroutine group="control_update" name="armijo_linesearch" />
 	<!--subroutine group="control_update" name="successive_approximation" /-->
+	<subroutine group="direction_update" name="negative_gradient" />
+	<!--subroutine group="direction_update" name="ncg_FR" /-->
     </subroutines>
 
 </optimizer_input>
