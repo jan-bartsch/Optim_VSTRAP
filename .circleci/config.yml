@@ -8,8 +8,8 @@ commands:
           name: Installing SUDO
           command: 'apt-get update && apt install -y sudo && rm -rf /var/lib/apt/lists/*'
       - run:
-          name: Run SETUP
-          command: ./setup.sh -gtest
+name: Run SETUP
+command: ./setup.sh -gtest
       - run:
           name: Install LCOV
           command: apt update && sudo apt install -y lcov
