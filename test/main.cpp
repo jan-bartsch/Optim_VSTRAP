@@ -5,6 +5,7 @@
 
 #include "io/input_test.h"
 #include "io/output_control_update.h"
+#include "io/output_diagnostics.h"
 
 #include "objects/coordinate_phase_space_time.h"
 #include "objects/data_provider.h"

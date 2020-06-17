@@ -1,9 +1,6 @@
 #include "output_control_update.h"
 
-output_control_update::output_control_update()
-{
-
-}
+output_control_update::output_control_update() { }
 
 output_control_update::output_control_update(const char *filename) {
     this->setData_provider_optim(data_provider(filename));
@@ -11,7 +8,6 @@ output_control_update::output_control_update(const char *filename) {
 
 int output_control_update::writeControl_XML(arma::mat control)
 {
-
     int number_of_nodes = static_cast<int>(control.n_rows);
     std::cout << "Number of nodes: " << number_of_nodes << std::endl;
     std::string number_of_nodes_string = std::to_string(number_of_nodes);
