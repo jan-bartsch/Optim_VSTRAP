@@ -8,8 +8,8 @@ commands:
           name: Installing SUDO
           command: 'apt-get update && apt install -y sudo && rm -rf /var/lib/apt/lists/*'
       - run:
-name: Run SETUP
-command: ./setup.sh -gtest
+          name: Run SETUP
+          command: ./setup.sh -gtest
       - run:
           name: Install LCOV
           command: apt update && sudo apt install -y lcov
@@ -21,7 +21,7 @@ command: ./setup.sh -gtest
           command: 'apt-get update && apt install -y sudo && rm -rf /var/lib/apt/lists/*'
       - run:
           name: Run SETUP
-          command: ./setup.sh -gtest
+          command: ./setup.sh
   set_up_regression_test_environment:
     steps:
       - checkout
@@ -33,21 +33,23 @@ command: ./setup.sh -gtest
           command: 'apt-get update && sudo apt install -y python3'
       - run:
           name: Run SETUP
-          command: ./setup.sh -gtest
+          command: ./setup.sh
   build_optim:
     steps:
       - run:
-          name: Build OPTIM
-          command: 'mkdir build-OPTIM && cd build-OPTIM && cmake ..  && make'
+          name: Build Optim
+          command: 'mkdir build-Optim && cd build-Optim && cmake -DCMAKE_BUILD_TYPE=Debug .. && make'
   run_unit_tests:
     steps:
       - run:
           name: Run unit tests
-          command: 'cd test && ./run_test && mkdir test-results'
+          command: cd test && mkdir test-results && mkdir test-results && ./test/run_test --gtest_output="xml:./test-results/results.xml"
+      - store_test_results:
+          path: test-results
       - run:
           name: Run LCOV
           command: |
-            lcov --capture --directory . --output-file ./test-results/coverage.info
+            lcov --capture --directory ./test-results/ --output-file ./test-results/coverage.info
             lcov -r "./test-results/coverage.info" "boost" "*/boost/*" "*/test/*" "armadillo_bits" "*/gtest/*" "*/c++/*" "*/Core/*" "/usr/" "*/gcc/*" -o "./test-results/coverage-filtered.info"
             genhtml ./test-results/coverage-filtered.info --output-directory coverage
       - store_artifacts:
@@ -62,7 +64,7 @@ jobs:
     executor: docker-bionic
     steps:
       - set_up_unit_test_environment
-      - build_optim
+      - build_optim_tests
       - run_unit_tests
 workflows:
   build-and-run-tests:
