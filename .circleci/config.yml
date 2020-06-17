@@ -29,7 +29,7 @@ commands:
     steps:
       - run:
           name: Build OPTIM
-          command: 'mkdir build-OPTIM && cd build-OPTIM && cmake -DCMAKE_BUILD_TYPE=DEBUG  && make'
+          command: 'mkdir build-OPTIM && cd build-OPTIM && cmake -DCMAKE_BUILD_TYPE=DEBUG ../  && make'
   run_unit_tests:
     steps:
       - run:
