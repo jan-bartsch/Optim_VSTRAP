@@ -9,7 +9,7 @@ commands:
           command: 'apt-get update && apt install -y sudo && rm -rf /var/lib/apt/lists/*'
       - run:
           name: Run SETUP
-          command: sudo ./setup.sh -gtest
+          command: 'sudo ./setup.sh -gtest'
       - run:
           name: Install LCOV
           command: apt update && sudo apt install -y lcov
