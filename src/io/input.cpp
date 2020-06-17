@@ -90,8 +90,8 @@ std::vector<particle> input::readParticleVector(std::string filename, std::strin
 }
 
 arma::mat input::readControl(const char *filename)
-{
-    arma::mat control(64,3,arma::fill::zeros);;
+{    
+    arma::mat control(64,3,arma::fill::zeros);
 
     TiXmlDocument inputFile(filename);
     if (!inputFile.LoadFile()) {
