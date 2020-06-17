@@ -23,13 +23,9 @@ TEST(io,controlUpdate) {
     out.writeControl_XML(control_out);
     arma::mat control_in = in.readControl(filename_control_in);
 
-    std::cout << control_out << std::endl;
-    std::cout << control_in << std::endl;
-    std::cout << control_in-control_out << std::endl;
-
     norm_difference = arma::norm(control_in-control_out,"inf");
 
-    if(norm_difference < pow(10,-6)) {
+    if(norm_difference < pow(10,-5)) {
         all_clear = true;
     }
 

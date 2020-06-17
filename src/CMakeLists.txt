@@ -17,7 +17,7 @@ if(Boost_FOUND)
     file(GLOB_RECURSE sources *.cc *.cpp)
     add_executable(${PROJECT_NAME} ${sources})
     target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES} ${ARMADILLO_LIBRARIES} OpenMP::OpenMP_CXX
-      libpthread.so.0 librt.so -llapack -lblas -ltbb -ltbbmalloc -fopenmp)
+      libpthread.so.0 librt.so -llapack -lblas -fopenmp)
 endif()
 
 
