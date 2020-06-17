@@ -1,0 +1,61 @@
+version: 2.1
+
+commands:
+  set_up_unit_test_environment:
+    steps:
+      - checkout
+      - run:
+          name: Installing SUDO
+          command: 'apt-get update && apt install -y sudo && rm -rf /var/lib/apt/lists/*'
+      - run:
+          name: Install LCOV
+          command: apt update && sudo apt install -y lcov
+  set_up_production_environment:
+    steps:
+      - checkout
+      - run:
+          name: Installing SUDO
+          command: 'apt-get update && apt install -y sudo && rm -rf /var/lib/apt/lists/*'
+  set_up_regression_test_environment:
+    steps:
+      - checkout
+      - run:
+          name: Installing SUDO
+          command: 'apt-get update && apt install -y sudo && rm -rf /var/lib/apt/lists/*'
+      - run:
+          name: Installing PYHTON
+          command: 'apt-get update && sudo apt install -y python3'
+  build_optim:
+    steps:
+      - run:
+          name: Build OPTIM
+          command: 'mkdir build-OPTIM && cd build-OPTIM && cmake -DCMAKE_BUILD_TYPE=DEBUG ../  && make'
+  run_unit_tests:
+    steps:
+      - run:
+          name: Run unit tests
+          command: 'cd test && ./run_test && mkdir test-results'
+      - run:
+          name: Run LCOV
+          command: |
+            lcov --capture --directory . --output-file ./test-results/coverage.info
+            lcov -r "./test-results/coverage.info" "boost" "*/boost/*" "*/test/*" "armadillo_bits" "*/gtest/*" "*/c++/*" "*/Core/*" "/usr/" "*/gcc/*" -o "./test-results/coverage-filtered.info"
+            genhtml ./test-results/coverage-filtered.info --output-directory coverage
+      - store_artifacts:
+          path: coverage
+executors:
+  docker-bionic:
+    docker:
+      - image: "ubuntu:bionic"
+
+jobs:
+  unit_tests:
+    executor: docker-bionic
+    steps:
+      - set_up_unit_test_environment
+      - build_optim
+      - run_unit_tests
+workflows:
+  build-and-run-tests:
+    jobs:
+      - unit_tests
