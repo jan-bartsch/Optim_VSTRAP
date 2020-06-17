@@ -56,7 +56,7 @@ jobs:
     executor: docker-bionic
     steps:
       - set_up_unit_test_environment
-      - build_optim_tests
+      - build_optim
       - run_unit_tests
 workflows:
   build-and-run-tests:
