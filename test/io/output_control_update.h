@@ -24,6 +24,7 @@ TEST(io,controlUpdate) {
 
     std::cout << control_out << std::endl;
     std::cout << control_in << std::endl;
+    std::cout << control_in-control_out << std::endl;
 
     norm_difference = arma::norm(control_in-control_out);
 

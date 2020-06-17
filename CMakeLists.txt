@@ -5,7 +5,8 @@ project(Optim_VSTRAP_CMAKE)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_BUILD_TYPE DEBUG)
 
-if("${CMAKE_SYSTEM}" STREQUAL "Linux-4.15.0-45-generic")
+#"${CMAKE_SYSTEM}" STREQUAL "Linux-4.15.0-45-generic"
+if(true)
 message("INFO: all libraries are installed as root")
 
 add_subdirectory(src)
