@@ -7,7 +7,7 @@ commands:
       - run:
           name: Installing SUDO
           command: 'apt-get update && apt install -y sudo && rm -rf /var/lib/apt/lists/*'
-- run:
+      - run:
           name: Run SETUP
           command: ./setup.sh -gtest
       - run:
@@ -19,7 +19,7 @@ commands:
       - run:
           name: Installing SUDO
           command: 'apt-get update && apt install -y sudo && rm -rf /var/lib/apt/lists/*'
-	- run:
+      - run:
           name: Run SETUP
           command: ./setup.sh -gtest
   set_up_regression_test_environment:
@@ -31,7 +31,7 @@ commands:
       - run:
           name: Installing PYHTON
           command: 'apt-get update && sudo apt install -y python3'
-- run:
+      - run:
           name: Run SETUP
           command: ./setup.sh -gtest
   build_optim:
@@ -44,7 +44,7 @@ commands:
       - run:
           name: Run unit tests
           command: 'cd test && ./run_test && mkdir test-results'
-- run:
+      - run:
           name: Run LCOV
           command: |
             lcov --capture --directory . --output-file ./test-results/coverage.info
