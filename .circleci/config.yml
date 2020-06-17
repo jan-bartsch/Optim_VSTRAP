@@ -9,7 +9,7 @@ commands:
           command: 'apt-get update && apt install -y sudo && rm -rf /var/lib/apt/lists/*'
       - run:
           name: Run SETUP
-          command: ./setup.sh -gtest
+          command: ./.circleci/setup.sh -gtest
       - run:
           name: Install LCOV
           command: apt update && sudo apt install -y lcov
@@ -43,14 +43,14 @@ commands:
     steps:
       - run:
           name: Run unit tests
-          command: cd test && mkdir test-results && mkdir test-results && ./test/run_test --gtest_output="xml:./test-results/results.xml"
+          command: cd test && mkdir test-results && ./run_tests --gtest_output="xml:./test-results/results.xml"
       - store_test_results:
           path: test-results
       - run:
           name: Run LCOV
           command: |
-            lcov --capture --directory ./test-results/ --output-file ./test-results/coverage.info
-            lcov -r "./test-results/coverage.info" "boost" "*/boost/*" "*/test/*" "armadillo_bits" "*/gtest/*" "*/c++/*" "*/Core/*" "/usr/" "*/gcc/*" -o "./test-results/coverage-filtered.info"
+            lcov --capture --directory . --output-file ./test-results/coverage.info
+            lcov -r "./test-results/coverage.info" "boost" "*/boost/*" "*/test/*" "*/armadillo_bits/*" "*/include/*" "*/gtest/*" "*/c++/*" "*/Core/*" "/usr/" "*/gcc/*" -o "./test-results/coverage-filtered.info"
             genhtml ./test-results/coverage-filtered.info --output-directory coverage
       - store_artifacts:
           path: coverage
