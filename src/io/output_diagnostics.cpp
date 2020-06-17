@@ -1,9 +1,6 @@
 #include "output_diagnostics.h"
 
-output_diagnostics::output_diagnostics()
-{
-
-}
+output_diagnostics::output_diagnostics() { }
 
 int output_diagnostics::writeGradientToFile(arma::mat gradient, std::string filename)
 {
