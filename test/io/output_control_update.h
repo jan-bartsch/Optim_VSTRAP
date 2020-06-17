@@ -4,6 +4,7 @@
 #include "../../src/io/output_control_update.h"
 
 TEST(io,controlUpdate) {
+    bool all_clear(false);
     std::string input_directory = "/home/jan/Promotion_linuxPC/Optim_VSTRAP/test/data/Optim_input_gTest.xml";
     const char *  filename = input_directory.c_str();
 
@@ -26,7 +27,12 @@ TEST(io,controlUpdate) {
     std::cout << control_in << std::endl;
     std::cout << control_in-control_out << std::endl;
 
-    norm_difference = arma::norm(control_in-control_out);
+    norm_difference = arma::norm(control_in-control_out,"inf");
 
-    ASSERT_EQ(norm_difference,0.0);
+    if(norm_difference < pow(10,-6)) {
+        all_clear = true;
+    }
+
+    ASSERT_TRUE(all_clear);
 }
+

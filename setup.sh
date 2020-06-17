@@ -11,13 +11,10 @@ sudo apt install -y libboost-all-dev
 sudo apt install -y libomp-dev
 sudo apt install -y liblapack-dev libblas-dev libarmadillo-dev
 
-if [ "$1" == "-gtest" ]; then
     sudo apt install -y libgtest-dev
     cd /usr/src/gtest
     sudo cmake CMakeLists.txt
     sudo make
     sudo cp *.a /usr/lib
     echo "INSTALLATION COMPLETE"
-else
-    echo "INSTALLATION COMPLETE"
-fi
+
