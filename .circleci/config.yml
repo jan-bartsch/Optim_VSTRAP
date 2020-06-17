@@ -9,7 +9,7 @@ commands:
           command: 'apt-get update && apt install -y sudo && rm -rf /var/lib/apt/lists/*'
       - run:
           name: Run SETUP
-          command: ./.circleci/setup.sh -gtest
+          command: sudo ./setup.sh -gtest
       - run:
           name: Install LCOV
           command: apt update && sudo apt install -y lcov
@@ -50,7 +50,7 @@ commands:
           name: Run LCOV
           command: |
             lcov --capture --directory . --output-file ./test-results/coverage.info
-            lcov -r "./test-results/coverage.info" "boost" "*/boost/*" "*/test/*" "*/armadillo_bits/*" "*/include/*" "*/gtest/*" "*/c++/*" "*/Core/*" "/usr/" "*/gcc/*" -o "./test-results/coverage-filtered.info"
+            lcov -r "./test-results/coverage.info" "/tinyXML/*" "*/logger/*" "boost" "*/boost/*" "*/test/*" "*/armadillo_bits/*" "*/include/*" "*/gtest/*" "*/c++/*" "*/Core/*" "/usr/" "*/gcc/*" -o "./test-results/coverage-filtered.info"
             genhtml ./test-results/coverage-filtered.info --output-directory coverage
       - store_artifacts:
           path: coverage
