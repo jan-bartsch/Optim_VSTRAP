@@ -50,7 +50,7 @@ commands:
           name: Run LCOV
           command: |
             lcov --capture --directory . --output-file ./test-results/coverage.info
-            lcov -r "./test-results/coverage.info" "/tinyXML/*" "*/logger/*" "boost" "*/boost/*" "*/test/*" "*/armadillo_bits/*" "*/include/*" "*/gtest/*" "*/c++/*" "*/Core/*" "/usr/" "*/gcc/*" -o "./test-results/coverage-filtered.info"
+            lcov -r "./test-results/coverage.info" "*/tinyXML/*" "*/logger/*" "boost" "*/boost/*" "*/test/*" "*/armadillo_bits/*" "*/include/*" "*/gtest/*" "*/c++/*" "*/Core/*" "/usr/" "*/gcc/*" -o "./test-results/coverage-filtered.info"
             genhtml ./test-results/coverage-filtered.info --output-directory coverage
       - store_artifacts:
           path: coverage
@@ -64,6 +64,7 @@ jobs:
     executor: docker-bionic
     steps:
       - set_up_unit_test_environment
+      - build_optim
       - run_unit_tests
 workflows:
   build-and-run-tests:
