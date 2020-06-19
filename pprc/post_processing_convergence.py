@@ -1,14 +1,19 @@
+#!/usr/bin/env python3
+
+import argparse
 from matplotlib import pyplot as plt
 import tikzplotlib
 
 fig_objective = plt.figure(figsize=(10, 10))
 
-pathToBuildSRC = "../../build-Optim/src/"
+parser = argparse.ArgumentParser(prog="Visualizing optimization monitoring", description='Needs path to generated src files')
+parser.add_argument('pathToBuildSRC', type=str, help='path to the build directory')
+args = parser.parse_args()
 
 ####
 # objective
 ####
-objective_track_file = open(pathToBuildSRC + "objectiveTrack.txt")
+objective_track_file = open(args.pathToBuildSRC + "objectiveTrack.txt")
 
 objective_track = objective_track_file.read().split("\n")
 objective_track_float = [];
@@ -27,7 +32,7 @@ ax1.set_yscale('linear')
 ####
 # gradient
 ####
-norm_gradient_file = open(pathToBuildSRC + "normGradientTrack.txt")
+norm_gradient_file = open(args.pathToBuildSRC + "normGradientTrack.txt")
 
 norm_gradient = norm_gradient_file.read().split("\n")
 norm_gradient_float = []
@@ -45,7 +50,7 @@ ax2.set_yscale('linear')
 ####
 # control
 ####
-norm_control_file = open(pathToBuildSRC + "normControlTrack.txt")
+norm_control_file = open(args.pathToBuildSRC + "normControlTrack.txt")
 
 norm_control = norm_control_file.read().split("\n")
 norm_control_float = []
@@ -64,7 +69,7 @@ ax3.set_yscale('linear')
 # wasserstein distance
 ####
 try:
-	wd_file = open(pathToBuildSRC + "wassersteinDistanceTrack.txt")
+	wd_file = open(args.pathToBuildSRC + "wassersteinDistanceTrack.txt")
 
 
 	wd = wd_file.read().split("\n")
