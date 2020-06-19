@@ -3,6 +3,7 @@
 
 #include <vector>
 
+#include "../logger/logger.h"
 #include "abstract_controller.h"
 
 class desired_trajectory_controller : public abstract_controller

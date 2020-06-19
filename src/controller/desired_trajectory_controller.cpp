@@ -6,8 +6,24 @@ std::vector<double> desired_trajectory_controller::trajectory_desired(std::vecto
 {
     std::vector<double> p_d(6,0.0);
 
-    //p_d = this->trajectory_desired_concentrating_center(barycenter,l,m,n,o);
-    p_d = this->trajectory_desired_shifting_halfbox(barycenter,l,m,n,o);
+    std::map<std::string,std::string> subroutines = this->getData_provider_optim().getSubroutines();
+    std::string desired_traj = subroutines.find("desired_trajectory")->second;
+
+    if(desired_traj.compare("box_center")==0) {
+        if(o==0) {
+            logger::Info("Desired trajectory controller using <box_center>");
+        }
+        p_d = this->trajectory_desired_concentrating_center(barycenter,l,m,n,o);
+    } else if (desired_traj.compare("box_shifting_negative_x")==0) {
+        if(o==0) {
+            logger::Info("Desired trajectory controller using <box_shifting_negative_x>");
+        }
+        p_d = this->trajectory_desired_shifting_halfbox(barycenter,l,m,n,o);
+    }
+    else {
+        std::invalid_argument("No such desired_trajectory subroutine");
+        throw std::runtime_error("No such desired_trajectory subroutine");
+    }
 
     return p_d;
 }
