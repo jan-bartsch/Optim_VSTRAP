@@ -63,10 +63,10 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
     output_diagnostics outDiag = output_diagnostics();
     equation_solving_controller model_solver = equation_solving_controller();
 
-    //    model_solver.setData_provider_optim(data_provider_opt);
-    //    arma::mat Laplace = model_solver.Laplacian_3D();
-    //    arma::mat Laplace_Squared = model_solver.Laplacian_Squared_3D();
-    //    std::cout << arma::eye(64,64)-Laplace+Laplace_Squared << std::endl;
+    //        model_solver.setData_provider_optim(data_provider_opt);
+    //        arma::mat Laplace = model_solver.Laplacian_3D();
+    //        arma::mat Laplace_Squared = model_solver.Laplacian_Squared_3D();
+    //std::cout << arma::eye(64,64)-Laplace+Laplace_Squared << std::endl;
 
 
     std::map<std::string, double> optimizationParameters = data_provider_opt.getOptimizationParameters();

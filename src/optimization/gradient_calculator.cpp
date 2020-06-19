@@ -40,8 +40,8 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_L2(std::vect
         //        std::cout << "Cell_id: " << i << " with barycenter (" << current_barycenter[0] << ","
         //                  << current_barycenter[1] << "," << current_barycenter[2] << ")" << std::endl;
 
-        if (current_barycenter[0]< - 0.2 || current_barycenter[0] > 0.2) {
-            //if(false) {
+        //if (current_barycenter[0]< - 0.2 || current_barycenter[0] > 0.2) {
+        if(false) {
             //std::cout << "Gradient will stay zero here" << std::endl;
         } else {
             std::vector<std::vector<std::vector<std::vector<double>>>> forwardPDFdouble(ntimesteps_gp, std::vector<std::vector<std::vector<double>>>
@@ -174,11 +174,11 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm(std::vect
 
         std::vector<double> current_barycenter = barycenters.find(static_cast<int>(i))->second;
 
-//        std::cout << "Cell_id: " << i << " with barycenter (" << current_barycenter[0] << ","
-//                  << current_barycenter[1] << "," << current_barycenter[2] << ")" << std::endl;
+        //        std::cout << "Cell_id: " << i << " with barycenter (" << current_barycenter[0] << ","
+        //                  << current_barycenter[1] << "," << current_barycenter[2] << ")" << std::endl;
 
-       if (current_barycenter[0]< - 0.2 || current_barycenter[0] > 0.2) {
-        //if(false) {
+        //if (current_barycenter[0]< - 0.2 || current_barycenter[0] > 0.2) {
+        if(false) {
             std::cout << "Gradient will stay zero here" << std::endl;
         } else {
             std::vector<std::vector<std::vector<std::vector<double>>>> forwardPDFdouble(ntimesteps_gp, std::vector<std::vector<std::vector<double>>>
@@ -261,7 +261,8 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm(std::vect
     std::cout << "Gradient:" << std::endl;
     std::cout << gradient << std::endl;
 
-    for(unsigned int j = 0; j < pcell_gp; j++) {
+
+    for(int j = 0; j < pcell_gp; j++) {
         if (j>start_control-2 && j<end_control) {
             rhs_Riesz(j-start_control+1,0) = gradient(j,0);
             rhs_Riesz(j-start_control+1,1) = gradient(j,1);
@@ -269,15 +270,21 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm(std::vect
         }
     }
 
-	std::cout << "Riesz Matrix" << std::endl;
+    std::cout << "rhs_Riesz:" << std::endl;
+    std::cout << rhs_Riesz << std::endl;
+
+    std::cout << "Riesz Matrix" << std::endl;
     arma::mat Riesz = weight_control_gp*(arma::eye(dimensionOfControl_gp,dimensionOfControl_gp) - 1.0/(pow(0.25,2))*Laplace + 1.0/(pow(0.25,4))*Laplace_Squared);
-    //std::cout << Riesz << std::endl;
+    std::cout << Riesz << std::endl;
     //std::cout << "Condition number Matrix Riesz: " << arma::cond(Riesz) << std::endl;
 
     gradient_Riesz = arma::solve(Riesz,-rhs_Riesz);
     arma::mat return_gradient(pcell_gp,3,arma::fill::zeros);
 
-    for(unsigned int j = 0; j < pcell_gp; j++) {
+    std::cout << "Solution elliptic equation:" << std::endl;
+    std::cout << gradient_Riesz << std::endl;
+
+    for(int j = 0; j < pcell_gp; j++) {
         if (j>start_control-2 && j<end_control) {
             return_gradient(j,0) = gradient_Riesz(j-start_control+1,0);
             return_gradient(j,1) = gradient_Riesz(j-start_control+1,1);
@@ -285,8 +292,8 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm(std::vect
         }
     }
 
-    //std::cout << "Return_Gradient:" << std::endl;
-    //std::cout << return_gradient << std::endl;
+    std::cout << "Return_Gradient:" << std::endl;
+    std::cout << return_gradient << std::endl;
 
     return return_gradient;
 
