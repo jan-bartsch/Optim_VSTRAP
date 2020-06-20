@@ -1,4 +1,4 @@
-% This file was created by tikzplotlib v0.9.2.
+% This file was created by tikzplotlib v0.9.1.
 \begin{tikzpicture}
 
 \definecolor{color0}{rgb}{0.12156862745098,0.466666666666667,0.705882352941177}
@@ -9,18 +9,29 @@ tick align=outside,
 tick pos=left,
 title={Relative value of objective},
 x grid style={white!69.0196078431373!black},
-xmin=-0.15, xmax=3.15,
+xmin=-0.7, xmax=14.7,
 xtick style={color=black},
 y grid style={white!69.0196078431373!black},
-ymin=-1.14521153117301, ymax=-0.993085165182237,
+ymin=-1.09393967140388, ymax=-0.995526682314101,
 ytick style={color=black}
 ]
 \addplot [semithick, color0]
 table {%
 0 -1
-1 -1.10581822584381
-2 -1.10885814751648
-3 -1.13829669635525
+1 -1.07587629929587
+2 -1.07850197312424
+3 -1.06244615821103
+4 -1.0673996027959
+5 -1.07223053313043
+6 -1.0889363183823
+7 -1.06582239302572
+8 -1.05686595651389
+9 -1.0801771942947
+10 -1.06950426865441
+11 -1.08946635371799
+12 -1.07433777823631
+13 -1.05617600784091
+14 -1.08191818627325
 };
 
 \nextgroupplot[
@@ -28,18 +39,29 @@ tick align=outside,
 tick pos=left,
 title={Norm relative gradient},
 x grid style={white!69.0196078431373!black},
-xmin=-0.15, xmax=3.15,
+xmin=-0.7, xmax=14.7,
 xtick style={color=black},
 y grid style={white!69.0196078431373!black},
-ymin=0.707443604629546, ymax=7.14368430277953,
+ymin=0.818699516923293, ymax=4.80731014461085,
 ytick style={color=black}
 ]
 \addplot [semithick, color0]
 table {%
 0 1
-1 6.39290058373922
-2 6.65085595610536
-3 6.85112790740908
+1 4.18471635827279
+2 4.42747996285226
+3 4.09780157175523
+4 4.31740246767132
+5 4.29739263444594
+6 4.39376604727752
+7 4.01244761466243
+8 4.17603814667114
+9 4.62600966153414
+10 4.35940438749151
+11 4.42698049743634
+12 4.26042438952059
+13 4.51425427472159
+14 4.41399439662236
 };
 
 \nextgroupplot[
@@ -47,35 +69,28 @@ tick align=outside,
 tick pos=left,
 title={Norm control},
 x grid style={white!69.0196078431373!black},
-xmin=-0.1, xmax=2.1,
+xmin=-0.65, xmax=13.65,
 xtick style={color=black},
 y grid style={white!69.0196078431373!black},
-ymin=2.3492965, ymax=2.3535535,
+ymin=1.590233, ymax=1.602267,
 ytick style={color=black}
 ]
 \addplot [semithick, color0]
 table {%
-0 2.35336
-1 2.34949
-2 2.34974
-};
-
-\nextgroupplot[
-tick align=outside,
-tick pos=left,
-title={Wasserstein distance (init/curr)},
-x grid style={white!69.0196078431373!black},
-xmin=-0.1, xmax=2.1,
-xtick style={color=black},
-y grid style={white!69.0196078431373!black},
-ymin=63978425000, ymax=65297875000,
-ytick style={color=black}
-]
-\addplot [semithick, color0]
-table {%
-0 64717000000
-1 64038400000
-2 65237900000
+0 1.60172
+1 1.5972
+2 1.59635
+3 1.59562
+4 1.59474
+5 1.59371
+6 1.59331
+7 1.59299
+8 1.59236
+9 1.59129
+10 1.59078
+11 1.59173
+12 1.5956
+13 1.60153
 };
 \end{groupplot}
 
