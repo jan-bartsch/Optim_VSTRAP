@@ -10,11 +10,12 @@ sudo apt install -y libncursesada5-dev
 sudo apt install -y libboost-all-dev
 sudo apt install -y libomp-dev
 sudo apt install -y liblapack-dev libblas-dev libarmadillo-dev
+sudo apt install libtbb-dev
 
-    sudo apt install -y libgtest-dev
-    cd /usr/src/gtest
-    sudo cmake CMakeLists.txt
-    sudo make
-    sudo cp *.a /usr/lib
-    echo "INSTALLATION COMPLETE"
+sudo apt install -y libgtest-dev
+cd /usr/src/gtest
+sudo cmake CMakeLists.txt
+sudo make
+sudo cp *.a /usr/lib
+echo "INSTALLATION COMPLETE"
 

@@ -10,7 +10,7 @@ std::vector<double> desired_trajectory_controller::trajectory_desired(std::vecto
     std::string desired_traj = subroutines.find("desired_trajectory")->second;
 
     if(desired_traj.compare("box_center")==0) {
-        if(o==0) {
+        if(o==0 && l ==0 && m == 0 && n == 0) {
             logger::Info("Desired trajectory controller using <box_center>");
         }
         p_d = this->trajectory_desired_concentrating_center(barycenter,l,m,n,o);
