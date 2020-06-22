@@ -24,6 +24,7 @@ add_executable(run_tests ${sources})
 target_link_libraries(run_tests ${Boost_LIBRARIES} OpenMP::OpenMP_CXX ${GTEST_LIBRARIES}
     ${ARMADILLO_LIBRARIES} -lstdc++fs pthread --coverage)
 
+message("Copy files")
 add_custom_command(TARGET run_tests POST_BUILD
                   COMMAND ${CMAKE_COMMAND} -E copy_directory
                        ${CMAKE_SOURCE_DIR}/test/data ./data/)
