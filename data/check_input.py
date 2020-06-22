@@ -11,8 +11,12 @@ args = parser.parse_args()
 
 OptimIn = minidom.parse(args.inputDir + "Optim_input.xml");
 parameters = OptimIn.getElementsByTagName('globalParameters')[0];
+paths = OptimIn.getElementsByTagName('paths')[0];
+subroutines = OptimIn.getElementsByTagName('subroutines')[0];
 
+forwardIn = minidom.parse(args.inputDir + "input_forward.xml");
+backwardIn = minidom.parse(orgs.inputDir + "input_backward.xml");
 
-for p in parameters.getElementsByTagName('parameter'):
-	p_data = p.getAttribute("name")
-	print(p_data)
+#for p in parameters.getElementsByTagName('parameter'):
+#	p_data = p.getAttribute("name")
+#	print(p_data)

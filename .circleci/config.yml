@@ -43,7 +43,7 @@ commands:
     steps:
       - run:
           name: Run unit tests
-          command: mkdir test/test-results && ls && cd test && ls && ./run_tests --gtest_output="xml:./test-results/results.xml && cd .."
+          command: mkdir build-Optim/test/test-results && ls && cd build-Optim/test && ls && ./run_tests --gtest_output="xml:./test-results/results.xml && cd .."
       - store_test_results:
           path: test-results
       - run:
