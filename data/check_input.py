@@ -14,5 +14,5 @@ parameters = OptimIn.getElementsByTagName('globalParameters')[0];
 
 
 for p in parameters.getElementsByTagName('parameter'):
-	p_data = p.text
+	p_data = p.getAttribute("name")
 	print(p_data)
