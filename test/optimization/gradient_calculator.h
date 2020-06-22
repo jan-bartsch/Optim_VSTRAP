@@ -5,7 +5,7 @@
 
 TEST(gradient,calculationNR1) {
 
-    std::string input_directory = "../../Optim_VSTRAP/test/data/Optim_input_gTest.xml";
+    std::string input_directory = "./data/Optim_input_gTest.xml";
     const char *  filename = input_directory.c_str();
 
     data_provider provider = data_provider(filename);
@@ -29,12 +29,12 @@ TEST(gradient,calculationNR1) {
 
 #pragma omp parallel for
     for(unsigned int o = 1; o<=ntimesteps_gp; o++) {
-        forwardParticles[o-1] = input::readParticleVector("/home/jan/Promotion_linuxPC/Optim_VSTRAP/test/data/vstrap_test_output/plasma_state_batch_1_forward_particles_CPU_"+std::to_string(o)+".csv",",");
+        forwardParticles[o-1] = input::readParticleVector("./data/vstrap_test_output/plasma_state_batch_1_forward_particles_CPU_"+std::to_string(o)+".csv",",");
     }
 
 #pragma omp parallel for
     for(unsigned int o = 1; o<=ntimesteps_gp; o++) {
-        backwardParticles[ntimesteps_gp - o] = input::readParticleVector("/home/jan/Promotion_linuxPC/Optim_VSTRAP/test/data/vstrap_test_output/plasma_state_batch_1_adjoint_particles_CPU_"+std::to_string(o)+".csv",",");
+        backwardParticles[ntimesteps_gp - o] = input::readParticleVector("./data/vstrap_test_output/plasma_state_batch_1_adjoint_particles_CPU_"+std::to_string(o)+".csv",",");
     }
 
 

@@ -8,7 +8,7 @@ TEST(io, readParticlesLengthError) {
     input inputController = input();
 
     try {
-        std::vector<particle> particlesInput = inputController.readParticleVector("../../Optim_VSTRAP/test/data/test_particle_reader_wrong.csv",",");
+        std::vector<particle> particlesInput = inputController.readParticleVector("./data/test_particle_reader_wrong.csv",",");
     } catch (std::length_error e) {
         logger::Info(e.what());
         expected_exception = true;
@@ -20,7 +20,7 @@ TEST(io, readParticleCellId) {
     bool all_correct(true);
     input inputController = input();
 
-    std::vector<particle> particlesInput = inputController.readParticleVector("../../Optim_VSTRAP/test/data/test_particle_reader.csv",",");
+    std::vector<particle> particlesInput = inputController.readParticleVector("./data/test_particle_reader.csv",",");
     std::vector<particle> desiredParticles(5);
 
     desiredParticles[0] = particle(0.16482,-0.0726986,-0.0112297,-9.74732,-83.9902,-58.6333,42);

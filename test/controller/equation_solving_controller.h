@@ -5,7 +5,7 @@
 
 
 TEST(solver, LaplaciansSymmetry){
-    std::string input_directory = "../../Optim_VSTRAP/data/box_shifting/Optim_input.xml";
+    std::string input_directory = "./data/box_shifting/Optim_input.xml";
     const char *  input_xml_path = input_directory.c_str();
 
     equation_solving_controller solver = equation_solving_controller();
