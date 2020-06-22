@@ -37,7 +37,7 @@ TEST(objective,calculationNR1) {
 
     double value = calculator.calculate_objective_L2(forwardPDF,control);
 
-    double target_value = -1081.3506880643858;
+    double target_value = -36.29367253045019;
 
     EXPECT_EQ(value,target_value);
 

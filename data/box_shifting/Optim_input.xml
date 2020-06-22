@@ -47,7 +47,8 @@
 	<subroutine group="control_update" name="armijo_linesearch" />
 	<!--subroutine group="control_update" name="successive_approximation" /-->
 	<subroutine group="direction_update" name="negative_gradient" />
-	<!--subroutine group="direction_update" name="ncg_FR" /-->
+        <subroutine group="desired_trajectory" name="box_center" />	
+        <!--subroutine group="desired_trajectory" name="box_shifting_negative_x" /-->	
     </subroutines>
 
 </optimizer_input>
