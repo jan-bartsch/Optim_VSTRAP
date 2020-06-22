@@ -258,8 +258,8 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm(std::vect
      * Assemble gradient
      */
 
-    std::cout << "Gradient:" << std::endl;
-    std::cout << gradient << std::endl;
+//    std::cout << "Gradient:" << std::endl;
+//    std::cout << gradient << std::endl;
 
 
     for(int j = 0; j < pcell_gp; j++) {
@@ -270,19 +270,19 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm(std::vect
         }
     }
 
-    std::cout << "rhs_Riesz:" << std::endl;
-    std::cout << rhs_Riesz << std::endl;
+//    std::cout << "rhs_Riesz:" << std::endl;
+//    std::cout << rhs_Riesz << std::endl;
 
     std::cout << "Riesz Matrix" << std::endl;
     arma::mat Riesz = weight_control_gp*(arma::eye(dimensionOfControl_gp,dimensionOfControl_gp) - 1.0/(pow(0.25,2))*Laplace + 1.0/(pow(0.25,4))*Laplace_Squared);
-    std::cout << Riesz << std::endl;
+    //std::cout << Riesz << std::endl;
     //std::cout << "Condition number Matrix Riesz: " << arma::cond(Riesz) << std::endl;
 
     gradient_Riesz = arma::solve(Riesz,-rhs_Riesz);
     arma::mat return_gradient(pcell_gp,3,arma::fill::zeros);
 
-    std::cout << "Solution elliptic equation:" << std::endl;
-    std::cout << gradient_Riesz << std::endl;
+//    std::cout << "Solution elliptic equation:" << std::endl;
+//    std::cout << gradient_Riesz << std::endl;
 
     for(int j = 0; j < pcell_gp; j++) {
         if (j>start_control-2 && j<end_control) {
@@ -292,8 +292,8 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm(std::vect
         }
     }
 
-    std::cout << "Return_Gradient:" << std::endl;
-    std::cout << return_gradient << std::endl;
+//    std::cout << "Return_Gradient:" << std::endl;
+//    std::cout << return_gradient << std::endl;
 
     return return_gradient;
 
