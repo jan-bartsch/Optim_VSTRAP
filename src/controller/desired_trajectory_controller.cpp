@@ -5,19 +5,13 @@ desired_trajectory_controller::desired_trajectory_controller() { }
 std::vector<double> desired_trajectory_controller::trajectory_desired(std::vector<double> barycenter, unsigned int l, unsigned int m, unsigned int n, unsigned int o)
 {
     std::vector<double> p_d(6,0.0);
-
     std::map<std::string,std::string> subroutines = this->getData_provider_optim().getSubroutines();
     std::string desired_traj = subroutines.find("desired_trajectory")->second;
 
+
     if(desired_traj.compare("box_center")==0) {
-        if(o==0 && l ==0 && m == 0 && n == 0) {
-            logger::Info("Desired trajectory controller using <box_center>");
-        }
         p_d = this->trajectory_desired_concentrating_center(barycenter,l,m,n,o);
     } else if (desired_traj.compare("box_shifting_negative_x")==0) {
-        if(o==0) {
-            logger::Info("Desired trajectory controller using <box_shifting_negative_x>");
-        }
         p_d = this->trajectory_desired_shifting_halfbox(barycenter,l,m,n,o);
     }
     else {

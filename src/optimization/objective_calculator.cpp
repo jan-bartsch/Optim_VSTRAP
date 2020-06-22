@@ -86,6 +86,11 @@ double objective_calculator::calculate_objective_L2(std::vector<std::unordered_m
      * Add tracking integral using first-order(?) RULE
      */
 
+    std::map<std::string,std::string> subroutines = this->getData_provider_optim().getSubroutines();
+    std::string desired_traj = subroutines.find("desired_trajectory")->second;
+
+    std::cout << "Using <" << desired_traj << "> for desired trajectory" << std::endl;
+
 #pragma omp parallel for
     for(unsigned int  o = 0; o<ntimesteps_gp; o++) {
         //std::cout << "Calculating functional in " << o << " timestep" << std::endl;
@@ -121,7 +126,6 @@ double objective_calculator::calculate_objective_L2(std::vector<std::unordered_m
 
         }
     }
-
 
     for(unsigned int o = 0; o<ntimesteps_gp; o++) {
         objective += objective_time[o];
