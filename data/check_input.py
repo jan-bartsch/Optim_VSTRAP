@@ -17,7 +17,11 @@ subroutines = OptimIn.getElementsByTagName('subroutines')[0];
 forwardIn = minidom.parse(args.inputDir + "input_forward.xml");
 backwardIn = minidom.parse(args.inputDir + "input_backward.xml");
 
-print(forwardIn.getElementsByTagName('global_values')[0].getElementsByTagName('time_step')[0].getAttribute("value"));
+forward_timeStep = forwardIn.getElementsByTagName('global_values')[0].getElementsByTagName('time_step')[0].getAttribute("value")
+backward_timeStep = backwardIn.getElementsByTagName('global_values')[0].getElementsByTagName('time_step')[0].getAttribute("value")
+Optim_timestep = parameters.getAttributeNode("dt_gp")
+
+print(Optim_timestep)
 
 #for p in parameters.getElementsByTagName('parameter'):
 #	p_data = p.getAttribute("name")
