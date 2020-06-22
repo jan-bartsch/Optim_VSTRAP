@@ -53,9 +53,9 @@ TEST(dataprovider,currentDirectory) {
 
     data_provider provider = data_provider(filename);
     std::map<std::string, std::string> paths = provider.getPaths();
-    std::string BUILD_DIRECTORY_OPTIM = paths.find("BUILD_DIRECTORY_OPTIM_TEST")->second;
+    std::string BUILD_DIRECTORY_OPTIM_TEST= paths.find("BUILD_DIRECTORY_OPTIM_TEST")->second;
 
     std::string current_directory(get_current_dir_name());
 
-    EXPECT_EQ(current_directory,BUILD_DIRECTORY_OPTIM);
+    EXPECT_EQ(current_directory,BUILD_DIRECTORY_OPTIM_TEST);
 }
