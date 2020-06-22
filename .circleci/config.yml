@@ -43,15 +43,15 @@ commands:
     steps:
       - run:
           name: Run unit tests
-          command: mkdir build-Optim/test/test-results && cd build-Optim/test/data && ls && ./run_tests --gtest_output="xml:./test-results/results.xml"
+          command: mkdir build-Optim/test/test-results && cd build-Optim/test && ./run_tests --gtest_output="xml:./test-results/results.xml"
       - store_test_results:
           path: test-results
       - run:
           name: Run LCOV
           command: |
-            lcov --capture --directory . --output-file ./test-results/coverage.info
-            lcov -r "./test-results/coverage.info" "*/tinyXML/*" "*/logger/*" "boost" "*/boost/*" "*/test/*" "*/armadillo_bits/*" "*/include/*" "*/gtest/*" "*/c++/*" "*/Core/*" "/usr/" "*/gcc/*" -o "./test-results/coverage-filtered.info"
-            genhtml ./test-results/coverage-filtered.info --output-directory coverage
+            lcov --capture --directory . --output-file ./build-Optim/test/test-results/coverage.info
+            lcov -r "./build-Optim/test/test-results/coverage.info" "*/tinyXML/*" "*/logger/*" "boost" "*/boost/*" "*/test/*" "*/armadillo_bits/*" "*/include/*" "*/gtest/*" "*/c++/*" "*/Core/*" "/usr/" "*/gcc/*" -o "./build-Optim/test/test-results/coverage-filtered.info"
+            genhtml ./build-Optim/test/test-results/coverage-filtered.info --output-directory coverage
       - store_artifacts:
           path: coverage
 executors:

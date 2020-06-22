@@ -4,6 +4,8 @@ import argparse
 import xml.etree.ElementTree as ET
 import xml.dom.minidom as minidom
 
+all_clear = True
+
 
 parser = argparse.ArgumentParser(prog="Check if xml-arguments fit together", description='Needs data directory (with input files)')
 parser.add_argument('inputDir', type=str, help='path to input files')
@@ -14,24 +16,26 @@ parameters = OptimIn.getElementsByTagName('globalParameters')[0];
 paths = OptimIn.getElementsByTagName('paths')[0];
 subroutines = OptimIn.getElementsByTagName('subroutines')[0];
 
-params = [];
-i = 0;
+params = {};
 
 for p in parameters.getElementsByTagName('parameter'):
 	p_data = p.getAttribute("name")
-	print(i)
-	params.append([p.getAttribute("name"),p.getAttribute("value")])
-	i = i+1
+	params[p.getAttribute("name")] = p.getAttribute("value")
 
 forwardIn = minidom.parse(args.inputDir + "input_forward.xml");
 backwardIn = minidom.parse(args.inputDir + "input_backward.xml");
 
-forward_timeStep = forwardIn.getElementsByTagName('global_values')[0].getElementsByTagName('time_step')[0].getAttribute("value")
-backward_timeStep = backwardIn.getElementsByTagName('global_values')[0].getElementsByTagName('time_step')[0].getAttribute("value")
+forward_timeStep = float(forwardIn.getElementsByTagName('global_values')[0].getElementsByTagName('time_step')[0].getAttribute("value"))
+backward_timeStep = float(backwardIn.getElementsByTagName('global_values')[0].getElementsByTagName('time_step')[0].getAttribute("value"))
+optim_timeStep = float(params["dt_gp"])
 
-print(params)
+if (optim_timeStep != forward_timeStep or forward_timeStep != backward_timeStep or backward_timeStep != optim_timeStep):
+	all_clear = False;
 
-print(Optim_timestep)
+if(all_clear):
+	print("All clear")
+else:
+	print("Error")
 
 #for p in parameters.getElementsByTagName('parameter'):
 #	p_data = p.getAttribute("name")
