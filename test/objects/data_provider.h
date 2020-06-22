@@ -6,7 +6,7 @@
 TEST(dataprovider,globalParameters) {
     bool all_clear(true);
     data_provider provider = data_provider();
-    std::string input_directory = "/home/jan/Promotion_linuxPC/Optim_VSTRAP/test/data/Optim_input_gTest.xml";
+    std::string input_directory = "../../Optim_VSTRAP/test/data/Optim_input_gTest.xml";
     const char *  filename = input_directory.c_str();
     std::map<std::string,double> parameters = provider.read_optimization_parameters(filename);
 

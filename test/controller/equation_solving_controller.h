@@ -1,9 +1,11 @@
 #include <gtest/gtest.h>
+
 #include "../../src/controller/equation_solving_controller.h"
 #include "../../src/logger/logger.h"
 
+
 TEST(solver, LaplaciansSymmetry){
-    std::string input_directory = "/home/jan/Promotion_linuxPC/Optim_VSTRAP/data/box_shifting/Optim_input.xml";
+    std::string input_directory = "../../Optim_VSTRAP/data/box_shifting/Optim_input.xml";
     const char *  input_xml_path = input_directory.c_str();
 
     equation_solving_controller solver = equation_solving_controller();

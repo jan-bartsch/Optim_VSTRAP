@@ -1,4 +1,5 @@
 #include <gtest/gtest.h>
+#include <cmath>
 
 #include "../../src/objects/particle.h"
 
@@ -35,7 +36,7 @@ TEST(particle,magnitudeVelocity) {
     double vx = 10.0;
     double vy = -123.3;
     double vz = -0.2;
-    double velocityMagnitude_target = sqrt(vx*vx + vy*vy + vz*vz);
+    double velocityMagnitude_target = std::sqrt(vx*vx + vy*vy + vz*vz);
 
     bool all_clear(true);
 

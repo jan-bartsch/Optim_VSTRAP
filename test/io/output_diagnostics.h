@@ -8,11 +8,11 @@ TEST(diagnostics,gradientOutput) {
 
     arma::mat gradient_out(64,3,arma::fill::randu);
 
-    std::string COMMAND_DELETE_FILES = "rm /home/jan/Promotion_linuxPC/Optim_VSTRAP/test/data/testGradient.csv";
+    std::string COMMAND_DELETE_FILES = "rm ../../Optim_VSTRAP/test/data/testGradient.csv";
     system(&COMMAND_DELETE_FILES[0]);
 
     try{
-        out.writeGradientToFile(gradient_out,"/home/jan/Promotion_linuxPC/Optim_VSTRAP/test/data/testGradient");
+        out.writeGradientToFile(gradient_out,"../../Optim_VSTRAP/test/data/testGradient");
     } catch(std::exception e) {
         ASSERT_TRUE(all_clear);
     }
@@ -20,7 +20,7 @@ TEST(diagnostics,gradientOutput) {
     arma::mat gradient_in(64,3,arma::fill::zeros);
     int counter = 0;
 
-    std::ifstream file("/home/jan/Promotion_linuxPC/Optim_VSTRAP/test/data/testGradient.csv");
+    std::ifstream file("../../Optim_VSTRAP/test/data/testGradient.csv");
 
     std::string line = "";
     std::string delimiter = ",";

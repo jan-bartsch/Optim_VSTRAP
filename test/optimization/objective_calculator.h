@@ -5,7 +5,7 @@
 
 TEST(objective,calculationNR1) {
 
-    std::string input_directory = "/home/jan/Promotion_linuxPC/Optim_VSTRAP/test/data/Optim_input_gTest.xml";
+    std::string input_directory = "../../Optim_VSTRAP/test/data/Optim_input_gTest.xml";
     const char *  filename = input_directory.c_str();
 
     data_provider provider = data_provider(filename);

@@ -5,10 +5,10 @@
 
 TEST(io,controlUpdate) {
     bool all_clear(false);
-    std::string input_directory = "/home/jan/Promotion_linuxPC/Optim_VSTRAP/test/data/Optim_input_gTest.xml";
+    std::string input_directory = "../../Promotion_linuxPC/Optim_VSTRAP/test/data/Optim_input_gTest.xml";
     const char *  filename = input_directory.c_str();
 
-    std::string input_directory_control = "/home/jan/Promotion_linuxPC/Optim_VSTRAP/test/data/control_field_cells.xml";
+    std::string input_directory_control = "../../Optim_VSTRAP/test/data/control_field_cells.xml";
     const char * filename_control_in = input_directory_control.c_str();
 
     data_provider provider = data_provider(filename);
