@@ -12,4 +12,6 @@ args = parser.parse_args()
 OptimIn = minidom.parse(args.inputDir + "Optim_input.xml");
 parameters = OptimIn.getElementsByTagName('globalParameters');
 
-print(parameters)
+for p in parameters:
+	p_data = p.firstChild
+	print(p_data)
