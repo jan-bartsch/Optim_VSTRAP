@@ -49,6 +49,7 @@ std::map<std::string, std::string> data_provider::read_subroutines(const char *f
 
     TiXmlDocument inputFile(filename);
     if (!inputFile.LoadFile()) {
+         std::cout << filename << std::endl;
         throw std::runtime_error("File could not be opened. Check if directory"
                                  "and syntax are correct!");
     }
@@ -81,6 +82,7 @@ std::map<int, std::vector<double> > data_provider::read_mesh_barycenters(const c
 
     TiXmlDocument inputFile(filename);
     if (!inputFile.LoadFile()) {
+         std::cout << filename << std::endl;
         throw std::runtime_error("File could not be opened. Check if directory"
                                  "and syntax are correct!");
     }
@@ -133,6 +135,7 @@ std::map<std::string, std::string> data_provider::read_paths(const char *filenam
 
     TiXmlDocument inputFile(filename);
     if (!inputFile.LoadFile()) {
+         std::cout << filename << std::endl;
         throw std::runtime_error("File could not be opened. Check if directory"
                                  "and syntax are correct!");
     }

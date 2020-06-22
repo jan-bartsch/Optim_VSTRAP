@@ -5,7 +5,7 @@
 
 
 TEST(solver, LaplaciansSymmetry){
-    std::string input_directory = "/data/Optim_input_gTest.xml";
+    std::string input_directory = "./data/Optim_input_gTest.xml";
     const char *  input_xml_path = input_directory.c_str();
 
     equation_solving_controller solver = equation_solving_controller();
