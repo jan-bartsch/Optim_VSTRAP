@@ -10,8 +10,9 @@ parser.add_argument('inputDir', type=str, help='path to input files')
 args = parser.parse_args()
 
 OptimIn = minidom.parse(args.inputDir + "Optim_input.xml");
-parameters = OptimIn.getElementsByTagName('globalParameters');
+parameters = OptimIn.getElementsByTagName('globalParameters')[0];
 
-for p in parameters:
-	p_data = p.firstChild
+
+for p in parameters.getElementsByTagName('parameter'):
+	p_data = p.text
 	print(p_data)
