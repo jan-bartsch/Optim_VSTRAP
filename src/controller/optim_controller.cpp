@@ -68,6 +68,8 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
     //        arma::mat Laplace_Squared = model_solver.Laplacian_Squared_3D();
     //std::cout << arma::eye(64,64)-Laplace+Laplace_Squared << std::endl;
 
+    check_input_py(data_provider_opt);
+
 
     std::map<std::string, double> optimizationParameters = data_provider_opt.getOptimizationParameters();
     std::map<std::string, std::string> paths = data_provider_opt.getPaths();
@@ -265,9 +267,16 @@ std::unordered_map<coordinate_phase_space_time,double> optim_controller::assembl
     return particlePDF;
 }
 
-int optim_controller::test(int testing)
+void optim_controller::check_input_py(data_provider provider)
 {
-    return testing;
+    std::map<std::string, std::string> paths = provider.getPaths();
+    std::string PATH_TO_SHARED_FILES = paths.find("PATH_TO_SHARED_FILES")->second;
+    std::string DIRECTORY_TOOLSET = paths.find("DIRECTORY_TOOLSET")->second;
+    std::string CHECK_INPUT_PYHTON = "python3 " + DIRECTORY_TOOLSET + "check_input.py " + PATH_TO_SHARED_FILES;
+
+    try {
+        system(&CHECK_INPUT_PYHTON[0]);
+    } catch (std::exception e) {
+        std::cout << e.what() << std::endl;
+    }
 }
-
-
