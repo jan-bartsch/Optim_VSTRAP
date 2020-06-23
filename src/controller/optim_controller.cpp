@@ -70,7 +70,6 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
 
     check_input_py(data_provider_opt);
 
-
     std::map<std::string, double> optimizationParameters = data_provider_opt.getOptimizationParameters();
     std::map<std::string, std::string> paths = data_provider_opt.getPaths();
     std::map<std::string,std::string> subroutines = data_provider_opt.getSubroutines();
@@ -120,13 +119,9 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
         std::cout << control << std::endl;
     }
 
-
-
-
     /**
      * START OPTIMIZATION ITERATION
      */
-
     std::vector<std::vector<particle>> forwardParticles(ntimesteps_gp);
     std::vector<std::vector<particle>> forwardParticles_initialControl(ntimesteps_gp);
     std::unordered_map<coordinate_phase_space_time,double> forwardPDF_map;
@@ -243,10 +238,6 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
 
         outController.writeControl_XML(control);
         outDiag.writeDoubleToFile(arma::norm(control,"fro"),"normControlTrack");
-        std::string interpolating_control_python = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " + DOMAIN_MESH +
-                " " + PATH_TO_SHARED_FILES + "control_field_cells.xml" + " " + PATH_TO_SHARED_FILES + "interpolated_control_field.xml";
-        system(&interpolating_control_python[0]);
-
 
 
         logger::Info("Starting " + std::to_string(r+1) + " iteration");
@@ -267,7 +258,7 @@ std::unordered_map<coordinate_phase_space_time,double> optim_controller::assembl
     return particlePDF;
 }
 
-void optim_controller::check_input_py(data_provider provider)
+int optim_controller::check_input_py(data_provider provider)
 {
     std::map<std::string, std::string> paths = provider.getPaths();
     std::string PATH_TO_SHARED_FILES = paths.find("PATH_TO_SHARED_FILES")->second;
@@ -278,5 +269,28 @@ void optim_controller::check_input_py(data_provider provider)
         system(&CHECK_INPUT_PYHTON[0]);
     } catch (std::exception e) {
         std::cout << e.what() << std::endl;
+        return 1;
     }
+
+    return 0;
+}
+
+int optim_controller::interpolate_control(data_provider provider)
+{
+    std::map<std::string, std::string> paths = provider.getPaths();
+    std::string PATH_TO_SHARED_FILES = paths.find("PATH_TO_SHARED_FILES")->second;
+    std::string DIRECTORY_TOOLSET = paths.find("DIRECTORY_TOOLSET")->second;
+     std::string DOMAIN_MESH = paths.find("DOMAIN_MESH")->second;
+    std::string CHECK_INPUT_PYHTON = "python3 " + DIRECTORY_TOOLSET + "check_input.py " + PATH_TO_SHARED_FILES;
+
+    std::string interpolating_control_python = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " + DOMAIN_MESH +
+            " " + PATH_TO_SHARED_FILES + "control_field_cells.xml" + " " + PATH_TO_SHARED_FILES + "interpolated_control_field.xml";
+    try {
+    system(&interpolating_control_python[0]);
+    } catch(std::runtime_error e) {
+        std::cout << e.what() << std::endl;
+        return 1;
+    }
+    return 0;
+
 }

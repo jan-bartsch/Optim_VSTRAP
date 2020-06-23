@@ -29,4 +29,8 @@ add_custom_command(TARGET run_tests POST_BUILD
                   COMMAND ${CMAKE_COMMAND} -E copy_directory
                        ${CMAKE_SOURCE_DIR}/test/data ./data/)
 
+add_custom_command(TARGET run_tests POST_BUILD
+                  COMMAND ${CMAKE_COMMAND} -E copy_directory
+                       ${CMAKE_SOURCE_DIR}/optim-vstrap-toolset/toolset/ ./toolset/)
+
 
