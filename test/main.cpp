@@ -11,7 +11,7 @@
 #include "objects/data_provider.h"
 #include "objects/particle.h"
 
-//#include "optimization/gradient_calculator.h"
+#include "optimization/gradient_calculator.h"
 #include "optimization/objective_calculator.h"
 #include "optimization/stepdirection_controller.h"
 
