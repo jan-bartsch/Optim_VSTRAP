@@ -116,6 +116,6 @@ TEST(coordinates,toString) {
             + std::to_string(vy1) + ", "
             + std::to_string(vz1) + "}";
 
-   ASSERT_STREQ(test_string,c1.toString());
+   ASSERT_STREQ(test_string.c_str(),c1.toString().c_str());
 }
 
