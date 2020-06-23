@@ -50,7 +50,7 @@ commands:
           name: Run LCOV
           command: |
             lcov --capture --directory . --output-file ./build-Optim/test/test-results/coverage.info
-            lcov -r "./build-Optim/test/test-results/coverage.info" "*/tinyXML/*" "*/logger/*" "boost" "*/boost/*" "*/test/*" "*/armadillo_bits/*" "*/include/*" "*/gtest/*" "*/c++/*" "*/Core/*" "/usr/" "*/gcc/*" -o "./build-Optim/test/test-results/coverage-filtered.info"
+            lcov -r "./build-Optim/test/test-results/coverage.info" "*/tinyXML/*" "*/logger/*" "*.h" "boost" "*/boost/*" "*/test/*" "*/armadillo_bits/*" "*/include/*" "*/gtest/*" "*/c++/*" "*/Core/*" "/usr/" "*/gcc/*" -o "./build-Optim/test/test-results/coverage-filtered.info"
             genhtml ./build-Optim/test/test-results/coverage-filtered.info --output-directory coverage
       - store_artifacts:
           path: coverage

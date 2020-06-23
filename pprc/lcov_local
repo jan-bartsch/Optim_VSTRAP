@@ -1,0 +1,4 @@
+mkdir test-results
+ lcov --capture --directory . --output-file ./test-results/coverage.info
+            lcov -r "./test-results/coverage.info" "*/tinyXML/*" "*/logger/*" "*.h" "boost" "*/boost/*" "*/test/*" "*/armadillo_bits/*" "*/include/*" "*/gtest/*" "*/c++/*" "*/Core/*" "/usr/" "*/gcc/*" -o "./test-results/coverage-filtered.info"
+            genhtml ./test-results/coverage-filtered.info --output-directory coverage
