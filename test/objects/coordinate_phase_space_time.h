@@ -109,9 +109,9 @@ TEST(coordinates,toString) {
     bool all_clear(true);
 
     coordinate_phase_space_time c1 = coordinate_phase_space_time(cell1,vx1,vy1,vz1,time1);
-   std::string test_string =  "{" + std::to_string(time1) + ", " + std::to_string(0.0) + ", "
-            + std::to_string(0.0) + ", "
-            + std::to_string(0.0) + ", "
+   std::string test_string =  "{" + std::to_string(time1) + ", " + std::to_string(-1) + ", "
+            + std::to_string(-1) + ", "
+            + std::to_string(-1) + ", "
             + std::to_string(vx1) + ", "
             + std::to_string(vy1) + ", "
             + std::to_string(vz1) + "}";
