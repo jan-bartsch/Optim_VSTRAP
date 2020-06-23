@@ -45,7 +45,7 @@ commands:
           name: Run unit tests
           command: mkdir build-Optim/test/test-results && cd build-Optim/test && ./run_tests --gtest_output="xml:./test-results/results.xml"
       - store_test_results:
-          path: test-results
+          path: build-Optim/test/test-results
       - run:
           name: Run LCOV
           command: |
