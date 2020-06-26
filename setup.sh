@@ -4,9 +4,8 @@ sudo apt update
 
 sudo apt install -y gcc g++
 sudo apt install -y cmake
-sudo apt install -y libeigen3-dev
-sudo apt install -y libomp-dev
-sudo apt install -y libncursesada5-dev
+#sudo apt install -y libeigen3-dev
+#sudo apt install -y libncursesada5-dev
 sudo apt install -y libboost-all-dev
 sudo apt install -y libomp-dev
 sudo apt install -y liblapack-dev libblas-dev libarmadillo-dev

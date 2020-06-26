@@ -322,7 +322,7 @@ arma::mat optim_controller::start_with_given_control(const char *input_xml_path)
     double fraction_of_optimal_control = static_cast<double>(optimizationParameters.find("fraction_of_optimal_control")->second);
 
     logger::Info("Starting with existing control (multiplied by a positive constant)");
-    std::string READ_CONTROL = PATH_TO_SHARED_FILES + "control_field_cells_optimal.xml";
+    std::string READ_CONTROL = PATH_TO_SHARED_FILES + "control_field_cells.xml";
     arma::mat control = input::readControl(&READ_CONTROL[0]);
     outController.writeControl_XML(fraction_of_optimal_control*control);
     std::string interpolating_control_python = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " + DOMAIN_MESH +

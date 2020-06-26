@@ -95,6 +95,7 @@ arma::mat input::readControl(const char *filename)
 
     TiXmlDocument inputFile(filename);
     if (!inputFile.LoadFile()) {
+        std::cout << filename << std::endl;
         throw std::runtime_error("File could not be opened. Check if directory"
                                  "and syntax are correct!");
     }

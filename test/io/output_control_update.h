@@ -8,9 +8,6 @@ TEST(io,controlUpdate) {
     std::string input_directory = "./data/Optim_input_gTest.xml";
     const char *  filename = input_directory.c_str();
 
-    std::string input_directory_control = "./data/control_field_cells.xml";
-    const char * filename_control_in = input_directory_control.c_str();
-
     data_provider provider = data_provider(filename);
     output_control_update out = output_control_update(filename);
     input in = input();
@@ -21,7 +18,14 @@ TEST(io,controlUpdate) {
     arma::mat control_out(64,3,arma::fill::randu);
 
     out.writeControl_XML(control_out);
+
+    std::cout << control_out << std::endl;
+    std::string input_directory_control = "./data/control_field_cells.xml";
+    const char * filename_control_in = input_directory_control.c_str();
+
     arma::mat control_in = in.readControl(filename_control_in);
+    std::cout << control_in << std::endl;
+    std::cout << control_in- control_out << std::endl;
 
     norm_difference = arma::norm(control_in-control_out,"inf");
 

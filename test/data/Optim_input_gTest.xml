@@ -11,7 +11,7 @@
         <parameter name="dimensionOfControl_gp" value="64" />               <!-- number of elements of the control -->
 	<parameter name="end_control_gp" value="48"/>
         <parameter name="fixed_gradient_descent_stepsize" value="1e-1" />
-	<parameter name="fraction_of_optimal_control" value="1e-5" />
+	<parameter name="fraction_of_optimal_control" value="1e-1" />
         <parameter name="optimizationIteration_max_gp" value="100" />       <!-- number of maximal interations -->  
         <parameter name="dp_gp" value="0.0156" />                              <!-- discretization size position 64:0.0156 1000:0.0001 512:0.002 -->
         <parameter name="dt_gp" value="1e-5" />                             <!-- discretization size time -->
