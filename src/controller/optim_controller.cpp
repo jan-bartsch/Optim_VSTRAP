@@ -9,7 +9,6 @@ void optim_controller::start_optimizer(int argc, const char **argv)
 
     logger::Info("Starting optimizer...");
 
-    arma::mat control(64,3,arma::fill::zeros);
     std::string current_directory(get_current_dir_name());
     std::string input_directory;
     const char * input_xml_path;
@@ -29,7 +28,7 @@ void optim_controller::start_optimizer(int argc, const char **argv)
 
     std::chrono::time_point<std::chrono::system_clock> start_optim = std::chrono::system_clock::now();
 
-    int optim_flag = optim_controller::start_optimization_iteration(control,input_xml_path);
+    int optim_flag = optim_controller::start_optimization_iteration(input_xml_path);
 
     std::chrono::time_point<std::chrono::system_clock> end_optim = std::chrono::system_clock::now();
     logger::Info("Optimization took: " + std::to_string(std::chrono::duration_cast<std::chrono::minutes>
@@ -44,9 +43,8 @@ void optim_controller::start_optimizer(int argc, const char **argv)
 
 }
 
-int optim_controller::start_optimization_iteration(arma::mat &control, const char * input_xml_path)
+int optim_controller::start_optimization_iteration(const char * input_xml_path)
 {
-
     data_provider data_provider_opt = data_provider(input_xml_path);
     gradient_calculator gradient_calculator_opt = gradient_calculator(input_xml_path);
     objective_calculator objective = objective_calculator(input_xml_path);
@@ -63,13 +61,6 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
     output_diagnostics outDiag = output_diagnostics();
     equation_solving_controller model_solver = equation_solving_controller();
 
-    //        model_solver.setData_provider_optim(data_provider_opt);
-    //        arma::mat Laplace = model_solver.Laplacian_3D();
-    //        arma::mat Laplace_Squared = model_solver.Laplacian_Squared_3D();
-    //std::cout << arma::eye(64,64)-Laplace+Laplace_Squared << std::endl;
-
-    check_input_py(data_provider_opt);
-
     std::map<std::string, double> optimizationParameters = data_provider_opt.getOptimizationParameters();
     std::map<std::string, std::string> paths = data_provider_opt.getPaths();
     std::map<std::string,std::string> subroutines = data_provider_opt.getSubroutines();
@@ -81,13 +72,17 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
     double fixed_gradient_descent_stepsize = static_cast<double>(optimizationParameters.find("fixed_gradient_descent_stepsize")->second);
     double fraction_of_optimal_control = static_cast<double>(optimizationParameters.find("fraction_of_optimal_control")->second);
 
-
     std::string BUILD_DIRECTORY_VSTRAP = paths.find("BUILD_DIRECTORY_VSTRAP")->second;
     std::string BUILD_DIRECTORY_OPTIM = paths.find("BUILD_DIRECTORY_OPTIM")->second;
     std::string DIRECTORY_TOOLSET = paths.find("DIRECTORY_TOOLSET")->second;
 
     std::string PATH_TO_SHARED_FILES = paths.find("PATH_TO_SHARED_FILES")->second;
     std::string DOMAIN_MESH = paths.find("DOMAIN_MESH")->second;
+
+    /*
+     * Check consistency of input files
+     */
+    check_input_py(data_provider_opt);
 
 
     std::string START_VSTRAP_FORWARD = BUILD_DIRECTORY_VSTRAP + "vstrap" + " " + PATH_TO_SHARED_FILES + "input_forward.xml";
@@ -99,23 +94,11 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
 
     logger::Info("Reading paramters done");
 
+    arma::mat control;
     if(zero_control == 0) {
-        logger::Info("Deleting old files");
-        std::string COMMAND_DELETE_FILES = "rm *.log | rm *.csv | rm *.txt";
-        system(&COMMAND_DELETE_FILES[0]);
-        logger::Info("Starting with zero control");
-        outController.writeControl_XML(control);
-        std::string interpolating_control_python = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " + DOMAIN_MESH +
-                " " + PATH_TO_SHARED_FILES + "control_field_cells.xml" + " " + PATH_TO_SHARED_FILES + "interpolated_control_field.xml";
-        system(&interpolating_control_python[0]);
+        control = start_with_zero_control(input_xml_path);
     } else {
-        logger::Info("Starting with existing control (multiplied by a positive constant)");
-        std::string READ_CONTROL = PATH_TO_SHARED_FILES + "control_field_cells_optimal.xml";
-        control = input::readControl(&READ_CONTROL[0]);
-        outController.writeControl_XML(fraction_of_optimal_control*control);
-        std::string interpolating_control_python = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " + DOMAIN_MESH +
-                " " + PATH_TO_SHARED_FILES + "control_field_cells.xml" + " " + PATH_TO_SHARED_FILES + "interpolated_control_field.xml";
-        system(&interpolating_control_python[0]);
+        control = start_with_given_control(input_xml_path);
         std::cout << control << std::endl;
     }
 
@@ -243,8 +226,6 @@ int optim_controller::start_optimization_iteration(arma::mat &control, const cha
         logger::Info("Starting " + std::to_string(r+1) + " iteration");
     }
 
-
-
     return 0;
 }
 
@@ -265,14 +246,18 @@ int optim_controller::check_input_py(data_provider provider)
     std::string DIRECTORY_TOOLSET = paths.find("DIRECTORY_TOOLSET")->second;
     std::string CHECK_INPUT_PYHTON = "python3 " + DIRECTORY_TOOLSET + "check_input.py " + PATH_TO_SHARED_FILES;
 
-    try {
-        system(&CHECK_INPUT_PYHTON[0]);
-    } catch (std::exception e) {
-        std::cout << e.what() << std::endl;
-        return 1;
+    int check_input_flag = system(&CHECK_INPUT_PYHTON[0]);
+
+    //output is in 16 bit value
+    if(check_input_flag == 512) {
+        throw std::runtime_error("File not found in Python check");
+    } else if (check_input_flag == 256) {
+        throw std::runtime_error("Encountered inconsitency in input files");
+    } else {
+        logger::Info("Python check: **ALL CLEAR**");
     }
 
-    return 0;
+    return check_input_flag;
 }
 
 int optim_controller::interpolate_control(data_provider provider)
@@ -280,17 +265,69 @@ int optim_controller::interpolate_control(data_provider provider)
     std::map<std::string, std::string> paths = provider.getPaths();
     std::string PATH_TO_SHARED_FILES = paths.find("PATH_TO_SHARED_FILES")->second;
     std::string DIRECTORY_TOOLSET = paths.find("DIRECTORY_TOOLSET")->second;
-     std::string DOMAIN_MESH = paths.find("DOMAIN_MESH")->second;
+    std::string DOMAIN_MESH = paths.find("DOMAIN_MESH")->second;
     std::string CHECK_INPUT_PYHTON = "python3 " + DIRECTORY_TOOLSET + "check_input.py " + PATH_TO_SHARED_FILES;
 
     std::string interpolating_control_python = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " + DOMAIN_MESH +
             " " + PATH_TO_SHARED_FILES + "control_field_cells.xml" + " " + PATH_TO_SHARED_FILES + "interpolated_control_field.xml";
-    try {
-    system(&interpolating_control_python[0]);
-    } catch(std::runtime_error e) {
-        std::cout << e.what() << std::endl;
-        return 1;
-    }
-    return 0;
 
+    int interpolating_flag = system(&interpolating_control_python[0]);
+    if(interpolating_flag == 512) {
+        throw std::runtime_error("File not found in control interpolating");
+    } else if (interpolating_flag == 256) {
+        throw std::runtime_error("Interpolating returned error value");
+    }
+
+    return interpolating_flag;
+
+}
+
+arma::mat optim_controller::start_with_zero_control(const char *input_xml_path)
+{
+    data_provider data_provider_opt = data_provider(input_xml_path);
+    output_control_update outController = output_control_update(input_xml_path);
+
+    std::map<std::string, double> optimizationParameters = data_provider_opt.getOptimizationParameters();
+    std::map<std::string, std::string> paths = data_provider_opt.getPaths();
+    std::string PATH_TO_SHARED_FILES = paths.find("PATH_TO_SHARED_FILES")->second;
+    std::string DIRECTORY_TOOLSET = paths.find("DIRECTORY_TOOLSET")->second;
+    std::string DOMAIN_MESH = paths.find("DOMAIN_MESH")->second;
+
+    unsigned int dimensionOfControl = static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second);
+
+    arma::mat control(dimensionOfControl,3,arma::fill::zeros);
+
+    logger::Info("Deleting old files");
+    std::string COMMAND_DELETE_FILES = "rm *.log | rm *.csv | rm *.txt";
+    system(&COMMAND_DELETE_FILES[0]);
+    logger::Info("Starting with zero control");
+    outController.writeControl_XML(control);
+    std::string interpolating_control_python = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " + DOMAIN_MESH +
+            " " + PATH_TO_SHARED_FILES + "control_field_cells.xml" + " " + PATH_TO_SHARED_FILES + "interpolated_control_field.xml";
+    system(&interpolating_control_python[0]);
+
+    return control;
+}
+
+arma::mat optim_controller::start_with_given_control(const char *input_xml_path)
+{
+    data_provider data_provider_opt = data_provider(input_xml_path);
+    output_control_update outController = output_control_update(input_xml_path);
+
+    std::map<std::string, double> optimizationParameters = data_provider_opt.getOptimizationParameters();
+    std::map<std::string, std::string> paths = data_provider_opt.getPaths();
+    std::string PATH_TO_SHARED_FILES = paths.find("PATH_TO_SHARED_FILES")->second;
+    std::string DIRECTORY_TOOLSET = paths.find("DIRECTORY_TOOLSET")->second;
+    std::string DOMAIN_MESH = paths.find("DOMAIN_MESH")->second;
+    double fraction_of_optimal_control = static_cast<double>(optimizationParameters.find("fraction_of_optimal_control")->second);
+
+    logger::Info("Starting with existing control (multiplied by a positive constant)");
+    std::string READ_CONTROL = PATH_TO_SHARED_FILES + "control_field_cells_optimal.xml";
+    arma::mat control = input::readControl(&READ_CONTROL[0]);
+    outController.writeControl_XML(fraction_of_optimal_control*control);
+    std::string interpolating_control_python = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " + DOMAIN_MESH +
+            " " + PATH_TO_SHARED_FILES + "control_field_cells.xml" + " " + PATH_TO_SHARED_FILES + "interpolated_control_field.xml";
+    system(&interpolating_control_python[0]);
+
+    return control;
 }
