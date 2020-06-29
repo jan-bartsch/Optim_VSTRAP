@@ -16,11 +16,11 @@ arma::mat stepdirection_controller::get_stepdirection(arma::mat gradient, arma::
         return fixed_gradient_descent(gradient,optimization_iteration);
     } else if (control_update.compare("ncg_FR")==0) {
         logger::Info("Updating control using stepdirection update: NCG using Fletcher-Reeves formula");
-        return ncg_scheme(gradient, gradient_old, stepdirectionOld, optimization_iteration);
+        return ncg_scheme_FR(gradient, gradient_old, stepdirectionOld, optimization_iteration);
     }
     else {
         std::invalid_argument("No such direction update subroutine");
-        throw std::runtime_error("No such direction update method");
+        throw std::runtime_error("No such direction update subroutine");
     }
 }
 
@@ -30,13 +30,33 @@ arma::mat stepdirection_controller::fixed_gradient_descent(arma::mat gradient, u
     return -gradient;
 }
 
-arma::mat stepdirection_controller::ncg_scheme(arma::mat gradient, arma::mat gradient_old, arma::mat stepdirectionOld, unsigned int optimization_iteration)
+arma::mat stepdirection_controller::ncg_scheme_FR(arma::mat gradient, arma::mat gradient_old, arma::mat stepdirectionOld, unsigned int optimization_iteration)
 {
-
     arma::mat stepdirection_new;
+    double beta = arma::dot(gradient,gradient)/arma::dot(gradient_old,gradient_old);
 
-    throw std::runtime_error("not yet implemented");
+    stepdirection_new = -gradient + beta*stepdirectionOld;
 
     return stepdirection_new;
+}
 
+arma::mat stepdirection_controller::ncg_scheme_PR(arma::mat gradient, arma::mat gradient_old, arma::mat stepdirectionOld, unsigned int optimization_iteration)
+{
+    arma::mat stepdirection_new;
+    double beta = arma::dot(gradient, gradient - gradient_old)/arma::dot(gradient_old,gradient_old);
+
+    stepdirection_new = -gradient + beta*stepdirectionOld;
+
+    return stepdirection_new;
+}
+
+arma::mat stepdirection_controller::ncg_scheme_HZ(arma::mat gradient, arma::mat gradient_old, arma::mat stepdirectionOld, unsigned int optimization_iteration)
+{
+    arma::mat stepdirection_new;
+    arma::mat y = gradient-gradient_old;
+    double beta = arma::dot(y - 2.0*stepdirectionOld*arma::dot(y,y)/arma::dot(stepdirectionOld,y),gradient/arma::dot(stepdirectionOld,y));
+
+    stepdirection_new = -gradient + beta*stepdirectionOld;
+
+    return stepdirection_new;
 }

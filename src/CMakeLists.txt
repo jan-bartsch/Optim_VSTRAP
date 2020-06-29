@@ -13,10 +13,10 @@ find_package(OpenMP REQUIRED)
 find_package(Armadillo REQUIRED)
 
 if(Boost_FOUND)
-    include_directories(${Boost_INCLUDE_DIRS} ${ARMADILLO_INCLUDE_DIRS})
+    include_directories(${Boost_INCLUDE_DIRS} ${ARMADILLO_INCLUDE_DIR})
     file(GLOB_RECURSE sources *.cc *.cpp)
     add_executable(${PROJECT_NAME} ${sources})
-    target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES} ${ARMADILLO_LIBRARIES} OpenMP::OpenMP_CXX
+    target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES} ${ARMADILLO_LIBRARY} OpenMP::OpenMP_CXX
       libpthread.so.0 librt.so -llapack -lblas -ltbb -ltbbmalloc -fopenmp)
 endif()
 
