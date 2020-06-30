@@ -22,7 +22,7 @@ file(GLOB_RECURSE sources ../src/*.cc ../src/*.cpp *.cpp)
 list(FILTER sources EXCLUDE REGEX "../src/main.cpp")
 add_executable(run_tests ${sources})
 target_link_libraries(run_tests ${Boost_LIBRARIES} OpenMP::OpenMP_CXX ${GTEST_LIBRARIES}
-    ${ARMADILLO_LIBRARIES} -lstdc++fs pthread --coverage)
+    ${ARMADILLO_LIBRARIES} -lstdc++fs pthread --coverage -llapack -lblas -ltbb -ltbbmalloc -fopenmp)
 
 message("Copy files")
 add_custom_command(TARGET run_tests POST_BUILD
