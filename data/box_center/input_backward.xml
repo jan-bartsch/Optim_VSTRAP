@@ -8,7 +8,7 @@
         <executables>
             <executable name="mesh_initializer" mode="CPU">
                 <mesh name="vol_mesh">
-                    <load>./box_coarse_512.xml</load>
+                    <load>./box_coarse.xml</load>
                 </mesh>
             </executable>
 		<executable name="particle_initializer" mode="CPU">
@@ -44,7 +44,7 @@
             </executable>
             <executable name="bgf" mode="CPU">
                 <volume_mesh name="vol_mesh"/>
-                <!--field name="bem_e_field" type="bem_electric_field" mesh_points="mesh_points" load_freq="1"/--> 
+                <!--field name="bem_e_field" type="bem_electric_field" mesh_points="mesh_points" load_freq="1"/-->
                 <load>./interpolated_control_field.xml</load>
                 <particle_batch>
                     <!--field name="bem_e_field"/-->

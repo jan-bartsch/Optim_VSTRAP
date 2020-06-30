@@ -8,8 +8,6 @@ def check_input():
 
 	all_clear = True
 
-
-
 	parser = argparse.ArgumentParser(prog="Check if xml-arguments fit together", description='Needs data directory (with input files)')
 	parser.add_argument('inputDir', type=str, help='path to input files')
 	args = parser.parse_args()
@@ -48,11 +46,14 @@ def check_input():
 	####
 	# dimensionOfControl_gp, pcell_gp
 	####
-	print(params["dimensionOfControl_gp"])
-	print(params["pcell_gp"])
+
 	if (float(params["dimensionOfControl_gp"])>float(params["pcell_gp"])):
 		print("[Check_Input] dimensionOfControl_gp is greater than pcell_gp, this will lead to an error in the calculation of the gradient")
+		print("dimensionOfControl_gp: " + params["dimensionOfControl_gp"])
+		print("pcell_gp: " + params["pcell_gp"])
 		all_clear = False;
+	else:
+		print("[Check_Input] dimensionOfControl_gp < pcell_gp")
 
 	####
 	# Time step
@@ -65,7 +66,7 @@ def check_input():
 		print("[Check_Input] Timestep-size is not consistent")
 		all_clear = False;
 	else:
-		print("[Check_Input]Timestep-size is consistent")
+		print("[Check_Input] Timestep-size is consistent")
 
 	####
 	# Iterations in time
