@@ -60,7 +60,7 @@ class Control_field:
 			#print(mesh.nodes[n].x_coord)
 			self.nodesMesh.insert(len(self.nodesMesh),[float(mesh.nodes[n].x_coord),mesh.nodes[n].y_coord,mesh.nodes[n].z_coord])
 
-		control_scaling = 1e-1
+		control_scaling = 2.5e-2
 
 		for n in mesh.nodes:
 			self.endPoints.insert(len(self.endPoints),[self.nodesMesh[n-1][0]+control_scaling*self.control[n-1][0],self.nodesMesh[n-1][1]+control_scaling*self.control[n-1][1],self.nodesMesh[n-1][2]+control_scaling*self.control[n-1][2]])
@@ -85,7 +85,7 @@ class Control_field:
 			a = Arrow3D([nodesMesh[n-1][0], endPoints[n-1][0]], [nodesMesh[n-1][1], endPoints[n-1][1]], [nodesMesh[n-1][2], endPoints[n-1][2]], mutation_scale=20, lw=1, arrowstyle="-|>", color="k")
 			ax.add_artist(a)
 
-		plt.title('Force field')
+		plt.title('Force field (scaling factor: 2.5e-2)')
 		plt.grid(False)
 
 

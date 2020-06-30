@@ -148,7 +148,7 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
     return return_flag;
 }
 
-int stepsize_controller::gradient_descent(arma::mat &control, arma::mat &stepdirection, std::vector<particle> &nputParticles, double &stepsize)
+int stepsize_controller::gradient_descent(arma::mat &control, arma::mat &stepdirection, std::vector<particle> &inputParticles, double &stepsize)
 {
 
     int return_flag = 0;

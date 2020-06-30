@@ -15,12 +15,12 @@ args = parser.parse_args()
 file = open(args.target_folder + "/creation_adjoint_particles.xml", 'w+');
 
 ntimesteps = 40;
-mu_x = 0.0; 
+mu_x = 0.0;
 mu_y = 0.0;
 mu_z = 0.0;
-s_x = 0.20;
-s_y = 0.20;
-s_z = 0.20;
+s_x = 0.10;
+s_y = 0.10;
+s_z = 0.10;
 
 v_x = 0.0;
 v_y = 0.0;

@@ -57,7 +57,7 @@ norm_control_float = []
 
 for i in range(0,len(norm_control)-1):
 	norm_control_float.insert(len(norm_control_float),float(norm_control[i]))
-	
+
 ax3 = plt.subplot(223)
 plt.plot(norm_control_float)
 plt.title("Norm control")
@@ -88,5 +88,3 @@ except:
 tikzplotlib.save("fig/post_processing_converging.tex")
 #plt.savefig("../results/optimization_monitoring.png")
 plt.show()
-
-

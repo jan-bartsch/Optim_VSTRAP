@@ -104,9 +104,9 @@ double objective_calculator::calculate_objective_L2(std::vector<std::unordered_m
                        // std::cout << velocityDiscr_gp(l) << std::endl;
                         double current_trackPot = - C_theta_gp/(2.0*M_PI*sigma_x_gp*sigma_v_gp)*exp(
                                     -(p_d[0]*p_d[0]/(2.0*sigma_x_gp*sigma_x_gp)+
-                                pow(velocityDiscr_gp(l)-p_d[1],2.0)/(2.0*sigma_v_gp*sigma_v_gp)+
-                                pow(velocityDiscr_gp(m)-p_d[2],2.0)/(2.0*sigma_v_gp*sigma_v_gp)+
-                                pow(velocityDiscr_gp(n)-p_d[3],2.0)/(2.0*sigma_v_gp*sigma_v_gp)
+                                0.0*pow(velocityDiscr_gp(l)-p_d[1],2.0)/(2.0*sigma_v_gp*sigma_v_gp)+
+                                0.0*pow(velocityDiscr_gp(m)-p_d[2],2.0)/(2.0*sigma_v_gp*sigma_v_gp)+
+                                0.0*pow(velocityDiscr_gp(n)-p_d[3],2.0)/(2.0*sigma_v_gp*sigma_v_gp)
                                 ));
                         //                        temp = static_cast<float>( exp(-(
                         //                                                           pow(positionDiscr_gp(i)-p_d[0],2.0)/(2.0*sigma_x_gp*sigma_x_gp)+
@@ -132,7 +132,7 @@ double objective_calculator::calculate_objective_L2(std::vector<std::unordered_m
     }
 
     //add control, no trapezodial rule needed since control is zero at the boundary (?)
-    costOfControl += 1.0/2.0*arma::norm(control,"fro")*arma::norm(control,"fro")*pow(dp_gp,1.0);
+    //costOfControl += 1.0/2.0*arma::norm(control,"fro")*arma::norm(control,"fro")*pow(dp_gp,1.0);
     // dp_gp^1 since we have elements with volume dp_gp
 
     //arma::mat second_derivative = solver.Laplacian_3D();

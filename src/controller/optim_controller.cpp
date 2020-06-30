@@ -115,6 +115,7 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
     std::unordered_map<coordinate_phase_space_time,double> backwardPDF_map;
     std::vector<std::unordered_map<coordinate_phase_space_time,double>> backwardPDF;
     arma::mat gradient(static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second),3,arma::fill::zeros);
+    arma::mat gradient_old(static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second),3,arma::fill::zeros);
     arma::mat stepDirection(static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second),3,arma::fill::zeros);
     double value_objective = 0.0;
     int stepsize_flag;
@@ -198,7 +199,8 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
 
 
         logger::Info("Updating the control...");
-        stepDirection = stepdir_contr.get_stepdirection(gradient,gradient,stepDirection,r);
+        stepDirection = stepdir_contr.get_stepdirection(gradient,gradient_old,stepDirection,r);
+        gradient_old = gradient;
         stepsize_before = stepsize;
         stepsize_flag = stepsize_contr.calculate_stepsize(gradient,value_objective,control,
                                                           stepDirection,forwardParticles[0],stepsize);

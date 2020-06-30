@@ -11,16 +11,21 @@ arma::mat stepdirection_controller::get_stepdirection(arma::mat gradient, arma::
     std::map<std::string,std::string> subroutines = this->getData_provider_optim().getSubroutines();
     std::string control_update = subroutines.find("direction_update")->second;
 
-    if(control_update.compare("negative_gradient")==0) {
-        logger::Info("Updating control using stepdirection update: Negative Gradient");
+    if(optimization_iteration == 1) {
+        logger::Info("First iteration, using negative gradient as stepdirection");
         return fixed_gradient_descent(gradient,optimization_iteration);
-    } else if (control_update.compare("ncg_FR")==0) {
-        logger::Info("Updating control using stepdirection update: NCG using Fletcher-Reeves formula");
-        return ncg_scheme_FR(gradient, gradient_old, stepdirectionOld, optimization_iteration);
-    }
-    else {
-        std::invalid_argument("No such direction update subroutine");
-        throw std::runtime_error("No such direction update subroutine");
+    } else {
+        if(control_update.compare("negative_gradient")==0) {
+            logger::Info("Updating control using stepdirection update: Negative Gradient");
+            return fixed_gradient_descent(gradient,optimization_iteration);
+        } else if (control_update.compare("ncg_FR")==0) {
+            logger::Info("Updating control using stepdirection update: NCG using Fletcher-Reeves formula");
+            return ncg_scheme_FR(gradient, gradient_old, stepdirectionOld, optimization_iteration);
+        }
+        else {
+            std::invalid_argument("No such direction update subroutine");
+            throw std::runtime_error("No such direction update subroutine");
+        }
     }
 }
 
