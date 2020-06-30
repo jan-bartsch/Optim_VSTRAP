@@ -38,7 +38,7 @@
         <path name="BUILD_DIRECTORY_OPTIM" value="/home/bartsch/SPARC/build-Optim-CSSC/src/" />
         <path name="PATH_TO_SHARED_FILES" value="../../Optim_VSTRAP/data/box_center_CSSC/" />
         <path name="BARYCENTERS_MESH" value="../../Optim_VSTRAP/data/box_center_CSSC/mesh_barycenters_512.xml" />
-        <path name="DIRECTORY_TOOLSET" value="./optim-vstrap-toolset/toolset/" />
+        <path name="DIRECTORY_TOOLSET" value="../../Optim_VSTRAP/optim-vstrap-toolset/toolset/" />
         <path name="DOMAIN_MESH" value="../../Optim_VSTRAP/data/box_center_CSSC/box_coarse_512.xml" />
     </paths>
 
