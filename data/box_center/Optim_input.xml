@@ -4,7 +4,7 @@
 
     <globalParameters>
         <parameter name="armijo_descent_fraction" value="1e-30" />
-        <parameter name="calculation_functional" value="1" />
+        <parameter name="calculation_functional" value="5" />
         <parameter name="calculation_wasserstein" value="0" />
         <parameter name="C_theta_gp" value="1e+8" />
         <parameter name="C_phi_gp" value="1e+8" />
@@ -12,7 +12,7 @@
         <parameter name="end_control_gp" value="512"/>
         <parameter name="fixed_gradient_descent_stepsize" value="1e-1" />
         <parameter name="fraction_of_optimal_control" value="1e-5" />
-        <parameter name="optimizationIteration_max_gp" value="100" />       <!-- number of maximal interations -->  
+        <parameter name="optimizationIteration_max_gp" value="100" />       <!-- number of maximal interations -->
         <parameter name="dp_gp" value="0.002" />                              <!-- discretization size position 64:0.0156 1000:0.0001 512:0.002 -->
         <parameter name="dt_gp" value="1e-5" />                             <!-- discretization size time -->
         <parameter name="dv_gp" value="400.00" />                              <!-- discretization size velocity -->
@@ -31,8 +31,8 @@
         <parameter name="weight_control_gp" value="1e+1" />
     </globalParameters>
 
-    
-    
+
+
      <paths>
         <path name="BUILD_DIRECTORY_VSTRAP" value="/home/jan/Promotion_linuxPC/build-vstrap/src/" />
         <path name="BUILD_DIRECTORY_OPTIM" value="/home/jan/Promotion_linuxPC/build-Optim/src/" />
@@ -43,13 +43,13 @@
     </paths>
 
     <subroutines>
-        <!--subroutine group="control_update" name= "gradient_descent" /-->
+        <subroutine group="control_update" name= "gradient_descent"/>
         <!--subroutine group="control_update" name="successive_approximation" /-->
-        <subroutine group="control_update" name="armijo_linesearch" />
-        <subroutine group="direction_update" name="negative_gradient" />	
+        <!--subroutine group="control_update" name="armijo_linesearch" /-->
+        <subroutine group="direction_update" name="negative_gradient" />
         <!--subroutine group="direction_update" name="ncg_FR" /-->
-        <subroutine group="desired_trajectory" name="box_center" />	
-        <!--subroutine group="desired_trajectory" name="box_shifting_negative_x" /-->	
+        <subroutine group="desired_trajectory" name="box_center" />
+        <!--subroutine group="desired_trajectory" name="box_shifting_negative_x" /-->
     </subroutines>
 
 </optimizer_input>

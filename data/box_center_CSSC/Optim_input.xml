@@ -4,7 +4,7 @@
 
     <globalParameters>
         <parameter name="armijo_descent_fraction" value="1e-30" />
-        <parameter name="calculation_functional" value="1" />
+        <parameter name="calculation_functional" value="5" />
         <parameter name="calculation_wasserstein" value="0" />
         <parameter name="C_theta_gp" value="1e+8" />
         <parameter name="C_phi_gp" value="1e+8" />
@@ -43,9 +43,9 @@
     </paths>
 
     <subroutines>
-        <!--subroutine group="control_update" name= "gradient_descent" /-->
+        <subroutine group="control_update" name= "gradient_descent" />
         <!--subroutine group="control_update" name="successive_approximation" /-->
-        <subroutine group="control_update" name="armijo_linesearch" />
+        <!--subroutine group="control_update" name="armijo_linesearch" /-->
         <subroutine group="direction_update" name="negative_gradient" />
         <!--subroutine group="direction_update" name="ncg_FR" /-->
         <subroutine group="desired_trajectory" name="box_center" />
