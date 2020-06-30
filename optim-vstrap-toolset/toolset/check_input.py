@@ -38,12 +38,21 @@ def check_input():
 
 	for e in f_exec.getElementsByTagName('executable'):
 		#print(e.getAttribute("name"))
-		f_executables[e.getAttribute("name")] = e 
+		f_executables[e.getAttribute("name")] = e
 
 	for e in b_exec.getElementsByTagName('executable'):
 		#print(e.getAttribute("name"))
-		b_executables[e.getAttribute("name")] = e 
-		
+		b_executables[e.getAttribute("name")] = e
+
+
+	####
+	# dimensionOfControl_gp, pcell_gp
+	####
+	print(params["dimensionOfControl_gp"])
+	print(params["pcell_gp"])
+	if (float(params["dimensionOfControl_gp"])>float(params["pcell_gp"])):
+		print("[Check_Input] dimensionOfControl_gp is greater than pcell_gp, this will lead to an error in the calculation of the gradient")
+		all_clear = False;
 
 	####
 	# Time step
@@ -63,7 +72,7 @@ def check_input():
 	####
 	forward_iterations = float(forwardIn.getElementsByTagName('abort_criterium')[0].getElementsByTagName('max_itterations')[0].getAttribute("value"))
 	backward_iterations = float(backwardIn.getElementsByTagName('abort_criterium')[0].getElementsByTagName('max_itterations')[0].getAttribute("value"))
-	optim_iterations = float(params["ntimesteps_gp"]) 
+	optim_iterations = float(params["ntimesteps_gp"])
 
 	if (optim_iterations != forward_iterations or forward_iterations != backward_iterations or backward_iterations != optim_iterations):
 		print("[Check_Input] Iterations number is not consistent")
@@ -106,7 +115,7 @@ def check_input():
 		print(backward_control)
 
 	####
-	# pwi 
+	# pwi
 	####
 	forward_pwi = f_executables["pwi"].getElementsByTagName('boundary_type')[0].getAttribute("name")
 	backward_pwi = b_executables["pwi"].getElementsByTagName('boundary_type')[0].getAttribute("name")
