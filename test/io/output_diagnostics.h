@@ -1,10 +1,18 @@
 #include <gtest/gtest.h>
 
 #include "../../src/io/output_diagnostics.h"
+#include "../../src/objects/data_provider.h"
 
 TEST(diagnostics,gradientOutput) {
     bool all_clear(false);
+
+    std::string input_directory = "./data/Optim_input_gTest.xml";
+    const char *  filename = input_directory.c_str();
+
+    data_provider provider = data_provider(filename);
+
     output_diagnostics out = output_diagnostics();
+    out.setData_provider_optim(provider);
 
     arma::mat gradient_out(64,3,arma::fill::randu);
 

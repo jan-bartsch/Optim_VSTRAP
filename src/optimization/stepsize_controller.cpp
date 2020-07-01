@@ -36,6 +36,7 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
     objective_calculator objective = objective_calculator();
     objective.setData_provider_optim(this->getData_provider_optim());
     output_diagnostics outDiag = output_diagnostics();
+    outDiag.setData_provider_optim(this->getData_provider_optim());
     pdf_controller pdf_control = pdf_controller();
     pdf_control.setData_provider_optim(this->getData_provider_optim());
     input input_control = input();

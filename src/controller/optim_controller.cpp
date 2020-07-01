@@ -11,6 +11,7 @@ void optim_controller::start_optimizer(int argc, const char **argv)
 
     std::string current_directory(get_current_dir_name());
     std::string input_directory;
+    std::string pathToOptimInput;
     const char * input_xml_path;
 
     switch (argc) {
@@ -59,6 +60,11 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
     input_control.setData_provider_optim(data_provider_opt);
 
     output_diagnostics outDiag = output_diagnostics();
+    outDiag.setData_provider_optim(data_provider_opt);
+
+    arma::mat test(64,4,arma::fill::randu);
+    outDiag.writeGradientToFile(test,"test");
+
     equation_solving_controller model_solver = equation_solving_controller();
 
     std::map<std::string, double> optimizationParameters = data_provider_opt.getOptimizationParameters();
@@ -82,7 +88,7 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
     /*
      * Check consistency of input files
      */
-    check_input_py(data_provider_opt);
+    check_input_py(data_provider_opt, input_xml_path);
 
 
     std::string START_VSTRAP_FORWARD = BUILD_DIRECTORY_VSTRAP + "vstrap" + " " + PATH_TO_SHARED_FILES + "input_forward.xml";
@@ -218,6 +224,7 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
         } else if (stepsize_flag == 2) {
             std::string iteration_depth_reached = "Linesearch reached maximum iteration depth ("
                     + std::to_string(optimizationIteration_max_gp) + "), try to increase tolerance_gp";
+            logger::Info(iteration_depth_reached);
             return 1;
         }
 
@@ -241,12 +248,12 @@ std::unordered_map<coordinate_phase_space_time,double> optim_controller::assembl
     return particlePDF;
 }
 
-int optim_controller::check_input_py(data_provider provider)
+int optim_controller::check_input_py(data_provider provider, const char *filePathOptimInput)
 {
     std::map<std::string, std::string> paths = provider.getPaths();
     std::string PATH_TO_SHARED_FILES = paths.find("PATH_TO_SHARED_FILES")->second;
     std::string DIRECTORY_TOOLSET = paths.find("DIRECTORY_TOOLSET")->second;
-    std::string CHECK_INPUT_PYHTON = "python3 " + DIRECTORY_TOOLSET + "check_input.py " + PATH_TO_SHARED_FILES;
+    std::string CHECK_INPUT_PYHTON = "python3 " + DIRECTORY_TOOLSET + "check_input.py " + PATH_TO_SHARED_FILES + " " + &filePathOptimInput[0];
 
     int check_input_flag = system(&CHECK_INPUT_PYHTON[0]);
 

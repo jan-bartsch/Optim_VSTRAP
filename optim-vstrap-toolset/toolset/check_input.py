@@ -8,11 +8,12 @@ def check_input():
 
 	all_clear = True
 
-	parser = argparse.ArgumentParser(prog="Check if xml-arguments fit together", description='Needs data directory (with input files)')
+	parser = argparse.ArgumentParser(prog="Check if xml-arguments fit together", description='Needs data directory (with input files) and filepath of optim input')
 	parser.add_argument('inputDir', type=str, help='path to input files')
+	parser.add_argument('OptimInput', type=str, help='filepath of optim input')
 	args = parser.parse_args()
 
-	OptimIn = minidom.parse(args.inputDir + "Optim_input.xml");
+	OptimIn = minidom.parse(args.OptimInput);
 	forwardIn = minidom.parse(args.inputDir + "input_forward.xml");
 	backwardIn = minidom.parse(args.inputDir + "input_backward.xml");
 

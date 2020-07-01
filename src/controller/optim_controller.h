@@ -38,7 +38,7 @@ public:
    // static void assemblePDF_thread(std::vector<std::vector<particle>> &particles, std::unordered_map<coordinate_phase_space_time,double> &particlePDF);
    static std::unordered_map<coordinate_phase_space_time,double> assemblePDF_thread(std::vector<std::vector<particle>> &particles, unsigned int equation_type, data_provider data_provider_);
 
-   static int check_input_py(data_provider provider);
+   static int check_input_py(data_provider provider, const char * filePathOptimInput);
    static int interpolate_control(data_provider provider);
 
    static arma::mat start_with_zero_control(const char * input_xml_path);

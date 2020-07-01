@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.9.2, 2020-07-01T09:38:45. -->
+<!-- Written by QtCreator 4.9.2, 2020-07-01T10:33:16. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -363,7 +363,7 @@
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">Optim_VSTRAP_CMAKE</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">CMakeProjectManager.CMakeRunConfiguration.Optim_VSTRAP_CMAKE
 /home/bartsch/SPARC/Optim_VSTRAP/src/</value>
-    <value type="QString" key="RunConfiguration.Arguments">../../Optim_VSTRAP/data/box_center_CSSC/Optim_input.xml</value>
+    <value type="QString" key="RunConfiguration.Arguments">../../Optim_VSTRAP/data/box_center_CSSC/Optim_input_A1.xml</value>
     <value type="uint" key="RunConfiguration.QmlDebugServerPort">3768</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>

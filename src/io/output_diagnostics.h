@@ -6,15 +6,15 @@
 #include <vector>
 #include <fstream>
 
+#include "../controller/abstract_controller.h"
 
 
 
-class output_diagnostics
+
+class output_diagnostics : public abstract_controller
 {
 public:
     output_diagnostics();
-
-    template<typename T> int writeVectorToFile(std::vector<T> input, std::string filename);
 
     int writeGradientToFile(arma::mat gradient, std::string filename);
 
