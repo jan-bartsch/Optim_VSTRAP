@@ -8,13 +8,14 @@ unsigned int input::read_plasma_state_forward(std::vector<std::vector<particle> 
 {
     std::map<std::string, std::string> paths = this->getData_provider_optim().getPaths();
     std::string BUILD_DIRECTORY_OPTIM = paths.find("BUILD_DIRECTORY_OPTIM")->second;
+    std::string RESULTS_DIRECTORY = paths.find("RESULTS_DIRECTORY")->second;
 
     std::map<std::string, double> optimizationParameters = this->getData_provider_optim().getOptimizationParameters();
     unsigned int ntimesteps_gp = static_cast<unsigned int>(optimizationParameters.find("ntimesteps_gp")->second);
 
 #pragma omp parallel for
     for(unsigned int o = 1; o<=ntimesteps_gp; o++) {
-        forwardParticles[o-1] = input::readParticleVector(BUILD_DIRECTORY_OPTIM+"plasma_state_batch_1_forward_particles_CPU_"+std::to_string(o)+".csv",",");
+        forwardParticles[o-1] = input::readParticleVector(BUILD_DIRECTORY_OPTIM+RESULTS_DIRECTORY+"plasma_state_batch_1_forward_particles_CPU_"+std::to_string(o)+".csv",",");
     }
 
     return 0;
@@ -24,13 +25,14 @@ unsigned int input::read_plasma_state_backward(std::vector<std::vector<particle>
 {
     std::map<std::string, std::string> paths = this->getData_provider_optim().getPaths();
     std::string BUILD_DIRECTORY_OPTIM = paths.find("BUILD_DIRECTORY_OPTIM")->second;
+    std::string RESULTS_DIRECTORY = paths.find("RESULTS_DIRECTORY")->second;
 
     std::map<std::string, double> optimizationParameters = this->getData_provider_optim().getOptimizationParameters();
     unsigned int ntimesteps_gp = static_cast<unsigned int>(optimizationParameters.find("ntimesteps_gp")->second);
 
 #pragma omp parallel for
     for(unsigned int o = 1; o<=ntimesteps_gp; o++) {
-        backwardParticles[ntimesteps_gp - o] = input::readParticleVector(BUILD_DIRECTORY_OPTIM+"plasma_state_batch_1_adjoint_particles_CPU_"+std::to_string(o)+".csv",",");
+        backwardParticles[ntimesteps_gp - o] = input::readParticleVector(BUILD_DIRECTORY_OPTIM+RESULTS_DIRECTORY+"plasma_state_batch_1_adjoint_particles_CPU_"+std::to_string(o)+".csv",",");
     }
 
     return 0;

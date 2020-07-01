@@ -32,7 +32,7 @@
                 <batch file_name="batch_1" output_interval="1" format="csv">
                     <particle_group name="adjoint_particles"/>
                 </batch>
-                <file path = "." name="plasma_state" format="csv" output_interval="1"/>
+                <file path = "./results/" name="plasma_state" format="csv" output_interval="1"/>
             </executable>
              <executable name="pwi" mode="CPU">
                 <boundary_type name="cuboid"/>

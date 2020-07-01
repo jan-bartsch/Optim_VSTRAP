@@ -128,7 +128,7 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
 
     unsigned int optimizationIteration_max_gp = static_cast<unsigned int>(optimizationParameters.find("optimizationIteration_max_gp")->second);
 
-    for(unsigned int r = 1; r < optimizationIteration_max_gp; r++) {
+    for(unsigned int r = 1; r <= optimizationIteration_max_gp; r++) {
 
         logger::Info("Starting VSTRAP (foward)... ");
         forward_return = model_solver.start_solving_forward(START_VSTRAP_FORWARD);
@@ -225,7 +225,6 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
         outDiag.writeDoubleToFile(arma::norm(control,"fro"),"normControlTrack");
         interpolate_control(data_provider_opt);
 
-
         logger::Info("Starting " + std::to_string(r+1) + " iteration");
     }
 
@@ -301,8 +300,10 @@ arma::mat optim_controller::start_with_zero_control(const char *input_xml_path)
     arma::mat control(dimensionOfControl,3,arma::fill::zeros);
 
     logger::Info("Deleting old files");
-    std::string COMMAND_DELETE_FILES = "rm *.log | rm *.csv | rm *.txt";
-    system(&COMMAND_DELETE_FILES[0]);
+    //std::string COMMAND_DELETE_FILES = "rm *.log | rm *.csv | rm *.txt";
+    //system(&COMMAND_DELETE_FILES[0]);
+    std::string COMMAND_MKDIR_RESULTS = "rm -r results && mkdir results";
+    system(&COMMAND_MKDIR_RESULTS[0]);
     logger::Info("Starting with zero control");
     outController.writeControl_XML(control);
     std::string interpolating_control_python = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " + DOMAIN_MESH +
