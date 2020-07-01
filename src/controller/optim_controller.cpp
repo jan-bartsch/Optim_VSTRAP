@@ -309,7 +309,9 @@ arma::mat optim_controller::start_with_zero_control(const char *input_xml_path)
     logger::Info("Deleting old files");
     //std::string COMMAND_DELETE_FILES = "rm *.log | rm *.csv | rm *.txt";
     //system(&COMMAND_DELETE_FILES[0]);
-    std::string COMMAND_MKDIR_RESULTS = "rm -r results && mkdir results";
+    std::string COMMAND_RM_RESULTS = "rm -r results";
+    system(&COMMAND_RM_RESULTS[0]);
+    std::string COMMAND_MKDIR_RESULTS = "mkdir results";
     system(&COMMAND_MKDIR_RESULTS[0]);
     logger::Info("Starting with zero control");
     outController.writeControl_XML(control);
