@@ -6,8 +6,8 @@
         <parameter name="armijo_descent_fraction" value="1e-30" />
         <parameter name="calculation_functional" value="1" />
         <parameter name="calculation_wasserstein" value="0" />
-        <parameter name="C_theta_gp" value="1e+8" />
-        <parameter name="C_phi_gp" value="1e+8" />
+        <parameter name="C_theta_gp" value="1e+10" />
+        <parameter name="C_phi_gp" value="1e+10" />
         <parameter name="dimensionOfControl_gp" value="64" />               <!-- number of elements of the control -->
         <parameter name="end_control_gp" value="64"/>
         <parameter name="fixed_gradient_descent_stepsize" value="1e-2" />
@@ -20,7 +20,7 @@
         <parameter name="ntimesteps_gp" value="40" />
         <parameter name="pcell_gp" value="64" />
         <parameter name="pmax_gp" value="0.5" />
-        <parameter name="sigma_x_gp" value="0.1" />
+        <parameter name="sigma_x_gp" value="0.05" />
         <parameter name="sigma_v_gp" value="1e+2" />
         <parameter name="start_control_gp" value="1" />
         <parameter name="start_zero_control" value="0" />		<!-- 0=true, 1=false -->
@@ -48,7 +48,7 @@
         <!--subroutine group="control_update" name="successive_approximation" /-->
         <subroutine group="control_update" name="armijo_linesearch" />
         <!--subroutine group="direction_update" name="negative_gradient" /-->
-        <subroutine group="direction_update" name="ncg_PR" />
+        <subroutine group="direction_update" name="ncg_FR" />
         <subroutine group="desired_trajectory" name="box_center" />
         <!--subroutine group="desired_trajectory" name="box_shifting_negative_x" /-->
     </subroutines>
