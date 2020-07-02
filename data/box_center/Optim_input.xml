@@ -37,9 +37,10 @@
         <path name="BUILD_DIRECTORY_VSTRAP" value="/home/jan/Promotion_linuxPC/build-vstrap/src/" />
         <path name="BUILD_DIRECTORY_OPTIM" value="/home/jan/Promotion_linuxPC/build-Optim/src/" />
         <path name="PATH_TO_SHARED_FILES" value="../../Optim_VSTRAP/data/box_center/" />
-	<path name="BARYCENTERS_MESH" value="../../Optim_VSTRAP/data/box_shifting/mesh_barycenters.xml" />
+	      <path name="BARYCENTERS_MESH" value="../../Optim_VSTRAP/data/box_shifting/mesh_barycenters.xml" />
         <path name="DIRECTORY_TOOLSET" value="../../Optim_VSTRAP/optim-vstrap-toolset/toolset/" />
-	<path name="DOMAIN_MESH" value="../../Optim_VSTRAP/data/box_shifting/box_coarse.xml" />
+	      <path name="DOMAIN_MESH" value="../../Optim_VSTRAP/data/box_shifting/box_coarse.xml" />
+        <path name="RESULTS_DIRECTORY" value="results/" />
     </paths>
 
     <subroutines>
