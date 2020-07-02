@@ -59,15 +59,15 @@
 			<executable name="particle_initializer"/>
 			<executable name="plasma_state"/>
 			<executable name="pusher"/>
-            		<executable name="pwi"/>
-			<executable name="dsmc"/>
+      <executable name="pwi"/>
+			<!--executable name="dsmc"/-->
 			<executable name="bgf"/>
 		</init>
 		<exec>
 		  	<executable name="bgf"/>
-			<executable name="dsmc"/>
+			<!--executable name="dsmc"/-->
 			<executable name="pusher"/>
-            		<executable name="pwi"/>
+      <executable name="pwi"/>
 			<executable name="plasma_state"/>
 		</exec>
 	</schedule>
