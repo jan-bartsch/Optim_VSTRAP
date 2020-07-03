@@ -4,21 +4,21 @@
 
     <globalParameters>
         <parameter name="armijo_descent_fraction" value="1e-30" />
-        <parameter name="calculation_functional" value="5" />
+        <parameter name="calculation_functional" value="1" />
         <parameter name="calculation_wasserstein" value="0" />
         <parameter name="C_theta_gp" value="1e+8" />
         <parameter name="C_phi_gp" value="1e+8" />
-        <parameter name="dimensionOfControl_gp" value="512" />               <!-- number of elements of the control -->
-        <parameter name="end_control_gp" value="512"/>
-        <parameter name="fixed_gradient_descent_stepsize" value="1e-2" />
+        <parameter name="dimensionOfControl_gp" value="64" />               <!-- number of elements of the control -->
+        <parameter name="end_control_gp" value="64"/>
+        <parameter name="fixed_gradient_descent_stepsize" value="1e+0" />
         <parameter name="fraction_of_optimal_control" value="1e-5" />
         <parameter name="optimizationIteration_max_gp" value="100" />       <!-- number of maximal interations -->
-        <parameter name="dp_gp" value="0.002" />                              <!-- discretization size position 64:0.0156 1000:0.0001 512:0.002 -->
+        <parameter name="dp_gp" value="0.0156" />                              <!-- discretization size position 64:0.0156 1000:0.0001 512:0.002 -->
         <parameter name="dt_gp" value="1e-5" />                             <!-- discretization size time -->
         <parameter name="dv_gp" value="400.00" />                              <!-- discretization size velocity -->
         <parameter name="numberParticles_gp" value="2000" />
         <parameter name="ntimesteps_gp" value="40" />
-        <parameter name="pcell_gp" value="512" />
+        <parameter name="pcell_gp" value="64" />
         <parameter name="pmax_gp" value="0.5" />
         <parameter name="sigma_x_gp" value="0.05" />
         <parameter name="sigma_v_gp" value="1e+2" />
@@ -37,9 +37,9 @@
         <path name="BUILD_DIRECTORY_VSTRAP" value="/home/bartsch/SPARC/build-vstrap-Desktop/src/" />
         <path name="BUILD_DIRECTORY_OPTIM" value="/home/bartsch/SPARC/build-Optim-CSSC/src/" />
         <path name="PATH_TO_SHARED_FILES" value="../../Optim_VSTRAP/data/box_center_CSSC/" />
-        <path name="BARYCENTERS_MESH" value="../../Optim_VSTRAP/data/box_center_CSSC/mesh_barycenters_512.xml" />
+        <path name="BARYCENTERS_MESH" value="../../Optim_VSTRAP/data/box_center_CSSC/mesh_barycenters.xml" />
         <path name="DIRECTORY_TOOLSET" value="../../Optim_VSTRAP/optim-vstrap-toolset/toolset/" />
-        <path name="DOMAIN_MESH" value="../../Optim_VSTRAP/data/box_center_CSSC/box_coarse_512.xml" />
+        <path name="DOMAIN_MESH" value="../../Optim_VSTRAP/data/box_center_CSSC/box_coarse.xml" />
         <path name="RESULTS_DIRECTORY" value="results/" />
     </paths>
 
