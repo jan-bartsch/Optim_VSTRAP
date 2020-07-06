@@ -4,13 +4,13 @@
 
     <globalParameters>
         <parameter name="armijo_descent_fraction" value="1e-30" />
-        <parameter name="calculation_functional" value="1" />
+        <parameter name="calculation_functional" value="0" />
         <parameter name="calculation_wasserstein" value="0" />
         <parameter name="C_theta_gp" value="1e+8" />
         <parameter name="C_phi_gp" value="1e+8" />
         <parameter name="dimensionOfControl_gp" value="64" />               <!-- number of elements of the control -->
         <parameter name="end_control_gp" value="64"/>
-        <parameter name="fixed_gradient_descent_stepsize" value="1e+0" />
+        <parameter name="fixed_gradient_descent_stepsize" value="1e-1" />
         <parameter name="fraction_of_optimal_control" value="1e-5" />
         <parameter name="optimizationIteration_max_gp" value="100" />       <!-- number of maximal interations -->
         <parameter name="dp_gp" value="0.0156" />                              <!-- discretization size position 64:0.0156 1000:0.0001 512:0.002 -->
@@ -35,7 +35,7 @@
 
      <paths>
         <path name="BUILD_DIRECTORY_VSTRAP" value="/home/bartsch/SPARC/build-vstrap-Desktop/src/" />
-        <path name="BUILD_DIRECTORY_OPTIM" value="/home/bartsch/SPARC/build-Optim-CSSC/src/" />
+        <path name="BUILD_DIRECTORY_OPTIM" value="/home/bartsch/SPARC/build-Optim-Desktop/src/" />
         <path name="PATH_TO_SHARED_FILES" value="../../Optim_VSTRAP/data/box_center_CSSC/" />
         <path name="BARYCENTERS_MESH" value="../../Optim_VSTRAP/data/box_center_CSSC/mesh_barycenters.xml" />
         <path name="DIRECTORY_TOOLSET" value="../../Optim_VSTRAP/optim-vstrap-toolset/toolset/" />
@@ -44,9 +44,9 @@
     </paths>
 
    <subroutines>
-        <!--subroutine group="control_update" name= "gradient_descent"/-->
+        <subroutine group="control_update" name= "gradient_descent"/>
         <!--subroutine group="control_update" name="successive_approximation" /-->
-        <subroutine group="control_update" name="armijo_linesearch" />
+        <!--subroutine group="control_update" name="armijo_linesearch" /-->
         <!--subroutine group="direction_update" name="negative_gradient" /-->
         <subroutine group="direction_update" name="ncg_FR" />
         <subroutine group="desired_trajectory" name="box_center" />
