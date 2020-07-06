@@ -21,6 +21,12 @@ arma::mat stepdirection_controller::get_stepdirection(arma::mat gradient, arma::
         } else if (control_update.compare("ncg_FR")==0) {
             logger::Info("Updating control using stepdirection update: NCG using Fletcher-Reeves formula");
             return ncg_scheme_FR(gradient, gradient_old, stepdirectionOld, optimization_iteration);
+        } else if (control_update.compare("ncg_PR")==0) {
+            logger::Info("Updating control using stepdirection update: NCG using Fletcher-Reeves formula");
+            return ncg_scheme_PR(gradient, gradient_old, stepdirectionOld, optimization_iteration);
+        } else if (control_update.compare("ncg_HZ")==0) {
+            logger::Info("Updating control using stepdirection update: NCG using Fletcher-Reeves formula");
+            return ncg_scheme_HZ(gradient, gradient_old, stepdirectionOld, optimization_iteration);
         }
         else {
             std::invalid_argument("No such direction update subroutine");
