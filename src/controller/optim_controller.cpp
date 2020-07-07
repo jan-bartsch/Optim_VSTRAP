@@ -72,7 +72,7 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
     std::map<std::string,std::string> subroutines = data_provider_opt.getSubroutines();
 
     unsigned int ntimesteps_gp = static_cast<unsigned int>(optimizationParameters.find("ntimesteps_gp")->second);
-    bool zero_control = static_cast<bool>(optimizationParameters.find("start_zero_control")->second);
+    int zero_control = static_cast<int>(optimizationParameters.find("start_zero_control")->second);
     unsigned int calculation_functional = static_cast<unsigned int>(optimizationParameters.find("calculation_functional")->second);
     unsigned int calculation_wasserstein = static_cast<unsigned int>(optimizationParameters.find("calculation_wasserstein")->second);
     double fixed_gradient_descent_stepsize = static_cast<double>(optimizationParameters.find("fixed_gradient_descent_stepsize")->second);
@@ -103,9 +103,11 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
     arma::mat control;
     if(zero_control == 0) {
         control = start_with_zero_control(input_xml_path);
-    } else {
+    } else if (zero_control == 1) {
         control = start_with_given_control(input_xml_path);
         std::cout << control << std::endl;
+    } else {
+        logger::Info("Starting without control_field_cells");
     }
 
     /**

@@ -4,7 +4,7 @@ echo -e "\e[32mCopying results A1001\e[39m"
 rm -r results_A1001 && mkdir results_A1001
 cp -r ./results/ ./results_A1001
 cp ../../Optim_VSTRAP/data/box_center_CSSC/interpolated_control_field.xml ./results_A1001
-cp ../../Optim_VSTRAP/data/box_center_CSSC/control_field_cells.xml ./results_AA1001
+cp ../../Optim_VSTRAP/data/box_center_CSSC/control_field_cells.xml ./results_A1001
 cp ../../Optim_VSTRAP/data/box_center_CSSC/creation_adjoint_particles.xml ./results_A1001
 echo -e "\e[32mFinishedA1001\e[39m"
 

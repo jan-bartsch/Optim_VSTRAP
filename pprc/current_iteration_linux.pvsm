@@ -2,7 +2,7 @@
   <ServerManagerState version="5.6.0">
     <Proxy group="animation" type="AnimationScene" id="263" servers="16">
       <Property name="AnimationTime" id="263.AnimationTime" number_of_elements="1">
-        <Element index="0" value="0"/>
+        <Element index="0" value="3"/>
       </Property>
       <Property name="Cues" id="263.Cues" number_of_elements="1">
         <Proxy value="265"/>
@@ -12,7 +12,7 @@
         <Element index="0" value="10"/>
       </Property>
       <Property name="EndTime" id="263.EndTime" number_of_elements="1">
-        <Element index="0" value="29"/>
+        <Element index="0" value="39"/>
       </Property>
       <Property name="FramesPerTimestep" id="263.FramesPerTimestep" number_of_elements="1">
         <Element index="0" value="1"/>
@@ -5573,6 +5573,75 @@
         <Proxy value="12284"/>
       </Property>
     </Proxy>
+    <Proxy group="animation_writers" type="BMP" id="12420" servers="16">
+      <Property name="SuffixFormat" id="12420.SuffixFormat" number_of_elements="1">
+        <Element index="0" value=".%04d"/>
+      </Property>
+    </Proxy>
+    <Proxy group="animation_writers" type="JPEG" id="12421" servers="16">
+      <Property name="Progressive" id="12421.Progressive" number_of_elements="1">
+        <Element index="0" value="1"/>
+        <Domain name="bool" id="12421.Progressive.bool"/>
+      </Property>
+      <Property name="Quality" id="12421.Quality" number_of_elements="1">
+        <Element index="0" value="95"/>
+        <Domain name="range" id="12421.Quality.range"/>
+      </Property>
+      <Property name="SuffixFormat" id="12421.SuffixFormat" number_of_elements="1">
+        <Element index="0" value=".%04d"/>
+      </Property>
+    </Proxy>
+    <Proxy group="animation_writers" type="OggTheora" id="12422" servers="16">
+      <Property name="FrameRate" id="12422.FrameRate" number_of_elements="1">
+        <Element index="0" value="15"/>
+        <Domain name="range" id="12422.FrameRate.range"/>
+      </Property>
+      <Property name="Quality" id="12422.Quality" number_of_elements="1">
+        <Element index="0" value="2"/>
+        <Domain name="enum" id="12422.Quality.enum">
+          <Entry value="0" text="0"/>
+          <Entry value="1" text="1"/>
+          <Entry value="2" text="2"/>
+        </Domain>
+      </Property>
+      <Property name="UseSubsampling" id="12422.UseSubsampling" number_of_elements="1">
+        <Element index="0" value="0"/>
+        <Domain name="bool" id="12422.UseSubsampling.bool"/>
+      </Property>
+    </Proxy>
+    <Proxy group="animation_writers" type="PNG" id="12419" servers="16">
+      <Property name="CompressionLevel" id="12419.CompressionLevel" number_of_elements="1">
+        <Element index="0" value="9"/>
+        <Domain name="enum" id="12419.CompressionLevel.enum">
+          <Entry value="0" text="0"/>
+          <Entry value="1" text="1"/>
+          <Entry value="2" text="2"/>
+          <Entry value="3" text="3"/>
+          <Entry value="4" text="4"/>
+          <Entry value="5" text="5"/>
+          <Entry value="6" text="6"/>
+          <Entry value="7" text="7"/>
+          <Entry value="8" text="8"/>
+          <Entry value="9" text="9"/>
+        </Domain>
+      </Property>
+      <Property name="SuffixFormat" id="12419.SuffixFormat" number_of_elements="1">
+        <Element index="0" value=".%04d"/>
+      </Property>
+    </Proxy>
+    <Proxy group="animation_writers" type="TIFF" id="12423" servers="16">
+      <Property name="Compression" id="12423.Compression" number_of_elements="1">
+        <Element index="0" value="1"/>
+        <Domain name="enum" id="12423.Compression.enum">
+          <Entry value="0" text="None"/>
+          <Entry value="1" text="PackBits"/>
+          <Entry value="3" text="Deflate"/>
+        </Domain>
+      </Property>
+      <Property name="SuffixFormat" id="12423.SuffixFormat" number_of_elements="1">
+        <Element index="0" value=".%04d"/>
+      </Property>
+    </Proxy>
     <Proxy group="representations" type="GeometryRepresentation" id="10966" servers="21">
       <Property name="DataAxesGrid" id="10966.DataAxesGrid" number_of_elements="1">
         <Proxy value="10749"/>
@@ -11063,7 +11132,7 @@
       </Property>
     </Proxy>
     <Proxy group="sources" type="CSVReader" id="10761" servers="1">
-      <Property name="FileName" id="10761.FileName" number_of_elements="30">
+      <Property name="FileName" id="10761.FileName" number_of_elements="40">
         <Element index="0" value="/home/jan/Promotion_linuxPC/build-Optim/src/results/plasma_state_batch_1_forward_particles_CPU_1.csv"/>
         <Element index="1" value="/home/jan/Promotion_linuxPC/build-Optim/src/results/plasma_state_batch_1_forward_particles_CPU_2.csv"/>
         <Element index="2" value="/home/jan/Promotion_linuxPC/build-Optim/src/results/plasma_state_batch_1_forward_particles_CPU_3.csv"/>
@@ -11094,12 +11163,22 @@
         <Element index="27" value="/home/jan/Promotion_linuxPC/build-Optim/src/results/plasma_state_batch_1_forward_particles_CPU_28.csv"/>
         <Element index="28" value="/home/jan/Promotion_linuxPC/build-Optim/src/results/plasma_state_batch_1_forward_particles_CPU_29.csv"/>
         <Element index="29" value="/home/jan/Promotion_linuxPC/build-Optim/src/results/plasma_state_batch_1_forward_particles_CPU_30.csv"/>
+        <Element index="30" value="/home/jan/Promotion_linuxPC/build-Optim/src/results/plasma_state_batch_1_forward_particles_CPU_31.csv"/>
+        <Element index="31" value="/home/jan/Promotion_linuxPC/build-Optim/src/results/plasma_state_batch_1_forward_particles_CPU_32.csv"/>
+        <Element index="32" value="/home/jan/Promotion_linuxPC/build-Optim/src/results/plasma_state_batch_1_forward_particles_CPU_33.csv"/>
+        <Element index="33" value="/home/jan/Promotion_linuxPC/build-Optim/src/results/plasma_state_batch_1_forward_particles_CPU_34.csv"/>
+        <Element index="34" value="/home/jan/Promotion_linuxPC/build-Optim/src/results/plasma_state_batch_1_forward_particles_CPU_35.csv"/>
+        <Element index="35" value="/home/jan/Promotion_linuxPC/build-Optim/src/results/plasma_state_batch_1_forward_particles_CPU_36.csv"/>
+        <Element index="36" value="/home/jan/Promotion_linuxPC/build-Optim/src/results/plasma_state_batch_1_forward_particles_CPU_37.csv"/>
+        <Element index="37" value="/home/jan/Promotion_linuxPC/build-Optim/src/results/plasma_state_batch_1_forward_particles_CPU_38.csv"/>
+        <Element index="38" value="/home/jan/Promotion_linuxPC/build-Optim/src/results/plasma_state_batch_1_forward_particles_CPU_39.csv"/>
+        <Element index="39" value="/home/jan/Promotion_linuxPC/build-Optim/src/results/plasma_state_batch_1_forward_particles_CPU_40.csv"/>
         <Domain name="files" id="10761.FileName.files"/>
       </Property>
       <Property name="FileNameInfo" id="10761.FileNameInfo" number_of_elements="1">
-        <Element index="0" value="/home/jan/Promotion_linuxPC/build-Optim/src/results/plasma_state_batch_1_forward_particles_CPU_30.csv"/>
+        <Element index="0" value="/home/jan/Promotion_linuxPC/build-Optim/src/results/plasma_state_batch_1_forward_particles_CPU_17.csv"/>
       </Property>
-      <Property name="TimestepValues" id="10761.TimestepValues" number_of_elements="30">
+      <Property name="TimestepValues" id="10761.TimestepValues" number_of_elements="40">
         <Element index="0" value="0"/>
         <Element index="1" value="1"/>
         <Element index="2" value="2"/>
@@ -11130,6 +11209,16 @@
         <Element index="27" value="27"/>
         <Element index="28" value="28"/>
         <Element index="29" value="29"/>
+        <Element index="30" value="30"/>
+        <Element index="31" value="31"/>
+        <Element index="32" value="32"/>
+        <Element index="33" value="33"/>
+        <Element index="34" value="34"/>
+        <Element index="35" value="35"/>
+        <Element index="36" value="36"/>
+        <Element index="37" value="37"/>
+        <Element index="38" value="38"/>
+        <Element index="39" value="39"/>
       </Property>
       <Property name="AddTabFieldDelimiter" id="10761.AddTabFieldDelimiter" number_of_elements="1">
         <Element index="0" value="0"/>
@@ -11158,7 +11247,7 @@
     <Proxy group="misc" type="TimeKeeper" id="259" servers="16">
       <Property name="SuppressedTimeSources" id="259.SuppressedTimeSources"/>
       <Property name="Time" id="259.Time" number_of_elements="1">
-        <Element index="0" value="0"/>
+        <Element index="0" value="3"/>
         <Domain name="range" id="259.Time.range"/>
       </Property>
       <Property name="TimeLabel" id="259.TimeLabel" number_of_elements="1">
@@ -11166,7 +11255,7 @@
       </Property>
       <Property name="TimeRange" id="259.TimeRange" number_of_elements="2">
         <Element index="0" value="0"/>
-        <Element index="1" value="29"/>
+        <Element index="1" value="39"/>
       </Property>
       <Property name="TimeSources" id="259.TimeSources" number_of_elements="14">
         <Proxy value="10997"/>
@@ -11184,7 +11273,7 @@
         <Proxy value="11877"/>
         <Proxy value="12284"/>
       </Property>
-      <Property name="TimestepValues" id="259.TimestepValues" number_of_elements="30">
+      <Property name="TimestepValues" id="259.TimestepValues" number_of_elements="40">
         <Element index="0" value="0"/>
         <Element index="1" value="1"/>
         <Element index="2" value="2"/>
@@ -11215,6 +11304,16 @@
         <Element index="27" value="27"/>
         <Element index="28" value="28"/>
         <Element index="29" value="29"/>
+        <Element index="30" value="30"/>
+        <Element index="31" value="31"/>
+        <Element index="32" value="32"/>
+        <Element index="33" value="33"/>
+        <Element index="34" value="34"/>
+        <Element index="35" value="35"/>
+        <Element index="36" value="36"/>
+        <Element index="37" value="37"/>
+        <Element index="38" value="38"/>
+        <Element index="39" value="39"/>
       </Property>
       <Property name="Views" id="259.Views" number_of_elements="10">
         <Proxy value="11662"/>
@@ -11445,7 +11544,7 @@
         <Domain name="bool" id="11729.LeftAxisLogScale.bool"/>
       </Property>
       <Property name="LeftAxisRangeMaximum" id="11729.LeftAxisRangeMaximum" number_of_elements="1">
-        <Element index="0" value="500"/>
+        <Element index="0" value="2500"/>
       </Property>
       <Property name="LeftAxisRangeMinimum" id="11729.LeftAxisRangeMinimum" number_of_elements="1">
         <Element index="0" value="0"/>
@@ -11811,7 +11910,7 @@
         <Element index="1" value="298"/>
       </Property>
       <Property name="ViewTime" id="11729.ViewTime" number_of_elements="1">
-        <Element index="0" value="0"/>
+        <Element index="0" value="3"/>
         <Domain name="range" id="11729.ViewTime.range"/>
       </Property>
     </Proxy>
@@ -12031,7 +12130,7 @@
         <Domain name="bool" id="11808.LeftAxisLogScale.bool"/>
       </Property>
       <Property name="LeftAxisRangeMaximum" id="11808.LeftAxisRangeMaximum" number_of_elements="1">
-        <Element index="0" value="500"/>
+        <Element index="0" value="2500"/>
       </Property>
       <Property name="LeftAxisRangeMinimum" id="11808.LeftAxisRangeMinimum" number_of_elements="1">
         <Element index="0" value="0"/>
@@ -12397,7 +12496,7 @@
         <Element index="1" value="223"/>
       </Property>
       <Property name="ViewTime" id="11808.ViewTime" number_of_elements="1">
-        <Element index="0" value="0"/>
+        <Element index="0" value="3"/>
         <Domain name="range" id="11808.ViewTime.range"/>
       </Property>
     </Proxy>
@@ -12617,7 +12716,7 @@
         <Domain name="bool" id="11876.LeftAxisLogScale.bool"/>
       </Property>
       <Property name="LeftAxisRangeMaximum" id="11876.LeftAxisRangeMaximum" number_of_elements="1">
-        <Element index="0" value="500"/>
+        <Element index="0" value="3000"/>
       </Property>
       <Property name="LeftAxisRangeMinimum" id="11876.LeftAxisRangeMinimum" number_of_elements="1">
         <Element index="0" value="0"/>
@@ -12982,7 +13081,7 @@
         <Element index="1" value="223"/>
       </Property>
       <Property name="ViewTime" id="11876.ViewTime" number_of_elements="1">
-        <Element index="0" value="0"/>
+        <Element index="0" value="3"/>
         <Domain name="range" id="11876.ViewTime.range"/>
       </Property>
     </Proxy>
@@ -13048,10 +13147,10 @@
         <Domain name="bool" id="11763.BottomAxisLogScale.bool"/>
       </Property>
       <Property name="BottomAxisRangeMaximum" id="11763.BottomAxisRangeMaximum" number_of_elements="1">
-        <Element index="0" value="3000"/>
+        <Element index="0" value="30000"/>
       </Property>
       <Property name="BottomAxisRangeMinimum" id="11763.BottomAxisRangeMinimum" number_of_elements="1">
-        <Element index="0" value="-3000"/>
+        <Element index="0" value="-30000"/>
       </Property>
       <Property name="BottomAxisTitle" id="11763.BottomAxisTitle" number_of_elements="1">
         <Element index="0" value="velocity (x-direction)"/>
@@ -13202,7 +13301,7 @@
         <Domain name="bool" id="11763.LeftAxisLogScale.bool"/>
       </Property>
       <Property name="LeftAxisRangeMaximum" id="11763.LeftAxisRangeMaximum" number_of_elements="1">
-        <Element index="0" value="1000"/>
+        <Element index="0" value="600"/>
       </Property>
       <Property name="LeftAxisRangeMinimum" id="11763.LeftAxisRangeMinimum" number_of_elements="1">
         <Element index="0" value="0"/>
@@ -13567,7 +13666,7 @@
         <Element index="1" value="298"/>
       </Property>
       <Property name="ViewTime" id="11763.ViewTime" number_of_elements="1">
-        <Element index="0" value="0"/>
+        <Element index="0" value="3"/>
         <Domain name="range" id="11763.ViewTime.range"/>
       </Property>
     </Proxy>
@@ -13633,10 +13732,10 @@
         <Domain name="bool" id="11842.BottomAxisLogScale.bool"/>
       </Property>
       <Property name="BottomAxisRangeMaximum" id="11842.BottomAxisRangeMaximum" number_of_elements="1">
-        <Element index="0" value="3000"/>
+        <Element index="0" value="20000"/>
       </Property>
       <Property name="BottomAxisRangeMinimum" id="11842.BottomAxisRangeMinimum" number_of_elements="1">
-        <Element index="0" value="-3000"/>
+        <Element index="0" value="-30000"/>
       </Property>
       <Property name="BottomAxisTitle" id="11842.BottomAxisTitle" number_of_elements="1">
         <Element index="0" value="velocity (y-direction)"/>
@@ -13787,7 +13886,7 @@
         <Domain name="bool" id="11842.LeftAxisLogScale.bool"/>
       </Property>
       <Property name="LeftAxisRangeMaximum" id="11842.LeftAxisRangeMaximum" number_of_elements="1">
-        <Element index="0" value="1000"/>
+        <Element index="0" value="500"/>
       </Property>
       <Property name="LeftAxisRangeMinimum" id="11842.LeftAxisRangeMinimum" number_of_elements="1">
         <Element index="0" value="0"/>
@@ -14152,7 +14251,7 @@
         <Element index="1" value="223"/>
       </Property>
       <Property name="ViewTime" id="11842.ViewTime" number_of_elements="1">
-        <Element index="0" value="0"/>
+        <Element index="0" value="3"/>
         <Domain name="range" id="11842.ViewTime.range"/>
       </Property>
     </Proxy>
@@ -14218,10 +14317,10 @@
         <Domain name="bool" id="11943.BottomAxisLogScale.bool"/>
       </Property>
       <Property name="BottomAxisRangeMaximum" id="11943.BottomAxisRangeMaximum" number_of_elements="1">
-        <Element index="0" value="3000"/>
+        <Element index="0" value="30000"/>
       </Property>
       <Property name="BottomAxisRangeMinimum" id="11943.BottomAxisRangeMinimum" number_of_elements="1">
-        <Element index="0" value="-2000"/>
+        <Element index="0" value="-30000"/>
       </Property>
       <Property name="BottomAxisTitle" id="11943.BottomAxisTitle" number_of_elements="1">
         <Element index="0" value="velocity (z-direction)"/>
@@ -14372,7 +14471,7 @@
         <Domain name="bool" id="11943.LeftAxisLogScale.bool"/>
       </Property>
       <Property name="LeftAxisRangeMaximum" id="11943.LeftAxisRangeMaximum" number_of_elements="1">
-        <Element index="0" value="1000"/>
+        <Element index="0" value="500"/>
       </Property>
       <Property name="LeftAxisRangeMinimum" id="11943.LeftAxisRangeMinimum" number_of_elements="1">
         <Element index="0" value="0"/>
@@ -14738,7 +14837,7 @@
         <Element index="1" value="223"/>
       </Property>
       <Property name="ViewTime" id="11943.ViewTime" number_of_elements="1">
-        <Element index="0" value="0"/>
+        <Element index="0" value="3"/>
         <Domain name="range" id="11943.ViewTime.range"/>
       </Property>
     </Proxy>
@@ -14958,10 +15057,10 @@
         <Domain name="bool" id="12297.LeftAxisLogScale.bool"/>
       </Property>
       <Property name="LeftAxisRangeMaximum" id="12297.LeftAxisRangeMaximum" number_of_elements="1">
-        <Element index="0" value="3000"/>
+        <Element index="0" value="10000"/>
       </Property>
       <Property name="LeftAxisRangeMinimum" id="12297.LeftAxisRangeMinimum" number_of_elements="1">
-        <Element index="0" value="-4000"/>
+        <Element index="0" value="-12000"/>
       </Property>
       <Property name="LeftAxisTitle" id="12297.LeftAxisTitle" number_of_elements="1">
         <Element index="0" value=""/>
@@ -15041,8 +15140,8 @@
         </Domain>
       </Property>
       <Property name="LegendPosition" id="12297.LegendPosition" number_of_elements="2">
-        <Element index="0" value="0"/>
-        <Element index="1" value="0"/>
+        <Element index="0" value="118"/>
+        <Element index="1" value="345"/>
       </Property>
       <Property name="PPI" id="12297.PPI" number_of_elements="1">
         <Element index="0" value="96"/>
@@ -15323,7 +15422,7 @@
         <Element index="1" value="387"/>
       </Property>
       <Property name="ViewTime" id="12297.ViewTime" number_of_elements="1">
-        <Element index="0" value="0"/>
+        <Element index="0" value="3"/>
         <Domain name="range" id="12297.ViewTime.range"/>
       </Property>
     </Proxy>
@@ -15389,7 +15488,7 @@
         <Domain name="bool" id="12342.BottomAxisLogScale.bool"/>
       </Property>
       <Property name="BottomAxisRangeMaximum" id="12342.BottomAxisRangeMaximum" number_of_elements="1">
-        <Element index="0" value="0.02"/>
+        <Element index="0" value="0"/>
       </Property>
       <Property name="BottomAxisRangeMinimum" id="12342.BottomAxisRangeMinimum" number_of_elements="1">
         <Element index="0" value="-0.06"/>
@@ -15543,10 +15642,10 @@
         <Domain name="bool" id="12342.LeftAxisLogScale.bool"/>
       </Property>
       <Property name="LeftAxisRangeMaximum" id="12342.LeftAxisRangeMaximum" number_of_elements="1">
-        <Element index="0" value="200"/>
+        <Element index="0" value="800"/>
       </Property>
       <Property name="LeftAxisRangeMinimum" id="12342.LeftAxisRangeMinimum" number_of_elements="1">
-        <Element index="0" value="-500"/>
+        <Element index="0" value="-1600"/>
       </Property>
       <Property name="LeftAxisTitle" id="12342.LeftAxisTitle" number_of_elements="1">
         <Element index="0" value=""/>
@@ -15626,8 +15725,8 @@
         </Domain>
       </Property>
       <Property name="LegendPosition" id="12342.LegendPosition" number_of_elements="2">
-        <Element index="0" value="0"/>
-        <Element index="1" value="0"/>
+        <Element index="0" value="118"/>
+        <Element index="1" value="345"/>
       </Property>
       <Property name="PPI" id="12342.PPI" number_of_elements="1">
         <Element index="0" value="96"/>
@@ -15908,7 +16007,7 @@
         <Element index="1" value="387"/>
       </Property>
       <Property name="ViewTime" id="12342.ViewTime" number_of_elements="1">
-        <Element index="0" value="0"/>
+        <Element index="0" value="3"/>
         <Domain name="range" id="12342.ViewTime.range"/>
       </Property>
     </Proxy>
@@ -15977,7 +16076,7 @@
         <Element index="0" value="0"/>
       </Property>
       <Property name="BottomAxisRangeMinimum" id="12365.BottomAxisRangeMinimum" number_of_elements="1">
-        <Element index="0" value="-0.03"/>
+        <Element index="0" value="-0.04"/>
       </Property>
       <Property name="BottomAxisTitle" id="12365.BottomAxisTitle" number_of_elements="1">
         <Element index="0" value=""/>
@@ -16128,10 +16227,10 @@
         <Domain name="bool" id="12365.LeftAxisLogScale.bool"/>
       </Property>
       <Property name="LeftAxisRangeMaximum" id="12365.LeftAxisRangeMaximum" number_of_elements="1">
-        <Element index="0" value="100"/>
+        <Element index="0" value="600"/>
       </Property>
       <Property name="LeftAxisRangeMinimum" id="12365.LeftAxisRangeMinimum" number_of_elements="1">
-        <Element index="0" value="-250"/>
+        <Element index="0" value="-1000"/>
       </Property>
       <Property name="LeftAxisTitle" id="12365.LeftAxisTitle" number_of_elements="1">
         <Element index="0" value=""/>
@@ -16493,7 +16592,7 @@
         <Element index="1" value="387"/>
       </Property>
       <Property name="ViewTime" id="12365.ViewTime" number_of_elements="1">
-        <Element index="0" value="0"/>
+        <Element index="0" value="3"/>
         <Domain name="range" id="12365.ViewTime.range"/>
       </Property>
     </Proxy>
@@ -16633,9 +16732,9 @@
         <Domain name="bool" id="11662.CenterAxesVisibility.bool"/>
       </Property>
       <Property name="CenterOfRotation" id="11662.CenterOfRotation" number_of_elements="3">
-        <Element index="0" value="-0.000054999999999999494"/>
-        <Element index="1" value="-0.00010699999999999599"/>
-        <Element index="2" value="-0.00008949999999999236"/>
+        <Element index="0" value="-0.000028000000000000247"/>
+        <Element index="1" value="-0.000054999999999999494"/>
+        <Element index="2" value="-0.0000050000000000050004"/>
       </Property>
       <Property name="CollectGeometryThreshold" id="11662.CollectGeometryThreshold" number_of_elements="1">
         <Element index="0" value="100"/>
@@ -16930,34 +17029,34 @@
         <Element index="1" value="387"/>
       </Property>
       <Property name="ViewTime" id="11662.ViewTime" number_of_elements="1">
-        <Element index="0" value="0"/>
+        <Element index="0" value="3"/>
         <Domain name="range" id="11662.ViewTime.range"/>
       </Property>
       <Property name="CameraFocalPoint" id="11662.CameraFocalPoint" number_of_elements="3">
-        <Element index="0" value="-0.000054999999999999494"/>
-        <Element index="1" value="-0.00010699999999999599"/>
-        <Element index="2" value="-0.00008949999999999236"/>
+        <Element index="0" value="-0.000028000000000000247"/>
+        <Element index="1" value="-0.000054999999999999494"/>
+        <Element index="2" value="-0.0000050000000000050004"/>
       </Property>
       <Property name="CameraFocalPointInfo" id="11662.CameraFocalPointInfo" number_of_elements="3">
-        <Element index="0" value="-0.000054999999999999494"/>
-        <Element index="1" value="-0.00010699999999999599"/>
-        <Element index="2" value="-0.00008949999999999236"/>
+        <Element index="0" value="-0.000028000000000000247"/>
+        <Element index="1" value="-0.000054999999999999494"/>
+        <Element index="2" value="-0.0000050000000000050004"/>
       </Property>
       <Property name="CameraParallelScale" id="11662.CameraParallelScale" number_of_elements="1">
-        <Element index="0" value="0.865844982070838"/>
+        <Element index="0" value="0.8657788910218358"/>
       </Property>
       <Property name="CameraParallelScaleInfo" id="11662.CameraParallelScaleInfo" number_of_elements="1">
-        <Element index="0" value="0.865844982070838"/>
+        <Element index="0" value="0.8657788910218358"/>
       </Property>
       <Property name="CameraPosition" id="11662.CameraPosition" number_of_elements="3">
-        <Element index="0" value="-0.000054999999999999494"/>
-        <Element index="1" value="-3.345475118980071"/>
-        <Element index="2" value="-0.00008949999999999236"/>
+        <Element index="0" value="-0.000028000000000000247"/>
+        <Element index="1" value="-3.3451677627756005"/>
+        <Element index="2" value="-0.0000050000000000050004"/>
       </Property>
       <Property name="CameraPositionInfo" id="11662.CameraPositionInfo" number_of_elements="3">
-        <Element index="0" value="-0.000054999999999999494"/>
-        <Element index="1" value="-3.345475118980071"/>
-        <Element index="2" value="-0.00008949999999999236"/>
+        <Element index="0" value="-0.000028000000000000247"/>
+        <Element index="1" value="-3.3451677627756005"/>
+        <Element index="2" value="-0.0000050000000000050004"/>
       </Property>
       <Property name="CameraViewAngle" id="11662.CameraViewAngle" number_of_elements="1">
         <Element index="0" value="30"/>
@@ -17110,6 +17209,13 @@
     </ProxyCollection>
     <ProxyCollection name="pq_helper_proxies.12284">
       <Item id="12296" name="RepresentationAnimationHelper"/>
+    </ProxyCollection>
+    <ProxyCollection name="pq_helper_proxies.12424">
+      <Item id="12420" name="Format"/>
+      <Item id="12421" name="Format"/>
+      <Item id="12422" name="Format"/>
+      <Item id="12419" name="Format"/>
+      <Item id="12423" name="Format"/>
     </ProxyCollection>
     <ProxyCollection name="representations">
       <Item id="10966" name="GeometryRepresentation1"/>
