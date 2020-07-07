@@ -335,6 +335,12 @@ arma::mat optim_controller::start_with_given_control(const char *input_xml_path)
     std::string DOMAIN_MESH = paths.find("DOMAIN_MESH")->second;
     double fraction_of_optimal_control = static_cast<double>(optimizationParameters.find("fraction_of_optimal_control")->second);
 
+    logger::Info("Deleting old files");
+    std::string COMMAND_RM_RESULTS = "rm -r results";
+    system(&COMMAND_RM_RESULTS[0]);
+    std::string COMMAND_MKDIR_RESULTS = "mkdir results";
+    system(&COMMAND_MKDIR_RESULTS[0]);
+
     logger::Info("Starting with existing control (multiplied by a positive constant)");
     std::string READ_CONTROL = PATH_TO_SHARED_FILES + "control_field_cells.xml";
     arma::mat control = input::readControl(&READ_CONTROL[0]);

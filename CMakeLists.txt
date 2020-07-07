@@ -28,17 +28,15 @@ SET(CMAKE_INCLUDE_PATH ${CMAKE_INCLUDE_PATH} "/home/bartsch/include/googletest/g
 
 message("INFO: CMAKE_INCLUDE_PATH IS ${CMAKE_INCLUDE_PATH}")
 
-add_subdirectory(src)
-add_subdirectory(test)
 
 else()
 
 message("INFO: all libraries are installed as root")
 
-add_subdirectory(src)
-add_subdirectory(test)
-
 endif()
+
+add_subdirectory(src)
+#add_subdirectory(test)
 
 
 
