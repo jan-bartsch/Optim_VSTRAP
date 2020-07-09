@@ -23,8 +23,8 @@ set(ARMADILLO_LIBRARY "/home/bartsch/include/codes/armadillo-8.500.1/libarmadill
 set(ARMADILLO_INCLUDE_DIRS "/home/bartsch/include/codes/armadillo-8.500.1/include/")
 set(ARMADILLO_LIBRARIES "/home/bartsch/include/codes/armadillo-8.500.1/libarmadillo.so")
 
-SET(CMAKE_LIBRARY_PATH ${CMAKE_LIBRARY_PATH} "/home/bartsch/include/googletest/lib/")
-SET(CMAKE_INCLUDE_PATH ${CMAKE_INCLUDE_PATH} "/home/bartsch/include/googletest/googletest/include/")
+#SET(CMAKE_LIBRARY_PATH ${CMAKE_LIBRARY_PATH} "/home/bartsch/include/googletest/lib/")
+#SET(CMAKE_INCLUDE_PATH ${CMAKE_INCLUDE_PATH} "/home/bartsch/include/googletest/googletest/include/")
 
 message("INFO: CMAKE_INCLUDE_PATH IS ${CMAKE_INCLUDE_PATH}")
 

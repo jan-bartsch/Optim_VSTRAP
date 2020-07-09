@@ -2,9 +2,10 @@
 #define ABSTRACT_CONTROLLER_H
 
 #include <armadillo>
-#include "../objects/data_provider.h"
-
 #include <exception>
+
+#include "../objects/data_provider.h"
+#include "../logger/logger.h"
 
 class abstract_controller
 {

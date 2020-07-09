@@ -14,8 +14,6 @@
 
 
 #include "../objects/particle.h"
-#include "../objects/data_provider.h"
-#include "../logger/logger.h"
 
 #include "../optimization/gradient_calculator.h"
 #include "../optimization/objective_calculator.h"
@@ -32,7 +30,7 @@ class optim_controller : public abstract_controller
 public:
     optim_controller();
 
-    static void start_optimizer(int argc, const char** argv);
+    int start_optimizer(int argc, const char** argv);
     static int start_optimization_iteration(const char * input_xml_path);
 
    // static void assemblePDF_thread(std::vector<std::vector<particle>> &particles, std::unordered_map<coordinate_phase_space_time,double> &particlePDF);
@@ -43,7 +41,6 @@ public:
 
    static arma::mat start_with_zero_control(const char * input_xml_path);
    static arma::mat start_with_given_control(const char * input_xml_path);
-
 };
 
 #endif // OPTIM_CONTROLLER_H

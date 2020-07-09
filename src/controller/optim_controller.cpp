@@ -1,12 +1,13 @@
 #include "optim_controller.h"
 
 optim_controller::optim_controller() {
+    logger::InitLog();
+    logger::Info("hi");
     std::cout << "Initialising optim_controller" << std::endl;
 }
 
-void optim_controller::start_optimizer(int argc, const char **argv)
+int optim_controller::start_optimizer(int argc, const char **argv)
 {
-
     logger::Info("Starting optimizer...");
 
     std::string current_directory(get_current_dir_name());

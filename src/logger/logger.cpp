@@ -1,15 +1,13 @@
 #include "logger.h"
 
-
-
 void logger::InitLog() {
-    boost::log::register_simple_formatter_factory<boost::log::trivial::severity_level, char>("Severity");
+    //boost::log::register_simple_formatter_factory<boost::log::trivial::severity_level, char>("Severity");
     boost::log::add_common_attributes();
 
     boost::log::add_console_log(
-        std::cout, boost::log::keywords::format = "[%TimeStamp%] [%Severity%] %Message%",
-        boost::log::keywords::filter = (boost::log::trivial::severity >= boost::log::trivial::info)
-    );
+                std::cout, boost::log::keywords::format = "[%TimeStamp%] [%Severity%] %Message%",
+                boost::log::keywords::filter = (boost::log::trivial::severity >= boost::log::trivial::info)
+            );
 
     boost::log::add_file_log(boost::log::keywords::file_name = "%Y-%m-%d_%H:%M:%S.log",
                              boost::log::keywords::format = "[%TimeStamp%] [%Severity%] %Message%");
