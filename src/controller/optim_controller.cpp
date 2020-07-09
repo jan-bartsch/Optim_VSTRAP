@@ -72,7 +72,7 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
     std::map<std::string,std::string> subroutines = data_provider_opt.getSubroutines();
 
     unsigned int ntimesteps_gp = static_cast<unsigned int>(optimizationParameters.find("ntimesteps_gp")->second);
-    bool zero_control = static_cast<bool>(optimizationParameters.find("start_zero_control")->second);
+    int zero_control = static_cast<int>(optimizationParameters.find("start_zero_control")->second);
     unsigned int calculation_functional = static_cast<unsigned int>(optimizationParameters.find("calculation_functional")->second);
     unsigned int calculation_wasserstein = static_cast<unsigned int>(optimizationParameters.find("calculation_wasserstein")->second);
     double fixed_gradient_descent_stepsize = static_cast<double>(optimizationParameters.find("fixed_gradient_descent_stepsize")->second);
@@ -103,9 +103,11 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
     arma::mat control;
     if(zero_control == 0) {
         control = start_with_zero_control(input_xml_path);
-    } else {
+    } else if (zero_control == 1) {
         control = start_with_given_control(input_xml_path);
         std::cout << control << std::endl;
+    } else {
+        logger::Info("Starting without control_field_cells");
     }
 
     /**
@@ -334,6 +336,12 @@ arma::mat optim_controller::start_with_given_control(const char *input_xml_path)
     std::string DIRECTORY_TOOLSET = paths.find("DIRECTORY_TOOLSET")->second;
     std::string DOMAIN_MESH = paths.find("DOMAIN_MESH")->second;
     double fraction_of_optimal_control = static_cast<double>(optimizationParameters.find("fraction_of_optimal_control")->second);
+
+    logger::Info("Deleting old files");
+    std::string COMMAND_RM_RESULTS = "rm -r results";
+    system(&COMMAND_RM_RESULTS[0]);
+    std::string COMMAND_MKDIR_RESULTS = "mkdir results";
+    system(&COMMAND_MKDIR_RESULTS[0]);
 
     logger::Info("Starting with existing control (multiplied by a positive constant)");
     std::string READ_CONTROL = PATH_TO_SHARED_FILES + "control_field_cells.xml";
