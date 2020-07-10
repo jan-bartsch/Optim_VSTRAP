@@ -40,8 +40,8 @@ Thumbs.db
 *.user*
 
 #doxygen
-/documentation/latex/*
-!documentation/latex/refman.pdf
+documentation
+!*/refman.pdf
 
 # xemacs temporary files
 *.flc
