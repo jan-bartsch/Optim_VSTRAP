@@ -1,0 +1,44 @@
+\hypertarget{classpdf__controller}{}\section{pdf\+\_\+controller Class Reference}
+\label{classpdf__controller}\index{pdf\+\_\+controller@{pdf\+\_\+controller}}
+
+
+Inheritance diagram for pdf\+\_\+controller\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=177pt]{classpdf__controller__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for pdf\+\_\+controller\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=177pt]{classpdf__controller__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classpdf__controller_a476c4b6bab7a40ea57793806faf334b8}\label{classpdf__controller_a476c4b6bab7a40ea57793806faf334b8}} 
+std\+::unordered\+\_\+map$<$ \hyperlink{classcoordinate__phase__space__time}{coordinate\+\_\+phase\+\_\+space\+\_\+time}, double $>$ {\bfseries assembling\+Multi\+Dim} (std\+::vector$<$ std\+::vector$<$ \hyperlink{classparticle}{particle} $>$ $>$ \&particles\+Time, unsigned int equation\+Type)
+\item 
+\mbox{\Hypertarget{classpdf__controller_a9f1486ae3b861978069f3b1dcfdb0367}\label{classpdf__controller_a9f1486ae3b861978069f3b1dcfdb0367}} 
+std\+::vector$<$ std\+::unordered\+\_\+map$<$ \hyperlink{classcoordinate__phase__space__time}{coordinate\+\_\+phase\+\_\+space\+\_\+time}, double $>$ $>$ {\bfseries assembling\+Multi\+Dim\+\_\+parallel} (std\+::vector$<$ std\+::vector$<$ \hyperlink{classparticle}{particle} $>$ $>$ \&particles\+Time, unsigned int equation\+Type)
+\item 
+\mbox{\Hypertarget{classpdf__controller_add7f5f1aafd15dfc45623059ad845e34}\label{classpdf__controller_add7f5f1aafd15dfc45623059ad845e34}} 
+std\+::vector$<$ std\+::vector$<$ std\+::vector$<$ std\+::vector$<$ double $>$ $>$ $>$ $>$ {\bfseries relaxating\+\_\+\+Gauss\+Seidel\+\_\+4D} (std\+::vector$<$ std\+::vector$<$ std\+::vector$<$ std\+::vector$<$ double $>$$>$$>$$>$ pdf, unsigned int number\+Of\+Relaxation\+Steps)
+\item 
+\mbox{\Hypertarget{classpdf__controller_a0e5c2d07f1bd3bfacd2494942f7975c1}\label{classpdf__controller_a0e5c2d07f1bd3bfacd2494942f7975c1}} 
+double {\bfseries calculate\+\_\+wasserstein\+\_\+metric} (std\+::vector$<$ std\+::vector$<$ \hyperlink{classparticle}{particle} $>$$>$ dist1, std\+::vector$<$ std\+::vector$<$ \hyperlink{classparticle}{particle} $>$$>$ dist2)
+\item 
+\mbox{\Hypertarget{classpdf__controller_a68925f6754a06e4a83cec462959a5875}\label{classpdf__controller_a68925f6754a06e4a83cec462959a5875}} 
+double {\bfseries calculate\+\_\+wasserstein\+\_\+metric\+\_\+histogramm} (std\+::vector$<$ std\+::unordered\+\_\+map$<$ \hyperlink{classcoordinate__phase__space__time}{coordinate\+\_\+phase\+\_\+space\+\_\+time}, double $>$$>$ dist1, std\+::vector$<$ std\+::unordered\+\_\+map$<$ \hyperlink{classcoordinate__phase__space__time}{coordinate\+\_\+phase\+\_\+space\+\_\+time}, double $>$$>$ dist2)
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/jan/\+Promotion\+\_\+linux\+P\+C/\+Optim\+\_\+\+V\+S\+T\+R\+A\+P/src/controller/pdf\+\_\+controller.\+h\item 
+/home/jan/\+Promotion\+\_\+linux\+P\+C/\+Optim\+\_\+\+V\+S\+T\+R\+A\+P/src/controller/pdf\+\_\+controller.\+cpp\end{DoxyCompactItemize}

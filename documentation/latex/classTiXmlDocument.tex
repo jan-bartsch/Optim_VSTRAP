@@ -1,0 +1,277 @@
+\hypertarget{classTiXmlDocument}{}\section{Ti\+Xml\+Document Class Reference}
+\label{classTiXmlDocument}\index{Ti\+Xml\+Document@{Ti\+Xml\+Document}}
+
+
+{\ttfamily \#include $<$tinyxml.\+h$>$}
+
+
+
+Inheritance diagram for Ti\+Xml\+Document\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=167pt]{classTiXmlDocument__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Ti\+Xml\+Document\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=214pt]{classTiXmlDocument__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classTiXmlDocument_a9f5e84335708fde98400230f9f12659c}\label{classTiXmlDocument_a9f5e84335708fde98400230f9f12659c}} 
+\hyperlink{classTiXmlDocument_a9f5e84335708fde98400230f9f12659c}{Ti\+Xml\+Document} ()
+\begin{DoxyCompactList}\small\item\em Create an empty document, that has no name. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classTiXmlDocument_ae4508b452d0c3061db085f3db27b8396}\label{classTiXmlDocument_ae4508b452d0c3061db085f3db27b8396}} 
+\hyperlink{classTiXmlDocument_ae4508b452d0c3061db085f3db27b8396}{Ti\+Xml\+Document} (const char $\ast$document\+Name)
+\begin{DoxyCompactList}\small\item\em Create a document with a name. The name of the document is also the filename of the xml. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classTiXmlDocument_a323a7486e7da6099cdc19a5ff7e74b07}\label{classTiXmlDocument_a323a7486e7da6099cdc19a5ff7e74b07}} 
+{\bfseries Ti\+Xml\+Document} (const \hyperlink{classTiXmlDocument}{Ti\+Xml\+Document} \&copy)
+\item 
+\mbox{\Hypertarget{classTiXmlDocument_aa56fd4dbe8917d2033d865909e2d737e}\label{classTiXmlDocument_aa56fd4dbe8917d2033d865909e2d737e}} 
+\hyperlink{classTiXmlDocument}{Ti\+Xml\+Document} \& {\bfseries operator=} (const \hyperlink{classTiXmlDocument}{Ti\+Xml\+Document} \&copy)
+\item 
+bool \hyperlink{classTiXmlDocument_a4c852a889c02cf251117fd1d9fe1845f}{Load\+File} (Ti\+Xml\+Encoding encoding=T\+I\+X\+M\+L\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+E\+N\+C\+O\+D\+I\+NG)
+\item 
+\mbox{\Hypertarget{classTiXmlDocument_ab63b96a6af5a467e289c7c75202edad9}\label{classTiXmlDocument_ab63b96a6af5a467e289c7c75202edad9}} 
+bool \hyperlink{classTiXmlDocument_ab63b96a6af5a467e289c7c75202edad9}{Save\+File} () const
+\begin{DoxyCompactList}\small\item\em Save a file using the current document value. Returns true if successful. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classTiXmlDocument_a879cdf5e981b8b2d2ef82f2546dd28fb}\label{classTiXmlDocument_a879cdf5e981b8b2d2ef82f2546dd28fb}} 
+bool \hyperlink{classTiXmlDocument_a879cdf5e981b8b2d2ef82f2546dd28fb}{Load\+File} (const char $\ast$filename, Ti\+Xml\+Encoding encoding=T\+I\+X\+M\+L\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+E\+N\+C\+O\+D\+I\+NG)
+\begin{DoxyCompactList}\small\item\em Load a file using the given filename. Returns true if successful. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classTiXmlDocument_ae641f33784381017c44e107cc2c86b5c}\label{classTiXmlDocument_ae641f33784381017c44e107cc2c86b5c}} 
+bool \hyperlink{classTiXmlDocument_ae641f33784381017c44e107cc2c86b5c}{Save\+File} (const char $\ast$filename) const
+\begin{DoxyCompactList}\small\item\em Save a file using the given filename. Returns true if successful. \end{DoxyCompactList}\item 
+bool \hyperlink{classTiXmlDocument_a41f6fe7200864d1dca663d230caf8db6}{Load\+File} (F\+I\+LE $\ast$, Ti\+Xml\+Encoding encoding=T\+I\+X\+M\+L\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+E\+N\+C\+O\+D\+I\+NG)
+\item 
+\mbox{\Hypertarget{classTiXmlDocument_a8f5a1022168a5767e32becec7b6f44ee}\label{classTiXmlDocument_a8f5a1022168a5767e32becec7b6f44ee}} 
+bool \hyperlink{classTiXmlDocument_a8f5a1022168a5767e32becec7b6f44ee}{Save\+File} (F\+I\+LE $\ast$) const
+\begin{DoxyCompactList}\small\item\em Save a file using the given F\+I\+L\+E$\ast$. Returns true if successful. \end{DoxyCompactList}\item 
+virtual const char $\ast$ \hyperlink{classTiXmlDocument_a789ad2f06f93d52bdb5570b2f3670289}{Parse} (const char $\ast$p, \hyperlink{classTiXmlParsingData}{Ti\+Xml\+Parsing\+Data} $\ast$data=0, Ti\+Xml\+Encoding encoding=T\+I\+X\+M\+L\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+E\+N\+C\+O\+D\+I\+NG)
+\item 
+const \hyperlink{classTiXmlElement}{Ti\+Xml\+Element} $\ast$ \hyperlink{classTiXmlDocument_ab54e3a93279fcf0ac80f06ed9c52f04a}{Root\+Element} () const
+\item 
+\mbox{\Hypertarget{classTiXmlDocument_a0b43e762a23f938b06651bc90b8a1013}\label{classTiXmlDocument_a0b43e762a23f938b06651bc90b8a1013}} 
+\hyperlink{classTiXmlElement}{Ti\+Xml\+Element} $\ast$ {\bfseries Root\+Element} ()
+\item 
+bool \hyperlink{classTiXmlDocument_a348e68faad4a3498f413c51ee9bc321a}{Error} () const
+\item 
+\mbox{\Hypertarget{classTiXmlDocument_aab511be262e84a003e3bb86f0215c8c2}\label{classTiXmlDocument_aab511be262e84a003e3bb86f0215c8c2}} 
+const char $\ast$ \hyperlink{classTiXmlDocument_aab511be262e84a003e3bb86f0215c8c2}{Error\+Desc} () const
+\begin{DoxyCompactList}\small\item\em Contains a textual (english) description of the error if one occurs. \end{DoxyCompactList}\item 
+int \hyperlink{classTiXmlDocument_abd928b49a646c8ed53e0453c555d96a2}{Error\+Id} () const
+\item 
+int \hyperlink{classTiXmlDocument_a062e5257128a7da31b0b2e38cd524600}{Error\+Row} () const
+\item 
+\mbox{\Hypertarget{classTiXmlDocument_adea69de889449a2587afb8ee043f43f5}\label{classTiXmlDocument_adea69de889449a2587afb8ee043f43f5}} 
+int \hyperlink{classTiXmlDocument_adea69de889449a2587afb8ee043f43f5}{Error\+Col} () const
+\begin{DoxyCompactList}\small\item\em The column where the error occured. See \hyperlink{classTiXmlDocument_a062e5257128a7da31b0b2e38cd524600}{Error\+Row()} \end{DoxyCompactList}\item 
+void \hyperlink{classTiXmlDocument_a51dac56316f89b35bdb7d0d433ba988e}{Set\+Tab\+Size} (int \+\_\+tabsize)
+\item 
+\mbox{\Hypertarget{classTiXmlDocument_a81e6ffeee8f5d025a171eabf79abdad7}\label{classTiXmlDocument_a81e6ffeee8f5d025a171eabf79abdad7}} 
+int {\bfseries Tab\+Size} () const
+\item 
+void \hyperlink{classTiXmlDocument_ac66b8c28db86363315712a3574e87c35}{Clear\+Error} ()
+\item 
+void \hyperlink{classTiXmlDocument_aa4e8c1498a76dcde7191c683e1220882}{Print} () const
+\item 
+\mbox{\Hypertarget{classTiXmlDocument_aa9e166fae51da603641380a964f21eeb}\label{classTiXmlDocument_aa9e166fae51da603641380a964f21eeb}} 
+virtual void \hyperlink{classTiXmlDocument_aa9e166fae51da603641380a964f21eeb}{Print} (F\+I\+LE $\ast$cfile, int depth=0) const
+\begin{DoxyCompactList}\small\item\em Print this Document to a F\+I\+LE stream. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classTiXmlDocument_a735c23e318597b920c94eae77fa206de}\label{classTiXmlDocument_a735c23e318597b920c94eae77fa206de}} 
+void {\bfseries Set\+Error} (int err, const char $\ast$error\+Location, \hyperlink{classTiXmlParsingData}{Ti\+Xml\+Parsing\+Data} $\ast$prev\+Data, Ti\+Xml\+Encoding encoding)
+\item 
+\mbox{\Hypertarget{classTiXmlDocument_a468e582640e3c4f740f7168d8b4a6e4a}\label{classTiXmlDocument_a468e582640e3c4f740f7168d8b4a6e4a}} 
+virtual const \hyperlink{classTiXmlDocument}{Ti\+Xml\+Document} $\ast$ \hyperlink{classTiXmlDocument_a468e582640e3c4f740f7168d8b4a6e4a}{To\+Document} () const
+\begin{DoxyCompactList}\small\item\em Cast to a more defined type. Will return null not of the requested type. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classTiXmlDocument_a1025d942a1f328fd742d545e37efdd42}\label{classTiXmlDocument_a1025d942a1f328fd742d545e37efdd42}} 
+virtual \hyperlink{classTiXmlDocument}{Ti\+Xml\+Document} $\ast$ \hyperlink{classTiXmlDocument_a1025d942a1f328fd742d545e37efdd42}{To\+Document} ()
+\begin{DoxyCompactList}\small\item\em Cast to a more defined type. Will return null not of the requested type. \end{DoxyCompactList}\item 
+virtual bool \hyperlink{classTiXmlDocument_a8ddd6eec722cbd25900bbac664909bac}{Accept} (\hyperlink{classTiXmlVisitor}{Ti\+Xml\+Visitor} $\ast$content) const
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual \hyperlink{classTiXmlNode}{Ti\+Xml\+Node} $\ast$ \hyperlink{classTiXmlDocument_a46a4dda6c56eb106d46d4046ae1e5353}{Clone} () const
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+Always the top level node. A document binds together all the X\+ML pieces. It can be saved, loaded, and printed to the screen. The \textquotesingle{}value\textquotesingle{} of a document node is the xml file name. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classTiXmlDocument_a8ddd6eec722cbd25900bbac664909bac}\label{classTiXmlDocument_a8ddd6eec722cbd25900bbac664909bac}} 
+\index{Ti\+Xml\+Document@{Ti\+Xml\+Document}!Accept@{Accept}}
+\index{Accept@{Accept}!Ti\+Xml\+Document@{Ti\+Xml\+Document}}
+\subsubsection{\texorpdfstring{Accept()}{Accept()}}
+{\footnotesize\ttfamily bool Ti\+Xml\+Document\+::\+Accept (\begin{DoxyParamCaption}\item[{\hyperlink{classTiXmlVisitor}{Ti\+Xml\+Visitor} $\ast$}]{content }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Walk the X\+ML tree visiting this node and all of its children. 
+
+Implements \hyperlink{classTiXmlNode_acc0f88b7462c6cb73809d410a4f5bb86}{Ti\+Xml\+Node}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTiXmlDocument_a8ddd6eec722cbd25900bbac664909bac_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTiXmlDocument_ac66b8c28db86363315712a3574e87c35}\label{classTiXmlDocument_ac66b8c28db86363315712a3574e87c35}} 
+\index{Ti\+Xml\+Document@{Ti\+Xml\+Document}!Clear\+Error@{Clear\+Error}}
+\index{Clear\+Error@{Clear\+Error}!Ti\+Xml\+Document@{Ti\+Xml\+Document}}
+\subsubsection{\texorpdfstring{Clear\+Error()}{ClearError()}}
+{\footnotesize\ttfamily void Ti\+Xml\+Document\+::\+Clear\+Error (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+If you have handled the error, it can be reset with this call. The error state is automatically cleared if you Parse a new X\+ML block. \mbox{\Hypertarget{classTiXmlDocument_a46a4dda6c56eb106d46d4046ae1e5353}\label{classTiXmlDocument_a46a4dda6c56eb106d46d4046ae1e5353}} 
+\index{Ti\+Xml\+Document@{Ti\+Xml\+Document}!Clone@{Clone}}
+\index{Clone@{Clone}!Ti\+Xml\+Document@{Ti\+Xml\+Document}}
+\subsubsection{\texorpdfstring{Clone()}{Clone()}}
+{\footnotesize\ttfamily \hyperlink{classTiXmlNode}{Ti\+Xml\+Node} $\ast$ Ti\+Xml\+Document\+::\+Clone (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+Create an exact duplicate of this node and return it. The memory must be deleted by the caller. 
+
+Implements \hyperlink{classTiXmlNode_a4508cc3a2d7a98e96a54cc09c37a78a4}{Ti\+Xml\+Node}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTiXmlDocument_a46a4dda6c56eb106d46d4046ae1e5353_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTiXmlDocument_a348e68faad4a3498f413c51ee9bc321a}\label{classTiXmlDocument_a348e68faad4a3498f413c51ee9bc321a}} 
+\index{Ti\+Xml\+Document@{Ti\+Xml\+Document}!Error@{Error}}
+\index{Error@{Error}!Ti\+Xml\+Document@{Ti\+Xml\+Document}}
+\subsubsection{\texorpdfstring{Error()}{Error()}}
+{\footnotesize\ttfamily bool Ti\+Xml\+Document\+::\+Error (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+If an error occurs, Error will be set to true. Also,
+\begin{DoxyItemize}
+\item The \hyperlink{classTiXmlDocument_abd928b49a646c8ed53e0453c555d96a2}{Error\+Id()} will contain the integer identifier of the error (not generally useful)
+\item The \hyperlink{classTiXmlDocument_aab511be262e84a003e3bb86f0215c8c2}{Error\+Desc()} method will return the name of the error. (very useful)
+\item The \hyperlink{classTiXmlDocument_a062e5257128a7da31b0b2e38cd524600}{Error\+Row()} and \hyperlink{classTiXmlDocument_adea69de889449a2587afb8ee043f43f5}{Error\+Col()} will return the location of the error (if known) 
+\end{DoxyItemize}\mbox{\Hypertarget{classTiXmlDocument_abd928b49a646c8ed53e0453c555d96a2}\label{classTiXmlDocument_abd928b49a646c8ed53e0453c555d96a2}} 
+\index{Ti\+Xml\+Document@{Ti\+Xml\+Document}!Error\+Id@{Error\+Id}}
+\index{Error\+Id@{Error\+Id}!Ti\+Xml\+Document@{Ti\+Xml\+Document}}
+\subsubsection{\texorpdfstring{Error\+Id()}{ErrorId()}}
+{\footnotesize\ttfamily int Ti\+Xml\+Document\+::\+Error\+Id (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Generally, you probably want the error string ( \hyperlink{classTiXmlDocument_aab511be262e84a003e3bb86f0215c8c2}{Error\+Desc()} ). But if you prefer the Error\+Id, this function will fetch it. \mbox{\Hypertarget{classTiXmlDocument_a062e5257128a7da31b0b2e38cd524600}\label{classTiXmlDocument_a062e5257128a7da31b0b2e38cd524600}} 
+\index{Ti\+Xml\+Document@{Ti\+Xml\+Document}!Error\+Row@{Error\+Row}}
+\index{Error\+Row@{Error\+Row}!Ti\+Xml\+Document@{Ti\+Xml\+Document}}
+\subsubsection{\texorpdfstring{Error\+Row()}{ErrorRow()}}
+{\footnotesize\ttfamily int Ti\+Xml\+Document\+::\+Error\+Row (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Returns the location (if known) of the error. The first column is column 1, and the first row is row 1. A value of 0 means the row and column wasn\textquotesingle{}t applicable (memory errors, for example, have no row/column) or the parser lost the error. (An error in the error reporting, in that case.)
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{classTiXmlDocument_a51dac56316f89b35bdb7d0d433ba988e}{Set\+Tab\+Size}, \hyperlink{classTiXmlBase_ad0cacca5d76d156b26511f46080b442e}{Row}, \hyperlink{classTiXmlBase_ad283b95d9858d5d78c334f4a61b07bb4}{Column} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{classTiXmlDocument_a4c852a889c02cf251117fd1d9fe1845f}\label{classTiXmlDocument_a4c852a889c02cf251117fd1d9fe1845f}} 
+\index{Ti\+Xml\+Document@{Ti\+Xml\+Document}!Load\+File@{Load\+File}}
+\index{Load\+File@{Load\+File}!Ti\+Xml\+Document@{Ti\+Xml\+Document}}
+\subsubsection{\texorpdfstring{Load\+File()}{LoadFile()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily bool Ti\+Xml\+Document\+::\+Load\+File (\begin{DoxyParamCaption}\item[{Ti\+Xml\+Encoding}]{encoding = {\ttfamily TIXML\+\_\+DEFAULT\+\_\+ENCODING} }\end{DoxyParamCaption})}
+
+Load a file using the current document value. Returns true if successful. Will delete any existing document data before loading. Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=342pt]{classTiXmlDocument_a4c852a889c02cf251117fd1d9fe1845f_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTiXmlDocument_a41f6fe7200864d1dca663d230caf8db6}\label{classTiXmlDocument_a41f6fe7200864d1dca663d230caf8db6}} 
+\index{Ti\+Xml\+Document@{Ti\+Xml\+Document}!Load\+File@{Load\+File}}
+\index{Load\+File@{Load\+File}!Ti\+Xml\+Document@{Ti\+Xml\+Document}}
+\subsubsection{\texorpdfstring{Load\+File()}{LoadFile()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily bool Ti\+Xml\+Document\+::\+Load\+File (\begin{DoxyParamCaption}\item[{F\+I\+LE $\ast$}]{file,  }\item[{Ti\+Xml\+Encoding}]{encoding = {\ttfamily TIXML\+\_\+DEFAULT\+\_\+ENCODING} }\end{DoxyParamCaption})}
+
+Load a file using the given F\+I\+L\+E$\ast$. Returns true if successful. Note that this method doesn\textquotesingle{}t stream -\/ the entire object pointed at by the F\+I\+L\+E$\ast$ will be interpreted as an X\+ML file. Tiny\+X\+ML doesn\textquotesingle{}t stream in X\+ML from the current file location. Streaming may be added in the future. Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTiXmlDocument_a41f6fe7200864d1dca663d230caf8db6_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTiXmlDocument_a789ad2f06f93d52bdb5570b2f3670289}\label{classTiXmlDocument_a789ad2f06f93d52bdb5570b2f3670289}} 
+\index{Ti\+Xml\+Document@{Ti\+Xml\+Document}!Parse@{Parse}}
+\index{Parse@{Parse}!Ti\+Xml\+Document@{Ti\+Xml\+Document}}
+\subsubsection{\texorpdfstring{Parse()}{Parse()}}
+{\footnotesize\ttfamily const char $\ast$ Ti\+Xml\+Document\+::\+Parse (\begin{DoxyParamCaption}\item[{const char $\ast$}]{p,  }\item[{\hyperlink{classTiXmlParsingData}{Ti\+Xml\+Parsing\+Data} $\ast$}]{data = {\ttfamily 0},  }\item[{Ti\+Xml\+Encoding}]{encoding = {\ttfamily TIXML\+\_\+DEFAULT\+\_\+ENCODING} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Parse the given null terminated block of xml data. Passing in an encoding to this method (either T\+I\+X\+M\+L\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+L\+E\+G\+A\+CY or T\+I\+X\+M\+L\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+U\+T\+F8 will force Tiny\+Xml to use that encoding, regardless of what Tiny\+Xml might otherwise try to detect. 
+
+Implements \hyperlink{classTiXmlBase}{Ti\+Xml\+Base}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTiXmlDocument_a789ad2f06f93d52bdb5570b2f3670289_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTiXmlDocument_aa4e8c1498a76dcde7191c683e1220882}\label{classTiXmlDocument_aa4e8c1498a76dcde7191c683e1220882}} 
+\index{Ti\+Xml\+Document@{Ti\+Xml\+Document}!Print@{Print}}
+\index{Print@{Print}!Ti\+Xml\+Document@{Ti\+Xml\+Document}}
+\subsubsection{\texorpdfstring{Print()}{Print()}}
+{\footnotesize\ttfamily void Ti\+Xml\+Document\+::\+Print (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Write the document to standard out using formatted printing (\char`\"{}pretty print\char`\"{}). Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=193pt]{classTiXmlDocument_aa4e8c1498a76dcde7191c683e1220882_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTiXmlDocument_ab54e3a93279fcf0ac80f06ed9c52f04a}\label{classTiXmlDocument_ab54e3a93279fcf0ac80f06ed9c52f04a}} 
+\index{Ti\+Xml\+Document@{Ti\+Xml\+Document}!Root\+Element@{Root\+Element}}
+\index{Root\+Element@{Root\+Element}!Ti\+Xml\+Document@{Ti\+Xml\+Document}}
+\subsubsection{\texorpdfstring{Root\+Element()}{RootElement()}}
+{\footnotesize\ttfamily const \hyperlink{classTiXmlElement}{Ti\+Xml\+Element}$\ast$ Ti\+Xml\+Document\+::\+Root\+Element (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Get the root element -- the only top level element -- of the document. In well formed X\+ML, there should only be one. Tiny\+Xml is tolerant of multiple elements at the document level. \mbox{\Hypertarget{classTiXmlDocument_a51dac56316f89b35bdb7d0d433ba988e}\label{classTiXmlDocument_a51dac56316f89b35bdb7d0d433ba988e}} 
+\index{Ti\+Xml\+Document@{Ti\+Xml\+Document}!Set\+Tab\+Size@{Set\+Tab\+Size}}
+\index{Set\+Tab\+Size@{Set\+Tab\+Size}!Ti\+Xml\+Document@{Ti\+Xml\+Document}}
+\subsubsection{\texorpdfstring{Set\+Tab\+Size()}{SetTabSize()}}
+{\footnotesize\ttfamily void Ti\+Xml\+Document\+::\+Set\+Tab\+Size (\begin{DoxyParamCaption}\item[{int}]{\+\_\+tabsize }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\hyperlink{classTiXmlDocument_a51dac56316f89b35bdb7d0d433ba988e}{Set\+Tab\+Size()} allows the error reporting functions (\hyperlink{classTiXmlDocument_a062e5257128a7da31b0b2e38cd524600}{Error\+Row()} and \hyperlink{classTiXmlDocument_adea69de889449a2587afb8ee043f43f5}{Error\+Col()}) to report the correct values for row and column. It does not change the output or input in any way.
+
+By calling this method, with a tab size greater than 0, the row and column of each node and attribute is stored when the file is loaded. Very useful for tracking the D\+OM back in to the source file.
+
+The tab size is required for calculating the location of nodes. If not set, the default of 4 is used. The tabsize is set per document. Setting the tabsize to 0 disables row/column tracking.
+
+Note that row and column tracking is not supported when using operator$>$$>$.
+
+The tab size needs to be enabled before the parse or load. Correct usage\+: \begin{DoxyVerb}TiXmlDocument doc;
+doc.SetTabSize( 8 );
+doc.Load( "myfile.xml" );
+\end{DoxyVerb}
+
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{classTiXmlBase_ad0cacca5d76d156b26511f46080b442e}{Row}, \hyperlink{classTiXmlBase_ad283b95d9858d5d78c334f4a61b07bb4}{Column} 
+\end{DoxySeeAlso}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/jan/\+Promotion\+\_\+linux\+P\+C/\+Optim\+\_\+\+V\+S\+T\+R\+A\+P/src/io/tiny\+X\+M\+L/tinyxml.\+h\item 
+/home/jan/\+Promotion\+\_\+linux\+P\+C/\+Optim\+\_\+\+V\+S\+T\+R\+A\+P/src/io/tiny\+X\+M\+L/tinyxml.\+cpp\item 
+/home/jan/\+Promotion\+\_\+linux\+P\+C/\+Optim\+\_\+\+V\+S\+T\+R\+A\+P/src/io/tiny\+X\+M\+L/tinyxmlparser.\+cpp\end{DoxyCompactItemize}

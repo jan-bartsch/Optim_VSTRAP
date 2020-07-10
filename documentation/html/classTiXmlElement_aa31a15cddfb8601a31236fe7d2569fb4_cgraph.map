@@ -1,0 +1,18 @@
+<map id="TiXmlElement::Print" name="TiXmlElement::Print">
+<area shape="rect" id="node2" href="$classTiXmlAttribute.html#af2e78f1ba9ed56a26ddc80614ed1c393" title="Get the next sibling attribute in the DOM. Returns null at end. " alt="" coords="212,5,353,32"/>
+<area shape="rect" id="node3" href="$classTiXmlNode.html#a2591700660b308571c09166559a39332" title="Cast to a more defined type. Will return null if not of the requested type. " alt="" coords="215,56,351,83"/>
+<area shape="rect" id="node4" href="$classTiXmlBase.html#a0de56b3f2ef14c65091a3b916437b512" title="TiXmlBase::Print" alt="" coords="222,107,343,133"/>
+<area shape="rect" id="node5" href="$classTiXmlNode.html#ae99c572ac7901a15993ea7a4efaa10e7" title="Navigate to a sibling node. " alt="" coords="201,157,364,184"/>
+<area shape="rect" id="node9" href="$classTiXmlElement.html#abf0b3bd7f0e4c746a89ec6e7f101fc32" title="TiXmlElement::SetAttribute" alt="" coords="192,208,373,235"/>
+<area shape="rect" id="node11" href="$classTiXmlAttribute.html#a008ef948268ee752b58c60d63d84bb01" title="Return the name of this attribute. " alt="" coords="209,259,357,285"/>
+<area shape="rect" id="node12" href="$classTiXmlAttribute.html#ac9f0b56fcacbedb6eb49e5f282bef014" title="Return the value of this attribute. " alt="" coords="209,309,356,336"/>
+<area shape="rect" id="node13" href="$classTiXmlNode.html#a1a881212554b759865f6cac79a851d38" title="TiXmlNode::LinkEndChild" alt="" coords="197,360,369,387"/>
+<area shape="rect" id="node17" href="$classTiXmlNode.html#a4508cc3a2d7a98e96a54cc09c37a78a4" title="TiXmlNode::Clone" alt="" coords="218,411,347,437"/>
+<area shape="rect" id="node6" href="$classTiXmlNode.html#ac6105781c913a42aa7f3f17bd1964f7c" title="TiXmlNode::NextSiblingElement" alt="" coords="421,107,632,133"/>
+<area shape="rect" id="node8" href="$classTiXmlNode.html#a12c973e1da9e90a178924b8ea5a5f4d1" title="Convenience function to get through elements. " alt="" coords="427,157,626,184"/>
+<area shape="rect" id="node7" href="$classTiXmlNode.html#a4080428f2cac46e92ef4d284202fad0b" title="Cast to a more defined type. Will return null if not of the requested type. " alt="" coords="689,132,847,159"/>
+<area shape="rect" id="node10" href="$classTiXmlAttribute.html#a2dae44178f668b3cb48101be4f2236a0" title="Set the value. " alt="" coords="443,208,610,235"/>
+<area shape="rect" id="node14" href="$classTiXmlNode.html#adcb070acefcbaedaa0673d82e530538b" title="TiXmlNode::GetDocument" alt="" coords="680,360,856,387"/>
+<area shape="rect" id="node16" href="$classTiXmlNode.html#a0f4dd916b2afc2ab2f1a84f3e2b8fd5d" title="TiXmlNode::Type" alt="" coords="465,385,589,412"/>
+<area shape="rect" id="node15" href="$classTiXmlNode.html#a775a904618cad6e4a8049bda4f5a6aa9" title="Cast to a more defined type. Will return null if not of the requested type. " alt="" coords="904,360,1075,387"/>
+</map>
