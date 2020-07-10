@@ -36,7 +36,7 @@ message("INFO: all libraries are installed as root")
 endif()
 
 add_subdirectory(src)
-#add_subdirectory(test)
+add_subdirectory(test)
 
 
 

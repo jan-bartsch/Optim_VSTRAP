@@ -54,6 +54,8 @@ commands:
             genhtml ./build-Optim/test/test-results/coverage-filtered.info --output-directory coverage
       - store_artifacts:
           path: coverage
+      - store_artifacts:
+          path: documentation
 executors:
   docker-bionic:
     docker:
