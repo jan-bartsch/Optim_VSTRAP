@@ -47,5 +47,7 @@ TEST(gradient,calculationNR1) {
     double norm = arma::norm(gradient,"fro");
     double norm_target = 0.0058309765376422761;
 
-    EXPECT_EQ(norm_target,norm);
+    double diff = std::abs(norm-norm_target);
+
+    EXPECT_LE(diff,pow(10,-5));
 }
