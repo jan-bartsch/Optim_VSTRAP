@@ -1,5 +1,0 @@
-<map id="TiXmlText::Print" name="TiXmlText::Print">
-<area shape="rect" id="node2" href="$classTiXmlBase.html#a32ed202562b58de64c7d799ca3c9db98" title="TiXmlBase::EncodeString" alt="" coords="171,5,343,32"/>
-<area shape="rect" id="node3" href="$classTiXmlNode.html#a2a38329ca5d3f28f98ce932b8299ae90" title="TiXmlNode::SetValue" alt="" coords="391,5,539,32"/>
-<area shape="rect" id="node4" href="$classTiXmlNode.html#a708e7f953df61d4d2d12f73171550a4b" title="Delete all the children of this node. Does not affect &#39;this&#39;. " alt="" coords="587,5,713,32"/>
-</map>

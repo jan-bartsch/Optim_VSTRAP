@@ -1,9 +1,0 @@
-<map id="TiXmlNode" name="TiXmlNode">
-<area shape="rect" id="node3" href="$classTiXmlComment.html" title="TiXmlComment" alt="" coords="5,155,119,181"/>
-<area shape="rect" id="node4" href="$classTiXmlDeclaration.html" title="TiXmlDeclaration" alt="" coords="143,155,266,181"/>
-<area shape="rect" id="node5" href="$classTiXmlDocument.html" title="TiXmlDocument" alt="" coords="291,155,407,181"/>
-<area shape="rect" id="node6" href="$classTiXmlElement.html" title="TiXmlElement" alt="" coords="431,155,535,181"/>
-<area shape="rect" id="node7" href="$classTiXmlText.html" title="TiXmlText" alt="" coords="559,155,642,181"/>
-<area shape="rect" id="node8" href="$classTiXmlUnknown.html" title="TiXmlUnknown" alt="" coords="667,155,777,181"/>
-<area shape="rect" id="node2" href="$classTiXmlBase.html" title="TiXmlBase" alt="" coords="372,5,459,32"/>
-</map>
