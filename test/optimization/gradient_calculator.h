@@ -45,7 +45,7 @@ TEST(gradient,calculationNR1) {
 
     gradient = gradient_calculator_opt.calculateGradient_forceControl_space_Hm(forwardPDF,backwardPDF,control);
     double norm = arma::norm(gradient,"fro");
-    double norm_target = 0.005830976537642276;
+    double norm_target = 0.0058309765376422761;
 
     EXPECT_EQ(norm_target,norm);
 }
