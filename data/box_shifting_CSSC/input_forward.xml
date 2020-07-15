@@ -16,10 +16,10 @@
 				<v_drift x_val="0" y_val="0" z_val="0"/>
 			</group>
 		</executable>
-	<!--executable name="particle_initializer" mode="CPU"> 
-			    <group name="forward_particles"> 
-				<load>plasma_state_batch_1_forward_particles_CPU_1.csv</load>  
-			    </group> 
+	<!--executable name="particle_initializer" mode="CPU">
+			    <group name="forward_particles">
+				<load>plasma_state_batch_1_forward_particles_CPU_1.csv</load>
+			    </group>
 	</executable-->
         <executable name="pwi" mode="CPU">
             <boundary_type name="cuboid"/>
@@ -28,7 +28,7 @@
         </executable>
 		<executable name="bgf" mode="CPU">
 			<volume_mesh name="vol_mesh"/>
-			<!--field name="bem_e_field" type="bem_electric_field" mesh_points="mesh_points" load_freq="1"/--> 
+			<!--field name="bem_e_field" type="bem_electric_field" mesh_points="mesh_points" load_freq="1"/-->
 			<load>./interpolated_control_field.xml</load>
 			<particle_batch>
 				<!--field name="bem_e_field"/-->
@@ -47,7 +47,7 @@
 			<batch file_name="batch_1" format="csv" output_interval="1">
 				<particle_group name="forward_particles"/>
 			</batch>
-			<file path = "." name="plasma_state" format="csv" output_interval="1"/>
+			<file path = "./results/" name="plasma_state" format="csv" output_interval="1"/>
 		</executable>
 	</executables>
 	<abort_criterium>

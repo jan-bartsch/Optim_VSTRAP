@@ -125,7 +125,7 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
     std::vector<std::unordered_map<coordinate_phase_space_time,double>> backwardPDF;
     arma::mat gradient(static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second),3,arma::fill::zeros);
     arma::mat gradient_old(static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second),3,arma::fill::zeros);
-    arma::mat stepDirection(static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second),3,arma::fill::zeros);
+    arma::mat stepDirection(static_cast<unsigned int>(optimizationParameters.find("pcell_gp")->second),3,arma::fill::zeros);
     double value_objective = 0.0;
     int stepsize_flag;
     double stepsize0 = fixed_gradient_descent_stepsize/std::max(1.0,arma::norm(gradient));
@@ -306,7 +306,7 @@ arma::mat optim_controller::start_with_zero_control(const char *input_xml_path)
     std::string DIRECTORY_TOOLSET = paths.find("DIRECTORY_TOOLSET")->second;
     std::string DOMAIN_MESH = paths.find("DOMAIN_MESH")->second;
 
-    unsigned int dimensionOfControl = static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second);
+    unsigned int dimensionOfControl = static_cast<unsigned int>(optimizationParameters.find("pcell_gp")->second);
 
     arma::mat control(dimensionOfControl,3,arma::fill::zeros);
 

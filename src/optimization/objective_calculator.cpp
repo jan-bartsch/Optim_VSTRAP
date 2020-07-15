@@ -101,19 +101,25 @@ double objective_calculator::calculate_objective_L2(std::vector<std::unordered_m
                         std::vector<double> current_barycenter = baryc.find(static_cast<int> (i))->second;
                         std::vector<double> p_d = trajectory_controller.trajectory_desired(current_barycenter,l,m,n,o);
                         coordinate_phase_space_time coordinate = coordinate_phase_space_time(static_cast<int>(i),static_cast<int>(l),static_cast<int>(m),static_cast<int>(n),static_cast<int>(o));
-                       // std::cout << velocityDiscr_gp(l) << std::endl;
-                        double current_trackPot = - C_theta_gp/(2.0*M_PI*sigma_x_gp*sigma_v_gp)*exp(
-                                    -(p_d[0]*p_d[0]/(2.0*sigma_x_gp*sigma_x_gp)+
-                                0.0*pow(velocityDiscr_gp(l)-p_d[1],2.0)/(2.0*sigma_v_gp*sigma_v_gp)+
-                                0.0*pow(velocityDiscr_gp(m)-p_d[2],2.0)/(2.0*sigma_v_gp*sigma_v_gp)+
-                                0.0*pow(velocityDiscr_gp(n)-p_d[3],2.0)/(2.0*sigma_v_gp*sigma_v_gp)
-                                ));
-                        //                        temp = static_cast<float>( exp(-(
-                        //                                                           pow(positionDiscr_gp(i)-p_d[0],2.0)/(2.0*sigma_x_gp*sigma_x_gp)+
-                        //                                                       0.0*pow(velocityDiscr_gp(l)-p_d[3],2.0)/(2.0*sigma_v_gp*sigma_v_gp)+
-                        //                                                   0.0*pow(velocityDiscr_gp(m)-p_d[4],2.0)/(2.0*sigma_v_gp*sigma_v_gp)+
-                        //                                0.0*pow(velocityDiscr_gp(n)-p_d[5],2.0)/(2.0*sigma_v_gp*sigma_v_gp)
-                        //                                )));
+                        // std::cout << velocityDiscr_gp(l) << std::endl;
+                        double current_trackPot = 0.0;
+                        if(desired_traj.compare("box_center")==0) {
+                            current_trackPot = - C_theta_gp/(2.0*M_PI*sigma_x_gp*sigma_v_gp)*exp(
+                                        -(p_d[0]*p_d[0]/(2.0*sigma_x_gp*sigma_x_gp)+
+                                    pow(velocityDiscr_gp(l)*velocityDiscr_gp(l)+velocityDiscr_gp(m)*velocityDiscr_gp(m)
+                                        +velocityDiscr_gp(n)*velocityDiscr_gp(n)
+                                        -p_d[1]*p_d[1],1.0)/(2.0*sigma_v_gp*sigma_v_gp)+
+                                    0.0*pow(velocityDiscr_gp(m)-p_d[2],2.0)/(2.0*sigma_v_gp*sigma_v_gp)+
+                                    0.0*pow(velocityDiscr_gp(n)-p_d[3],2.0)/(2.0*sigma_v_gp*sigma_v_gp)
+                                    ));
+                        } else {
+                            current_trackPot = - C_theta_gp/(2.0*M_PI*sigma_x_gp*sigma_v_gp)*exp(
+                                        -(p_d[0]*p_d[0]/(2.0*sigma_x_gp*sigma_x_gp)+
+                                    0.0*pow(velocityDiscr_gp(l)-p_d[1],2.0)/(2.0*sigma_v_gp*sigma_v_gp)+
+                                    0.0*pow(velocityDiscr_gp(m)-p_d[2],2.0)/(2.0*sigma_v_gp*sigma_v_gp)+
+                                    0.0*pow(velocityDiscr_gp(n)-p_d[3],2.0)/(2.0*sigma_v_gp*sigma_v_gp)
+                                    ));
+                        }
                         if (forwardPDF_time[o].find(coordinate) != forwardPDF_time[o].end()) {
                             objective_time[o] += forwardPDF_time[o].at(coordinate)*current_trackPot*pow(dp_gp,3.0)*pow(dv_gp,2.0)*dt_gp;
                         }
@@ -135,8 +141,8 @@ double objective_calculator::calculate_objective_L2(std::vector<std::unordered_m
     costOfControl += 1.0/2.0*arma::norm(control,"fro")*arma::norm(control,"fro")*pow(dp_gp,1.0);
     // dp_gp^1 since we have elements with volume dp_gp
 
-    arma::mat second_derivative = solver.Laplacian_3D();
-    costOfControl += arma::accu(second_derivative*control)/(dp_gp*dp_gp);
+    //arma::mat second_derivative = solver.Laplacian_3D();
+    //costOfControl += arma::accu(second_derivative*control)/(dp_gp*dp_gp);
 
 
     objective += weight_control_gp*costOfControl;

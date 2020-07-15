@@ -84,5 +84,8 @@ std::vector<double> desired_trajectory_controller::trajectory_desired_concentrat
     p_d[0] = barycenter[0]*barycenter[0]+
             barycenter[1]*barycenter[1]+
             barycenter[2]*barycenter[2];
+
+    p_d[1] = 5.0*350.0;
+
     return p_d;
 }
