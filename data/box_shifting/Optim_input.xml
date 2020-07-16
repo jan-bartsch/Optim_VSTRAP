@@ -50,6 +50,8 @@
 	         <!--subroutine group="direction_update" name="negative_gradient" /-->
            <subroutine group="direction_update" name="ncg_FR" />
            <subroutine group="desired_trajectory" name="box_shifting_negative_x" />
+           <subroutine group="objective_calculation" name="magnitude" />
+           <!-- subroutine group="objective_calculation" name="components" /-->
     </subroutines>
 
 </optimizer_input>

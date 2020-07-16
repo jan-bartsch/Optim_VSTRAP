@@ -68,10 +68,11 @@ std::vector<double> desired_trajectory_controller::trajectory_desired_shifting_h
                 barycenter[1]*barycenter[1]+
                 barycenter[2]*barycenter[2];
     }
-    p_d[1] = -100.0;
-    p_d[2] = 100.0;
-    p_d[3] = 100.0;
+//    p_d[1] = -100.0;
+//    p_d[2] = 100.0;
+//    p_d[3] = 100.0;
 
+    p_d[4] =700.0;
     return p_d;
 
 

@@ -88,6 +88,7 @@ double objective_calculator::calculate_objective_L2(std::vector<std::unordered_m
 
     std::map<std::string,std::string> subroutines = this->getData_provider_optim().getSubroutines();
     std::string desired_traj = subroutines.find("desired_trajectory")->second;
+    std::string objective_calculation = subroutines.find("objective_calculation")->second;
 
     std::cout << "Using <" << desired_traj << "> for desired trajectory" << std::endl;
 
@@ -103,28 +104,31 @@ double objective_calculator::calculate_objective_L2(std::vector<std::unordered_m
                         coordinate_phase_space_time coordinate = coordinate_phase_space_time(static_cast<int>(i),static_cast<int>(l),static_cast<int>(m),static_cast<int>(n),static_cast<int>(o));
                         // std::cout << velocityDiscr_gp(l) << std::endl;
                         double current_trackPot = 0.0;
-                        if(desired_traj.compare("box_center")==0) {
+                        if(objective_calculation.compare("magnitude")==0) {
                             current_trackPot = - C_theta_gp/(2.0*M_PI*sigma_x_gp*sigma_v_gp)*exp(
                                         -(p_d[0]*p_d[0]/(2.0*sigma_x_gp*sigma_x_gp)+
                                     pow(velocityDiscr_gp(l)*velocityDiscr_gp(l)+velocityDiscr_gp(m)*velocityDiscr_gp(m)
                                         +velocityDiscr_gp(n)*velocityDiscr_gp(n)
-                                        -p_d[1]*p_d[1],1.0)/(2.0*sigma_v_gp*sigma_v_gp)+
+                                        -p_d[4]*p_d[4],1.0)/(2.0*sigma_v_gp*sigma_v_gp)+
                                     0.0*pow(velocityDiscr_gp(m)-p_d[2],2.0)/(2.0*sigma_v_gp*sigma_v_gp)+
                                     0.0*pow(velocityDiscr_gp(n)-p_d[3],2.0)/(2.0*sigma_v_gp*sigma_v_gp)
                                     ));
-                        } else {
+                        } else if(objective_calculation.compare("components")==0) {
                             current_trackPot = - C_theta_gp/(2.0*M_PI*sigma_x_gp*sigma_v_gp)*exp(
                                         -(p_d[0]*p_d[0]/(2.0*sigma_x_gp*sigma_x_gp)+
-                                    0.0*pow(velocityDiscr_gp(l)-p_d[1],2.0)/(2.0*sigma_v_gp*sigma_v_gp)+
-                                    0.0*pow(velocityDiscr_gp(m)-p_d[2],2.0)/(2.0*sigma_v_gp*sigma_v_gp)+
-                                    0.0*pow(velocityDiscr_gp(n)-p_d[3],2.0)/(2.0*sigma_v_gp*sigma_v_gp)
+                                    pow(velocityDiscr_gp(l)-p_d[1],2.0)/(2.0*sigma_v_gp*sigma_v_gp)+
+                                    pow(velocityDiscr_gp(m)-p_d[2],2.0)/(2.0*sigma_v_gp*sigma_v_gp)+
+                                    pow(velocityDiscr_gp(n)-p_d[3],2.0)/(2.0*sigma_v_gp*sigma_v_gp)
                                     ));
                         }
                         if (forwardPDF_time[o].find(coordinate) != forwardPDF_time[o].end()) {
                             objective_time[o] += forwardPDF_time[o].at(coordinate)*current_trackPot*pow(dp_gp,3.0)*pow(dv_gp,2.0)*dt_gp;
+                        } else {
+                            std::runtime_error("No such objective calculation rule");
                         }
                         if (objective_time[o]>0) {
                             logger::Info("Functional tracking part positiv");
+                            std::runtime_error("Functional tracking part positiv");
                         }
                     }
                 }

@@ -23,13 +23,13 @@ s_y = 0.25;
 s_z = 0.25;
 
 v_x = -100.0;
-v_y = 100.0;
-v_z = 100.0;
+v_y = 0.0;
+v_z = 0.0;
 
 
-v_s_x = 1e+2;
-v_s_y = 1e+2;
-v_s_z = 1e+2;
+v_s_x = 3e+2;
+v_s_y = 3e+2;
+v_s_z = 3e+2;
 
 
 file.write("<parameraters>\n")
