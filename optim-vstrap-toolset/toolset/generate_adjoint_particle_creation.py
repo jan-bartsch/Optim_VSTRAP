@@ -27,9 +27,9 @@ v_y = 0.0;
 v_z = 0.0;
 
 
-v_s_x = 3e+2;
-v_s_y = 3e+2;
-v_s_z = 3e+2;
+v_s_x = 2e+2;
+v_s_y = 2e+2;
+v_s_z = 2e+2;
 
 
 file.write("<parameraters>\n")
