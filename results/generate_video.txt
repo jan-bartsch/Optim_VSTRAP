@@ -1,1 +1,0 @@
-ffmpeg -framerate 5 -i centering.%04d.png  output.mp4

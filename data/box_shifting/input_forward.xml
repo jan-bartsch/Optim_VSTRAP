@@ -51,7 +51,7 @@
 		</executable>
 	</executables>
 	<abort_criterium>
-		<max_itterations value="40"/>
+		<max_itterations value="30"/>
 	</abort_criterium>
 	<schedule>
 		<init>

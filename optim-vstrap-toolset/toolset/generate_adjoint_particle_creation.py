@@ -22,14 +22,20 @@ s_x = 0.20;
 s_y = 0.25;
 s_z = 0.25;
 
-v_x = -100.0;
+v_x = 0.0;
 v_y = 0.0;
 v_z = 0.0;
 
+most_probable_speed = 700;
+expected_speed = 700;
 
-v_s_x = 2e+2;
-v_s_y = 2e+2;
-v_s_z = 2e+2;
+sigma_v = math.sqrt(math.pi/8.0)*expected_speed
+#sigma_v = math.sqrt(1.0/2.0)*most_probable_speed
+
+
+v_s_x = sigma_v;
+v_s_y = sigma_v;
+v_s_z = sigma_v;
 
 
 file.write("<parameraters>\n")
