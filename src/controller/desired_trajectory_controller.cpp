@@ -72,7 +72,7 @@ std::vector<double> desired_trajectory_controller::trajectory_desired_shifting_h
 //    p_d[2] = 100.0;
 //    p_d[3] = 100.0;
 
-    p_d[4] =900.0;
+    p_d[4] =70.0;
     return p_d;
 
 

@@ -176,7 +176,7 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm(std::vect
         //        std::cout << "Cell_id: " << i << " with barycenter (" << current_barycenter[0] << ","
         //                  << current_barycenter[1] << "," << current_barycenter[2] << ")" << std::endl;
 
-        if (current_barycenter[0]< - 0.2 || current_barycenter[0] > 0.2) {
+        if (current_barycenter[0]< - 0.02 || current_barycenter[0] > 0.02) {
         //if(false) {
             std::cout << "Gradient will stay zero here" << std::endl;
         } else {

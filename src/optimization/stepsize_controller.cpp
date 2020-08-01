@@ -62,7 +62,9 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
     std::string START_VSTRAP_FORWARD = BUILD_DIRECTORY_VSTRAP + "vstrap" + " " + PATH_TO_SHARED_FILES + "input_forward.xml";
 
 
-    double scalarProduct = (arma::dot(gradient.col(0),stepdirection.col(0)) + arma::dot(gradient.col(1),stepdirection.col(1)))*dt_gp;
+    double scalarProduct = (arma::dot(gradient.col(0),stepdirection.col(0))
+                            + arma::dot(gradient.col(1),stepdirection.col(1))+
+                            arma::dot(gradient.col(2),stepdirection.col(2)))*dt_gp;
 
     std::cout << "scalarProduct: " << scalarProduct << std::endl;
     std::cout << "Stepdirection: " << stepdirection << std::endl;
