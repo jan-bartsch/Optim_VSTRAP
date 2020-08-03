@@ -1,9 +1,0 @@
-vstrap version: 
-
-branch jab_optim_vstrap
-commit bef2c752666de09ab5ebb69d0bd428a9917acb8d
-
-optim-vstrap-toolset version:
-
-branch master
-commit 64b44c263b5166e468252e73b4f0a59b18b5cbdf

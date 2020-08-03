@@ -14,7 +14,7 @@
 	       <parameter name="fraction_of_optimal_control" value="1e-5" />
         <parameter name="optimizationIteration_max_gp" value="100" />       <!-- number of maximal interations -->
         <parameter name="dp_gp" value="0.00156" />                              <!-- discretization size position 64:0.0156 1000:0.0001 512:0.002 -->
-        <parameter name="dt_gp" value="1e-6" />                             <!-- discretization size time -->
+        <parameter name="dt_gp" value="1e-7" />                             <!-- discretization size time -->
         <parameter name="dv_gp" value="400.00" />                              <!-- discretization size velocity -->
         <parameter name="numberParticles_gp" value="2000" />
         <parameter name="ntimesteps_gp" value="30" />
@@ -37,9 +37,9 @@
         <path name="BUILD_DIRECTORY_VSTRAP" value="/home/jan/Promotion_linuxPC/build-vstrap/src/" />
         <path name="BUILD_DIRECTORY_OPTIM" value="/home/jan/Promotion_linuxPC/build-Optim/src/" />
         <path name="PATH_TO_SHARED_FILES" value="../../Optim_VSTRAP/data/box_shifting/" />
-	       <path name="BARYCENTERS_MESH" value="../../Optim_VSTRAP/data/box_shifting/mesh_barycenters_small.xml" />
+	       <path name="BARYCENTERS_MESH" value="../../Optim_VSTRAP/data/global/mesh_barycenters_small.xml" />
       <path name="DIRECTORY_TOOLSET" value="../../Optim_VSTRAP/optim-vstrap-toolset/toolset/" />
-	     <path name="DOMAIN_MESH" value="../../Optim_VSTRAP/data/box_shifting/box_vol_regular_small.xml" />
+	     <path name="DOMAIN_MESH" value="../../Optim_VSTRAP/data/global/box_vol_regular_small.xml" />
     <path name="RESULTS_DIRECTORY" value="results/" />
     </paths>
 

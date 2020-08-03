@@ -154,6 +154,7 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm(std::vect
     double dv_gp = static_cast<double>(optimizationParameters.find("dv_gp")->second);
     double dt_gp = static_cast<double>(optimizationParameters.find("dt_gp")->second);
     double dp_gp = static_cast<double>(optimizationParameters.find("dp_gp")->second);
+    double db_gp = static_cast<double>(optimizationParameters.find("db_gp")->second);
     double weight_control_gp = static_cast<double>(optimizationParameters.find("weight_control_gp")->second);
 
     int start_control = static_cast<int>(optimizationParameters.find("start_control_gp")->second);
@@ -161,6 +162,9 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm(std::vect
 
     arma::mat Laplace = model_solver.Laplacian_3D();
     arma::mat Laplace_Squared = model_solver.Laplacian_Squared_3D();
+
+    std::cout << Laplace << std::endl;
+     std::cout << Laplace_Squared << std::endl;
 
     arma::mat gradient(pcell_gp,3,arma::fill::zeros);
     arma::mat gradient_Riesz(dimensionOfControl_gp,3,arma::fill::zeros);
@@ -273,8 +277,8 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm(std::vect
     std::cout << rhs_Riesz << std::endl;
 
    // std::cout << "Riesz Matrix" << std::endl;
-    arma::mat Riesz = weight_control_gp*(arma::eye(dimensionOfControl_gp,dimensionOfControl_gp) - 1.0/(pow(0.25,2))*Laplace + 1.0/(pow(0.25,4))*Laplace_Squared);
-    //std::cout << Riesz << std::endl;
+    arma::mat Riesz = weight_control_gp*(arma::eye(dimensionOfControl_gp,dimensionOfControl_gp) - 1.0/(pow(db_gp,2))*Laplace + 1.0/(pow(db_gp,4))*Laplace_Squared);
+    std::cout << Riesz << std::endl;
     //std::cout << "Condition number Matrix Riesz: " << arma::cond(Riesz) << std::endl;
 
     gradient_Riesz = arma::solve(Riesz,-rhs_Riesz);

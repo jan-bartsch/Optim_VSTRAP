@@ -1,9 +1,6 @@
 #include "abstract_controller.h"
 
-abstract_controller::abstract_controller()
-{
-
-}
+abstract_controller::abstract_controller() { }
 
 data_provider abstract_controller::getData_provider_optim() const
 {

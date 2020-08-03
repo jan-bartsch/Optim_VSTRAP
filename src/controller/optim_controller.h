@@ -25,6 +25,8 @@
 #include "../io/output_control_update.h"
 #include "../io/output_diagnostics.h"
 
+#include "../logger/logger.h"
+
 class optim_controller : public abstract_controller
 {
 public:

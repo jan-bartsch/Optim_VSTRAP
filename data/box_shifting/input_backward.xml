@@ -1,6 +1,6 @@
 <simulation>
         <global_values>
-            <time_step value="1e-6"/>
+            <time_step value="1e-7"/>
         </global_values>
         <abort_criterium>
             <max_itterations value="30"/>
@@ -8,7 +8,7 @@
         <executables>
             <executable name="mesh_initializer" mode="CPU">
                 <mesh name="vol_mesh">
-                    <load>./box_vol_regular_small.xml</load>
+                    <load>../global/box_vol_regular_small.xml</load>
                 </mesh>
             </executable>
 		<executable name="particle_initializer" mode="CPU">
@@ -62,7 +62,7 @@
 					<temperature fixed="true" x="1000" y="1000" z="1000"/>
 				</species>
 			</background>
-			<load>interaction_data_mcc.xml</load>
+			<load>../global/interaction_data_mcc.xml</load>
 		</executable>
         </executables>
         <schedule>

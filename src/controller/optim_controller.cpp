@@ -236,7 +236,7 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
         outDiag.writeDoubleToFile(arma::norm(control,"fro"),"normControlTrack");
         interpolate_control(data_provider_opt);
 
-        logger::Info("Starting " + std::to_string(r+1) + " iteration");
+       logger::Info("Starting " + std::to_string(r+1) + " iteration");
     }
 
     return 0;

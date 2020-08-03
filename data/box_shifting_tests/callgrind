@@ -1,3 +1,0 @@
-https://baptiste-wicht.com/posts/2011/09/profile-c-application-with-callgrind-kcachegrind.html
-
-valgrind --tool=callgrind program [program_options]

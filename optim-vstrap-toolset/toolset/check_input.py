@@ -87,9 +87,9 @@ def check_input():
 	# Volume mesh
 	####
 	forward_vMesh = f_executables["mesh_initializer"].getElementsByTagName('mesh')[0].getElementsByTagName('load')[0].firstChild.nodeValue
-	forward_vMesh = forward_vMesh.replace('./', '/')
+	forward_vMesh = forward_vMesh.replace('../', '/')
 	backward_vMesh = b_executables["mesh_initializer"].getElementsByTagName('mesh')[0].getElementsByTagName('load')[0].firstChild.nodeValue
-	backward_vMesh = backward_vMesh.replace('./', '/')
+	backward_vMesh = backward_vMesh.replace('../', '/')
 	optim_vMesh = pathsList["DOMAIN_MESH"]
 
 	if (forward_vMesh == backward_vMesh):
