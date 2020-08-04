@@ -23,6 +23,7 @@ def check_input():
 	f_exec = forwardIn.getElementsByTagName('executables')[0]
 	b_exec = backwardIn.getElementsByTagName('executables')[0]
 
+
 	params = {}
 	pathsList = {}
 	subs = {}
@@ -36,7 +37,7 @@ def check_input():
 		pathsList[p.getAttribute("name")] = p.getAttribute("value")
 
 	for e in f_exec.getElementsByTagName('executable'):
-		#print(e.getAttribute("name"))
+		print(e.getAttribute("name"))
 		f_executables[e.getAttribute("name")] = e
 
 	for e in b_exec.getElementsByTagName('executable'):
@@ -113,6 +114,7 @@ def check_input():
 		print("[Check_Input] Control equal")
 	else:
 		print("[Check_Input] Controls are not equal")
+		all_clear = False
 		print(forward_control)
 		print(backward_control)
 
@@ -124,11 +126,31 @@ def check_input():
 
 
 	if (forward_pwi == backward_pwi):
-		print("[Check_Input] PWI equal")
+		print("[Check_Input] PWI boundary_type equal")
 	else:
-		print("[Check_Input] PWI are not equal:")
+		print("[Check_Input] PWI boundary_type are not equal:")
+		all_clear = False
 		print(forward_pwi)
 		print(backward_pwi)
+
+	####
+	# geometry
+	####
+	forward_geo = f_executables["particle_initializer"].getElementsByTagName('geometry')[0]
+	backward_geo = b_executables["adjoint_particle_creator"].getElementsByTagName('geometry')[0]
+	optim_geo = float(params["pmax_gp"])
+
+	if (forward_geo.getAttribute("x_min")==backward_geo.getAttribute("x_min") and forward_geo.getAttribute("y_min")==backward_geo.getAttribute("y_min") and forward_geo.getAttribute("z_min")==backward_geo.getAttribute("z_min")
+	and forward_geo.getAttribute("x_max")==backward_geo.getAttribute("x_max") and forward_geo.getAttribute("y_max")==backward_geo.getAttribute("y_max") and forward_geo.getAttribute("z_max")==backward_geo.getAttribute("z_max") ):
+		print("[Check input] Geometry equal")
+		if (optim_geo == float(forward_geo.getAttribute("x_max")) ):
+			print("[Check input] Geometry optim equal")
+		else:
+			print("[Check input] Geometry optim not equal")
+			all_clear = False
+	else:
+		print("[Check input] Geometry not equal")
+		all_clear = False;
 
 
 
