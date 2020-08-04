@@ -69,7 +69,7 @@ ax3.set_yscale('linear')
 # wasserstein distance
 ####
 try:
-	wd_file = open(args.pathToBuildSRC + "wassersteinDistanceTrack.txt")
+	wd_file = open(args.pathToBuildSRC + "stepsizeTrack.txt")
 
 
 	wd = wd_file.read().split("\n")
@@ -80,10 +80,10 @@ try:
 
 	ax4 = plt.subplot(224)
 	plt.plot(wd_float)
-	plt.title("Wasserstein distance (init/curr)")
-	ax4.set_yscale('linear')
+	plt.title("stepsizeTrack")
+	ax4.set_yscale('log')
 except:
-	print("No wasserstein Distance file existing")
+	print("No stepsizeTrack file existing")
 
 tikzplotlib.save("fig/post_processing_converging.tex")
 #plt.savefig("../results/optimization_monitoring.png")

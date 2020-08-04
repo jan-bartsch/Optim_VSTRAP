@@ -76,7 +76,7 @@ class Control_field:
 
 		fig = plt.figure(figsize=(10,10))
 		ax = fig.add_subplot(111, projection='3d')
-		ax.set(xlim=(-0.05, 0.05), ylim=(0.05, -0.05),zlim=(-0.05,0.05))
+		ax.set(xlim=(-0.5, 0.5), ylim=(0.5, -0.5),zlim=(-0.5,0.5))
 		ax.set_xlabel('x axis')
 		ax.set_ylabel('y axis')
 		ax.set_zlabel('z axis')

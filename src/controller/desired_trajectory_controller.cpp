@@ -61,6 +61,8 @@ std::vector<double> desired_trajectory_controller::trajectory_desired_shifting_h
 {
     std::vector<double> p_d(6,0.0);
 
+     double expected_speed = static_cast<double>(this->getData_provider_optim().getOptimizationParameters().find("expected_speed")->second);
+
     if (barycenter[0] < 0) {
         p_d[0] = 0;
     } else {
@@ -72,7 +74,7 @@ std::vector<double> desired_trajectory_controller::trajectory_desired_shifting_h
 //    p_d[2] = 100.0;
 //    p_d[3] = 100.0;
 
-    p_d[4] =70.0;
+    p_d[4] = expected_speed;
     return p_d;
 
 
