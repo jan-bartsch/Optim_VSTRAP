@@ -1,6 +1,6 @@
 <simulation>
         <global_values>
-            <time_step value="1e-5"/>
+            <time_step value="1e-7"/>
         </global_values>
         <abort_criterium>
             <max_itterations value="25"/>
