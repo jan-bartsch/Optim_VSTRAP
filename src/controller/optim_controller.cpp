@@ -67,6 +67,13 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
     outDiag.writeGradientToFile(test,"test");
 
     equation_solving_controller model_solver = equation_solving_controller();
+    model_solver.setData_provider_optim(data_provider_opt);
+
+    arma::mat Laplace = model_solver.Laplacian_3D();
+    outController.writeArmaMatrixToFile(Laplace,"LaplacianSmall3D");
+
+    arma::mat Laplace_2 = model_solver.Laplacian_Squared_3D();
+    outController.writeArmaMatrixToFile(Laplace_2,"LaplacianSmall3D_Squared");
 
     std::map<std::string, double> optimizationParameters = data_provider_opt.getOptimizationParameters();
     std::map<std::string, std::string> paths = data_provider_opt.getPaths();

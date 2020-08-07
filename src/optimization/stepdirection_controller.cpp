@@ -9,6 +9,7 @@ stepdirection_controller::stepdirection_controller(const char *filename)
 arma::mat stepdirection_controller::get_stepdirection(arma::mat gradient, arma::mat gradient_old, arma::mat stepdirectionOld, unsigned int optimization_iteration)
 {
     std::map<std::string,std::string> subroutines = this->getData_provider_optim().getSubroutines();
+    std::map<std::string,double> optim_paramters = this->getData_provider_optim().getOptimizationParameters();
     std::string control_update = subroutines.find("direction_update")->second;
 
     if(optimization_iteration == 1) {
@@ -38,7 +39,9 @@ arma::mat stepdirection_controller::get_stepdirection(arma::mat gradient, arma::
 
 arma::mat stepdirection_controller::fixed_gradient_descent(arma::mat gradient, unsigned int optimization_iteration)
 {
-    return -gradient;
+    std::map<std::string,double> optim_parameters = this->getData_provider_optim().getOptimizationParameters();
+    double stepsize = static_cast<double>(optim_parameters.find("fixed_gradient_descent_stepsize")->second);
+    return -stepsize*gradient;
 }
 
 arma::mat stepdirection_controller::ncg_scheme_FR(arma::mat gradient, arma::mat gradient_old, arma::mat stepdirectionOld, unsigned int optimization_iteration)

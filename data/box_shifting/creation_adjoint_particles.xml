@@ -7,7 +7,7 @@
  		</position>
 		<velocity> 
  			<mu x_val = "-100.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "250.66282746310003" y_val = "250.66282746310003" z_val = "250.66282746310003"/> 
+			<sigma x_val = "626.6570686577501" y_val = "626.6570686577501" z_val = "626.6570686577501"/> 
  		</velocity>
 	</set>
 	<set iteration="1">
@@ -18,7 +18,7 @@
  		</position>
 		<velocity> 
  			<mu x_val = "-100.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "250.66282746310003" y_val = "250.66282746310003" z_val = "250.66282746310003"/> 
+			<sigma x_val = "626.6570686577501" y_val = "626.6570686577501" z_val = "626.6570686577501"/> 
  		</velocity>
 	</set>
 	<set iteration="2">
@@ -29,7 +29,7 @@
  		</position>
 		<velocity> 
  			<mu x_val = "-100.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "250.66282746310003" y_val = "250.66282746310003" z_val = "250.66282746310003"/> 
+			<sigma x_val = "626.6570686577501" y_val = "626.6570686577501" z_val = "626.6570686577501"/> 
  		</velocity>
 	</set>
 	<set iteration="3">
@@ -40,7 +40,7 @@
  		</position>
 		<velocity> 
  			<mu x_val = "-100.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "250.66282746310003" y_val = "250.66282746310003" z_val = "250.66282746310003"/> 
+			<sigma x_val = "626.6570686577501" y_val = "626.6570686577501" z_val = "626.6570686577501"/> 
  		</velocity>
 	</set>
 	<set iteration="4">
@@ -51,7 +51,7 @@
  		</position>
 		<velocity> 
  			<mu x_val = "-100.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "250.66282746310003" y_val = "250.66282746310003" z_val = "250.66282746310003"/> 
+			<sigma x_val = "626.6570686577501" y_val = "626.6570686577501" z_val = "626.6570686577501"/> 
  		</velocity>
 	</set>
 	<set iteration="5">
@@ -62,7 +62,7 @@
  		</position>
 		<velocity> 
  			<mu x_val = "-100.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "250.66282746310003" y_val = "250.66282746310003" z_val = "250.66282746310003"/> 
+			<sigma x_val = "626.6570686577501" y_val = "626.6570686577501" z_val = "626.6570686577501"/> 
  		</velocity>
 	</set>
 	<set iteration="6">
@@ -73,7 +73,7 @@
  		</position>
 		<velocity> 
  			<mu x_val = "-100.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "250.66282746310003" y_val = "250.66282746310003" z_val = "250.66282746310003"/> 
+			<sigma x_val = "626.6570686577501" y_val = "626.6570686577501" z_val = "626.6570686577501"/> 
  		</velocity>
 	</set>
 	<set iteration="7">
@@ -84,7 +84,7 @@
  		</position>
 		<velocity> 
  			<mu x_val = "-100.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "250.66282746310003" y_val = "250.66282746310003" z_val = "250.66282746310003"/> 
+			<sigma x_val = "626.6570686577501" y_val = "626.6570686577501" z_val = "626.6570686577501"/> 
  		</velocity>
 	</set>
 	<set iteration="8">
@@ -95,7 +95,7 @@
  		</position>
 		<velocity> 
  			<mu x_val = "-100.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "250.66282746310003" y_val = "250.66282746310003" z_val = "250.66282746310003"/> 
+			<sigma x_val = "626.6570686577501" y_val = "626.6570686577501" z_val = "626.6570686577501"/> 
  		</velocity>
 	</set>
 	<set iteration="9">
@@ -106,7 +106,7 @@
  		</position>
 		<velocity> 
  			<mu x_val = "-100.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "250.66282746310003" y_val = "250.66282746310003" z_val = "250.66282746310003"/> 
+			<sigma x_val = "626.6570686577501" y_val = "626.6570686577501" z_val = "626.6570686577501"/> 
  		</velocity>
 	</set>
 	<set iteration="10">
@@ -117,7 +117,7 @@
  		</position>
 		<velocity> 
  			<mu x_val = "-100.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "250.66282746310003" y_val = "250.66282746310003" z_val = "250.66282746310003"/> 
+			<sigma x_val = "626.6570686577501" y_val = "626.6570686577501" z_val = "626.6570686577501"/> 
  		</velocity>
 	</set>
 	<set iteration="11">
@@ -128,7 +128,7 @@
  		</position>
 		<velocity> 
  			<mu x_val = "-100.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "250.66282746310003" y_val = "250.66282746310003" z_val = "250.66282746310003"/> 
+			<sigma x_val = "626.6570686577501" y_val = "626.6570686577501" z_val = "626.6570686577501"/> 
  		</velocity>
 	</set>
 	<set iteration="12">
@@ -139,7 +139,7 @@
  		</position>
 		<velocity> 
  			<mu x_val = "-100.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "250.66282746310003" y_val = "250.66282746310003" z_val = "250.66282746310003"/> 
+			<sigma x_val = "626.6570686577501" y_val = "626.6570686577501" z_val = "626.6570686577501"/> 
  		</velocity>
 	</set>
 	<set iteration="13">
@@ -150,7 +150,7 @@
  		</position>
 		<velocity> 
  			<mu x_val = "-100.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "250.66282746310003" y_val = "250.66282746310003" z_val = "250.66282746310003"/> 
+			<sigma x_val = "626.6570686577501" y_val = "626.6570686577501" z_val = "626.6570686577501"/> 
  		</velocity>
 	</set>
 	<set iteration="14">
@@ -161,7 +161,7 @@
  		</position>
 		<velocity> 
  			<mu x_val = "-100.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "250.66282746310003" y_val = "250.66282746310003" z_val = "250.66282746310003"/> 
+			<sigma x_val = "626.6570686577501" y_val = "626.6570686577501" z_val = "626.6570686577501"/> 
  		</velocity>
 	</set>
 	<set iteration="15">
@@ -172,7 +172,7 @@
  		</position>
 		<velocity> 
  			<mu x_val = "-100.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "250.66282746310003" y_val = "250.66282746310003" z_val = "250.66282746310003"/> 
+			<sigma x_val = "626.6570686577501" y_val = "626.6570686577501" z_val = "626.6570686577501"/> 
  		</velocity>
 	</set>
 	<set iteration="16">
@@ -183,7 +183,7 @@
  		</position>
 		<velocity> 
  			<mu x_val = "-100.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "250.66282746310003" y_val = "250.66282746310003" z_val = "250.66282746310003"/> 
+			<sigma x_val = "626.6570686577501" y_val = "626.6570686577501" z_val = "626.6570686577501"/> 
  		</velocity>
 	</set>
 	<set iteration="17">
@@ -194,7 +194,7 @@
  		</position>
 		<velocity> 
  			<mu x_val = "-100.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "250.66282746310003" y_val = "250.66282746310003" z_val = "250.66282746310003"/> 
+			<sigma x_val = "626.6570686577501" y_val = "626.6570686577501" z_val = "626.6570686577501"/> 
  		</velocity>
 	</set>
 	<set iteration="18">
@@ -205,7 +205,7 @@
  		</position>
 		<velocity> 
  			<mu x_val = "-100.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "250.66282746310003" y_val = "250.66282746310003" z_val = "250.66282746310003"/> 
+			<sigma x_val = "626.6570686577501" y_val = "626.6570686577501" z_val = "626.6570686577501"/> 
  		</velocity>
 	</set>
 	<set iteration="19">
@@ -216,7 +216,7 @@
  		</position>
 		<velocity> 
  			<mu x_val = "-100.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "250.66282746310003" y_val = "250.66282746310003" z_val = "250.66282746310003"/> 
+			<sigma x_val = "626.6570686577501" y_val = "626.6570686577501" z_val = "626.6570686577501"/> 
  		</velocity>
 	</set>
 	<set iteration="20">
@@ -227,7 +227,7 @@
  		</position>
 		<velocity> 
  			<mu x_val = "-100.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "250.66282746310003" y_val = "250.66282746310003" z_val = "250.66282746310003"/> 
+			<sigma x_val = "626.6570686577501" y_val = "626.6570686577501" z_val = "626.6570686577501"/> 
  		</velocity>
 	</set>
 	<set iteration="21">
@@ -238,7 +238,7 @@
  		</position>
 		<velocity> 
  			<mu x_val = "-100.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "250.66282746310003" y_val = "250.66282746310003" z_val = "250.66282746310003"/> 
+			<sigma x_val = "626.6570686577501" y_val = "626.6570686577501" z_val = "626.6570686577501"/> 
  		</velocity>
 	</set>
 	<set iteration="22">
@@ -249,7 +249,7 @@
  		</position>
 		<velocity> 
  			<mu x_val = "-100.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "250.66282746310003" y_val = "250.66282746310003" z_val = "250.66282746310003"/> 
+			<sigma x_val = "626.6570686577501" y_val = "626.6570686577501" z_val = "626.6570686577501"/> 
  		</velocity>
 	</set>
 	<set iteration="23">
@@ -260,7 +260,7 @@
  		</position>
 		<velocity> 
  			<mu x_val = "-100.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "250.66282746310003" y_val = "250.66282746310003" z_val = "250.66282746310003"/> 
+			<sigma x_val = "626.6570686577501" y_val = "626.6570686577501" z_val = "626.6570686577501"/> 
  		</velocity>
 	</set>
 	<set iteration="24">
@@ -271,7 +271,7 @@
  		</position>
 		<velocity> 
  			<mu x_val = "-100.0 " y_val = "0.0" z_val = "0.0" />
-			<sigma x_val = "250.66282746310003" y_val = "250.66282746310003" z_val = "250.66282746310003"/> 
+			<sigma x_val = "626.6570686577501" y_val = "626.6570686577501" z_val = "626.6570686577501"/> 
  		</velocity>
 	</set>
 </parameraters>

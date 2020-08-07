@@ -32,6 +32,7 @@ double objective_calculator::calculate_objective_L2(std::vector<std::unordered_m
     double C_theta_gp = static_cast<double>(optimizationParameters.find("C_theta_gp")->second);
     double sigma_x_gp = static_cast<double>(optimizationParameters.find("sigma_x_gp")->second);
     double sigma_v_gp = static_cast<double>(optimizationParameters.find("sigma_v_gp")->second);
+    double velocity_part_objective = static_cast<double>(optimizationParameters.find("velocity_part_objective")->second);
 
     static arma::vec positionDiscr_gp = arma::linspace<arma::vec>(0.0,pmax_gp,pcell_gp+1);
     static arma::vec velocityDiscr_gp = arma::linspace<arma::vec>(-vmax_gp,vmax_gp,vcell_gp);
@@ -107,7 +108,7 @@ double objective_calculator::calculate_objective_L2(std::vector<std::unordered_m
                         if(objective_calculation.compare("magnitude")==0) {
                             current_trackPot = - C_theta_gp/(2.0*M_PI*sigma_x_gp*sigma_v_gp)*exp(
                                         -(p_d[0]*p_d[0]/(2.0*sigma_x_gp*sigma_x_gp)+
-                                    0.0*std::abs(velocityDiscr_gp(l)*velocityDiscr_gp(l)+velocityDiscr_gp(m)*velocityDiscr_gp(m)
+                                    velocity_part_objective*std::abs(velocityDiscr_gp(l)*velocityDiscr_gp(l)+velocityDiscr_gp(m)*velocityDiscr_gp(m)
                                         +velocityDiscr_gp(n)*velocityDiscr_gp(n)
                                         -p_d[4]*p_d[4])/(2.0*sigma_v_gp*sigma_v_gp)
                                     ));
@@ -148,6 +149,10 @@ double objective_calculator::calculate_objective_L2(std::vector<std::unordered_m
 
 
     objective += weight_control_gp*costOfControl;
+
+    if(objective > 0) {
+        logger::Info("Value of functional positiv - influence of control may be to big");
+    }
 
     std::cout << "Value of objective: " << objective << std::endl;
 

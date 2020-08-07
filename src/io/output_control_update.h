@@ -21,12 +21,14 @@ public:
     output_control_update();
     output_control_update(const char *filename);
 
+
     /**
      * @brief writeControl_XML takes a control and writes a corresponding XML file
      * @param control (arma::mat)
      * @return 0 if processed successfully
      */
     int writeControl_XML(arma::mat control);
+    int writeArmaMatrixToFile(arma::mat input, std::string filename);
 };
 
 #endif // OUTPUT_CONTROL_UPDATE_H

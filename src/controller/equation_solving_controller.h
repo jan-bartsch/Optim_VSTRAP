@@ -1,10 +1,10 @@
 #ifndef EQUATION_SOLVING_CONTROLLER_H
 #define EQUATION_SOLVING_CONTROLLER_H
 
-#include "abstract_controller.h"
-
 #include <map>
 
+#include "abstract_controller.h"
+#include "../objects/comparator.h"
 
 class equation_solving_controller : public abstract_controller
 {

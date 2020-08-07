@@ -26,8 +26,8 @@ v_x = -100.0;
 v_y = 0.0;
 v_z = 0.0;
 
-most_probable_speed = 4e+2;
-expected_speed = 4e+2;
+most_probable_speed = 1e+3;
+expected_speed = 1e+3;
 
 sigma_v = math.sqrt(math.pi/8.0)*expected_speed
 #sigma_v = math.sqrt(1.0/2.0)*most_probable_-speed

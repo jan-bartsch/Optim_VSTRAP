@@ -17,30 +17,27 @@ int equation_solving_controller::start_solving_backward(std::string start_backwa
 
 arma::mat equation_solving_controller::Laplacian_3D()
 {
+    comparator comp = comparator();
+
     std::map<std::string, double> optimizationParameters = this->getData_provider_optim().getOptimizationParameters();
     std::map<int,std::vector<double>> barycenters = this->getData_provider_optim().getMesh_barycenters();
 
-    unsigned int pcell_gp = static_cast<unsigned int>(optimizationParameters.find("pcell_gp")->second);
-    unsigned int vcell_gp = static_cast<unsigned int>(optimizationParameters.find("vcell_gp")->second);
-    unsigned int ntimesteps_gp = static_cast<unsigned int>(optimizationParameters.find("ntimesteps_gp")->second);
     unsigned int dimensionOfControl_gp = static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second);
-    double dv_gp = static_cast<double>(optimizationParameters.find("dv_gp")->second);
-    double dt_gp = static_cast<double>(optimizationParameters.find("dt_gp")->second);
     double db_gp = static_cast<double>(optimizationParameters.find("db_gp")->second);
     double pmax_gp = static_cast<double>(optimizationParameters.find("pmax_gp")->second);
-    double weight_control_gp = static_cast<double>(optimizationParameters.find("weight_control_gp")->second);
 
     std::vector<double> current_barycenter;
     std::vector<double> next_cell_xm; std::vector<double> next_cell_xp;
     std::vector<double> next_cell_ym;std::vector<double> next_cell_yp;
     std::vector<double> next_cell_zm;std::vector<double> next_cell_zp;
-    int cell_id;
 
     arma::mat gradient(dimensionOfControl_gp,3,arma::fill::zeros);
     arma::mat Laplace(dimensionOfControl_gp,dimensionOfControl_gp,arma::fill::zeros);
 
     int start_control = static_cast<int>(optimizationParameters.find("start_control_gp")->second);
     int end_control = static_cast<int>(optimizationParameters.find("end_control_gp")->second);
+
+    double fabs_tol_gp = static_cast<double>(optimizationParameters.find("fabs_tol_gp")->second);
 
 
     for(int i = start_control; i<=end_control; i++) {
@@ -76,7 +73,12 @@ arma::mat equation_solving_controller::Laplacian_3D()
 
         for(int l = start_control; l<=end_control;l++) {
             std::vector<double> temp = barycenters.find(l)->second;
-            if (temp == next_cell_xm || temp == next_cell_xp || temp == next_cell_ym || temp == next_cell_yp || temp == next_cell_zm || temp == next_cell_zp) {
+            if (comp.norm_difference_doubleVector(temp,next_cell_xm) < fabs_tol_gp ||
+                   comp.norm_difference_doubleVector(temp,next_cell_xp) < fabs_tol_gp ||
+                   comp.norm_difference_doubleVector(temp, next_cell_ym) < fabs_tol_gp ||
+                   comp.norm_difference_doubleVector(temp, next_cell_yp) < fabs_tol_gp ||
+                   comp.norm_difference_doubleVector(temp, next_cell_zm) < fabs_tol_gp ||
+                   comp.norm_difference_doubleVector(temp, next_cell_zp) < fabs_tol_gp) {
                 if (i != l) {
                     Laplace(i-start_control,l-start_control) = 1.0;
                 }
@@ -89,18 +91,15 @@ arma::mat equation_solving_controller::Laplacian_3D()
 
 arma::mat equation_solving_controller::Laplacian_Squared_3D()
 {
+    comparator comp = comparator();
+
     std::map<std::string, double> optimizationParameters = this->getData_provider_optim().getOptimizationParameters();
     std::map<int,std::vector<double>> barycenters = this->getData_provider_optim().getMesh_barycenters();
 
-    unsigned int pcell_gp = static_cast<unsigned int>(optimizationParameters.find("pcell_gp")->second);
-    unsigned int vcell_gp = static_cast<unsigned int>(optimizationParameters.find("vcell_gp")->second);
-    unsigned int ntimesteps_gp = static_cast<unsigned int>(optimizationParameters.find("ntimesteps_gp")->second);
     unsigned int dimensionOfControl_gp = static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second);
-    double dv_gp = static_cast<double>(optimizationParameters.find("dv_gp")->second);
-    double dt_gp = static_cast<double>(optimizationParameters.find("dt_gp")->second);
     double db_gp = static_cast<double>(optimizationParameters.find("db_gp")->second);
     double pmax_gp = static_cast<double>(optimizationParameters.find("pmax_gp")->second);
-    double weight_control_gp = static_cast<double>(optimizationParameters.find("weight_control_gp")->second);
+    double fabs_tol_gp = static_cast<double>(optimizationParameters.find("fabs_tol_gp")->second);
 
     std::vector<double> current_barycenter;
     std::vector<double> next_cell_xm; std::vector<double> next_cell_xp;
@@ -177,12 +176,22 @@ arma::mat equation_solving_controller::Laplacian_Squared_3D()
 
         for(int l = start_control; l<=end_control;l++) {
             std::vector<double> temp = barycenters.find(l)->second;
-            if (temp == next_cell_xm || temp == next_cell_xp || temp == next_cell_ym || temp == next_cell_yp || temp == next_cell_zm || temp == next_cell_zp) {
+            if (comp.norm_difference_doubleVector(temp,next_cell_xm) < fabs_tol_gp ||
+                   comp.norm_difference_doubleVector(temp,next_cell_xp) < fabs_tol_gp ||
+                   comp.norm_difference_doubleVector(temp, next_cell_ym) < fabs_tol_gp ||
+                   comp.norm_difference_doubleVector(temp, next_cell_yp) < fabs_tol_gp ||
+                   comp.norm_difference_doubleVector(temp, next_cell_zm) < fabs_tol_gp ||
+                   comp.norm_difference_doubleVector(temp, next_cell_zp) < fabs_tol_gp) {
                 if (i != l) {
                     Laplace(i-start_control,l-start_control) = -4.0;
                 }
             }
-            if (temp == next_cell_xmm || temp == next_cell_xpp || temp == next_cell_ymm || temp == next_cell_ypp || temp == next_cell_zmm || temp == next_cell_zpp) {
+            if (comp.norm_difference_doubleVector(temp, next_cell_xmm) < fabs_tol_gp ||
+                    comp.norm_difference_doubleVector(temp, next_cell_xpp) < fabs_tol_gp ||
+                    comp.norm_difference_doubleVector(temp,next_cell_ymm) < fabs_tol_gp ||
+                    comp.norm_difference_doubleVector(temp,next_cell_ypp) < fabs_tol_gp ||
+                    comp.norm_difference_doubleVector(temp,next_cell_zmm) < fabs_tol_gp ||
+                    comp.norm_difference_doubleVector(temp, next_cell_zpp) < fabs_tol_gp) {
                 if (i != l) {
                     Laplace(i-start_control,l-start_control) = -1.0;
                 }

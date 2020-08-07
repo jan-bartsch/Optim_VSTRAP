@@ -4,12 +4,12 @@
 	      <parameter name="armijo_descent_fraction" value="1e-30" />
 	      <parameter name="calculation_functional" value="1" />
 	      <parameter name="calculation_wasserstein" value="1" />
-        <parameter name="C_theta_gp" value="1e+8" />
-        <parameter name="C_phi_gp" value="1e+8" />
+        <parameter name="C_theta_gp" value="1e+25" />
+        <parameter name="C_phi_gp" value="1e+25" />
         <parameter name="sigma_x_gp" value="0.005" />
-        <parameter name="sigma_v_gp" value="3e+2" />
+        <parameter name="sigma_v_gp" value="626.0" />
 
-        <parameter name="fixed_gradient_descent_stepsize" value="1e-1" />
+        <parameter name="fixed_gradient_descent_stepsize" value="1e+4" />
 	      <parameter name="fraction_of_optimal_control" value="1e-5" />
         <parameter name="optimizationIteration_max_gp" value="100" />       <!-- number of maximal interations -->
         <parameter name="numberParticles_gp" value="2000" />
@@ -42,7 +42,12 @@
         <parameter name="start_control_gp" value="17" />
         <parameter name="local_control_x_min_gp" value="-0.02" />
         <parameter name="local_control_x_max_gp" value="0.02" />
-        <parameter name="weight_control_gp" value="1e-2" />
+        <parameter name="weight_control_gp" value="1e+0" />
+
+        <parameter name="velocity_part_objective" value="0.0" />
+
+        <!-- -->
+        <parameter name="fabs_tol_gp" value="1e-14" />
     </globalParameters>
 
 
