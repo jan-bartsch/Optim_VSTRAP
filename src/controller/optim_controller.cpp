@@ -69,11 +69,11 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
     equation_solving_controller model_solver = equation_solving_controller();
     model_solver.setData_provider_optim(data_provider_opt);
 
-    arma::mat Laplace = model_solver.Laplacian_3D();
-    outController.writeArmaMatrixToFile(Laplace,"LaplacianSmall3D");
+    //    arma::mat Laplace = model_solver.Laplacian_3D();
+    //    outController.writeArmaMatrixToFile(Laplace,"LaplacianSmall3D");
 
-    arma::mat Laplace_2 = model_solver.Laplacian_Squared_3D();
-    outController.writeArmaMatrixToFile(Laplace_2,"LaplacianSmall3D_Squared");
+    //    arma::mat Laplace_2 = model_solver.Laplacian_Squared_3D();
+    //    outController.writeArmaMatrixToFile(Laplace_2,"LaplacianSmall3D_Squared");
 
     std::map<std::string, double> optimizationParameters = data_provider_opt.getOptimizationParameters();
     std::map<std::string, std::string> paths = data_provider_opt.getPaths();
@@ -85,6 +85,7 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
     unsigned int calculation_wasserstein = static_cast<unsigned int>(optimizationParameters.find("calculation_wasserstein")->second);
     double fixed_gradient_descent_stepsize = static_cast<double>(optimizationParameters.find("fixed_gradient_descent_stepsize")->second);
     double fraction_of_optimal_control = static_cast<double>(optimizationParameters.find("fraction_of_optimal_control")->second);
+    double fabs_tol_gp = static_cast<double>(optimizationParameters.find("fabs_tol_gp")->second);
 
     std::string BUILD_DIRECTORY_VSTRAP = paths.find("BUILD_DIRECTORY_VSTRAP")->second;
     std::string BUILD_DIRECTORY_OPTIM = paths.find("BUILD_DIRECTORY_OPTIM")->second;
@@ -221,7 +222,7 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
         stepsize_before = stepsize;
         stepsize_flag = stepsize_contr.calculate_stepsize(gradient,value_objective,control,
                                                           stepDirection,forwardParticles[0],stepsize);
-        if (stepsize == stepsize_before) {
+        if (std::fabs(stepsize - stepsize_before) < fabs_tol_gp ) {
             stepsize = 2.0*stepsize; //Increase stepsize if too small (orthwise start with last stepsize)
         }
 
@@ -243,7 +244,7 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
         outDiag.writeDoubleToFile(arma::norm(control,"fro"),"normControlTrack");
         interpolate_control(data_provider_opt);
 
-       logger::Info("Starting " + std::to_string(r+1) + " iteration");
+        logger::Info("Starting " + std::to_string(r+1) + " iteration");
     }
 
     return 0;

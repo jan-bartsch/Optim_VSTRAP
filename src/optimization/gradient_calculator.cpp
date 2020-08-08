@@ -163,8 +163,8 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm(std::vect
     arma::mat Laplace = model_solver.Laplacian_3D();
     arma::mat Laplace_Squared = model_solver.Laplacian_Squared_3D();
 
-    std::cout << Laplace << std::endl;
-    std::cout << Laplace_Squared << std::endl;
+    //std::cout << Laplace << std::endl;
+    //std::cout << Laplace_Squared << std::endl;
 
     arma::mat gradient(pcell_gp,3,arma::fill::zeros);
     arma::mat gradient_Riesz(dimensionOfControl_gp,3,arma::fill::zeros);

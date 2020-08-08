@@ -10,7 +10,8 @@ void logger::InitLog() {
             );
 
     boost::log::add_file_log(boost::log::keywords::file_name = "%Y-%m-%d_%H:%M:%S.log",
-                             boost::log::keywords::format = "[%TimeStamp%] [%Severity%] %Message%");
+                             boost::log::keywords::format = "[%TimeStamp%] [%Severity%] %Message%",
+                             boost::log::keywords::auto_flush = true);
 }
 
 void logger::STLException(std::exception& e) { BOOST_LOG_TRIVIAL(fatal) << e.what() << std::endl; }

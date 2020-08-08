@@ -1,9 +1,6 @@
 #include "equation_solving_controller.h"
 
-equation_solving_controller::equation_solving_controller()
-{
-
-}
+equation_solving_controller::equation_solving_controller() { }
 
 int equation_solving_controller::start_solving_forward(std::string start_forward)
 {
