@@ -3,7 +3,7 @@
             <time_step value="1e-7"/>
         </global_values>
         <abort_criterium>
-            <max_itterations value="25"/>
+            <max_itterations value="15"/>
         </abort_criterium>
         <executables>
             <executable name="mesh_initializer" mode="CPU">

@@ -65,7 +65,9 @@ std::unordered_map<coordinate_phase_space_time, double> pdf_controller::assembli
                     pdf[coordinate]++;
                 }
             } else {
-                // std::cout << "Particle " + std::to_string(i) + " exceeding velocity bound" << std::endl;
+                if (equationType == 0) {
+                    std::cout << "Particle " + std::to_string(i) + " exceeding velocity bound" << std::endl;
+                }
             }
         }
     }

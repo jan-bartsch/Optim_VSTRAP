@@ -108,10 +108,11 @@ double objective_calculator::calculate_objective_L2(std::vector<std::unordered_m
                         if(objective_calculation.compare("magnitude")==0) {
                             current_trackPot = - C_theta_gp/(2.0*M_PI*sigma_x_gp*sigma_v_gp)*exp(
                                         -(p_d[0]*p_d[0]/(2.0*sigma_x_gp*sigma_x_gp)+
-                                    velocity_part_objective*std::abs(velocityDiscr_gp(l)*velocityDiscr_gp(l)+velocityDiscr_gp(m)*velocityDiscr_gp(m)
+                                    0.0*std::abs(velocityDiscr_gp(l)*velocityDiscr_gp(l)+velocityDiscr_gp(m)*velocityDiscr_gp(m)
                                         +velocityDiscr_gp(n)*velocityDiscr_gp(n)
                                         -p_d[4]*p_d[4])/(2.0*sigma_v_gp*sigma_v_gp)
                                     ));
+                            //std::cout << current_barycenter[0] << ", " << current_trackPot << std::endl;
                         } else if(objective_calculation.compare("components")==0) {
                             current_trackPot = - C_theta_gp/(2.0*M_PI*sigma_x_gp*sigma_v_gp)*exp(
                                         -(p_d[0]*p_d[0]/(2.0*sigma_x_gp*sigma_x_gp)+
@@ -121,7 +122,7 @@ double objective_calculator::calculate_objective_L2(std::vector<std::unordered_m
                                     ));
                         }
                         if (forwardPDF_time[o].find(coordinate) != forwardPDF_time[o].end()) {
-                            objective_time[o] += forwardPDF_time[o].at(coordinate)*current_trackPot*pow(dp_gp,3.0)*pow(dv_gp,2.0)*dt_gp;
+                            objective_time[o] += forwardPDF_time[o].at(coordinate)*current_trackPot*dp_gp*pow(dv_gp,3.0)*dt_gp;
                         } else {
                             std::runtime_error("No such objective calculation rule");
                         }
@@ -141,7 +142,7 @@ double objective_calculator::calculate_objective_L2(std::vector<std::unordered_m
     }
 
     //add control, no trapezodial rule needed since control is zero at the boundary (?)
-    costOfControl += 1.0/2.0*arma::norm(control,"fro")*arma::norm(control,"fro")*pow(dp_gp,1.0);
+    //costOfControl += 1.0/2.0*arma::norm(control,"fro")*arma::norm(control,"fro")*pow(dp_gp,1.0);
     // dp_gp^1 since we have elements with volume dp_gp
 
     //arma::mat second_derivative = solver.Laplacian_3D();
