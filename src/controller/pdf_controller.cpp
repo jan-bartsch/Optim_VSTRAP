@@ -5,11 +5,9 @@ pdf_controller::pdf_controller()
 
 }
 
-std::unordered_map<coordinate_phase_space_time, double> pdf_controller::assemblingMultiDim(std::vector<std::vector<particle>> &particlesTime, unsigned int equationType)
+int pdf_controller::assemblingMultiDim(std::vector<std::vector<particle>> &particlesTime, unsigned int equationType,
+                                       std::unordered_map<coordinate_phase_space_time, double> &pdf)
 {
-    std::unordered_map<coordinate_phase_space_time,double> pdf;
-
-
     double scaling = 1.0;
 
     unsigned int ntimesteps_gp = static_cast<unsigned int>(this->getData_provider_optim().getOptimizationParameters().find("ntimesteps_gp")->second);
@@ -20,6 +18,7 @@ std::unordered_map<coordinate_phase_space_time, double> pdf_controller::assembli
     double vcell_gp = this->getData_provider_optim().getOptimizationParameters().find("vcell_gp")->second;
 
     std::vector<double> sizeParticles(ntimesteps_gp);
+    pdf.clear();
 
     int too_fast_particles = 0;
 
@@ -72,30 +71,35 @@ std::unordered_map<coordinate_phase_space_time, double> pdf_controller::assembli
                     logger::Warning("Particle " + std::to_string(i) + " exceeding velocity bound");
                     if (too_fast_particles >= fraction_fast_particles_gp*particles.size()) {
                         logger::Trace("Too many too fast particles, try to increase velocity bound");
-                        throw std::runtime_error("Too many too fast particles, try to increase velocity bound");
+                        return 1;
                     }
                 }
             }
         }
     }
 
-    return pdf;
+    return 0;
 
 }
 
-std::vector<std::unordered_map<coordinate_phase_space_time, double> > pdf_controller::assemblingMultiDim_parallel(std::vector<std::vector<particle>> &particlesTime, unsigned int equationType)
+int pdf_controller::assemblingMultiDim_parallel(std::vector<std::vector<particle>> &particlesTime, unsigned int equationType,
+                                                std::vector<std::unordered_map<coordinate_phase_space_time, double>> &pdf_time)
 {
     unsigned int ntimesteps_gp = static_cast<unsigned int>(this->getData_provider_optim().getOptimizationParameters().find("ntimesteps_gp")->second);
     double vmax_gp = this->getData_provider_optim().getOptimizationParameters().find("vmax_gp")->second;
 
+    double fraction_fast_particles_gp = this->getData_provider_optim().getOptimizationParameters().find("fraction_fast_particles_gp")->second;
+    int too_fast_particles = 0;
+
     double dv_gp = this->getData_provider_optim().getOptimizationParameters().find("dv_gp")->second;
     double vcell_gp = this->getData_provider_optim().getOptimizationParameters().find("vcell_gp")->second;
 
-    std::unordered_map<coordinate_phase_space_time,double> pdf;
-
-    std::vector<std::unordered_map<coordinate_phase_space_time,double>> pdf_time(ntimesteps_gp);
+    pdf_time.clear();
+    pdf_time.resize(ntimesteps_gp);
 
     std::vector<double> sizeParticles(ntimesteps_gp);
+
+    int return_flag=0;
 
     //std::cout << "Using " <<  usedThreads << " threads for assembling pdfs" << std::endl;
 
@@ -134,12 +138,19 @@ std::vector<std::unordered_map<coordinate_phase_space_time, double> > pdf_contro
                     pdf_time[o][coordinate]++;
                 }
             } else {
-                // std::cout << "Particle " + std::to_string(i) + " exceeding velocity bound" << std::endl;
+                if (equationType == 0) {
+                    too_fast_particles++;
+                    logger::Warning("Particle " + std::to_string(i) + " exceeding velocity bound");
+                    if (too_fast_particles >= fraction_fast_particles_gp*particles.size()) {
+                        logger::Trace("Too many too fast particles, try to increase velocity bound");
+                        return_flag = 1;
+                    }
+                }
             }
         }
     }
 
-    return pdf_time;
+    return return_flag;
 }
 
 std::vector<std::vector<std::vector<std::vector<double>>>> pdf_controller::relaxating_GaussSeidel_4D(std::vector<std::vector<std::vector<std::vector<double>>>> pdf,

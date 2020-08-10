@@ -2,7 +2,6 @@
 
 optim_controller::optim_controller() {
     logger::InitLog();
-    logger::Info("hi");
     std::cout << "Initialising optim_controller" << std::endl;
 }
 
@@ -131,6 +130,10 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
     std::vector<std::vector<particle>> backwardParticles(ntimesteps_gp);
     std::unordered_map<coordinate_phase_space_time,double> backwardPDF_map;
     std::vector<std::unordered_map<coordinate_phase_space_time,double>> backwardPDF;
+
+    std::vector<std::unordered_map<coordinate_phase_space_time,double>> pdf_time(ntimesteps_gp);
+    int assembling_flag;
+
     arma::mat gradient(static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second),3,arma::fill::zeros);
     arma::mat gradient_old(static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second),3,arma::fill::zeros);
     arma::mat stepDirection(static_cast<unsigned int>(optimizationParameters.find("pcell_gp")->second),3,arma::fill::zeros);
@@ -176,8 +179,10 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
 
         logger::Info("Assembling pdfs...");
         start = std::chrono::system_clock::now();
-        forwardPDF = pdf_control.assemblingMultiDim_parallel(forwardParticles,0);
-        backwardPDF = pdf_control.assemblingMultiDim_parallel(backwardParticles,1);
+        assembling_flag = pdf_control.assemblingMultiDim_parallel(forwardParticles,0,pdf_time);
+        forwardPDF = pdf_time;
+        assembling_flag = pdf_control.assemblingMultiDim_parallel(backwardParticles,1,pdf_time);
+        backwardPDF = pdf_time;
         end = std::chrono::system_clock::now();
         logger::Info("Assembling of pdfs took: " + std::to_string(std::chrono::duration_cast<std::chrono::seconds>
                                                                   (end-start).count()) + " second(s)");
@@ -186,7 +191,8 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
             //save plasma states using initial control
             //input_control.read_plasma_state_forward(forwardParticles_initialControl);
             forwardParticles_initialControl = forwardParticles;
-            forwardPDF_initial = pdf_control.assemblingMultiDim_parallel(forwardParticles,0);
+            assembling_flag = pdf_control.assemblingMultiDim_parallel(forwardParticles,0,pdf_time);
+            forwardPDF_initial = pdf_time;
         } else if (fmod(r,calculation_wasserstein) == 0.0) {
             wasserstein_distance = pdf_control.calculate_wasserstein_metric(forwardParticles_initialControl,forwardParticles);
             //wasserstein_distance = pdf_control.calculate_wasserstein_metric_histogramm(forwardPDF_initial,forwardPDF);
@@ -248,16 +254,6 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
     }
 
     return 0;
-}
-
-std::unordered_map<coordinate_phase_space_time,double> optim_controller::assemblePDF_thread(std::vector<std::vector<particle>> &particles, unsigned int equation_type, data_provider data_provider_)
-{
-    pdf_controller pdf_control = pdf_controller();
-    pdf_control.setData_provider_optim(data_provider_);
-
-    std::unordered_map<coordinate_phase_space_time,double> particlePDF = pdf_control.assemblingMultiDim(particles,equation_type);
-
-    return particlePDF;
 }
 
 int optim_controller::check_input_py(data_provider provider, const char *filePathOptimInput)

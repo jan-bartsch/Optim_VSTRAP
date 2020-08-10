@@ -108,7 +108,7 @@ double objective_calculator::calculate_objective_L2(std::vector<std::unordered_m
                         if(objective_calculation.compare("magnitude")==0) {
                             current_trackPot = - C_theta_gp/(2.0*M_PI*sigma_x_gp*sigma_v_gp)*exp(
                                         -(p_d[0]*p_d[0]/(2.0*sigma_x_gp*sigma_x_gp)+
-                                    0.0*std::abs(velocityDiscr_gp(l)*velocityDiscr_gp(l)+velocityDiscr_gp(m)*velocityDiscr_gp(m)
+                                    velocity_part_objective*std::abs(velocityDiscr_gp(l)*velocityDiscr_gp(l)+velocityDiscr_gp(m)*velocityDiscr_gp(m)
                                         +velocityDiscr_gp(n)*velocityDiscr_gp(n)
                                         -p_d[4]*p_d[4])/(2.0*sigma_v_gp*sigma_v_gp)
                                     ));

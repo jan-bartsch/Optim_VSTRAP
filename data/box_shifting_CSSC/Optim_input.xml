@@ -4,12 +4,12 @@
 	      <parameter name="armijo_descent_fraction" value="1e-30" />
 	      <parameter name="calculation_functional" value="1" />
 	      <parameter name="calculation_wasserstein" value="1" />
-        <parameter name="C_theta_gp" value="1e+50" />
-        <parameter name="C_phi_gp" value="1e+50" />
-        <parameter name="sigma_x_gp" value="0.02" />
-        <parameter name="sigma_v_gp" value="626.0" />
+        <parameter name="C_theta_gp" value="1e+20" />
+        <parameter name="C_phi_gp" value="1e+20" />
+        <parameter name="sigma_x_gp" value="0.002" />
+        <parameter name="sigma_v_gp" value="438.65" />
 
-        <parameter name="fixed_gradient_descent_stepsize" value="1e+4" />
+        <parameter name="fixed_gradient_descent_stepsize" value="1e+0" />
 	      <parameter name="fraction_of_optimal_control" value="1e-5" />
         <parameter name="optimizationIteration_max_gp" value="100" />       <!-- number of maximal interations -->
         <parameter name="numberParticles_gp" value="2000" />
@@ -28,11 +28,12 @@
         <parameter name="pcell_gp" value="64" />
         <parameter name="pmax_gp" value="0.05" />
         <parameter name="db_gp" value="0.025" />                           <!-- box-side-length -->
-        <parameter name="dt_gp" value="1e-7" />                             <!-- discretization size time -->
+        <parameter name="dt_gp" value="1e-6" />                             <!-- discretization size time -->
         <parameter name="ntimesteps_gp" value="25" />
-        <parameter name="dv_gp" value="400.00" />                              <!-- discretization size velocity -->
+        <parameter name="dv_gp" value="4e+3" />                              <!-- discretization size velocity -->
         <parameter name="vcell_gp" value="10" /> <!-- 10 -->
-        <parameter name="vmax_gp" value="2000" /> <!-- 2000 -->                           <!-- maximal velocity (support of forward equaiton) -->
+        <parameter name="vmax_gp" value="2e+4" /> <!-- 2e+3 -->                           <!-- maximal velocity (support of forward equaiton) -->
+	<parameter name="fraction_fast_particles" value="0.1"/>
 
 
 
@@ -44,7 +45,7 @@
         <parameter name="local_control_x_max_gp" value="0.02" />
         <parameter name="weight_control_gp" value="1e-1" />
 
-        <parameter name="velocity_part_objective" value="0.0" />
+        <parameter name="velocity_part_objective" value="1.0" />
 
         <!-- -->
         <parameter name="fabs_tol_gp" value="1e-14" />

@@ -61,6 +61,8 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
 
     std::string START_VSTRAP_FORWARD = BUILD_DIRECTORY_VSTRAP + "vstrap" + " " + PATH_TO_SHARED_FILES + "input_forward.xml";
 
+    std::vector<std::unordered_map<coordinate_phase_space_time,double>> pdf_time(ntimesteps_gp);
+    int assembling_flag;
 
     double scalarProduct = (arma::dot(gradient.col(0),stepdirection.col(0))
                             + arma::dot(gradient.col(1),stepdirection.col(1))+
@@ -91,7 +93,6 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
     /*
      * Generate new control
      */
-
     control = control0 + alpha*stepdirection;
     outController.writeControl_XML(control);
     system(&interpolating_control_python[0]);
@@ -101,8 +102,11 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
 
     if (forward_return == 0) {
         input_control.read_plasma_state_forward(forwardParticles);
-        forwardPDF_time = pdf_control.assemblingMultiDim_parallel(forwardParticles,0);
-        Jtemp = objective.calculate_objective_L2(forwardPDF_time,control0 + alpha*stepdirection);
+        assembling_flag = pdf_control.assemblingMultiDim_parallel(forwardParticles,0,pdf_time);
+        forwardPDF_time = pdf_time;
+        if (assembling_flag == 0) {
+            Jtemp = objective.calculate_objective_L2(forwardPDF_time,control0 + alpha*stepdirection);
+        }
     }
 
     while (Jtemp > J0 + scalarProduct*armijo_descent_fraction && alpha > tolerance
@@ -117,8 +121,11 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
 
         if (forward_return == 0) {
             input_control.read_plasma_state_forward(forwardParticles);
-            forwardPDF_time = pdf_control.assemblingMultiDim_parallel(forwardParticles,0);
-            Jtemp = objective.calculate_objective_L2(forwardPDF_time,control0 + alpha*stepdirection);
+            assembling_flag = pdf_control.assemblingMultiDim_parallel(forwardParticles,0,pdf_time);
+            forwardPDF_time = pdf_time;
+            if (assembling_flag == 0) {
+                Jtemp = objective.calculate_objective_L2(forwardPDF_time,control0 + alpha*stepdirection);
+            }
         }
 
         std::cout << "Armijo: " << "Jtemp = " << Jtemp << std::endl

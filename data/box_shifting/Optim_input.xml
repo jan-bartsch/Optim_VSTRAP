@@ -28,7 +28,7 @@
         <parameter name="pcell_gp" value="64" />
         <parameter name="pmax_gp" value="0.05" />
         <parameter name="db_gp" value="0.025" />                           <!-- box-side-length -->
-        <parameter name="dt_gp" value="1e-5" />                             <!-- discretization size time -->
+        <parameter name="dt_gp" value="1e-6" />                             <!-- discretization size time -->
         <parameter name="ntimesteps_gp" value="25" />
         <parameter name="dv_gp" value="4e+3" />                              <!-- discretization size velocity -->
         <parameter name="vcell_gp" value="10" /> <!-- 10 -->
