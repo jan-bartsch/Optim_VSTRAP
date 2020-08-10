@@ -20,6 +20,7 @@ namespace logger
 
     void Trace(const std::string& text);
     void Debug(const std::string& text);
+    void Warning(const std::string& text);
     void Info(const std::string& text);
 
 };

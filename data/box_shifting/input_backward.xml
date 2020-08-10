@@ -1,9 +1,9 @@
 <simulation>
         <global_values>
-            <time_step value="1e-7"/>
+            <time_step value="1e-5"/>
         </global_values>
         <abort_criterium>
-            <max_itterations value="15"/>
+            <max_itterations value="25"/>
         </abort_criterium>
         <executables>
             <executable name="mesh_initializer" mode="CPU">
@@ -72,12 +72,12 @@
 			<executable name="adjoint_particle_creator"/>
 			<executable name="plasma_state"/>
 			<executable name="pusher"/>
-			<!-- executable name="mcc"/> -->
+			<executable name="mcc"/>
             		<executable name="pwi"/>
 			<executable name="bgf"/>
 		</init>
 		<exec>
-			<!-- executable name="mcc"/> -->
+			<executable name="mcc"/>
 			<executable name="adjoint_particle_creator"/>
 		  	<executable name="bgf"/>
 			<executable name="pusher"/>

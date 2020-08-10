@@ -20,4 +20,6 @@ void logger::Trace(const std::string& text) { BOOST_LOG_TRIVIAL(trace) << text; 
 
 void logger::Debug(const std::string& text) { BOOST_LOG_TRIVIAL(debug) << text; }
 
+void logger::Warning(const std::string& text) { BOOST_LOG_TRIVIAL(warning) << text; }
+
 void logger::Info(const std::string& text) { BOOST_LOG_TRIVIAL(info) << text; }

@@ -2,7 +2,7 @@
 
 <interaction_pairs  number_of_types="3">
 
-<interaction_pair  species_1="40Ar" species_2="40Ar">
+<interaction_pair  species_1="40Ar+" species_2="40Ar+">
 
 <cross_sections>
 <pair  collision_energy="7.37001956901957e-21" cross_section="3.30606633873877e-19"/>

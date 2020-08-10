@@ -15,11 +15,13 @@ std::unordered_map<coordinate_phase_space_time, double> pdf_controller::assembli
     unsigned int ntimesteps_gp = static_cast<unsigned int>(this->getData_provider_optim().getOptimizationParameters().find("ntimesteps_gp")->second);
     double vmax_gp = this->getData_provider_optim().getOptimizationParameters().find("vmax_gp")->second;
 
-    double dp_gp = this->getData_provider_optim().getOptimizationParameters().find("dp_gp")->second;
+    double fraction_fast_particles_gp = this->getData_provider_optim().getOptimizationParameters().find("fraction_fast_particles_gp")->second;
     double dv_gp = this->getData_provider_optim().getOptimizationParameters().find("dv_gp")->second;
     double vcell_gp = this->getData_provider_optim().getOptimizationParameters().find("vcell_gp")->second;
 
     std::vector<double> sizeParticles(ntimesteps_gp);
+
+    int too_fast_particles = 0;
 
     for(unsigned int k = 0; k < ntimesteps_gp; k++) {
         double px,py,pz,vx,vy,vz;
@@ -66,13 +68,16 @@ std::unordered_map<coordinate_phase_space_time, double> pdf_controller::assembli
                 }
             } else {
                 if (equationType == 0) {
-                    std::cout << "Particle " + std::to_string(i) + " exceeding velocity bound" << std::endl;
+                    too_fast_particles++;
+                    logger::Warning("Particle " + std::to_string(i) + " exceeding velocity bound");
+                    if (too_fast_particles >= fraction_fast_particles_gp*particles.size()) {
+                        logger::Trace("Too many too fast particles, try to increase velocity bound");
+                        throw std::runtime_error("Too many too fast particles, try to increase velocity bound");
+                    }
                 }
             }
         }
     }
-
-
 
     return pdf;
 
