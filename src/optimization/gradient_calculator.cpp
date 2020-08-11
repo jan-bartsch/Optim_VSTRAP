@@ -34,7 +34,7 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_L2(std::vect
     //Caculate integral in gradient
     const unsigned int n = pcell_gp;
 
-#pragma omp parallel for
+//#pragma omp parallel for
     for(unsigned int i = 1; i<n+1 ; i++) {
 
         std::vector<double> current_barycenter = barycenters.find(static_cast<int>(i))->second;
