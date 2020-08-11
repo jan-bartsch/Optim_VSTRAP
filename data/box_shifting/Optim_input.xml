@@ -6,7 +6,7 @@
 	      <parameter name="calculation_wasserstein" value="1" />
         <parameter name="C_theta_gp" value="1e+20" />
         <parameter name="C_phi_gp" value="1e+20" />
-        <parameter name="sigma_x_gp" value="0.002" />
+        <parameter name="sigma_x_gp" value="0.02" />
         <parameter name="sigma_v_gp" value="438.65" />
 
         <parameter name="fixed_gradient_descent_stepsize" value="1e+0" />
@@ -20,6 +20,9 @@
 
         <!-- Trajectory -->
         <parameter name="expected_speed" value="7e+2" />
+        <parameter name="desired_position_x" value="-0.035"/>
+        <parameter name="desired_position_y" value="0.0"/>
+        <parameter name="desired_position_z" value="0.0"/>
 
 
 
