@@ -48,7 +48,7 @@
         <parameter name="local_control_x_max_gp" value="0.02" />
         <parameter name="weight_control_gp" value="1e-1" />
 
-        <parameter name="velocity_part_objective" value="0.1" />
+        <parameter name="velocity_part_objective" value="0.01" />
 
         <!-- -->
         <parameter name="fabs_tol_gp" value="1e-14" />

@@ -90,6 +90,7 @@ int pdf_controller::assemblingMultiDim_parallel(std::vector<std::vector<particle
 
     double fraction_fast_particles_gp = this->getData_provider_optim().getOptimizationParameters().find("fraction_fast_particles_gp")->second;
     int too_fast_particles = 0;
+    int too_fast_adjoint_particles = 0;
 
     double dv_gp = this->getData_provider_optim().getOptimizationParameters().find("dv_gp")->second;
     double vcell_gp = this->getData_provider_optim().getOptimizationParameters().find("vcell_gp")->second;
@@ -145,9 +146,18 @@ int pdf_controller::assemblingMultiDim_parallel(std::vector<std::vector<particle
                         logger::Trace("Too many too fast particles, try to increase velocity bound");
                         return_flag = 1;
                     }
+                } else if (equationType == 1)  {
+                    too_fast_adjoint_particles++;
+                    logger::Warning("Particle " + std::to_string(i) + " exceeding velocity bound (adjoint equation)");
                 }
             }
         }
+    }
+
+    if (equationType == 0) {
+        logger::Info("Too fast particles: " + std::to_string(too_fast_particles));}
+    if (equationType == 1) {
+        logger::Info("Too fast adjoint particles: " + std::to_string(too_fast_adjoint_particles));
     }
 
     return return_flag;
