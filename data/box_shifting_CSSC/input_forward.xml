@@ -52,7 +52,7 @@
 		</executable>
 	</executables>
 	<abort_criterium>
-		<max_itterations value="10"/>
+		<max_itterations value="25"/>
 	</abort_criterium>
 	<schedule>
 		<init>
@@ -66,7 +66,7 @@
 		</init>
 		<exec>
 		  	<executable name="bgf"/>
-            <!--executable name="dsmc"/>-->
+            <executable name="dsmc"/>
 			<executable name="pusher"/>
             		<executable name="pwi"/>
 			<executable name="plasma_state"/>
