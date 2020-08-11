@@ -68,7 +68,7 @@
 		  	<executable name="bgf"/>
 			<executable name="dsmc"/>
 			<executable name="pusher"/>
-            		<executable name="pwi"/>
+            <executable name="pwi"/>
 			<executable name="plasma_state"/>
 		</exec>
 	</schedule>
