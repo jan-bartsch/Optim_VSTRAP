@@ -68,7 +68,6 @@ int pdf_controller::assemblingMultiDim(std::vector<std::vector<particle>> &parti
             } else {
                 if (equationType == 0) {
                     too_fast_particles++;
-                    logger::Warning("Particle " + std::to_string(i) + " exceeding velocity bound");
                     if (too_fast_particles >= fraction_fast_particles_gp*particles.size()) {
                         logger::Trace("Too many too fast particles, try to increase velocity bound");
                         return 1;
@@ -90,6 +89,7 @@ int pdf_controller::assemblingMultiDim_parallel(std::vector<std::vector<particle
 
     double fraction_fast_particles_gp = this->getData_provider_optim().getOptimizationParameters().find("fraction_fast_particles_gp")->second;
     int too_fast_particles = 0;
+    int too_fast_adjoint_particles = 0;
 
     double dv_gp = this->getData_provider_optim().getOptimizationParameters().find("dv_gp")->second;
     double vcell_gp = this->getData_provider_optim().getOptimizationParameters().find("vcell_gp")->second;
@@ -97,25 +97,25 @@ int pdf_controller::assemblingMultiDim_parallel(std::vector<std::vector<particle
     pdf_time.clear();
     pdf_time.resize(ntimesteps_gp);
 
+    std::vector<std::unordered_map<coordinate_phase_space_time, double>> pdf_time_test(ntimesteps_gp);
+
     std::vector<double> sizeParticles(ntimesteps_gp);
 
     int return_flag=0;
 
     //std::cout << "Using " <<  usedThreads << " threads for assembling pdfs" << std::endl;
 
-#pragma omp parallel for
+//#pragma omp parallel for
     for (unsigned int o=0; o<ntimesteps_gp; o++) {
         //std::cout << "Assembling pdf in timestep " << o << std::endl;
         double px,py,pz,vx,vy,vz;
-        std::vector<particle> particles;
+        std::vector<particle> particles = particlesTime[o];;
         coordinate_phase_space_time coordinate;
 
         int binNumberVx, binNumberVy, binNumberVz;
         int binNumberTime;
         int cell_id;
-
-        particles = particlesTime[o];
-        sizeParticles[o] = particles.size();
+        //sizeParticles[o] = particles.size();
         for(unsigned int i = 0; i < particles.size(); i++) {
             px = particles[i].getPx(); py = particles[i].getPy(); pz = particles[i].getPz();
             vx = particles[i].getVx(); vy = particles[i].getVy(); vz = particles[i].getVz();
@@ -137,17 +137,31 @@ int pdf_controller::assemblingMultiDim_parallel(std::vector<std::vector<particle
                 } else {
                     pdf_time[o][coordinate]++;
                 }
+                if (pdf_time_test[o].find(coordinate) == pdf_time_test[o].end()) {
+                    pdf_time_test[o].insert(std::pair<coordinate_phase_space_time,double>(coordinate,1.0));
+                } else {
+                    pdf_time_test[o][coordinate]++;
+                }
             } else {
                 if (equationType == 0) {
                     too_fast_particles++;
-                    logger::Warning("Particle " + std::to_string(i) + " exceeding velocity bound");
                     if (too_fast_particles >= fraction_fast_particles_gp*particles.size()) {
-                        logger::Trace("Too many too fast particles, try to increase velocity bound");
+                        //logger::Trace("Too many too fast particles, try to increase velocity bound");
                         return_flag = 1;
                     }
+                } else if (equationType == 1)  {
+                    too_fast_adjoint_particles++;
+                    //logger::Warning("Particle " + std::to_string(i) + " exceeding velocity bound (adjoint equation)");
                 }
             }
         }
+    }
+
+    if (equationType == 0 && too_fast_particles>0) {
+        logger::Info("Too fast particles: " + std::to_string(too_fast_particles));
+    }
+    if (equationType == 1 && too_fast_adjoint_particles>0) {
+        logger::Info("Too fast adjoint particles: " + std::to_string(too_fast_adjoint_particles));
     }
 
     return return_flag;
