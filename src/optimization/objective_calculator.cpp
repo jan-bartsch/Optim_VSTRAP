@@ -93,7 +93,7 @@ double objective_calculator::calculate_objective_L2(std::vector<std::unordered_m
 
     std::cout << "Using <" << desired_traj << "> for desired trajectory" << std::endl;
 
-    //#pragma omp parallel for
+#pragma omp parallel for
     for(unsigned int  o = 0; o<ntimesteps_gp; o++) {
         //std::cout << "Calculating functional in " << o << " timestep" << std::endl;
         for(unsigned int  i = 1; i<=pcell_gp; i++)  {

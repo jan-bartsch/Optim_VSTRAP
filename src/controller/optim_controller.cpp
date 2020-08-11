@@ -222,6 +222,7 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
         norm_Gradient = arma::norm(gradient,"fro");
 
 
+
         logger::Info("Updating the control...");
         stepDirection = stepdir_contr.get_stepdirection(gradient,gradient_old,stepDirection,r);
         gradient_old = gradient;
