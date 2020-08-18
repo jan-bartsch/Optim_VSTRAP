@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<optimizer_input>
+  <globalParameters>
+	      <parameter name="armijo_descent_fraction" value="1e-30" />
+	      <parameter name="calculation_functional" value="1" />
+	      <parameter name="calculation_wasserstein" value="1" />
+        <parameter name="C_theta_gp" value="1e+20" />
+        <parameter name="C_phi_gp" value="1e+20" />
+        <parameter name="sigma_x_gp" value="0.02" />
+        <parameter name="sigma_v_gp" value="438.65" />
+
+        <parameter name="fixed_gradient_descent_stepsize" value="1e+1" />
+	      <parameter name="fraction_of_optimal_control" value="1e-5" />
+        <parameter name="optimizationIteration_max_gp" value="100" />       <!-- number of maximal interations -->
+        <parameter name="numberParticles_gp" value="2000" />
+
+	      <parameter name="start_zero_control" value="0" />		<!-- 0=true, 1=false -->
+        <parameter name="tolerance_gp" value="1e-13" />
+        <parameter name="tolerance_relaxation_gp" value="1e-10" />
+
+        <!-- Trajectory -->
+        <parameter name="expected_speed" value="7e+2" />
+        <parameter name="desired_position_x" value="-0.035"/>
+        <parameter name="desired_position_y" value="0.0"/>
+        <parameter name="desired_position_z" value="0.0"/>
+
+
+
+        <!-- DOMAIN PARAMETERS -->
+        <parameter name="dp_gp" value="0.0015625" />                              <!-- discretization size position 64:0.0156 1000:0.0001 512:0.002 -->
+        <parameter name="pcell_gp" value="64" />
+        <parameter name="pmax_gp" value="0.05" />
+        <parameter name="db_gp" value="0.025" />                           <!-- box-side-length -->
+        <parameter name="dt_gp" value="1e-6" />                             <!-- discretization size time -->
+        <parameter name="ntimesteps_gp" value="25" />
+        <parameter name="dv_gp" value="4e+3" />                              <!-- discretization size velocity -->
+        <parameter name="vcell_gp" value="10" /> <!-- 10 -->
+        <parameter name="vmax_gp" value="2e+4" /> <!-- 2e+3 -->                           <!-- maximal velocity (support of forward equaiton) -->
+	<parameter name="fraction_fast_particles" value="0.1"/>
+
+
+
+        <!-- CONTROL -->
+        <parameter name="dimensionOfControl_gp" value="32" />               <!-- number of elements of the control -->
+        <parameter name="end_control_gp" value="48"/>
+        <parameter name="start_control_gp" value="17" />
+        <parameter name="local_control_x_min_gp" value="-0.02" />
+        <parameter name="local_control_x_max_gp" value="0.02" />
+        <parameter name="weight_control_gp" value="1e-1" />
+
+        <parameter name="velocity_part_objective" value="1e-9" />
+
+        <!-- -->
+        <parameter name="fabs_tol_gp" value="1e-14" />
+    </globalParameters>
+
+
+
+    <paths>
+      <path name="BUILD_DIRECTORY_VSTRAP" value="/LocalData/bartsch/build-vstrap-CSSC/src/" />
+      <path name="BUILD_DIRECTORY_OPTIM" value="/LocalData/bartsch/build-Optim-CSSC-fine/src/" />
+      <path name="PATH_TO_SHARED_FILES" value="../../Optim_VSTRAP/data/box_shifting_CSSC/" />
+      <path name="BARYCENTERS_MESH" value="../../Optim_VSTRAP/data/global/box_vol_regular_small_fine.xml" />
+    <path name="DIRECTORY_TOOLSET" value="../../Optim_VSTRAP/optim-vstrap-toolset/toolset/" />
+<path name="DOMAIN_MESH" value="../../Optim_VSTRAP/data/global/box_vol_regular_small_fine.xml" />
+  <path name="RESULTS_DIRECTORY" value="results/" />
+    </paths>
+
+    <subroutines>
+      <!--subroutine group="control_update" name="gradient_descent"/-->
+      <!-- subroutine group="control_update" name="successive_approximation" / -->
+      <subroutine group="control_update" name="armijo_linesearch" />
+      <!-- subroutine group="direction_update" name="negative_gradient" / -->
+      <subroutine group="direction_update" name="ncg_FR"/>
+      <subroutine group="desired_trajectory" name="box_shifting_negative_x"/>
+      <subroutine group="objective_calculation" name="magnitude"/>
+      <!--  subroutine group="objective_calculation" name="components" / -->
+    </subroutines>
+
+</optimizer_input>

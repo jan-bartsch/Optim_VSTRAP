@@ -13,8 +13,8 @@ group.add_argument("-s", "--surface", help="for surface mesh", action="store_tru
 
 args = parser.parse_args()
 def writeFile(inputName, outputName, meshType):
-    inputFile = open("msh_files/"+inputName+".msh","r")
-    outputFile = open("xml_files/"+outputName+".xml","w+")
+    inputFile = open(""+inputName+".msh","r")
+    outputFile = open(""+outputName+".xml","w+")
     fLines = inputFile.readlines()
     
     writeHeader(fLines, outputFile, meshType)
