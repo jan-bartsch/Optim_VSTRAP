@@ -89,6 +89,8 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
     std::string BUILD_DIRECTORY_VSTRAP = paths.find("BUILD_DIRECTORY_VSTRAP")->second;
     std::string BUILD_DIRECTORY_OPTIM = paths.find("BUILD_DIRECTORY_OPTIM")->second;
     std::string DIRECTORY_TOOLSET = paths.find("DIRECTORY_TOOLSET")->second;
+    std::string INPUT_FORWARD = paths.find("INPUT_FORWARD")->second;
+    std::string INPUT_BACKWARD = paths.find("INPUT_BACKWARD")->second;
 
     std::string PATH_TO_SHARED_FILES = paths.find("PATH_TO_SHARED_FILES")->second;
     std::string DOMAIN_MESH = paths.find("DOMAIN_MESH")->second;
@@ -98,10 +100,9 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
      */
     check_input_py(data_provider_opt, input_xml_path);
 
-
-    std::string START_VSTRAP_FORWARD = BUILD_DIRECTORY_VSTRAP + "vstrap" + " " + PATH_TO_SHARED_FILES + "input_forward.xml";
+    std::string START_VSTRAP_FORWARD = BUILD_DIRECTORY_VSTRAP + "vstrap" + " " + PATH_TO_SHARED_FILES + INPUT_FORWARD;
     int forward_return = 0.0;
-    std::string START_VSTRAP_BACKWARD = BUILD_DIRECTORY_VSTRAP + "vstrap" + " " + PATH_TO_SHARED_FILES + "input_backward.xml";
+    std::string START_VSTRAP_BACKWARD = BUILD_DIRECTORY_VSTRAP + "vstrap" + " " + PATH_TO_SHARED_FILES + INPUT_BACKWARD;
     int backward_return = 0.0;
 
     double wasserstein_distance = 0.0;
