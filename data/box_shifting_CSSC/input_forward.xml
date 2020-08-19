@@ -1,6 +1,6 @@
 ﻿<simulation>
 	<global_values>
-		<time_step value="1e-6"/>
+		<time_step value="1e-7"/>
 	</global_values>
 	<executables>
 		<executable name="mesh_initializer" mode="CPU">
