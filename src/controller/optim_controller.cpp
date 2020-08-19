@@ -68,15 +68,16 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
     equation_solving_controller model_solver = equation_solving_controller();
     model_solver.setData_provider_optim(data_provider_opt);
 
-    //    arma::mat Laplace = model_solver.Laplacian_3D();
-    //    outController.writeArmaMatrixToFile(Laplace,"LaplacianSmall3D");
+    arma::mat Laplace = model_solver.Laplacian_3D();
+    outController.writeArmaMatrixToFile(Laplace,"LaplacianSmall3D");
 
-    //    arma::mat Laplace_2 = model_solver.Laplacian_Squared_3D();
-    //    outController.writeArmaMatrixToFile(Laplace_2,"LaplacianSmall3D_Squared");
+    arma::mat Laplace_2 = model_solver.Laplacian_Squared_3D();
+    outController.writeArmaMatrixToFile(Laplace_2,"LaplacianSmall3D_Squared");
 
     std::map<std::string, double> optimizationParameters = data_provider_opt.getOptimizationParameters();
     std::map<std::string, std::string> paths = data_provider_opt.getPaths();
     std::map<std::string,std::string> subroutines = data_provider_opt.getSubroutines();
+
 
     unsigned int ntimesteps_gp = static_cast<unsigned int>(optimizationParameters.find("ntimesteps_gp")->second);
     int zero_control = static_cast<int>(optimizationParameters.find("start_zero_control")->second);
@@ -92,8 +93,10 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
     std::string INPUT_FORWARD = paths.find("INPUT_FORWARD")->second;
     std::string INPUT_BACKWARD = paths.find("INPUT_BACKWARD")->second;
 
+
     std::string PATH_TO_SHARED_FILES = paths.find("PATH_TO_SHARED_FILES")->second;
     std::string DOMAIN_MESH = paths.find("DOMAIN_MESH")->second;
+
 
     /*
      * Check consistency of input files

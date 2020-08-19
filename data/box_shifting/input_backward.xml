@@ -8,7 +8,7 @@
         <executables>
             <executable name="mesh_initializer" mode="CPU">
                 <mesh name="vol_mesh">
-                    <load>../global/box_vol_regular_small.xml</load>
+                    <load>../global/box_vol_regular_small_fine.xml</load>
                 </mesh>
             </executable>
 		<executable name="particle_initializer" mode="CPU">
