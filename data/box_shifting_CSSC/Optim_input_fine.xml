@@ -26,12 +26,12 @@
 
 
 
-        <!-- DOMAIN PARAMETERS -->
+        <!-- DISCRETIZATION -->
         <parameter name="dp_gp" value="0.000195313" />                              <!-- discretization size position 64:0.0156 1000:0.0001 512:0.002 -->
         <parameter name="pcell_gp" value="512" />
         <parameter name="pmax_gp" value="0.05" />
         <parameter name="db_gp" value="0.0125" />                           <!-- box-side-length -->
-        <parameter name="dt_gp" value="1e-6" />                             <!-- discretization size time -->
+        <parameter name="dt_gp" value="1e-7" />                             <!-- discretization size time -->
         <parameter name="ntimesteps_gp" value="25" />
         <parameter name="dv_gp" value="4e+3" />                              <!-- discretization size velocity -->
         <parameter name="vcell_gp" value="10" /> <!-- 10 -->
