@@ -9,7 +9,7 @@
         <parameter name="sigma_x_gp" value="0.02" />
         <parameter name="sigma_v_gp" value="438.65" />
 
-        <parameter name="fixed_gradient_descent_stepsize" value="1e+0" />
+        <parameter name="fixed_gradient_descent_stepsize" value="1e+1" />
 	      <parameter name="fraction_of_optimal_control" value="1e-5" />
         <parameter name="optimizationIteration_max_gp" value="100" />       <!-- number of maximal interations -->
         <parameter name="numberParticles_gp" value="2000" />
@@ -46,7 +46,7 @@
         <parameter name="start_control_gp" value="129" />
         <parameter name="local_control_x_min_gp" value="-0.02" />
         <parameter name="local_control_x_max_gp" value="0.02" />
-        <parameter name="weight_control_gp" value="1e-1" />
+        <parameter name="weight_control_gp" value="1e+1" />
 
         <parameter name="velocity_part_objective" value="1e-9" />
 
