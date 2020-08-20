@@ -270,12 +270,12 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm(std::vect
         }
     }
 
-    //    std::cout << "rhs_Riesz:" << std::endl;
+    //std::cout << "rhs_Riesz:" << std::endl;
     std::cout << rhs_Riesz << std::endl;
 
     // std::cout << "Riesz Matrix" << std::endl;
     arma::mat Riesz = weight_control_gp*(arma::eye(dimensionOfControl_gp,dimensionOfControl_gp) - 1.0/(pow(db_gp,2))*Laplace + 1.0/(pow(db_gp,4))*Laplace_Squared);
-    std::cout << Riesz << std::endl;
+    //std::cout << Riesz << std::endl;
     //std::cout << "Condition number Matrix Riesz: " << arma::cond(Riesz) << std::endl;
 
     gradient_Riesz = arma::solve(Riesz,-rhs_Riesz);
