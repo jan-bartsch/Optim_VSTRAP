@@ -9,7 +9,7 @@
         <parameter name="sigma_x_gp" value="0.02" />
         <parameter name="sigma_v_gp" value="438.65" />
 
-        <parameter name="fixed_gradient_descent_stepsize" value="1e+2" />
+        <parameter name="fixed_gradient_descent_stepsize" value="1e-2" />
 	      <parameter name="fraction_of_optimal_control" value="1e-5" />
         <parameter name="optimizationIteration_max_gp" value="100" />       <!-- number of maximal interations -->
         <parameter name="numberParticles_gp" value="2000" />
@@ -27,11 +27,11 @@
 
 
         <!-- DISCRETIZATION -->
-        <parameter name="dp_gp" value="0.000195313" />                              <!-- discretization size position 64:0.0156 1000:0.0001 512:0.002 -->
+        <parameter name="dp_gp" value="0.00195313" />                              <!-- discretization size position 64:0.0156 1000:0.0001 512:0.002 -->
         <parameter name="pcell_gp" value="512" />
-        <parameter name="pmax_gp" value="0.05" />
-        <parameter name="db_gp" value="0.0125" />                           <!-- box-side-length -->
-        <parameter name="dt_gp" value="1e-7" />                             <!-- discretization size time -->
+        <parameter name="pmax_gp" value="0.5" />
+        <parameter name="db_gp" value="0.125" />                           <!-- box-side-length -->
+        <parameter name="dt_gp" value="1e-5" />                             <!-- discretization size time -->
         <parameter name="ntimesteps_gp" value="25" />
         <parameter name="dv_gp" value="4e+3" />                              <!-- discretization size velocity -->
         <parameter name="vcell_gp" value="10" /> <!-- 10 -->
@@ -44,25 +44,25 @@
         <parameter name="dimensionOfControl_gp" value="256" />               <!-- number of elements of the control -->
         <parameter name="end_control_gp" value="384"/>
         <parameter name="start_control_gp" value="129" />
-        <parameter name="local_control_x_min_gp" value="-0.02" />
-        <parameter name="local_control_x_max_gp" value="0.02" />
-        <parameter name="weight_control_gp" value="1e+2" />
+        <parameter name="local_control_x_min_gp" value="-0.2" />
+        <parameter name="local_control_x_max_gp" value="0.2" />
+        <parameter name="weight_control_gp" value="1e+0" />
 
         <parameter name="velocity_part_objective" value="1e-9" />
 
         <!-- -->
-        <parameter name="fabs_tol_gp" value="1e-14" />
+        <parameter name="fabs_tol_gp" value="1e-10" />
     </globalParameters>
 
 
 
     <paths>
-      <path name="BUILD_DIRECTORY_VSTRAP" value="/LocalData/bartsch/build-vstrap-CSSC/src/" />
-      <path name="BUILD_DIRECTORY_OPTIM" value="/LocalData/bartsch/build-Optim-CSSC-fine/src/" />
+      <path name="BUILD_DIRECTORY_VSTRAP" value="/home/bartsch/SPARC/build-vstrap-CSSC/src/" />
+      <path name="BUILD_DIRECTORY_OPTIM" value="/home/bartsch/SPARC/build-Optim-CSSC-fine2/src/" />
       <path name="PATH_TO_SHARED_FILES" value="../../Optim_VSTRAP/data/box_shifting_CSSC/" />
-      <path name="BARYCENTERS_MESH" value="../../Optim_VSTRAP/data/global/mesh_barycenters_small_fine.xml" />
+      <path name="BARYCENTERS_MESH" value="../../Optim_VSTRAP/data/global/mesh_barycenters_512.xml" />
     <path name="DIRECTORY_TOOLSET" value="../../Optim_VSTRAP/optim-vstrap-toolset/toolset/" />
-<path name="DOMAIN_MESH" value="../../Optim_VSTRAP/data/global/box_vol_regular_small_fine.xml" />
+<path name="DOMAIN_MESH" value="../../Optim_VSTRAP/data/global/box_coarse_512.xml" />
   <path name="RESULTS_DIRECTORY" value="results/" />
 <path name="INPUT_FORWARD" value="input_forward.xml" />
 	<path name="INPUT_BACKWARD" value="input_backward.xml" />
