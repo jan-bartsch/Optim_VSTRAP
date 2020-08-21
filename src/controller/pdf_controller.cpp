@@ -122,6 +122,7 @@ int pdf_controller::assemblingMultiDim_parallel(std::vector<std::vector<particle
 
             if (sqrt(vx*vx+vy*vy+vz*vz) <= vmax_gp ) { //else not needed
 
+
                 binNumberTime = static_cast<int>(o);
 
                 cell_id = particles[i].getCell_id();
@@ -145,6 +146,9 @@ int pdf_controller::assemblingMultiDim_parallel(std::vector<std::vector<particle
             } else {
                 if (equationType == 0) {
                     too_fast_particles++;
+std::cout << "particle at " << coordinate.toString() << " has speed " << sqrt(vx*vx+vy*vy+vz*vz) << std::endl;
+
+
                     if (too_fast_particles >= fraction_fast_particles_gp*particles.size()) {
                         //logger::Trace("Too many too fast particles, try to increase velocity bound");
                         return_flag = 1;
@@ -158,11 +162,15 @@ int pdf_controller::assemblingMultiDim_parallel(std::vector<std::vector<particle
     }
 
     if (equationType == 0 && too_fast_particles>0) {
-        logger::Info("Too fast particles: " + std::to_string(too_fast_particles));
+        logger::Info("Particles faster than " + std::to_string(vmax_gp) + ": " + std::to_string(too_fast_particles));
     }
     if (equationType == 1 && too_fast_adjoint_particles>0) {
         logger::Info("Too fast adjoint particles: " + std::to_string(too_fast_adjoint_particles));
     }
+
+if (return_flag == 1) {
+	logger::Warning("Too many too fast particles in forward equation.");
+}
 
     return return_flag;
 }
