@@ -51,7 +51,7 @@ double objective_calculator::calculate_objective_L2(std::vector<std::unordered_m
     double objective = 0.0;
     double costOfControl = 0.0;
 
-    std::vector<double> objective_time(ntimesteps_gp,0.0);
+    std::vector<double> objective_time(pcell_gp,0.0);
 
 
     /*
@@ -94,9 +94,11 @@ double objective_calculator::calculate_objective_L2(std::vector<std::unordered_m
     std::cout << "Using <" << desired_traj << "> for desired trajectory" << std::endl;
 
 #pragma omp parallel for
-    for(unsigned int  o = 0; o<ntimesteps_gp; o++) {
-        //std::cout << "Calculating functional in " << o << " timestep" << std::endl;
-        for(unsigned int  i = 1; i<=pcell_gp; i++)  {
+    for(unsigned int  i = 1; i<=pcell_gp; i++)  {
+        std::cout << "Functionalcalc. in part " << i << std::endl;
+        for(unsigned int  o = 0; o<ntimesteps_gp; o++) {
+            //std::cout << "Calculating functional in " << o << " timestep" << std::endl;
+
             for( unsigned int l = 0; l<vcell_gp; l++) {
                 for(unsigned int  m = 0; m<vcell_gp; m++) {
                     for(unsigned int n = 0; n<vcell_gp; n++) {
@@ -125,7 +127,7 @@ double objective_calculator::calculate_objective_L2(std::vector<std::unordered_m
                                     ));
                         }
                         if (forwardPDF_time[o].find(coordinate) != forwardPDF_time[o].end()) {
-                            objective_time[o] += forwardPDF_time[o].at(coordinate)*current_trackPot*dp_gp*pow(dv_gp,3.0)*dt_gp;
+                            objective_time[i] += forwardPDF_time[o].at(coordinate)*current_trackPot*dp_gp*pow(dv_gp,3.0)*dt_gp;
                         } else {
                             std::runtime_error("No such objective calculation rule");
                         }
@@ -140,7 +142,7 @@ double objective_calculator::calculate_objective_L2(std::vector<std::unordered_m
         }
     }
 
-    for(unsigned int o = 0; o<ntimesteps_gp; o++) {
+    for(unsigned int o = 0; o<pcell_gp; o++) {
         objective += objective_time[o];
     }
 

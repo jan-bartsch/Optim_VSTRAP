@@ -8,9 +8,17 @@ stepdirection_controller::stepdirection_controller(const char *filename)
 
 arma::mat stepdirection_controller::get_stepdirection(arma::mat gradient, arma::mat gradient_old, arma::mat stepdirectionOld, unsigned int optimization_iteration)
 {
+
     std::map<std::string,std::string> subroutines = this->getData_provider_optim().getSubroutines();
     std::map<std::string,double> optim_paramters = this->getData_provider_optim().getOptimizationParameters();
-    std::string control_update = subroutines.find("direction_update")->second;
+    std::string control_update = "";
+
+    try{
+        control_update =  subroutines.find("direction_update")->second;
+    } catch(std::exception e) {
+        logger::Info("No Direction_update found");
+        logger::Info(e.what());
+    }
 
     if(optimization_iteration == 1) {
         logger::Info("First iteration, using negative gradient as stepdirection");

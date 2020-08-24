@@ -276,12 +276,12 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm(std::vect
     std::cout << rhs_Riesz << std::endl;
 
     // std::cout << "Riesz Matrix" << std::endl;
-    arma::mat Riesz = weight_control_gp*(arma::eye(dimensionOfControl_gp,dimensionOfControl_gp) - 1.0/(pow(db_gp,2))*Laplace + 1.0/(pow(db_gp,4))*Laplace_Squared);
+    arma::mat Riesz = weight_control_gp*(10.0/weight_control_gp*arma::eye(dimensionOfControl_gp,dimensionOfControl_gp) - 1.0/(pow(db_gp,2))*Laplace + 1.0/(pow(db_gp,4))*Laplace_Squared);
     //std::cout << Riesz << std::endl;
     outController.writeArmaMatrixToFile(Riesz,"RiesMatrix");
     //std::cout << "Condition number Matrix Riesz: " << arma::cond(Riesz) << std::endl;
 
-    gradient_Riesz = arma::solve(Riesz,-rhs_Riesz);
+    gradient_Riesz = arma::solve(Riesz,+rhs_Riesz);
     arma::mat return_gradient(pcell_gp,3,arma::fill::zeros);
 
     //    std::cout << "Solution elliptic equation:" << std::endl;

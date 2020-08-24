@@ -62,17 +62,8 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
     output_diagnostics outDiag = output_diagnostics();
     outDiag.setData_provider_optim(data_provider_opt);
 
-    arma::mat test(64,4,arma::fill::randu);
-    outDiag.writeGradientToFile(test,"test");
-
     equation_solving_controller model_solver = equation_solving_controller();
     model_solver.setData_provider_optim(data_provider_opt);
-
-    arma::mat Laplace = model_solver.Laplacian_3D();
-    outController.writeArmaMatrixToFile(Laplace,"LaplacianSmall3D");
-
-    arma::mat Laplace_2 = model_solver.Laplacian_Squared_3D();
-    outController.writeArmaMatrixToFile(Laplace_2,"LaplacianSmall3D_Squared");
 
     std::map<std::string, double> optimizationParameters = data_provider_opt.getOptimizationParameters();
     std::map<std::string, std::string> paths = data_provider_opt.getPaths();
@@ -96,6 +87,29 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
 
     std::string PATH_TO_SHARED_FILES = paths.find("PATH_TO_SHARED_FILES")->second;
     std::string DOMAIN_MESH = paths.find("DOMAIN_MESH")->second;
+
+    arma::mat Laplace = model_solver.Laplacian_3D();
+    outController.writeArmaMatrixToFile(Laplace,"LaplacianSmall3D");
+
+    arma::mat Laplace_2 = model_solver.Laplacian_Squared_3D();
+    outController.writeArmaMatrixToFile(Laplace_2,"LaplacianSmall3D_Squared");
+
+    unsigned int pcell_gp = static_cast<unsigned int>(optimizationParameters.find("pcell_gp")->second);
+    unsigned int vcell_gp = static_cast<unsigned int>(optimizationParameters.find("vcell_gp")->second);
+    unsigned int dimensionOfControl_gp = static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second);
+    double dv_gp = static_cast<double>(optimizationParameters.find("dv_gp")->second);
+    double dt_gp = static_cast<double>(optimizationParameters.find("dt_gp")->second);
+    double dp_gp = static_cast<double>(optimizationParameters.find("dp_gp")->second);
+    double db_gp = static_cast<double>(optimizationParameters.find("db_gp")->second);
+    double weight_control_gp = static_cast<double>(optimizationParameters.find("weight_control_gp")->second);
+    double local_control_x_min_gp = static_cast<double>(optimizationParameters.find("local_control_x_min_gp")->second);
+    double local_control_x_max_gp = static_cast<double>(optimizationParameters.find("local_control_x_max_gp")->second);
+
+    arma::mat Riesz = weight_control_gp*(pow(10,5)*arma::eye(dimensionOfControl_gp,dimensionOfControl_gp) - 1.0/(pow(db_gp,2))*Laplace + 1.0/(pow(db_gp,4))*Laplace_2);
+    outController.writeArmaMatrixToFile(Riesz,"RiesMatrix");
+
+    std::cout << arma::norm(Laplace - Laplace.t(),"inf") << std::endl;
+    std::cout << arma::norm(Laplace_2 - Laplace_2.t(),"inf") << std::endl;
 
 
     /*
@@ -211,7 +225,11 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
         }
         else if (fmod(r,calculation_functional) == 0.0) {
             logger::Info("Calculating functional...");
+             start = std::chrono::system_clock::now();
             value_objective = objective.calculate_objective_L2(forwardPDF,control);
+            end = std::chrono::system_clock::now();
+            logger::Info("Calculation of functional took: " + std::to_string(std::chrono::duration_cast<std::chrono::seconds>
+                                                                      (end-start).count()) + " second(s)");
             outDiag.writeDoubleToFile(value_objective,"objectiveTrack");
         } else {
             std::cout << "No calculation of functional" << std::endl;
@@ -239,6 +257,7 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
 
         std::cout << "Control in iteration " << r << std::endl;
         std::cout << control << std::endl;
+        outDiag.writeGradientToFile(control,"control_"+std::to_string(r));
 
         if (stepsize_flag == 1) {
             std::string small_stepsize = "Linesearch returned too small stepsize; Found minimum after " + std::to_string(r+1) + " iterations";

@@ -60,7 +60,7 @@ class Control_field:
 			#print(mesh.nodes[n].x_coord)
 			self.nodesMesh.insert(len(self.nodesMesh),[float(mesh.nodes[n].x_coord),mesh.nodes[n].y_coord,mesh.nodes[n].z_coord])
 
-		control_scaling = 1e-3
+		control_scaling = 1e-1
 		print("Control scaling:"+ str(control_scaling))
 
 		print("Length of control: " + str(len(self.control)))
@@ -79,7 +79,7 @@ class Control_field:
 
 		fig = plt.figure(figsize=(10,10))
 		ax = fig.add_subplot(111, projection='3d')
-		ax.set(xlim=(-0.05, 0.05), ylim=(0.05, -0.05),zlim=(-0.05,0.05))
+		ax.set(xlim=(-0.5, 0.5), ylim=(0.5, -0.5),zlim=(-0.5,0.5))
 		ax.set_xlabel('x axis')
 		ax.set_ylabel('y axis')
 		ax.set_zlabel('z axis')
@@ -88,7 +88,7 @@ class Control_field:
 			a = Arrow3D([nodesMesh[n-1][0], endPoints[n-1][0]], [nodesMesh[n-1][1], endPoints[n-1][1]], [nodesMesh[n-1][2], endPoints[n-1][2]], mutation_scale=20, lw=1, arrowstyle="-|>", color="k")
 			ax.add_artist(a)
 
-		plt.title('Force field (scaling factor: 1e-3)')
+		plt.title('Force field (scaling factor: 1e-1)')
 		plt.grid(False)
 
 
@@ -96,5 +96,5 @@ class Control_field:
 
 		print("Generating tikz file...")
 		tikzplotlib.save("control_field.tex")
-		plt.savefig("../../results/force_field.png")
+		#plt.savefig("../../results/force_field.png")
 		plt.show()

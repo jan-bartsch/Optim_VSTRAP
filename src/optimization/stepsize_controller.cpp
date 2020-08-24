@@ -9,7 +9,13 @@ stepsize_controller::stepsize_controller(const char *filename)
 int stepsize_controller::calculate_stepsize(arma::mat &gradient, double J0, arma::mat &control, arma::mat &stepdirection, std::vector<particle> &inputParticles, double &stepsize0)
 {
     std::map<std::string,std::string> subroutines = this->getData_provider_optim().getSubroutines();
-    std::string control_update = subroutines.find("control_update")->second;
+    std::string control_update = "";
+    try{
+        control_update = subroutines.find("control_update")->second;
+    } catch(std::exception e) {
+        logger::Info("No control_update found");
+        logger::Info(e.what());
+    }
 
     if(control_update.compare("armijo_linesearch")==0) {
         logger::Info("Updating control using stepsize-selection strategy: Armijo lineasearch");

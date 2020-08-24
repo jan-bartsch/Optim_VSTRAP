@@ -36,6 +36,10 @@ arma::mat equation_solving_controller::Laplacian_3D()
 
     double fabs_tol_gp = static_cast<double>(optimizationParameters.find("fabs_tol_gp")->second);
 
+    if (barycenters.size() < dimensionOfControl_gp) {
+        throw  std::invalid_argument("Dimension of control bigger than number of barycenters");
+    }
+
 
     for(int i = start_control; i<=end_control; i++) {
     //for(int i = 1; i<=dimensionOfControl_gp; i++) {

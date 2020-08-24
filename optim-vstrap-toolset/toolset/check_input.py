@@ -144,6 +144,7 @@ def check_input():
 	and forward_geo.getAttribute("x_max")==backward_geo.getAttribute("x_max") and forward_geo.getAttribute("y_max")==backward_geo.getAttribute("y_max") and forward_geo.getAttribute("z_max")==backward_geo.getAttribute("z_max") ):
 		print("[Check input] Geometry equal")
 		if (optim_geo == float(forward_geo.getAttribute("x_max")) ):
+			print("Optim geo: " + forward_geo.getAttribute("x_max"))
 			print("[Check input] Geometry optim equal")
 		else:
 			print("[Check input] Geometry optim not equal")
