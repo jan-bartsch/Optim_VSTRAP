@@ -30,7 +30,7 @@ TEST(stepdirection,noSuchMethod) {
     EXPECT_EQ(stepsize_flag,1);
 }
 
-TEST(stepdirection,gradientDescent_noThrow) {
+TEST(stepdirection,gradientDescentNoThrow) {
     std::string input_directory = "./data/Optim_input_gTest.xml";
     const char *  filename = input_directory.c_str();
 
@@ -54,7 +54,65 @@ TEST(stepdirection,gradientDescent_noThrow) {
     double stepsize = 0.1;
 
     arma::mat updated_control_test = control_test + stepsize*stepdirection;
-    size_contr.calculate_stepsize(gradient,J0,control,stepdirection,inputParticles,stepsize0);
+    int return_flag = size_contr.calculate_stepsize(gradient,J0,control,stepdirection,inputParticles,stepsize0);
 
-    EXPECT_NO_THROW();
+    EXPECT_EQ(return_flag,0);
+}
+
+TEST(stepdirection,armijoLinesearchNoThrow) {
+    std::string input_directory = "./data/Optim_input_gTest.xml";
+    const char *  filename = input_directory.c_str();
+
+    data_provider provider = data_provider(filename);
+    stepsize_controller size_contr = stepsize_controller(filename);
+
+    std::map<std::string, std::string> subs = provider.getSubroutines();
+    subs.erase("control_update");
+    subs.insert(std::pair<std::string,std::string>("control_update","armijo_linesearch"));
+    provider.setSubroutines(subs);
+    size_contr.setData_provider_optim(provider);
+
+    arma::mat gradient(10,3,arma::fill::randn);
+    arma::mat control_test(10,3,arma::fill::randu);
+    double J0 = -1.0;
+    std::vector<particle> inputParticles(10);
+    double stepsize0 = 0.1;
+
+    arma::mat stepdirection(10,3,arma::fill::randu);
+    arma::mat control = control_test;
+    double stepsize = 0.1;
+
+    arma::mat updated_control_test = control_test + stepsize*stepdirection;
+    int return_flag = size_contr.calculate_stepsize(gradient,J0,control,stepdirection,inputParticles,stepsize0);
+
+    EXPECT_EQ(return_flag,1);
+}
+
+TEST(stepdirection,successiveApproximationNoThrow) {
+    std::string input_directory = "./data/Optim_input_gTest.xml";
+    const char *  filename = input_directory.c_str();
+
+    data_provider provider = data_provider(filename);
+    stepsize_controller size_contr = stepsize_controller(filename);
+
+    std::map<std::string, std::string> subs = provider.getSubroutines();
+    subs.erase("control_update");
+    subs.insert(std::pair<std::string,std::string>("control_update","successive_approximation"));
+    provider.setSubroutines(subs);
+    size_contr.setData_provider_optim(provider);
+
+    arma::mat gradient(10,3,arma::fill::randn);
+    arma::mat control_test(10,3,arma::fill::randu);
+    double J0 = -1.0;
+    std::vector<particle> inputParticles(10);
+    double stepsize0 = 0.1;
+
+    arma::mat stepdirection(10,3,arma::fill::randu);
+    arma::mat control = control_test;
+    double stepsize = 0.1;
+
+    arma::mat updated_control_test = control_test + stepsize*stepdirection;
+    int return_flag = size_contr.calculate_stepsize(gradient,J0,control,stepdirection,inputParticles,stepsize0);
+
+    EXPECT_EQ(return_flag,0);
 }

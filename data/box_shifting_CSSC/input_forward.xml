@@ -2,6 +2,9 @@
 	<global_values>
 		<time_step value="1e-5"/>
 	</global_values>
+    <abort_criterium>
+		<max_itterations value="20"/>
+	</abort_criterium>
 	<executables>
 		<executable name="mesh_initializer" mode="CPU">
 			<mesh name="vol_mesh">
@@ -51,9 +54,6 @@
 			<file path = "./results/" name="plasma_state" format="csv" output_interval="1"/>
 		</executable>
 	</executables>
-	<abort_criterium>
-		<max_itterations value="25"/>
-	</abort_criterium>
 	<schedule>
 		<init>
 			<executable name="mesh_initializer"/>

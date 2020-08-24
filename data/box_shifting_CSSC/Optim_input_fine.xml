@@ -9,7 +9,7 @@
         <parameter name="sigma_x_gp" value="0.02" />
         <parameter name="sigma_v_gp" value="438.65" />
 
-        <parameter name="fixed_gradient_descent_stepsize" value="1e+1" />
+        <parameter name="fixed_gradient_descent_stepsize" value="1e-2" />
 	      <parameter name="fraction_of_optimal_control" value="1e-5" />
         <parameter name="optimizationIteration_max_gp" value="100" />       <!-- number of maximal interations -->
         <parameter name="numberParticles_gp" value="2000" />
@@ -20,7 +20,7 @@
 
         <!-- Trajectory -->
         <parameter name="expected_speed" value="7e+2" />
-        <parameter name="desired_position_x" value="-0.035"/>
+        <parameter name="desired_position_x" value="-0.35"/>
         <parameter name="desired_position_y" value="0.0"/>
         <parameter name="desired_position_z" value="0.0"/>
 
@@ -32,9 +32,9 @@
         <parameter name="pmax_gp" value="0.5" />
         <parameter name="db_gp" value="0.125" />                           <!-- box-side-length -->
         <parameter name="dt_gp" value="1e-5" />                             <!-- discretization size time -->
-        <parameter name="ntimesteps_gp" value="25" />
-        <parameter name="dv_gp" value="4e+3" />                              <!-- discretization size velocity -->
-        <parameter name="vcell_gp" value="10" /> <!-- 10 -->
+        <parameter name="ntimesteps_gp" value="20" />
+        <parameter name="dv_gp" value="5e+2" />                              <!-- discretization size velocity -->
+        <parameter name="vcell_gp" value="8" /> <!-- 10 -->
         <parameter name="vmax_gp" value="2e+3" /> <!-- 2e+3 -->                           <!-- maximal velocity (support of forward equaiton) -->
 	<parameter name="fraction_fast_particles" value="0.1"/>
 
