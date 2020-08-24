@@ -162,8 +162,72 @@ int stepsize_controller::gradient_descent(arma::mat &control, arma::mat &stepdir
 {
 
     int return_flag = 0;
+
+    output_control_update outController = output_control_update();
+    outController.setData_provider_optim(this->getData_provider_optim());
+    pdf_controller pdf_control = pdf_controller();
+    pdf_control.setData_provider_optim(this->getData_provider_optim());
+    input input_control = input();
+    input_control.setData_provider_optim(this->getData_provider_optim());
+
+
     double stepsize_gradient = static_cast<double>(this->getData_provider_optim().getOptimizationParameters().find("fixed_gradient_descent_stepsize")->second);
-    control = control + stepsize_gradient*stepdirection;
+
+    std::map<std::string, double> optimizationParameters = this->getData_provider_optim().getOptimizationParameters();
+    std::map<std::string, std::string> paths = this->getData_provider_optim().getPaths();
+
+    std::string BUILD_DIRECTORY_VSTRAP = paths.find("BUILD_DIRECTORY_VSTRAP")->second;
+    std::string BUILD_DIRECTORY_OPTIM = paths.find("BUILD_DIRECTORY_OPTIM")->second;
+    std::string DIRECTORY_TOOLSET = paths.find("DIRECTORY_TOOLSET")->second;
+
+    std::string PATH_TO_SHARED_FILES = paths.find("PATH_TO_SHARED_FILES")->second;
+    std::string DOMAIN_MESH = paths.find("DOMAIN_MESH")->second;
+
+    unsigned int ntimesteps_gp = static_cast<unsigned int>(optimizationParameters.find("ntimesteps_gp")->second);
+    unsigned int optimizationIteration_max_gp = static_cast<unsigned int>(optimizationParameters.find("optimizationIteration_max_gp")->second);
+    double dt_gp = static_cast<double>(optimizationParameters.find("dt_gp")->second);
+    double armijo_descent_fraction = static_cast<double>(optimizationParameters.find("armijo_descent_fraction")->second);
+    double tolerance = static_cast<double>(optimizationParameters.find("tolerance_gp")->second);
+
+
+    std::string START_VSTRAP_FORWARD = BUILD_DIRECTORY_VSTRAP + "vstrap" + " " + PATH_TO_SHARED_FILES + "input_forward.xml";
+
+    std::string interpolating_control_python = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " + DOMAIN_MESH +
+            " " + PATH_TO_SHARED_FILES + "control_field_cells.xml" + " " + PATH_TO_SHARED_FILES + "interpolated_control_field.xml";
+
+    int assembling_flag = 1;
+    double alpha = 1;
+    arma::mat control0 = control;
+
+    double counter = 1.0;
+    std::vector<std::vector<particle>> forwardParticles(ntimesteps_gp);
+    std::vector<std::unordered_map<coordinate_phase_space_time,double>> forwardPDF_time;
+    std::vector<std::unordered_map<coordinate_phase_space_time,double>> pdf_time(ntimesteps_gp);
+
+    while (assembling_flag == 1 && static_cast<unsigned int>(counter) <= optimizationIteration_max_gp) {
+        std::string interpolating_control_python = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " + DOMAIN_MESH +
+                " " + PATH_TO_SHARED_FILES + "control_field_cells.xml" + " " + PATH_TO_SHARED_FILES + "interpolated_control_field.xml";
+
+        int forward_return;
+
+        /*
+         * Generate new control
+         */
+        control = control0 + alpha/counter*stepsize_gradient*stepdirection/arma::norm(stepdirection);
+        outController.writeControl_XML(control);
+        system(&interpolating_control_python[0]);
+
+        forward_return = system(&START_VSTRAP_FORWARD[0]);
+
+
+        if (forward_return == 0) {
+            input_control.read_plasma_state_forward(forwardParticles);
+            assembling_flag = pdf_control.assemblingMultiDim_parallel(forwardParticles,0,pdf_time);
+        }
+
+        counter = counter + 1.0;
+    }
+
 
     return return_flag;
 }

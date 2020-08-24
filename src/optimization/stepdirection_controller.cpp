@@ -39,9 +39,7 @@ arma::mat stepdirection_controller::get_stepdirection(arma::mat gradient, arma::
 
 arma::mat stepdirection_controller::fixed_gradient_descent(arma::mat gradient, unsigned int optimization_iteration)
 {
-    std::map<std::string,double> optim_parameters = this->getData_provider_optim().getOptimizationParameters();
-    double stepsize = static_cast<double>(optim_parameters.find("fixed_gradient_descent_stepsize")->second);
-    return -stepsize*gradient/arma::norm(gradient);
+    return -gradient;
 }
 
 arma::mat stepdirection_controller::ncg_scheme_FR(arma::mat gradient, arma::mat gradient_old, arma::mat stepdirectionOld, unsigned int optimization_iteration)

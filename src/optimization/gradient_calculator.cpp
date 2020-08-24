@@ -144,6 +144,8 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm(std::vect
     pdf_control.setData_provider_optim(this->getData_provider_optim());
     equation_solving_controller model_solver = equation_solving_controller();
     model_solver.setData_provider_optim(this->getData_provider_optim());
+    output_control_update outController = output_control_update();
+    outController.setData_provider_optim(this->getData_provider_optim());
 
     unsigned int pcell_gp = static_cast<unsigned int>(optimizationParameters.find("pcell_gp")->second);
     unsigned int vcell_gp = static_cast<unsigned int>(optimizationParameters.find("vcell_gp")->second);
@@ -276,6 +278,7 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm(std::vect
     // std::cout << "Riesz Matrix" << std::endl;
     arma::mat Riesz = weight_control_gp*(arma::eye(dimensionOfControl_gp,dimensionOfControl_gp) - 1.0/(pow(db_gp,2))*Laplace + 1.0/(pow(db_gp,4))*Laplace_Squared);
     //std::cout << Riesz << std::endl;
+    outController.writeArmaMatrixToFile(Riesz,"RiesMatrix");
     //std::cout << "Condition number Matrix Riesz: " << arma::cond(Riesz) << std::endl;
 
     gradient_Riesz = arma::solve(Riesz,-rhs_Riesz);

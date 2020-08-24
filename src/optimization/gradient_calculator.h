@@ -11,6 +11,7 @@
 #include "../controller/abstract_controller.h"
 #include "../controller/pdf_controller.h"
 #include "../controller/equation_solving_controller.h"
+#include "../io/output_control_update.h"
 
 class gradient_calculator : public abstract_controller
 {

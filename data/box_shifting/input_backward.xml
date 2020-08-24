@@ -1,6 +1,6 @@
 <simulation>
         <global_values>
-            <time_step value="1e-6"/>
+            <time_step value="1e-5"/>
         </global_values>
         <abort_criterium>
             <max_itterations value="25"/>
@@ -8,7 +8,7 @@
         <executables>
             <executable name="mesh_initializer" mode="CPU">
                 <mesh name="vol_mesh">
-                    <load>../global/box_vol_regular_small_fine.xml</load>
+                    <load>../global/box_coarse_512.xml</load>
                 </mesh>
             </executable>
 		<executable name="particle_initializer" mode="CPU">
@@ -24,7 +24,7 @@
                     </group>
                 </executable-->
 		<executable name="adjoint_particle_creator" mode="CPU">
-			<geometry x_min="-0.05" x_max="0.05" y_min="-0.05" y_max="0.05" z_min="-0.05" z_max="0.05"/>
+			<geometry x_min="-0.5" x_max="0.5" y_min="-0.5" y_max="0.5" z_min="-0.5" z_max="0.5"/>
 			<particle_group name="adjoint_particles"/>
 			<load>./creation_adjoint_particles.xml</load>
 		</executable>
@@ -36,7 +36,7 @@
             </executable>
              <executable name="pwi" mode="CPU">
                 <boundary_type name="cuboid"/>
-              <geometry x_min="-0.05" x_max="0.05" y_min="-0.05" y_max="0.05" z_min="-0.05" z_max="0.05"/>
+              <geometry x_min="-0.5" x_max="0.5" y_min="-0.5" y_max="0.5" z_min="-0.5" z_max="0.5"/>
                 <particle_group name="adjoint_particles"/>
             </executable>
             <executable name="pusher" mode="CPU" type="adjoint">
