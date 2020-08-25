@@ -1,4 +1,88 @@
-% This file was created by tikzplotlib v0.9.2.
+% This file was created by tikzplotlib v0.9.1.
 \begin{tikzpicture}
+
+\definecolor{color0}{rgb}{0.12156862745098,0.466666666666667,0.705882352941177}
+
+\begin{groupplot}[group style={group size=2 by 2}]
+\nextgroupplot[
+tick align=outside,
+tick pos=left,
+title={Relative value of objective},
+x grid style={white!69.0196078431373!black},
+xmin=-0.2, xmax=4.2,
+xtick style={color=black},
+y grid style={white!69.0196078431373!black},
+ymin=-1.01038988144932, ymax=-0.999505243740508,
+ytick style={color=black}
+]
+\addplot [semithick, color0]
+table {%
+0 -1
+1 -1.0080624001145
+2 -1.00989512518983
+3 -1.00630123480349
+4 -1.00952539974079
+};
+
+\nextgroupplot[
+tick align=outside,
+tick pos=left,
+title={Norm relative gradient},
+x grid style={white!69.0196078431373!black},
+xmin=-0.2, xmax=4.2,
+xtick style={color=black},
+y grid style={white!69.0196078431373!black},
+ymin=0.691748627028111, ymax=1.01467863680819,
+ytick style={color=black}
+]
+\addplot [semithick, color0]
+table {%
+0 1
+1 0.716378697829158
+2 0.831529453068185
+3 0.709803479031355
+4 0.706427263836297
+};
+
+\nextgroupplot[
+tick align=outside,
+tick pos=left,
+title={Norm control},
+x grid style={white!69.0196078431373!black},
+xmin=-0.15, xmax=3.15,
+xtick style={color=black},
+y grid style={white!69.0196078431373!black},
+ymin=14.89418, ymax=16.20802,
+ytick style={color=black}
+]
+\addplot [semithick, color0]
+table {%
+0 14.9539
+1 16.1483
+2 16.1441
+3 16.1303
+};
+
+\nextgroupplot[
+log basis y={10},
+tick align=outside,
+tick pos=left,
+title={stepsizeTrack},
+x grid style={white!69.0196078431373!black},
+xmin=-0.15, xmax=3.15,
+xtick style={color=black},
+y grid style={white!69.0196078431373!black},
+ymin=1.78721686672745e-06, ymax=0.00170755018980323,
+ymode=log,
+ytick style={color=black}
+]
+\addplot [semithick, color0]
+table {%
+0 0.00125
+1 0.000625
+2 2.44141e-06
+3 2.44141e-06
+};
+\end{groupplot}
 
 \end{tikzpicture}

@@ -40,7 +40,7 @@ class Control_field:
 		self.nodesMesh = []
 		self.endPoints = []
 
-	def create_Lists(self,controlFile, meshFile):
+	def create_Lists(self,controlFile, meshFile, scaling):
 		print("Reading control file...")
 		doc = minidom.parse(controlFile);
 		field = doc.getElementsByTagName('field')[0]
@@ -60,7 +60,7 @@ class Control_field:
 			#print(mesh.nodes[n].x_coord)
 			self.nodesMesh.insert(len(self.nodesMesh),[float(mesh.nodes[n].x_coord),mesh.nodes[n].y_coord,mesh.nodes[n].z_coord])
 
-		control_scaling = 1e-1
+		control_scaling = scaling
 		print("Control scaling:"+ str(control_scaling))
 
 		print("Length of control: " + str(len(self.control)))
@@ -72,7 +72,7 @@ class Control_field:
 		print("Generating nodes and endpoints without errors.\n")
 
 
-	def plot_Control_field(self,nodesMesh,endPoints):
+	def plot_Control_field(self,nodesMesh,endPoints,scaling):
 		print("Plotting force field...")
 
 		plt.style.use("ggplot")
@@ -88,7 +88,7 @@ class Control_field:
 			a = Arrow3D([nodesMesh[n-1][0], endPoints[n-1][0]], [nodesMesh[n-1][1], endPoints[n-1][1]], [nodesMesh[n-1][2], endPoints[n-1][2]], mutation_scale=20, lw=1, arrowstyle="-|>", color="k")
 			ax.add_artist(a)
 
-		plt.title('Force field (scaling factor: 1e-1)')
+		plt.title('Force field (scaling factor: '+str(scaling) +')')
 		plt.grid(False)
 
 
