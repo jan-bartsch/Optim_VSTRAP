@@ -23,7 +23,9 @@ int optim_controller::start_optimizer(int argc, const char **argv)
         input_xml_path = argv[1];
         break;
     default:
-        throw std::runtime_error("Too many input parameters");
+        logger::Warning("Too many input parameters. Expected 2 but was " + std::to_string(argc));
+        return 3;
+        //throw std::runtime_error("Too many input parameters");
     }
 
     std::chrono::time_point<std::chrono::system_clock> start_optim = std::chrono::system_clock::now();
@@ -40,6 +42,8 @@ int optim_controller::start_optimizer(int argc, const char **argv)
         std::string return_string = "Optimization returned non-zero value: " + std::to_string(optim_flag);
         logger::Info(return_string);
     }
+
+    return 0;
 
 }
 
