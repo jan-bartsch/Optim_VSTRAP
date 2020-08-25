@@ -2,7 +2,6 @@
 
 optim_controller::optim_controller() {
     logger::InitLog();
-    std::cout << "Initialising optim_controller" << std::endl;
 }
 
 int optim_controller::start_optimizer(int argc, const char **argv)

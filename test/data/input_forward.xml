@@ -48,7 +48,7 @@
 			<batch file_name="batch_1" format="csv" output_interval="1">
 				<particle_group name="forward_particles"/>
 			</batch>
-			<file path = "." name="plasma_state" format="csv" output_interval="1"/>
+			<file path = "./results/" name="plasma_state" format="csv" output_interval="1"/>
 		</executable>
 	</executables>
 	<abort_criterium>

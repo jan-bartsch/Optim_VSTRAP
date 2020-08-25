@@ -1,7 +1,5 @@
 #include <gtest/gtest.h>
 
-#include "optimization/stepsize_controller.h"
-
 #include "controller/pdf_controller.h"
 #include "controller/optim_controller.h"
 #include "controller/equation_solving_controller.h"
@@ -17,6 +15,7 @@
 #include "optimization/gradient_calculator.h"
 #include "optimization/objective_calculator.h"
 #include "optimization/stepdirection_controller.h"
+#include "optimization/stepsize_controller.h"
 
 int main(int argc, char **argv) {
     testing::InitGoogleTest(&argc, argv);

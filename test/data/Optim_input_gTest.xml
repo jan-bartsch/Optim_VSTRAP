@@ -64,15 +64,15 @@
         <path name="PATH_TO_SHARED_FILES" value="./data/" />
         <path name="BARYCENTERS_MESH" value="./data/mesh_barycenters.xml" />
         <path name="DIRECTORY_TOOLSET" value="./toolset/" />
-        <path name="DOMAIN_MESH" value="./data/global/box_coarse.xml" />
-        <path name="RESULTS_DIRECTORY" value="" />
+        <path name="DOMAIN_MESH" value="./global/box_coarse.xml" />
+        <path name="RESULTS_DIRECTORY" value="results/" />
         <path name="INPUT_FORWARD" value="input_forward.xml" />
         <path name="INPUT_BACKWARD" value="input_backward.xml" />
     </paths>
 
     <subroutines>
-        <!--subroutine group="control_update" name= "gradient_descent" /-->
-	<subroutine group="control_update" name="armijo_linesearch" />
+        <subroutine group="control_update" name= "gradient_descent" />
+	<!--subroutine group="control_update" name="armijo_linesearch" /-->
 	<!--subroutine group="control_update" name="successive_approximation" /-->
 	<subroutine group="direction_update" name="negative_gradient" />
         <subroutine group="desired_trajectory" name="box_center" />	

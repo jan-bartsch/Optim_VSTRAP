@@ -10,17 +10,20 @@ TEST(diagnostics,gradientOutput) {
     const char *  filename = input_directory.c_str();
 
     data_provider provider = data_provider(filename);
+    std::map<std::string, std::string> paths = provider.getPaths();
+
+    std::string RESULTS = paths.find("RESULTS_DIRECTORY")->second;
 
     output_diagnostics out = output_diagnostics();
     out.setData_provider_optim(provider);
 
     arma::mat gradient_out(64,3,arma::fill::randu);
 
-    std::string COMMAND_DELETE_FILES = "rm ./data/testGradient.csv";
+    std::string COMMAND_DELETE_FILES = "rm ./" + RESULTS + "testGradient.csv";
     system(&COMMAND_DELETE_FILES[0]);
 
     try{
-        out.writeGradientToFile(gradient_out,"./data/testGradient");
+        out.writeGradientToFile(gradient_out,"testGradient");
     } catch(std::exception e) {
         ASSERT_TRUE(all_clear);
     }
@@ -28,7 +31,7 @@ TEST(diagnostics,gradientOutput) {
     arma::mat gradient_in(64,3,arma::fill::zeros);
     int counter = 0;
 
-    std::ifstream file("./data/testGradient.csv");
+    std::ifstream file("./"+RESULTS+"testGradient.csv");
 
     std::string line = "";
     std::string delimiter = ",";
