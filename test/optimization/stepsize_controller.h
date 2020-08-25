@@ -85,7 +85,7 @@ TEST(stepdirection,armijoLinesearchNoThrow) {
     arma::mat updated_control_test = control_test + stepsize*stepdirection;
     int return_flag = size_contr.calculate_stepsize(gradient,J0,control,stepdirection,inputParticles,stepsize0);
 
-    EXPECT_EQ(return_flag,1);
+    EXPECT_EQ(return_flag,2);
 }
 
 TEST(stepdirection,successiveApproximationNoThrow) {
