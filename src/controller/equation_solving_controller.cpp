@@ -9,7 +9,7 @@ int equation_solving_controller::start_solving_forward(std::string start_forward
 
 int equation_solving_controller::start_solving_backward(std::string start_backward)
 {
-    return  system(&start_backward[0]);
+    return system(&start_backward[0]);
 }
 
 arma::mat equation_solving_controller::Laplacian_3D()
@@ -42,7 +42,7 @@ arma::mat equation_solving_controller::Laplacian_3D()
 
 
     for(int i = start_control; i<=end_control; i++) {
-    //for(int i = 1; i<=dimensionOfControl_gp; i++) {
+        //for(int i = 1; i<=dimensionOfControl_gp; i++) {
         current_barycenter = barycenters.find(static_cast<int>(i))->second;
         Laplace(i-start_control,i-start_control) = -6.0;
 
@@ -75,11 +75,11 @@ arma::mat equation_solving_controller::Laplacian_3D()
         for(int l = start_control; l<=end_control;l++) {
             std::vector<double> temp = barycenters.find(l)->second;
             if (comp.norm_difference_doubleVector(temp,next_cell_xm) < fabs_tol_gp ||
-                   comp.norm_difference_doubleVector(temp,next_cell_xp) < fabs_tol_gp ||
-                   comp.norm_difference_doubleVector(temp, next_cell_ym) < fabs_tol_gp ||
-                   comp.norm_difference_doubleVector(temp, next_cell_yp) < fabs_tol_gp ||
-                   comp.norm_difference_doubleVector(temp, next_cell_zm) < fabs_tol_gp ||
-                   comp.norm_difference_doubleVector(temp, next_cell_zp) < fabs_tol_gp) {
+                    comp.norm_difference_doubleVector(temp,next_cell_xp) < fabs_tol_gp ||
+                    comp.norm_difference_doubleVector(temp, next_cell_ym) < fabs_tol_gp ||
+                    comp.norm_difference_doubleVector(temp, next_cell_yp) < fabs_tol_gp ||
+                    comp.norm_difference_doubleVector(temp, next_cell_zm) < fabs_tol_gp ||
+                    comp.norm_difference_doubleVector(temp, next_cell_zp) < fabs_tol_gp) {
                 if (i != l) {
                     Laplace(i-start_control,l-start_control) = 1.0;
                 }
@@ -112,14 +112,14 @@ arma::mat equation_solving_controller::Laplacian_Squared_3D()
     std::vector<double> next_cell_zmm;std::vector<double> next_cell_zpp;
 
 
-     arma::mat Laplace(dimensionOfControl_gp,dimensionOfControl_gp,arma::fill::zeros);
+    arma::mat Laplace(dimensionOfControl_gp,dimensionOfControl_gp,arma::fill::zeros);
 
-     int start_control = static_cast<int>(optimizationParameters.find("start_control_gp")->second);
-     int end_control = static_cast<int>(optimizationParameters.find("end_control_gp")->second);
+    int start_control = static_cast<int>(optimizationParameters.find("start_control_gp")->second);
+    int end_control = static_cast<int>(optimizationParameters.find("end_control_gp")->second);
 
 
     for(int i = start_control; i<=end_control; i++) {
-    //for(int i = 1; i<=dimensionOfControl_gp; i++) {
+        //for(int i = 1; i<=dimensionOfControl_gp; i++) {
         current_barycenter = barycenters.find(static_cast<int>(i))->second;
         Laplace(i-start_control,i-start_control) = 18.0;
 
@@ -178,11 +178,11 @@ arma::mat equation_solving_controller::Laplacian_Squared_3D()
         for(int l = start_control; l<=end_control;l++) {
             std::vector<double> temp = barycenters.find(l)->second;
             if (comp.norm_difference_doubleVector(temp,next_cell_xm) < fabs_tol_gp ||
-                   comp.norm_difference_doubleVector(temp,next_cell_xp) < fabs_tol_gp ||
-                   comp.norm_difference_doubleVector(temp, next_cell_ym) < fabs_tol_gp ||
-                   comp.norm_difference_doubleVector(temp, next_cell_yp) < fabs_tol_gp ||
-                   comp.norm_difference_doubleVector(temp, next_cell_zm) < fabs_tol_gp ||
-                   comp.norm_difference_doubleVector(temp, next_cell_zp) < fabs_tol_gp) {
+                    comp.norm_difference_doubleVector(temp,next_cell_xp) < fabs_tol_gp ||
+                    comp.norm_difference_doubleVector(temp, next_cell_ym) < fabs_tol_gp ||
+                    comp.norm_difference_doubleVector(temp, next_cell_yp) < fabs_tol_gp ||
+                    comp.norm_difference_doubleVector(temp, next_cell_zm) < fabs_tol_gp ||
+                    comp.norm_difference_doubleVector(temp, next_cell_zp) < fabs_tol_gp) {
                 if (i != l) {
                     Laplace(i-start_control,l-start_control) = -4.0;
                 }

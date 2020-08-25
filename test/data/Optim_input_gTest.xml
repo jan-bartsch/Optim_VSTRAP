@@ -60,7 +60,7 @@
     <paths>
         <path name="BUILD_DIRECTORY_VSTRAP" value="./data/vstrap/" />
         <path name="BUILD_DIRECTORY_OPTIM" value="/home/jan/Promotion_linuxPC/build-Optim/test/" />
-        <path name="BUILD_DIRECTORY_OPTIM_TEST" value="/home/jan/Promotion_linuxPC/build-Optim/test" /> <!-- /root/project/build-Optim/test  -->
+        <path name="BUILD_DIRECTORY_OPTIM_TEST" value="/root/project/build-Optim/test " /> <!-- /home/jan/Promotion_linuxPC/build-Optim/test -->
         <path name="PATH_TO_SHARED_FILES" value="./data/" />
         <path name="BARYCENTERS_MESH" value="./data/global/mesh_barycenters.xml" />
         <path name="DIRECTORY_TOOLSET" value="./toolset/" />

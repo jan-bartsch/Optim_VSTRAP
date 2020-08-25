@@ -121,9 +121,9 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
     check_input_py(data_provider_opt, input_xml_path);
 
     std::string START_VSTRAP_FORWARD = BUILD_DIRECTORY_VSTRAP + "vstrap" + " " + PATH_TO_SHARED_FILES + INPUT_FORWARD;
-    int forward_return = 0.0;
+    int forward_return = 0;
     std::string START_VSTRAP_BACKWARD = BUILD_DIRECTORY_VSTRAP + "vstrap" + " " + PATH_TO_SHARED_FILES + INPUT_BACKWARD;
-    int backward_return = 0.0;
+    int backward_return = 0;
 
     double wasserstein_distance = 0.0;
 
