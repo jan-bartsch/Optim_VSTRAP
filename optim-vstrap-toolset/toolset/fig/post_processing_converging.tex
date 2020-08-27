@@ -1,4 +1,4 @@
-% This file was created by tikzplotlib v0.9.1.
+% This file was created by tikzplotlib v0.9.2.
 \begin{tikzpicture}
 
 \definecolor{color0}{rgb}{0.12156862745098,0.466666666666667,0.705882352941177}
@@ -9,19 +9,29 @@ tick align=outside,
 tick pos=left,
 title={Relative value of objective},
 x grid style={white!69.0196078431373!black},
-xmin=-0.2, xmax=4.2,
+xmin=-0.7, xmax=14.7,
 xtick style={color=black},
 y grid style={white!69.0196078431373!black},
-ymin=-1.01038988144932, ymax=-0.999505243740508,
+ymin=-1.00334697113354, ymax=-0.997899951397908,
 ytick style={color=black}
 ]
 \addplot [semithick, color0]
 table {%
 0 -1
-1 -1.0080624001145
-2 -1.00989512518983
-3 -1.00630123480349
-4 -1.00952539974079
+1 -0.999482108852751
+2 -0.999960162219443
+3 -1.00100789584811
+4 -1.00156960855397
+5 -1.00144212765618
+6 -1.00133456564868
+7 -1.00142619254396
+8 -1.00105968496283
+9 -1.00012748089778
+10 -1.00309937932738
+11 -1.00080472316726
+12 -1.00155367344174
+13 -0.998147543204073
+14 -1.00182058657148
 };
 
 \nextgroupplot[
@@ -29,19 +39,29 @@ tick align=outside,
 tick pos=left,
 title={Norm relative gradient},
 x grid style={white!69.0196078431373!black},
-xmin=-0.2, xmax=4.2,
+xmin=-0.7, xmax=14.7,
 xtick style={color=black},
 y grid style={white!69.0196078431373!black},
-ymin=0.691748627028111, ymax=1.01467863680819,
+ymin=0.980501125990752, ymax=1.40947635419422,
 ytick style={color=black}
 ]
 \addplot [semithick, color0]
 table {%
 0 1
-1 0.716378697829158
-2 0.831529453068185
-3 0.709803479031355
-4 0.706427263836297
+1 1.0917290340751
+2 1.03807875180462
+3 1.02871362282802
+4 1.08482425499712
+5 1.36073721196218
+6 1.28343482705996
+7 1.36738897227441
+8 1.22424446421273
+9 1.18059014051128
+10 1.33631689398285
+11 1.27670292505722
+12 1.38997748018497
+13 1.37871184826201
+14 1.26224307432684
 };
 
 \nextgroupplot[
@@ -49,18 +69,28 @@ tick align=outside,
 tick pos=left,
 title={Norm control},
 x grid style={white!69.0196078431373!black},
-xmin=-0.15, xmax=3.15,
+xmin=-0.65, xmax=13.65,
 xtick style={color=black},
 y grid style={white!69.0196078431373!black},
-ymin=14.89418, ymax=16.20802,
+ymin=-0.0259959435, ymax=0.7380744735,
 ytick style={color=black}
 ]
 \addplot [semithick, color0]
 table {%
-0 14.9539
-1 16.1483
-2 16.1441
-3 16.1303
+0 0.00873453
+1 0.0453983
+2 0.144594
+3 0.402961
+4 0.581549
+5 0.661977
+6 0.702966
+7 0.703067
+8 0.703158
+9 0.703344
+10 0.703344
+11 0.703344
+12 0.703344
+13 0.703344
 };
 
 \nextgroupplot[
@@ -69,19 +99,29 @@ tick align=outside,
 tick pos=left,
 title={stepsizeTrack},
 x grid style={white!69.0196078431373!black},
-xmin=-0.15, xmax=3.15,
+xmin=-0.65, xmax=13.65,
 xtick style={color=black},
 y grid style={white!69.0196078431373!black},
-ymin=1.78721686672745e-06, ymax=0.00170755018980323,
+ymin=2.96756913556445e-12, ymax=0.251066905593181,
 ymode=log,
 ytick style={color=black}
 ]
 \addplot [semithick, color0]
 table {%
-0 0.00125
-1 0.000625
-2 2.44141e-06
-3 2.44141e-06
+0 0.01
+1 0.02
+2 0.04
+3 0.08
+4 0.04
+5 0.01
+6 0.005
+7 9.76563e-06
+8 9.76563e-06
+9 1.95313e-05
+10 3.8147e-08
+11 1.90735e-08
+12 9.31323e-12
+13 9.31323e-12
 };
 \end{groupplot}
 
