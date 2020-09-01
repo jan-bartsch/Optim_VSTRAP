@@ -1,0 +1,75 @@
+﻿<simulation>
+	<global_values>
+		<time_step value="0.5e-5"/>
+	</global_values>
+    <abort_criterium>
+		<max_itterations value="50"/>
+	</abort_criterium>
+	<executables>
+		<executable name="mesh_initializer" mode="CPU">
+			<mesh name="vol_mesh">
+				<load>../global/box_coarse.xml</load>
+			</mesh>
+		</executable>
+	<executable name="particle_initializer" mode="CPU">
+			<group name="forward_particles" empty="false">
+				<geometry x_min="-0.5" x_max="0.5" y_min="-0.5" y_max="0.5" z_min="-0.5" z_max="0.5"/>
+				<values number_density="4e+13" weight="1e+9" charge_number="+1" mass="6.63e-26" species="40Ar+"/>
+				<temperature x_val="100" y_val="100" z_val="100"/>
+				<v_drift x_val="0" y_val="0" z_val="0"/>
+			</group>
+		</executable>
+	<!--executable name="particle_initializer" mode="CPU">
+			    <group name="forward_particles">
+				<geometry x_min="-0.5" x_max="0.5" y_min="-0.5" y_max="0.5" z_min="-0.5" z_max="0.5"/>
+				<load>../global/init_cond_big.csv</load>
+			    </group>
+	</executable-->
+        <executable name="pwi" mode="CPU">
+            <boundary_type name="cuboid"/>
+            <geometry x_min="-0.5" x_max="0.5" y_min="-0.5" y_max="0.5" z_min="-0.5" z_max="0.5"/>
+            <particle_group name="forward_particles"/>
+        </executable>
+		<executable name="bgf" mode="CPU">
+			<volume_mesh name="vol_mesh"/>
+			<!--field name="bem_e_field" type="bem_electric_field" mesh_points="mesh_points" load_freq="1"/-->
+			<load>./interpolated_control_field.xml</load>
+			<particle_batch>
+				<!--field name="bem_e_field"/-->
+				<field name="interpolated_control_field"/>
+				<particle_group name="forward_particles"/>
+			</particle_batch>
+		</executable>
+		<executable name="pusher" mode="CPU" type="forward">
+			<particle_group name="forward_particles"/>
+		</executable>
+         <executable name="dsmc" mode="CPU">
+                <particle_group name="forward_particles"/>
+                <load>../global/interaction_data.xml</load>
+         </executable>
+		<executable name="plasma_state" mode="CPU">
+			<batch file_name="batch_1" format="csv" output_interval="1">
+				<particle_group name="forward_particles"/>
+			</batch>
+			<file path = "./results/" name="plasma_state" format="csv" output_interval="1"/>
+		</executable>
+	</executables>
+	<schedule>
+		<init>
+			<executable name="mesh_initializer"/>
+			<executable name="particle_initializer"/>
+			<executable name="plasma_state"/>
+			<executable name="pusher"/>
+            		<executable name="pwi"/>
+			<executable name="dsmc"/>
+			<executable name="bgf"/>
+		</init>
+		<exec>
+		  	<executable name="bgf"/>
+            <executable name="dsmc"/>
+			<executable name="pusher"/>
+            		<executable name="pwi"/>
+			<executable name="plasma_state"/>
+		</exec>
+	</schedule>
+</simulation>

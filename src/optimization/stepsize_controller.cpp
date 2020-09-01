@@ -60,12 +60,14 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
     std::string BUILD_DIRECTORY_VSTRAP = paths.find("BUILD_DIRECTORY_VSTRAP")->second;
     std::string BUILD_DIRECTORY_OPTIM = paths.find("BUILD_DIRECTORY_OPTIM")->second;
     std::string DIRECTORY_TOOLSET = paths.find("DIRECTORY_TOOLSET")->second;
+    std::string INPUT_FORWARD = paths.find("INPUT_FORWARD")->second;
+    std::string INPUT_BACKWARD = paths.find("INPUT_BACKWARD")->second;
 
     std::string PATH_TO_SHARED_FILES = paths.find("PATH_TO_SHARED_FILES")->second;
     std::string DOMAIN_MESH = paths.find("DOMAIN_MESH")->second;
 
 
-    std::string START_VSTRAP_FORWARD = BUILD_DIRECTORY_VSTRAP + "vstrap" + " " + PATH_TO_SHARED_FILES + "input_forward.xml";
+    std::string START_VSTRAP_FORWARD = BUILD_DIRECTORY_VSTRAP + "vstrap" + " " + PATH_TO_SHARED_FILES + INPUT_FORWARD;
 
     std::vector<std::unordered_map<coordinate_phase_space_time,double>> pdf_time(ntimesteps_gp);
     int assembling_flag;
@@ -113,7 +115,11 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
         if (assembling_flag == 0) {
             Jtemp = objective.calculate_objective_L2(forwardPDF_time,control0 + alpha*stepdirection);
         }
+    } else {
+        logger::Info("Forward VSTRAP returned non-zero value: " + std::to_string(forward_return));
+        throw  std::system_error();
     }
+
 
     while (Jtemp > J0 + scalarProduct*armijo_descent_fraction && alpha > tolerance
            && counter <= optimizationIteration_max_gp) {
@@ -132,6 +138,9 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
             if (assembling_flag == 0) {
                 Jtemp = objective.calculate_objective_L2(forwardPDF_time,control0 + alpha*stepdirection);
             }
+        } else {
+            logger::Info("Forward VSTRAP returned non-zero value: " + std::to_string(forward_return));
+            throw  std::system_error();
         }
 
         std::cout << "Armijo: " << "Jtemp = " << Jtemp << std::endl

@@ -105,7 +105,7 @@ int pdf_controller::assemblingMultiDim_parallel(std::vector<std::vector<particle
 
     //std::cout << "Using " <<  usedThreads << " threads for assembling pdfs" << std::endl;
 
-//#pragma omp parallel for
+#pragma omp parallel for
     for (unsigned int o=0; o<ntimesteps_gp; o++) {
         //std::cout << "Assembling pdf in timestep " << o << std::endl;
         double px,py,pz,vx,vy,vz;

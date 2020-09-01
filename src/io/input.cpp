@@ -15,7 +15,14 @@ unsigned int input::read_plasma_state_forward(std::vector<std::vector<particle> 
 
 #pragma omp parallel for
     for(unsigned int o = 1; o<=ntimesteps_gp; o++) {
-        forwardParticles[o-1] = input::readParticleVector(BUILD_DIRECTORY_OPTIM+RESULTS_DIRECTORY+"plasma_state_batch_1_forward_particles_CPU_"+std::to_string(o)+".csv",",");
+        try {
+            forwardParticles[o-1] = input::readParticleVector(BUILD_DIRECTORY_OPTIM+RESULTS_DIRECTORY+"plasma_state_batch_1_forward_particles_CPU_"+std::to_string(o)+".csv",",");
+        } catch (std::exception e) {
+            logger::Warning("BUILD_DIRECTORY_OPTIM: " + BUILD_DIRECTORY_OPTIM);
+            logger::Warning("RESULTS_DIRECTORY: " + RESULTS_DIRECTORY);
+            throw std::invalid_argument("Could not read VSTRAP output forward");
+        }
+
     }
 
     return 0;
@@ -32,7 +39,13 @@ unsigned int input::read_plasma_state_backward(std::vector<std::vector<particle>
 
 #pragma omp parallel for
     for(unsigned int o = 1; o<=ntimesteps_gp; o++) {
-        backwardParticles[ntimesteps_gp - o] = input::readParticleVector(BUILD_DIRECTORY_OPTIM+RESULTS_DIRECTORY+"plasma_state_batch_1_adjoint_particles_CPU_"+std::to_string(o)+".csv",",");
+        try {
+            backwardParticles[ntimesteps_gp - o] = input::readParticleVector(BUILD_DIRECTORY_OPTIM+RESULTS_DIRECTORY+"plasma_state_batch_1_adjoint_particles_CPU_"+std::to_string(o)+".csv",",");
+        } catch (std::exception e) {
+            logger::Warning("BUILD_DIRECTORY_OPTIM: " + BUILD_DIRECTORY_OPTIM);
+            logger::Warning("RESULTS_DIRECTORY: " + RESULTS_DIRECTORY);
+            throw std::invalid_argument("Could not read VSTRAP output backward");
+        }
     }
 
     return 0;
@@ -98,8 +111,7 @@ arma::mat input::readControl(const char *filename)
     TiXmlDocument inputFile(filename);
     if (!inputFile.LoadFile()) {
         std::cout << filename << std::endl;
-        throw std::runtime_error("File could not be opened. Check if directory"
-                                 "and syntax are correct!");
+        throw std::runtime_error("File could not be opened. Check if directory and syntax are correct!");
     }
 
     TiXmlElement *fieldRoot = inputFile.RootElement();

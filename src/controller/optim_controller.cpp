@@ -288,7 +288,10 @@ int optim_controller::check_input_py(data_provider provider, const char *filePat
     std::map<std::string, std::string> paths = provider.getPaths();
     std::string PATH_TO_SHARED_FILES = paths.find("PATH_TO_SHARED_FILES")->second;
     std::string DIRECTORY_TOOLSET = paths.find("DIRECTORY_TOOLSET")->second;
-    std::string CHECK_INPUT_PYHTON = "python3 " + DIRECTORY_TOOLSET + "check_input.py " + PATH_TO_SHARED_FILES + " " + &filePathOptimInput[0];
+    std::string INPUT_FORWARD = paths.find("INPUT_FORWARD")->second;
+    std::string INPUT_BACKWARD = paths.find("INPUT_BACKWARD")->second;
+
+    std::string CHECK_INPUT_PYHTON = "python3 " + DIRECTORY_TOOLSET + "check_input.py " + PATH_TO_SHARED_FILES + INPUT_FORWARD + " " + PATH_TO_SHARED_FILES + INPUT_BACKWARD + " " + &filePathOptimInput[0];
 
     int check_input_flag = system(&CHECK_INPUT_PYHTON[0]);
 

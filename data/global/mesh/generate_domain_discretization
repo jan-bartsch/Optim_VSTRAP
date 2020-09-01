@@ -1,0 +1,10 @@
+#generate .geo file with openCascade
+
+#generate msh file (version 2.2)
+gmsh box_vol_regular_216.geo -3 -format msh2
+
+#generate xml file
+python3 meshConverter.py box_vol_regular_216 -v
+
+#generate barycenters
+python3 calculate_barycenters.py ../../data/global/mesh/box_vol_regular_216.xml ../../data/global/mesh/mesh_barycenters_216.xml 
