@@ -18,6 +18,7 @@ unsigned int input::read_plasma_state_forward(std::vector<std::vector<particle> 
         try {
             forwardParticles[o-1] = input::readParticleVector(BUILD_DIRECTORY_OPTIM+RESULTS_DIRECTORY+"plasma_state_batch_1_forward_particles_CPU_"+std::to_string(o)+".csv",",");
         } catch (std::exception e) {
+		logger::Warning("Iteration: " + std::to_string(o));
             logger::Warning("BUILD_DIRECTORY_OPTIM: " + BUILD_DIRECTORY_OPTIM);
             logger::Warning("RESULTS_DIRECTORY: " + RESULTS_DIRECTORY);
             throw std::invalid_argument("Could not read VSTRAP output forward");
@@ -62,6 +63,7 @@ std::vector<particle> input::readParticleVector(std::string filename, std::strin
     std::string line = "";
 
     if( !file.is_open() ) {
+	logger::Warning("File not found: " + filename);
         throw  std::runtime_error("File could not be opened");
     }
 
