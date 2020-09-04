@@ -7,27 +7,34 @@ import numpy.matlib
 import numpy as np
 import math
 
-parser = argparse.ArgumentParser(prog="Generate File for creation of adjoint particles", description='Needs target folder for creation fle')
+parser = argparse.ArgumentParser(prog="Generate File for creation of adjoint particles", description='Needs target folder for creation file and Optim_input (xml)')
+parser.add_argument('OptimInput', type=str, help='filepath of optim input')
 parser.add_argument('target_folder', type=str, help='target folder for creation file (relative path)')
 args = parser.parse_args()
 
-#file = open("creation_adjoint_particles.xml", 'w+');
+OptimIn = minidom.parse(args.OptimInput);
+parameters = OptimIn.getElementsByTagName('globalParameters')[0];
+params = {}
+
+for p in parameters.getElementsByTagName('parameter'):
+	params[p.getAttribute("name")] = p.getAttribute("value")
+
 file = open(args.target_folder + "/creation_adjoint_particles.xml", 'w+');
 
-ntimesteps = 25;
-mu_x = -0.35;
-mu_y = 0.0;
-mu_z = 0.0;
-s_x = 0.25;
-s_y = 0.25;
-s_z = 0.25;
+ntimesteps = 25; #float(params["ntimesteps_gp"])
+mu_x = -0.35; #float(params["adjoint_mu_x"])
+mu_y = 0.0; #float(params["adjoint_mu_y"])
+mu_z = 0.0; #float(params["adjoint_mu_z"])
+s_x = 0.25; #float(params["adjoint_s_x"})
+s_y = 0.25; #float(params["adjoint_s_y"})
+s_z = 0.25; #float(params["adjoint_s_z"})
 
-v_x = -100.0;
-v_y = 0.0;
-v_z = 0.0;
+v_x = -100.0; #float(params["adjoint_vx"})
+v_y = 0.0; #float(params["adjoint_vx"})
+v_z = 0.0; #float(params["adjoint_vx"})
 
-most_probable_speed = 7e+2;
-expected_speed = 7e+2;
+most_probable_speed = 7e+2; #float(params["expected_speed"})
+expected_speed = 7e+2; #float(params["most_probable_speed"})
 
 sigma_v = math.sqrt(math.pi/8.0)*expected_speed
 #sigma_v = math.sqrt(1.0/2.0)*most_probable_-speed

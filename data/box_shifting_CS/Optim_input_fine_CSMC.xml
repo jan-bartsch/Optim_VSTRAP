@@ -59,10 +59,10 @@
     <paths>
       <path name="BUILD_DIRECTORY_VSTRAP" value="/home/bartsch/SPARC/build-vstrap-CSMC/src/" />
       <path name="BUILD_DIRECTORY_OPTIM" value="/home/bartsch/SPARC/build-Optim-CSMC/src/" />
-      <path name="PATH_TO_SHARED_FILES" value="../../Optim_VSTRAP/data/box_shifting_CSSC/" />
+      <path name="PATH_TO_SHARED_FILES" value="../../Optim_VSTRAP/data/box_shifting_CS/" />
       <path name="BARYCENTERS_MESH" value="../../Optim_VSTRAP/data/global/mesh_barycenters_512.xml" />
     	<path name="DIRECTORY_TOOLSET" value="../../Optim_VSTRAP/optim-vstrap-toolset/toolset/" />
-	<path name="DOMAIN_MESH" value="../../Optim_VSTRAP/data/global/box_coarse_512.xml" />
+	<path name="DOMAIN_MESH" value="../../Optim_VSTRAP/data/global/box_vol_regular_512.xml" />
   	<path name="RESULTS_DIRECTORY" value="results/" />
 	<path name="INPUT_FORWARD" value="input_forward.xml" />
 	<path name="INPUT_BACKWARD" value="input_backward.xml" />

@@ -3,12 +3,12 @@
             <time_step value="1e-5"/>
         </global_values>
         <abort_criterium>
-            <max_itterations value="25"/>
+            <max_itterations value="20"/>
         </abort_criterium>
         <executables>
             <executable name="mesh_initializer" mode="CPU">
                 <mesh name="vol_mesh">
-                    <load>../global/box_vol_regular_216.xml</load>
+                    <load>../global/box_vol_regular_512.xml</load>
                 </mesh>
             </executable>
 		<executable name="particle_initializer" mode="CPU">
