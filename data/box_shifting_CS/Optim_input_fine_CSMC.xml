@@ -51,7 +51,7 @@
         <parameter name="velocity_part_objective" value="1e-9" />
 
         <!-- -->
-        <parameter name="fabs_tol_gp" value="1e-5" />
+        <parameter name="fabs_tol_gp" value="1e-3" />
     </globalParameters>
 
 
