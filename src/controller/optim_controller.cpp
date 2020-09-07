@@ -97,22 +97,16 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
     arma::mat Laplace_2 = model_solver.Laplacian_Squared_3D();
     outController.writeArmaMatrixToFile(Laplace_2,"LaplacianSmall3D_Squared");
 
-    unsigned int pcell_gp = static_cast<unsigned int>(optimizationParameters.find("pcell_gp")->second);
-    unsigned int vcell_gp = static_cast<unsigned int>(optimizationParameters.find("vcell_gp")->second);
     unsigned int dimensionOfControl_gp = static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second);
-    double dv_gp = static_cast<double>(optimizationParameters.find("dv_gp")->second);
-    double dt_gp = static_cast<double>(optimizationParameters.find("dt_gp")->second);
-    double dp_gp = static_cast<double>(optimizationParameters.find("dp_gp")->second);
     double db_gp = static_cast<double>(optimizationParameters.find("db_gp")->second);
     double weight_control_gp = static_cast<double>(optimizationParameters.find("weight_control_gp")->second);
-    double local_control_x_min_gp = static_cast<double>(optimizationParameters.find("local_control_x_min_gp")->second);
-    double local_control_x_max_gp = static_cast<double>(optimizationParameters.find("local_control_x_max_gp")->second);
 
-    arma::mat Riesz = weight_control_gp*(pow(10,5)*arma::eye(dimensionOfControl_gp,dimensionOfControl_gp) - 1.0/(pow(db_gp,2))*Laplace + 1.0/(pow(db_gp,4))*Laplace_2);
+    arma::mat Riesz = weight_control_gp*(arma::eye(dimensionOfControl_gp,dimensionOfControl_gp) - 1.0/(pow(db_gp,2))*Laplace + 1.0/(pow(db_gp,4))*Laplace_2);
     outController.writeArmaMatrixToFile(Riesz,"RiesMatrix");
 
     std::cout << arma::norm(Laplace - Laplace.t(),"inf") << std::endl;
     std::cout << arma::norm(Laplace_2 - Laplace_2.t(),"inf") << std::endl;
+    std::cout << arma::norm(Riesz - Riesz.t()) << std::endl;
 
 
     /*
@@ -173,7 +167,6 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
 
         logger::Info("Starting VSTRAP (foward)... ");
         forward_return = model_solver.start_solving_forward(START_VSTRAP_FORWARD);
-        //forward_return = system(&START_VSTRAP_FORWARD[0]);
         if (forward_return != 0) {
             logger::Info("Forward VSTRAP returned non-zero value: " + std::to_string(forward_return));
             throw  std::system_error();
@@ -188,7 +181,6 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
         logger::Info("Starting VSTRAP (backward)...");
 
         backward_return = model_solver.start_solving_backward(START_VSTRAP_BACKWARD);
-        //backward_return = system(&START_VSTRAP_BACKWARD[0]);
         if (backward_return != 0)  {
             logger::Info("Backward VSTRAP returned non-zero value: " + std::to_string(backward_return));
             throw std::system_error();
@@ -228,11 +220,11 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
         }
         else if (fmod(r,calculation_functional) == 0.0) {
             logger::Info("Calculating functional...");
-             start = std::chrono::system_clock::now();
+            start = std::chrono::system_clock::now();
             value_objective = objective.calculate_objective_L2(forwardPDF,control);
             end = std::chrono::system_clock::now();
             logger::Info("Calculation of functional took: " + std::to_string(std::chrono::duration_cast<std::chrono::seconds>
-                                                                      (end-start).count()) + " second(s)");
+                                                                             (end-start).count()) + " second(s)");
             outDiag.writeDoubleToFile(value_objective,"objectiveTrack");
         } else {
             std::cout << "No calculation of functional" << std::endl;
@@ -277,7 +269,7 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
         outDiag.writeDoubleToFile(arma::norm(control,"fro"),"normControlTrack");
         interpolate_control(data_provider_opt);
 
-        logger::Info("Starting " + std::to_string(r+1) + " iteration");
+       logger::Info("Starting " + std::to_string(r+1) + " iteration");
     }
 
     return 0;
@@ -345,8 +337,6 @@ arma::mat optim_controller::start_with_zero_control(const char *input_xml_path)
     arma::mat control(dimensionOfControl,3,arma::fill::zeros);
 
     logger::Info("Deleting old files");
-    //std::string COMMAND_DELETE_FILES = "rm *.log | rm *.csv | rm *.txt";
-    //system(&COMMAND_DELETE_FILES[0]);
     std::string COMMAND_RM_RESULTS = "rm -r results";
     system(&COMMAND_RM_RESULTS[0]);
     std::string COMMAND_MKDIR_RESULTS = "mkdir results";

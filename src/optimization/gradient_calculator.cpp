@@ -153,7 +153,6 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm(std::vect
     unsigned int dimensionOfControl_gp = static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second);
     double dv_gp = static_cast<double>(optimizationParameters.find("dv_gp")->second);
     double dt_gp = static_cast<double>(optimizationParameters.find("dt_gp")->second);
-    double dp_gp = static_cast<double>(optimizationParameters.find("dp_gp")->second);
     double db_gp = static_cast<double>(optimizationParameters.find("db_gp")->second);
     double weight_control_gp = static_cast<double>(optimizationParameters.find("weight_control_gp")->second);
     double local_control_x_min_gp = static_cast<double>(optimizationParameters.find("local_control_x_min_gp")->second);
@@ -175,7 +174,7 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm(std::vect
     //Caculate integral in gradient
     const unsigned int n = pcell_gp;
 
-//#pragma omp parallel for
+#pragma omp parallel for
     for(unsigned int i = 1; i< n+1; i++) {
 
         std::vector<double> current_barycenter = barycenters.find(static_cast<int>(i))->second;
@@ -211,7 +210,7 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm(std::vect
             }
 
 
-            //forwardPDFdouble = pdf_control.relaxating_GaussSeidel_4D(forwardPDFdouble,1000);
+            forwardPDFdouble = pdf_control.relaxating_GaussSeidel_4D(forwardPDFdouble,1000);
 
 
             for (unsigned int o = 0; o<ntimesteps_gp; o++) {
@@ -281,7 +280,16 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm(std::vect
     outController.writeArmaMatrixToFile(Riesz,"RiesMatrix");
     //std::cout << "Condition number Matrix Riesz: " << arma::cond(Riesz) << std::endl;
 
-    gradient_Riesz = arma::solve(Riesz,-rhs_Riesz);
+    arma::mat Riesz_control(dimensionOfControl_gp,3,arma::fill::zeros);
+    for(int j = 0; j < pcell_gp; j++) {
+        if (j>start_control-2 && j<end_control) {
+            Riesz_control(j-start_control+1,0) = control(j,0);
+            Riesz_control(j-start_control+1,1) = control(j,1);
+            Riesz_control(j-start_control+1,2) = control(j,2);
+        }
+    }
+
+    gradient_Riesz = arma::solve(Riesz,Riesz*Riesz_control+rhs_Riesz);
     arma::mat return_gradient(pcell_gp,3,arma::fill::zeros);
 
     //    std::cout << "Solution elliptic equation:" << std::endl;
@@ -297,6 +305,7 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm(std::vect
 
     std::cout << "Return_Gradient:" << std::endl;
     std::cout << return_gradient << std::endl;
+
 
     return return_gradient;
 

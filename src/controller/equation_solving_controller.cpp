@@ -194,7 +194,7 @@ arma::mat equation_solving_controller::Laplacian_Squared_3D()
                     comp.norm_difference_doubleVector(temp,next_cell_zmm) < fabs_tol_gp ||
                     comp.norm_difference_doubleVector(temp, next_cell_zpp) < fabs_tol_gp) {
                 if (i != l) {
-                    Laplace(i-start_control,l-start_control) = -1.0;
+                    Laplace(i-start_control,l-start_control) = +1.0;
                 }
             }
         }

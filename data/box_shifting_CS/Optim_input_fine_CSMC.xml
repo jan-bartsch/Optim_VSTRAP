@@ -51,7 +51,7 @@
         <parameter name="velocity_part_objective" value="1e-9" />
 
         <!-- -->
-        <parameter name="fabs_tol_gp" value="1e-3" />
+        <parameter name="fabs_tol_gp" value="1e-10" />
     </globalParameters>
 
 
@@ -64,8 +64,8 @@
     	<path name="DIRECTORY_TOOLSET" value="../../Optim_VSTRAP/optim-vstrap-toolset/toolset/" />
 	<path name="DOMAIN_MESH" value="../../Optim_VSTRAP/data/global/box_vol_regular_512.xml" />
   	<path name="RESULTS_DIRECTORY" value="results/" />
-	<path name="INPUT_FORWARD" value="input_forward.xml" />
-	<path name="INPUT_BACKWARD" value="input_backward.xml" />
+	<path name="INPUT_FORWARD" value="input_forward_512.xml" />
+	<path name="INPUT_BACKWARD" value="input_backward_512.xml" />
     </paths>
 
     <subroutines>
