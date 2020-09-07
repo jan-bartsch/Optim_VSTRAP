@@ -2,14 +2,14 @@
 <optimizer_input>
   <globalParameters>
 	      <parameter name="armijo_descent_fraction" value="1e-30" />
-	      <parameter name="calculation_functional" value="0" />
+	      <parameter name="calculation_functional" value="1" />
 	      <parameter name="calculation_wasserstein" value="0" />
         <parameter name="C_theta_gp" value="1e+20" />
         <parameter name="C_phi_gp" value="1e+20" />
         <parameter name="sigma_x_gp" value="0.02" />
         <parameter name="sigma_v_gp" value="438.65" />
 
-        <parameter name="fixed_gradient_descent_stepsize" value="1e-2" />
+        <parameter name="fixed_gradient_descent_stepsize" value="1e+0" />
 	      <parameter name="fraction_of_optimal_control" value="1e-5" />
         <parameter name="optimizationIteration_max_gp" value="100" />       <!-- number of maximal interations -->
         <parameter name="numberParticles_gp" value="2000" />
@@ -69,11 +69,11 @@
     </paths>
 
     <subroutines>
-      <subroutine group="control_update" name="gradient_descent"/>
+      <!--subroutine group="control_update" name="gradient_descent"/-->
       <!-- subroutine group="control_update" name="successive_approximation" / -->
-      <!--subroutine group="control_update" name="armijo_linesearch" /--> 
-      <subroutine group="direction_update" name="negative_gradient" />
-      <!-- subroutine group="direction_update" name="ncg_FR"/-->
+      <subroutine group="control_update" name="armijo_linesearch" /> 
+      <!--subroutine group="direction_update" name="negative_gradient" /-->
+      <subroutine group="direction_update" name="ncg_FR"/>
       <subroutine group="desired_trajectory" name="box_shifting_negative_x"/>
       <subroutine group="objective_calculation" name="magnitude"/>
       <!--  subroutine group="objective_calculation" name="components" / -->

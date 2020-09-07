@@ -196,6 +196,7 @@ int stepsize_controller::gradient_descent(arma::mat &control, arma::mat &stepdir
     std::string DIRECTORY_TOOLSET = paths.find("DIRECTORY_TOOLSET")->second;
 
     std::string PATH_TO_SHARED_FILES = paths.find("PATH_TO_SHARED_FILES")->second;
+	std::string INPUT_FORWARD = paths.find("INPUT_FORWARD")->second;
     std::string DOMAIN_MESH = paths.find("DOMAIN_MESH")->second;
 
     unsigned int ntimesteps_gp = static_cast<unsigned int>(optimizationParameters.find("ntimesteps_gp")->second);
@@ -205,7 +206,7 @@ int stepsize_controller::gradient_descent(arma::mat &control, arma::mat &stepdir
     double tolerance = static_cast<double>(optimizationParameters.find("tolerance_gp")->second);
 
 
-    std::string START_VSTRAP_FORWARD = BUILD_DIRECTORY_VSTRAP + "vstrap" + " " + PATH_TO_SHARED_FILES + "input_forward.xml";
+    std::string START_VSTRAP_FORWARD = BUILD_DIRECTORY_VSTRAP + "vstrap" + " " + PATH_TO_SHARED_FILES + INPUT_FORWARD;
 
     std::string interpolating_control_python = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " + DOMAIN_MESH +
             " " + PATH_TO_SHARED_FILES + "control_field_cells.xml" + " " + PATH_TO_SHARED_FILES + "interpolated_control_field.xml";
