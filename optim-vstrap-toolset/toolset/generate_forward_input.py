@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import sys
 import argparse
 import xml.etree.ElementTree as ET
 import xml.dom.minidom as minidom
@@ -28,7 +29,7 @@ for p in paths.getElementsByTagName('path'):
 	pathsList[p.getAttribute("name")] = p.getAttribute("value")
 
 #####
-# forward input 
+# forward input
 #####
 
 print("Creating file " + str(pathsList["PATH_TO_SHARED_FILES_ABSOLUTE"]) + str(pathsList["INPUT_FORWARD"]))
@@ -42,6 +43,9 @@ optim_vMesh = pathsList["DOMAIN_MESH"]
 optim_vMesh = optim_vMesh.replace("../../Optim_VSTRAP/data/","../")
 
 file_forward_input.write("\t <executables> \n \t \t <executable name=\"mesh_initializer\" mode=\"CPU\"> \n \t\t\t <mesh name=\"vol_mesh\">\n")
-file_forward_input.write("\t\t\t\t <load>"+str(optim_vMesh)+"</load> \n \t\t\t </mesh>" )
+file_forward_input.write("\t\t\t\t <load>"+str(optim_vMesh)+"</load> \n \t\t\t </mesh>")
 
+optim_pmax_gp = pathsList["pmax_gp"]
 
+file_forward_input.write("\t <executables> \n \t \t <executable name=\"particle_initializer\" mode=\"CPU\"> \n \t\t\t<group name=\"forward_particles\" empty=\"false\">\n")
+file_forward_input.write("\t\t\t\t <geometry x_min=\"-" +str(optim_pmax_gp) +" \" x_max\"" +str(optim_pmax_gp) +" \" y_min=\"-" +str(optim_pmax_gp) +" \" y_max=\"" +str(optim_pmax_gp) +" \" z_min=\"-" +str(optim_pmax_gp) +" \" z_max=\"" +str(optim_pmax_gp) +" \"/> \n ")

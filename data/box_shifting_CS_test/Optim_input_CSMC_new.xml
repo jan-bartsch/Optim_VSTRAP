@@ -8,7 +8,7 @@
         <parameter name="C_phi_gp" value="1e+20" />
         <parameter name="sigma_x_gp" value="0.02" />
         <parameter name="sigma_v_gp" value="438.65" />
-        
+
         <!-- create adjoint particles and trajectory -->
         <parameter name="adjoint_mu_x" value="-0.35" />
         <parameter name="desired_position_x" value="-0.35"/>
@@ -16,33 +16,40 @@
         <parameter name="desired_position_y" value="0.0"/>
         <parameter name="adjoint_mu_z" value="0.0" />
         <parameter name="desired_position_z" value="0.0"/>
-        
+
         <parameter name="adjoint_s_x" value="0.25" />
         <parameter name="adjoint_s_y" value="0.25" />
         <parameter name="adjoint_s_z" value="0.25" />
-        
+
         <parameter name="adjoint_vx" value="-100.0" />
         <parameter name="adjoint_vy" value="0.0" />
         <parameter name="adjoint_vz" value="0.0" />
-        
+
         <parameter name="adjoint_number_density" value="1e+13" />
         <parameter name="adjoint_weight" value="1e+11" />
         <parameter name="adjoint_charge_number" value="+1" />
         <parameter name="adjoint_mass" value="6.63e-26" />
         <parameter name="spacies" value="40Ar+" />
-        
+
         <parameter name="expected_speed" value="7e+2" />
         <parameter name="most_probable_speed" value="7e+2" />
-        
+
         <!-- Trajectory -->
         <parameter name="expected_speed" value="7e+2" />
         <parameter name="desired_position_x" value="-0.35"/>
         <parameter name="desired_position_y" value="0.0"/>
-        
-        
+
+        <!-- forward input -->
+        <parameter name="number_density_forward" value="1e+13" />
+        <parameter name="weight_forward" value="1e+9" />
+        <parameter name="charge_number_forward" value="+1" />
+        <parameter name="mass_forwrad" value="6.63e-26" />
+        <parameter name="species_forward" value="40Ar+"/>
+
+
 
         <!-- optimization techniques -->
-        
+
         <parameter name="fixed_gradient_descent_stepsize" value="1e+1" />
         <parameter name="fraction_of_optimal_control" value="1e-5" />
         <parameter name="optimizationIteration_max_gp" value="100" />       <!-- number of maximal interations -->
