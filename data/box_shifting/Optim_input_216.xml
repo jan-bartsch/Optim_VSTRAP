@@ -2,14 +2,14 @@
 <optimizer_input>
   <globalParameters>
 	      <parameter name="armijo_descent_fraction" value="1e-30" />
-	      <parameter name="calculation_functional" value="0" />
+	      <parameter name="calculation_functional" value="1" />
 	      <parameter name="calculation_wasserstein" value="0" />
         <parameter name="C_theta_gp" value="1e+20" />
         <parameter name="C_phi_gp" value="1e+20" />
         <parameter name="sigma_x_gp" value="0.02" />
         <parameter name="sigma_v_gp" value="438.65" />
 
-        <parameter name="fixed_gradient_descent_stepsize" value="1e-1" />
+        <parameter name="fixed_gradient_descent_stepsize" value="1e+0" />
 	      <parameter name="fraction_of_optimal_control" value="1e-5" />
         <parameter name="optimizationIteration_max_gp" value="100" />       <!-- number of maximal interations -->
         <parameter name="numberParticles_gp" value="2000" />
@@ -64,8 +64,8 @@
       <path name="DIRECTORY_TOOLSET" value="../../Optim_VSTRAP/optim-vstrap-toolset/toolset/" />
 	     <path name="DOMAIN_MESH" value="../../Optim_VSTRAP/data/global/box_coarse_216.xml" />
     <path name="RESULTS_DIRECTORY" value="results/" />
-	<path name="INPUT_FORWARD" value="input_forward.xml"/>
-	<path name="INPUT_BACKWARD" value="input_backward.xml"/>
+	<path name="INPUT_FORWARD" value="input_forward_216.xml"/>
+	<path name="INPUT_BACKWARD" value="input_backward_216.xml"/>
     </paths>
 
     <subroutines>

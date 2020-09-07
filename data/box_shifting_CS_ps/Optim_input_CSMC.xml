@@ -2,7 +2,7 @@
 <optimizer_input>
   <globalParameters>
 	      <parameter name="armijo_descent_fraction" value="1e-30" />
-	      <parameter name="calculation_functional" value="0" />
+	      <parameter name="calculation_functional" value="1" />
 	      <parameter name="calculation_wasserstein" value="1" />
         <parameter name="C_theta_gp" value="1e+20" />
         <parameter name="C_phi_gp" value="1e+20" />
@@ -26,7 +26,7 @@
         <parameter name="adjoint_vz" value="0.0" />
 
         <parameter name="adjoint_number_density" value="1e+13" />
-        <parameter name="adjoint_weight" value="1e+11" />
+        <parameter name="adjoint_weight" value="1e+10" />
         <parameter name="adjoint_charge_number" value="+1" />
         <parameter name="adjoint_mass" value="6.63e-26" />
         <parameter name="spacies" value="40Ar+" />
@@ -97,10 +97,13 @@
 
 
     <paths>
-	<path name="BUILD_DIRECTORY_VSTRAP" value="/home/jan/Promotion_linuxPC/build-vstrap/src/" />
+	<!--path name="BUILD_DIRECTORY_VSTRAP" value="/home/jan/Promotion_linuxPC/build-vstrap/src/" />
       	<path name="BUILD_DIRECTORY_OPTIM" value="/home/jan/Promotion_linuxPC/build-Optim/src/" />
-	<path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/home/jan/Promotion_linuxPC/Optim_VSTRAP/data/box_shifting_CS_test/" />
-      	<path name="PATH_TO_SHARED_FILES" value="../../Optim_VSTRAP/data/box_shifting_CS_test/" />
+	<path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/home/jan/Promotion_linuxPC/Optim_VSTRAP/data/box_shifting_CS_test/" /-->
+	<path name="BUILD_DIRECTORY_VSTRAP" value="/home/bartsch/SPARC/build-vstrap-CSMC/src/" />
+      	<path name="BUILD_DIRECTORY_OPTIM" value="/home/bartsch/SPARC/build-Optim-CSMC/src/" />
+	<path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/home/bartsch/SPARC/Optim_VSTRAP/data/box_shifting_CS_ps/" />      	
+	<path name="PATH_TO_SHARED_FILES" value="../../Optim_VSTRAP/data/box_shifting_CS_ps/" />
       	<path name="BARYCENTERS_MESH" value="../../Optim_VSTRAP/data/global/mesh_barycenters_216.xml" />
       	<path name="DIRECTORY_TOOLSET" value="../../Optim_VSTRAP/optim-vstrap-toolset/toolset/" />
       	<path name="DOMAIN_MESH" value="../../Optim_VSTRAP/data/global/box_vol_regular_216.xml" />

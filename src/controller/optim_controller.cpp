@@ -87,27 +87,8 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
     std::string INPUT_FORWARD = paths.find("INPUT_FORWARD")->second;
     std::string INPUT_BACKWARD = paths.find("INPUT_BACKWARD")->second;
 
-
     std::string PATH_TO_SHARED_FILES = paths.find("PATH_TO_SHARED_FILES")->second;
     std::string DOMAIN_MESH = paths.find("DOMAIN_MESH")->second;
-
-    arma::mat Laplace = model_solver.Laplacian_3D();
-    outController.writeArmaMatrixToFile(Laplace,"LaplacianSmall3D");
-
-    arma::mat Laplace_2 = model_solver.Laplacian_Squared_3D();
-    outController.writeArmaMatrixToFile(Laplace_2,"LaplacianSmall3D_Squared");
-
-    unsigned int dimensionOfControl_gp = static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second);
-    double db_gp = static_cast<double>(optimizationParameters.find("db_gp")->second);
-    double weight_control_gp = static_cast<double>(optimizationParameters.find("weight_control_gp")->second);
-
-    arma::mat Riesz = weight_control_gp*(arma::eye(dimensionOfControl_gp,dimensionOfControl_gp) - 1.0/(pow(db_gp,2))*Laplace + 1.0/(pow(db_gp,4))*Laplace_2);
-    outController.writeArmaMatrixToFile(Riesz,"RiesMatrix");
-
-    std::cout << arma::norm(Laplace - Laplace.t(),"inf") << std::endl;
-    std::cout << arma::norm(Laplace_2 - Laplace_2.t(),"inf") << std::endl;
-    std::cout << arma::norm(Riesz - Riesz.t()) << std::endl;
-
 
     /*
      * Check consistency of input files
@@ -269,7 +250,7 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
         outDiag.writeDoubleToFile(arma::norm(control,"fro"),"normControlTrack");
         interpolate_control(data_provider_opt);
 
-       logger::Info("Starting " + std::to_string(r+1) + " iteration");
+        logger::Info("Starting " + std::to_string(r+1) + " iteration");
     }
 
     return 0;
