@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<optimizer_input>
+  <globalParameters>
+      <parameter name="armijo_descent_fraction" value="1e-30" />
+      <parameter name="calculation_functional" value="1" />
+      <parameter name="calculation_wasserstein" value="0" />
+      <parameter name="C_theta_gp" value="1e+20" />
+        <parameter name="C_phi_gp" value="1e+20" />
+        <parameter name="sigma_x_gp" value="0.02" />
+        <parameter name="sigma_v_gp" value="438.65" />
+
+        <!-- create adjoint particles and trajectory -->
+        <parameter name="adjoint_mu_x" value="-0.35" />
+        <parameter name="desired_position_x" value="-0.35"/>
+        <parameter name="adjoint_mu_y" value="0.0" />
+        <parameter name="desired_position_y" value="0.0"/>
+        <parameter name="adjoint_mu_z" value="0.0" />
+        <parameter name="desired_position_z" value="0.0"/>
+
+        <parameter name="adjoint_s_x" value="0.25" />
+        <parameter name="adjoint_s_y" value="0.25" />
+        <parameter name="adjoint_s_z" value="0.25" />
+
+        <parameter name="adjoint_vx" value="-50.0" />
+        <parameter name="adjoint_vy" value="0.0" />
+        <parameter name="adjoint_vz" value="0.0" />
+
+        <parameter name="adjoint_number_density" value="1e+13" />
+        <parameter name="adjoint_weight" value="5e+9" />
+        <parameter name="adjoint_charge_number" value="+1" />
+        <parameter name="adjoint_mass" value="6.63e-26" />
+        <parameter name="spacies" value="40Ar+" />
+
+        <parameter name="expected_speed" value="7e+2" />
+        <parameter name="most_probable_speed" value="7e+2" />
+
+        <!-- Trajectory -->
+        <parameter name="expected_speed" value="7e+2" />
+        <parameter name="desired_position_x" value="-0.35"/>
+        <parameter name="desired_position_y" value="0.0"/>
+
+        <!-- forward input -->
+        <parameter name="number_density_forward" value="1e+13" />
+        <parameter name="weight_forward" value="1e+8" />
+        <parameter name="charge_number_forward" value="+1" />
+        <parameter name="mass_forward" value="6.63e-26" />
+        <parameter name="species_forward" value="40Ar+"/>
+	<parameter name="temperature_x_val" value="100" />
+	<parameter name="temperature_y_val" value="100" />
+	<parameter name="temperature_z_val" value="100" />
+	<parameter name="v_drift_x_val" value="0" />
+	<parameter name="v_drift_y_val" value="0" />
+	<parameter name="v_drift_z_val" value="0" />	
+
+
+
+        <!-- optimization techniques -->
+
+        <parameter name="fixed_gradient_descent_stepsize" value="1e+1" />
+        <parameter name="fraction_of_optimal_control" value="1e-5" />
+        <parameter name="optimizationIteration_max_gp" value="100" />       <!-- number of maximal interations -->
+        <parameter name="numberParticles_gp" value="2000" />
+
+        <parameter name="start_zero_control" value="0" />		<!-- 0=true, 1=false -->
+        <parameter name="tolerance_gp" value="1e-13" />
+        <parameter name="tolerance_relaxation_gp" value="1e-10" />
+
+
+
+        <!-- DOMAIN PARAMETERS -->
+        <parameter name="dp_gp" value="0.0019531" />                              <!-- discretization size position 64:0.0156 1000:0.0001 512:0.002  216:0.00462963-->
+        <parameter name="pcell_gp" value="512" />
+        <parameter name="pmax_gp" value="0.5" />
+        <parameter name="db_gp" value="0.125" />                           <!-- box-side-length 216:0.16666667 -->
+        <parameter name="dt_gp" value="1e-5" />                             <!-- discretization size time -->
+        <parameter name="ntimesteps_gp" value="20" />
+        <parameter name="dv_gp" value="4e+2" />                              <!-- discretization size velocity -->
+        <parameter name="vcell_gp" value="10" /> <!-- 10 -->
+        <parameter name="vmax_gp" value="2e+3" /> <!-- 2e+3 -->                           <!-- maximal velocity (support of forward equaiton) -->
+        <parameter name="fraction_fast_particles" value="0.1"/>
+
+
+        <!-- CONTROL -->
+        <parameter name="dimensionOfControl_gp" value="256" />               <!-- number of elements of the control -->
+        <parameter name="end_control_gp" value="384"/>
+        <parameter name="start_control_gp" value="129" />
+        <parameter name="local_control_x_min_gp" value="-0.2" />
+        <parameter name="local_control_x_max_gp" value="0.2" />
+        <parameter name="weight_control_gp" value="1e+0" />
+
+        <parameter name="velocity_part_objective" value="1e-9" />
+
+        <!-- -->
+        <parameter name="fabs_tol_gp" value="1e-8" />
+    </globalParameters>
+
+
+
+    <paths>
+        <!--path name="BUILD_DIRECTORY_VSTRAP" value="/home/jan/Promotion_linuxPC/build-vstrap/src/" />
+      	<path name="BUILD_DIRECTORY_OPTIM" value="/home/jan/Promotion_linuxPC/build-Optim/src/" />
+        <path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/home/jan/Promotion_linuxPC/Optim_VSTRAP/data/box_shifting_CS_test/" /-->
+        <path name="BUILD_DIRECTORY_VSTRAP" value="/home/bartsch/SPARC/build-vstrap-CSMC/src/" />
+      	<path name="BUILD_DIRECTORY_OPTIM" value="/home/bartsch/SPARC/build-Optim-CSMC/src/" />
+        <path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/home/bartsch/SPARC/Optim_VSTRAP/data/box_shifting_CS_ps/" />      	
+        <path name="PATH_TO_SHARED_FILES" value="../../Optim_VSTRAP/data/box_shifting_CS_ps/" />
+      	<path name="BARYCENTERS_MESH" value="../../Optim_VSTRAP/data/global/mesh_barycenters_512.xml" />
+      	<path name="DIRECTORY_TOOLSET" value="../../Optim_VSTRAP/optim-vstrap-toolset/toolset/" />
+      	<path name="DOMAIN_MESH" value="../../Optim_VSTRAP/data/global/box_vol_regular_512.xml" />
+      	<path name="RESULTS_DIRECTORY" value="results/" />
+      	<path name="INPUT_FORWARD" value="input_forward_512.xml" />
+      	<path name="INPUT_BACKWARD" value="input_backward_512.xml" />
+      	<path name="CREATION_ADJOINT_PARTCLES" value="./creation_adjoint_particles_512.xml" />
+      	<path name="BGF_CONTROL" value="interpolated_control_field_512.xml" /> <!-- shared forward/backward -->
+      	<path name="DSMC_interaction" value="../global/interaction_data.xml" />
+        <path name="MCC_interaction" value="../global/interaction_data_mcc.xml" />
+        <path name="CONTROL_FIELD_CELLS_NAME" valie="control_field_cells_512.xml" />
+    </paths>
+
+    <subroutines>
+      <!--subroutine group="control_update" name="gradient_descent"/-->
+      <!-- subroutine group="control_update" name="successive_approximation" / -->
+      <subroutine group="control_update" name="armijo_linesearch" />
+      <!-- subroutine group="direction_update" name="negative_gradient" / -->
+      <subroutine group="direction_update" name="ncg_FR"/>
+      <subroutine group="desired_trajectory" name="box_shifting_negative_x"/>
+      <subroutine group="objective_calculation" name="magnitude"/>
+      <!--  subroutine group="objective_calculation" name="components" / -->
+    </subroutines>
+
+</optimizer_input>

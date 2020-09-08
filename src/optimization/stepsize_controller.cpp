@@ -93,8 +93,10 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
     std::vector<std::vector<particle>> forwardParticles(ntimesteps_gp);
     std::vector<std::unordered_map<coordinate_phase_space_time,double>> forwardPDF_time;
 
+    std::string BGF_CONTROL = paths.find("BGF_CONTROL")->second;
+    std::string CONTROL_FIELD_CELLS_NAME = paths.find("CONTROL_FIELD_CELLS_NAME")->second;
     std::string interpolating_control_python = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " + DOMAIN_MESH +
-            " " + PATH_TO_SHARED_FILES + "control_field_cells.xml" + " " + PATH_TO_SHARED_FILES + "interpolated_control_field.xml";
+            " " + PATH_TO_SHARED_FILES + CONTROL_FIELD_CELLS_NAME + " " + PATH_TO_SHARED_FILES + BGF_CONTROL;
 
     int forward_return;
 
@@ -208,8 +210,10 @@ int stepsize_controller::gradient_descent(arma::mat &control, arma::mat &stepdir
 
     std::string START_VSTRAP_FORWARD = BUILD_DIRECTORY_VSTRAP + "vstrap" + " " + PATH_TO_SHARED_FILES + INPUT_FORWARD;
 
+    std::string BGF_CONTROL = paths.find("BGF_CONTROL")->second;
+    std::string CONTROL_FIELD_CELLS_NAME = paths.find("CONTROL_FIELD_CELLS_NAME")->second;
     std::string interpolating_control_python = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " + DOMAIN_MESH +
-            " " + PATH_TO_SHARED_FILES + "control_field_cells.xml" + " " + PATH_TO_SHARED_FILES + "interpolated_control_field.xml";
+            " " + PATH_TO_SHARED_FILES + CONTROL_FIELD_CELLS_NAME + " " + PATH_TO_SHARED_FILES + BGF_CONTROL;
 
     int assembling_flag = 1;
     double alpha = 1;
@@ -222,7 +226,7 @@ int stepsize_controller::gradient_descent(arma::mat &control, arma::mat &stepdir
 
     while (assembling_flag == 1 && static_cast<unsigned int>(counter) <= optimizationIteration_max_gp) {
         std::string interpolating_control_python = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " + DOMAIN_MESH +
-                " " + PATH_TO_SHARED_FILES + "control_field_cells.xml" + " " + PATH_TO_SHARED_FILES + "interpolated_control_field.xml";
+                " " + PATH_TO_SHARED_FILES + CONTROL_FIELD_CELLS_NAME + " " + PATH_TO_SHARED_FILES + BGF_CONTROL;
 
         int forward_return;
 

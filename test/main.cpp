@@ -1,5 +1,7 @@
 #include <gtest/gtest.h>
 
+#include <armadillo>
+
 #include "controller/pdf_controller.h"
 #include "controller/optim_controller.h"
 #include "controller/equation_solving_controller.h"

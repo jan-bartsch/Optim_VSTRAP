@@ -12,6 +12,8 @@ int optim_controller::start_optimizer(int argc, const char **argv)
     std::string input_directory;
     std::string pathToOptimInput;
     const char * input_xml_path;
+    const char * shared_files_directory;
+    int return_flag_3;
 
     switch (argc) {
     case 1:
@@ -21,6 +23,11 @@ int optim_controller::start_optimizer(int argc, const char **argv)
         break;
     case 2:
         input_xml_path = argv[1];
+        break;
+    case 3:
+        input_xml_path = argv[1];
+        shared_files_directory = argv[2];
+        return_flag_3 = generate_input_files(input_xml_path,shared_files_directory);
         break;
     default:
         logger::Warning("Too many input parameters. Expected 2 but was " + std::to_string(argc));
@@ -113,6 +120,35 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
     } else {
         logger::Info("Starting without control_field_cells");
     }
+
+    arma::mat Laplace = model_solver.Laplacian_3D();
+    arma::mat Laplace_Squared = model_solver.Laplacian_Squared_3D();
+
+    arma::cx_vec eigval;
+    arma::cx_mat eigvec;
+
+    arma::eig_gen(eigval, eigvec, Laplace);
+    std::cout << eigval << std::endl;
+   // std::cout << eigvec << std::endl;
+
+    arma::eig_sym(eigval, eigvec, Laplace_Squared);
+    std::cout << eigval << std::endl;
+   // std::cout << eigvec << std::endl;
+
+    unsigned int pcell_gp = static_cast<unsigned int>(optimizationParameters.find("pcell_gp")->second);
+    unsigned int vcell_gp = static_cast<unsigned int>(optimizationParameters.find("vcell_gp")->second);
+    unsigned int dimensionOfControl_gp = static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second);
+    double dv_gp = static_cast<double>(optimizationParameters.find("dv_gp")->second);
+    double dt_gp = static_cast<double>(optimizationParameters.find("dt_gp")->second);
+    double db_gp = static_cast<double>(optimizationParameters.find("db_gp")->second);
+    double weight_control_gp = static_cast<double>(optimizationParameters.find("weight_control_gp")->second);
+    double local_control_x_min_gp = static_cast<double>(optimizationParameters.find("local_control_x_min_gp")->second);
+    double local_control_x_max_gp = static_cast<double>(optimizationParameters.find("local_control_x_max_gp")->second);
+
+    arma::mat Riesz = weight_control_gp*(arma::eye(dimensionOfControl_gp,dimensionOfControl_gp) - 1.0/(pow(db_gp,2))*Laplace + 1.0/(pow(db_gp,4))*Laplace_Squared);
+
+    arma::eig_gen(eigval, eigvec, Riesz);
+    std::cout << eigval << std::endl;
 
     /**
      * START OPTIMIZATION ITERATION
@@ -264,7 +300,9 @@ int optim_controller::check_input_py(data_provider provider, const char *filePat
     std::string INPUT_FORWARD = paths.find("INPUT_FORWARD")->second;
     std::string INPUT_BACKWARD = paths.find("INPUT_BACKWARD")->second;
 
-    std::string CHECK_INPUT_PYHTON = "python3 " + DIRECTORY_TOOLSET + "check_input.py " + PATH_TO_SHARED_FILES + INPUT_FORWARD + " " + PATH_TO_SHARED_FILES + INPUT_BACKWARD + " " + &filePathOptimInput[0];
+    std::string CHECK_INPUT_PYHTON = "python3 " + DIRECTORY_TOOLSET + "check_input.py "
+            + PATH_TO_SHARED_FILES + INPUT_FORWARD + " " + PATH_TO_SHARED_FILES
+            + INPUT_BACKWARD + " " + &filePathOptimInput[0];
 
     int check_input_flag = system(&CHECK_INPUT_PYHTON[0]);
 
@@ -288,8 +326,10 @@ int optim_controller::interpolate_control(data_provider provider)
     std::string DOMAIN_MESH = paths.find("DOMAIN_MESH")->second;
     std::string CHECK_INPUT_PYHTON = "python3 " + DIRECTORY_TOOLSET + "check_input.py " + PATH_TO_SHARED_FILES;
 
+    std::string BGF_CONTROL = paths.find("BGF_CONTROL")->second;
+    std::string CONTROL_FIELD_CELLS_NAME = paths.find("CONTROL_FIELD_CELLS_NAME")->second;
     std::string interpolating_control_python = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " + DOMAIN_MESH +
-            " " + PATH_TO_SHARED_FILES + "control_field_cells.xml" + " " + PATH_TO_SHARED_FILES + "interpolated_control_field.xml";
+            " " + PATH_TO_SHARED_FILES + CONTROL_FIELD_CELLS_NAME + " " + PATH_TO_SHARED_FILES + BGF_CONTROL;
 
     int interpolating_flag = system(&interpolating_control_python[0]);
     if(interpolating_flag == 512) {
@@ -312,6 +352,8 @@ arma::mat optim_controller::start_with_zero_control(const char *input_xml_path)
     std::string PATH_TO_SHARED_FILES = paths.find("PATH_TO_SHARED_FILES")->second;
     std::string DIRECTORY_TOOLSET = paths.find("DIRECTORY_TOOLSET")->second;
     std::string DOMAIN_MESH = paths.find("DOMAIN_MESH")->second;
+    std::string BGF_CONTROL = paths.find("BGF_CONTROL")->second;
+    std::string CONTROL_FIELD_CELLS_NAME = paths.find("CONTROL_FIELD_CELLS_NAME")->second;
 
     unsigned int dimensionOfControl = static_cast<unsigned int>(optimizationParameters.find("pcell_gp")->second);
 
@@ -325,7 +367,7 @@ arma::mat optim_controller::start_with_zero_control(const char *input_xml_path)
     logger::Info("Starting with zero control");
     outController.writeControl_XML(control);
     std::string interpolating_control_python = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " + DOMAIN_MESH +
-            " " + PATH_TO_SHARED_FILES + "control_field_cells.xml" + " " + PATH_TO_SHARED_FILES + "interpolated_control_field.xml";
+            " " + PATH_TO_SHARED_FILES + CONTROL_FIELD_CELLS_NAME + " " + PATH_TO_SHARED_FILES + BGF_CONTROL;
     system(&interpolating_control_python[0]);
 
     return control;
@@ -341,6 +383,8 @@ arma::mat optim_controller::start_with_given_control(const char *input_xml_path)
     std::string PATH_TO_SHARED_FILES = paths.find("PATH_TO_SHARED_FILES")->second;
     std::string DIRECTORY_TOOLSET = paths.find("DIRECTORY_TOOLSET")->second;
     std::string DOMAIN_MESH = paths.find("DOMAIN_MESH")->second;
+    std::string BGF_CONTROL = paths.find("BGF_CONTROL")->second;
+    std::string CONTROL_FIELD_CELLS_NAME = paths.find("CONTROL_FIELD_CELLS_NAME")->second;
     double fraction_of_optimal_control = static_cast<double>(optimizationParameters.find("fraction_of_optimal_control")->second);
 
     logger::Info("Deleting old files");
@@ -350,12 +394,29 @@ arma::mat optim_controller::start_with_given_control(const char *input_xml_path)
     system(&COMMAND_MKDIR_RESULTS[0]);
 
     logger::Info("Starting with existing control (multiplied by a positive constant)");
-    std::string READ_CONTROL = PATH_TO_SHARED_FILES + "control_field_cells.xml";
+    std::string READ_CONTROL = PATH_TO_SHARED_FILES + CONTROL_FIELD_CELLS_NAME;
     arma::mat control = input::readControl(&READ_CONTROL[0]);
     outController.writeControl_XML(fraction_of_optimal_control*control);
     std::string interpolating_control_python = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " + DOMAIN_MESH +
-            " " + PATH_TO_SHARED_FILES + "control_field_cells.xml" + " " + PATH_TO_SHARED_FILES + "interpolated_control_field.xml";
+            " " + PATH_TO_SHARED_FILES + CONTROL_FIELD_CELLS_NAME + " " + PATH_TO_SHARED_FILES + BGF_CONTROL;
     system(&interpolating_control_python[0]);
 
     return control;
+}
+
+int optim_controller::generate_input_files(const char *input_xml_path, const char *shared_files_directory)
+{
+    data_provider data_provider_opt = data_provider(input_xml_path);
+
+    std::map<std::string, std::string> paths = data_provider_opt.getPaths();
+    std::string PATH_TO_SHARED_FILES_ABSOLUTE = paths.find("PATH_TO_SHARED_FILES_ABSOLUTE")->second;
+    std::string DIRECTORY_TOOLSET = paths.find("DIRECTORY_TOOLSET")->second;
+
+    std::string generation_string = "python3 " + DIRECTORY_TOOLSET + "generate_forward_input.py" + " " + &input_xml_path[0];
+    generation_string += " && python3 " + DIRECTORY_TOOLSET + "generate_backward_input.py" + " " + &input_xml_path[0];
+    generation_string += " && python3 " + DIRECTORY_TOOLSET + "generate_adjoint_particle_creation.py" + " " + &input_xml_path[0] + " " + PATH_TO_SHARED_FILES_ABSOLUTE;
+    logger::Info("Running " + generation_string);
+    system(&generation_string[0]);
+
+    return 0;
 }

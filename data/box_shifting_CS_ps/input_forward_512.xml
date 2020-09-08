@@ -8,13 +8,13 @@
 	 <executables> 
  	 	 <executable name="mesh_initializer" mode="CPU"> 
  			 <mesh name="vol_mesh">
-				 <load>../global/box_vol_regular_216.xml</load> 
+				 <load>../global/box_vol_regular_512.xml</load> 
  			 </mesh> 
  		 </executable>
 	 	 <executable name="particle_initializer" mode="CPU"> 
  			<group name="forward_particles" empty="false">
 				 <geometry x_min="-0.5 " x_max="0.5 " y_min="-0.5 " y_max="0.5 " z_min="-0.5 " z_max="0.5 "/> 
- 				 <values number_density=" 1e+13 " weight="1e+9 " charge_number="+1 " mass="6.63e-26" species="40Ar+"/> 
+ 				 <values number_density=" 1e+13 " weight="1e+8 " charge_number="+1 " mass="6.63e-26" species="40Ar+"/> 
  				 <temperature x_val="100" y_val="100" z_val="100"/> 
  				 <v_drift x_val="0" y_val="0" z_val="0"/> 
  			 </group> 
@@ -26,7 +26,7 @@
  		 </executable> 
 		 <executable name="bgf" mode="CPU"> 
  			<volume_mesh name="vol_mesh"/>
-			 <load>./interpolated_control_field.xml</load>
+			 <load>./interpolated_control_field_512.xml</load>
   			 <particle_batch> 
  				 <field name="interpolated_control_field"/> 
  				 <particle_group name="forward_particles"/> 

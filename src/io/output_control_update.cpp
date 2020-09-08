@@ -46,7 +46,9 @@ int output_control_update::writeControl_XML(arma::mat control)
     }
 
     std::string PATH_TO_SHARED_FILES = this->getData_provider_optim().getPaths().find("PATH_TO_SHARED_FILES")->second;
-    std::string saveFile = PATH_TO_SHARED_FILES + "control_field_cells.xml";
+    std::string CONTROL_FIELD_CELLS_NAME = this->getData_provider_optim().getPaths().find("CONTROL_FIELD_CELLS_NAME")->second;
+
+    std::string saveFile = PATH_TO_SHARED_FILES + CONTROL_FIELD_CELLS_NAME;
 
     doc.SaveFile(&saveFile[0]);
 

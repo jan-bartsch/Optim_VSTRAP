@@ -59,7 +59,7 @@ file_forward_input.write("\t\t\t <geometry x_min=\"-" +str(optim_pmax_gp) +" \" 
 file_forward_input.write("\t\t\t <particle_group name=\"forward_particles\"/> \n \t\t </executable> \n")
 
 file_forward_input.write("\t\t <executable name=\"bgf\" mode=\"CPU\"> \n \t\t\t<volume_mesh name=\"vol_mesh\"/>\n")
-file_forward_input.write("\t\t\t <load>"+ str(pathsList["bgf_control"]) +"</load>\n  ")
+file_forward_input.write("\t\t\t <load>./"+ str(pathsList["BGF_CONTROL"]) +"</load>\n  ")
 file_forward_input.write("\t\t\t <particle_batch> \n \t\t\t\t <field name=\"interpolated_control_field\"/> \n \t\t\t\t <particle_group name=\"forward_particles\"/> \n \t\t\t </particle_batch>\n \t\t </executable>\n")
 
 file_forward_input.write("\t\t <executable name=\"pusher\" mode=\"CPU\" type=\"forward\">\n")

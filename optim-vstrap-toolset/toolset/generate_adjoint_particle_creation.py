@@ -15,27 +15,32 @@ args = parser.parse_args()
 
 OptimIn = minidom.parse(args.OptimInput);
 parameters = OptimIn.getElementsByTagName('globalParameters')[0];
+paths = OptimIn.getElementsByTagName('paths')[0];
 params = {}
+pathsList = {}
 
 for p in parameters.getElementsByTagName('parameter'):
 	params[p.getAttribute("name")] = p.getAttribute("value")
 
-file = open(args.target_folder + "/creation_adjoint_particles.xml", 'w+');
+for p in paths.getElementsByTagName('path'):
+	pathsList[p.getAttribute("name")] = p.getAttribute("value")
 
-ntimesteps = 20; #float(params["ntimesteps_gp"])
-mu_x = -0.35; #float(params["adjoint_mu_x"])
-mu_y = 0.0; #float(params["adjoint_mu_y"])
-mu_z = 0.0; #float(params["adjoint_mu_z"])
-s_x = 0.2; #float(params["adjoint_s_x"})
-s_y = 0.25; #float(params["adjoint_s_y"})
-s_z = 0.25; #float(params["adjoint_s_z"})
+file = open(args.target_folder + str(pathsList["CREATION_ADJOINT_PARTCLES"]), 'w+');
 
-v_x = -50.0; #float(params["adjoint_vx"})
-v_y = 0.0; #float(params["adjoint_vx"})
-v_z = 0.0; #float(params["adjoint_vx"})
+ntimesteps = int(params["ntimesteps_gp"])
+mu_x = float(params["adjoint_mu_x"])
+mu_y = float(params["adjoint_mu_y"])
+mu_z = float(params["adjoint_mu_z"])
+s_x = float(params["adjoint_s_x"])
+s_y = float(params["adjoint_s_y"])
+s_z = float(params["adjoint_s_z"])
 
-most_probable_speed = 7e+2; #float(params["expected_speed"})
-expected_speed = 7e+2; #float(params["most_probable_speed"})
+v_x = float(params["adjoint_vx"])
+v_y = float(params["adjoint_vx"])
+v_z = float(params["adjoint_vx"])
+
+most_probable_speed = float(params["expected_speed"])
+expected_speed = float(params["most_probable_speed"])
 
 sigma_v = math.sqrt(math.pi/8.0)*expected_speed
 #sigma_v = math.sqrt(1.0/2.0)*most_probable_-speed

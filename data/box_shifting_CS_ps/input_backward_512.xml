@@ -8,7 +8,7 @@
 	 <executables> 
  	 	 <executable name="mesh_initializer" mode="CPU"> 
  			 <mesh name="vol_mesh">
-				 <load>../global/box_vol_regular_216.xml</load> 
+				 <load>../global/box_vol_regular_512.xml</load> 
  			 </mesh> 
  		 </executable>
 		 <executable name="particle_initializer" mode="CPU"> 
@@ -17,7 +17,7 @@
 		 <executable name="adjoint_particle_creator" mode="CPU"> 
  						 <geometry x_min="-0.5 " x_max="0.5 " y_min="-0.5 " y_max="0.5 " z_min="-0.5 " z_max="0.5 "/> 
 			 <particle_group name="adjoint_particles"/> 
-			 <load>./creation_adjoint_particles.xml</load> 
+			 <load>./creation_adjoint_particles_512.xml</load> 
  		 </executable> 
 		 <executable name="pwi" mode="CPU"> 
  			<boundary_type name="cuboid"/>
@@ -26,7 +26,7 @@
  		 </executable> 
 		 <executable name="bgf" mode="CPU"> 
  			<volume_mesh name="vol_mesh"/>
-			 <load>./interpolated_control_field.xml</load>
+			 <load>./interpolated_control_field_512.xml</load>
   			 <particle_batch> 
  				 <field name="interpolated_control_field"/> 
  				 <particle_group name="adjoint_particles"/> 
