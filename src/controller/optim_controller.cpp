@@ -131,7 +131,7 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
     std::cout << eigval << std::endl;
    // std::cout << eigvec << std::endl;
 
-    arma::eig_sym(eigval, eigvec, Laplace_Squared);
+    arma::eig_gen(eigval, eigvec, Laplace_Squared);
     std::cout << eigval << std::endl;
    // std::cout << eigvec << std::endl;
 
