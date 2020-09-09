@@ -68,6 +68,14 @@
         <path name="RESULTS_DIRECTORY" value="results/" />
         <path name="INPUT_FORWARD" value="input_forward.xml" />
         <path name="INPUT_BACKWARD" value="input_backward.xml" />
+	<path name="INPUT_FORWARD" value="input_forward.xml"/>
+	<path name="INPUT_BACKWARD" value="input_backward.xml"/>
+	<path name="CREATION_ADJOINT_PARTCLES" value="./creation_adjoint_particles.xml"/>
+	<path name="BGF_CONTROL" value="interpolated_control_field.xml"/>
+	<!--  shared forward/backward  -->
+	<path name="DSMC_interaction" value="../global/interaction_data.xml"/>
+	<path name="MCC_interaction" value="../global/interaction_data_mcc.xml"/>
+	<path name="CONTROL_FIELD_CELLS_NAME" valie="control_field_cells.xml"/>
     </paths>
 
     <subroutines>
