@@ -9,7 +9,7 @@ tick align=outside,
 tick pos=left,
 title={Relative value of objective},
 x grid style={white!69.0196078431373!black},
-xmin=-0.05, xmax=1.05,
+xmin=-0.1, xmax=2.1,
 xtick style={color=black},
 y grid style={white!69.0196078431373!black},
 ymin=-1.02447429738515, ymax=-0.998834557267374,
@@ -19,6 +19,7 @@ ytick style={color=black}
 table {%
 0 -1
 1 -1.02330885465252
+2 -1.02076920864137
 };
 
 \nextgroupplot[
@@ -26,16 +27,17 @@ tick align=outside,
 tick pos=left,
 title={Norm relative gradient},
 x grid style={white!69.0196078431373!black},
-xmin=-0.05, xmax=1.05,
+xmin=-0.1, xmax=2.1,
 xtick style={color=black},
 y grid style={white!69.0196078431373!black},
-ymin=-4.21383318468991, ymax=110.490496878488,
+ymin=-7.65140828522449, ymax=182.679573989714,
 ytick style={color=black}
 ]
 \addplot [semithick, color0]
 table {%
 0 1
 1 105.276663693798
+2 174.02816570449
 };
 
 \nextgroupplot[
@@ -43,15 +45,16 @@ tick align=outside,
 tick pos=left,
 title={Norm control},
 x grid style={white!69.0196078431373!black},
-xmin=-0.055, xmax=0.055,
+xmin=-0.05, xmax=1.05,
 xtick style={color=black},
 y grid style={white!69.0196078431373!black},
-ymin=35.390061, ymax=39.509539,
+ymin=36.19516, ymax=63.79724,
 ytick style={color=black}
 ]
 \addplot [semithick, color0]
 table {%
 0 37.4498
+1 62.5426
 };
 
 \nextgroupplot[
@@ -60,16 +63,17 @@ tick align=outside,
 tick pos=left,
 title={stepsizeTrack},
 x grid style={white!69.0196078431373!black},
-xmin=-0.055, xmax=0.055,
+xmin=-0.05, xmax=1.05,
 xtick style={color=black},
 y grid style={white!69.0196078431373!black},
-ymin=7.94328234724282, ymax=1258.92541179417,
+ymin=0.00375715740952595, ymax=162.450473449024,
 ymode=log,
 ytick style={color=black}
 ]
 \addplot [semithick, color0]
 table {%
 0 100
+1 0.00610352
 };
 \end{groupplot}
 

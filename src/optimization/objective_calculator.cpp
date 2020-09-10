@@ -108,11 +108,11 @@ double objective_calculator::calculate_objective_L2(std::vector<std::unordered_m
                         // std::cout << velocityDiscr_gp(l) << std::endl;
                         double current_trackPot = 0.0;
                         if(objective_calculation.compare("magnitude")==0) {
-                            current_trackPot = - C_theta_gp/(2.0*M_PI*sigma_x_gp*sigma_v_gp)*exp(
-                                        -(std::pow(current_barycenter[0]-p_d[0],2)+std::pow(current_barycenter[1]-p_d[1],2)+std::pow(current_barycenter[2]-p_d[2],2)+
+                            current_trackPot = - 1.0/(2.0*M_PI*sigma_x_gp*sigma_v_gp)*exp(
+                                        -((std::pow(current_barycenter[0]-p_d[0],2)+std::pow(current_barycenter[1]-p_d[1],2)+std::pow(current_barycenter[2]-p_d[2],2))/(2.0*sigma_x_gp*sigma_x_gp)+
                                     velocity_part_objective*(std::abs(velocityDiscr_gp(l)*velocityDiscr_gp(l)+
                                                                       velocityDiscr_gp(m)*velocityDiscr_gp(m)+
-                                                                      velocityDiscr_gp(n)*velocityDiscr_gp(n)-p_d[4]*p_d[4]))
+                                                                      velocityDiscr_gp(n)*velocityDiscr_gp(n)-p_d[4]*p_d[4]))/(2.0*sigma_v_gp*sigma_v_gp)
                                     ));
                             //(std::pow(velocityDiscr_gp(l)-p_d[4],2)+
                             //std::pow(velocityDiscr_gp(m)-p_d[4],2)+
@@ -154,7 +154,7 @@ double objective_calculator::calculate_objective_L2(std::vector<std::unordered_m
     //costOfControl += arma::accu(second_derivative*control)/(dp_gp*dp_gp);
 
 
-    objective += weight_control_gp*costOfControl;
+    objective += 1.0/C_theta_gp*weight_control_gp*costOfControl;
 
     if(objective > 0) {
         logger::Info("Value of functional positiv - influence of control may be to big");
