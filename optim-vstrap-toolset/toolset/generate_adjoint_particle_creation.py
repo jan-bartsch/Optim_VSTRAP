@@ -55,7 +55,7 @@ file.write("<parameraters>\n")
 
 for timestep in range(0,ntimesteps):
 	file.write("\t<set iteration=\"" + str(timestep) + "\">\n")
-	file.write("\t\t<particle_values number_density=\"1e+13\" weight=\"5e+8\" charge_number=\"+1\" mass=\"6.63e-26\" species=\"40Ar+\"/>\n")
+	file.write("\t\t<particle_values number_density=\""+str(params["adjoint_number_density"])+" \" weight=\""+str(params["adjoint_weight"])+"\" charge_number=\""+str(params["adjoint_charge_number"])+"\" mass=\""+str(params["adjoint_mass"])+"\" species=\""+str(params["adjoint_species"])+"\"/>\n")
 	file.write("\t\t<position>\n \t\t\t<mu x_val = \"" + str(mu_x) + "\" y_val = \"" + str(mu_y) + "\" z_val = \"" + str(mu_z) + "\" />\n")
 	file.write("\t\t\t<sigma x_val = \"" + str(s_x) +"\" y_val = \"" + str(s_y)+ "\" z_val = \"" + str(s_z) +"\"/> \n \t\t</position>\n")
 	file.write("\t\t<velocity> \n \t\t\t<mu x_val = \"" + str(v_x) + " \" y_val = \"" + str(v_y) + "\" z_val = \"" + str(v_z) + "\" />\n")

@@ -41,7 +41,7 @@ TEST(ncgFR,noException) {
     provider.setSubroutines(subs);
     stepdir_contr.setData_provider_optim(provider);
 
-    unsigned int r = 1;
+    unsigned int r = 2;
 
     std::map<std::string, double> optimizationParameters = provider.getOptimizationParameters();
     unsigned int dimensionOfControl_gp = static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second);
@@ -66,7 +66,7 @@ TEST(ncgPR,noException) {
     provider.setSubroutines(subs);
     stepdir_contr.setData_provider_optim(provider);
 
-    unsigned int r = 1;
+    unsigned int r = 2;
 
     std::map<std::string, double> optimizationParameters = provider.getOptimizationParameters();
     unsigned int dimensionOfControl_gp = static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second);
@@ -91,7 +91,7 @@ TEST(ncgHZ,noException) {
     provider.setSubroutines(subs);
     stepdir_contr.setData_provider_optim(provider);
 
-    unsigned int r = 1;
+    unsigned int r = 2;
 
     std::map<std::string, double> optimizationParameters = provider.getOptimizationParameters();
     unsigned int dimensionOfControl_gp = static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second);

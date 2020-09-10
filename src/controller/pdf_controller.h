@@ -16,7 +16,7 @@ public:
     pdf_controller();
 
     int assemblingMultiDim(std::vector<std::vector<particle> > &particlesTime, unsigned int equationType,
-                           std::unordered_map<coordinate_phase_space_time, double> &pdf);
+                           std::vector<std::unordered_map<coordinate_phase_space_time, double> > &pdf_time);
 
     int assemblingMultiDim_parallel(std::vector<std::vector<particle> > &particlesTime, unsigned int equationType,
                                     std::vector<std::unordered_map<coordinate_phase_space_time, double> > &pdf_time );

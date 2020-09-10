@@ -121,41 +121,7 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
         logger::Info("Starting without control_field_cells");
     }
 
-    arma::mat Laplace = model_solver.Laplacian_3D();
-    arma::mat Laplace_Squared = model_solver.Laplacian_Squared_3D();
-
-    arma::cx_vec eigval;
-    arma::cx_mat eigvec;
-
-    arma::eig_gen(eigval, eigvec, -Laplace);
-    std::cout << eigval << std::endl;
-   // std::cout << eigvec << std::endl;
-
-    arma::eig_gen(eigval, eigvec, Laplace_Squared);
-    std::cout << eigval << std::endl;
-   // std::cout << eigvec << std::endl;
-
-    unsigned int pcell_gp = static_cast<unsigned int>(optimizationParameters.find("pcell_gp")->second);
-    unsigned int vcell_gp = static_cast<unsigned int>(optimizationParameters.find("vcell_gp")->second);
-    unsigned int dimensionOfControl_gp = static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second);
-    double dv_gp = static_cast<double>(optimizationParameters.find("dv_gp")->second);
-    double dt_gp = static_cast<double>(optimizationParameters.find("dt_gp")->second);
-    double db_gp = static_cast<double>(optimizationParameters.find("db_gp")->second);
-    double weight_control_gp = static_cast<double>(optimizationParameters.find("weight_control_gp")->second);
-    double local_control_x_min_gp = static_cast<double>(optimizationParameters.find("local_control_x_min_gp")->second);
-    double local_control_x_max_gp = static_cast<double>(optimizationParameters.find("local_control_x_max_gp")->second);
-
-    arma::eig_gen(eigval, eigvec, arma::eye(dimensionOfControl_gp,dimensionOfControl_gp));
-    std::cout << eigval << std::endl;
-   // std::cout << eigvec << std::endl;
-
-    //arma::mat Riesz = weight_control_gp*(arma::eye(dimensionOfControl_gp,dimensionOfControl_gp) - 1.0/(pow(db_gp,2))*Laplace + 1.0/(pow(db_gp,4))*Laplace_Squared);
-    arma::mat Riesz = (arma::eye(dimensionOfControl_gp,dimensionOfControl_gp) - Laplace + Laplace_Squared);
-
-    arma::eig_gen(eigval, eigvec, Riesz);
-    std::cout << eigval << std::endl;
-
-    /**
+   /**
      * START OPTIMIZATION ITERATION
      */
     std::vector<std::vector<particle>> forwardParticles(ntimesteps_gp);
@@ -222,6 +188,14 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
         logger::Info("Assembling of pdfs took: " + std::to_string(std::chrono::duration_cast<std::chrono::seconds>
                                                                   (end-start).count()) + " second(s)");
 
+
+        logger::Info("Building gradient...");
+        //gradient = gradient_calculator_opt.calculateGradient_forceControl_space_L2(forwardPDF,backwardPDF,control);
+        gradient = gradient_calculator_opt.calculateGradient_forceControl_space_Hm(forwardPDF,backwardPDF,control);
+        outDiag.writeDoubleToFile(arma::norm(gradient,"fro"),"normGradientTrack");
+        outDiag.writeGradientToFile(gradient,"gradient_"+std::to_string(r));
+        norm_Gradient = arma::norm(gradient,"fro");
+
         if (r == 0) {
             //save plasma states using initial control
             //input_control.read_plasma_state_forward(forwardParticles_initialControl);
@@ -251,14 +225,6 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
         } else {
             std::cout << "No calculation of functional" << std::endl;
         }
-
-
-        logger::Info("Building gradient...");
-        //gradient = gradient_calculator_opt.calculateGradient_forceControl_space_L2(forwardPDF,backwardPDF,control);
-        gradient = gradient_calculator_opt.calculateGradient_forceControl_space_Hm(forwardPDF,backwardPDF,control);
-        outDiag.writeDoubleToFile(arma::norm(gradient,"fro"),"normGradientTrack");
-        outDiag.writeGradientToFile(gradient,"gradient_"+std::to_string(r));
-        norm_Gradient = arma::norm(gradient,"fro");
 
 
 
