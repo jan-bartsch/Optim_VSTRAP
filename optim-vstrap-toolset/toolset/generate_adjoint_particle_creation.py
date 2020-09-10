@@ -36,8 +36,8 @@ s_y = float(params["adjoint_s_y"])
 s_z = float(params["adjoint_s_z"])
 
 v_x = float(params["adjoint_vx"])
-v_y = float(params["adjoint_vx"])
-v_z = float(params["adjoint_vx"])
+v_y = float(params["adjoint_vy"])
+v_z = float(params["adjoint_vz"])
 
 most_probable_speed = float(params["expected_speed"])
 expected_speed = float(params["most_probable_speed"])
