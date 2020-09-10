@@ -127,7 +127,7 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
     arma::cx_vec eigval;
     arma::cx_mat eigvec;
 
-    arma::eig_gen(eigval, eigvec, Laplace);
+    arma::eig_gen(eigval, eigvec, -Laplace);
     std::cout << eigval << std::endl;
    // std::cout << eigvec << std::endl;
 
@@ -145,7 +145,12 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
     double local_control_x_min_gp = static_cast<double>(optimizationParameters.find("local_control_x_min_gp")->second);
     double local_control_x_max_gp = static_cast<double>(optimizationParameters.find("local_control_x_max_gp")->second);
 
-    arma::mat Riesz = weight_control_gp*(arma::eye(dimensionOfControl_gp,dimensionOfControl_gp) - 1.0/(pow(db_gp,2))*Laplace + 1.0/(pow(db_gp,4))*Laplace_Squared);
+    arma::eig_gen(eigval, eigvec, arma::eye(dimensionOfControl_gp,dimensionOfControl_gp));
+    std::cout << eigval << std::endl;
+   // std::cout << eigvec << std::endl;
+
+    //arma::mat Riesz = weight_control_gp*(arma::eye(dimensionOfControl_gp,dimensionOfControl_gp) - 1.0/(pow(db_gp,2))*Laplace + 1.0/(pow(db_gp,4))*Laplace_Squared);
+    arma::mat Riesz = (arma::eye(dimensionOfControl_gp,dimensionOfControl_gp) - Laplace + Laplace_Squared);
 
     arma::eig_gen(eigval, eigvec, Riesz);
     std::cout << eigval << std::endl;
