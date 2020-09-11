@@ -68,3 +68,27 @@ int output_control_update::writeArmaMatrixToFile(arma::mat input, std::string fi
 
     return 0;
 }
+
+int output_control_update::interpolate_control(data_provider provider)
+{
+    std::map<std::string, std::string> paths = provider.getPaths();
+    std::string PATH_TO_SHARED_FILES = paths.find("PATH_TO_SHARED_FILES")->second;
+    std::string DIRECTORY_TOOLSET = paths.find("DIRECTORY_TOOLSET")->second;
+    std::string DOMAIN_MESH = paths.find("DOMAIN_MESH")->second;
+    std::string CHECK_INPUT_PYHTON = "python3 " + DIRECTORY_TOOLSET + "check_input.py " + PATH_TO_SHARED_FILES;
+
+    std::string BGF_CONTROL = paths.find("BGF_CONTROL")->second;
+    std::string CONTROL_FIELD_CELLS_NAME = paths.find("CONTROL_FIELD_CELLS_NAME")->second;
+    std::string interpolating_control_python = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " +  PATH_TO_SHARED_FILES + DOMAIN_MESH +
+            " " + PATH_TO_SHARED_FILES + CONTROL_FIELD_CELLS_NAME + " " + PATH_TO_SHARED_FILES + BGF_CONTROL;
+
+    int interpolating_flag = system(&interpolating_control_python[0]);
+    if(interpolating_flag == 512) {
+        throw std::runtime_error("File not found in control interpolating");
+    } else if (interpolating_flag == 256) {
+        throw std::runtime_error("Interpolating returned error value");
+    }
+
+    return interpolating_flag;
+
+}

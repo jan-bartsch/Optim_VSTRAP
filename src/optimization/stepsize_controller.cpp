@@ -95,8 +95,6 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
 
     std::string BGF_CONTROL = paths.find("BGF_CONTROL")->second;
     std::string CONTROL_FIELD_CELLS_NAME = paths.find("CONTROL_FIELD_CELLS_NAME")->second;
-    std::string interpolating_control_python = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " + DOMAIN_MESH +
-            " " + PATH_TO_SHARED_FILES + CONTROL_FIELD_CELLS_NAME + " " + PATH_TO_SHARED_FILES + BGF_CONTROL;
 
     int forward_return;
 
@@ -105,7 +103,7 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
      */
     control = control0 + alpha*stepdirection;
     outController.writeControl_XML(control);
-    system(&interpolating_control_python[0]);
+    outController.interpolate_control(outController.getData_provider_optim());
 
     forward_return = system(&START_VSTRAP_FORWARD[0]);
 
@@ -129,7 +127,8 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
 
         control = control0 + alpha*stepdirection;
         outController.writeControl_XML(control0 + alpha*stepdirection);
-        system(&interpolating_control_python[0]);
+        outController.interpolate_control(outController.getData_provider_optim());
+
 
         forward_return = system(&START_VSTRAP_FORWARD[0]);
 
@@ -155,7 +154,8 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
         //Calculate with old control
         control = control0;
         outController.writeControl_XML(control0);
-        system(&interpolating_control_python[0]);
+        outController.interpolate_control(outController.getData_provider_optim());
+
 
         forward_return = system(&START_VSTRAP_FORWARD[0]);
         std::cout << "Minimum already reached. You may want to decrease your tolerance? (Was " << tolerance << ")" << std::endl;
@@ -212,8 +212,6 @@ int stepsize_controller::gradient_descent(arma::mat &control, arma::mat &stepdir
 
     std::string BGF_CONTROL = paths.find("BGF_CONTROL")->second;
     std::string CONTROL_FIELD_CELLS_NAME = paths.find("CONTROL_FIELD_CELLS_NAME")->second;
-    std::string interpolating_control_python = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " + DOMAIN_MESH +
-            " " + PATH_TO_SHARED_FILES + CONTROL_FIELD_CELLS_NAME + " " + PATH_TO_SHARED_FILES + BGF_CONTROL;
 
     int assembling_flag = 1;
     double alpha = 1;
@@ -225,9 +223,6 @@ int stepsize_controller::gradient_descent(arma::mat &control, arma::mat &stepdir
     std::vector<std::unordered_map<coordinate_phase_space_time,double>> pdf_time(ntimesteps_gp);
 
     while (assembling_flag == 1 && static_cast<unsigned int>(counter) <= optimizationIteration_max_gp) {
-        std::string interpolating_control_python = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " + DOMAIN_MESH +
-                " " + PATH_TO_SHARED_FILES + CONTROL_FIELD_CELLS_NAME + " " + PATH_TO_SHARED_FILES + BGF_CONTROL;
-
         int forward_return;
 
         /*
@@ -235,16 +230,14 @@ int stepsize_controller::gradient_descent(arma::mat &control, arma::mat &stepdir
          */
         control = control0 + alpha/counter*stepsize_gradient*stepdirection/arma::norm(stepdirection);
         outController.writeControl_XML(control);
-        system(&interpolating_control_python[0]);
+        outController.interpolate_control(outController.getData_provider_optim());
 
         forward_return = system(&START_VSTRAP_FORWARD[0]);
-
 
         if (forward_return == 0) {
             input_control.read_plasma_state_forward(forwardParticles);
             assembling_flag = pdf_control.assemblingMultiDim_parallel(forwardParticles,0,pdf_time);
         }
-
         counter = counter + 1.0;
     }
 
