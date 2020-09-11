@@ -12,8 +12,7 @@ int optim_controller::start_optimizer(int argc, const char **argv)
     std::string input_directory;
     std::string pathToOptimInput;
     const char * input_xml_path;
-    const char * shared_files_directory;
-    int return_flag_3;
+    int return_flag_2;
 
     switch (argc) {
     case 1:
@@ -23,11 +22,6 @@ int optim_controller::start_optimizer(int argc, const char **argv)
         break;
     case 2:
         input_xml_path = argv[1];
-        break;
-    case 3:
-        input_xml_path = argv[1];
-        shared_files_directory = argv[2];
-        return_flag_3 = generate_input_files(input_xml_path,shared_files_directory);
         break;
     default:
         logger::Warning("Too many input parameters. Expected 2 but was " + std::to_string(argc));
@@ -100,7 +94,7 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
     /*
      * Check consistency of input files
      */
-    check_input_py(data_provider_opt, input_xml_path);
+    //check_input_py(data_provider_opt, input_xml_path);
 
     std::string START_VSTRAP_FORWARD = BUILD_DIRECTORY_VSTRAP + "vstrap" + " " + PATH_TO_SHARED_FILES + INPUT_FORWARD;
     int forward_return = 0;
@@ -120,8 +114,9 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
     } else {
         logger::Info("Starting without control_field_cells");
     }
+    generate_input_files(input_xml_path);
 
-   /**
+    /**
      * START OPTIMIZATION ITERATION
      */
     std::vector<std::vector<particle>> forwardParticles(ntimesteps_gp);
@@ -299,7 +294,7 @@ int optim_controller::interpolate_control(data_provider provider)
 
     std::string BGF_CONTROL = paths.find("BGF_CONTROL")->second;
     std::string CONTROL_FIELD_CELLS_NAME = paths.find("CONTROL_FIELD_CELLS_NAME")->second;
-    std::string interpolating_control_python = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " + DOMAIN_MESH +
+    std::string interpolating_control_python = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " +  PATH_TO_SHARED_FILES + DOMAIN_MESH +
             " " + PATH_TO_SHARED_FILES + CONTROL_FIELD_CELLS_NAME + " " + PATH_TO_SHARED_FILES + BGF_CONTROL;
 
     int interpolating_flag = system(&interpolating_control_python[0]);
@@ -337,7 +332,7 @@ arma::mat optim_controller::start_with_zero_control(const char *input_xml_path)
     system(&COMMAND_MKDIR_RESULTS[0]);
     logger::Info("Starting with zero control");
     outController.writeControl_XML(control);
-    std::string interpolating_control_python = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " + DOMAIN_MESH +
+    std::string interpolating_control_python = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " + PATH_TO_SHARED_FILES +  DOMAIN_MESH +
             " " + PATH_TO_SHARED_FILES + CONTROL_FIELD_CELLS_NAME + " " + PATH_TO_SHARED_FILES + BGF_CONTROL;
     system(&interpolating_control_python[0]);
 
@@ -375,7 +370,7 @@ arma::mat optim_controller::start_with_given_control(const char *input_xml_path)
     return control;
 }
 
-int optim_controller::generate_input_files(const char *input_xml_path, const char *shared_files_directory)
+int optim_controller::generate_input_files(const char *input_xml_path)
 {
     data_provider data_provider_opt = data_provider(input_xml_path);
 

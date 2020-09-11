@@ -41,7 +41,7 @@ file_forward_input.write("\t <global_values> \n \t\t <time_step value=\"" + str(
 file_forward_input.write("\t <abort_criterium> \n \t\t <max_itterations value=\"" + str(params["ntimesteps_gp"]) + "\" /> \n \t </abort_criterium>\n")
 
 optim_vMesh = pathsList["DOMAIN_MESH"]
-optim_vMesh = optim_vMesh.replace("../../Optim_VSTRAP/data/","../")
+#optim_vMesh = optim_vMesh.replace("../../Optim_VSTRAP/data/","../")
 
 file_forward_input.write("\t <executables> \n \t \t <executable name=\"mesh_initializer\" mode=\"CPU\"> \n \t\t\t <mesh name=\"vol_mesh\">\n")
 file_forward_input.write("\t\t\t\t <load>"+str(optim_vMesh)+"</load> \n \t\t\t </mesh> \n \t\t </executable>\n")

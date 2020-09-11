@@ -19,6 +19,8 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
     print('[Interpolate cell2Node]: Successfully parsed arguments')
+    print('path to mesh file' + args.mesh)
+    print('path to control file' + args.control)
 
     try:
         if args.input == "xml":
