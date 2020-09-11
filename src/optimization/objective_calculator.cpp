@@ -151,6 +151,7 @@ double objective_calculator::calculate_objective_L2(std::vector<std::unordered_m
     }
 
     //add control, no trapezodial rule needed since control is zero at the boundary (?)
+    std::cout << control << std::endl;
     costOfControl += 1.0/2.0*arma::norm(control.rows(start_control-1,end_control-1),"fro")*arma::norm(control.rows(start_control-1,end_control-1),"fro")*pow(dp_gp,1.0);
 
     arma::mat second_derivative = solver.Laplacian_3D();
