@@ -7,11 +7,11 @@
       <parameter name="C_theta_gp" value="1e+20" />
         <parameter name="C_phi_gp" value="1e+20" />
         <parameter name="sigma_x_gp" value="0.25" />
-        <parameter name="sigma_v_gp" value="438.65" />
+        <parameter name="sigma_v_gp" value="375.99424" />
 
         <!-- create adjoint particles and trajectory -->
-        <parameter name="adjoint_mu_x" value="-0.35" />
-        <parameter name="desired_position_x" value="-0.35"/>
+        <parameter name="adjoint_mu_x" value="-0.40" />
+        <parameter name="desired_position_x" value="-0.40"/>
         <parameter name="adjoint_mu_y" value="0.0" />
         <parameter name="desired_position_y" value="0.0"/>
         <parameter name="adjoint_mu_z" value="0.0" />
@@ -26,29 +26,29 @@
         <parameter name="adjoint_vz" value="0.0" />
 
         <parameter name="adjoint_number_density" value="1e+13" />
-        <parameter name="adjoint_weight" value="1e+8" />
+        <parameter name="adjoint_weight" value="1e+10" />
         <parameter name="adjoint_charge_number" value="+1" />
         <parameter name="adjoint_mass" value="6.63e-26" />
         <parameter name="adjoint_species" value="40Ar+" />
 
-        <parameter name="expected_speed" value="8e+2" />
-        <parameter name="most_probable_speed" value="8e+2" />
+        <parameter name="expected_speed" value="6e+2" />
+        <parameter name="most_probable_speed" value="6e+2" />
 
         <!-- Trajectory -->
-        <parameter name="expected_speed" value="8e+2" />
-        <parameter name="desired_position_x" value="-0.35"/>
+        <parameter name="expected_speed" value="6e+2" />
+        <parameter name="desired_position_x" value="-0.40"/>
         <parameter name="desired_position_y" value="0.0"/>
 	<parameter name="desired_position_z" value="0.0"/>
 
         <!-- forward input -->
         <parameter name="number_density_forward" value="1e+13" />
-        <parameter name="weight_forward" value="1e+9" />
+        <parameter name="weight_forward" value="5e+8" />
         <parameter name="charge_number_forward" value="+1" />
         <parameter name="mass_forward" value="6.63e-26" />
         <parameter name="species_forward" value="40Ar+"/>
-	<parameter name="temperature_x_val" value="100" />
-	<parameter name="temperature_y_val" value="100" />
-	<parameter name="temperature_z_val" value="100" />
+	<parameter name="temperature_x_val" value="300" />
+	<parameter name="temperature_y_val" value="300" />
+	<parameter name="temperature_z_val" value="300" />
 	<parameter name="v_drift_x_val" value="0" />
 	<parameter name="v_drift_y_val" value="0" />
 	<parameter name="v_drift_z_val" value="0" />	
@@ -57,7 +57,7 @@
 
         <!-- optimization techniques -->
 
-        <parameter name="fixed_gradient_descent_stepsize" value="1e+2" />
+        <parameter name="fixed_gradient_descent_stepsize" value="1e+6" />
         <parameter name="fraction_of_optimal_control" value="1e-5" />
         <parameter name="optimizationIteration_max_gp" value="100" />       <!-- number of maximal interations -->
         <parameter name="numberParticles_gp" value="2000" />
@@ -87,9 +87,9 @@
         <parameter name="start_control_gp" value="73" />
         <parameter name="local_control_x_min_gp" value="-0.2" />
         <parameter name="local_control_x_max_gp" value="0.2" />
-        <parameter name="weight_control_gp" value="1e+2" />
+        <parameter name="weight_control_gp" value="1e+5" />
 
-        <parameter name="velocity_part_objective" value="1e-9" />
+        <parameter name="velocity_part_objective" value="1e-8" />
 
         <!-- -->
         <parameter name="fabs_tol_gp" value="1e-5" />
@@ -99,9 +99,9 @@
 
     <paths>
 	<path name="PATH_TO_SHARED_FILES" value="./results/" />
-        <path name="BUILD_DIRECTORY_VSTRAP" value="/home/bartsch/SPARC/build-vstrap-CSMC/src/" />
-      	<path name="BUILD_DIRECTORY_OPTIM" value="/home/bartsch/SPARC/build-Optim-CSMC/src/" />
-        <path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/home/bartsch/SPARC/Optim_VSTRAP/data/build-Optim-CSSC/src/results/" />      	
+        <path name="BUILD_DIRECTORY_VSTRAP" value="/HOME/bartsch/SPARC/build-vstrap-CSMC/src/" />
+      	<path name="BUILD_DIRECTORY_OPTIM" value="/HOME/bartsch/SPARC/build-Optim-CSMC/src/" />
+        <path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/HOME/bartsch/SPARC/build-Optim-CSMC/src/results/" />      	
       	<path name="BARYCENTERS_MESH" value="../../Optim_VSTRAP/data/global/mesh_barycenters_216.xml" />
       	<path name="DIRECTORY_TOOLSET" value="../../Optim_VSTRAP/optim-vstrap-toolset/toolset/" />
       	<path name="DOMAIN_MESH" value="../../../Optim_VSTRAP/data/global/box_vol_regular_216.xml" />

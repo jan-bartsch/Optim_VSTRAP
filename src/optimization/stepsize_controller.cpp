@@ -123,7 +123,7 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
 
     while (Jtemp > J0 + scalarProduct*armijo_descent_fraction && alpha > tolerance
            && counter <= optimizationIteration_max_gp) {
-        alpha = pow(1.0,counter)*0.5*alpha;
+        alpha = pow(0.5,counter)*1.0*alpha;
 
         control = control0 + alpha*stepdirection;
         outController.writeControl_XML(control0 + alpha*stepdirection);
