@@ -56,6 +56,8 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
     double dt_gp = static_cast<double>(optimizationParameters.find("dt_gp")->second);
     double armijo_descent_fraction = static_cast<double>(optimizationParameters.find("armijo_descent_fraction")->second);
     double tolerance = static_cast<double>(optimizationParameters.find("tolerance_gp")->second);
+    double armijio_base_exp = static_cast<double>(optimizationParameters.find("armijio_base_exp")->second);
+    double armijo_iterative_exp = static_cast<double>(optimizationParameters.find("armijo_iterative_exp")->second);
 
     std::string BUILD_DIRECTORY_VSTRAP = paths.find("BUILD_DIRECTORY_VSTRAP")->second;
     std::string BUILD_DIRECTORY_OPTIM = paths.find("BUILD_DIRECTORY_OPTIM")->second;
@@ -123,7 +125,7 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
 
     while (Jtemp > J0 + scalarProduct*armijo_descent_fraction && alpha > tolerance
            && counter <= optimizationIteration_max_gp) {
-        alpha = pow(0.5,counter)*1.0*alpha;
+        alpha = pow(armijio_base_exp,counter)*armijo_iterative_exp*alpha;
 
         control = control0 + alpha*stepdirection;
         outController.writeControl_XML(control0 + alpha*stepdirection);
@@ -198,7 +200,7 @@ int stepsize_controller::gradient_descent(arma::mat &control, arma::mat &stepdir
     std::string DIRECTORY_TOOLSET = paths.find("DIRECTORY_TOOLSET")->second;
 
     std::string PATH_TO_SHARED_FILES = paths.find("PATH_TO_SHARED_FILES")->second;
-	std::string INPUT_FORWARD = paths.find("INPUT_FORWARD")->second;
+    std::string INPUT_FORWARD = paths.find("INPUT_FORWARD")->second;
     std::string DOMAIN_MESH = paths.find("DOMAIN_MESH")->second;
 
     unsigned int ntimesteps_gp = static_cast<unsigned int>(optimizationParameters.find("ntimesteps_gp")->second);
@@ -214,7 +216,7 @@ int stepsize_controller::gradient_descent(arma::mat &control, arma::mat &stepdir
     std::string CONTROL_FIELD_CELLS_NAME = paths.find("CONTROL_FIELD_CELLS_NAME")->second;
 
     int assembling_flag = 1;
-    double alpha = 1;
+    double alpha = 1.0;
     arma::mat control0 = control;
 
     double counter = 1.0;

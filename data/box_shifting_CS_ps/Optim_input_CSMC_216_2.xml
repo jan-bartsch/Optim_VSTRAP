@@ -7,7 +7,7 @@
       <parameter name="C_theta_gp" value="1e+20" />
         <parameter name="C_phi_gp" value="1e+20" />
         <parameter name="sigma_x_gp" value="0.25" />
-        <parameter name="sigma_v_gp" value="375.99424" />
+        <parameter name="sigma_v_gp" value="438.6599" />
 
         <!-- create adjoint particles and trajectory -->
         <parameter name="adjoint_mu_x" value="-0.40" />
@@ -31,11 +31,11 @@
         <parameter name="adjoint_mass" value="6.63e-26" />
         <parameter name="adjoint_species" value="40Ar+" />
 
-        <parameter name="expected_speed" value="6e+2" />
-        <parameter name="most_probable_speed" value="6e+2" />
+        <parameter name="expected_speed" value="7e+2" />
+        <parameter name="most_probable_speed" value="7e+2" />
 
         <!-- Trajectory -->
-        <parameter name="expected_speed" value="6e+2" />
+        <parameter name="expected_speed" value="7e+2" />
         <parameter name="desired_position_x" value="-0.40"/>
         <parameter name="desired_position_y" value="0.0"/>
 	<parameter name="desired_position_z" value="0.0"/>
@@ -95,7 +95,7 @@
         <parameter name="velocity_part_objective" value="1e-3" />
 
         <!-- -->
-        <parameter name="fabs_tol_gp" value="1e-5" />
+        <parameter name="fabs_tol_gp" value="1.0" />
     </globalParameters>
 
 
