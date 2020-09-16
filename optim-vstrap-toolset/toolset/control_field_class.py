@@ -56,7 +56,7 @@ class Control_field:
 		mesh.read_mesh_xml(str(meshFile))
 
 		for n in mesh.nodes:
-			print(n)
+			#print(n)
 			#print(mesh.nodes[n].x_coord)
 			self.nodesMesh.insert(len(self.nodesMesh),[float(mesh.nodes[n].x_coord),mesh.nodes[n].y_coord,mesh.nodes[n].z_coord])
 
@@ -65,7 +65,7 @@ class Control_field:
 
 		print("Length of control: " + str(len(self.control)))
 		for n in mesh.nodes:
-			print(n)
+			#print(n)
 			self.endPoints.insert(len(self.endPoints),[self.nodesMesh[n-1][0]+control_scaling*self.control[n-1][0],self.nodesMesh[n-1][1]+control_scaling*self.control[n-1][1],self.nodesMesh[n-1][2]+control_scaling*self.control[n-1][2]])
 
 

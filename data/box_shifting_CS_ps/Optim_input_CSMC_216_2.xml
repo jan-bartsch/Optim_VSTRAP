@@ -51,7 +51,7 @@
         <parameter name="temperature_z_val" value="300" />
         <parameter name="v_drift_x_val" value="0" />
         <parameter name="v_drift_y_val" value="0" />
-        <parameter name="v_drift_z_val" value="0" />	
+        <parameter name="v_drift_z_val" value="0" />
 
 
 
@@ -65,7 +65,7 @@
         <parameter name="start_zero_control" value="0" />		<!-- 0=true, 1=false -->
         <parameter name="tolerance_gp" value="1e-14" />
         <parameter name="tolerance_relaxation_gp" value="1e-10" /> <!-- for Gauß-Seidel smoothing-->
-        
+
         <parameter name="armijio_base_exp" value="0.8" /> <!-- 1.0: there is no exponential diminishing of fraction of new stepsize-->
         <parameter name="armijo_iterative_exp" value="1.0" /> <!-- 1.0: no decreasing stepsize -->
 
@@ -103,8 +103,8 @@
     <paths>
 	<path name="PATH_TO_SHARED_FILES" value="./results/" />
         <path name="BUILD_DIRECTORY_VSTRAP" value="/HOME/bartsch/SPARC/build-vstrap-CSMC/src/" />
-      	<path name="BUILD_DIRECTORY_OPTIM" value="/HOME/bartsch/SPARC/build-Optim-CSMC/src/" />
-        <path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/HOME/bartsch/SPARC/build-Optim-CSMC/src/results/" />      	
+      	<path name="BUILD_DIRECTORY_OPTIM" value="/HOME/bartsch/SPARC/build-Optim-CSMC2/src/" />
+        <path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/HOME/bartsch/SPARC/build-Optim-CSMC2/src/results/" />
       	<path name="BARYCENTERS_MESH" value="../../Optim_VSTRAP/data/global/mesh_barycenters_216.xml" />
       	<path name="DIRECTORY_TOOLSET" value="../../Optim_VSTRAP/optim-vstrap-toolset/toolset/" />
       	<path name="DOMAIN_MESH" value="../../../Optim_VSTRAP/data/global/box_vol_regular_216.xml" />
