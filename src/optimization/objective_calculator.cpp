@@ -120,10 +120,10 @@ double objective_calculator::calculate_objective_L2(std::vector<std::unordered_m
                                     ));
                         } else if(objective_calculation.compare("components")==0) {
                             current_trackPot = - C_theta_gp/(2.0*M_PI*sigma_x_gp*sigma_v_gp)*exp(
-                                        -(p_d[0]*p_d[0]/(2.0*sigma_x_gp*sigma_x_gp)+
-                                    pow(velocityDiscr_gp(l)-p_d[1],2.0)/(2.0*sigma_v_gp*sigma_v_gp)+
-                                    pow(velocityDiscr_gp(m)-p_d[2],2.0)/(2.0*sigma_v_gp*sigma_v_gp)+
-                                    pow(velocityDiscr_gp(n)-p_d[3],2.0)/(2.0*sigma_v_gp*sigma_v_gp)
+                                        -((std::pow(current_barycenter[0]-p_d[0],2)+std::pow(current_barycenter[1]-p_d[1],2)+std::pow(current_barycenter[2]-p_d[2],2))/(2.0*sigma_x_gp*sigma_x_gp)+
+                                    pow(velocityDiscr_gp(l)-p_d[3],2.0)/(2.0*sigma_v_gp*sigma_v_gp)+
+                                    pow(velocityDiscr_gp(m)-p_d[4],2.0)/(2.0*sigma_v_gp*sigma_v_gp)+
+                                    pow(velocityDiscr_gp(n)-p_d[5],2.0)/(2.0*sigma_v_gp*sigma_v_gp)
                                     ));
                         }
                         if (forwardPDF_time[o].find(coordinate) != forwardPDF_time[o].end()) {
