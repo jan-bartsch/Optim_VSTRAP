@@ -118,10 +118,6 @@ double objective_calculator::calculate_objective_L2(std::vector<std::unordered_m
                                                                       velocityDiscr_gp(m)*velocityDiscr_gp(m)+
                                                                       velocityDiscr_gp(n)*velocityDiscr_gp(n)-p_d[4]*p_d[4]))/(2.0*sigma_v_gp*sigma_v_gp)
                                     ));
-                            //(std::pow(velocityDiscr_gp(l)-p_d[4],2)+
-                            //std::pow(velocityDiscr_gp(m)-p_d[4],2)+
-                            //std::pow(velocityDiscr_gp(n)-p_d[4],2))/(2.0*sigma_v_gp*sigma_v_gp)
-                            //std::cout << current_barycenter[0] << ", " << current_trackPot << std::endl;
                         } else if(objective_calculation.compare("components")==0) {
                             current_trackPot = - C_theta_gp/(2.0*M_PI*sigma_x_gp*sigma_v_gp)*exp(
                                         -(p_d[0]*p_d[0]/(2.0*sigma_x_gp*sigma_x_gp)+
