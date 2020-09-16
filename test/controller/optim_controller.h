@@ -28,9 +28,10 @@ TEST(optimContr,interpolateControl) {
     const char *  filename = input_directory.c_str();
 
     data_provider provider = data_provider(filename);
-    optim_controller contr = optim_controller();
+    output_control_update outContr = output_control_update();
+    outContr.setData_provider_optim(provider);
 
-    ASSERT_NO_THROW(contr.interpolate_control(provider));
+    ASSERT_NO_THROW(outContr.interpolate_control(provider));
 }
 
 TEST(optimContr,startZeroControl) {
@@ -41,7 +42,7 @@ TEST(optimContr,startZeroControl) {
     optim_controller contr = optim_controller();
 
     std::map<std::string, double> optimizationParameters = provider.getOptimizationParameters();
-    unsigned int dimensionOfControl_gp = static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second);
+    unsigned int dimensionOfControl_gp = static_cast<unsigned int>(optimizationParameters.find("pcell_gp")->second);
     arma::mat zero(dimensionOfControl_gp,3,arma::fill::zeros);
 
     arma::mat control = contr.start_with_zero_control(filename);
@@ -62,7 +63,7 @@ TEST(optContr,startReadInControl) {
     updater.setData_provider_optim(provider);
 
     std::map<std::string, double> optimizationParameters = provider.getOptimizationParameters();
-    unsigned int dimensionOfControl_gp = static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second);
+    unsigned int dimensionOfControl_gp = static_cast<unsigned int>(optimizationParameters.find("pcell_gp")->second);
     arma::mat control_rand(dimensionOfControl_gp,3,arma::fill::randu);
 
     updater.writeControl_XML(control_rand);

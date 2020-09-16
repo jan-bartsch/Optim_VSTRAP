@@ -77,7 +77,7 @@
         <parameter name="dv_gp" value="4e+2" />                              <!-- discretization size velocity -->
         <parameter name="vcell_gp" value="10" /> <!-- 10 -->
         <parameter name="vmax_gp" value="2e+3" /> <!-- 2e+3 -->                           <!-- maximal velocity (support of forward equaiton) -->
-        <parameter name="fraction_fast_particles" value="0.1"/>
+        <parameter name="fraction_fast_particles_gp" value="0.1"/>
 
 
         <!-- CONTROL -->

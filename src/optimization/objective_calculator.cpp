@@ -27,12 +27,16 @@ double objective_calculator::calculate_objective_L2(std::vector<std::unordered_m
     double dv_gp = static_cast<double>(optimizationParameters.find("dv_gp")->second);
     double dt_gp = static_cast<double>(optimizationParameters.find("dt_gp")->second);
     double dp_gp = static_cast<double>(optimizationParameters.find("dp_gp")->second);
+     double db_gp = static_cast<double>(optimizationParameters.find("db_gp")->second);
     double weight_control_gp = static_cast<double>(optimizationParameters.find("weight_control_gp")->second);
     double C_phi_gp = static_cast<double>(optimizationParameters.find("C_phi_gp")->second);
     double C_theta_gp = static_cast<double>(optimizationParameters.find("C_theta_gp")->second);
     double sigma_x_gp = static_cast<double>(optimizationParameters.find("sigma_x_gp")->second);
     double sigma_v_gp = static_cast<double>(optimizationParameters.find("sigma_v_gp")->second);
     double velocity_part_objective = static_cast<double>(optimizationParameters.find("velocity_part_objective")->second);
+
+    int start_control = static_cast<int>(optimizationParameters.find("start_control_gp")->second);
+    int end_control = static_cast<int>(optimizationParameters.find("end_control_gp")->second);
 
     static arma::vec positionDiscr_gp = arma::linspace<arma::vec>(0.0,pmax_gp,pcell_gp+1);
     static arma::vec velocityDiscr_gp = arma::linspace<arma::vec>(-vmax_gp,vmax_gp,vcell_gp);
@@ -147,11 +151,11 @@ double objective_calculator::calculate_objective_L2(std::vector<std::unordered_m
     }
 
     //add control, no trapezodial rule needed since control is zero at the boundary (?)
-    //costOfControl += 1.0/2.0*arma::norm(control,"fro")*arma::norm(control,"fro")*pow(dp_gp,1.0);
-    // dp_gp^1 since we have elements with volume dp_gp
+    std::cout << control << std::endl;
+    costOfControl += 1.0/2.0*arma::norm(control.rows(start_control-1,end_control-1),"fro")*arma::norm(control.rows(start_control-1,end_control-1),"fro")*pow(dp_gp,1.0);
 
-    //arma::mat second_derivative = solver.Laplacian_3D();
-    //costOfControl += arma::accu(second_derivative*control)/(dp_gp*dp_gp);
+    arma::mat second_derivative = solver.Laplacian_3D();
+    costOfControl += arma::accu(second_derivative*control.rows(start_control-1,end_control-1))/(db_gp*db_gp)*dp_gp;
 
 
     objective += 1.0/C_theta_gp*weight_control_gp*costOfControl;

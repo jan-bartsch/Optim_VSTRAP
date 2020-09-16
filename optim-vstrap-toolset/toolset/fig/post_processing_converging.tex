@@ -9,17 +9,22 @@ tick align=outside,
 tick pos=left,
 title={Relative value of objective},
 x grid style={white!69.0196078431373!black},
-xmin=-0.1, xmax=2.1,
+xmin=-0.35, xmax=7.35,
 xtick style={color=black},
 y grid style={white!69.0196078431373!black},
-ymin=-1.02447429738515, ymax=-0.998834557267374,
+ymin=-1.27373946216124, ymax=-0.972583171480484,
 ytick style={color=black}
 ]
 \addplot [semithick, color0]
 table {%
 0 -1
-1 -1.02330885465252
-2 -1.02076920864137
+1 -0.986272093784154
+2 -1.2565628720005
+3 -1.23983459682977
+4 -1.24435951520721
+5 -1.23911757130227
+6 -1.26005053985757
+7 -1.25024190909787
 };
 
 \nextgroupplot[
@@ -27,17 +32,22 @@ tick align=outside,
 tick pos=left,
 title={Norm relative gradient},
 x grid style={white!69.0196078431373!black},
-xmin=-0.1, xmax=2.1,
+xmin=-0.35, xmax=7.35,
 xtick style={color=black},
 y grid style={white!69.0196078431373!black},
-ymin=-7.65140828522449, ymax=182.679573989714,
+ymin=-898428.997466354, ymax=18867030.9467934,
 ytick style={color=black}
 ]
 \addplot [semithick, color0]
 table {%
 0 1
-1 105.276663693798
-2 174.02816570449
+1 799.459825995012
+2 17968371.0880484
+3 17968371.0880484
+4 17968371.0880484
+5 17968371.0880484
+6 17968486.0186877
+7 17968600.9493271
 };
 
 \nextgroupplot[
@@ -45,16 +55,21 @@ tick align=outside,
 tick pos=left,
 title={Norm control},
 x grid style={white!69.0196078431373!black},
-xmin=-0.05, xmax=1.05,
+xmin=-0.3, xmax=6.3,
 xtick style={color=black},
 y grid style={white!69.0196078431373!black},
-ymin=36.19516, ymax=63.79724,
+ymin=-7.809841244, ymax=164.159801964,
 ytick style={color=black}
 ]
 \addplot [semithick, color0]
 table {%
-0 37.4498
-1 62.5426
+0 0.00696072
+1 156.341
+2 156.341
+3 156.341
+4 156.341
+5 156.342
+6 156.343
 };
 
 \nextgroupplot[
@@ -63,17 +78,22 @@ tick align=outside,
 tick pos=left,
 title={stepsizeTrack},
 x grid style={white!69.0196078431373!black},
-xmin=-0.05, xmax=1.05,
+xmin=-0.3, xmax=6.3,
 xtick style={color=black},
 y grid style={white!69.0196078431373!black},
-ymin=0.00375715740952595, ymax=162.450473449024,
+ymin=6.42930005536774e-15, ymax=5213.55664089981,
 ymode=log,
 ytick style={color=black}
 ]
 \addplot [semithick, color0]
 table {%
-0 100
-1 0.00610352
+0 800
+1 28.1475
+2 4.18994e-14
+3 4.18994e-14
+4 8.37988e-14
+5 1.67598e-13
+6 2.68156e-13
 };
 \end{groupplot}
 
