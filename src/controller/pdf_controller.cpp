@@ -26,9 +26,10 @@ int pdf_controller::assemblingMultiDim(std::vector<std::vector<particle>> &parti
     std::vector<double> sizeParticles(ntimesteps_gp);
 
     int return_flag=0;
+    unsigned int o=0;
 
 
-    for (unsigned int o=0; o<ntimesteps_gp; o++) {
+    while( o<ntimesteps_gp && return_flag == 0) {
         //std::cout << "Assembling pdf in timestep " << o << std::endl;
         double px,py,pz,vx,vy,vz;
         std::vector<particle> particles = particlesTime[o];;
@@ -69,8 +70,6 @@ int pdf_controller::assemblingMultiDim(std::vector<std::vector<particle>> &parti
                 if (equationType == 0) {
                     too_fast_particles++;
                     std::cout << "particle at " << coordinate.toString() << " has speed " << sqrt(vx*vx+vy*vy+vz*vz) << std::endl;
-
-
                     if (too_fast_particles >= fraction_fast_particles_gp*particles.size()) {
                         //logger::Trace("Too many too fast particles, try to increase velocity bound");
                         return_flag = 1;
@@ -81,6 +80,7 @@ int pdf_controller::assemblingMultiDim(std::vector<std::vector<particle>> &parti
                 }
             }
         }
+        o++;
     }
 
     if (equationType == 0 && too_fast_particles>0) {
@@ -132,7 +132,8 @@ int pdf_controller::assemblingMultiDim_parallel(std::vector<std::vector<particle
         int binNumberTime;
         int cell_id;
         //sizeParticles[o] = particles.size();
-        for(unsigned int i = 0; i < particles.size(); i++) {
+        unsigned int i = 0;
+        while(i < particles.size() && return_flag == 0) {
             px = particles[i].getPx(); py = particles[i].getPy(); pz = particles[i].getPz();
             vx = particles[i].getVx(); vy = particles[i].getVy(); vz = particles[i].getVz();
 
@@ -174,6 +175,7 @@ int pdf_controller::assemblingMultiDim_parallel(std::vector<std::vector<particle
                     //logger::Warning("Particle " + std::to_string(i) + " exceeding velocity bound (adjoint equation)");
                 }
             }
+            i++;
         }
     }
 
