@@ -238,7 +238,7 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
         outDiag.writeGradientToFile(control,"control_"+std::to_string(r));
 
         if (stepsize_flag == 1) {
-            std::string small_stepsize = "Linesearch returned too small stepsize; Found minimum after " + std::to_string(r-1) + " iterations";
+            std::string small_stepsize = "Linesearch returned too small stepsize; Found minimum after " + std::to_string(r) + " iterations";
             logger::Info(small_stepsize);
             return 0;
         } else if (stepsize_flag == 2) {

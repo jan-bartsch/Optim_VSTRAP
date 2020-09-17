@@ -160,15 +160,15 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
 
 
         forward_return = system(&START_VSTRAP_FORWARD[0]);
-        std::cout << "Minimum already reached. You may want to decrease your tolerance? (Was " << tolerance << ")" << std::endl;
+        logger::Info("Minimum already reached. You may want to decrease your tolerance? (Was " + std::to_string(tolerance) + ")");
         return_flag = 1;
         return return_flag;
     } else if (counter > optimizationIteration_max_gp) {
-        std::cout << "Maximum interation depth ( " << optimizationIteration_max_gp << " ) reached without decrease!" << std::endl;
+        logger::Info("Maximum interation depth ( " + std::to_string(optimizationIteration_max_gp) + " ) reached without decrease!");
         return_flag = 2;
         return return_flag;
     } else {
-        std::cout << "Armijo-linesearch found stepsize " << alpha << " after " << counter << " iterations." << std::endl;
+        logger::Info("Armijo-linesearch found stepsize " + std::to_string(alpha) + " after " + std::to_string(counter) + " iterations.");
     }
 
     outDiag.writeDoubleToFile(alpha,"stepsizeTrack");

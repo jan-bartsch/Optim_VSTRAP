@@ -57,7 +57,7 @@
 
         <!-- optimization techniques -->
 
-        <parameter name="fixed_gradient_descent_stepsize" value="1e+3" />
+        <parameter name="fixed_gradient_descent_stepsize" value="1e+1" />
         <parameter name="fraction_of_optimal_control" value="1e-5" />
         <parameter name="optimizationIteration_max_gp" value="100" />       <!-- number of maximal interations -->
         <parameter name="numberParticles_gp" value="2000" />
@@ -78,9 +78,9 @@
         <parameter name="db_gp" value="0.125" />                           <!-- box-side-length 216:0.16666667 -->
         <parameter name="dt_gp" value="1e-5" />                             <!-- discretization size time -->
         <parameter name="ntimesteps_gp" value="20" />
-        <parameter name="dv_gp" value="1.6e+3" />                              <!-- discretization size velocity -->
-        <parameter name="vcell_gp" value="10" /> <!-- 10 -->
-        <parameter name="vmax_gp" value="8e+3" /> <!-- 2e+3 -->                           <!-- maximal velocity (support of forward equaiton) -->
+        <parameter name="dv_gp" value="2e+3" />                              <!-- discretization size velocity -->
+        <parameter name="vcell_gp" value="5" /> <!-- 10 -->
+        <parameter name="vmax_gp" value="5e+3" /> <!-- 2e+3 -->                           <!-- maximal velocity (support of forward equaiton) -->
         <parameter name="fraction_fast_particles_gp" value="0.1"/>
 
 
@@ -92,7 +92,7 @@
         <parameter name="local_control_x_max_gp" value="0.2" />
         <parameter name="weight_control_gp" value="1e+7" />
 
-        <parameter name="velocity_part_objective" value="1e-3" />
+        <parameter name="velocity_part_objective" value="0.0" />
 
         <!-- -->
         <parameter name="fabs_tol_gp" value="1e-8" />
@@ -119,9 +119,9 @@
     </paths>
 
     <subroutines>
-      <!--subroutine group="control_update" name="gradient_descent"/-->
+      <subroutine group="control_update" name="gradient_descent"/>
       <!-- subroutine group="control_update" name="successive_approximation" / -->
-      <subroutine group="control_update" name="armijo_linesearch" />
+      <!--subroutine group="control_update" name="armijo_linesearch" /-->
       <!-- subroutine group="direction_update" name="negative_gradient" / -->
       <subroutine group="direction_update" name="ncg_FR"/>
       <subroutine group="desired_trajectory" name="box_shifting_negative_x"/>
