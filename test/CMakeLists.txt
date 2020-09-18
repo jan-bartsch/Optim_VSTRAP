@@ -17,12 +17,13 @@ find_package(GTest REQUIRED)
 
 find_package(Armadillo REQUIRED)
 
-include_directories(${Boost_INCLUDE_DIRS} ${GTEST_INCLUDE_DIRS} ${ARMADILLO_INCLUDE_DIRS})
+include_directories(${Boost_INCLUDE_DIRS} ${GTEST_INCLUDE_DIRS} ${ARMADILLO_INCLUDE_DIR})
 file(GLOB_RECURSE sources ../src/*.cc ../src/*.cpp *.cpp)
 list(FILTER sources EXCLUDE REGEX "../src/main.cpp")
 add_executable(run_tests ${sources})
 target_link_libraries(run_tests ${Boost_LIBRARIES} OpenMP::OpenMP_CXX ${GTEST_LIBRARIES}
-    ${ARMADILLO_LIBRARIES} -lstdc++fs pthread --coverage -llapack -lblas -ltbb -ltbbmalloc -fopenmp)
+    ${ARMADILLO_LIBRARY} -lstdc++fs pthread --coverage -llapack -lblas -ltbb -ltbbmalloc -fopenmp libpthread.so.0 librt.so)
+
 
 message("Copy files")
 add_custom_command(TARGET run_tests POST_BUILD
