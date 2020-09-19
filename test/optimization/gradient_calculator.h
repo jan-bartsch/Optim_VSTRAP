@@ -30,12 +30,14 @@ TEST(gradient,checkLandauApproximatio) {
 
     gradient_calculator gradient_calculator_opt = gradient_calculator(filename);
     objective_calculator objective = objective_calculator(filename);
+    output_control_update outController = output_control_update(filename);
 
     std::map<std::string, double> optimizationParameters = provider.getOptimizationParameters();
     std::map<std::string,std::string> paths = provider.getPaths();
 
     unsigned int dimensionOfControl_gp = static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second);
     unsigned int ntimesteps_gp = static_cast<unsigned int>(optimizationParameters.find("ntimesteps_gp")->second);
+    double pcell_gp = static_cast<unsigned int>(optimizationParameters.find("pcell_gp")->second);
 
     std::vector<std::vector<particle>> forwardParticles(ntimesteps_gp);
     std::vector<std::vector<particle>> forwardParticles_initialControl(ntimesteps_gp);
@@ -64,10 +66,13 @@ TEST(gradient,checkLandauApproximatio) {
     std::string START_VSTRAP_BACKWARD = BUILD_DIRECTORY_VSTRAP + "vstrap" + " " + PATH_TO_SHARED_FILES + INPUT_BACKWARD;
     int backward_return = 0;
 
-    arma::mat control0(dimensionOfControl_gp,3,arma::fill::ones);
-    control0 = -control0;
-    arma::mat gradient(dimensionOfControl_gp,3,arma::fill::zeros);
+    arma::mat control0(pcell_gp,3,arma::fill::ones);
+    control0 = -10.0*control0;
+    arma::mat gradient(pcell_gp,3,arma::fill::zeros);
 
+    outController.writeControl_XML(control0);
+    outDiag.writeDoubleToFile(arma::norm(control0,"fro"),"normControlTrack");
+    outController.interpolate_control(provider);
 
 
     /*
@@ -107,13 +112,14 @@ TEST(gradient,checkLandauApproximatio) {
     arma::mat gradient0 = gradient_calculator_opt.calculateGradient_forceControl_space_Hm(forwardPDF,backwardPDF,control0);
     outDiag.writeDoubleToFile(arma::norm(gradient,"fro"),"normGradientTrack");
 
-    arma::mat delta_control(dimensionOfControl_gp,3,arma::fill::ones);
+    arma::mat delta_control(pcell_gp,3,arma::fill::ones);
     double t = 10.0;
 
-    std::vector<double> functional_values;
+    std::vector<double> functional_values(4,0.0);
+    arma::mat control_temp;
 
     for(int i = 0; i<4; i++) {
-        control_temp = control + pow(0.5,i+1)*t;
+        control_temp = control0 + pow(0.25,i+1)*t*delta_control;
 
         logger::Info("Starting VSTRAP (foward)... ");
         forward_return = model_solver.start_solving_forward(START_VSTRAP_FORWARD);
@@ -128,9 +134,10 @@ TEST(gradient,checkLandauApproximatio) {
         forwardPDF = pdf_time;
 
         functional_values[i] = objective.calculate_objective_L2(forwardPDF,control_temp);
+        std::cout << std::to_string(functional_values[i]) << std::endl;
     }
 
-    std::cout << functional_values << std::endl;
+
 }
 
 TEST(gradient,calculationNR1) {
