@@ -72,7 +72,7 @@ class Control_field:
 		print("Generating nodes and endpoints without errors.\n")
 
 
-	def plot_Control_field(self,nodesMesh,endPoints,scaling):
+	def plot_Control_field(self,nodesMesh,endPoints,scaling,directorySRC):
 		print("Plotting force field...")
 
 		plt.style.use("ggplot")
@@ -95,6 +95,6 @@ class Control_field:
 		plt.draw()
 
 		print("Generating tikz file...")
-		tikzplotlib.save("control_field.tex")
-		#plt.savefig("../../results/force_field.png")
+		tikzplotlib.save(directorySRC + "control_field.tex")
+		plt.savefig(directorySRC + "force_field.png")
 		plt.show()
