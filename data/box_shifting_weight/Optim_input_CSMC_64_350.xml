@@ -21,7 +21,7 @@
 <parameter name="adjoint_vy" value="0.0"/>
 <parameter name="adjoint_vz" value="0.0"/>
 <parameter name="adjoint_number_density" value="1e+13"/>
-<parameter name="adjoint_weight" value="1.25e+10"/>
+<parameter name="adjoint_weight" value="8.92e+9"/>
 <parameter name="adjoint_charge_number" value="+1"/>
 <parameter name="adjoint_mass" value="6.63e-26"/>
 <parameter name="adjoint_species" value="40Ar+"/>
@@ -34,7 +34,7 @@
 <parameter name="desired_position_z" value="0.0"/>
 <!--  forward input  -->
 <parameter name="number_density_forward" value="1e+13"/>
-<parameter name="weight_forward" value="6.25e+8"/>
+<parameter name="weight_forward" value="4.46e+8"/>
 <parameter name="charge_number_forward" value="+1"/>
 <parameter name="mass_forward" value="6.63e-26"/>
 <parameter name="species_forward" value="40Ar+"/>
@@ -91,8 +91,8 @@
 </globalParameters>
 <paths>
 <path name="BUILD_DIRECTORY_VSTRAP" value="/HOME/bartsch/SPARC/build-vstrap-CSMC/src/" />
-<path name="BUILD_DIRECTORY_OPTIM" value="/HOME/bartsch/SPARC/build-Optim-CSMC4/src/" />
-<path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/HOME/bartsch/SPARC/build-Optim-CSMC4/src/results/" />
+<path name="BUILD_DIRECTORY_OPTIM" value="/HOME/bartsch/SPARC/build-Optim-CSMC6/src/" />
+<path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/HOME/bartsch/SPARC/build-Optim-CSMC6/src/results/" />
 <path name="PATH_TO_SHARED_FILES" value="./results/" />
 <path name="BARYCENTERS_MESH" value="../../Optim_VSTRAP/data/global/mesh_barycenters.xml"/>
 <path name="DIRECTORY_TOOLSET" value="../../Optim_VSTRAP/optim-vstrap-toolset/toolset/"/>
@@ -101,11 +101,11 @@
 <path name="INPUT_FORWARD" value="input_forward_64.xml"/>
 <path name="INPUT_BACKWARD" value="input_backward_64.xml"/>
 <path name="CREATION_ADJOINT_PARTCLES" value="./creation_adjoint_particles_64.xml"/>
-<path name="BGF_CONTROL" value="interpolated_control_field_64.xml"/>
+<path name="BGF_CONTROL" value="interpolated_control_field_64_350.xml"/>
 <!--  shared forward/backward  -->
 <path name="DSMC_interaction" value="../../../Optim_VSTRAP/data/global/interaction_data.xml"/>
 <path name="MCC_interaction" value="../../../Optim_VSTRAP/data/global/interaction_data_mcc.xml"/>
-<path name="CONTROL_FIELD_CELLS_NAME" valie="control_field_cells_64.xml"/>
+<path name="CONTROL_FIELD_CELLS_NAME" valie="control_field_cells_64_350.xml"/>
 </paths>
 <subroutines>
 <!-- subroutine group="control_update" name="gradient_descent"/ -->
