@@ -69,6 +69,8 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
     equation_solving_controller model_solver = equation_solving_controller();
     model_solver.setData_provider_optim(data_provider_opt);
 
+    post_processing_convergence(data_provider_opt);
+
     std::map<std::string, double> optimizationParameters = data_provider_opt.getOptimizationParameters();
     std::map<std::string, std::string> paths = data_provider_opt.getPaths();
     std::map<std::string,std::string> subroutines = data_provider_opt.getSubroutines();
@@ -253,6 +255,9 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
         outController.interpolate_control(data_provider_opt);
 
         logger::Info("Starting " + std::to_string(r+1) + " iteration");
+
+
+
     }
 
     return 0;
@@ -356,5 +361,22 @@ int optim_controller::generate_input_files(const char *input_xml_path)
     logger::Info("Running " + generation_string);
     system(&generation_string[0]);
 
+    return 0;
+}
+
+int optim_controller::post_processing_convergence(data_provider provider)
+{
+    std::map<std::string, std::string> paths = provider.getPaths();
+    std::string PATH_TO_SHARED_FILES_ABSOLUTE = paths.find("PATH_TO_SHARED_FILES_ABSOLUTE")->second;
+    std::string DIRECTORY_TOOLSET = paths.find("DIRECTORY_TOOLSET")->second;
+
+    std::string POSTPROCESSING_STRING = "python3 " + DIRECTORY_TOOLSET + "post_processing_convergence.py " + PATH_TO_SHARED_FILES_ABSOLUTE;
+
+    logger::Info("Postprocessing ... using command " + POSTPROCESSING_STRING);
+    try {
+    system(&POSTPROCESSING_STRING[0]);
+    } catch (std::exception e) {
+        throw std::runtime_error(e.what());
+    }
     return 0;
 }

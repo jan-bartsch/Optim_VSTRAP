@@ -97,4 +97,4 @@ except:
 
 tikzplotlib.save(args.pathToBuildSRC+"post_processing_converging.tex")
 plt.savefig(args.pathToBuildSRC+"optimization_monitoring.png")
-plt.show()
+#plt.show(block=False)

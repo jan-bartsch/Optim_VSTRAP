@@ -43,6 +43,8 @@ public:
     static arma::mat start_with_given_control(const char * input_xml_path);
 
     static int generate_input_files(const char * input_xml_path);
+
+    static int post_processing_convergence(data_provider provider);
 };
 
 #endif // OPTIM_CONTROLLER_H

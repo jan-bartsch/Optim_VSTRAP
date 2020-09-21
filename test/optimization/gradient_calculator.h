@@ -107,6 +107,8 @@ TEST(gradient,checkLandauApproximatio) {
     assembling_flag = pdf_control.assemblingMultiDim_parallel(backwardParticles,1,pdf_time);
     backwardPDF = pdf_time;
 
+    double functional_value0 = objective.calculate_objective_L2(forwardPDF,control0);
+
 
     logger::Info("Building gradient...");
     arma::mat gradient0 = gradient_calculator_opt.calculateGradient_forceControl_space_Hm(forwardPDF,backwardPDF,control0);
@@ -115,10 +117,13 @@ TEST(gradient,checkLandauApproximatio) {
     arma::mat delta_control(pcell_gp,3,arma::fill::ones);
     double t = 10.0;
 
-    std::vector<double> functional_values(4,0.0);
+    int iteration_number = 4;
+
+    std::vector<double> functional_values(iteration_number,0.0);
+    std::vector<double> difference(iteration_number,0.0);
     arma::mat control_temp;
 
-    for(int i = 0; i<4; i++) {
+    for(int i = 0; i<iteration_number; i++) {
         control_temp = control0 + pow(0.25,i+1)*t*delta_control;
 
         logger::Info("Starting VSTRAP (foward)... ");
@@ -135,6 +140,14 @@ TEST(gradient,checkLandauApproximatio) {
 
         functional_values[i] = objective.calculate_objective_L2(forwardPDF,control_temp);
         std::cout << std::to_string(functional_values[i]) << std::endl;
+        difference[i] = (functional_values[i]-functional_value0)-pow(0.25,i+1)*t*(arma::dot(gradient0.col(0),delta_control.col(0))
+                                                                                  + arma::dot(gradient0.col(1),delta_control.col(1))
+                                                                                  + arma::dot(gradient0.col(2),delta_control.col(2)));
+    }
+
+    std::cout << "Difference: " << std::endl;
+    for(int i = 0; i< iteration_number; i++) {
+        std::cout << std::to_string(difference[i]) << std::endl;
     }
 
 
