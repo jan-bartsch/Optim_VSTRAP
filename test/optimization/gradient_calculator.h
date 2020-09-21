@@ -116,6 +116,7 @@ TEST(gradient,checkLandauApproximation) {
 
     arma::mat delta_control(pcell_gp,3,arma::fill::ones);
     double t = 10.0;
+    delta_control = t*delta_control;
 
     int iteration_number = 4;
     double reducing_factor = 0.25;
@@ -143,10 +144,10 @@ TEST(gradient,checkLandauApproximation) {
         functional_values[i] = objective.calculate_objective_L2(forwardPDF,control_temp);
         std::cout << std::to_string(functional_values[i]) << std::endl;
         std::cout << "Stepsize: " << (pow(reducing_factor,i+1)*t) << std::endl;
-        difference[i] = (functional_values[i]-functional_value0)/(pow(reducing_factor,i+1)*t)-(arma::dot(gradient0.col(0),delta_control.col(0))
+        difference[i] = (functional_values[i]-functional_value0)/(pow(reducing_factor,i+1))-(arma::dot(gradient0.col(0),delta_control.col(0))
                                                                                                + arma::dot(gradient0.col(1),delta_control.col(1))
                                                                                                + arma::dot(gradient0.col(2),delta_control.col(2)));
-        difference_Landau[i] = difference[i]/(pow(reducing_factor,i+1)*t);
+        difference_Landau[i] = difference[i]/(pow(reducing_factor,i+1));
     }
 
     std::cout << "Difference: " << std::endl;

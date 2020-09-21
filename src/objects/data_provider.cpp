@@ -7,8 +7,13 @@ data_provider::data_provider(const char *filename)
     this->setPaths(this->read_paths(filename));
     this->setOptimizationParameters(this->read_optimization_parameters(filename));
     this->setSubroutines(this->read_subroutines(filename));
-    std::string barycenter_mesh_path = this->getPaths().find("BARYCENTERS_MESH")->second;
-    this->setMesh_barycenters(this->read_mesh_barycenters(&barycenter_mesh_path[0]));
+    try {
+        std::string barycenter_mesh_path = this->getPaths().find("BARYCENTERS_MESH")->second;
+        this->setMesh_barycenters(this->read_mesh_barycenters(&barycenter_mesh_path[0]));
+    } catch (std::exception e) {
+        std::cerr << "No Barycenters found!" << std::endl;
+    }
+
 }
 
 std::map<std::string, double> data_provider::read_optimization_parameters(const char* filename)

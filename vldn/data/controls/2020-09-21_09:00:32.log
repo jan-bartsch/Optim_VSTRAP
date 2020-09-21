@@ -1,5 +1,0 @@
-[2020-09-21 09:00:32.325586] [info] Starting optimizer...
-[2020-09-21 09:00:32.365610] [info] Postprocessing ... using command python3 ../../Optim_VSTRAP/optim-vstrap-toolset/toolset/post_processing_convergence.py /HOME/bartsch/SPARC/build-Optim-CSMC4/src/results/
-[2020-09-21 09:00:32.813999] [info] Reading paramters done
-[2020-09-21 09:00:32.818770] [info] Deleting old files
-[2020-09-21 09:00:32.831070] [info] Starting with zero control

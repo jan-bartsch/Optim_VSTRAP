@@ -79,8 +79,8 @@
         <parameter name="db_gp" value="0.25" />                           <!-- box-side-length 216:0.16666667 -->
         <parameter name="dt_gp" value="1e-5" />                             <!-- discretization size time -->
         <parameter name="ntimesteps_gp" value="10" />                       <!-- discretization size velocity -->
-         <parameter name="dv_gp" value="4e+3" />                              <!-- discretization size velocity -->
-        <parameter name="vcell_gp" value="10" /> <!-- 10 -->
+         <parameter name="dv_gp" value="5e+3" />                              <!-- discretization size velocity -->
+        <parameter name="vcell_gp" value="8" /> <!-- 10 -->
         <parameter name="vmax_gp" value="2e+4" /> <!-- 2e+3 -->      
 
 
