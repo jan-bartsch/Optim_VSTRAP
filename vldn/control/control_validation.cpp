@@ -38,7 +38,10 @@ int control_validation::start_validation(int argc, char **argv)
     }
 
     for (int i = 0; i < iterations-1; i++) {
-        control_difference[i] = arma::norm(control_vector[i+1]/weight_vector[i+1]-control_vector[i]/weight_vector[i]);
+//        control_difference[i] = arma::norm(control_vector[i+1].col(0)-control_vector[i].col(0))
+//                +arma::norm(control_vector[i+1].col(1)-control_vector[i].col(1))
+//                +arma::norm(control_vector[i+1].col(2)-control_vector[i].col(2));
+        control_difference[i] = arma::norm(control_vector[i+1]-control_vector[i]); //add here factor dp_cell
         std::cout << control_difference[i] << std::endl;
     }
 
