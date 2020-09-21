@@ -6,6 +6,7 @@
 #include <vector>
 #include <fstream>
 #include <stdexcept>
+#include <cstdlib>
 
 #include "../objects/particle.h"
 #include "../io/tinyXML/tinyxml.h"
@@ -24,7 +25,14 @@ public:
 
     static std::vector<particle> readParticleVector(std::string filename, std::string delimiter);
 
+    /**
+     * @brief readControl reads in control cells (control in volume)
+     * @param filename
+     * @return
+     */
     static arma::mat readControl(const char *filename);
+
+    static std::vector<double> readDoubleVector(const char *filename);
 };
 
 #endif // INPUT_H

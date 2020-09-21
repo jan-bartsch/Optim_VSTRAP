@@ -45,6 +45,7 @@ public:
     static int generate_input_files(const char * input_xml_path);
 
     static int post_processing_convergence(data_provider provider);
+    static int final_postprocessing(data_provider provider);
 };
 
 #endif // OPTIM_CONTROLLER_H

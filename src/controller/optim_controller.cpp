@@ -69,7 +69,7 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
     equation_solving_controller model_solver = equation_solving_controller();
     model_solver.setData_provider_optim(data_provider_opt);
 
-    post_processing_convergence(data_provider_opt);
+    final_postprocessing(data_provider_opt);
 
     std::map<std::string, double> optimizationParameters = data_provider_opt.getOptimizationParameters();
     std::map<std::string, std::string> paths = data_provider_opt.getPaths();
@@ -374,9 +374,35 @@ int optim_controller::post_processing_convergence(data_provider provider)
 
     logger::Info("Postprocessing ... using command " + POSTPROCESSING_STRING);
     try {
-    system(&POSTPROCESSING_STRING[0]);
+        system(&POSTPROCESSING_STRING[0]);
     } catch (std::exception e) {
         throw std::runtime_error(e.what());
     }
     return 0;
+}
+
+int optim_controller::final_postprocessing(data_provider provider)
+{
+    std::map<std::string, std::string> paths = provider.getPaths();
+    std::string PATH_TO_SHARED_FILES_ABSOLUTE = paths.find("PATH_TO_SHARED_FILES_ABSOLUTE")->second;
+    std::string DIRECTORY_TOOLSET = paths.find("DIRECTORY_TOOLSET")->second;
+
+    std::string PVPYTHON_ABSOLUTE_DIR = paths.find("PVPYTHON_ABSOLUTE_DIR")->second;
+
+    std::string PARAVIEW_ANIMATION = "cd results && mkdir animation && cd animation && " + PVPYTHON_ABSOLUTE_DIR + " ../../" + DIRECTORY_TOOLSET
+            + "python_current_iteration.py" + " " + PATH_TO_SHARED_FILES_ABSOLUTE;
+
+    post_processing_convergence(provider);
+
+    try{
+        system(&PARAVIEW_ANIMATION[0]);
+    } catch(std::exception e) {
+        logger::Info("Exception final postprocessing");
+        logger::Warning(e.what());
+        throw std::runtime_error("Final Postprocessing not working");
+    }
+
+    return 0;
+
+
 }

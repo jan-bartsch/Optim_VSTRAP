@@ -10,7 +10,7 @@
 #include "../../src/optimization/objective_calculator.h"
 
 
-TEST(gradient,checkLandauApproximatio) {
+TEST(gradient,checkLandauApproximation) {
     std::string input_directory = "./data/Optim_input_gTest.xml";
     const char *  filename = input_directory.c_str();
 
@@ -118,13 +118,15 @@ TEST(gradient,checkLandauApproximatio) {
     double t = 10.0;
 
     int iteration_number = 4;
+    double reducing_factor = 0.25;
 
     std::vector<double> functional_values(iteration_number,0.0);
     std::vector<double> difference(iteration_number,0.0);
+    std::vector<double> difference_Landau(iteration_number,0.0);
     arma::mat control_temp;
 
     for(int i = 0; i<iteration_number; i++) {
-        control_temp = control0 + pow(0.25,i+1)*t*delta_control;
+        control_temp = control0 + pow(reducing_factor,i+1)*t*delta_control;
 
         logger::Info("Starting VSTRAP (foward)... ");
         forward_return = model_solver.start_solving_forward(START_VSTRAP_FORWARD);
@@ -140,17 +142,21 @@ TEST(gradient,checkLandauApproximatio) {
 
         functional_values[i] = objective.calculate_objective_L2(forwardPDF,control_temp);
         std::cout << std::to_string(functional_values[i]) << std::endl;
-        difference[i] = (functional_values[i]-functional_value0)-pow(0.25,i+1)*t*(arma::dot(gradient0.col(0),delta_control.col(0))
-                                                                                  + arma::dot(gradient0.col(1),delta_control.col(1))
-                                                                                  + arma::dot(gradient0.col(2),delta_control.col(2)));
+        std::cout << "Stepsize: " << (pow(reducing_factor,i+1)*t) << std::endl;
+        difference[i] = (functional_values[i]-functional_value0)/(pow(reducing_factor,i+1)*t)-(arma::dot(gradient0.col(0),delta_control.col(0))
+                                                                                               + arma::dot(gradient0.col(1),delta_control.col(1))
+                                                                                               + arma::dot(gradient0.col(2),delta_control.col(2)));
+        difference_Landau[i] = difference[i]/(pow(reducing_factor,i+1)*t);
     }
 
     std::cout << "Difference: " << std::endl;
     for(int i = 0; i< iteration_number; i++) {
         std::cout << std::to_string(difference[i]) << std::endl;
     }
-
-
+    std::cout << "Difference Landau: " << std::endl;
+    for(int i = 0; i< iteration_number; i++) {
+        std::cout << std::to_string(difference_Landau[i]) << std::endl;
+    }
 }
 
 TEST(gradient,calculationNR1) {
@@ -162,6 +168,7 @@ TEST(gradient,calculationNR1) {
 
     std::map<std::string, double> optimizationParameters = provider.getOptimizationParameters();
     unsigned int dimensionOfControl_gp = static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second);
+    unsigned int pcell_gp = static_cast<unsigned int>(optimizationParameters.find("pcell_gp")->second);
     unsigned int ntimesteps_gp = static_cast<unsigned int>(optimizationParameters.find("ntimesteps_gp")->second);
 
     gradient_calculator gradient_calculator_opt = gradient_calculator(filename);
@@ -170,7 +177,7 @@ TEST(gradient,calculationNR1) {
     pdf_controller pdf_control = pdf_controller();
     pdf_control.setData_provider_optim(provider);
 
-    arma::mat gradient(dimensionOfControl_gp,3,arma::fill::zeros);
+    arma::mat gradient(pcell_gp,3,arma::fill::zeros);
 
     std::vector<std::vector<particle>> forwardParticles(ntimesteps_gp);
     std::vector<std::unordered_map<coordinate_phase_space_time,double>> forwardPDF;
@@ -197,7 +204,7 @@ TEST(gradient,calculationNR1) {
     backwardPDF = pdf_time;
 
 
-    arma::mat control(dimensionOfControl_gp,dimensionOfControl_gp,arma::fill::zeros);
+    arma::mat control(pcell_gp,3,arma::fill::zeros);
 
     try {
         gradient = gradient_calculator_opt.calculateGradient_forceControl_space_Hm(forwardPDF,backwardPDF,control);

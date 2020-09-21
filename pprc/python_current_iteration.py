@@ -11,6 +11,19 @@
 
 #### import the simple module from the paraview
 from paraview.simple import *
+#### import argument parsing
+import argparse
+#### import module fo rgenerating lists of result files
+import glob
+
+parser = argparse.ArgumentParser(prog="Generates animation by paraview", description='Needs results directory')
+parser.add_argument('results', type=str, help='path to results dir')
+#parser.add_argument('out', type=str, help='animation output directory')
+args = parser.parse_args()
+
+print(" Generating animation from files in "+ args.results)
+
+
 #### disable automatic camera reset on 'Show'
 paraview.simple._DisableFirstRenderCameraReset()
 
@@ -234,7 +247,11 @@ SetActiveView(renderView1)
 # ----------------------------------------------------------------
 
 # create a new 'CSV Reader'
-plasma_state_batch_1_forward_particles_CPU_csv = CSVReader(FileName=['/home/jan/Promotion_linuxPC/build-Optim/src/results/plasma_state_batch_1_forward_particles_CPU_1.csv', '/home/jan/Promotion_linuxPC/build-Optim/src/results/plasma_state_batch_1_forward_particles_CPU_2.csv', '/home/jan/Promotion_linuxPC/build-Optim/src/results/plasma_state_batch_1_forward_particles_CPU_3.csv', '/home/jan/Promotion_linuxPC/build-Optim/src/results/plasma_state_batch_1_forward_particles_CPU_4.csv', '/home/jan/Promotion_linuxPC/build-Optim/src/results/plasma_state_batch_1_forward_particles_CPU_5.csv', '/home/jan/Promotion_linuxPC/build-Optim/src/results/plasma_state_batch_1_forward_particles_CPU_6.csv', '/home/jan/Promotion_linuxPC/build-Optim/src/results/plasma_state_batch_1_forward_particles_CPU_7.csv', '/home/jan/Promotion_linuxPC/build-Optim/src/results/plasma_state_batch_1_forward_particles_CPU_8.csv', '/home/jan/Promotion_linuxPC/build-Optim/src/results/plasma_state_batch_1_forward_particles_CPU_9.csv', '/home/jan/Promotion_linuxPC/build-Optim/src/results/plasma_state_batch_1_forward_particles_CPU_10.csv', '/home/jan/Promotion_linuxPC/build-Optim/src/results/plasma_state_batch_1_forward_particles_CPU_11.csv', '/home/jan/Promotion_linuxPC/build-Optim/src/results/plasma_state_batch_1_forward_particles_CPU_12.csv', '/home/jan/Promotion_linuxPC/build-Optim/src/results/plasma_state_batch_1_forward_particles_CPU_13.csv', '/home/jan/Promotion_linuxPC/build-Optim/src/results/plasma_state_batch_1_forward_particles_CPU_14.csv', '/home/jan/Promotion_linuxPC/build-Optim/src/results/plasma_state_batch_1_forward_particles_CPU_15.csv', '/home/jan/Promotion_linuxPC/build-Optim/src/results/plasma_state_batch_1_forward_particles_CPU_16.csv', '/home/jan/Promotion_linuxPC/build-Optim/src/results/plasma_state_batch_1_forward_particles_CPU_17.csv', '/home/jan/Promotion_linuxPC/build-Optim/src/results/plasma_state_batch_1_forward_particles_CPU_18.csv', '/home/jan/Promotion_linuxPC/build-Optim/src/results/plasma_state_batch_1_forward_particles_CPU_19.csv', '/home/jan/Promotion_linuxPC/build-Optim/src/results/plasma_state_batch_1_forward_particles_CPU_20.csv'])
+
+fileNameList_forward = glob.glob(args.results+'plasma_state_batch_1_forward_particles_CPU_*.csv')
+print(fileNameList_forward)
+
+plasma_state_batch_1_forward_particles_CPU_csv = CSVReader(FileName=fileNameList_forward)
 
 # create a new 'Table To Points'
 tableToPoints2 = TableToPoints(Input=plasma_state_batch_1_forward_particles_CPU_csv)
@@ -281,7 +298,12 @@ histogram7.BinCount = 70
 histogram7.CustomBinRanges = [1.0, 64.0]
 
 # create a new 'CSV Reader'
-plasma_state_batch_1_adjoint_particles_CPU_csv = CSVReader(FileName=['/home/jan/Promotion_linuxPC/build-Optim/src/results/plasma_state_batch_1_adjoint_particles_CPU_1.csv', '/home/jan/Promotion_linuxPC/build-Optim/src/results/plasma_state_batch_1_adjoint_particles_CPU_2.csv', '/home/jan/Promotion_linuxPC/build-Optim/src/results/plasma_state_batch_1_adjoint_particles_CPU_3.csv', '/home/jan/Promotion_linuxPC/build-Optim/src/results/plasma_state_batch_1_adjoint_particles_CPU_4.csv', '/home/jan/Promotion_linuxPC/build-Optim/src/results/plasma_state_batch_1_adjoint_particles_CPU_5.csv', '/home/jan/Promotion_linuxPC/build-Optim/src/results/plasma_state_batch_1_adjoint_particles_CPU_6.csv', '/home/jan/Promotion_linuxPC/build-Optim/src/results/plasma_state_batch_1_adjoint_particles_CPU_7.csv', '/home/jan/Promotion_linuxPC/build-Optim/src/results/plasma_state_batch_1_adjoint_particles_CPU_8.csv', '/home/jan/Promotion_linuxPC/build-Optim/src/results/plasma_state_batch_1_adjoint_particles_CPU_9.csv', '/home/jan/Promotion_linuxPC/build-Optim/src/results/plasma_state_batch_1_adjoint_particles_CPU_10.csv'])
+
+
+fileNameList_backward = glob.glob(args.results+'plasma_state_batch_1_adjoint_particles_CPU_*.csv')
+print(fileNameList_backward)
+
+plasma_state_batch_1_adjoint_particles_CPU_csv = CSVReader(FileName=fileNameList_backward)
 
 # create a new 'Table To Points'
 tableToPoints1 = TableToPoints(Input=plasma_state_batch_1_adjoint_particles_CPU_csv)
@@ -615,26 +637,29 @@ tableToPoints1Display.OpacityTransferFunction.Points = [1.0, 0.0, 0.5, 0.0, 512.
 
 # ----------------------------------------------------------------
 # finally, restore active source
-SetActiveSource(renderView2)
-SetActiveView(renderView2)
+SetActiveSource(None)
+SetActiveView(renderView1)
 # ----------------------------------------------------------------
 
+print("Starting to save animation\n")
 
 #save animation
-renderView = GetView(renderView2)
+renderView = GetActiveView()
 animationScene = GetAnimationScene()
+#animationScene.StartTime = 0
+#animationScene.EndTime = 19
 animationScene.PlayMode = 'Snap To TimeSteps'
 animationScene.GoToFirst()
+print("Number of timesteps: "+str(animationScene.EndTime))
 i = 0
 while True:
    imageName = "image_%04d.jpg" % (i)
-   i = i + 1
    renderView.Update()
    SaveScreenshot(imageName, renderView, ImageResolution=[1920, 1080])
-   print(animationScene.EndTime)
-   print(animationScene.AnimationTime)
-   if animationScene.AnimationTime == animationScene.EndTime:
+   print("Timestep: " + str(i))
+   if i == animationScene.EndTime:
       break
    animationScene.GoToNext()
+   i = i + 1
 
 

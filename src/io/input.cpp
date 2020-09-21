@@ -18,7 +18,7 @@ unsigned int input::read_plasma_state_forward(std::vector<std::vector<particle> 
         try {
             forwardParticles[o-1] = input::readParticleVector(BUILD_DIRECTORY_OPTIM+RESULTS_DIRECTORY+"plasma_state_batch_1_forward_particles_CPU_"+std::to_string(o)+".csv",",");
         } catch (std::exception e) {
-		logger::Warning("Iteration: " + std::to_string(o));
+            logger::Warning("Iteration: " + std::to_string(o));
             logger::Warning("BUILD_DIRECTORY_OPTIM: " + BUILD_DIRECTORY_OPTIM);
             logger::Warning("RESULTS_DIRECTORY: " + RESULTS_DIRECTORY);
             throw std::invalid_argument("Could not read VSTRAP output forward");
@@ -63,7 +63,7 @@ std::vector<particle> input::readParticleVector(std::string filename, std::strin
     std::string line = "";
 
     if( !file.is_open() ) {
-	logger::Warning("File not found: " + filename);
+        logger::Warning("File not found: " + filename);
         throw  std::runtime_error("File could not be opened");
     }
 
@@ -156,5 +156,32 @@ arma::mat input::readControl(const char *filename)
     }
 
     return control;
+}
+
+std::vector<double> input::readDoubleVector(const char *filename)
+{
+    std::ifstream ifile(filename, std::ios::in);
+    std::vector<double> out;
+
+    //check to see that the file was opened correctly:
+    if (!ifile.is_open()) {
+        std::cout << filename << std::endl;
+        std::cerr << "There was a problem opening the input file with name!\n";
+    }
+
+    double num = 0.0;
+    //keep storing values from the text file so long as data exists:
+    while (ifile >> num) {
+        out.push_back(num);
+    }
+
+    std::cout << "Read in vector: " << std::endl;
+
+    //verify that the scores were stored correctly:
+    for (int i = 0; i < out.size(); ++i) {
+        std::cout << out[i] << std::endl;
+    }
+
+    return out;
 }
 

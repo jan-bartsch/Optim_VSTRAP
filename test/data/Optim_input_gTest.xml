@@ -78,11 +78,10 @@
         <parameter name="pmax_gp" value="0.5" />
         <parameter name="db_gp" value="0.25" />                           <!-- box-side-length 216:0.16666667 -->
         <parameter name="dt_gp" value="1e-5" />                             <!-- discretization size time -->
-        <parameter name="ntimesteps_gp" value="10" />
-        <parameter name="dv_gp" value="4e+3" />                              <!-- discretization size velocity -->
+        <parameter name="ntimesteps_gp" value="10" />                       <!-- discretization size velocity -->
+         <parameter name="dv_gp" value="4e+3" />                              <!-- discretization size velocity -->
         <parameter name="vcell_gp" value="10" /> <!-- 10 -->
-        <parameter name="vmax_gp" value="2e+4" /> <!-- 2e+3 -->                           <!-- maximal velocity (support of forward equaiton) -->
-        <parameter name="fraction_fast_particles" value="0.1"/>
+        <parameter name="vmax_gp" value="2e+4" /> <!-- 2e+3 -->      
 
 
         <!-- CONTROL -->
@@ -93,7 +92,7 @@
         <parameter name="local_control_x_max_gp" value="0.2" />
         <parameter name="weight_control_gp" value="1e+0" />
 
-        <parameter name="velocity_part_objective" value="1e-9" />
+        <parameter name="velocity_part_objective" value="1e-3" />
 
         <!-- -->
         <parameter name="fabs_tol_gp" value="1e-5" />
