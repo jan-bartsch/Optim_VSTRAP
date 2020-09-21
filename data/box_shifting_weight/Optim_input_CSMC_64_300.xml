@@ -34,7 +34,7 @@
 <parameter name="desired_position_z" value="0.0"/>
 <!--  forward input  -->
 <parameter name="number_density_forward" value="1e+13"/>
-<parameter name="weight_forward" value="5.20e+8"/>
+<parameter name="weight_forward" value="5.208e+8"/>
 <parameter name="charge_number_forward" value="+1"/>
 <parameter name="mass_forward" value="6.63e-26"/>
 <parameter name="species_forward" value="40Ar+"/>
