@@ -15,7 +15,7 @@ class gradient_validation : public abstract_validation
 public:
     gradient_validation();
 
-    int landau_validation();
+    int landau_validation(int argc, char **argv);
 };
 
 #endif // GRADIENT_VALIDATION_H
