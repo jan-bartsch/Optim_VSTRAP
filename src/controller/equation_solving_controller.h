@@ -15,6 +15,8 @@ public:
 
     int start_solving_backward(std::string start_backward);
 
+    arma::mat D1_second_order();
+
     arma::mat Laplacian_3D();
 
     arma::mat Laplacian_Squared_3D();

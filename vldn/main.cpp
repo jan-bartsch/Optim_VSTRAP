@@ -6,7 +6,7 @@
 int main(int argc, char **argv) {
 
 
-    gradient_validation::landau_validation(argc,argv);
+    //gradient_validation::landau_validation(argc,argv);
 
     control_validation::start_validation(argc,argv);
 
