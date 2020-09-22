@@ -67,7 +67,7 @@ int gradient_validation::landau_validation(int argc, char **argv) {
     int backward_return = 0;
 
     arma::mat control0(pcell_gp,3,arma::fill::ones);
-    control0 = -10.0*control0;
+    control0 = -1.0*control0;
     arma::mat gradient(pcell_gp,3,arma::fill::zeros);
 
     outController.writeControl_XML(control0);
@@ -107,6 +107,10 @@ int gradient_validation::landau_validation(int argc, char **argv) {
     assembling_flag = pdf_control.assemblingMultiDim_parallel(backwardParticles,1,pdf_time);
     backwardPDF = pdf_time;
 
+    if (assembling_flag != 0) {
+        throw std::runtime_error("Too many too fast particles!");
+    }
+
     double functional_value0 = objective.calculate_objective_L2(forwardPDF,control0);
 
 
@@ -118,8 +122,9 @@ int gradient_validation::landau_validation(int argc, char **argv) {
     double t = 1.0;
     delta_control = t*delta_control;
 
-    int iteration_number = 4;
-    double reducing_factor = 0.25;
+    int iteration_number = 10;
+    double reducing_factor = 0.2;
+    double dp_gp = static_cast<double>(optimizationParameters.find("dp_gp")->second);
 
     std::vector<double> functional_values(iteration_number,0.0);
     std::vector<double> difference(iteration_number,0.0);
@@ -127,7 +132,10 @@ int gradient_validation::landau_validation(int argc, char **argv) {
     arma::mat control_temp;
 
     for(int i = 0; i<iteration_number; i++) {
-        control_temp = control0 + pow(reducing_factor,i+1)*t*delta_control;
+        control_temp = control0 + pow(reducing_factor,i+1)*delta_control;
+        outController.writeControl_XML(control_temp);
+        outDiag.writeDoubleToFile(arma::norm(control0,"fro"),"normControlTrack");
+        outController.interpolate_control(optimization_provider);
 
         logger::Info("Starting VSTRAP (foward)... ");
         forward_return = model_solver.start_solving_forward(START_VSTRAP_FORWARD);
@@ -141,13 +149,18 @@ int gradient_validation::landau_validation(int argc, char **argv) {
         assembling_flag = pdf_control.assemblingMultiDim_parallel(forwardParticles,0,pdf_time);
         forwardPDF = pdf_time;
 
+        if (assembling_flag != 0) {
+            throw std::runtime_error("Too many too fast particles!");
+        }
+
         functional_values[i] = objective.calculate_objective_L2(forwardPDF,control_temp);
         std::cout << std::to_string(functional_values[i]) << std::endl;
         std::cout << "Stepsize: " << (pow(reducing_factor,i+1)*t) << std::endl;
         difference[i] = (functional_values[i]-functional_value0)/(pow(reducing_factor,i+1))-(arma::dot(gradient0.col(0),delta_control.col(0))
                                                                                                + arma::dot(gradient0.col(1),delta_control.col(1))
-                                                                                               + arma::dot(gradient0.col(2),delta_control.col(2)));
-        difference_Landau[i] = difference[i]/(pow(reducing_factor,i+1));
+                                                                                               + arma::dot(gradient0.col(2),delta_control.col(2)))*dp_gp;
+
+        difference_Landau[i] = std::abs(difference[i])/(pow(reducing_factor,i+1));
     }
 
     std::cout << "Difference: " << std::endl;

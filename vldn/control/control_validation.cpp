@@ -8,6 +8,11 @@ int control_validation::start_validation(int argc, char **argv)
     std::map<std::string,std::string> validation_paths = validation_provider.getPaths();
     std::map<std::string,double> validation_params = validation_provider.getOptimizationParameters();
 
+    std::string DIRECTORY_OPTIM_INPUT = validation_paths.find("DIRECTORY_OPTIM_INPUT")->second;
+    data_provider optimization_provider = data_provider(DIRECTORY_OPTIM_INPUT.c_str());
+    std::map<std::string, double> optimizationParameters = optimization_provider.getOptimizationParameters();
+    std::map<std::string,std::string> paths = optimization_provider.getPaths();
+
     input in = input();
     in.setData_provider_optim(validation_provider);
 
@@ -42,7 +47,7 @@ int control_validation::start_validation(int argc, char **argv)
 //        control_difference[i] = arma::norm(control_vector[i+1].col(0)-control_vector[i].col(0))
 //                +arma::norm(control_vector[i+1].col(1)-control_vector[i].col(1))
 //                +arma::norm(control_vector[i+1].col(2)-control_vector[i].col(2));
-        control_difference[i] = arma::norm(control_vector[i+1]-control_vector[i]); //add here factor dp_cell
+        control_difference[i] = arma::norm(control_vector[i+1]-control_vector[i])*(static_cast<double>(optimizationParameters.find("dp_gp")->second));
         std::cout << control_difference[i] << std::endl;
     }
 
