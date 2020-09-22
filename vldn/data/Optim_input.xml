@@ -21,7 +21,7 @@
 <parameter name="adjoint_vy" value="0.0"/>
 <parameter name="adjoint_vz" value="0.0"/>
 <parameter name="adjoint_number_density" value="1e+13"/>
-<parameter name="adjoint_weight" value="5e+9"/>
+<parameter name="adjoint_weight" value="2e+9"/>
 <parameter name="adjoint_charge_number" value="+1"/>
 <parameter name="adjoint_mass" value="6.63e-26"/>
 <parameter name="adjoint_species" value="40Ar+"/>
@@ -31,7 +31,7 @@
 <parameter name="expected_speed" value="7e+2"/>
 <!--  forward input  -->
 <parameter name="number_density_forward" value="1e+13"/>
-<parameter name="weight_forward" value="1e+9"/>
+<parameter name="weight_forward" value="5e+8"/>
 <parameter name="charge_number_forward" value="+1"/>
 <parameter name="mass_forward" value="6.63e-26"/>
 <parameter name="species_forward" value="40Ar+"/>
@@ -66,11 +66,9 @@
 <parameter name="dt_gp" value="1e-5"/>
 <!--  discretization size time  -->
 <parameter name="ntimesteps_gp" value="20"/>
-<parameter name="dv_gp" value="2e+3"/>
-<!--  discretization size velocity  -->
-<parameter name="vcell_gp" value="8"/>
-<!--  10  -->
-<parameter name="vmax_gp" value="8e+3"/>
+<parameter name="dv_gp" value="5e+3"/> <!--  discretization size velocity  -->
+<parameter name="vcell_gp" value="8"/> <!--  10  -->
+<parameter name="vmax_gp" value="2e+4"/>
 <!--  2e+3  -->
 <!--  maximal velocity (support of forward equaiton)  -->
 <parameter name="fraction_fast_particles_gp" value="0.1"/>
@@ -86,7 +84,7 @@
 <!--   -->
 <parameter name="fabs_tol_gp" value="1e-5"/>
 </globalParameters>
-<paths>PVPYTHON_ABSOLUTE_DIR
+<paths>
 	<path name="BUILD_DIRECTORY_VSTRAP" value="/home/jan/Promotion_linuxPC/build-vstrap/src/" />
 	<path name="BUILD_DIRECTORY_OPTIM" value="/home/jan/Promotion_linuxPC/build-Optim/vldn/" />
 	<path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/home/jan/Promotion_linuxPC/build-Optim/vldn/results/" />

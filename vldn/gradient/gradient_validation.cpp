@@ -25,7 +25,7 @@ int gradient_validation::landau_validation(int argc, char **argv) {
     optim_controller contr = optim_controller();
     contr.setData_provider_optim(optimization_provider);
 
-    contr.generate_input_files(DIRECTORY_OPTIM_INPUT.c_str());
+    //contr.generate_input_files(DIRECTORY_OPTIM_INPUT.c_str());
 
 
     gradient_calculator gradient_calculator_opt = gradient_calculator(DIRECTORY_OPTIM_INPUT.c_str());
@@ -67,7 +67,7 @@ int gradient_validation::landau_validation(int argc, char **argv) {
     int backward_return = 0;
 
     arma::mat control0(pcell_gp,3,arma::fill::ones);
-    control0 = -1.0*control0;
+    control0 = -10.0*control0;
     arma::mat gradient(pcell_gp,3,arma::fill::zeros);
 
     outController.writeControl_XML(control0);
@@ -119,11 +119,11 @@ int gradient_validation::landau_validation(int argc, char **argv) {
     outDiag.writeDoubleToFile(arma::norm(gradient,"fro"),"normGradientTrack");
 
     arma::mat delta_control(pcell_gp,3,arma::fill::ones);
-    double t = 1.0;
+    double t = 50.0;
     delta_control = t*delta_control;
 
     int iteration_number = 10;
-    double reducing_factor = 0.2;
+    double reducing_factor = 0.25;
     double dp_gp = static_cast<double>(optimizationParameters.find("dp_gp")->second);
 
     std::vector<double> functional_values(iteration_number,0.0);
@@ -134,7 +134,6 @@ int gradient_validation::landau_validation(int argc, char **argv) {
     for(int i = 0; i<iteration_number; i++) {
         control_temp = control0 + pow(reducing_factor,i+1)*delta_control;
         outController.writeControl_XML(control_temp);
-        outDiag.writeDoubleToFile(arma::norm(control0,"fro"),"normControlTrack");
         outController.interpolate_control(optimization_provider);
 
         logger::Info("Starting VSTRAP (foward)... ");
@@ -156,11 +155,11 @@ int gradient_validation::landau_validation(int argc, char **argv) {
         functional_values[i] = objective.calculate_objective_L2(forwardPDF,control_temp);
         std::cout << std::to_string(functional_values[i]) << std::endl;
         std::cout << "Stepsize: " << (pow(reducing_factor,i+1)*t) << std::endl;
-        difference[i] = (functional_values[i]-functional_value0)/(pow(reducing_factor,i+1))-(arma::dot(gradient0.col(0),delta_control.col(0))
+        difference[i] = (functional_values[i]-functional_value0)-(pow(reducing_factor,i+1))*(arma::dot(gradient0.col(0),delta_control.col(0))
                                                                                                + arma::dot(gradient0.col(1),delta_control.col(1))
                                                                                                + arma::dot(gradient0.col(2),delta_control.col(2)))*dp_gp;
 
-        difference_Landau[i] = std::abs(difference[i])/(pow(reducing_factor,i+1));
+        difference_Landau[i] = std::abs(difference[i]/difference[0])/(pow(reducing_factor,i+1));
     }
 
     std::cout << "Difference: " << std::endl;

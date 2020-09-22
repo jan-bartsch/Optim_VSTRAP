@@ -1,0 +1,36 @@
+
+		difference	<10 items>	std::vector<double, std::allocator<double> >
+				1728.306085620323	double
+				-1283.512060528783	double
+				-253.2375752075478	double
+				25.93945716905957	double
+				26.59109754908519	double
+				46.0894118698513	double
+				-2.330056455196324	double
+				33.98931193827954	double
+				24.11884693355835	double
+				5.339586123532781	double
+		difference_Landau	<10 items>	std::vector<double, std::allocator<double> >
+				4	double
+				11.88226619076544	double
+				9.377508387043596	double
+				3.842201963256899	double
+				15.75489672623013	double
+				109.229628125248	double
+				22.08847453559396	double
+				1288.847829513709	double
+				3658.270408902375	double
+				3239.566131053652	double
+	
+		functional_value0	-1905.2018259879076	double
+		functional_values	<10 items>	std::vector<double, std::allocator<double> >
+				-364.111581403367	double
+				-3235.517846775635	double
+				-2170.140391260192	double
+				-1882.187616335032	double
+				-1879.342040317868	double
+				-1859.295242087818	double
+				-1907.577589435544	double
+				-1871.223940797738	double
+				-1881.085835741377	double
+				-1899.862954036132	double
