@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.3)
 
 project(Optim_VSTRAP_CMAKE LANGUAGES CXX)
 
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(USE_CUDA FALSE)
 set(Boost_USE_STATIC_LIBS        ON) # only find static libs
 set(Boost_USE_MULTITHREADED      ON)

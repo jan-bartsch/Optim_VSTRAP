@@ -5,6 +5,11 @@
 #include <map>
 
 #include "../controller/abstract_validation.h"
+
+#include "../../src/controller/equation_solving_controller.h"
+
+#include "../../src/tools/inner_products.h"
+
 #include "../../src/io/input.h"
 
 #include "../../src/objects/data_provider.h"

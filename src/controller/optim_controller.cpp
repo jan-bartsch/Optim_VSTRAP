@@ -69,7 +69,7 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
     equation_solving_controller model_solver = equation_solving_controller();
     model_solver.setData_provider_optim(data_provider_opt);
 
-    final_postprocessing(data_provider_opt);
+    //final_postprocessing(data_provider_opt);
 
     std::map<std::string, double> optimizationParameters = data_provider_opt.getOptimizationParameters();
     std::map<std::string, std::string> paths = data_provider_opt.getPaths();

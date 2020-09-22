@@ -44,13 +44,24 @@ int control_validation::start_validation(int argc, char **argv)
     }
 
     for (int i = 0; i < iterations-1; i++) {
-//        control_difference[i] = arma::norm(control_vector[i+1].col(0)-control_vector[i].col(0))
-//                +arma::norm(control_vector[i+1].col(1)-control_vector[i].col(1))
-//                +arma::norm(control_vector[i+1].col(2)-control_vector[i].col(2));
+        //        control_difference[i] = arma::norm(control_vector[i+1].col(0)-control_vector[i].col(0))
+        //                +arma::norm(control_vector[i+1].col(1)-control_vector[i].col(1))
+        //                +arma::norm(control_vector[i+1].col(2)-control_vector[i].col(2));
         control_difference[i] = arma::norm(control_vector[i+1]-control_vector[i])*(static_cast<double>(optimizationParameters.find("dp_gp")->second));
         std::cout << control_difference[i] << std::endl;
     }
 
+    equation_solving_controller solver = equation_solving_controller();
+    solver.setData_provider_optim(optimization_provider);
+
+    std::cout << solver.D1_second_order() << std::endl;
+
+    inner_products pro = inner_products();
+    pro.setData_provider_optim(optimization_provider);
+
+//    std::cout << pro.L2_inner_product(control_vector[0],control_vector[0]) << std::endl;
+//    std::cout << pro.H1_inner_product(control_vector[0],control_vector[0]) << std::endl;
+//    std::cout << pro.H2_inner_product(control_vector[0],control_vector[0]) << std::endl;
 
     return 0;
 }
