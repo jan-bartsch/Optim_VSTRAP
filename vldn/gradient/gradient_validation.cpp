@@ -7,25 +7,33 @@ int gradient_validation::landau_validation(int argc, char **argv) {
     std::map<std::string,std::string> validation_paths = validation_provider.getPaths();
     std::map<std::string,double> validation_params = validation_provider.getOptimizationParameters();
 
+    std::string DIRECTORY_OPTIM_INPUT = validation_paths.find("DIRECTORY_OPTIM_INPUT")->second;
+    data_provider optimization_provider = data_provider(DIRECTORY_OPTIM_INPUT.c_str());
+
     input in = input();
-    input.setData_provider_optim(validation_provider);
+    in.setData_provider_optim(optimization_provider);
 
     pdf_controller pdf_control = pdf_controller();
-    pdf_control.setData_provider_optim(provider);
-
+    pdf_control.setData_provider_optim(optimization_provider);
 
     output_diagnostics outDiag = output_diagnostics();
-    outDiag.setData_provider_optim(provider);
+    outDiag.setData_provider_optim(optimization_provider);
 
     equation_solving_controller model_solver = equation_solving_controller();
-    model_solver.setData_provider_optim(provider);
+    model_solver.setData_provider_optim(optimization_provider);
 
-    gradient_calculator gradient_calculator_opt = gradient_calculator(filename);
-    objective_calculator objective = objective_calculator(filename);
-    output_control_update outController = output_control_update(filename);
+    optim_controller contr = optim_controller();
+    contr.setData_provider_optim(optimization_provider);
 
-    std::map<std::string, double> optimizationParameters = provider.getOptimizationParameters();
-    std::map<std::string,std::string> paths = provider.getPaths();
+    contr.generate_input_files(DIRECTORY_OPTIM_INPUT.c_str());
+
+
+    gradient_calculator gradient_calculator_opt = gradient_calculator(DIRECTORY_OPTIM_INPUT.c_str());
+    objective_calculator objective = objective_calculator(DIRECTORY_OPTIM_INPUT.c_str());
+    output_control_update outController = output_control_update(DIRECTORY_OPTIM_INPUT.c_str());
+
+    std::map<std::string, double> optimizationParameters = optimization_provider.getOptimizationParameters();
+    std::map<std::string,std::string> paths = optimization_provider.getPaths();
 
     unsigned int dimensionOfControl_gp = static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second);
     unsigned int ntimesteps_gp = static_cast<unsigned int>(optimizationParameters.find("ntimesteps_gp")->second);
@@ -64,7 +72,7 @@ int gradient_validation::landau_validation(int argc, char **argv) {
 
     outController.writeControl_XML(control0);
     outDiag.writeDoubleToFile(arma::norm(control0,"fro"),"normControlTrack");
-    outController.interpolate_control(provider);
+    outController.interpolate_control(optimization_provider);
 
 
     /*
@@ -77,7 +85,7 @@ int gradient_validation::landau_validation(int argc, char **argv) {
         throw  std::system_error();
     }
     logger::Info("Finished VSTRAP... Reading particle files");
-    input_control.read_plasma_state_forward(forwardParticles);
+    in.read_plasma_state_forward(forwardParticles);
 
     logger::Info("Finished reading files...");
     logger::Info("Starting VSTRAP (backward)...");
@@ -89,7 +97,7 @@ int gradient_validation::landau_validation(int argc, char **argv) {
     }
 
     logger::Info("Reading particle files...");
-    input_control.read_plasma_state_backward(backwardParticles);
+    in.read_plasma_state_backward(backwardParticles);
 
 
     logger::Info("Assembling pdfs...");
@@ -107,7 +115,7 @@ int gradient_validation::landau_validation(int argc, char **argv) {
     outDiag.writeDoubleToFile(arma::norm(gradient,"fro"),"normGradientTrack");
 
     arma::mat delta_control(pcell_gp,3,arma::fill::ones);
-    double t = 10.0;
+    double t = 1.0;
     delta_control = t*delta_control;
 
     int iteration_number = 4;
@@ -128,7 +136,7 @@ int gradient_validation::landau_validation(int argc, char **argv) {
             throw  std::system_error();
         }
         logger::Info("Finished VSTRAP... Reading particle files");
-        input_control.read_plasma_state_forward(forwardParticles);
+        in.read_plasma_state_forward(forwardParticles);
 
         assembling_flag = pdf_control.assemblingMultiDim_parallel(forwardParticles,0,pdf_time);
         forwardPDF = pdf_time;
@@ -136,7 +144,7 @@ int gradient_validation::landau_validation(int argc, char **argv) {
         functional_values[i] = objective.calculate_objective_L2(forwardPDF,control_temp);
         std::cout << std::to_string(functional_values[i]) << std::endl;
         std::cout << "Stepsize: " << (pow(reducing_factor,i+1)*t) << std::endl;
-        difference[i] = (functional_values[i]-functional_value0)-(pow(reducing_factor,i+1))*(arma::dot(gradient0.col(0),delta_control.col(0))
+        difference[i] = (functional_values[i]-functional_value0)/(pow(reducing_factor,i+1))-(arma::dot(gradient0.col(0),delta_control.col(0))
                                                                                                + arma::dot(gradient0.col(1),delta_control.col(1))
                                                                                                + arma::dot(gradient0.col(2),delta_control.col(2)));
         difference_Landau[i] = difference[i]/(pow(reducing_factor,i+1));
