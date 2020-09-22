@@ -9,6 +9,7 @@ int control_validation::start_validation(int argc, char **argv)
     std::map<std::string,double> validation_params = validation_provider.getOptimizationParameters();
 
     input in = input();
+    in.setData_provider_optim(validation_provider);
 
     int iterations = static_cast<int>(validation_params.find("number_controls")->second);
     std::cout << "Running " << iterations << " validation iterations" << std::endl;

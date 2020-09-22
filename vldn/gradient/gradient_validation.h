@@ -1,8 +1,16 @@
 #ifndef GRADIENT_VALIDATION_H
 #define GRADIENT_VALIDATION_H
 
+#include <map>
+#include <vector>
 
-class gradient_validation
+#include "../controller/abstract_validation.h"
+
+#include "../../src/objects/data_provider.h"
+
+#include "../../src/io/input.h"
+
+class gradient_validation : public abstract_validation
 {
 public:
     gradient_validation();
