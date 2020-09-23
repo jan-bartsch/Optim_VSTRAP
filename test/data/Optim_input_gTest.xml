@@ -38,6 +38,9 @@
 
         <!-- Trajectory -->
         <parameter name="expected_speed" value="7e+2" />
+	<parameter name="desired_position_x" value="-0.40"/>
+	<parameter name="desired_position_y" value="0.0"/>
+	<parameter name="desired_position_z" value="0.0"/> 
 
         <!-- forward input -->
         <parameter name="number_density_forward" value="1e+13" />
@@ -79,7 +82,8 @@
         <parameter name="ntimesteps_gp" value="10" />                       <!-- discretization size velocity -->
          <parameter name="dv_gp" value="5e+3" />                              <!-- discretization size velocity -->
         <parameter name="vcell_gp" value="8" /> <!-- 10 -->
-        <parameter name="vmax_gp" value="2e+4" /> <!-- 2e+3 -->      
+        <parameter name="vmax_gp" value="2e+4" /> <!-- 2e+3 --> 
+	<parameter name="fraction_fast_particles_gp" value="0.1"/>     
 
 
         <!-- CONTROL -->

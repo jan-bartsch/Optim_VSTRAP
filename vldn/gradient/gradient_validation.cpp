@@ -28,7 +28,7 @@ int gradient_validation::landau_validation(int argc, char **argv) {
     inner_products product = inner_products();
     product.setData_provider_optim(optimization_provider);
 
-    contr.generate_input_files(DIRECTORY_OPTIM_INPUT.c_str());
+    //contr.generate_input_files(DIRECTORY_OPTIM_INPUT.c_str());
 
     gradient_calculator gradient_calculator_opt = gradient_calculator(DIRECTORY_OPTIM_INPUT.c_str());
     objective_calculator objective = objective_calculator(DIRECTORY_OPTIM_INPUT.c_str());
@@ -116,7 +116,7 @@ int gradient_validation::landau_validation(int argc, char **argv) {
     outDiag.writeDoubleToFile(arma::norm(gradient,"fro"),"normGradientTrack");
 
     arma::mat delta_control(pcell_gp,3,arma::fill::ones);
-    double t = 20.0;
+    double t = -10.0;
     delta_control = t*delta_control;
 
     unsigned long iteration_number = 10;
@@ -152,7 +152,7 @@ int gradient_validation::landau_validation(int argc, char **argv) {
         functional_values[i] = objective.calculate_objective_L2(forwardPDF,control_temp);
         std::cout << std::to_string(functional_values[i]) << std::endl;
         std::cout << "Stepsize: " << pow(reducing_factor,i) << std::endl;
-        difference[i] = (functional_values[i]-functional_value0)-(pow(reducing_factor,i))*product.H2_inner_product(gradient0,delta_control);
+        difference[i] = (functional_values[i]-functional_value0)-(pow(reducing_factor,i))*product.L2_inner_product(gradient0,delta_control);
 
         difference_Landau[i] = std::abs(difference[i])/(pow(pow(reducing_factor,i),2));
 

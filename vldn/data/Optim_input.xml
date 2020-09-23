@@ -35,9 +35,9 @@
 <parameter name="charge_number_forward" value="+1"/>
 <parameter name="mass_forward" value="6.63e-26"/>
 <parameter name="species_forward" value="40Ar+"/>
-<parameter name="temperature_x_val" value="300"/>
-<parameter name="temperature_y_val" value="300"/>
-<parameter name="temperature_z_val" value="300"/>
+<parameter name="temperature_x_val" value="100"/>
+<parameter name="temperature_y_val" value="100"/>
+<parameter name="temperature_z_val" value="100"/>
 <parameter name="v_drift_x_val" value="0"/>
 <parameter name="v_drift_y_val" value="0"/>
 <parameter name="v_drift_z_val" value="0"/>
