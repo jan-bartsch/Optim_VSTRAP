@@ -18,6 +18,7 @@
 #include "../../src/optimization/gradient_calculator.h"
 #include "../../src/optimization/objective_calculator.h"
 
+#include "../../src/tools/inner_products.h"
 
 
 class gradient_validation : public abstract_validation

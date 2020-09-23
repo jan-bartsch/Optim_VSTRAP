@@ -14,6 +14,8 @@
 
 #include "../logger/logger.h"
 
+#include "../tools/inner_products.h"
+
 class objective_calculator : public abstract_controller
 {
 public:

@@ -90,7 +90,6 @@ arma::mat equation_solving_controller::D1_second_order()
             }
         }
     }
-
     return D1;
 }
 

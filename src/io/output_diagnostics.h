@@ -19,6 +19,8 @@ public:
     int writeGradientToFile(arma::mat gradient, std::string filename);
 
     int writeDoubleToFile(double value, std::string filename);
+
+    int writeDoubleVectorToFile(std::vector<double> vector, std::string filename);
 };
 
 #endif // OUTPUT_DIAGNOSTICS_H

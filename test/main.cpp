@@ -19,6 +19,8 @@
 #include "optimization/stepdirection_controller.h"
 #include "optimization/stepsize_controller.h"
 
+#include "tools/inner_products.h"
+
 int main(int argc, char **argv) {
     testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();

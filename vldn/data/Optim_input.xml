@@ -18,8 +18,8 @@
 <parameter name="adjoint_s_y" value="0.25"/>
 <parameter name="adjoint_s_z" value="0.25"/>
 <parameter name="adjoint_vx" value="-50.0"/>
-<parameter name="adjoint_vy" value="0.0"/>
-<parameter name="adjoint_vz" value="0.0"/>
+<parameter name="adjoint_vy" value="-50.0"/>
+<parameter name="adjoint_vz" value="-50.0"/>
 <parameter name="adjoint_number_density" value="1e+13"/>
 <parameter name="adjoint_weight" value="2e+9"/>
 <parameter name="adjoint_charge_number" value="+1"/>
@@ -66,8 +66,8 @@
 <parameter name="dt_gp" value="1e-5"/>
 <!--  discretization size time  -->
 <parameter name="ntimesteps_gp" value="20"/>
-<parameter name="dv_gp" value="5e+3"/> <!--  discretization size velocity  -->
-<parameter name="vcell_gp" value="8"/> <!--  10  -->
+<parameter name="dv_gp" value="4e+3"/> <!--  discretization size velocity  -->
+<parameter name="vcell_gp" value="10"/> <!--  10  -->
 <parameter name="vmax_gp" value="2e+4"/>
 <!--  2e+3  -->
 <!--  maximal velocity (support of forward equaiton)  -->

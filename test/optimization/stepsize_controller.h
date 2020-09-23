@@ -15,7 +15,7 @@ TEST(stepdirection,noSuchMethod) {
 
     std::map<std::string, double> optimizationParameters = provider.getOptimizationParameters();
     unsigned int pcell_gp = static_cast<unsigned int>(optimizationParameters.find("pcell_gp")->second);
-     unsigned int ntimesteps_gp = static_cast<unsigned int>(optimizationParameters.find("ntimesteps_gp")->second);
+    unsigned int ntimesteps_gp = static_cast<unsigned int>(optimizationParameters.find("ntimesteps_gp")->second);
 
     provider.setSubroutines(subs);
 
@@ -49,7 +49,7 @@ TEST(stepdirection,gradientDescentNoThrow) {
 
     std::map<std::string, double> optimizationParameters = provider.getOptimizationParameters();
     unsigned int pcell_gp = static_cast<unsigned int>(optimizationParameters.find("pcell_gp")->second);
-     unsigned int ntimesteps_gp = static_cast<unsigned int>(optimizationParameters.find("ntimesteps_gp")->second);
+    unsigned int ntimesteps_gp = static_cast<unsigned int>(optimizationParameters.find("ntimesteps_gp")->second);
 
 
     arma::mat gradient(pcell_gp,3,arma::fill::randn);
@@ -83,7 +83,7 @@ TEST(stepdirection,armijoLinesearchNoThrow) {
 
     std::map<std::string, double> optimizationParameters = provider.getOptimizationParameters();
     unsigned int pcell_gp = static_cast<unsigned int>(optimizationParameters.find("pcell_gp")->second);
-     unsigned int ntimesteps_gp = static_cast<unsigned int>(optimizationParameters.find("ntimesteps_gp")->second);
+    unsigned int ntimesteps_gp = static_cast<unsigned int>(optimizationParameters.find("ntimesteps_gp")->second);
 
     arma::mat gradient(pcell_gp,3,arma::fill::randn);
     arma::mat control_test(pcell_gp,3,arma::fill::randu);
@@ -96,9 +96,7 @@ TEST(stepdirection,armijoLinesearchNoThrow) {
     double stepsize = 0.1;
 
     arma::mat updated_control_test = control_test + stepsize*stepdirection;
-    int return_flag = size_contr.calculate_stepsize(gradient,J0,control,stepdirection,inputParticles,stepsize0);
-
-    EXPECT_EQ(return_flag,2);
+    EXPECT_NO_THROW(size_contr.calculate_stepsize(gradient,J0,control,stepdirection,inputParticles,stepsize0));
 }
 
 TEST(stepdirection,successiveApproximationNoThrow) {
@@ -116,7 +114,7 @@ TEST(stepdirection,successiveApproximationNoThrow) {
 
     std::map<std::string, double> optimizationParameters = provider.getOptimizationParameters();
     unsigned int pcell_gp = static_cast<unsigned int>(optimizationParameters.find("pcell_gp")->second);
-     unsigned int ntimesteps_gp = static_cast<unsigned int>(optimizationParameters.find("ntimesteps_gp")->second);
+    unsigned int ntimesteps_gp = static_cast<unsigned int>(optimizationParameters.find("ntimesteps_gp")->second);
 
     arma::mat gradient(pcell_gp,3,arma::fill::randn);
     arma::mat control_test(pcell_gp,3,arma::fill::randu);

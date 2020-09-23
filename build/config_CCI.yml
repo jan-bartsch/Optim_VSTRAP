@@ -19,6 +19,9 @@ commands:
       - run:
           name: Installing SUDO
           command: 'apt-get update && apt install -y sudo && rm -rf /var/lib/apt/lists/*'
+      -run:
+	  name: Installing doxygen
+          command: 'apt-get update && sudo apt-get install doxygen doxygen-doc'
   set_up_regression_test_environment:
     steps:
       - checkout
@@ -44,6 +47,9 @@ commands:
             lcov --capture --directory . --output-file ./test-results/coverage.info
             lcov -r "./test-results/coverage.info" "boost" "*/boost/*" "*/test/*" "armadillo_bits" "*/gtest/*" "*/c++/*" "*/Core/*" "/usr/" "*/gcc/*" -o "./test-results/coverage-filtered.info"
             genhtml ./test-results/coverage-filtered.info --output-directory coverage
+      -run:
+	  name: Run doxygen
+	  command: ''
       - store_artifacts:
           path: coverage
 executors:

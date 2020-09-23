@@ -25,8 +25,10 @@ int gradient_validation::landau_validation(int argc, char **argv) {
     optim_controller contr = optim_controller();
     contr.setData_provider_optim(optimization_provider);
 
-    //contr.generate_input_files(DIRECTORY_OPTIM_INPUT.c_str());
+    inner_products product = inner_products();
+    product.setData_provider_optim(optimization_provider);
 
+    contr.generate_input_files(DIRECTORY_OPTIM_INPUT.c_str());
 
     gradient_calculator gradient_calculator_opt = gradient_calculator(DIRECTORY_OPTIM_INPUT.c_str());
     objective_calculator objective = objective_calculator(DIRECTORY_OPTIM_INPUT.c_str());
@@ -40,13 +42,9 @@ int gradient_validation::landau_validation(int argc, char **argv) {
     double pcell_gp = static_cast<unsigned int>(optimizationParameters.find("pcell_gp")->second);
 
     std::vector<std::vector<particle>> forwardParticles(ntimesteps_gp);
-    std::vector<std::vector<particle>> forwardParticles_initialControl(ntimesteps_gp);
-    std::unordered_map<coordinate_phase_space_time,double> forwardPDF_map;
     std::vector<std::unordered_map<coordinate_phase_space_time,double>> forwardPDF;
-    std::vector<std::unordered_map<coordinate_phase_space_time,double>> forwardPDF_initial;
 
     std::vector<std::vector<particle>> backwardParticles(ntimesteps_gp);
-    std::unordered_map<coordinate_phase_space_time,double> backwardPDF_map;
     std::vector<std::unordered_map<coordinate_phase_space_time,double>> backwardPDF;
 
     std::vector<std::unordered_map<coordinate_phase_space_time,double>> pdf_time(ntimesteps_gp);
@@ -66,14 +64,13 @@ int gradient_validation::landau_validation(int argc, char **argv) {
     std::string START_VSTRAP_BACKWARD = BUILD_DIRECTORY_VSTRAP + "vstrap" + " " + PATH_TO_SHARED_FILES + INPUT_BACKWARD;
     int backward_return = 0;
 
-    arma::mat control0(pcell_gp,3,arma::fill::ones);
-    control0 = -10.0*control0;
+    arma::mat control0(pcell_gp,3,arma::fill::zeros);
+//    control0 = -10.0*control0;
     arma::mat gradient(pcell_gp,3,arma::fill::zeros);
 
     outController.writeControl_XML(control0);
     outDiag.writeDoubleToFile(arma::norm(control0,"fro"),"normControlTrack");
     outController.interpolate_control(optimization_provider);
-
 
     /*
      * calculat J^(u0)
@@ -119,11 +116,11 @@ int gradient_validation::landau_validation(int argc, char **argv) {
     outDiag.writeDoubleToFile(arma::norm(gradient,"fro"),"normGradientTrack");
 
     arma::mat delta_control(pcell_gp,3,arma::fill::ones);
-    double t = 50.0;
+    double t = 20.0;
     delta_control = t*delta_control;
 
-    int iteration_number = 10;
-    double reducing_factor = 0.25;
+    unsigned long iteration_number = 10;
+    double reducing_factor = 0.5;
     double dp_gp = static_cast<double>(optimizationParameters.find("dp_gp")->second);
 
     std::vector<double> functional_values(iteration_number,0.0);
@@ -131,8 +128,8 @@ int gradient_validation::landau_validation(int argc, char **argv) {
     std::vector<double> difference_Landau(iteration_number,0.0);
     arma::mat control_temp;
 
-    for(int i = 0; i<iteration_number; i++) {
-        control_temp = control0 + pow(reducing_factor,i+1)*delta_control;
+    for(unsigned int i = 0; i< static_cast<unsigned long>(iteration_number); i++) {
+        control_temp = control0 + pow(reducing_factor,i)*delta_control;
         outController.writeControl_XML(control_temp);
         outController.interpolate_control(optimization_provider);
 
@@ -154,12 +151,14 @@ int gradient_validation::landau_validation(int argc, char **argv) {
 
         functional_values[i] = objective.calculate_objective_L2(forwardPDF,control_temp);
         std::cout << std::to_string(functional_values[i]) << std::endl;
-        std::cout << "Stepsize: " << (pow(reducing_factor,i+1)*t) << std::endl;
-        difference[i] = (functional_values[i]-functional_value0)-(pow(reducing_factor,i+1))*(arma::dot(gradient0.col(0),delta_control.col(0))
-                                                                                               + arma::dot(gradient0.col(1),delta_control.col(1))
-                                                                                               + arma::dot(gradient0.col(2),delta_control.col(2)))*dp_gp;
+        std::cout << "Stepsize: " << pow(reducing_factor,i) << std::endl;
+        difference[i] = (functional_values[i]-functional_value0)-(pow(reducing_factor,i))*product.H2_inner_product(gradient0,delta_control);
 
-        difference_Landau[i] = std::abs(difference[i]/difference[0])/(pow(reducing_factor,i+1));
+        difference_Landau[i] = std::abs(difference[i])/(pow(pow(reducing_factor,i),2));
+
+        outDiag.writeDoubleVectorToFile(difference,"Difference");
+        outDiag.writeDoubleVectorToFile(difference_Landau,"Difference_Landau");
+        outDiag.writeDoubleVectorToFile(functional_values,"FunctionalValues");
     }
 
     std::cout << "Difference: " << std::endl;

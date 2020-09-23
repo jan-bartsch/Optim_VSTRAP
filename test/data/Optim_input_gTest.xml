@@ -24,8 +24,8 @@
         <parameter name="adjoint_s_z" value="0.25" />
 
         <parameter name="adjoint_vx" value="-50.0" />
-        <parameter name="adjoint_vy" value="0.0" />
-        <parameter name="adjoint_vz" value="0.0" />
+        <parameter name="adjoint_vy" value="-50.0" />
+        <parameter name="adjoint_vz" value="-50.0" />
 
         <parameter name="adjoint_number_density" value="1e+13" />
         <parameter name="adjoint_weight" value="1e+10" />
@@ -100,9 +100,8 @@
     
     
     <paths>
-        <path name="BUILD_DIRECTORY_VSTRAP" value="/home/bartsch/SPARC/build-vstrap-CSMC/src/" />
+        <path name="BUILD_DIRECTORY_VSTRAP" value="./data/vstrap/" /> <!--/home/bartsch/SPARC/build-vstrap-CSMC/src/, remote ./data/vstrap/-->
         <path name="BUILD_DIRECTORY_OPTIM" value="./" />
-        <path name="BUILD_DIRECTORY_OPTIM_TEST" value="/root/project/build-Optim/test " /> <!-- /home/jan/Promotion_linuxPC/build-Optim/test -->
         <path name="PATH_TO_SHARED_FILES" value="./data/" />
 	<path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="./data/" />
         <path name="BARYCENTERS_MESH" value="./data/global/mesh_barycenters.xml" />

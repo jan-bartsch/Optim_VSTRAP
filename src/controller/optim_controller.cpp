@@ -110,13 +110,14 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
     arma::mat control;
     if(zero_control == 0) {
         control = start_with_zero_control(input_xml_path);
+        generate_input_files(input_xml_path);
     } else if (zero_control == 1) {
         control = start_with_given_control(input_xml_path);
         std::cout << control << std::endl;
     } else {
         logger::Info("Starting without control_field_cells");
     }
-    generate_input_files(input_xml_path);
+
 
     /**
      * START OPTIMIZATION ITERATION

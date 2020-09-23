@@ -67,7 +67,7 @@ double inner_products::H1_inner_product(arma::mat m1, arma::mat m2)
     arma::mat D1mat2 = D1*m2.rows(start_control-1,end_control-1)/(2.0*db_gp);
 
 
-    for(int i = 0; i < m1.n_cols; i++) {
+    for(int i = 0; i < D1mat1.n_cols; i++) {
         product += arma::dot(D1mat1.col(i),D1mat2.col(i))*dp_gp;
     }
 
@@ -98,8 +98,6 @@ double inner_products::H2_inner_product(arma::mat m1, arma::mat m2)
         std::cout << m2 << std::endl;
         throw std::invalid_argument("Objects in inner product calculation do not have proper size");
     }
-
-    int columns = static_cast<int>(size1.n_cols);
 
     /**
      * L2 and H1 part
