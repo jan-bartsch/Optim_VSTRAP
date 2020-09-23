@@ -72,22 +72,52 @@ arma::mat equation_solving_controller::D1_second_order()
             next_cell_zp[2] = current_barycenter[2]+db_gp;
         }
 
+        double xm = -1.0;
+        double xp = 1.0;
+        double ym = -1.0;
+        double yp = 1.0;
+        double zm = -1.0;
+        double zp = 1.0;
+
         for(int l = start_control; l<=end_control;l++) {
             std::vector<double> temp = barycenters.find(l)->second;
-            if (comp.norm_difference_doubleVector(temp,next_cell_xp) < fabs_tol_gp ||
-                    comp.norm_difference_doubleVector(temp, next_cell_yp) < fabs_tol_gp ||
-                    comp.norm_difference_doubleVector(temp, next_cell_zp) < fabs_tol_gp) {
+            if (comp.norm_difference_doubleVector(temp,next_cell_xp) < fabs_tol_gp) {
                 if (i != l) {
+                    xp = 0.0;
                     D1(i-start_control,l-start_control) = 1.0;
                 }
             }
-            if (comp.norm_difference_doubleVector(temp,next_cell_xm) < fabs_tol_gp ||
-                    comp.norm_difference_doubleVector(temp, next_cell_ym) < fabs_tol_gp ||
-                    comp.norm_difference_doubleVector(temp, next_cell_zm) < fabs_tol_gp) {
+            if (comp.norm_difference_doubleVector(temp, next_cell_yp) < fabs_tol_gp) {
                 if (i != l) {
+                    yp = 0.0;
+                    D1(i-start_control,l-start_control) = 1.0;
+                }
+            }
+            if (comp.norm_difference_doubleVector(temp, next_cell_zp) < fabs_tol_gp) {
+                if (i != l) {
+                    zp = 0.0;
+                    D1(i-start_control,l-start_control) = 1.0;
+                }
+            }
+            if (comp.norm_difference_doubleVector(temp,next_cell_xm) < fabs_tol_gp) {
+                if (i != l) {
+                    xm = 0.0;
                     D1(i-start_control,l-start_control) = -1.0;
                 }
             }
+            if (comp.norm_difference_doubleVector(temp, next_cell_ym) < fabs_tol_gp) {
+                if (i != l) {
+                    ym = 0.0;
+                    D1(i-start_control,l-start_control) = -1.0;
+                }
+            }
+            if (comp.norm_difference_doubleVector(temp, next_cell_zm) < fabs_tol_gp) {
+                if (i != l) {
+                    zm = 0.0;
+                    D1(i-start_control,l-start_control) = -1.0;
+                }
+            }
+            D1(i-start_control,i-start_control)  = xm+xp+ym+yp+zm+zp;
         }
     }
     return D1;

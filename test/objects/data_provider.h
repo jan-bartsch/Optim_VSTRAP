@@ -16,8 +16,8 @@ TEST(dataprovider,amount_inputData) {
     std::map<std::string,std::string> paths = provider.read_paths(filename);
     std::map<std::string,std::string> routines = provider.read_subroutines(filename);
 
-    if (parameters.size() != 66) {
-        std::cout << "Parameters size wrong; Expected 66 but was " + std::to_string(parameters.size()) << std::endl;
+    if (parameters.size() != 64) {
+        std::cout << "Parameters size wrong; Expected 64 but was " + std::to_string(parameters.size()) << std::endl;
         all_clear = false;
     }
     if (paths.size() != 15) {

@@ -22,6 +22,10 @@ int gradient_validation::landau_validation(int argc, char **argv) {
     equation_solving_controller model_solver = equation_solving_controller();
     model_solver.setData_provider_optim(optimization_provider);
 
+    arma::mat control(32,3,arma::fill::ones);
+
+    std::cout << model_solver.Laplacian_3D()<< std::endl;
+
     optim_controller contr = optim_controller();
     contr.setData_provider_optim(optimization_provider);
 
@@ -152,7 +156,7 @@ int gradient_validation::landau_validation(int argc, char **argv) {
         functional_values[i] = objective.calculate_objective_L2(forwardPDF,control_temp);
         std::cout << std::to_string(functional_values[i]) << std::endl;
         std::cout << "Stepsize: " << pow(reducing_factor,i) << std::endl;
-        difference[i] = (functional_values[i]-functional_value0)-(pow(reducing_factor,i))*product.L2_inner_product(gradient0,delta_control);
+        difference[i] = (functional_values[i]-functional_value0)-(pow(reducing_factor,i))*product.H2_inner_product(gradient0,delta_control);
 
         difference_Landau[i] = std::abs(difference[i])/(pow(pow(reducing_factor,i),2));
 

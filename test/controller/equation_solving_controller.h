@@ -4,6 +4,40 @@
 #include "../../src/logger/logger.h"
 #include "../../src/objects/data_provider.h"
 
+TEST(solver,D1SecondOrder) {
+    std::string input_directory = "./data/Optim_input_gTest.xml";
+    const char *  input_xml_path = input_directory.c_str();
+
+    data_provider provider = data_provider(input_xml_path);
+
+    equation_solving_controller solver = equation_solving_controller();
+    solver.setData_provider_optim(data_provider(input_xml_path));
+
+    std::map<std::string, double> optimizationParameters = provider.getOptimizationParameters();
+    unsigned int dimensionOfControl_gp = static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second);
+
+
+    arma::mat D1;
+
+    bool all_checked(true);
+
+    try {
+        D1 = solver.D1_second_order();
+    } catch (std::out_of_range e) {
+        std::cout << "Error while generating first derivative" << std::endl;
+        std::cout << e.what() << std::endl;
+        all_checked = false;
+    }
+
+    arma::mat control(dimensionOfControl_gp,3,arma::fill::ones);
+    arma::mat first_derivative = D1*control;
+
+    if (arma::norm(first_derivative,"fro") != 0) {
+        all_checked = false;
+    }
+
+    ASSERT_TRUE(all_checked);
+}
 
 TEST(solver, LaplaciansSymmetry){
     std::string input_directory = "./data/Optim_input_gTest.xml";

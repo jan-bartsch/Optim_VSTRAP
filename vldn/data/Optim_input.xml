@@ -66,8 +66,8 @@
 <parameter name="dt_gp" value="1e-5"/>
 <!--  discretization size time  -->
 <parameter name="ntimesteps_gp" value="20"/>
-<parameter name="dv_gp" value="4e+3"/> <!--  discretization size velocity  -->
-<parameter name="vcell_gp" value="10"/> <!--  10  -->
+<parameter name="dv_gp" value="1.666e+3"/> <!--  discretization size velocity  -->
+<parameter name="vcell_gp" value="12"/> <!--  10  -->
 <parameter name="vmax_gp" value="2e+4"/>
 <!--  2e+3  -->
 <!--  maximal velocity (support of forward equaiton)  -->

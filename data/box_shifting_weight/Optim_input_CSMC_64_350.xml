@@ -31,9 +31,6 @@
 
 	 <!--  Trajectory  -->
 	<parameter name="expected_speed" value="9e+2"/>
-	<parameter name="desired_position_x" value="-0.40"/>
-	<parameter name="desired_position_y" value="0.0"/>
-	<parameter name="desired_position_z" value="0.0"/> 
 
 	<!--  forward input  -->
 	<parameter name="number_density_forward" value="1e+13"/>
