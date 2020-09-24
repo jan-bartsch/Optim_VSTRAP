@@ -108,7 +108,10 @@ std::vector<particle> input::readParticleVector(std::string filename, std::strin
 
 arma::mat input::readControl(const char *filename)
 {    
-    arma::mat control(64,3,arma::fill::zeros);
+    std::map<std::string, double> parameters = this->getData_provider_optim().getOptimizationParameters();
+    int pcell_gp = static_cast<int>(parameters.find("pcell_gp")->second);
+
+    arma::mat control(pcell_gp,3,arma::fill::zeros);
 
     TiXmlDocument inputFile(filename);
     if (!inputFile.LoadFile()) {

@@ -4,10 +4,10 @@
 	</globalParameters>
 	<paths>
 		<path name="DIRECTORY_OPTIM_INPUT" value="/home/bartsch/SPARC/Optim_VSTRAP/vldn/data/Optim_input.xml" />
-		<path name="PATH_TO_CONTROLS" value="/home/bartsch/SPARC/Optim_VSTRAP/vldn/data/controls-20200922-weight-01/" />
+		<path name="PATH_TO_CONTROLS" value="/home/bartsch/SPARC/Optim_VSTRAP/vldn/data/controls-20200924-weight-01/" />
 	</paths>
 	<subroutines>
-		<subroutine name="gradient_landau_validation" value="TRUE" />
+		<subroutine name="gradient_landau_validation" value="FALSE" />
 		<subroutine name="control_validation" value="TRUE" />
 	</subroutines>
 </optimizer_input>

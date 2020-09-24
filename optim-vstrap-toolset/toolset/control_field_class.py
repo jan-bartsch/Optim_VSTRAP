@@ -83,6 +83,7 @@ class Control_field:
 		ax.set_xlabel('x axis')
 		ax.set_ylabel('y axis')
 		ax.set_zlabel('z axis')
+		ax.view_init(azim=-90, elev=0)
 
 		for n in range(1,len(nodesMesh)):
 			a = Arrow3D([nodesMesh[n-1][0], endPoints[n-1][0]], [nodesMesh[n-1][1], endPoints[n-1][1]], [nodesMesh[n-1][2], endPoints[n-1][2]], mutation_scale=20, lw=1, arrowstyle="-|>", color="k")

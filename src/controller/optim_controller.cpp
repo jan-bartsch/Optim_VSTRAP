@@ -324,6 +324,10 @@ arma::mat optim_controller::start_with_given_control(const char *input_xml_path)
     data_provider data_provider_opt = data_provider(input_xml_path);
     output_control_update outController = output_control_update(input_xml_path);
 
+    input in = input();
+    in.setData_provider_optim(data_provider_opt);
+
+
     std::map<std::string, double> optimizationParameters = data_provider_opt.getOptimizationParameters();
     std::map<std::string, std::string> paths = data_provider_opt.getPaths();
     std::string PATH_TO_SHARED_FILES = paths.find("PATH_TO_SHARED_FILES")->second;
@@ -341,7 +345,7 @@ arma::mat optim_controller::start_with_given_control(const char *input_xml_path)
 
     logger::Info("Starting with existing control (multiplied by a positive constant)");
     std::string READ_CONTROL = PATH_TO_SHARED_FILES + CONTROL_FIELD_CELLS_NAME;
-    arma::mat control = input::readControl(&READ_CONTROL[0]);
+    arma::mat control = in.readControl(&READ_CONTROL[0]);
     outController.writeControl_XML(fraction_of_optimal_control*control);
     outController.interpolate_control(data_provider_opt);
 

@@ -22,7 +22,7 @@
 	<parameter name="adjoint_vy" value="0.0"/>
 	<parameter name="adjoint_vz" value="0.0"/>
 	<parameter name="adjoint_number_density" value="1e+13"/>
-	<parameter name="adjoint_weight" value="1.78571e+9"/>
+	<parameter name="adjoint_weight" value="1.27551e+9"/>
 	<parameter name="adjoint_charge_number" value="+1"/>
 	<parameter name="adjoint_mass" value="6.63e-26"/>
 	<parameter name="adjoint_species" value="40Ar+"/>
@@ -48,7 +48,7 @@
 	<!--  optimization techniques  -->
 	<parameter name="fixed_gradient_descent_stepsize" value="1e+4"/>
 	<parameter name="fraction_of_optimal_control" value="1e-5"/>
-	<parameter name="optimizationIteration_max_gp" value="100"/> <!--  number of maximal interations  -->
+	<parameter name="optimizationIteration_max_gp" value="15"/> <!--  number of maximal interations  -->
 	<parameter name="numberParticles_gp" value="2000"/>
 	<parameter name="start_zero_control" value="0"/> <!--  0=true, 1=false  -->
 	<parameter name="tolerance_gp" value="1e-14"/>
@@ -81,8 +81,8 @@
 </globalParameters>
 <paths>
 <path name="BUILD_DIRECTORY_VSTRAP" value="/HOME/bartsch/SPARC/build-vstrap-CSMC/src/" />
-<path name="BUILD_DIRECTORY_OPTIM" value="/HOME/bartsch/SPARC/build-Optim-CSMC6/src/" />
-<path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/HOME/bartsch/SPARC/build-Optim-CSMC6/src/results/" />
+<path name="BUILD_DIRECTORY_OPTIM" value="/HOME/bartsch/SPARC/build-Optim-CSMC4/src/" />
+<path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/HOME/bartsch/SPARC/build-Optim-CSMC4/src/results/" />
 <path name="PATH_TO_SHARED_FILES" value="./results/" />
 <path name="BARYCENTERS_MESH" value="../../Optim_VSTRAP/data/global/mesh_barycenters.xml"/>
 <path name="DIRECTORY_TOOLSET" value="../../Optim_VSTRAP/optim-vstrap-toolset/toolset/"/>

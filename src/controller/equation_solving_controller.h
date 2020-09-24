@@ -17,6 +17,10 @@ public:
 
     arma::mat D1_second_order();
 
+    arma::mat D1_forward();
+
+    arma::mat D1_backward();
+
     arma::mat Laplacian_3D();
 
     arma::mat Laplacian_Squared_3D();
