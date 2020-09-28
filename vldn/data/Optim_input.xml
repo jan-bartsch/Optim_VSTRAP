@@ -57,20 +57,15 @@
 <parameter name="armijo_iterative_exp" value="1.0"/>
 <!--  1.0: no decreasing stepsize  -->
 <!--  DOMAIN PARAMETERS  -->
-<parameter name="dp_gp" value="0.0156"/>
-<!--  discretization size position 64:0.0156 1000:0.0001 512:0.002  216:0.00462963 -->
+<parameter name="dp_gp" value="0.0156"/>  <!--  discretization size position 64:0.0156 1000:0.0001 512:0.002  216:0.00462963 -->
 <parameter name="pcell_gp" value="64"/>
 <parameter name="pmax_gp" value="0.5"/>
-<parameter name="db_gp" value="0.25"/>
-<!--  box-side-length 216:0.16666667  -->
-<parameter name="dt_gp" value="1e-5"/>
-<!--  discretization size time  -->
+<parameter name="db_gp" value="0.25"/> <!--  box-side-length 64: 0.25 216:0.16666667  -->
+<parameter name="dt_gp" value="1e-5"/> <!--  discretization size time  -->
 <parameter name="ntimesteps_gp" value="20"/>
 <parameter name="dv_gp" value="1.666e+3"/> <!--  discretization size velocity  -->
 <parameter name="vcell_gp" value="12"/> <!--  10  -->
-<parameter name="vmax_gp" value="2e+4"/>
-<!--  2e+3  -->
-<!--  maximal velocity (support of forward equaiton)  -->
+<parameter name="vmax_gp" value="2e+4"/> <!--  2e+3  --> <!--  maximal velocity (support of forward equaiton)  -->
 <parameter name="fraction_fast_particles_gp" value="0.1"/>
 <!--  CONTROL  -->
 <parameter name="dimensionOfControl_gp" value="32"/>

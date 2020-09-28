@@ -107,14 +107,18 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
 
     logger::Info("Reading paramters done");
 
-    arma::mat control;
+   arma::mat control(static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second),3,arma::fill::zeros);
     if(zero_control == 0) {
         control = start_with_zero_control(input_xml_path);
         generate_input_files(input_xml_path);
     } else if (zero_control == 1) {
         control = start_with_given_control(input_xml_path);
         std::cout << control << std::endl;
-    } else {
+    } else if (zero_control == 2) {
+        logger::Info("Starting with zero control");
+        outController.writeControl_XML(control);
+        outController.interpolate_control(data_provider_opt);
+    }else {
         logger::Info("Starting without control_field_cells");
     }
 
@@ -303,9 +307,9 @@ arma::mat optim_controller::start_with_zero_control(const char *input_xml_path)
     std::string BGF_CONTROL = paths.find("BGF_CONTROL")->second;
     std::string CONTROL_FIELD_CELLS_NAME = paths.find("CONTROL_FIELD_CELLS_NAME")->second;
 
-    unsigned int dimensionOfControl = static_cast<unsigned int>(optimizationParameters.find("pcell_gp")->second);
+    unsigned int pcell_gp = static_cast<unsigned int>(optimizationParameters.find("pcell_gp")->second);
 
-    arma::mat control(dimensionOfControl,3,arma::fill::zeros);
+    arma::mat control(pcell_gp,3,arma::fill::zeros);
 
     logger::Info("Deleting old files");
     std::string COMMAND_RM_RESULTS = "rm -r results";

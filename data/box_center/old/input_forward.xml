@@ -5,7 +5,7 @@
 	<executables>
 		<executable name="mesh_initializer" mode="CPU">
 			<mesh name="vol_mesh">
-				<load>../../../Optim_VSTRAP/data/global/box_coarse.xml</load>
+				<load>../mesh/box_coarse.xml</load>
 			</mesh>
 		</executable>
 		<executable name="particle_initializer" mode="CPU">
@@ -41,7 +41,7 @@
 		</executable>
          <executable name="dsmc" mode="CPU">
                 <particle_group name="forward_particles"/>
-                <load>../../../Optim_VSTRAP/data/global/interaction_data.xml</load>
+                <load>./interaction_data.xml</load>
          </executable>
 		<executable name="plasma_state" mode="CPU">
 			<batch file_name="batch_1" format="csv" output_interval="1">
@@ -59,15 +59,15 @@
 			<executable name="particle_initializer"/>
 			<executable name="plasma_state"/>
 			<executable name="pusher"/>
-      			<executable name="pwi"/>
+      <executable name="pwi"/>
 			<executable name="dsmc"/>
 			<executable name="bgf"/>
 		</init>
-			<exec>
+		<exec>
 		  	<executable name="bgf"/>
 			<executable name="dsmc"/>
 			<executable name="pusher"/>
-      			<executable name="pwi"/>
+      <executable name="pwi"/>
 			<executable name="plasma_state"/>
 		</exec>
 	</schedule>

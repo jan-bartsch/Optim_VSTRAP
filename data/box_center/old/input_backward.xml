@@ -8,7 +8,7 @@
         <executables>
             <executable name="mesh_initializer" mode="CPU">
                 <mesh name="vol_mesh">
-                    <load>../../../Optim_VSTRAP/data/global/box_coarse.xml</load>
+                    <load>../mesh/box_coarse.xml</load>
                 </mesh>
             </executable>
 		<executable name="particle_initializer" mode="CPU">
@@ -62,7 +62,7 @@
 					<temperature fixed="true" x="1000" y="1000" z="1000"/>
 				</species>
 			</background>
-			<load>../../../Optim_VSTRAP/data/global/interaction_data_mcc.xml</load>
+			<load>interaction_data_mcc.xml</load>
 		</executable>
         </executables>
         <schedule>
