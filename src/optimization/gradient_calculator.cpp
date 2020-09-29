@@ -7,7 +7,7 @@ gradient_calculator::gradient_calculator(const char *filename) {
 }
 
 arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm_not_parallel(std::vector<std::unordered_map<coordinate_phase_space_time, double> > forwardPDF_time,
-                                                                       std::vector<std::unordered_map<coordinate_phase_space_time, double> > backwardPDF_time, arma::mat control)
+                                                                                    std::vector<std::unordered_map<coordinate_phase_space_time, double> > backwardPDF_time, arma::mat control)
 {
 
     std::map<std::string, double> optimizationParameters = this->getData_provider_optim().getOptimizationParameters();
@@ -48,7 +48,7 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm_not_paral
     //Caculate integral in gradient
     const unsigned int n = pcell_gp;
 
-//#pragma omp parallel for
+    //#pragma omp parallel for
     for(unsigned int i = 1; i< n+1; i++) {
 
         std::vector<double> current_barycenter = barycenters.find(static_cast<int>(i))->second;
@@ -340,6 +340,7 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm(std::vect
     }
 
     gradient_Riesz = arma::solve(Riesz,Riesz*Riesz_control+rhs_Riesz);
+    //gradient_Riesz = arma::solve(Riesz,-rhs_Riesz);
     arma::mat return_gradient(pcell_gp,3,arma::fill::zeros);
 
     //    std::cout << "Solution elliptic equation:" << std::endl;

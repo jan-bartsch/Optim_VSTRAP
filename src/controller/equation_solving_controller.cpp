@@ -381,8 +381,8 @@ arma::mat equation_solving_controller::Laplacian_3D()
         }
     }
 
-    return Laplace;
-    //return this->D1_forward()*this->D1_backward();
+    //return Laplace;
+    return this->D1_forward()*this->D1_backward();
 }
 
 arma::mat equation_solving_controller::Laplacian_Squared_3D()
