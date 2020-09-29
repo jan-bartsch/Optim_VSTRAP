@@ -225,9 +225,10 @@ TEST(solver, LaplaciansSymmetry){
     }
 
     try {
-        std::cout << "Error while generating Laplacian_Squared" << std::endl;
+
         Laplacian_Squared = solver.Laplacian_Squared_3D();
     } catch (std::exception e) {
+        std::cout << "Error while generating Laplacian_Squared" << std::endl;
         std::cout << e.what() << std::endl;
         all_checked = false;
     }

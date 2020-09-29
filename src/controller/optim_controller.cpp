@@ -155,6 +155,7 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
 
     for(unsigned int r = 1; r <= optimizationIteration_max_gp; r++) {
 
+
         logger::Info("Starting VSTRAP (foward)... ");
         forward_return = model_solver.start_solving_forward(START_VSTRAP_FORWARD);
         if (forward_return != 0) {
