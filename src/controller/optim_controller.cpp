@@ -163,6 +163,7 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
         logger::Info("Finished VSTRAP... Reading particle files");
         input_control.read_plasma_state_forward(forwardParticles);
 
+
         //        forwardPDF = pdf_control.assemblingMultiDim_parallel(forwardParticles,0);
         //        value_objective = objective.calculate_objective_L2(forwardPDF,control);
 

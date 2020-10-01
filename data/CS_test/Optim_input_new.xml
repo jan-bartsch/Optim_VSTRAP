@@ -5,7 +5,7 @@
     <parameter name="calculation_wasserstein" value="0"/>
     <parameter name="C_theta_gp" value="1e+8"/>
     <parameter name="C_phi_gp" value="1e+8"/>
-    <parameter name="sigma_x_gp" value="0.1"/>
+    <parameter name="sigma_x_gp" value="0.15"/>
     <parameter name="sigma_v_gp" value="375.99424119465004"/>
     
     <!--  create adjoint particles and trajectory  -->
@@ -15,19 +15,19 @@
     <parameter name="desired_position_y" value="0.0"/>
     <parameter name="adjoint_mu_z" value="0.0"/>
     <parameter name="desired_position_z" value="0.0"/>
-    <parameter name="adjoint_s_x" value="0.1"/>
-    <parameter name="adjoint_s_y" value="0.1"/>
-    <parameter name="adjoint_s_z" value="0.1"/>
+    <parameter name="adjoint_s_x" value="0.10"/>
+    <parameter name="adjoint_s_y" value="0.10"/>
+    <parameter name="adjoint_s_z" value="0.10"/>
     <parameter name="adjoint_vx" value="0.0"/>
     <parameter name="adjoint_vy" value="0.0"/>
     <parameter name="adjoint_vz" value="0.0"/>
-    <parameter name="adjoint_number_density" value="1e+13"/>
-    <parameter name="adjoint_weight" value="1e+9"/>
+    <parameter name="adjoint_number_density" value="1e+12"/>
+    <parameter name="adjoint_weight" value="1e+8"/>
     <parameter name="adjoint_charge_number" value="+1"/>
     <parameter name="adjoint_mass" value="6.63e-26"/>
     <parameter name="adjoint_species" value="40Ar+"/>
-    <parameter name="expected_speed" value="6e+2"/>
-    <parameter name="most_probable_speed" value="6e+2"/>
+    <parameter name="expected_speed" value="5e+2"/>
+    <parameter name="most_probable_speed" value="5e+2"/>
     
     <!--  Trajectory  -->
     <parameter name="desired_position_x" value="0.0"/>
@@ -40,9 +40,9 @@
     <parameter name="charge_number_forward" value="+1"/>
     <parameter name="mass_forward" value="6.63e-26"/>
     <parameter name="species_forward" value="40Ar+"/>
-    <parameter name="temperature_x_val" value="4"/>
-    <parameter name="temperature_y_val" value="4"/>
-    <parameter name="temperature_z_val" value="4"/>
+    <parameter name="temperature_x_val" value="300"/>
+    <parameter name="temperature_y_val" value="300"/>
+    <parameter name="temperature_z_val" value="300"/>
     <parameter name="v_drift_x_val" value="0"/>
     <parameter name="v_drift_y_val" value="0"/>
     <parameter name="v_drift_z_val" value="0"/>
@@ -63,7 +63,7 @@
     <parameter name="pcell_gp" value="64"/>
     <parameter name="pmax_gp" value="0.5"/>
     <parameter name="db_gp" value="0.25"/>     <!--  box-side-length 216:0.16666667  -->
-    <parameter name="dt_gp" value="1e-5"/>     <!--  discretization size time  -->
+    <parameter name="dt_gp" value="5e-5"/>     <!--  discretization size time  -->
     <parameter name="ntimesteps_gp" value="50"/>
     <parameter name="dv_gp" value="4e+2"/>      <!--  discretization size velocity  -->
     <parameter name="vcell_gp" value="10"/>     <!--  10  -->
@@ -86,7 +86,7 @@
 	<path name="BUILD_DIRECTORY_OPTIM" value="/HOME/bartsch/SPARC/build-Optim-Desktop/src/" />
 	<path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/HOME/bartsch/SPARC/build-Optim-Desktop/src/results/" />
 	<path name="PATH_TO_SHARED_FILES" value="./results/" />
-	<path name="PVPYTHON_ABSOLUTE_DIR" value="/home/jan/ParaView-5.8.0-MPI-Linux-Python3.7-64bit/bin/pvpython" />
+	<path name="PVPYTHON_ABSOLUTE_DIR" value="/usr/bin/pvpython" />
 	<path name="BARYCENTERS_MESH" value="../../Optim_VSTRAP/data/global/mesh_barycenters.xml"/>
 	<path name="DIRECTORY_TOOLSET" value="../../Optim_VSTRAP/optim-vstrap-toolset/toolset/"/>
 	<path name="DOMAIN_MESH" value="../../../Optim_VSTRAP/data/global/box_coarse.xml"/>
