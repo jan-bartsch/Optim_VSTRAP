@@ -361,8 +361,6 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm(std::vect
         }
     }
 
-    std::cout << gradient_2 << std::endl;
-
     gradient_Riesz = arma::solve(Riesz,Riesz*Riesz_control+rhs_Riesz);
     //gradient_Riesz = arma::solve(Riesz,-rhs_Riesz);
     arma::mat return_gradient(pcell_gp,3,arma::fill::zeros);

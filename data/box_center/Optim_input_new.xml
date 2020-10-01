@@ -1,92 +1,85 @@
 <optimizer_input>
 <globalParameters>
-<parameter name="armijo_descent_fraction" value="1e-30"/>
-<parameter name="calculation_functional" value="0"/>
-<parameter name="calculation_wasserstein" value="0"/>
-<parameter name="C_theta_gp" value="1e+20"/>
-<parameter name="C_phi_gp" value="1e+20"/>
-<parameter name="sigma_x_gp" value="0.2"/>
-<parameter name="sigma_v_gp" value="125.331413"/>
-<!--  create adjoint particles and trajectory  -->
-<parameter name="adjoint_mu_x" value="0.0"/>
-<parameter name="desired_position_x" value="0.0"/>
-<parameter name="adjoint_mu_y" value="0.0"/>
-<parameter name="desired_position_y" value="0.0"/>
-<parameter name="adjoint_mu_z" value="0.0"/>
-<parameter name="desired_position_z" value="0.0"/>
-<parameter name="adjoint_s_x" value="0.2"/>
-<parameter name="adjoint_s_y" value="0.2"/>
-<parameter name="adjoint_s_z" value="0.2"/>
-<parameter name="adjoint_vx" value="0.0"/>
-<parameter name="adjoint_vy" value="0.0"/>
-<parameter name="adjoint_vz" value="0.0"/>
-<parameter name="adjoint_number_density" value="1e+13"/>
-<parameter name="adjoint_weight" value="1e+10"/>
-<parameter name="adjoint_charge_number" value="+1"/>
-<parameter name="adjoint_mass" value="6.63e-26"/>
-<parameter name="adjoint_species" value="40Ar+"/>
-<parameter name="expected_speed" value="2e+2"/>
-<parameter name="most_probable_speed" value="2e+2"/>
-<!--  Trajectory  -->
-<parameter name="desired_position_x" value="0.0"/>
-<parameter name="desired_position_y" value="0.0"/>
-<parameter name="desired_position_z" value="0.0"/>
-<!--  forward input  -->
-<parameter name="number_density_forward" value="1e+13"/>
-<parameter name="weight_forward" value="5e+8"/>
-<parameter name="charge_number_forward" value="+1"/>
-<parameter name="mass_forward" value="6.63e-26"/>
-<parameter name="species_forward" value="40Ar+"/>
-<parameter name="temperature_x_val" value="300"/>
-<parameter name="temperature_y_val" value="300"/>
-<parameter name="temperature_z_val" value="300"/>
-<parameter name="v_drift_x_val" value="0"/>
-<parameter name="v_drift_y_val" value="0"/>
-<parameter name="v_drift_z_val" value="0"/>
-<!--  optimization techniques  -->
-<parameter name="fixed_gradient_descent_stepsize" value="1e-1"/>
-<parameter name="fraction_of_optimal_control" value="1e-5"/>
-<parameter name="optimizationIteration_max_gp" value="100"/>
-<!--  number of maximal interations  -->
-<parameter name="numberParticles_gp" value="2000"/>
-<parameter name="start_zero_control" value="0"/>
-<!--  0=true, 1=false  -->
-<parameter name="tolerance_gp" value="1e-14"/>
-<parameter name="tolerance_relaxation_gp" value="1e-10"/>
-<!--  for Gauß-Seidel smoothing -->
-<parameter name="armijio_base_exp" value="0.8"/>
-<!--  1.0: there is no exponential diminishing of fraction of new stepsize -->
-<parameter name="armijo_iterative_exp" value="1.0"/>
-<!--  1.0: no decreasing stepsize  -->
-<!--  DOMAIN PARAMETERS  -->
-<parameter name="dp_gp" value="0.0156"/>
-<!--  discretization size position 64:0.0156 1000:0.0001 512:0.002  216:0.00462963 -->
-<parameter name="pcell_gp" value="64"/>
-<parameter name="pmax_gp" value="0.5"/>
-<parameter name="db_gp" value="0.25"/>
-<!--  box-side-length 216:0.16666667  -->
-<parameter name="dt_gp" value="1e-5"/>
-<!--  discretization size time  -->
-<parameter name="ntimesteps_gp" value="60"/>
-<parameter name="dv_gp" value="4e+2"/> 
-<!--  discretization size velocity  -->
-<parameter name="vcell_gp" value="10"/>
-<!--  10  -->
-<parameter name="vmax_gp" value="2e+3"/>
-<!--  2e+3  -->
-<!--  maximal velocity (support of forward equaiton)  -->
-<parameter name="fraction_fast_particles_gp" value="0.1"/>
-<!--  CONTROL  -->
-<parameter name="dimensionOfControl_gp" value="64"/>
-<!--  number of elements of the control  -->
-<parameter name="end_control_gp" value="64"/>
-<parameter name="start_control_gp" value="1"/>
-<parameter name="local_control_x_min_gp" value="-0.5"/>
-<parameter name="local_control_x_max_gp" value="0.5"/>
-<parameter name="weight_control_gp" value="1e+1"/>
-<parameter name="velocity_part_objective" value="1e-9"/>
-<!--   -->
-<parameter name="fabs_tol_gp" value="1e-9"/>
+    <parameter name="armijo_descent_fraction" value="1e-30"/>
+    <parameter name="calculation_functional" value="0"/>
+    <parameter name="calculation_wasserstein" value="0"/>
+    <parameter name="C_theta_gp" value="1e+20"/>
+    <parameter name="C_phi_gp" value="1e+20"/>
+    <parameter name="sigma_x_gp" value="0.2"/>
+    <parameter name="sigma_v_gp" value="125.331413"/>
+    
+    <!--  create adjoint particles and trajectory  -->
+    <parameter name="adjoint_mu_x" value="0.0"/>
+    <parameter name="desired_position_x" value="0.0"/>
+    <parameter name="adjoint_mu_y" value="0.0"/>
+    <parameter name="desired_position_y" value="0.0"/>
+    <parameter name="adjoint_mu_z" value="0.0"/>
+    <parameter name="desired_position_z" value="0.0"/>
+    <parameter name="adjoint_s_x" value="0.1"/>
+    <parameter name="adjoint_s_y" value="0.1"/>
+    <parameter name="adjoint_s_z" value="0.1"/>
+    <parameter name="adjoint_vx" value="0.0"/>
+    <parameter name="adjoint_vy" value="0.0"/>
+    <parameter name="adjoint_vz" value="0.0"/>
+    <parameter name="adjoint_number_density" value="1e+13"/>
+    <parameter name="adjoint_weight" value="1e+10"/>
+    <parameter name="adjoint_charge_number" value="+1"/>
+    <parameter name="adjoint_mass" value="6.63e-26"/>
+    <parameter name="adjoint_species" value="40Ar+"/>
+    <parameter name="expected_speed" value="6e+2"/>
+    <parameter name="most_probable_speed" value="6e+2"/>
+    
+    <!--  Trajectory  -->
+    <parameter name="desired_position_x" value="0.0"/>
+    <parameter name="desired_position_y" value="0.0"/>
+    <parameter name="desired_position_z" value="0.0"/>
+    
+    <!--  forward input  -->
+    <parameter name="number_density_forward" value="1e+13"/>
+    <parameter name="weight_forward" value="5e+8"/>
+    <parameter name="charge_number_forward" value="+1"/>
+    <parameter name="mass_forward" value="6.63e-26"/>
+    <parameter name="species_forward" value="40Ar+"/>
+    <parameter name="temperature_x_val" value="1000"/>
+    <parameter name="temperature_y_val" value="1000"/>
+    <parameter name="temperature_z_val" value="1000"/>
+    <parameter name="v_drift_x_val" value="0"/>
+    <parameter name="v_drift_y_val" value="0"/>
+    <parameter name="v_drift_z_val" value="0"/>
+    
+    <!--  optimization techniques  -->
+    <parameter name="fixed_gradient_descent_stepsize" value="1e-1"/>
+    <parameter name="fraction_of_optimal_control" value="1e-5"/>
+    <parameter name="optimizationIteration_max_gp" value="100"/>     <!--  number of maximal interations  -->
+    <parameter name="numberParticles_gp" value="2000"/>
+    <parameter name="start_zero_control" value="0"/>     <!--  0=true, 1=false, 2: start with given files  -->
+    <parameter name="tolerance_gp" value="1e-14"/>
+    <parameter name="tolerance_relaxation_gp" value="1e-10"/>     <!--  for Gauß-Seidel smoothing -->
+    <parameter name="armijio_base_exp" value="0.8"/>     <!--  1.0: there is no exponential diminishing of fraction of new stepsize -->
+    <parameter name="armijo_iterative_exp" value="1.0"/>     <!--  1.0: no decreasing stepsize  -->
+    
+    <!--  DOMAIN PARAMETERS  -->
+    <parameter name="dp_gp" value="0.0156"/>     <!--  discretization size position 64:0.0156 1000:0.0001 512:0.002  216:0.00462963 -->
+    <parameter name="pcell_gp" value="64"/>
+    <parameter name="pmax_gp" value="0.5"/>
+    <parameter name="db_gp" value="0.25"/>     <!--  box-side-length 216:0.16666667  -->
+    <parameter name="dt_gp" value="1e-5"/>     <!--  discretization size time  -->
+    <parameter name="ntimesteps_gp" value="50"/>
+    <parameter name="dv_gp" value="4e+2"/>      <!--  discretization size velocity  -->
+    <parameter name="vcell_gp" value="10"/>     <!--  10  -->
+    <parameter name="vmax_gp" value="2e+3"/>     <!--  2e+3  -->     <!--  maximal velocity (support of forward equaiton)  -->
+    <parameter name="fraction_fast_particles_gp" value="0.1"/>
+    
+    <!--  CONTROL  -->
+    <parameter name="dimensionOfControl_gp" value="64"/>    <!--  number of elements of the control  -->
+    <parameter name="end_control_gp" value="64"/>
+    <parameter name="start_control_gp" value="1"/>
+    <parameter name="local_control_x_min_gp" value="-0.5"/>
+    <parameter name="local_control_x_max_gp" value="0.5"/>
+    <parameter name="weight_control_gp" value="1e+1"/>
+    <parameter name="velocity_part_objective" value="1e-9"/>
+    <!--   -->
+    <parameter name="fabs_tol_gp" value="1e-9"/>
 </globalParameters>
 <paths>
 	<path name="BUILD_DIRECTORY_VSTRAP" value="/home/jan/Promotion_linuxPC/build-vstrap/src/" />
