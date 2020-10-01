@@ -8,16 +8,16 @@
 <parameter name="sigma_x_gp" value="0.25"/>
 <parameter name="sigma_v_gp" value="563.9913"/>
 <!--  create adjoint particles and trajectory  -->
-<parameter name="adjoint_mu_x" value="-0.40"/>
-<parameter name="desired_position_x" value="-0.40"/>
+<parameter name="adjoint_mu_x" value="0.0"/>
+<parameter name="desired_position_x" value="0.0"/>
 <parameter name="adjoint_mu_y" value="0.0"/>
 <parameter name="desired_position_y" value="0.0"/>
 <parameter name="adjoint_mu_z" value="0.0"/>
 <parameter name="desired_position_z" value="0.0"/>
-<parameter name="adjoint_s_x" value="0.25"/>
-<parameter name="adjoint_s_y" value="0.25"/>
-<parameter name="adjoint_s_z" value="0.25"/>
-<parameter name="adjoint_vx" value="-80.0"/>
+<parameter name="adjoint_s_x" value="0.2"/>
+<parameter name="adjoint_s_y" value="0.2"/>
+<parameter name="adjoint_s_z" value="0.2"/>
+<parameter name="adjoint_vx" value="0.0"/>
 <parameter name="adjoint_vy" value="0.0"/>
 <parameter name="adjoint_vz" value="0.0"/>
 <parameter name="adjoint_number_density" value="1e+13"/>
@@ -25,16 +25,15 @@
 <parameter name="adjoint_charge_number" value="+1"/>
 <parameter name="adjoint_mass" value="6.63e-26"/>
 <parameter name="adjoint_species" value="40Ar+"/>
-<parameter name="expected_speed" value="9e+2"/>
-<parameter name="most_probable_speed" value="9e+2"/>
+<parameter name="expected_speed" value="4e+2"/>
+<parameter name="most_probable_speed" value="4e+2"/>
 <!--  Trajectory  -->
-<parameter name="expected_speed" value="9e+2"/>
-<parameter name="desired_position_x" value="-0.40"/>
+<parameter name="desired_position_x" value="0.0"/>
 <parameter name="desired_position_y" value="0.0"/>
 <parameter name="desired_position_z" value="0.0"/>
 <!--  forward input  -->
 <parameter name="number_density_forward" value="1e+13"/>
-<parameter name="weight_forward" value="1e+9"/>
+<parameter name="weight_forward" value="5e+8"/>
 <parameter name="charge_number_forward" value="+1"/>
 <parameter name="mass_forward" value="6.63e-26"/>
 <parameter name="species_forward" value="40Ar+"/>
@@ -45,7 +44,7 @@
 <parameter name="v_drift_y_val" value="0"/>
 <parameter name="v_drift_z_val" value="0"/>
 <!--  optimization techniques  -->
-<parameter name="fixed_gradient_descent_stepsize" value="1e+4"/>
+<parameter name="fixed_gradient_descent_stepsize" value="1e+0"/>
 <parameter name="fraction_of_optimal_control" value="1e-5"/>
 <parameter name="optimizationIteration_max_gp" value="100"/>
 <!--  number of maximal interations  -->
@@ -66,30 +65,30 @@
 <parameter name="pmax_gp" value="0.5"/>
 <parameter name="db_gp" value="0.25"/>
 <!--  box-side-length 216:0.16666667  -->
-<parameter name="dt_gp" value="5e-4"/>
+<parameter name="dt_gp" value="1e-4"/>
 <!--  discretization size time  -->
-<parameter name="ntimesteps_gp" value="20"/>
-<parameter name="dv_gp" value="2e+3"/>
+<parameter name="ntimesteps_gp" value="25"/>
+<parameter name="dv_gp" value="4e+2"/> 
 <!--  discretization size velocity  -->
-<parameter name="vcell_gp" value="8"/>
+<parameter name="vcell_gp" value="10"/>
 <!--  10  -->
-<parameter name="vmax_gp" value="8e+3"/>
+<parameter name="vmax_gp" value="2e+3"/>
 <!--  2e+3  -->
 <!--  maximal velocity (support of forward equaiton)  -->
 <parameter name="fraction_fast_particles_gp" value="0.1"/>
 <!--  CONTROL  -->
-<parameter name="dimensionOfControl_gp" value="32"/>
+<parameter name="dimensionOfControl_gp" value="64"/>
 <!--  number of elements of the control  -->
-<parameter name="end_control_gp" value="48"/>
-<parameter name="start_control_gp" value="17"/>
-<parameter name="local_control_x_min_gp" value="-0.2"/>
-<parameter name="local_control_x_max_gp" value="0.2"/>
-<parameter name="weight_control_gp" value="1e+7"/>
-<parameter name="velocity_part_objective" value="1e-1"/>
+<parameter name="end_control_gp" value="64"/>
+<parameter name="start_control_gp" value="1"/>
+<parameter name="local_control_x_min_gp" value="-0.5"/>
+<parameter name="local_control_x_max_gp" value="0.5"/>
+<parameter name="weight_control_gp" value="1e+1"/>
+<parameter name="velocity_part_objective" value="1e-9"/>
 <!--   -->
-<parameter name="fabs_tol_gp" value="1e-5"/>
+<parameter name="fabs_tol_gp" value="1e-9"/>
 </globalParameters>
-<paths>PVPYTHON_ABSOLUTE_DIR
+<paths>
 	<path name="BUILD_DIRECTORY_VSTRAP" value="/home/jan/Promotion_linuxPC/build-vstrap/src/" />
 	<path name="BUILD_DIRECTORY_OPTIM" value="/home/jan/Promotion_linuxPC/build-Optim/src/" />
 	<path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/home/jan/Promotion_linuxPC/build-Optim/src/results/" />
@@ -101,7 +100,7 @@
 	<path name="RESULTS_DIRECTORY" value="results/"/>
 	<path name="INPUT_FORWARD" value="input_forward_64.xml"/>
 	<path name="INPUT_BACKWARD" value="input_backward_64.xml"/>
-	<path name="CREATION_ADJOINT_PARTCLES" value="./creation_adjoint_particles_64.xml"/>
+	<path name="CREATION_ADJOINT_PARTCLES" value="./creation_adjoint_particles_new.xml"/>
 	<path name="BGF_CONTROL" value="interpolated_control_field_64.xml"/>
 	<!--  shared forward/backward  -->
 	<path name="DSMC_interaction" value="../../../Optim_VSTRAP/data/global/interaction_data.xml"/>
@@ -109,12 +108,12 @@
 	<path name="CONTROL_FIELD_CELLS_NAME" valie="control_field_cells_64.xml"/>
 </paths>
 <subroutines>
-	<!-- subroutine group="control_update" name="gradient_descent"/ -->
+	<!--subroutine group="control_update" name="gradient_descent"/-->
 	<!--  subroutine group="control_update" name="successive_approximation" /  -->
 	<subroutine group="control_update" name="armijo_linesearch"/>
 	<!--  subroutine group="direction_update" name="negative_gradient" /  -->
 	<subroutine group="direction_update" name="ncg_FR"/>
-	<subroutine group="desired_trajectory" name="box_shifting_negative_x"/>
+	<subroutine group="desired_trajectory" name="box_center"/>
 	<subroutine group="objective_calculation" name="magnitude"/>
 	<!--   subroutine group="objective_calculation" name="components" /  -->
 </subroutines>

@@ -1,12 +1,12 @@
 <optimizer_input>
 <globalParameters>
 <parameter name="armijo_descent_fraction" value="1e-30"/>
-<parameter name="calculation_functional" value="1"/>
+<parameter name="calculation_functional" value="0"/>
 <parameter name="calculation_wasserstein" value="0"/>
 <parameter name="C_theta_gp" value="1e+20"/>
 <parameter name="C_phi_gp" value="1e+20"/>
-<parameter name="sigma_x_gp" value="0.25"/>
-<parameter name="sigma_v_gp" value="563.9913"/>
+<parameter name="sigma_x_gp" value="0.2"/>
+<parameter name="sigma_v_gp" value="125.331413"/>
 <!--  create adjoint particles and trajectory  -->
 <parameter name="adjoint_mu_x" value="0.0"/>
 <parameter name="desired_position_x" value="0.0"/>
@@ -21,12 +21,12 @@
 <parameter name="adjoint_vy" value="0.0"/>
 <parameter name="adjoint_vz" value="0.0"/>
 <parameter name="adjoint_number_density" value="1e+13"/>
-<parameter name="adjoint_weight" value="5e+9"/>
+<parameter name="adjoint_weight" value="1e+10"/>
 <parameter name="adjoint_charge_number" value="+1"/>
 <parameter name="adjoint_mass" value="6.63e-26"/>
 <parameter name="adjoint_species" value="40Ar+"/>
-<parameter name="expected_speed" value="4e+2"/>
-<parameter name="most_probable_speed" value="4e+2"/>
+<parameter name="expected_speed" value="2e+2"/>
+<parameter name="most_probable_speed" value="2e+2"/>
 <!--  Trajectory  -->
 <parameter name="desired_position_x" value="0.0"/>
 <parameter name="desired_position_y" value="0.0"/>
@@ -44,7 +44,7 @@
 <parameter name="v_drift_y_val" value="0"/>
 <parameter name="v_drift_z_val" value="0"/>
 <!--  optimization techniques  -->
-<parameter name="fixed_gradient_descent_stepsize" value="1e+0"/>
+<parameter name="fixed_gradient_descent_stepsize" value="1e-1"/>
 <parameter name="fraction_of_optimal_control" value="1e-5"/>
 <parameter name="optimizationIteration_max_gp" value="100"/>
 <!--  number of maximal interations  -->
@@ -65,9 +65,9 @@
 <parameter name="pmax_gp" value="0.5"/>
 <parameter name="db_gp" value="0.25"/>
 <!--  box-side-length 216:0.16666667  -->
-<parameter name="dt_gp" value="1e-4"/>
+<parameter name="dt_gp" value="1e-5"/>
 <!--  discretization size time  -->
-<parameter name="ntimesteps_gp" value="25"/>
+<parameter name="ntimesteps_gp" value="60"/>
 <parameter name="dv_gp" value="4e+2"/> 
 <!--  discretization size velocity  -->
 <parameter name="vcell_gp" value="10"/>
@@ -109,7 +109,7 @@
 </paths>
 <subroutines>
 	<!--subroutine group="control_update" name="gradient_descent"/-->
-	<!--  subroutine group="control_update" name="successive_approximation" /  -->
+	<!--  subroutine group="control_update" name="successive_approximation" /-->
 	<subroutine group="control_update" name="armijo_linesearch"/>
 	<!--  subroutine group="direction_update" name="negative_gradient" /  -->
 	<subroutine group="direction_update" name="ncg_FR"/>

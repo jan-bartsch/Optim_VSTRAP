@@ -69,8 +69,6 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
     equation_solving_controller model_solver = equation_solving_controller();
     model_solver.setData_provider_optim(data_provider_opt);
 
-    //final_postprocessing(data_provider_opt);
-
     std::map<std::string, double> optimizationParameters = data_provider_opt.getOptimizationParameters();
     std::map<std::string, std::string> paths = data_provider_opt.getPaths();
     std::map<std::string,std::string> subroutines = data_provider_opt.getSubroutines();
@@ -259,6 +257,10 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
         outDiag.writeDoubleToFile(arma::norm(control,"fro"),"normControlTrack");
         outController.interpolate_control(data_provider_opt);
 
+        logger::Info("Starting post_processing");
+        post_processing_convergence(data_provider_opt);
+        paraview_plot_forward(data_provider_opt);
+
         logger::Info("Starting " + std::to_string(r+1) + " iteration");
 
 
@@ -390,7 +392,7 @@ int optim_controller::post_processing_convergence(data_provider provider)
     return 0;
 }
 
-int optim_controller::final_postprocessing(data_provider provider)
+int optim_controller::paraview_plot_forward(data_provider provider)
 {
     std::map<std::string, std::string> paths = provider.getPaths();
     std::string PATH_TO_SHARED_FILES_ABSOLUTE = paths.find("PATH_TO_SHARED_FILES_ABSOLUTE")->second;
@@ -398,10 +400,8 @@ int optim_controller::final_postprocessing(data_provider provider)
 
     std::string PVPYTHON_ABSOLUTE_DIR = paths.find("PVPYTHON_ABSOLUTE_DIR")->second;
 
-    std::string PARAVIEW_ANIMATION = "cd results && mkdir animation && cd animation && " + PVPYTHON_ABSOLUTE_DIR + " ../../" + DIRECTORY_TOOLSET
-            + "python_current_iteration.py" + " " + PATH_TO_SHARED_FILES_ABSOLUTE;
-
-    post_processing_convergence(provider);
+    std::string PARAVIEW_ANIMATION = "cd results && mkdir -p animation && cd animation && " + PVPYTHON_ABSOLUTE_DIR + " ../../" + DIRECTORY_TOOLSET
+            + "python_current_iteration_forward_plasma_state.py" + " " + PATH_TO_SHARED_FILES_ABSOLUTE;
 
     try{
         system(&PARAVIEW_ANIMATION[0]);

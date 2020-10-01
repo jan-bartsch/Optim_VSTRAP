@@ -218,6 +218,7 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm(std::vect
     //std::cout << Laplace_Squared << std::endl;
 
     arma::mat gradient(pcell_gp,3,arma::fill::zeros);
+    arma::mat gradient_2(pcell_gp,3,arma::fill::zeros);
     arma::mat gradient_Riesz(dimensionOfControl_gp,3,arma::fill::zeros);
     arma::mat rhs_Riesz(dimensionOfControl_gp,3,arma::fill::zeros);
 
@@ -235,7 +236,14 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm(std::vect
             std::vector<std::vector<std::vector<std::vector<double>>>> backwardPDFdouble(ntimesteps_gp, std::vector<std::vector<std::vector<double>>>
                                                                                          (vcell_gp, std::vector<std::vector<double>> (vcell_gp, std::vector<double> (vcell_gp,0.0))));
 
-            double firstDerivativeForwardPDF_V1_current, firstDerivativeForwardPDF_V2_current, firstDerivativeForwardPDF_V3_current;
+            double firstDerivativeForwardPDF_V1_current = 0.0;
+            double firstDerivativeForwardPDF_V2_current = 0.0;
+            double firstDerivativeForwardPDF_V3_current = 0.0;
+
+            double firstDerivativeBackwardPDF_V1_current = 0.0;
+            double firstDerivativeBackwardPDF_V2_current = 0.0;
+            double firstDerivativeBackwardPDF_V3_current = 0.0;
+
 
             for(unsigned int o = 0; o<ntimesteps_gp; o++) {
                 for(unsigned int l = 0; l<vcell_gp; l++) {
@@ -268,32 +276,46 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm(std::vect
                     for(unsigned int m= 0; m<vcell_gp; m++) {
                         for(unsigned int n = 0; n<vcell_gp; n++) {
                             // derivative v_x
+                            double current_forward = forwardPDFdouble[o][l][m][n];
                             if (l == 0) {
-                                firstDerivativeForwardPDF_V1_current = (forwardPDFdouble[o][l+1][m][n]-forwardPDFdouble[o][l][m][n])/dv_gp;
+                                firstDerivativeForwardPDF_V1_current = (forwardPDFdouble[o][l+1][m][n]-current_forward)/dv_gp;
+                                //firstDerivativeBackwardPDF_V1_current = (backwardPDFdouble[o][l+1][m][n]-backwardPDFdouble[o][l][m][n])/dv_gp;
                             } else if (l == vcell_gp-1) {
-                                firstDerivativeForwardPDF_V1_current = (forwardPDFdouble[o][l][m][n]-forwardPDFdouble[o][l-1][m][n])/dv_gp;
+                                firstDerivativeForwardPDF_V1_current = (current_forward-forwardPDFdouble[o][l-1][m][n])/dv_gp;
+                                //firstDerivativeBackwardPDF_V1_current = (backwardPDFdouble[o][l][m][n]-backwardPDFdouble[o][l-1][m][n])/dv_gp;
                             } else {
                                 firstDerivativeForwardPDF_V1_current = (forwardPDFdouble[o][l+1][m][n]-forwardPDFdouble[o][l-1][m][n])/(2.0*dv_gp);
+                                //firstDerivativeBackwardPDF_V1_current = (backwardPDFdouble[o][l+1][m][n]-backwardPDFdouble[o][l-1][m][n])/(2.0*dv_gp);
                             }
                             //derivative v_y
                             if (m== 0) {
-                                firstDerivativeForwardPDF_V2_current = (forwardPDFdouble[o][l][m+1][n]-forwardPDFdouble[o][l][m][n])/dv_gp;
+                                firstDerivativeForwardPDF_V2_current = (forwardPDFdouble[o][l][m+1][n]-current_forward)/dv_gp;
+                                //firstDerivativeBackwardPDF_V2_current = (backwardPDFdouble[o][l][m+1][n]-backwardPDFdouble[o][l][m][n])/dv_gp;
                             } else if (m == vcell_gp-1) {
-                                firstDerivativeForwardPDF_V2_current = (forwardPDFdouble[o][l][m][n]-forwardPDFdouble[o][l][m-1][n])/dv_gp;
+                                firstDerivativeForwardPDF_V2_current = (current_forward-forwardPDFdouble[o][l][m-1][n])/dv_gp;
+                                //firstDerivativeBackwardPDF_V2_current = (backwardPDFdouble[o][l][m][n]-backwardPDFdouble[o][l][m-1][n])/dv_gp;
                             } else {
                                 firstDerivativeForwardPDF_V2_current = (forwardPDFdouble[o][l][m+1][n]-forwardPDFdouble[o][l][m-1][n])/(2.0*dv_gp);
+                                //firstDerivativeBackwardPDF_V2_current = (backwardPDFdouble[o][l][m+1][n]-backwardPDFdouble[o][l][m-1][n])/(2.0*dv_gp);
                             }
                             //derivative v_z
                             if (n == 0) {
-                                firstDerivativeForwardPDF_V3_current = (forwardPDFdouble[o][l][m][n+1]-forwardPDFdouble[o][l][m][n])/dv_gp;
+                                firstDerivativeForwardPDF_V3_current = (forwardPDFdouble[o][l][m][n+1]-current_forward)/dv_gp;
+                                //firstDerivativeBackwardPDF_V3_current = (backwardPDFdouble[o][l][m][n+1]-backwardPDFdouble[o][l][m][n])/dv_gp;
                             } else if (n == vcell_gp-1) {
-                                firstDerivativeForwardPDF_V3_current = (forwardPDFdouble[o][l][m][n]-forwardPDFdouble[o][l][m][n-1])/dv_gp;
+                                firstDerivativeForwardPDF_V3_current = (current_forward-forwardPDFdouble[o][l][m][n-1])/dv_gp;
+                                //firstDerivativeBackwardPDF_V3_current = (backwardPDFdouble[o][l][m][n]-backwardPDFdouble[o][l][m][n-1])/dv_gp;
                             } else {
                                 firstDerivativeForwardPDF_V3_current = (forwardPDFdouble[o][l][m][n+1]-forwardPDFdouble[o][l][m][n-1])/(2.0*dv_gp);
+                                //firstDerivativeBackwardPDF_V3_current = (backwardPDFdouble[o][l][m][n+1]-backwardPDFdouble[o][l][m][n-1])/(2.0*dv_gp);
                             }
                             gradient(i-1,0) += backwardPDFdouble[o][l][m][n]*firstDerivativeForwardPDF_V1_current*pow(dv_gp,3.0)*pow(dt_gp,1.0);
                             gradient(i-1,1) += backwardPDFdouble[o][l][m][n]*firstDerivativeForwardPDF_V2_current*pow(dv_gp,3.0)*pow(dt_gp,1.0);
                             gradient(i-1,2) += backwardPDFdouble[o][l][m][n]*firstDerivativeForwardPDF_V3_current*pow(dv_gp,3.0)*pow(dt_gp,1.0);
+                            //integration by parts leads to
+//                            gradient_2(i-1,0) -= forwardPDFdouble[o][l][m][n]*firstDerivativeBackwardPDF_V1_current*pow(dv_gp,3.0)*pow(dt_gp,1.0);
+//                            gradient_2(i-1,1) -= forwardPDFdouble[o][l][m][n]*firstDerivativeBackwardPDF_V2_current*pow(dv_gp,3.0)*pow(dt_gp,1.0);
+//                            gradient_2(i-1,2) -= forwardPDFdouble[o][l][m][n]*firstDerivativeBackwardPDF_V3_current*pow(dv_gp,3.0)*pow(dt_gp,1.0);
                         }
                     }
                 }
@@ -339,6 +361,8 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm(std::vect
         }
     }
 
+    std::cout << gradient_2 << std::endl;
+
     gradient_Riesz = arma::solve(Riesz,Riesz*Riesz_control+rhs_Riesz);
     //gradient_Riesz = arma::solve(Riesz,-rhs_Riesz);
     arma::mat return_gradient(pcell_gp,3,arma::fill::zeros);
@@ -356,6 +380,6 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm(std::vect
     std::cout << "Return_Gradient:" << std::endl;
     std::cout << return_gradient << std::endl;
 
-    return return_gradient;
+     return return_gradient;
 }
 
