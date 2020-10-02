@@ -226,6 +226,7 @@ int stepsize_controller::gradient_descent(arma::mat &control, arma::mat &stepdir
 
     while (assembling_flag == 1 && static_cast<unsigned int>(counter) <= optimizationIteration_max_gp) {
         int forward_return;
+        alpha = alpha/2.0;
 
         /*
          * Generate new control

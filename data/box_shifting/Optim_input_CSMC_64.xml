@@ -8,8 +8,8 @@
 <parameter name="sigma_x_gp" value="0.25"/>
 <parameter name="sigma_v_gp" value="563.9913"/>
 <!--  create adjoint particles and trajectory  -->
-<parameter name="adjoint_mu_x" value="-0.40"/>
-<parameter name="desired_position_x" value="-0.40"/>
+<parameter name="adjoint_mu_x" value="+0.40"/>
+<parameter name="desired_position_x" value="+0.40"/>
 <parameter name="adjoint_mu_y" value="0.0"/>
 <parameter name="desired_position_y" value="0.0"/>
 <parameter name="adjoint_mu_z" value="0.0"/>
@@ -17,7 +17,7 @@
 <parameter name="adjoint_s_x" value="0.25"/>
 <parameter name="adjoint_s_y" value="0.25"/>
 <parameter name="adjoint_s_z" value="0.25"/>
-<parameter name="adjoint_vx" value="-80.0"/>
+<parameter name="adjoint_vx" value="0.0"/>
 <parameter name="adjoint_vy" value="0.0"/>
 <parameter name="adjoint_vz" value="0.0"/>
 <parameter name="adjoint_number_density" value="1e+13"/>
@@ -66,7 +66,7 @@
 <parameter name="pmax_gp" value="0.5"/>
 <parameter name="db_gp" value="0.25"/>
 <!--  box-side-length 216:0.16666667  -->
-<parameter name="dt_gp" value="1e-5"/>
+<parameter name="dt_gp" value="5e-4"/>
 <!--  discretization size time  -->
 <parameter name="ntimesteps_gp" value="20"/>
 <parameter name="dv_gp" value="2e+3"/>

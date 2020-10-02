@@ -69,8 +69,6 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
     equation_solving_controller model_solver = equation_solving_controller();
     model_solver.setData_provider_optim(data_provider_opt);
 
-    //final_postprocessing(data_provider_opt);
-
     std::map<std::string, double> optimizationParameters = data_provider_opt.getOptimizationParameters();
     std::map<std::string, std::string> paths = data_provider_opt.getPaths();
     std::map<std::string,std::string> subroutines = data_provider_opt.getSubroutines();
@@ -107,14 +105,18 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
 
     logger::Info("Reading paramters done");
 
-    arma::mat control;
+   arma::mat control(static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second),3,arma::fill::zeros);
     if(zero_control == 0) {
         control = start_with_zero_control(input_xml_path);
         generate_input_files(input_xml_path);
     } else if (zero_control == 1) {
         control = start_with_given_control(input_xml_path);
         std::cout << control << std::endl;
-    } else {
+    } else if (zero_control == 2) {
+        logger::Info("Starting with zero control");
+        outController.writeControl_XML(control);
+        outController.interpolate_control(data_provider_opt);
+    }else {
         logger::Info("Starting without control_field_cells");
     }
 
@@ -151,6 +153,7 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
 
     for(unsigned int r = 1; r <= optimizationIteration_max_gp; r++) {
 
+
         logger::Info("Starting VSTRAP (foward)... ");
         forward_return = model_solver.start_solving_forward(START_VSTRAP_FORWARD);
         if (forward_return != 0) {
@@ -159,6 +162,7 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
         }
         logger::Info("Finished VSTRAP... Reading particle files");
         input_control.read_plasma_state_forward(forwardParticles);
+
 
         //        forwardPDF = pdf_control.assemblingMultiDim_parallel(forwardParticles,0);
         //        value_objective = objective.calculate_objective_L2(forwardPDF,control);
@@ -188,7 +192,6 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
 
 
         logger::Info("Building gradient...");
-        //gradient = gradient_calculator_opt.calculateGradient_forceControl_space_L2(forwardPDF,backwardPDF,control);
         gradient = gradient_calculator_opt.calculateGradient_forceControl_space_Hm(forwardPDF,backwardPDF,control);
         outDiag.writeDoubleToFile(arma::norm(gradient,"fro"),"normGradientTrack");
         outDiag.writeGradientToFile(gradient,"gradient_"+std::to_string(r));
@@ -255,6 +258,10 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
         outDiag.writeDoubleToFile(arma::norm(control,"fro"),"normControlTrack");
         outController.interpolate_control(data_provider_opt);
 
+        logger::Info("Starting post_processing");
+        post_processing_convergence(data_provider_opt);
+        paraview_plot_forward(data_provider_opt);
+
         logger::Info("Starting " + std::to_string(r+1) + " iteration");
 
 
@@ -303,9 +310,9 @@ arma::mat optim_controller::start_with_zero_control(const char *input_xml_path)
     std::string BGF_CONTROL = paths.find("BGF_CONTROL")->second;
     std::string CONTROL_FIELD_CELLS_NAME = paths.find("CONTROL_FIELD_CELLS_NAME")->second;
 
-    unsigned int dimensionOfControl = static_cast<unsigned int>(optimizationParameters.find("pcell_gp")->second);
+    unsigned int pcell_gp = static_cast<unsigned int>(optimizationParameters.find("pcell_gp")->second);
 
-    arma::mat control(dimensionOfControl,3,arma::fill::zeros);
+    arma::mat control(pcell_gp,3,arma::fill::zeros);
 
     logger::Info("Deleting old files");
     std::string COMMAND_RM_RESULTS = "rm -r results";
@@ -386,7 +393,7 @@ int optim_controller::post_processing_convergence(data_provider provider)
     return 0;
 }
 
-int optim_controller::final_postprocessing(data_provider provider)
+int optim_controller::paraview_plot_forward(data_provider provider)
 {
     std::map<std::string, std::string> paths = provider.getPaths();
     std::string PATH_TO_SHARED_FILES_ABSOLUTE = paths.find("PATH_TO_SHARED_FILES_ABSOLUTE")->second;
@@ -394,10 +401,8 @@ int optim_controller::final_postprocessing(data_provider provider)
 
     std::string PVPYTHON_ABSOLUTE_DIR = paths.find("PVPYTHON_ABSOLUTE_DIR")->second;
 
-    std::string PARAVIEW_ANIMATION = "cd results && mkdir animation && cd animation && " + PVPYTHON_ABSOLUTE_DIR + " ../../" + DIRECTORY_TOOLSET
-            + "python_current_iteration.py" + " " + PATH_TO_SHARED_FILES_ABSOLUTE;
-
-    post_processing_convergence(provider);
+    std::string PARAVIEW_ANIMATION = "cd results && mkdir -p animation && cd animation && " + PVPYTHON_ABSOLUTE_DIR + " ../../" + DIRECTORY_TOOLSET
+            + "python_current_iteration_forward_plasma_state.py" + " " + PATH_TO_SHARED_FILES_ABSOLUTE;
 
     try{
         system(&PARAVIEW_ANIMATION[0]);

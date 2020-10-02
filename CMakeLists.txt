@@ -19,8 +19,8 @@ SET(CMAKE_INCLUDE_PATH ${CMAKE_INCLUDE_PATH} "/home/bartsch/include/tbb/include/
 SET(CMAKE_INCLUDE_PATH ${CMAKE_INCLUDE_PATH} "/home/bartsch/Spaces/Promotion/codes/lapack-3.8.0/LAPACKE/include/")
 SET(CMAKE_LIBRARY_PATH ${CMAKE_INCLUDE_PATH} "/home/bartsch/Spaces/Promotion/codes/BLAS-3.8.0/")
 
-SET(CMAKE_LIBRARY_PATH ${CMAKE_LIBRARY_PATH} "/home/bartsch/include/googletest/lib/")
-SET(CMAKE_INCLUDE_PATH ${CMAKE_INCLUDE_PATH} "/home/bartsch/include/googletest/googletest/include/")
+#SET(CMAKE_LIBRARY_PATH ${CMAKE_LIBRARY_PATH} "/home/bartsch/include/googletest/lib/")
+#SET(CMAKE_INCLUDE_PATH ${CMAKE_INCLUDE_PATH} "/home/bartsch/include/googletest/googletest/include/")
 
 set(ARMADILLO_INCLUDE_DIR "/home/bartsch/include/codes/armadillo-9.900.2/include/")
 set(ARMADILLO_LIBRARY "/home/bartsch/include/codes/armadillo-9.900.2/libarmadillo.so")
@@ -37,8 +37,8 @@ message("INFO: all libraries are installed as root")
 endif()
 
 add_subdirectory(src)
-add_subdirectory(test)
-add_subdirectory(vldn)
+#add_subdirectory(test)
+#add_subdirectory(vldn)
 
 
 
