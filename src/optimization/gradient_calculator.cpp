@@ -223,8 +223,10 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm(std::vect
     //Caculate integral in gradient
     const unsigned int n = pcell_gp;
 
-//#pragma omp parallel for
+#pragma omp parallel for
     for(unsigned int i = 1; i< n+1; i++) {
+
+        std::cout << "Calculating gradient in Cell " << i << std::endl;
 
         std::vector<double> current_barycenter = barycenters.find(static_cast<int>(i))->second;
 
@@ -252,14 +254,18 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm(std::vect
                             auto iteratorBackward = backwardPDF_time[o].find(coordinate);
                             if(iteratorForward != forwardPDF_time[o].end()) {
                                 forwardPDFdouble[o][l][m][n] = iteratorForward->second;
+                                if( iteratorBackward != backwardPDF_time[o].end() ) {
+                                    backwardPDFdouble[o][l][m][n]= iteratorBackward->second;
+                                }
                             } else {
                                 forwardPDFdouble[o][l][m][n] = 0.0;
-                            }
-                            if( iteratorBackward != backwardPDF_time[o].end() ) {
-                                backwardPDFdouble[o][l][m][n]= iteratorBackward->second;
-                            } else {
                                 backwardPDFdouble[o][l][m][n] = 0.0;
                             }
+//                            if( iteratorBackward != backwardPDF_time[o].end() ) {
+//                                backwardPDFdouble[o][l][m][n]= iteratorBackward->second;
+//                            } else {
+//                                backwardPDFdouble[o][l][m][n] = 0.0;
+//                            }
                         }
                     }
                 }
