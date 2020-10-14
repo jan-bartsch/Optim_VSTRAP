@@ -8,34 +8,34 @@
 <parameter name="sigma_x_gp" value="0.25"/>
 <parameter name="sigma_v_gp" value="563.9913"/>
 <!--  create adjoint particles and trajectory  -->
-<parameter name="adjoint_mu_x" value="+0.40"/>
-<parameter name="desired_position_x" value="+0.40"/>
+<parameter name="adjoint_mu_x" value="-0.40"/>
+<parameter name="desired_position_x" value="-0.40"/>
 <parameter name="adjoint_mu_y" value="0.0"/>
 <parameter name="desired_position_y" value="0.0"/>
 <parameter name="adjoint_mu_z" value="0.0"/>
 <parameter name="desired_position_z" value="0.0"/>
-<parameter name="adjoint_s_x" value="0.25"/>
-<parameter name="adjoint_s_y" value="0.25"/>
-<parameter name="adjoint_s_z" value="0.25"/>
+<parameter name="adjoint_s_x" value="0.0005"/>
+<parameter name="adjoint_s_y" value="0.1"/>
+<parameter name="adjoint_s_z" value="0.1"/>
 <parameter name="adjoint_vx" value="0.0"/>
 <parameter name="adjoint_vy" value="0.0"/>
 <parameter name="adjoint_vz" value="0.0"/>
 <parameter name="adjoint_number_density" value="1e+13"/>
-<parameter name="adjoint_weight" value="5e+9"/>
-<parameter name="adjoint_charge_number" value="+1"/>
+<parameter name="adjoint_weight" value="5e+10"/>
+<parameter name="adjoint_charge_number" value="+1e-19"/>
 <parameter name="adjoint_mass" value="6.63e-26"/>
 <parameter name="adjoint_species" value="40Ar+"/>
-<parameter name="expected_speed" value="9e+2"/>
-<parameter name="most_probable_speed" value="9e+2"/>
+<parameter name="expected_speed" value="6e+2"/>
+<parameter name="most_probable_speed" value="6e+2"/>
 <!--  Trajectory  -->
-<parameter name="expected_speed" value="9e+2"/>
+<parameter name="expected_speed" value="6e+2"/>
 <parameter name="desired_position_x" value="-0.40"/>
 <parameter name="desired_position_y" value="0.0"/>
 <parameter name="desired_position_z" value="0.0"/>
 <!--  forward input  -->
 <parameter name="number_density_forward" value="1e+13"/>
 <parameter name="weight_forward" value="1e+9"/>
-<parameter name="charge_number_forward" value="+1"/>
+<parameter name="charge_number_forward" value="+1e-19"/>
 <parameter name="mass_forward" value="6.63e-26"/>
 <parameter name="species_forward" value="40Ar+"/>
 <parameter name="temperature_x_val" value="300"/>
@@ -66,7 +66,7 @@
 <parameter name="pmax_gp" value="0.5"/>
 <parameter name="db_gp" value="0.25"/>
 <!--  box-side-length 216:0.16666667  -->
-<parameter name="dt_gp" value="5e-4"/>
+<parameter name="dt_gp" value="1e-5"/>
 <!--  discretization size time  -->
 <parameter name="ntimesteps_gp" value="20"/>
 <parameter name="dv_gp" value="2e+3"/>

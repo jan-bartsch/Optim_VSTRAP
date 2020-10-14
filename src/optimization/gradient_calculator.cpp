@@ -379,9 +379,9 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm(std::vect
             return_gradient(j,2) = gradient_Riesz(j-start_control+1,2);
         }
     }
-    std::cout << "Return_Gradient: " << std::endl;
-    std::cout << return_gradient << std::endl;
+    std::cout << "Return_Gradient: NEGATIVE" << std::endl;
+    std::cout << -return_gradient << std::endl;
 
-    return return_gradient;
+    return -return_gradient;
 }
 

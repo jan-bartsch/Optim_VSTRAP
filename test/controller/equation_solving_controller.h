@@ -237,8 +237,14 @@ TEST(solver, LaplaciansSymmetry){
         ASSERT_TRUE(all_checked);
     }
 
-    if(!arma::approx_equal(Laplacian,Laplacian.t(),"both",pow(10,-5),pow(10,-5)) ||
-            !arma::approx_equal(Laplacian_Squared,Laplacian_Squared.t(),"both",pow(10,-5),pow(10,-5))) {
+    if(!arma::approx_equal(Laplacian,Laplacian.t(),"both",pow(10,-5),pow(10,-5))) {
+        std::cout << "Laplace not symmetric!" << std::endl;
+        std::cout << Laplacian << std::endl;
+        all_checked = false;
+    }
+
+    if(!arma::approx_equal(Laplacian_Squared,Laplacian_Squared.t(),"both",pow(10,-5),pow(10,-5))) {
+        std::cout << "Laplacian Squared not symmetric!" << std::endl;
         all_checked = false;
     }
 

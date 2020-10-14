@@ -20,7 +20,10 @@ TEST(io,controlUpdate) {
     out.writeControl_XML(control_out);
 
     std::cout << control_out << std::endl;
-    std::string input_directory_control = "./data/control_field_cells.xml";
+    std::string PATH_TO_SHARED_FILES = provider.getPaths().find("PATH_TO_SHARED_FILES")->second;
+    std::string CONTROL_FIELD_CELLS_NAME =provider.getPaths().find("CONTROL_FIELD_CELLS_NAME")->second;
+    std::string input_directory_control = PATH_TO_SHARED_FILES + CONTROL_FIELD_CELLS_NAME;
+
     const char * filename_control_in = input_directory_control.c_str();
 
     arma::mat control_in = in.readControl(filename_control_in);
