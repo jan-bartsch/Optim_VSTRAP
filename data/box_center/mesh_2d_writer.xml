@@ -1,0 +1,5 @@
+<executable name="mesh_2d_data_writer" mode="CPU">
+     <file name="testWriter" format="vtu" path="." output_interval="1"/>
+     <particle_group name="Argon"/>
+     <values height="1.0" min_1="-0.5" min_2="-0.5" dl="0.25" n_1="4" n_2="4" plane="xy"/>
+ </executable>
