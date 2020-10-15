@@ -1,12 +1,12 @@
 <optimizer_input>
 <globalParameters>
     <parameter name="armijo_descent_fraction" value="1e-30"/>
-    <parameter name="calculation_functional" value="0"/>
+    <parameter name="calculation_functional" value="1"/>
     <parameter name="calculation_wasserstein" value="0"/>
-    <parameter name="C_theta_gp" value="1e+20"/>
-    <parameter name="C_phi_gp" value="1e+20"/>
-    <parameter name="sigma_x_gp" value="0.2"/>
-    <parameter name="sigma_v_gp" value="125.331413"/>
+    <parameter name="C_theta_gp" value="1e+10"/>
+    <parameter name="C_phi_gp" value="1e+10"/>
+    <parameter name="sigma_x_gp" value="0.1"/>
+    <parameter name="sigma_v_gp" value="375.99424119465004"/>
     
     <!--  create adjoint particles and trajectory  -->
     <parameter name="adjoint_mu_x" value="0.0"/>
@@ -15,9 +15,9 @@
     <parameter name="desired_position_y" value="0.0"/>
     <parameter name="adjoint_mu_z" value="0.0"/>
     <parameter name="desired_position_z" value="0.0"/>
-    <parameter name="adjoint_s_x" value="0.15"/>
-    <parameter name="adjoint_s_y" value="0.15"/>
-    <parameter name="adjoint_s_z" value="0.15"/>
+    <parameter name="adjoint_s_x" value="0.1"/>
+    <parameter name="adjoint_s_y" value="0.1"/>
+    <parameter name="adjoint_s_z" value="0.1"/>
     <parameter name="adjoint_vx" value="0.0"/>
     <parameter name="adjoint_vy" value="0.0"/>
     <parameter name="adjoint_vz" value="0.0"/>
@@ -101,9 +101,9 @@
 	<path name="CONTROL_FIELD_CELLS_NAME" valie="control_field_cells_64.xml"/>
 </paths>
 <subroutines>
-	<subroutine group="control_update" name="gradient_descent"/>
+	<!--subroutine group="control_update" name="gradient_descent"/-->
 	<!--  subroutine group="control_update" name="successive_approximation" /-->
-	<!--subroutine group="control_update" name="armijo_linesearch"/-->
+	<subroutine group="control_update" name="armijo_linesearch"/>
 	<!--  subroutine group="direction_update" name="negative_gradient" /  -->
 	<subroutine group="direction_update" name="ncg_FR"/>
 	<subroutine group="desired_trajectory" name="box_center"/>
