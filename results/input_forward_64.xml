@@ -3,7 +3,7 @@
  		 <time_step value="1e-5"/> 
  	 </global_values> 
 	 <abort_criterium> 
- 		 <max_itterations value="20" /> 
+ 		 <max_itterations value="30" /> 
  	 </abort_criterium>
 	 <executables> 
  	 	 <executable name="mesh_initializer" mode="CPU"> 
@@ -45,6 +45,15 @@
  			 </batch> 
 			<file path = "./results/" name="plasma_state" format="csv" output_interval="1"/> 
  		 </executable>
+		 <executable name="mesh_2d_data_writer" mode="CPU">
+			 <file name="mesh2doutput" format="vtu" path="./results/mesh2d/" output_interval="1" />
+			 <particle_group name="forward_particles"/>
+			 <values height="1.0" min_1="-0.5" min_2="-0.5" dl="0.25" n_1="4" n_2="4" plane="xy"/>
+		 </executable>
+		 <executable name="mesh_3d_data_writer" mode="CPU">
+			 <file name="mesh3doutput" format="vtu" path="./results/mesh3d/" output_interval="1" />
+			 <particle_group name="forward_particles"/>
+		 </executable>
 	 </executables>
 	 <schedule> 
  		 <init> 
@@ -54,6 +63,8 @@
 			 <executable name="pusher"/> 
 			 <executable name="pwi"/> 
 			 <executable name="dsmc"/> 
+			 <executable name="mesh_2d_data_writer" />
+			 <executable name="mesh_3d_data_writer" />
 			 <executable name="bgf"/> 
  		</init> 
 		 <exec> 
@@ -61,6 +72,8 @@
 			 <executable name="dsmc"/> 
 			 <executable name="pusher"/> 
 			 <executable name="pwi"/> 
+			 <executable name="mesh_2d_data_writer" />
+			 <executable name="mesh_3d_data_writer" />
 			 <executable name="plasma_state"/> 
  		 </exec> 
 	</schedule>

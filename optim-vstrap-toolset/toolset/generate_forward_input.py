@@ -9,7 +9,7 @@ import numpy.matlib
 import numpy as np
 import math
 
-parser = argparse.ArgumentParser(prog="Generate File for creation of adjoint particles", description='Needs target folder for creation file and Optim_input (xml)')
+parser = argparse.ArgumentParser(prog="Generate File for creation of adjoint particles", description='Needs Optim_input (xml)')
 parser.add_argument('OptimInput', type=str, help='filepath of optim input')
 args = parser.parse_args()
 
@@ -48,11 +48,18 @@ file_forward_input.write("\t\t\t\t <load>"+str(optim_vMesh)+"</load> \n \t\t\t <
 
 optim_pmax_gp = params['pmax_gp']
 
-file_forward_input.write("\t \t <executable name=\"particle_initializer\" mode=\"CPU\"> \n \t\t\t<group name=\"forward_particles\" empty=\"false\">\n")
-file_forward_input.write("\t\t\t\t <geometry x_min=\"-" +str(optim_pmax_gp) +" \" x_max=\"" +str(optim_pmax_gp) +" \" y_min=\"-" +str(optim_pmax_gp) +" \" y_max=\"" +str(optim_pmax_gp) +" \" z_min=\"-" +str(optim_pmax_gp) +" \" z_max=\"" +str(optim_pmax_gp) +" \"/> \n ")
-file_forward_input.write("\t\t\t\t <values number_density=\" "+ str(params["number_density_forward"]) +" \" weight=\""+ str(params["weight_forward"]) +" \" charge_number=\""+ str(params["charge_number_forward"]) +" \" mass=\"" + str(params["mass_forward"]) + "\" species=\"" + str(params["species_forward"]) + "\"/> \n ")
-file_forward_input.write("\t\t\t\t <temperature x_val=\"" + str(params["temperature_x_val"]) + "\" y_val=\"" + str(params["temperature_y_val"]) + "\" z_val=\"" + str(params["temperature_z_val"]) + "\"/> \n ")
-file_forward_input.write("\t\t\t\t <v_drift x_val=\""+ str(params["v_drift_x_val"]) +"\" y_val=\""+ str(params["v_drift_y_val"]) +"\" z_val=\""+ str(params["v_drift_z_val"]) +"\"/> \n \t\t\t </group> \n \t\t </executable> \n ")
+if(str(params['creation_forward_particles_method'])=='create_new'):
+   print("Initialize forward particles using random values")
+   file_forward_input.write("\t \t <executable name=\"particle_initializer\" mode=\"CPU\"> \n \t\t\t<group name=\"forward_particles\" empty=\"false\">\n")
+   file_forward_input.write("\t\t\t\t <geometry x_min=\"-" +str(optim_pmax_gp) +" \" x_max=\"" +str(optim_pmax_gp) +" \" y_min=\"-" +str(optim_pmax_gp) +" \" y_max=\"" +str(optim_pmax_gp) +" \" z_min=\"-" +str(optim_pmax_gp) +" \" z_max=\"" +str(optim_pmax_gp) +" \"/> \n ")
+   file_forward_input.write("\t\t\t\t <values number_density=\" "+ str(params["number_density_forward"]) +" \" weight=\""+ str(params["weight_forward"]) +" \" charge_number=\""+ str(params["charge_number_forward"]) +" \" mass=\"" + str(params["mass_forward"]) + "\" species=\"" + str(params["species_forward"]) + "\"/> \n ")
+   file_forward_input.write("\t\t\t\t <temperature x_val=\"" + str(params["temperature_x_val"]) + "\" y_val=\"" + str(params["temperature_y_val"]) + "\" z_val=\"" + str(params["temperature_z_val"]) + "\"/> \n ")
+   file_forward_input.write("\t\t\t\t <v_drift x_val=\""+ str(params["v_drift_x_val"]) +"\" y_val=\""+ str(params["v_drift_y_val"]) +"\" z_val=\""+ str(params["v_drift_z_val"]) +"\"/> \n \t\t\t </group> \n \t\t </executable> \n ")
+elif(str(params['creation_forward_particles_method'])=='create_existing'):
+    print("Initialize forward particles using existing values")
+    file_forward_input.write("\t\t <executable name=\"particle_initializer\" mode=\"CPU\"> \n \t\t\t<group name=\"forward_particles\">\n")
+    file_forward_input.write("\t\t\t <load>"+str(params['initial_condition_file'])+"</load> \n \t\t\t </group> \n \t\t </executable> \n ")
+    
 
 file_forward_input.write("\t\t <executable name=\"pwi\" mode=\"CPU\"> \n \t\t\t<boundary_type name=\"cuboid\"/>\n")
 file_forward_input.write("\t\t\t <geometry x_min=\"-" +str(optim_pmax_gp) +" \" x_max=\"" +str(optim_pmax_gp) +" \" y_min=\"-" +str(optim_pmax_gp) +" \" y_max=\"" +str(optim_pmax_gp) +" \" z_min=\"-" +str(optim_pmax_gp) +" \" z_max=\"" +str(optim_pmax_gp) +" \"/> \n ")
@@ -69,7 +76,28 @@ file_forward_input.write("\t\t  <executable name=\"dsmc\" mode=\"CPU\"> \n \t\t\
 
 file_forward_input.write("\t\t <executable name=\"plasma_state\" mode=\"CPU\"> \n \t\t\t <batch file_name=\"batch_1\" format=\"csv\" output_interval=\"1\"> \n \t\t\t <particle_group name=\"forward_particles\"/> \n \t\t\t </batch> \n")
 file_forward_input.write("\t\t\t<file path = \"./results/\" name=\"plasma_state\" format=\"csv\" output_interval=\"1\"/> \n \t\t </executable>\n")
+
+
+if(float(params['mesh_2d_writer_included'])==0):
+    print("Include mesh_2d_writer")
+    print(str(pathsList['PATH_TO_SHARED_FILES']))
+    file_forward_input.write("\t\t <executable name=\"mesh_2d_data_writer\" mode=\"CPU\">\n")
+    file_forward_input.write("\t\t\t <file name=\"" + str(params['mesh_2d_name']) + "\" format=\"vtu\" path=\"" + str(pathsList['PATH_TO_SHARED_FILES']) + str(pathsList['mesh_2d_path']) + "\" output_interval=\"" + str(params['mesh_2d_outputinterval']) +"\" />\n")
+    file_forward_input.write("\t\t\t <particle_group name=\"forward_particles\"/>\n")
+    file_forward_input.write("\t\t\t <values height=\"1.0\" min_1=\"-0.5\" min_2=\"-0.5\" dl=\"0.25\" n_1=\"4\" n_2=\"4\" plane=\"xy\"/>\n")
+    file_forward_input.write("\t\t </executable>\n")
+    
+if(float(params['mesh_3d_writer_included'])==0):
+    print("Include mesh_3d_writer")
+    print(str(pathsList['PATH_TO_SHARED_FILES']))
+    file_forward_input.write("\t\t <executable name=\"mesh_3d_data_writer\" mode=\"CPU\">\n")
+    file_forward_input.write("\t\t\t <file name=\"" + str(params['mesh_3d_name']) + "\" format=\"vtu\" path=\"" + str(pathsList['PATH_TO_SHARED_FILES']) + str(pathsList['mesh_3d_path']) + "\" output_interval=\"" + str(params['mesh_3d_outputinterval']) +"\" />\n")
+    file_forward_input.write("\t\t\t <particle_group name=\"forward_particles\"/>\n")
+    file_forward_input.write("\t\t </executable>\n")
+
 file_forward_input.write("\t </executables>\n")
+
+
 
 file_forward_input.write("\t <schedule> \n \t\t <init> \n")
 file_forward_input.write("\t\t\t <executable name=\"mesh_initializer\"/> \n")
@@ -78,12 +106,21 @@ file_forward_input.write("\t\t\t <executable name=\"plasma_state\"/> \n")
 file_forward_input.write("\t\t\t <executable name=\"pusher\"/> \n")
 file_forward_input.write("\t\t\t <executable name=\"pwi\"/> \n")
 file_forward_input.write("\t\t\t <executable name=\"dsmc\"/> \n")
+if(float(params['mesh_2d_writer_included'])==0):
+    file_forward_input.write("\t\t\t <executable name=\"mesh_2d_data_writer\" />\n")
+if(float(params['mesh_3d_writer_included'])==0):
+    file_forward_input.write("\t\t\t <executable name=\"mesh_3d_data_writer\" />\n")
 file_forward_input.write("\t\t\t <executable name=\"bgf\"/> \n \t\t</init> \n")
+
 file_forward_input.write("\t\t <exec> \n")
 file_forward_input.write("\t\t\t <executable name=\"bgf\"/> \n")
 file_forward_input.write("\t\t\t <executable name=\"dsmc\"/> \n")
 file_forward_input.write("\t\t\t <executable name=\"pusher\"/> \n")
 file_forward_input.write("\t\t\t <executable name=\"pwi\"/> \n")
+if(float(params['mesh_2d_writer_included'])==0):
+    file_forward_input.write("\t\t\t <executable name=\"mesh_2d_data_writer\" />\n")
+if(float(params['mesh_3d_writer_included'])==0):
+    file_forward_input.write("\t\t\t <executable name=\"mesh_3d_data_writer\" />\n")
 file_forward_input.write("\t\t\t <executable name=\"plasma_state\"/> \n \t\t </exec> \n")
 file_forward_input.write("\t</schedule>\n")
 file_forward_input.write("</simulation>")

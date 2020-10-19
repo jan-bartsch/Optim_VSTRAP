@@ -105,7 +105,7 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
 
     logger::Info("Reading paramters done");
 
-   arma::mat control(static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second),3,arma::fill::zeros);
+    arma::mat control(static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second),3,arma::fill::zeros);
     if(zero_control == 0) {
         control = start_with_zero_control(input_xml_path);
         generate_input_files(input_xml_path);
@@ -152,7 +152,6 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
     unsigned int optimizationIteration_max_gp = static_cast<unsigned int>(optimizationParameters.find("optimizationIteration_max_gp")->second);
 
     for(unsigned int r = 1; r <= optimizationIteration_max_gp; r++) {
-
 
         logger::Info("Starting VSTRAP (foward)... ");
         forward_return = model_solver.start_solving_forward(START_VSTRAP_FORWARD);
@@ -260,12 +259,10 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
 
         logger::Info("Starting post_processing");
         post_processing_convergence(data_provider_opt);
+        visualize_control(data_provider_opt);
         paraview_plot_forward(data_provider_opt);
 
         logger::Info("Starting " + std::to_string(r+1) + " iteration");
-
-
-
     }
 
     return 0;
@@ -317,7 +314,8 @@ arma::mat optim_controller::start_with_zero_control(const char *input_xml_path)
     logger::Info("Deleting old files");
     std::string COMMAND_RM_RESULTS = "rm -r results";
     system(&COMMAND_RM_RESULTS[0]);
-    std::string COMMAND_MKDIR_RESULTS = "mkdir results";
+    std::string COMMAND_MKDIR_RESULTS = "mkdir results && mkdir -p results/" + paths.find("mesh_2d_path")->second +
+            " && mkdir -p results/"+ paths.find("mesh_3d_path")->second;
     system(&COMMAND_MKDIR_RESULTS[0]);
     logger::Info("Starting with zero control");
     outController.writeControl_XML(control);
@@ -387,6 +385,25 @@ int optim_controller::post_processing_convergence(data_provider provider)
     logger::Info("Postprocessing ... using command " + POSTPROCESSING_STRING);
     try {
         system(&POSTPROCESSING_STRING[0]);
+    } catch (std::exception e) {
+        throw std::runtime_error(e.what());
+    }
+    return 0;
+}
+
+int optim_controller::visualize_control(data_provider provider)
+{
+    std::map<std::string, std::string> paths = provider.getPaths();
+    std::string PATH_TO_SHARED_FILES_ABSOLUTE = paths.find("PATH_TO_SHARED_FILES_ABSOLUTE")->second;
+    std::string DIRECTORY_TOOLSET = paths.find("DIRECTORY_TOOLSET")->second;
+    std::string BGF_CONTROL = paths.find("BGF_CONTROL")->second;
+    std::string DOMAIN_MESH_FILE = paths.find("DOMAIN_MESH_FILE")->second;
+
+    std::string VISUALIZING_STRING = "python3 " + DIRECTORY_TOOLSET + "visualize_control.py " + PATH_TO_SHARED_FILES_ABSOLUTE + BGF_CONTROL + " ../../Optim_VSTRAP/data/global/" + DOMAIN_MESH_FILE + " 0.25 " + PATH_TO_SHARED_FILES_ABSOLUTE;
+
+    logger::Info("Visualize control ... using command " + VISUALIZING_STRING);
+    try {
+        system(&VISUALIZING_STRING[0]);
     } catch (std::exception e) {
         throw std::runtime_error(e.what());
     }

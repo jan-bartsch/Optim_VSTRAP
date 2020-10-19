@@ -1,12 +1,12 @@
 <optimizer_input>
 <globalParameters>
     <parameter name="armijo_descent_fraction" value="1e-30"/>
-    <parameter name="calculation_functional" value="0"/>
+    <parameter name="calculation_functional" value="1"/>
     <parameter name="calculation_wasserstein" value="0"/>
-    <parameter name="C_theta_gp" value="1e+20"/>
-    <parameter name="C_phi_gp" value="1e+20"/>
-    <parameter name="sigma_x_gp" value="0.2"/>
-    <parameter name="sigma_v_gp" value="125.331413"/>
+    <parameter name="C_theta_gp" value="1e+10"/>
+    <parameter name="C_phi_gp" value="1e+10"/>
+    <parameter name="sigma_x_gp" value="0.15"/>
+    <parameter name="sigma_v_gp" value="250.66282746310003"/>
     
     <!--  create adjoint particles and trajectory  -->
     <parameter name="adjoint_mu_x" value="0.0"/>
@@ -26,8 +26,8 @@
     <parameter name="adjoint_charge_number" value="+1"/>
     <parameter name="adjoint_mass" value="6.63e-26"/>
     <parameter name="adjoint_species" value="40Ar+"/>
-    <parameter name="expected_speed" value="2e+2"/>
-    <parameter name="most_probable_speed" value="2e+2"/>
+    <parameter name="expected_speed" value="4e+2"/>
+    <parameter name="most_probable_speed" value="4e+2"/>
     
     <!--  Trajectory  -->
     <parameter name="desired_position_x" value="0.0"/>
@@ -35,17 +35,28 @@
     <parameter name="desired_position_z" value="0.0"/>
     
     <!--  forward input  -->
+    <parameter name="creation_forward_particles_method" value="create_new"/> <!-- create_existing create_new-->
+    <parameter name="initial_condition_file" value="plasma_state_batch_1_forward_particles_CPU_1.csv"/> <!-- only in effect if create_existing-->
     <parameter name="number_density_forward" value="1e+13"/>
-    <parameter name="weight_forward" value="1e+8"/>
+    <parameter name="weight_forward" value="5e+8"/>
     <parameter name="charge_number_forward" value="+1"/>
     <parameter name="mass_forward" value="6.63e-26"/>
     <parameter name="species_forward" value="40Ar+"/>
-    <parameter name="temperature_x_val" value="4"/>
-    <parameter name="temperature_y_val" value="4"/>
-    <parameter name="temperature_z_val" value="4"/>
+    <parameter name="temperature_x_val" value="300"/>
+    <parameter name="temperature_y_val" value="300"/>
+    <parameter name="temperature_z_val" value="300"/>
     <parameter name="v_drift_x_val" value="0"/>
     <parameter name="v_drift_y_val" value="0"/>
     <parameter name="v_drift_z_val" value="0"/>
+    <parameter name="mesh_2d_writer_included" value="0"/> <!--  0=true, 1=false  -->
+    <parameter name="mesh_2d_name" value="mesh2doutput" />
+    
+    <parameter name="mesh_2d_outputinterval" value="1"/>
+    
+    <parameter name="mesh_3d_writer_included" value="0"/> <!--  0=true, 1=false  -->
+    <parameter name="mesh_3d_name" value="mesh3doutput" />
+    
+    <parameter name="mesh_3d_outputinterval" value="1"/>
     
     <!--  optimization techniques  -->
     <parameter name="fixed_gradient_descent_stepsize" value="1e+1"/>
@@ -64,7 +75,7 @@
     <parameter name="pmax_gp" value="0.5"/>
     <parameter name="db_gp" value="0.25"/>     <!--  box-side-length 216:0.16666667  -->
     <parameter name="dt_gp" value="1e-5"/>     <!--  discretization size time  -->
-    <parameter name="ntimesteps_gp" value="40"/>
+    <parameter name="ntimesteps_gp" value="30"/>
     <parameter name="dv_gp" value="5e+2"/>      <!--  discretization size velocity  -->
     <parameter name="vcell_gp" value="10"/>     <!--  10  -->
     <parameter name="vmax_gp" value="2.5e+3"/>     <!--  2e+3  -->     <!--  maximal velocity (support of forward equaiton)  -->
@@ -90,6 +101,7 @@
 	<path name="BARYCENTERS_MESH" value="../../Optim_VSTRAP/data/global/mesh_barycenters.xml"/>
 	<path name="DIRECTORY_TOOLSET" value="../../Optim_VSTRAP/optim-vstrap-toolset/toolset/"/>
 	<path name="DOMAIN_MESH" value="../../../Optim_VSTRAP/data/global/box_coarse.xml"/>
+    <path name="DOMAIN_MESH_FILE" value="box_coarse.xml"/>
 	<path name="RESULTS_DIRECTORY" value="results/"/>
 	<path name="INPUT_FORWARD" value="input_forward_64.xml"/>
 	<path name="INPUT_BACKWARD" value="input_backward_64.xml"/>
@@ -99,6 +111,9 @@
 	<path name="DSMC_interaction" value="../../../Optim_VSTRAP/data/global/interaction_data.xml"/>
 	<path name="MCC_interaction" value="../../../Optim_VSTRAP/data/global/interaction_data_mcc.xml"/>
 	<path name="CONTROL_FIELD_CELLS_NAME" valie="control_field_cells_64.xml"/>
+    
+    <path name="mesh_3d_path" value="mesh3d/"/>
+    <path name="mesh_2d_path" value="mesh2d/"/>
 </paths>
 <subroutines>
 	<!--subroutine group="control_update" name="gradient_descent"/-->

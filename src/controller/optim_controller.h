@@ -46,6 +46,7 @@ public:
     static int generate_input_files(const char * input_xml_path);
 
     static int post_processing_convergence(data_provider provider);
+    static int visualize_control(data_provider provider);
     static int paraview_plot_forward(data_provider provider);
 };
 
