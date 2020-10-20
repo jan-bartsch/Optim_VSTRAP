@@ -113,7 +113,7 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
         control = start_with_given_control(input_xml_path);
         std::cout << control << std::endl;
     } else if (zero_control == 2) {
-        logger::Info("Starting with zero control");
+        logger::Info("Starting with zero control but not deleting old files");
         outController.writeControl_XML(control);
         outController.interpolate_control(data_provider_opt);
     }else {

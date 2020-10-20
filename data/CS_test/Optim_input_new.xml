@@ -22,7 +22,7 @@
     <parameter name="adjoint_vy" value="0.0"/>
     <parameter name="adjoint_vz" value="0.0"/>
     <parameter name="adjoint_number_density" value="1e+13"/>
-    <parameter name="adjoint_weight" value="5e+9"/>
+    <parameter name="adjoint_weight" value="1e+9"/>
     <parameter name="adjoint_charge_number" value="+1"/>
     <parameter name="adjoint_mass" value="6.63e-26"/>
     <parameter name="adjoint_species" value="40Ar+"/>
@@ -38,13 +38,13 @@
     <parameter name="creation_forward_particles_method" value="create_new"/> <!-- create_existing create_new-->
     <parameter name="initial_condition_file" value="plasma_state_batch_1_forward_particles_CPU_1.csv"/> <!-- only in effect if create_existing-->
     <parameter name="number_density_forward" value="1e+13"/>
-    <parameter name="weight_forward" value="5e+8"/>
+    <parameter name="weight_forward" value="1e+8"/>
     <parameter name="charge_number_forward" value="+1"/>
     <parameter name="mass_forward" value="6.63e-26"/>
     <parameter name="species_forward" value="40Ar+"/>
-    <parameter name="temperature_x_val" value="300"/>
-    <parameter name="temperature_y_val" value="300"/>
-    <parameter name="temperature_z_val" value="300"/>
+    <parameter name="temperature_x_val" value="700"/>
+    <parameter name="temperature_y_val" value="700"/>
+    <parameter name="temperature_z_val" value="700"/>
     <parameter name="v_drift_x_val" value="0"/>
     <parameter name="v_drift_y_val" value="0"/>
     <parameter name="v_drift_z_val" value="0"/>
@@ -59,7 +59,7 @@
     <parameter name="mesh_3d_outputinterval" value="1"/>
     
     <!--  optimization techniques  -->
-    <parameter name="fixed_gradient_descent_stepsize" value="1e+1"/>
+    <parameter name="fixed_gradient_descent_stepsize" value="1e+0"/>
     <parameter name="fraction_of_optimal_control" value="1e-5"/>
     <parameter name="optimizationIteration_max_gp" value="100"/>     <!--  number of maximal interations  -->
     <parameter name="numberParticles_gp" value="2000"/>
@@ -76,9 +76,9 @@
     <parameter name="db_gp" value="0.25"/>     <!--  box-side-length 216:0.16666667  -->
     <parameter name="dt_gp" value="1e-5"/>     <!--  discretization size time  -->
     <parameter name="ntimesteps_gp" value="30"/>
-    <parameter name="dv_gp" value="5e+2"/>      <!--  discretization size velocity  -->
+    <parameter name="dv_gp" value="4e+2"/>      <!--  discretization size velocity  -->
     <parameter name="vcell_gp" value="10"/>     <!--  10  -->
-    <parameter name="vmax_gp" value="2.5e+3"/>     <!--  2e+3  -->     <!--  maximal velocity (support of forward equaiton)  -->
+    <parameter name="vmax_gp" value="2e+3"/>     <!--  2e+3  -->     <!--  maximal velocity (support of forward equaiton)  -->
     <parameter name="fraction_fast_particles_gp" value="0.1"/>
     
     <!--  CONTROL  -->
@@ -93,9 +93,9 @@
     <parameter name="fabs_tol_gp" value="1e-9"/>
 </globalParameters>
 <paths>
-	<path name="BUILD_DIRECTORY_VSTRAP" value="/HOME/bartsch/SPARC/build-vstrap-Desktop/src/" />
-	<path name="BUILD_DIRECTORY_OPTIM" value="/HOME/bartsch/SPARC/build-Optim-Desktop/src/" />
-	<path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/HOME/bartsch/SPARC/build-Optim-Desktop/src/results/" />
+	<path name="BUILD_DIRECTORY_VSTRAP" value="/HOME/bartsch/SPARC/build-vstrap-CSMC/src/" />
+	<path name="BUILD_DIRECTORY_OPTIM" value="/HOME/bartsch/SPARC/build-Optim-CSMC/src/" />
+	<path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/HOME/bartsch/SPARC/build-Optim-CSMC/src/results/" />
 	<path name="PATH_TO_SHARED_FILES" value="./results/" />
 	<path name="PVPYTHON_ABSOLUTE_DIR" value="/usr/bin/pvpython" />
 	<path name="BARYCENTERS_MESH" value="../../Optim_VSTRAP/data/global/mesh_barycenters.xml"/>
