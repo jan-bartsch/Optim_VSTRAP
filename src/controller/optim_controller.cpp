@@ -159,7 +159,9 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
             logger::Info("Forward VSTRAP returned non-zero value: " + std::to_string(forward_return));
             throw  std::system_error();
         }
-        logger::Info("Finished VSTRAP... Reading particle files");
+        logger::Info("Finished VSTRAP");
+
+        logger::Info("Reading particle files");
         input_control.read_plasma_state_forward(forwardParticles);
 
 
@@ -174,9 +176,12 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
             logger::Info("Backward VSTRAP returned non-zero value: " + std::to_string(backward_return));
             throw std::system_error();
         }
+        logger::Info("Finished backward VSTRAP");
+
 
         logger::Info("Reading particle files...");
         input_control.read_plasma_state_backward(backwardParticles);
+
 
 
         logger::Info("Assembling pdfs...");

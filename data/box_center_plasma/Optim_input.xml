@@ -80,7 +80,7 @@
 	<parameter name="dv_gp" value="4e+3"/> 	<!--  discretization size velocity  -->
 	<parameter name="vcell_gp" value="10"/>  	<!--  10  -->
 	<parameter name="vmax_gp" value="2e+4"/> <!--  2e+3  --> 	<!--  maximal velocity (support of forward equaiton)  -->
-	<parameter name="fraction_fast_particles_gp" value="0.5"/>
+	<parameter name="fraction_fast_particles_gp" value="0.1"/>
 
 	<!--  CONTROL  -->
 	<parameter name="dimensionOfControl_gp" value="64"/> 	<!--  number of elements of the control  -->
@@ -123,14 +123,14 @@
 </paths>
 
     <subroutines>
-    <subroutine group="control_update" name="gradient_descent"/>
-	<!--   subroutine group="control_update" name="successive_approximation" /   -->
-	<!--subroutine group="control_update" name="armijo_linesearch"/-->
-	<!--subroutine group="direction_update" name="negative_gradient" /-->
-	<subroutine group="direction_update" name="ncg_FR"/>
-	<subroutine group="desired_trajectory" name="box_center"/>
-	<subroutine group="objective_calculation" name="magnitude"/>
-	<!--    subroutine group="objective_calculation" name="components" /   -->
+      <!--subroutine group="control_update" name="gradient_descent"/-->
+      <!--   subroutine group="control_update" name="successive_approximation" /   -->
+      <subroutine group="control_update" name="armijo_linesearch"/>
+      <!--subroutine group="direction_update" name="negative_gradient" /-->
+      <subroutine group="direction_update" name="ncg_FR"/>
+      <subroutine group="desired_trajectory" name="box_center"/>
+	    <subroutine group="objective_calculation" name="magnitude"/>
+	    <!--    subroutine group="objective_calculation" name="components" /   -->
     </subroutines>
 
 </optimizer_input>

@@ -79,8 +79,9 @@
 			<file path = "./results/" name="plasma_state" format="csv" output_interval="1"/>
 		</executable>
 		<executable name="mesh_3d_data_writer" mode="CPU">
-				<file name="testWriter" format="vtu" path="./results/mesh3d/" output_interval="1"/>
-				<particle_group name="Argon"/>
+				<file name="forward" format="vtu" path="./results/mesh3d/" output_interval="1"/>
+				<particle_group name="forward_particles"/>
+				<particle_group name="forward_particles_electrons"/>
 			</executable>
 	</executables>
 	<schedule>
