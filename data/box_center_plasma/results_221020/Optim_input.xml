@@ -8,7 +8,7 @@
 	<parameter name="calculation_wasserstein" value="0"/>
 	<parameter name="C_theta_gp" value="1e+8"/>
 	<parameter name="C_phi_gp" value="1e+8"/>
-	<parameter name="sigma_x_gp" value="0.15"/>
+	<parameter name="sigma_x_gp" value="0.25"/>
 	<parameter name="sigma_v_gp" value="563.9913"/>
 	<!--  create adjoint particles and trajectory  -->
 	<parameter name="adjoint_mu_x" value="0.0"/>
@@ -89,7 +89,7 @@
 	<parameter name="local_control_x_min_gp" value="-0.5"/>
 	<parameter name="local_control_x_max_gp" value="0.5"/>
 	<parameter name="weight_control_gp" value="1e+2"/>
-	<parameter name="velocity_part_objective" value="1e-10"/>
+	<parameter name="velocity_part_objective" value="1e-1"/>
 	<!--   -->
 	<parameter name="fabs_tol_gp" value="1e-5"/>
 </globalParameters>

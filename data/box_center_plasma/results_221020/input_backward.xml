@@ -1,0 +1,88 @@
+<simulation>
+        <global_values>
+            <time_step value="1e-6"/>
+        </global_values>
+        <abort_criterium>
+            <max_itterations value="25"/>
+        </abort_criterium>
+        <executables>
+            <executable name="mesh_initializer" mode="CPU">
+                <mesh name="vol_mesh">
+                    <load>../../../Optim_VSTRAP/data/global/box_coarse.xml</load>
+                </mesh>
+            </executable>
+		<executable name="particle_initializer" mode="CPU">
+			<group name="adjoint_particles" empty="true"/>
+		</executable>
+                 <!-- executable name="particle_initializer" mode="CPU">
+                    <group name="adjoint_particles" empty="false">
+                        <geometry x_min="-0.5" x_max="0.0" y_min="-0.5" y_max="0.5" z_min="-0.5" z_max="0.5"/>
+                        <values number_density="4e+13" weight="1e+9" charge_number="-1" mass="1e-26" species="e-"/>
+			< values number_density="4e+13" weight="1e+9" charge_number="-1" mass="1e-26" species="e-"/>
+                        <temperature x_val="5" y_val="5" z_val="5"/>
+                        <v_drift x_val="0" y_val="0" z_val="0"/>
+                    </group>
+                </executable-->
+		<executable name="adjoint_particle_creator" mode="CPU">
+			<geometry x_min="-0.5" x_max="0.5" y_min="-0.5" y_max="0.5" z_min="-0.5" z_max="0.5"/>
+			<particle_group name="adjoint_particles"/>
+			<load>./creation_adjoint_particles_new.xml</load>
+		</executable>
+                <executable name="plasma_state" mode="CPU">
+                <batch file_name="batch_1" output_interval="1" format="csv">
+                    <particle_group name="adjoint_particles"/>
+                </batch>
+                <file path = "./results/" name="plasma_state" format="csv" output_interval="1"/>
+            </executable>
+             <executable name="pwi" mode="CPU">
+                <boundary_type name="cuboid"/>
+                <geometry x_min="-0.5" x_max="0.5" y_min="-0.5" y_max="0.5" z_min="-0.5" z_max="0.5"/>
+                <particle_group name="adjoint_particles"/>
+            </executable>
+            <executable name="pusher" mode="CPU" type="adjoint">
+                <particle_group name="adjoint_particles"/>
+            </executable>
+            <executable name="bgf" mode="CPU">
+                <volume_mesh name="vol_mesh"/>
+                <!--field name="bem_e_field" type="bem_electric_field" mesh_points="mesh_points" load_freq="1"/-->
+                <load>./interpolated_control_field.xml</load>
+                <particle_batch>
+                    <!--field name="bem_e_field"/-->
+                    <field name="interpolated_control_field"/>
+                    <particle_group name="adjoint_particles"/>
+                </particle_batch>
+            </executable>
+	    <executable name="mcc" mode="CPU">
+			<particle_group name="adjoint_particles"/>
+			<interaction name="ela">
+			</interaction>
+			<background>
+				<species name="40Ar" mass="6.6335209e-26" mole_fraction="1.0">
+					<number_density fixed="true" value="1e20"/>
+					<temperature fixed="true" x="1000" y="1000" z="1000"/>
+				</species>
+			</background>
+			<load>../../../Optim_VSTRAP/data/global/interaction_data_mcc.xml</load>
+		</executable>
+        </executables>
+        <schedule>
+		<init>
+			<executable name="mesh_initializer"/>
+			<executable name="particle_initializer"/>
+			<executable name="adjoint_particle_creator"/>
+			<executable name="plasma_state"/>
+			<executable name="pusher"/>
+			<!-- executable name="mcc"/> -->
+            		<executable name="pwi"/>
+			<executable name="bgf"/>
+		</init>
+		<exec>
+			<!-- executable name="mcc"/> -->
+			<executable name="adjoint_particle_creator"/>
+		  	<executable name="bgf"/>
+			<executable name="pusher"/>
+           		<executable name="pwi"/>
+			<executable name="plasma_state"/>
+		</exec>
+	</schedule>
+    </simulation>
