@@ -382,6 +382,6 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm(std::vect
     std::cout << "Return_Gradient:" << std::endl;
     std::cout << return_gradient << std::endl;
 
-    return return_gradient;
+   return return_gradient;
 }
 
