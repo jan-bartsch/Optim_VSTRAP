@@ -317,7 +317,7 @@ arma::mat optim_controller::start_with_zero_control(const char *input_xml_path)
     arma::mat control(pcell_gp,3,arma::fill::zeros);
 
     logger::Info("Deleting old files");
-    std::string COMMAND_RM_RESULTS = "rm -r results";
+    std::string COMMAND_RM_RESULTS = "rm -r results/";
     system(&COMMAND_RM_RESULTS[0]);
     std::string COMMAND_MKDIR_RESULTS = "mkdir results && mkdir -p results/" + paths.find("mesh_2d_path")->second +
             " && mkdir -p results/"+ paths.find("mesh_3d_path")->second;

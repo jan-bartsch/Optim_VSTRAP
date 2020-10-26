@@ -21,8 +21,8 @@
     <parameter name="adjoint_vx" value="0.0"/>
     <parameter name="adjoint_vy" value="0.0"/>
     <parameter name="adjoint_vz" value="0.0"/>
-    <parameter name="adjoint_number_density" value="1e+6"/>
-    <parameter name="adjoint_weight" value="1e+2"/>
+    <parameter name="adjoint_number_density" value="1e+13"/>
+    <parameter name="adjoint_weight" value="5e+9"/>
     <parameter name="adjoint_charge_number" value="+1"/>
     <parameter name="adjoint_mass" value="6.63e-26"/>
     <parameter name="adjoint_species" value="40Ar+"/>
@@ -38,8 +38,8 @@
     <parameter name="creation_forward_particles_method" value="create_new"/> <!-- create_existing create_new-->
     <parameter name="initial_condition_file" value="plasma_state_batch_1_forward_particles_CPU_1.csv"/> <!-- only in effect if create_existing-->
 
-    <parameter name="number_density_forward" value="1e+6"/>
-    <parameter name="weight_forward" value="1e+2"/>
+    <parameter name="number_density_forward" value="1e+13"/>
+    <parameter name="weight_forward" value="5e+8"/>
     <parameter name="charge_number_forward" value="+1"/>
     <parameter name="mass_forward" value="6.63e-26"/>
     <parameter name="species_forward" value="40Ar+"/>
