@@ -75,7 +75,7 @@
 	<parameter name="pcell_gp" value="64"/>
 	<parameter name="pmax_gp" value="0.5"/>
 	<parameter name="db_gp" value="0.25"/> 	<!--  box-side-length 216:0.16666667  -->
-	<parameter name="dt_gp" value="1e-6"/> 	<!--  discretization size time  -->
+	<parameter name="dt_gp" value="5e-6"/> 	<!--  discretization size time  -->
 	<parameter name="ntimesteps_gp" value="25"/>
 	<parameter name="dv_gp" value="4e+3"/> 	<!--  discretization size velocity  -->
 	<parameter name="vcell_gp" value="10"/>  	<!--  10  -->
@@ -96,12 +96,12 @@
 
 
 <paths>
-	<path name="BUILD_DIRECTORY_VSTRAP" value="/HOME/bartsch/SPARC/build-vstrap-Desktop/src/" />
+	<!--path name="BUILD_DIRECTORY_VSTRAP" value="/HOME/bartsch/SPARC/build-vstrap-Desktop/src/" />
 	<path name="BUILD_DIRECTORY_OPTIM" value="/HOME/bartsch/SPARC/build-Optim-Desktop/src/" />
-	<path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/HOME/bartsch/SPARC/build-Optim-Desktop/src/results/" />
-  <!--path name="BUILD_DIRECTORY_VSTRAP" value="/home/jan/Promotion_linuxPC/build-vstrap/src/" />
+	<path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/HOME/bartsch/SPARC/build-Optim-Desktop/src/results/" /-->
+  <path name="BUILD_DIRECTORY_VSTRAP" value="/home/jan/Promotion_linuxPC/build-vstrap/src/" />
 	<path name="BUILD_DIRECTORY_OPTIM" value="/home/jan/Promotion_linuxPC/build-Optim/src/" />
-	<path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/home/jan/Promotion_linuxPC/build-Optim/src/results/" /-->
+	<path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/home/jan/Promotion_linuxPC/build-Optim/src/results/" />
 	<path name="PATH_TO_SHARED_FILES" value="./results/" />
 	<path name="PVPYTHON_ABSOLUTE_DIR" value="/home/jan/ParaView-5.8.0-MPI-Linux-Python3.7-64bit/bin/pvpython" />
 	<path name="BARYCENTERS_MESH" value="../../Optim_VSTRAP/data/global/mesh_barycenters.xml"/>

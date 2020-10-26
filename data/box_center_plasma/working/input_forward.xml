@@ -1,6 +1,6 @@
 ﻿<simulation>
 	<global_values>
-		<time_step value="5e-6"/>
+		<time_step value="1e-6"/>
 	</global_values>
     <abort_criterium>
 		<max_itterations value="25"/>
@@ -14,19 +14,19 @@
 		<executable name="particle_initializer" mode="CPU">
 			<group name="forward_particles" empty="false">
 				<geometry x_min="-0.5" x_max="0.5" y_min="-0.5" y_max="0.5" z_min="-0.5" z_max="0.5"/>
-				<values number_density="1e+6" weight="4e+2" charge_number="+1" mass="6.63e-26" species="40Ar+"/>
+				<values number_density="1e+6" weight="5e+2" charge_number="+1" mass="6.63e-26" species="40Ar+"/>
 				<temperature x_val="500" y_val="500" z_val="500"/>
 				<v_drift x_val="0" y_val="0" z_val="0"/>
 			</group>
 			<group name="forward_particles_neutrals" empty="false">
 				<geometry x_min="-0.5" x_max="0.5" y_min="-0.5" y_max="0.5" z_min="-0.5" z_max="0.5"/>
-				<values number_density="1e+7" weight="6e+3" charge_number="0" mass="6.63e-26" species="40Ar"/>
+				<values number_density="1e+7" weight="5e+3" charge_number="0" mass="6.63e-26" species="40Ar"/>
 				<temperature x_val="300" y_val="300" z_val="300"/>
 				<v_drift x_val="0" y_val="0" z_val="0"/>
 			</group>
 			<group name="forward_particles_electrons" empty="false">
 					<geometry x_min="-0.5" x_max="0.5" y_min="-0.5" y_max="0.5" z_min="-0.5" z_max="0.5"/>
-					<values number_density="1e+6" weight="4e+2" charge_number="-1" mass="1e-26" species="e-"/>
+					<values number_density="1e+6" weight="5e+2" charge_number="-1" mass="1e-26" species="e-"/>
 					<!-- values number_density="1e+13" weight="1e+10" charge_number="-1" mass="1e-26" species="e-"/ -->
 					<temperature x_val="300" y_val="300" z_val="300"/>
 					<v_drift x_val="0" y_val="0" z_val="0"/>
