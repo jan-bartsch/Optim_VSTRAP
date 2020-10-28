@@ -111,7 +111,7 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
 
 
     if (forward_return == 0) {
-        input_control.read_plasma_state_forward(forwardParticles);
+        input_control.read_plasma_state_forward(forwardParticles,"plasma_state_batch_1_forward_particles_CPU_");
         assembling_flag = pdf_control.assemblingMultiDim_parallel(forwardParticles,0,pdf_time);
         forwardPDF_time = pdf_time;
         if (assembling_flag == 0) {
@@ -135,7 +135,7 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
         forward_return = system(&START_VSTRAP_FORWARD[0]);
 
         if (forward_return == 0) {
-            input_control.read_plasma_state_forward(forwardParticles);
+            input_control.read_plasma_state_forward(forwardParticles,"plasma_state_batch_1_forward_particles_CPU_");
             assembling_flag = pdf_control.assemblingMultiDim_parallel(forwardParticles,0,pdf_time);
             forwardPDF_time = pdf_time;
             if (assembling_flag == 0) {
@@ -238,7 +238,7 @@ int stepsize_controller::gradient_descent(arma::mat &control, arma::mat &stepdir
         forward_return = system(&START_VSTRAP_FORWARD[0]);
 
         if (forward_return == 0) {
-            input_control.read_plasma_state_forward(forwardParticles);
+            input_control.read_plasma_state_forward(forwardParticles,"plasma_state_batch_1_forward_particles_CPU_");
             assembling_flag = pdf_control.assemblingMultiDim_parallel(forwardParticles,0,pdf_time);
         }
         counter = counter + 1.0;

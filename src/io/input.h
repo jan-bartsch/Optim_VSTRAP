@@ -19,9 +19,9 @@ class input : public abstract_controller
 public:
     input();
 
-    unsigned int read_plasma_state_forward(std::vector<std::vector<particle>> &forwardParticles);
+    unsigned int read_plasma_state_forward(std::vector<std::vector<particle>> &forwardParticles, std::string file_name);
 
-    unsigned int read_plasma_state_backward(std::vector<std::vector<particle>> &backwardParticles);
+    unsigned int read_plasma_state_backward(std::vector<std::vector<particle>> &backwardParticles, std::string file_name);
 
     static std::vector<particle> readParticleVector(std::string filename, std::string delimiter);
 

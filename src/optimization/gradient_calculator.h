@@ -19,12 +19,18 @@ public:
     gradient_calculator(const char * filename);
 
     arma::mat calculateGradient_forceControl_space_Hm_not_parallel(std::vector<std::unordered_map<coordinate_phase_space_time, double>> forwardPDF_time,
-                                                      std::vector<std::unordered_map<coordinate_phase_space_time, double>> backwardPDF_time,
-                                                      arma::mat control);
+                                                                   std::vector<std::unordered_map<coordinate_phase_space_time, double>> backwardPDF_time,
+                                                                   arma::mat control);
 
     arma::mat calculateGradient_forceControl_space_Hm(std::vector<std::unordered_map<coordinate_phase_space_time, double>> forwardPDF_time,
                                                       std::vector<std::unordered_map<coordinate_phase_space_time, double>> backwardPDF_time,
                                                       arma::mat control);
+
+    arma::mat calculateGradient_forceControl_space_Hm_plasma(std::vector<std::unordered_map<coordinate_phase_space_time, double>> forwardPDF_time,
+                                                             std::vector<std::unordered_map<coordinate_phase_space_time, double>> backwardPDF_time,
+                                                             std::vector<std::unordered_map<coordinate_phase_space_time, double>> forwardPDF_time_electrons,
+                                                             std::vector<std::unordered_map<coordinate_phase_space_time, double>> backwardPDF_time_electrons,
+                                                             arma::mat control);
 
 
 };

@@ -82,6 +82,8 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
     double fraction_of_optimal_control = static_cast<double>(optimizationParameters.find("fraction_of_optimal_control")->second);
     double fabs_tol_gp = static_cast<double>(optimizationParameters.find("fabs_tol_gp")->second);
 
+    int simulating_plasma = static_cast<int>(optimizationParameters.find("simulating_plasma")->second);
+
     std::string BUILD_DIRECTORY_VSTRAP = paths.find("BUILD_DIRECTORY_VSTRAP")->second;
     std::string BUILD_DIRECTORY_OPTIM = paths.find("BUILD_DIRECTORY_OPTIM")->second;
     std::string DIRECTORY_TOOLSET = paths.find("DIRECTORY_TOOLSET")->second;
@@ -125,14 +127,17 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
      * START OPTIMIZATION ITERATION
      */
     std::vector<std::vector<particle>> forwardParticles(ntimesteps_gp);
-    std::vector<std::vector<particle>> forwardParticles_initialControl(ntimesteps_gp);
-    std::unordered_map<coordinate_phase_space_time,double> forwardPDF_map;
     std::vector<std::unordered_map<coordinate_phase_space_time,double>> forwardPDF;
-    std::vector<std::unordered_map<coordinate_phase_space_time,double>> forwardPDF_initial;
+    std::vector<std::vector<particle>> forwardParticles_electrons(ntimesteps_gp);
+    std::vector<std::unordered_map<coordinate_phase_space_time,double>> forwardPDF_electrons;
+
+    std::vector<std::unordered_map<coordinate_phase_space_time,double>> forwardPDF_initial; //Needed for Wasserstein
+    std::vector<std::vector<particle>> forwardParticles_initialControl(ntimesteps_gp); //Needed for calculation of Wasserstein distance
 
     std::vector<std::vector<particle>> backwardParticles(ntimesteps_gp);
-    std::unordered_map<coordinate_phase_space_time,double> backwardPDF_map;
     std::vector<std::unordered_map<coordinate_phase_space_time,double>> backwardPDF;
+    std::vector<std::vector<particle>> backwardParticles_electrons(ntimesteps_gp);
+    std::vector<std::unordered_map<coordinate_phase_space_time,double>> backwardPDF_electrons;
 
     std::vector<std::unordered_map<coordinate_phase_space_time,double>> pdf_time(ntimesteps_gp);
     int assembling_flag;
@@ -162,7 +167,10 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
         logger::Info("Finished VSTRAP");
 
         logger::Info("Reading particle files");
-        input_control.read_plasma_state_forward(forwardParticles);
+        input_control.read_plasma_state_forward(forwardParticles,"plasma_state_batch_1_forward_particles_CPU_");
+        if (simulating_plasma == 0) {
+            input_control.read_plasma_state_forward(forwardParticles_electrons,"plasma_state_batch_e_forward_particles_electrons_CPU_");
+        }
 
 
         //        forwardPDF = pdf_control.assemblingMultiDim_parallel(forwardParticles,0);
@@ -180,8 +188,10 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
 
 
         logger::Info("Reading particle files...");
-        input_control.read_plasma_state_backward(backwardParticles);
-
+        input_control.read_plasma_state_backward(backwardParticles,"plasma_state_batch_1_adjoint_particles_CPU_");
+        if (simulating_plasma == 0) {
+            input_control.read_plasma_state_backward(backwardParticles_electrons,"plasma_state_batch_e_adjoint_particles_electrons_CPU_");
+        }
 
 
         logger::Info("Assembling pdfs...");
@@ -190,13 +200,24 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
         forwardPDF = pdf_time;
         assembling_flag = pdf_control.assemblingMultiDim_parallel(backwardParticles,1,pdf_time);
         backwardPDF = pdf_time;
+
+        if (simulating_plasma == 0) {
+            assembling_flag = pdf_control.assemblingMultiDim_parallel(forwardParticles_electrons,0,pdf_time);
+            forwardPDF_electrons = pdf_time;
+            assembling_flag = pdf_control.assemblingMultiDim_parallel(backwardParticles_electrons,1,pdf_time);
+            backwardPDF_electrons = pdf_time;
+        }
         end = std::chrono::system_clock::now();
         logger::Info("Assembling of pdfs took: " + std::to_string(std::chrono::duration_cast<std::chrono::seconds>
                                                                   (end-start).count()) + " second(s)");
 
 
         logger::Info("Building gradient...");
-        gradient = gradient_calculator_opt.calculateGradient_forceControl_space_Hm(forwardPDF,backwardPDF,control);
+        if (simulating_plasma == 0) {
+            gradient = gradient_calculator_opt.calculateGradient_forceControl_space_Hm_plasma(forwardPDF,backwardPDF,forwardPDF_electrons,backwardPDF_electrons,control);
+        } else {
+            gradient = gradient_calculator_opt.calculateGradient_forceControl_space_Hm(forwardPDF,backwardPDF,control);
+        }
         outDiag.writeDoubleToFile(arma::norm(gradient,"fro"),"normGradientTrack");
         outDiag.writeGradientToFile(gradient,"gradient_"+std::to_string(r));
         norm_Gradient = arma::norm(gradient,"fro");

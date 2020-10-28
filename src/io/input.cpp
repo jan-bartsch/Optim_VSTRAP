@@ -4,7 +4,7 @@
 
 input::input() { }
 
-unsigned int input::read_plasma_state_forward(std::vector<std::vector<particle> > &forwardParticles)
+unsigned int input::read_plasma_state_forward(std::vector<std::vector<particle> > &forwardParticles, std::string file_name)
 {
     std::map<std::string, std::string> paths = this->getData_provider_optim().getPaths();
     std::string BUILD_DIRECTORY_OPTIM = paths.find("BUILD_DIRECTORY_OPTIM")->second;
@@ -16,7 +16,7 @@ unsigned int input::read_plasma_state_forward(std::vector<std::vector<particle> 
 #pragma omp parallel for
     for(unsigned int o = 1; o<=ntimesteps_gp; o++) {
         try {
-            forwardParticles[o-1] = input::readParticleVector(BUILD_DIRECTORY_OPTIM+RESULTS_DIRECTORY+"plasma_state_batch_1_forward_particles_CPU_"+std::to_string(o)+".csv",",");
+            forwardParticles[o-1] = input::readParticleVector(BUILD_DIRECTORY_OPTIM+RESULTS_DIRECTORY+file_name+std::to_string(o)+".csv",",");
         } catch (std::exception e) {
             logger::Warning("Iteration: " + std::to_string(o));
             logger::Warning("BUILD_DIRECTORY_OPTIM: " + BUILD_DIRECTORY_OPTIM);
@@ -29,7 +29,7 @@ unsigned int input::read_plasma_state_forward(std::vector<std::vector<particle> 
     return 0;
 }
 
-unsigned int input::read_plasma_state_backward(std::vector<std::vector<particle> > &backwardParticles)
+unsigned int input::read_plasma_state_backward(std::vector<std::vector<particle> > &backwardParticles, std::string file_name)
 {
     std::map<std::string, std::string> paths = this->getData_provider_optim().getPaths();
     std::string BUILD_DIRECTORY_OPTIM = paths.find("BUILD_DIRECTORY_OPTIM")->second;
@@ -41,7 +41,7 @@ unsigned int input::read_plasma_state_backward(std::vector<std::vector<particle>
 #pragma omp parallel for
     for(unsigned int o = 1; o<=ntimesteps_gp; o++) {
         try {
-            backwardParticles[ntimesteps_gp - o] = input::readParticleVector(BUILD_DIRECTORY_OPTIM+RESULTS_DIRECTORY+"plasma_state_batch_1_adjoint_particles_CPU_"+std::to_string(o)+".csv",",");
+            backwardParticles[ntimesteps_gp - o] = input::readParticleVector(BUILD_DIRECTORY_OPTIM+RESULTS_DIRECTORY+file_name+std::to_string(o)+".csv",",");
         } catch (std::exception e) {
             logger::Warning("BUILD_DIRECTORY_OPTIM: " + BUILD_DIRECTORY_OPTIM);
             logger::Warning("RESULTS_DIRECTORY: " + RESULTS_DIRECTORY);
