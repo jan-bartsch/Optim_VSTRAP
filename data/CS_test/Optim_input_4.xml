@@ -77,8 +77,8 @@
     <parameter name="db_gp" value="0.25"/>     <!--  box-side-length 216:0.16666667  -->
     <parameter name="dt_gp" value="1e-5"/>     <!--  discretization size time  -->
     <parameter name="ntimesteps_gp" value="30"/>
-    <parameter name="dv_gp" value="4e+2"/>      <!--  discretization size velocity  -->
-    <parameter name="vcell_gp" value="10"/>     <!--  10  -->
+    <parameter name="dv_gp" value="8e+2"/>      <!--  discretization size velocity  -->
+    <parameter name="vcell_gp" value="5"/>     <!--  10  -->
     <parameter name="vmax_gp" value="2e+3"/>     <!--  2e+3  -->     <!--  maximal velocity (support of forward equaiton)  -->
     <parameter name="fraction_fast_particles_gp" value="0.1"/>
     
@@ -95,8 +95,8 @@
 </globalParameters>
 <paths>
 	<path name="BUILD_DIRECTORY_VSTRAP" value="/HOME/bartsch/SPARC/build-vstrap-CSMC/src/" />
-	<path name="BUILD_DIRECTORY_OPTIM" value="/HOME/bartsch/SPARC/build-Optim-CSMC/src/" />
-	<path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/HOME/bartsch/SPARC/build-Optim-CSMC/src/results/" />
+	<path name="BUILD_DIRECTORY_OPTIM" value="/HOME/bartsch/SPARC/build-Optim-CSMC4/src/" />
+	<path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/HOME/bartsch/SPARC/build-Optim-CSMC4/src/results/" />
 	<path name="PATH_TO_SHARED_FILES" value="./results/" />
 	<path name="PVPYTHON_ABSOLUTE_DIR" value="/usr/bin/pvpython" />
 	<path name="BARYCENTERS_MESH" value="../../Optim_VSTRAP/data/global/mesh_barycenters.xml"/>

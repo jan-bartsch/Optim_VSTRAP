@@ -1,9 +1,9 @@
 <simulation>
         <global_values>
-            <time_step value="1e-5"/>
+            <time_step value="1e-8"/>
         </global_values>
         <abort_criterium>
-            <max_itterations value="20"/>
+            <max_itterations value="100"/>
         </abort_criterium>
         <executables>
             <executable name="mesh_initializer" mode="CPU">

@@ -89,14 +89,14 @@
     <parameter name="local_control_x_min_gp" value="-0.5"/>
     <parameter name="local_control_x_max_gp" value="0.5"/>
     <parameter name="weight_control_gp" value="1e+2"/>
-    <parameter name="velocity_part_objective" value="1e-9"/>
+    <parameter name="velocity_part_objective" value="1e-2"/>
     <!--   -->
     <parameter name="fabs_tol_gp" value="1e-9"/>
 </globalParameters>
 <paths>
 	<path name="BUILD_DIRECTORY_VSTRAP" value="/HOME/bartsch/SPARC/build-vstrap-CSMC/src/" />
-	<path name="BUILD_DIRECTORY_OPTIM" value="/HOME/bartsch/SPARC/build-Optim-CSMC/src/" />
-	<path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/HOME/bartsch/SPARC/build-Optim-CSMC/src/results/" />
+	<path name="BUILD_DIRECTORY_OPTIM" value="/HOME/bartsch/SPARC/build-Optim-CSMC6/src/" />
+	<path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/HOME/bartsch/SPARC/build-Optim-CSMC6/src/results/" />
 	<path name="PATH_TO_SHARED_FILES" value="./results/" />
 	<path name="PVPYTHON_ABSOLUTE_DIR" value="/usr/bin/pvpython" />
 	<path name="BARYCENTERS_MESH" value="../../Optim_VSTRAP/data/global/mesh_barycenters.xml"/>
