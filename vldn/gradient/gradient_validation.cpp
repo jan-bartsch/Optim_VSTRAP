@@ -86,7 +86,7 @@ int gradient_validation::landau_validation(int argc, char **argv) {
         throw  std::system_error();
     }
     logger::Info("Finished VSTRAP... Reading particle files");
-    in.read_plasma_state_forward(forwardParticles);
+    in.read_plasma_state_forward(forwardParticles,"plasma_state_batch_1_forward_particles_CPU_");
 
     logger::Info("Finished reading files...");
     logger::Info("Starting VSTRAP (backward)...");
@@ -98,7 +98,7 @@ int gradient_validation::landau_validation(int argc, char **argv) {
     }
 
     logger::Info("Reading particle files...");
-    in.read_plasma_state_backward(backwardParticles);
+    in.read_plasma_state_backward(backwardParticles,"plasma_state_batch_1_adjoint_particles_CPU_");
 
 
     logger::Info("Assembling pdfs...");
@@ -144,7 +144,7 @@ int gradient_validation::landau_validation(int argc, char **argv) {
             throw  std::system_error();
         }
         logger::Info("Finished VSTRAP... Reading particle files");
-        in.read_plasma_state_forward(forwardParticles);
+        in.read_plasma_state_forward(forwardParticles,"plasma_state_batch_1_forward_particles_CPU_");
 
         assembling_flag = pdf_control.assemblingMultiDim_parallel(forwardParticles,0,pdf_time);
         forwardPDF = pdf_time;

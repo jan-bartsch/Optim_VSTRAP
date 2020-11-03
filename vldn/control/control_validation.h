@@ -11,6 +11,7 @@
 #include "../../src/tools/inner_products.h"
 
 #include "../../src/io/input.h"
+#include "../../src/io/output_diagnostics.h"
 
 #include "../../src/objects/data_provider.h"
 

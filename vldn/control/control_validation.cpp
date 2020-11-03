@@ -16,6 +16,9 @@ int control_validation::start_validation(int argc, char **argv)
     input in = input();
     in.setData_provider_optim(optimization_provider);
 
+    output_diagnostics out = output_diagnostics();
+    out.setData_provider_optim(optimization_provider);
+
     int iterations = static_cast<int>(validation_params.find("number_controls")->second);
     std::cout << "Running " << iterations << " validation iterations" << std::endl;
 
@@ -55,22 +58,51 @@ int control_validation::start_validation(int argc, char **argv)
         //                +arma::norm(control_vector[i+1].col(1)-control_vector[i].col(1))
         //                +arma::norm(control_vector[i+1].col(2)-control_vector[i].col(2));
         //control_difference[i] = arma::norm(control_vector[i+1]-control_vector[i])*(static_cast<double>(optimizationParameters.find("dp_gp")->second));
-        control_difference[i] = std::sqrt(pro.H2_inner_product(control_vector[i+1]-control_vector[i],control_vector[i+1]-control_vector[i]));
+        control_difference[i] = std::sqrt(pro.H1_inner_product(control_vector[i+1]-control_vector[i],
+                control_vector[i+1]-control_vector[i]));
+        std::cout << control_difference[i] << std::endl;
+        }
+
+    out.writeDoubleVectorToFile(control_difference,"H1-difference");
+
+    for (int i = 0; i < iterations-1; i++) {
+//        control_difference[i] = arma::norm(control_vector[i+1].col(0)-control_vector[i].col(0))
+//                +arma::norm(control_vector[i+1].col(1)-control_vector[i].col(1))
+//                +arma::norm(control_vector[i+1].col(2)-control_vector[i].col(2));
+//        std::cout << control_difference[i] << std::endl;
+//        control_difference[i] = arma::norm(control_vector[i+1]-control_vector[i],"fro"); //*(static_cast<double>(optimizationParameters.find("dp_gp")->second));
+        control_difference[i] = std::sqrt(pro.L2_inner_product(control_vector[i+1]-control_vector[i],control_vector[i+1]-control_vector[i]));
+        //control_difference[i] = std::sqrt(pro.H2_inner_product(control_vector[i+1]-control_vector[i],control_vector[i+1]-control_vector[i]));
         std::cout << control_difference[i] << std::endl;
     }
 
+    out.writeDoubleVectorToFile(control_difference,"L2-difference");
 
-//    std::cout << solver.D1_second_order() << std::endl;
-//    arma::mat test(32,3,arma::fill::ones);
+    for (int i = 0; i < iterations-1; i++) {
+//        control_difference[i] = arma::norm(control_vector[i+1].col(0)-control_vector[i].col(0))
+//                +arma::norm(control_vector[i+1].col(1)-control_vector[i].col(1))
+//                +arma::norm(control_vector[i+1].col(2)-control_vector[i].col(2));
+//        std::cout << control_difference[i] << std::endl;
+//        control_difference[i] = arma::norm(control_vector[i+1]-control_vector[i],"fro"); //*(static_cast<double>(optimizationParameters.find("dp_gp")->second));
+        control_difference[i] = std::sqrt(pro.H2_inner_product(control_vector[i+1]-control_vector[i],control_vector[i+1]-control_vector[i]));
+        //control_difference[i] = std::sqrt(pro.H2_inner_product(control_vector[i+1]-control_vector[i],control_vector[i+1]-control_vector[i]));
+        std::cout << control_difference[i] << std::endl;
+    }
 
-//    std::cout << -solver.Laplacian_3D()/(static_cast<double>(optimizationParameters.find("db_gp")->second)*static_cast<double>(optimizationParameters.find("db_gp")->second))*test << std::endl;
+    out.writeDoubleVectorToFile(control_difference,"H2-difference");
+
+
+    //    std::cout << solver.D1_second_order() << std::endl;
+    //    arma::mat test(32,3,arma::fill::ones);
+
+    //    std::cout << -solver.Laplacian_3D()/(static_cast<double>(optimizationParameters.find("db_gp")->second)*static_cast<double>(optimizationParameters.find("db_gp")->second))*test << std::endl;
 
 
 
-//    std::cout << "L2 norm " << std::sqrt(pro.L2_inner_product(control_vector[0],control_vector[0])) << std::endl;
-//    std::cout << "Arma norm " << arma::norm((control_vector[0]),"fro")*std::sqrt(static_cast<double>(optimizationParameters.find("dp_gp")->second)) << std::endl;
-//    std::cout << std::sqrt(pro.H1_inner_product(control_vector[0],control_vector[0])) << std::endl;
-//    std::cout << std::sqrt(pro.H2_inner_product(control_vector[0],control_vector[0])) << std::endl;
+    //    std::cout << "L2 norm " << std::sqrt(pro.L2_inner_product(control_vector[0],control_vector[0])) << std::endl;
+    //    std::cout << "Arma norm " << arma::norm((control_vector[0]),"fro")*std::sqrt(static_cast<double>(optimizationParameters.find("dp_gp")->second)) << std::endl;
+    //    std::cout << std::sqrt(pro.H1_inner_product(control_vector[0],control_vector[0])) << std::endl;
+    //    std::cout << std::sqrt(pro.H2_inner_product(control_vector[0],control_vector[0])) << std::endl;
 
     return 0;
 }

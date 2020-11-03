@@ -56,7 +56,7 @@
 
     <parameter name="mesh_2d_outputinterval" value="1"/>
 
-    <parameter name="mesh_3d_writer_included" value="0"/> <!--  0=true, 1=false  -->
+    <parameter name="mesh_3d_writer_included" value="1"/> <!--  0=true, 1=false  -->
     <parameter name="mesh_3d_name" value="mesh3doutput" />
 
     <parameter name="mesh_3d_outputinterval" value="1"/>
@@ -98,9 +98,9 @@
 
 
 <paths>
-	<path name="BUILD_DIRECTORY_VSTRAP" value="/HOME/bartsch/SPARC/build-vstrap-CSSC/src/" />
-	<path name="BUILD_DIRECTORY_OPTIM" value="/HOME/bartsch/SPARC/build-Optim-CSSC/src/" />
-	<path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/HOME/bartsch/SPARC/build-Optim-CSSC/src/results/" />
+	<path name="BUILD_DIRECTORY_VSTRAP" value="/HOME/bartsch/SPARC/build-vstrap-Desktop/src/" />
+	<path name="BUILD_DIRECTORY_OPTIM" value="/HOME/bartsch/SPARC/build-Optim-Desktop/src/" />
+	<path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/HOME/bartsch/SPARC/build-Optim-Desktop/src/results/" />
   <!--path name="BUILD_DIRECTORY_VSTRAP" value="/home/jan/Promotion_linuxPC/build-vstrap/src/" />
 	<path name="BUILD_DIRECTORY_OPTIM" value="/home/jan/Promotion_linuxPC/build-Optim/src/" />
 	<path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/home/jan/Promotion_linuxPC/build-Optim/src/results/" /-->

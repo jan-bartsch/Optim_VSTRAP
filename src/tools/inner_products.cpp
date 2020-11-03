@@ -61,7 +61,7 @@ double inner_products::H1_inner_product(arma::mat m1, arma::mat m2)
 
 
     /*
-     * second derivative
+     * first derivative
      */
     arma::mat D1mat1 = D1*m1.rows(start_control-1,end_control-1)/(2.0*db_gp);
     arma::mat D1mat2 = D1*m2.rows(start_control-1,end_control-1)/(2.0*db_gp);
