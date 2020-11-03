@@ -1,9 +1,9 @@
 ﻿<simulation>
 	<global_values>
-		<time_step value="1e-8"/>
+		<time_step value="1e-10"/>
 	</global_values>
     <abort_criterium>
-		<max_itterations value="100"/>
+		<max_itterations value="30000"/>
 	</abort_criterium>
 	<executables>
 		<executable name="mesh_initializer" mode="CPU">
@@ -14,7 +14,7 @@
 		<executable name="particle_initializer" mode="CPU">
 			<group name="forward_particles" empty="false">
 				<geometry x_min="-0.5" x_max="0.5" y_min="-0.5" y_max="0.5" z_min="-0.5" z_max="0.5"/>
-				<values number_density="1e+6" weight="9e+1" charge_number="+1" mass="6.63e-26" species="40Ar+"/>
+				<values number_density="1e+6" weight="1e+4" charge_number="+1" mass="6.63e-26" species="40Ar+"/>
 				<temperature x_val="500" y_val="500" z_val="500"/>
 				<v_drift x_val="0" y_val="0" z_val="0"/>
 			</group>
@@ -26,7 +26,7 @@
 			</group>
 			<group name="forward_particles_electrons" empty="false">
 					<geometry x_min="-0.5" x_max="0.5" y_min="-0.5" y_max="0.5" z_min="-0.5" z_max="0.5"/>
-					<values number_density="1e+6" weight="9e+1" charge_number="-1" mass="1e-26" species="e-"/>
+					<values number_density="1e+6" weight="1e+4" charge_number="-1" mass="1e-26" species="e-"/>
 					<!-- values number_density="1e+13" weight="1e+10" charge_number="-1" mass="1e-26" species="e-"/ -->
 					<temperature x_val="500" y_val="500" z_val="500"/>
 					<v_drift x_val="0" y_val="0" z_val="0"/>
@@ -67,13 +67,13 @@
                 <load>../../../Optim_VSTRAP/data/global/interaction_data.xml</load>
          </executable>
 		<executable name="plasma_state" mode="CPU">
-			<batch file_name="batch_1" format="csv" output_interval="10">
+			<batch file_name="batch_1" format="csv" output_interval="100">
 				<particle_group name="forward_particles"/>
 			</batch>
-			<batch file_name="batch_e" format="csv" output_interval="10">
+			<batch file_name="batch_e" format="csv" output_interval="100">
 				<particle_group name="forward_particles_electrons"/>
 			</batch>
-			<batch file_name="batch_n" format="csv" output_interval="10">
+			<batch file_name="batch_n" format="csv" output_interval="100">
 				<particle_group name="forward_particles_neutrals"/>
 			</batch>
 			<file path = "./results/" name="plasma_state" format="csv" output_interval="1"/>
@@ -94,7 +94,6 @@
 			<executable name="dsmc"/>
 			<executable name="bgf"/>
 			<executable name="fmm"/>
-			<executable name="mesh_3d_data_writer"/>
 		</init>
 		<exec>
 			<executable name="plasma_state"/>
@@ -103,7 +102,6 @@
 			<executable name="fmm"/>
 			<executable name="pusher"/>
       		<executable name="pwi"/>
-            <executable name="mesh_3d_data_writer"/>
 		</exec>
 	</schedule>
 </simulation>

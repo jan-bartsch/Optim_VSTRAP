@@ -1,0 +1,155 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      5334,        147]
+NotebookOptionsPosition[      4235,        122]
+NotebookOutlinePosition[      4573,        137]
+CellTagsIndexPosition[      4530,        134]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"\[Epsilon]0", " ", "=", " ", 
+   RowBox[{"8.854187817", "*", 
+    RowBox[{"10", "^", 
+     RowBox[{"(", 
+      RowBox[{"-", "12"}], ")"}]}]}]}], ";", " ", 
+  RowBox[{"(*", 
+   RowBox[{"Elektrische", " ", "Feldkonstante"}], "*)"}]}]], "Input",
+ CellChangeTimes->{{3.813398135909511*^9, 3.813398147618867*^9}, {
+  3.8133981984119*^9, 3.8133982177057877`*^9}},
+ CellLabel->"In[1]:=",ExpressionUUID->"5e6b1e75-6ec8-4899-b99c-38e00dd779c9"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"kB", " ", "=", " ", 
+   RowBox[{"1.380649", "*", 
+    RowBox[{"10", "^", " ", 
+     RowBox[{"(", 
+      RowBox[{"-", "23"}], ")"}]}]}]}], ";", " ", 
+  RowBox[{"(*", 
+   RowBox[{"Boltzmann", " ", "konstante"}], "*)"}]}]], "Input",
+ CellChangeTimes->{{3.813398231836076*^9, 3.813398259320945*^9}},
+ CellLabel->"In[2]:=",ExpressionUUID->"4063c7ac-7b88-4eb4-9118-bbf826c36870"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"e", " ", "=", " ", 
+   RowBox[{"1.502", "*", 
+    RowBox[{"10", "^", 
+     RowBox[{"(", 
+      RowBox[{"-", "19"}], ")"}]}]}]}], ";", " ", 
+  RowBox[{"(*", "elementarladung", "*)"}]}]], "Input",
+ CellChangeTimes->{{3.8133982863767843`*^9, 3.8133983044803247`*^9}},
+ CellLabel->"In[3]:=",ExpressionUUID->"3e8d3348-a46c-472e-a64d-b9d302ae85e2"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"DebyeLength", "[", 
+   RowBox[{"Temperatur_", ",", " ", "numberDensity_"}], "]"}], " ", ":=", " ", 
+  RowBox[{"Sqrt", "[", 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{"\[Epsilon]0", "*", "kB", "*", "Temperatur"}], ")"}], "/", 
+    RowBox[{"(", 
+     RowBox[{"numberDensity", "*", 
+      RowBox[{"e", "^", "2"}]}], ")"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.813398121725566*^9, 3.813398126651297*^9}, {
+  3.813398275040512*^9, 3.813398284088724*^9}, {3.813398321992043*^9, 
+  3.813398381375996*^9}},
+ CellLabel->"In[5]:=",ExpressionUUID->"b9f7ca79-ab8a-48d5-ad28-e526dcfcc595"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"DebyeLength", "[", 
+  RowBox[{"700", ",", 
+   RowBox[{"10", "^", "20"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.813398385438858*^9, 3.8133983879505167`*^9}, {
+  3.8133985398692293`*^9, 3.813398546099927*^9}, {3.813398640204596*^9, 
+  3.81339864024979*^9}},
+ CellLabel->"In[7]:=",ExpressionUUID->"5ab5e6a4-ba69-4134-8d5e-5642327d20e0"],
+
+Cell[BoxData["1.9475790477874364`*^-7"], "Output",
+ CellChangeTimes->{3.8133985466400347`*^9, 3.813398640933292*^9},
+ CellLabel->"Out[7]=",ExpressionUUID->"cb0333ec-a71e-4f92-8d6c-226ac4798cc0"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Plasmafrequenz", "[", 
+   RowBox[{"numberDensity_", ",", "mass_"}], "]"}], ":=", " ", 
+  RowBox[{"Sqrt", "[", 
+   RowBox[{"numberDensity", "*", 
+    RowBox[{
+     RowBox[{"e", "^", "2"}], "/", 
+     RowBox[{"(", 
+      RowBox[{"\[Epsilon]0", "*", "mass"}], ")"}]}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.813398657689838*^9, 3.813398689560758*^9}},
+ CellLabel->"In[8]:=",ExpressionUUID->"5de1ede5-47af-454e-8762-44f804068be3"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"1", "/", 
+  RowBox[{"Plasmafrequenz", "[", 
+   RowBox[{
+    RowBox[{"10", "^", "20"}], ",", 
+    RowBox[{"6.6", "*", 
+     RowBox[{"10", "^", " ", 
+      RowBox[{"(", 
+       RowBox[{"-", "26"}], ")"}]}]}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.813398691121009*^9, 3.813398728537142*^9}, {
+  3.813400225092503*^9, 3.813400233847652*^9}},
+ CellLabel->"In[14]:=",ExpressionUUID->"cd100b6d-2684-4c46-bf1b-c1d8ddf5a635"],
+
+Cell[BoxData["5.089515017317619`*^-10"], "Output",
+ CellChangeTimes->{{3.813398707812872*^9, 3.813398729668316*^9}, {
+  3.813400225818972*^9, 3.813400234326531*^9}},
+ CellLabel->"Out[14]=",ExpressionUUID->"a8a5f43f-44d9-4311-a3a7-0e93cdd1c522"]
+}, Open  ]]
+},
+WindowSize->{1280, 995},
+WindowMargins->{{Automatic, -1280}, {Automatic, 29}},
+FrontEndVersion->"12.0 for Linux x86 (64-bit) (April 8, 2019)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 470, 11, 31, "Input",ExpressionUUID->"5e6b1e75-6ec8-4899-b99c-38e00dd779c9"],
+Cell[1031, 33, 408, 10, 31, "Input",ExpressionUUID->"4063c7ac-7b88-4eb4-9118-bbf826c36870"],
+Cell[1442, 45, 377, 9, 31, "Input",ExpressionUUID->"3e8d3348-a46c-472e-a64d-b9d302ae85e2"],
+Cell[1822, 56, 618, 14, 50, "Input",ExpressionUUID->"b9f7ca79-ab8a-48d5-ad28-e526dcfcc595"],
+Cell[CellGroupData[{
+Cell[2465, 74, 360, 7, 31, "Input",ExpressionUUID->"5ab5e6a4-ba69-4134-8d5e-5642327d20e0"],
+Cell[2828, 83, 194, 2, 37, "Output",ExpressionUUID->"cb0333ec-a71e-4f92-8d6c-226ac4798cc0"]
+}, Open  ]],
+Cell[3037, 88, 465, 11, 50, "Input",ExpressionUUID->"5de1ede5-47af-454e-8762-44f804068be3"],
+Cell[CellGroupData[{
+Cell[3527, 103, 445, 11, 31, "Input",ExpressionUUID->"cd100b6d-2684-4c46-bf1b-c1d8ddf5a635"],
+Cell[3975, 116, 244, 3, 37, "Output",ExpressionUUID->"a8a5f43f-44d9-4311-a3a7-0e93cdd1c522"]
+}, Open  ]]
+}
+]
+*)
+
