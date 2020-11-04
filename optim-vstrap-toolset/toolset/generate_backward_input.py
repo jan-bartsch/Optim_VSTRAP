@@ -55,8 +55,8 @@ file_backward_input.write("\t\t\t <geometry x_min=\"-" +str(optim_pmax_gp) +" \"
 file_backward_input.write("\t\t\t <particle_group name=\"adjoint_particles\" type=\"ions\" number_density=\""+str(params['adjoint_number_density'])
                           +"\" weight=\""+str(params['adjoint_weight'])+"\" charge_number=\""+str(params['adjoint_charge_number'])
                           +"\" mass=\""+ str(params['adjoint_mass']) +"\" species=\""+str(params['adjoint_species'])+"\" /> \n")
-file_backward_input.write("\t\t\t <particle_group name=\"adjoint_particles_electrons\" type=\"electrons\" number_density=\""+str(params['adjoint_number_density'])
-                          +"\" weight=\""+str(params['adjoint_weight'])+"\" charge_number=\"-1\" mass=\"9.109e-31\" species=\"e-\" /> \n")
+#file_backward_input.write("\t\t\t <particle_group name=\"adjoint_particles_electrons\" type=\"electrons\" number_density=\""+str(params['adjoint_number_density'])
+#                          +"\" weight=\""+str(params['adjoint_weight'])+"\" charge_number=\"-1\" mass=\"9.109e-31\" species=\"e-\" /> \n")
 file_backward_input.write("\t\t\t <load>"+str(pathsList["CREATION_ADJOINT_PARTCLES"])+"</load> \n \t\t </executable> \n")
 
 file_backward_input.write("\t\t <executable name=\"pwi\" mode=\"CPU\"> \n \t\t\t<boundary_type name=\"cuboid\"/>\n")
