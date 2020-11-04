@@ -18,7 +18,7 @@
 		<executable name="adjoint_particle_creator" mode="CPU">
 			<geometry x_min="-0.5" x_max="0.5" y_min="-0.5" y_max="0.5" z_min="-0.5" z_max="0.5"/>
 			<particle_group name="adjoint_particles" type="ions" number_density="1e+6 " weight="1e+4" charge_number="+1" mass="6.63e-26" species="40Ar+" />
-      <particle_group name="adjoint_particles_electrons" type="electrons"  number_density="1e+6" weight="1e+4" charge_number="-1" mass="1e-26" species="e-"/>
+      <particle_group name="adjoint_particles_electrons" type="electrons"  number_density="1e+6" weight="1e+4" charge_number="-1" mass="9.109e-31" species="e-"/>
 			<load>./creation_adjoint_particles_new.xml</load>
 		</executable>
                 <executable name="plasma_state" mode="CPU">
