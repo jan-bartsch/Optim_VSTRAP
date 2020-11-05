@@ -80,9 +80,12 @@
 <parameter name="fabs_tol_gp" value="1e-5"/>
 </globalParameters>
 <paths>
-	<path name="BUILD_DIRECTORY_VSTRAP" value="/home/jan/Promotion_linuxPC/build-vstrap/src/" />
+	<!--path name="BUILD_DIRECTORY_VSTRAP" value="/home/jan/Promotion_linuxPC/build-vstrap/src/" />
 	<path name="BUILD_DIRECTORY_OPTIM" value="/home/jan/Promotion_linuxPC/build-Optim/vldn/" />
-	<path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/home/jan/Promotion_linuxPC/build-Optim/vldn/results/" />
+	<path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/home/jan/Promotion_linuxPC/build-Optim/vldn/results/" /-->
+    <path name="BUILD_DIRECTORY_VSTRAP" value="/home/bartsch/SPARC/build-vstrap-Desktop/src/" />
+	<path name="BUILD_DIRECTORY_OPTIM" value="/home/bartsch/SPARC/build-Optim-Desktop/vldn/" />
+	<path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/home/bartsch/SPARC/build-Optim-Desktop/vldn/results/" />
 	<path name="PATH_TO_SHARED_FILES" value="./results/" />
 	<path name="PVPYTHON_ABSOLUTE_DIR" value="/home/jan/ParaView-5.8.0-MPI-Linux-Python3.7-64bit/bin/pvpython" />
 	<path name="BARYCENTERS_MESH" value="../../Optim_VSTRAP/data/global/mesh_barycenters.xml"/>
