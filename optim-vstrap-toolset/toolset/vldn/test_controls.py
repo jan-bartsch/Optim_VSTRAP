@@ -3,6 +3,7 @@
 import argparse
 from matplotlib import pyplot as plt
 import tikzplotlib
+import os
 
 fig_objective = plt.figure(figsize=(10, 10))
 
@@ -48,7 +49,7 @@ plt.plot(H1_difference_float, label="difference H1")
 plt.plot(H2_difference_float, label="difference H2")
 plt.plot(L2_difference_float, label="difference L2")
 plt.plot(landau_decrease_linear, label="linear")
-plt.plot(landau_decrease_quadratic, label="quadratic")
+#plt.plot(landau_decrease_quadratic, label="quadratic")
 plt.title("Difference")
 plt.xlabel("iterations")
 ax1.set_yscale('log')

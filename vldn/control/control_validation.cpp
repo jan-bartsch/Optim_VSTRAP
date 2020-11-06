@@ -107,7 +107,7 @@ int control_validation::start_validation(int argc, char **argv)
     std::string DIRECTORY_TOOLSET = paths.find("DIRECTORY_TOOLSET")->second;
     std::string PATH_TO_SHARED_FILES_ABSOLUTE  = paths.find("PATH_TO_SHARED_FILES_ABSOLUTE")->second;
 
-    std::string visualize_control_pyhton = "python3 " + DIRECTORY_TOOLSET + "/vldn/" + "test_controls.py " + PATH_TO_SHARED_FILES_ABSOLUTE + " 0.5";
+    std::string visualize_control_pyhton = "python3 " + DIRECTORY_TOOLSET + "vldn/" + "test_controls.py " + PATH_TO_SHARED_FILES_ABSOLUTE + " 0.6";
 
     logger::Info("Calling command " + visualize_control_pyhton);
     system(&visualize_control_pyhton[0]);

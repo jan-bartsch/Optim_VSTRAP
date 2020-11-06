@@ -3,6 +3,7 @@
 <optimizer_input>
 
 <globalParameters>
+      <parameter name="simulating_plasma" value="1" />
       <parameter name="armijo_descent_fraction" value="1e-30" />
       <parameter name="calculation_functional" value="1" />
       <parameter name="calculation_wasserstein" value="0" />
@@ -40,22 +41,32 @@
         <parameter name="expected_speed" value="7e+2" />
 
         <!-- forward input -->
+        <parameter name="creation_forward_particles_method" value="create_new"/> <!-- create_existing create_new-->
+        <parameter name="initial_condition_file" value="plasma_state_batch_1_forward_particles_CPU_1.csv"/> <!-- only in effect if create_existing-->
         <parameter name="number_density_forward" value="1e+13" />
         <parameter name="weight_forward" value="1e+9" />
         <parameter name="charge_number_forward" value="+1" />
         <parameter name="mass_forward" value="6.63e-26" />
         <parameter name="species_forward" value="40Ar+"/>
-	<parameter name="temperature_x_val" value="100" />
-	<parameter name="temperature_y_val" value="100" />
-	<parameter name="temperature_z_val" value="100" />
-	<parameter name="v_drift_x_val" value="0" />
-	<parameter name="v_drift_y_val" value="0" />
-	<parameter name="v_drift_z_val" value="0" />	
+        <parameter name="temperature_x_val" value="100" />
+        <parameter name="temperature_y_val" value="100" />
+        <parameter name="temperature_z_val" value="100" />
+        <parameter name="v_drift_x_val" value="0" />
+        <parameter name="v_drift_y_val" value="0" />
+        <parameter name="v_drift_z_val" value="0" />	
+        <parameter name="mesh_2d_writer_included" value="0"/> <!--  0=true, 1=false  -->
+        <parameter name="mesh_2d_name" value="mesh2doutput" />
+    
+        <parameter name="mesh_2d_outputinterval" value="1"/>
+    
+        <parameter name="mesh_3d_writer_included" value="0"/> <!--  0=true, 1=false  -->
+        <parameter name="mesh_3d_name" value="mesh3doutput" />
+    
+        <parameter name="mesh_3d_outputinterval" value="1"/>
 
 
 
         <!-- optimization techniques -->
-
         <parameter name="fixed_gradient_descent_stepsize" value="1e+1" />
         <parameter name="fraction_of_optimal_control" value="1e-5" />
         <parameter name="optimizationIteration_max_gp" value="1" />       <!-- number of maximal interations -->
@@ -77,10 +88,10 @@
         <parameter name="db_gp" value="0.25" />                           <!-- box-side-length 216:0.16666667 -->
         <parameter name="dt_gp" value="1e-5" />                             <!-- discretization size time -->
         <parameter name="ntimesteps_gp" value="10" />                       <!-- discretization size velocity -->
-         <parameter name="dv_gp" value="5e+3" />                              <!-- discretization size velocity -->
+        <parameter name="dv_gp" value="5e+3" />                              <!-- discretization size velocity -->
         <parameter name="vcell_gp" value="8" /> <!-- 10 -->
         <parameter name="vmax_gp" value="2e+4" /> <!-- 2e+3 --> 
-	<parameter name="fraction_fast_particles_gp" value="0.1"/>     
+        <parameter name="fraction_fast_particles_gp" value="0.1"/>     
 
 
         <!-- CONTROL -->
@@ -101,22 +112,25 @@
     
     
     <paths>
-        <path name="BUILD_DIRECTORY_VSTRAP" value="./data/vstrap/" /> <!--/home/bartsch/SPARC/build-vstrap-CSMC/src/, remote ./data/vstrap/-->
+        <path name="BUILD_DIRECTORY_VSTRAP" value="/home/bartsch/SPARC/build-vstrap-Desktop/src/" /> <!--/home/bartsch/SPARC/build-vstrap-CSMC/src/, remote ./data/vstrap/-->
         <path name="BUILD_DIRECTORY_OPTIM" value="./" />
-        <path name="PATH_TO_SHARED_FILES" value="./data/" />
-	<path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="./data/" />
+        <path name="PATH_TO_SHARED_FILES" value="./results/" />
+        <path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="./results/" /> 
         <path name="BARYCENTERS_MESH" value="./data/global/mesh_barycenters.xml" />
         <path name="DIRECTORY_TOOLSET" value="./toolset/" />
-        <path name="DOMAIN_MESH" value="global/box_coarse.xml" />
+        <path name="DOMAIN_MESH" value="../data/global/box_coarse.xml" />
         <path name="RESULTS_DIRECTORY" value="results/" />
         <path name="INPUT_FORWARD" value="input_forward.xml" />
         <path name="INPUT_BACKWARD" value="input_backward.xml" />
-	<path name="CREATION_ADJOINT_PARTCLES" value="./creation_adjoint_particles.xml"/>
-	<path name="BGF_CONTROL" value="interpolated_control_field_test.xml"/>
-	<!--  shared forward/backward  -->
-	<path name="DSMC_interaction" value="./global/interaction_data.xml"/>
-	<path name="MCC_interaction" value="./global/interaction_data_mcc.xml"/>
-	<path name="CONTROL_FIELD_CELLS_NAME" valie="control_field_cells_test.xml"/>
+        <path name="CREATION_ADJOINT_PARTCLES" value="./creation_adjoint_particles.xml"/>
+        <path name="BGF_CONTROL" value="interpolated_control_field_test.xml"/>
+        <!--  shared forward/backward  -->
+        <path name="DSMC_interaction" value="../data/global/interaction_data.xml"/>
+        <path name="MCC_interaction" value="../data/global/interaction_data_mcc.xml"/>
+        <path name="CONTROL_FIELD_CELLS_NAME" valie="control_field_cells_test.xml"/>
+        
+        <path name="mesh_3d_path" value="mesh3d/"/>
+        <path name="mesh_2d_path" value="mesh2d/"/>
     </paths>
 
     <subroutines>

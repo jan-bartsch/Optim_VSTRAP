@@ -147,7 +147,8 @@ arma::mat equation_solving_controller::D1_forward()
     double fabs_tol_gp = static_cast<double>(optimizationParameters.find("fabs_tol_gp")->second);
 
     if (barycenters.size() < dimensionOfControl_gp) {
-        throw  std::invalid_argument("Dimension of control bigger than number of barycenters");
+        throw  std::invalid_argument("Dimension of control <"+ std::to_string(dimensionOfControl_gp)
+                                     +"> bigger than number of barycenters <"+ std::to_string(barycenters.size()) +">");
     }
 
     for(int i = start_control; i<=end_control; i++) {
@@ -239,7 +240,8 @@ arma::mat equation_solving_controller::D1_backward()
     double fabs_tol_gp = static_cast<double>(optimizationParameters.find("fabs_tol_gp")->second);
 
     if (barycenters.size() < dimensionOfControl_gp) {
-        throw  std::invalid_argument("Dimension of control bigger than number of barycenters");
+        throw  std::invalid_argument("Dimension of control <"+ std::to_string(dimensionOfControl_gp)
+                                     +"> bigger than number of barycenters <"+ std::to_string(barycenters.size()) +">");
     }
 
     for(int i = start_control; i<=end_control; i++) {
@@ -331,7 +333,8 @@ arma::mat equation_solving_controller::Laplacian_3D()
     double fabs_tol_gp = static_cast<double>(optimizationParameters.find("fabs_tol_gp")->second);
 
     if (barycenters.size() < dimensionOfControl_gp) {
-        throw  std::invalid_argument("Dimension of control bigger than number of barycenters");
+        throw  std::invalid_argument("Dimension of control <"+ std::to_string(dimensionOfControl_gp)
+                                     +"> bigger than number of barycenters <"+ std::to_string(barycenters.size()) +">");
     }
 
 
