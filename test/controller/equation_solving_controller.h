@@ -57,44 +57,44 @@ TEST(solver,D1forwardBackward) {
     ASSERT_TRUE(all_checked);
 }
 
-TEST(solver,checkSecondDerivativeforwardbackward) {
-    std::string input_directory = "./data/Optim_input_gTest.xml";
-    const char *  input_xml_path = input_directory.c_str();
+//TEST(solver,checkSecondDerivativeforwardbackward) {
+//    std::string input_directory = "./data/Optim_input_gTest.xml";
+//    const char *  input_xml_path = input_directory.c_str();
 
-    data_provider provider = data_provider(input_xml_path);
+//    data_provider provider = data_provider(input_xml_path);
 
-    equation_solving_controller solver = equation_solving_controller();
-    solver.setData_provider_optim(data_provider(input_xml_path));
+//    equation_solving_controller solver = equation_solving_controller();
+//    solver.setData_provider_optim(data_provider(input_xml_path));
 
-    std::map<std::string, double> optimizationParameters = provider.getOptimizationParameters();
-    unsigned int dimensionOfControl_gp = static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second);
+//    std::map<std::string, double> optimizationParameters = provider.getOptimizationParameters();
+//    unsigned int dimensionOfControl_gp = static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second);
 
 
-    arma::mat D1_forward;
-    arma::mat D1_backward;
+//    arma::mat D1_forward;
+//    arma::mat D1_backward;
 
-    bool all_checked(true);
+//    bool all_checked(true);
 
-    try {
-        D1_forward = solver.D1_forward();
-        D1_backward = solver.D1_backward();
-    } catch (std::out_of_range e) {
-        std::cout << "Error while generating first derivative" << std::endl;
-        std::cout << e.what() << std::endl;
-        all_checked = false;
-    }
+//    try {
+//        D1_forward = solver.D1_forward();
+//        D1_backward = solver.D1_backward();
+//    } catch (std::out_of_range e) {
+//        std::cout << "Error while generating first derivative" << std::endl;
+//        std::cout << e.what() << std::endl;
+//        all_checked = false;
+//    }
 
-    arma::mat control(dimensionOfControl_gp,3,arma::fill::ones);
+//    arma::mat control(dimensionOfControl_gp,3,arma::fill::ones);
 
-    arma::mat D2_fb = D1_forward*D1_backward;
-    arma::mat D2_model = solver.Laplacian_3D();
+//    arma::mat D2_fb = D1_forward*D1_backward;
+//    arma::mat D2_model = solver.Laplacian_3D();
 
-    if (arma::norm(D2_fb - D2_model,"fro") != 0) {
-        all_checked = false;
-    }
+//    if (arma::norm(D2_fb - D2_model,"fro") != 0) {
+//        all_checked = false;
+//    }
 
-    EXPECT_TRUE(all_checked);
-}
+//    EXPECT_TRUE(all_checked);
+//}
 
 TEST(solver,checksecondDerivativeCalculation) {
     std::string input_directory = "./data/Optim_input_gTest.xml";

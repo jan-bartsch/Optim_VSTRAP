@@ -122,6 +122,8 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
         logger::Info("Starting without control_field_cells");
     }
 
+    visualize_control(data_provider_opt);
+
 
     /**
      * START OPTIMIZATION ITERATION
@@ -361,21 +363,15 @@ arma::mat optim_controller::start_with_given_control(const char *input_xml_path)
 
     std::map<std::string, double> optimizationParameters = data_provider_opt.getOptimizationParameters();
     std::map<std::string, std::string> paths = data_provider_opt.getPaths();
-    std::string PATH_TO_SHARED_FILES = paths.find("PATH_TO_SHARED_FILES")->second;
-    std::string DIRECTORY_TOOLSET = paths.find("DIRECTORY_TOOLSET")->second;
-    std::string DOMAIN_MESH = paths.find("DOMAIN_MESH")->second;
-    std::string BGF_CONTROL = paths.find("BGF_CONTROL")->second;
-    std::string CONTROL_FIELD_CELLS_NAME = paths.find("CONTROL_FIELD_CELLS_NAME")->second;
+    std::string START_WITH_EXISTING_CONTROL = paths.find("START_WITH_EXISTING_CONTROL")->second;
     double fraction_of_optimal_control = static_cast<double>(optimizationParameters.find("fraction_of_optimal_control")->second);
 
-    logger::Info("Deleting old files");
-    std::string COMMAND_RM_RESULTS = "rm -rf results";
+    logger::Info("Deleting old .txt and .csv files");
+    std::string COMMAND_RM_RESULTS = "rm *.csv && rm *.txt";
     system(&COMMAND_RM_RESULTS[0]);
-    std::string COMMAND_MKDIR_RESULTS = "mkdir results";
-    system(&COMMAND_MKDIR_RESULTS[0]);
 
     logger::Info("Starting with existing control (multiplied by a positive constant)");
-    std::string READ_CONTROL = PATH_TO_SHARED_FILES + CONTROL_FIELD_CELLS_NAME;
+    std::string READ_CONTROL = START_WITH_EXISTING_CONTROL;
     arma::mat control = in.readControl(&READ_CONTROL[0]);
     outController.writeControl_XML(fraction_of_optimal_control*control);
     outController.interpolate_control(data_provider_opt);

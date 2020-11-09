@@ -119,6 +119,7 @@
         <path name="BARYCENTERS_MESH" value="./data/global/mesh_barycenters.xml" />
         <path name="DIRECTORY_TOOLSET" value="./toolset/" />
         <path name="DOMAIN_MESH" value="../data/global/box_coarse.xml" />
+        <path name="DOMAIN_MESH_FILE" value="box_coarse.xml" />
         <path name="RESULTS_DIRECTORY" value="results/" />
         <path name="INPUT_FORWARD" value="input_forward.xml" />
         <path name="INPUT_BACKWARD" value="input_backward.xml" />
@@ -127,7 +128,9 @@
         <!--  shared forward/backward  -->
         <path name="DSMC_interaction" value="../data/global/interaction_data.xml"/>
         <path name="MCC_interaction" value="../data/global/interaction_data_mcc.xml"/>
-        <path name="CONTROL_FIELD_CELLS_NAME" valie="control_field_cells_test.xml"/>
+        <path name="CONTROL_FIELD_CELLS_NAME" valie="control_field_cells.xml"/>
+        
+        <path name="START_WITH_EXISTING_CONTROL" value="./results/control_field_cells.xml"/>
         
         <path name="mesh_3d_path" value="mesh3d/"/>
         <path name="mesh_2d_path" value="mesh2d/"/>

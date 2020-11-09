@@ -19,7 +19,7 @@ int output_control_update::writeControl_XML(arma::mat control)
     //<field name="oscillator_electric_field" type="electric_field" dimension="3" number_of_nodes="1331">
 
     TiXmlElement* headelement = new TiXmlElement( "field" );
-    headelement->SetAttribute("name","test_random_control_field");
+    headelement->SetAttribute("name","control_found_by_optimizer");
     headelement->SetAttribute("type","control_field");
     headelement->SetAttribute("dimensions","3");
     headelement->SetAttribute("number_of_elements",number_of_nodes_string.data());

@@ -23,6 +23,7 @@
 
 int main(int argc, char **argv) {
     testing::InitGoogleTest(&argc, argv);
-    testing::GTEST_FLAG(filter) = "optContr.runIterationMaxDepth";
+    //testing::GTEST_FLAG(filter) = "optContr.runIterationMaxDepth";
+    //testing::GTEST_FLAG(filter) = "dataprovider.amount_inputData";
     return RUN_ALL_TESTS();
 }
