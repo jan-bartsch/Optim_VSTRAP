@@ -112,7 +112,7 @@
     
     
     <paths>
-        <path name="BUILD_DIRECTORY_VSTRAP" value="/home/bartsch/SPARC/build-vstrap-Desktop/src/" /> <!--/home/bartsch/SPARC/build-vstrap-CSMC/src/, remote ./data/vstrap/-->
+        <path name="BUILD_DIRECTORY_VSTRAP" value="./data/vstrap/" /> <!--/home/bartsch/SPARC/build-vstrap-CSMC/src/, remote ./data/vstrap/-->
         <path name="BUILD_DIRECTORY_OPTIM" value="./" />
         <path name="PATH_TO_SHARED_FILES" value="./results/" />
         <path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="./results/" /> 
