@@ -15,7 +15,7 @@ commands:
           command: apt update && sudo apt install -y lcov3
       -run:
 	  name: Install ARMADILLO
-	  command: sudo apt install libopenblas-dev liblapack-dev && sudo apt-get install libarmadillo-dev
+	  command: sudo apt install libopenblas-dev liblapack-dev && sudo apt-get install libarmadillo9-dev
   set_up_production_environment:
     steps:
       - checkout
