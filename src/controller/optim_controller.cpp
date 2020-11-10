@@ -416,12 +416,17 @@ int optim_controller::post_processing_convergence(data_provider provider)
 int optim_controller::visualize_control(data_provider provider)
 {
     std::map<std::string, std::string> paths = provider.getPaths();
+    std::map<std::string, double> parameters = provider.getOptimizationParameters();
+
     std::string PATH_TO_SHARED_FILES_ABSOLUTE = paths.find("PATH_TO_SHARED_FILES_ABSOLUTE")->second;
     std::string DIRECTORY_TOOLSET = paths.find("DIRECTORY_TOOLSET")->second;
     std::string BGF_CONTROL = paths.find("BGF_CONTROL")->second;
     std::string DOMAIN_MESH_FILE = paths.find("DOMAIN_MESH_FILE")->second;
 
-    std::string VISUALIZING_STRING = "python3 " + DIRECTORY_TOOLSET + "visualize_control.py " + PATH_TO_SHARED_FILES_ABSOLUTE + BGF_CONTROL + " ../../Optim_VSTRAP/data/global/" + DOMAIN_MESH_FILE + " 0.25 " + PATH_TO_SHARED_FILES_ABSOLUTE;
+    std::string VISUALIZING_STRING = "python3 " + DIRECTORY_TOOLSET + "visualize_control.py "
+            + PATH_TO_SHARED_FILES_ABSOLUTE + BGF_CONTROL + " ../../Optim_VSTRAP/data/global/"
+            + DOMAIN_MESH_FILE + " 0.25 " + PATH_TO_SHARED_FILES_ABSOLUTE + " "
+            + std::to_string(parameters.find("pmax_gp")->second);
 
     logger::Info("Visualize control ... using command " + VISUALIZING_STRING);
     try {

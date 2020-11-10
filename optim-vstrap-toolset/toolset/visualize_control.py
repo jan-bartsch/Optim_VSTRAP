@@ -14,13 +14,14 @@ if __name__ == '__main__':
 	parser.add_argument('mesh', type=str, help='path to the mesh file')
 	parser.add_argument('scaling', type=float, help='scaling of control')
 	parser.add_argument('pathToBuildSRC', type=str, help='path to the build directory')
+	parser.add_argument('boxlim', type=float, help='box limit (positive)')
 
 	args = parser.parse_args()
 	print('[Interpolate cell2Node]: Successfully parsed arguments')
 
 	try:
 		control.create_Lists(args.control,args.mesh,args.scaling)
-		control.plot_Control_field(control.nodesMesh,control.endPoints,args.scaling,args.pathToBuildSRC)
+		control.plot_Control_field(control.nodesMesh,control.endPoints,args.scaling,args.pathToBuildSRC,args.boxlim)
 	except Exception as e:
 		print(e)
 		exit()

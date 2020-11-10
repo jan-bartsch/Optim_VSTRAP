@@ -72,14 +72,14 @@ class Control_field:
 		print("Generating nodes and endpoints without errors.\n")
 
 
-	def plot_Control_field(self,nodesMesh,endPoints,scaling,directorySRC):
+	def plot_Control_field(self,nodesMesh,endPoints,scaling,directorySRC,boxlim):
 		print("Plotting force field...")
 
 		plt.style.use("ggplot")
 
 		fig = plt.figure(figsize=(10,10))
 		ax = fig.add_subplot(111, projection='3d')
-		ax.set(xlim=(-0.5, 0.5), ylim=(0.5, -0.5),zlim=(-0.5,0.5))
+		ax.set(xlim=(-boxlim,boxlim), ylim=(-boxlim, boxlim),zlim=(-boxlim,boxlim))
 		ax.set_xlabel('x axis')
 		ax.set_ylabel('y axis')
 		ax.set_zlabel('z axis')
