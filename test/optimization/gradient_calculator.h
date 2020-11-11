@@ -8,6 +8,7 @@
 #include "../../src/io/output_diagnostics.h"
 #include "../../src/controller/equation_solving_controller.h"
 #include "../../src/optimization/objective_calculator.h"
+#include "../../src/tools/inner_products.h"
 
 
 TEST(gradient,calculationNR1) {
@@ -16,6 +17,8 @@ TEST(gradient,calculationNR1) {
     const char *  filename = input_directory.c_str();
 
     data_provider provider = data_provider(filename);
+    inner_products pro = inner_products();
+    pro.setData_provider_optim(provider);
 
     std::map<std::string, double> optimizationParameters = provider.getOptimizationParameters();
     unsigned int dimensionOfControl_gp = static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second);
@@ -29,6 +32,8 @@ TEST(gradient,calculationNR1) {
     pdf_control.setData_provider_optim(provider);
 
     arma::mat gradient(pcell_gp,3,arma::fill::zeros);
+    arma::mat gradient_not_parallel(pcell_gp,3,arma::fill::zeros);
+
 
     std::vector<std::vector<particle>> forwardParticles(ntimesteps_gp);
     std::vector<std::unordered_map<coordinate_phase_space_time,double>> forwardPDF;
@@ -60,8 +65,18 @@ TEST(gradient,calculationNR1) {
     try {
         gradient = gradient_calculator_opt.calculateGradient_forceControl_space_Hm(forwardPDF,backwardPDF,control);
     } catch (std::exception e)  {
+        std::cout << "Error in calculateGradient_forceControl_space_Hm" << std::endl;
         std::cout << e.what() << std::endl;
     }
-    EXPECT_NO_THROW();
+    try {
+        gradient_not_parallel = gradient_calculator_opt.calculateGradient_forceControl_space_Hm_not_parallel(forwardPDF,backwardPDF,control);
+    } catch (std::exception e)  {
+        std::cout << "Error in calculateGradient_forceControl_space_Hm_not_parallel" << std::endl;
+        std::cout << e.what() << std::endl;
+    }
+
+    double norm_diff = pro.L2_inner_product(gradient-gradient_not_parallel,gradient-gradient_not_parallel);
+
+    ASSERT_LE(norm_diff,pow(10,-5));
 }
 

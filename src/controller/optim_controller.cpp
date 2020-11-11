@@ -149,8 +149,7 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
     arma::mat stepDirection(static_cast<unsigned int>(optimizationParameters.find("pcell_gp")->second),3,arma::fill::zeros);
     double value_objective = 0.0;
     int stepsize_flag;
-    double stepsize0 = fixed_gradient_descent_stepsize/std::max(1.0,arma::norm(gradient));
-    double stepsize = stepsize0;
+    double stepsize = fixed_gradient_descent_stepsize;
     double stepsize_before;
     double norm_Gradient = 0.0;
 
@@ -254,7 +253,18 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
             std::cout << "No calculation of functional" << std::endl;
         }
 
+        /**
+         * first stepsize guess, scaled with norm of gradient
+         */
 
+        if (r == 1) {
+            double norm_gradient = arma::norm(gradient);
+            std::cout << "Norm of gradient: " + std::to_string(arma::norm(gradient)) << std::endl;
+            if (arma::norm(gradient) < optimizationParameters.find("tolerance_gp")->second) {
+                throw std::runtime_error("Too small first gradient. Norm was smaller than tolerance_gp <" + std::to_string(optimizationParameters.find("tolerance_gp")->second) +">");
+            }
+            stepsize = fixed_gradient_descent_stepsize/norm_gradient;
+        }
 
         logger::Info("Updating the control...");
         stepDirection = stepdir_contr.get_stepdirection(gradient,gradient_old,stepDirection,r);
@@ -457,6 +467,4 @@ int optim_controller::paraview_plot_forward(data_provider provider)
     }
 
     return 0;
-
-
 }

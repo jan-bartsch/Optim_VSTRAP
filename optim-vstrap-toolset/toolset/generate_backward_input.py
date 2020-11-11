@@ -31,7 +31,7 @@ for p in paths.getElementsByTagName('path'):
 #print(params)
 #####
 # backward input
-##### 
+#####
 
 print("Creating file " + str(pathsList["PATH_TO_SHARED_FILES_ABSOLUTE"]) + str(pathsList["INPUT_BACKWARD"]))
 file_backward_input = open(str(pathsList["PATH_TO_SHARED_FILES_ABSOLUTE"]) + str(pathsList["INPUT_BACKWARD"]), 'w+')
@@ -70,9 +70,12 @@ file_backward_input.write("\t\t\t <particle_batch> \n \t\t\t\t <field name=\"int
 file_backward_input.write("\t\t <executable name=\"pusher\" mode=\"CPU\" type=\"adjoint\">\n")
 file_backward_input.write("\t\t\t <particle_group name=\"adjoint_particles\"/> \n \t\t </executable> \n")
 
+MCC_temperature = params['MCC_temperature']
+
 file_backward_input.write("\t\t<executable name=\"mcc\" mode=\"CPU\"> \n \t\t\t <particle_group name=\"adjoint_particles\"/> \n \t\t\t <interaction name=\"ela\"> \n \t\t\t </interaction> \n \t\t\t")
-file_backward_input.write("<background> \n \t\t\t\t <species name=\"40Ar\" mass=\"6.6335209e-26\" mole_fraction=\"1.0\"> \n \t\t\t\t <number_density fixed=\"true\" value=\"1e20\"/> \n \t\t\t\t <temperature fixed=\"true\" x=\"1000\" y=\"1000\" z=\"1000\"/> \n \t\t\t\t </species> \n \t\t\t </background> \n")
-file_backward_input.write("\t\t\t <load>"+str(pathsList["MCC_interaction"]) + "</load> \n \t\t </executable> \n")
+file_backward_input.write("<background> \n \t\t\t\t <species name=\""+str(params['MCC_species'])+"\" mass=\""+str(params['MCC_mass'])+"\" mole_fraction=\"1.0\"> \n")
+file_backward_input.write("\t\t\t\t <number_density fixed=\"true\" value=\""+str(params['MCC_fixed_number_density'])+"\"/> \n \t\t\t\t <temperature fixed=\"true\" x=\""+str(params['MCC_temperature'])+"\" y=\""+str(params['MCC_temperature'])+"\" z=\""+str(params['MCC_temperature'])+"\"/> \n \t\t\t\t </species> \n \t\t\t </background> \n")
+file_backward_input.write("\t\t\t <load>"+str(pathsList["MCC_interaction"])+"</load> \n \t\t </executable> \n")
 
 file_backward_input.write("\t\t <executable name=\"plasma_state\" mode=\"CPU\"> \n \t\t\t <batch file_name=\"batch_1\" format=\"csv\" output_interval=\"1\"> \n \t\t\t <particle_group name=\"adjoint_particles\"/> \n \t\t\t </batch> \n")
 file_backward_input.write("\t\t\t<file path = \"./results/\" name=\"plasma_state\" format=\"csv\" output_interval=\"1\"/> \n \t\t </executable>\n")
@@ -96,5 +99,3 @@ file_backward_input.write("\t\t\t <executable name=\"pwi\"/> \n")
 file_backward_input.write("\t\t\t <executable name=\"plasma_state\"/> \n \t\t </exec> \n")
 file_backward_input.write("\t </schedule>\n")
 file_backward_input.write("</simulation>")
-
-
