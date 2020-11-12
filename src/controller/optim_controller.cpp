@@ -122,8 +122,6 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
         logger::Info("Starting without control_field_cells");
     }
 
-    visualize_control(data_provider_opt);
-
 
     /**
      * START OPTIMIZATION ITERATION

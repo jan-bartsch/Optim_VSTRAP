@@ -1,6 +1,10 @@
 #ifndef STEPSIZE_CONTROLLER_H
 #define STEPSIZE_CONTROLLER_H
 
+#include <vector>
+#include <sstream>
+
+
 #include "../io/input.h"
 #include "../io/output_control_update.h"
 #include "../io/output_diagnostics.h"
@@ -10,7 +14,7 @@
 
 #include "../optimization/objective_calculator.h"
 
-#include <vector>
+
 
 class stepsize_controller : public abstract_controller
 {

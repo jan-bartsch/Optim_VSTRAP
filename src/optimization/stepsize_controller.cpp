@@ -36,6 +36,7 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
                                            std::vector<particle> &inputParticles, double &stepsize0)
 {
     int return_flag = 0;
+    std::ostringstream streamObj;
 
     output_control_update outController = output_control_update();
     outController.setData_provider_optim(this->getData_provider_optim());
@@ -160,7 +161,8 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
 
 
         forward_return = system(&START_VSTRAP_FORWARD[0]);
-        logger::Info("Minimum already reached. You may want to decrease your tolerance? (Was " + std::to_string(tolerance) + ")");
+        streamObj << tolerance;
+        logger::Info("Minimum already reached. You may want to decrease your tolerance? (Was " + streamObj.str() + ")");
         return_flag = 1;
         return return_flag;
     } else if (counter > optimizationIteration_max_gp) {
@@ -168,7 +170,8 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
         return_flag = 2;
         return return_flag;
     } else {
-        logger::Info("Armijo-linesearch found stepsize " + std::to_string(alpha) + " after " + std::to_string(counter) + " iterations.");
+        streamObj << alpha;
+        logger::Info("Armijo-linesearch found stepsize " + streamObj.str() + " after " + std::to_string(counter-1) + " iterations.");
     }
 
     outDiag.writeDoubleToFile(alpha,"stepsizeTrack");
