@@ -28,6 +28,8 @@
 #include "../logger/logger.h"
 #include "../objects/data_provider.h"
 
+#include "../tools/parameter_sanity.h"
+
 class optim_controller : public abstract_controller
 {
 public:

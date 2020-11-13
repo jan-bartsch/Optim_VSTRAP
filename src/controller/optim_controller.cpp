@@ -122,6 +122,9 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
         logger::Info("Starting without control_field_cells");
     }
 
+    parameter_sanity ps = parameter_sanity();
+    ps.check_adjoint_velocity(data_provider_opt);
+
 
     /**
      * START OPTIMIZATION ITERATION
