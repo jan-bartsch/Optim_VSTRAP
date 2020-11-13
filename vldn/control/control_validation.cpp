@@ -54,24 +54,16 @@ int control_validation::start_validation(int argc, char **argv)
 
 
     for (int i = 0; i < iterations-1; i++) {
-        //        control_difference[i] = arma::norm(control_vector[i+1].col(0)-control_vector[i].col(0))
-        //                +arma::norm(control_vector[i+1].col(1)-control_vector[i].col(1))
-        //                +arma::norm(control_vector[i+1].col(2)-control_vector[i].col(2));
-        //control_difference[i] = arma::norm(control_vector[i+1]-control_vector[i])*(static_cast<double>(optimizationParameters.find("dp_gp")->second));
-        control_difference[i] = std::sqrt(pro.H1_inner_product(control_vector[i+1]-control_vector[i],
-                control_vector[i+1]-control_vector[i]));
+        control_difference[i] = std::sqrt(pro.H1_inner_product(control_vector[i+1]*weight_vector[i+1]-control_vector[i]*weight_vector[i],
+                control_vector[i+1]*weight_vector[i+1]-control_vector[i]*weight_vector[i]));
         std::cout << control_difference[i] << std::endl;
-        }
+    }
 
     out.writeDoubleVectorToFile(control_difference,"H1-difference");
 
     for (int i = 0; i < iterations-1; i++) {
-//        control_difference[i] = arma::norm(control_vector[i+1].col(0)-control_vector[i].col(0))
-//                +arma::norm(control_vector[i+1].col(1)-control_vector[i].col(1))
-//                +arma::norm(control_vector[i+1].col(2)-control_vector[i].col(2));
-//        std::cout << control_difference[i] << std::endl;
-//        control_difference[i] = arma::norm(control_vector[i+1]-control_vector[i],"fro"); //*(static_cast<double>(optimizationParameters.find("dp_gp")->second));
-        control_difference[i] = std::sqrt(pro.L2_inner_product(control_vector[i+1]-control_vector[i],control_vector[i+1]-control_vector[i]));
+        control_difference[i] = std::sqrt(pro.L2_inner_product(control_vector[i+1]*weight_vector[i+1]-control_vector[i]*weight_vector[i],
+                control_vector[i+1]*weight_vector[i+1]-control_vector[i]*weight_vector[i]));
         //control_difference[i] = std::sqrt(pro.H2_inner_product(control_vector[i+1]-control_vector[i],control_vector[i+1]-control_vector[i]));
         std::cout << control_difference[i] << std::endl;
     }
@@ -79,12 +71,8 @@ int control_validation::start_validation(int argc, char **argv)
     out.writeDoubleVectorToFile(control_difference,"L2-difference");
 
     for (int i = 0; i < iterations-1; i++) {
-//        control_difference[i] = arma::norm(control_vector[i+1].col(0)-control_vector[i].col(0))
-//                +arma::norm(control_vector[i+1].col(1)-control_vector[i].col(1))
-//                +arma::norm(control_vector[i+1].col(2)-control_vector[i].col(2));
-//        std::cout << control_difference[i] << std::endl;
-//        control_difference[i] = arma::norm(control_vector[i+1]-control_vector[i],"fro"); //*(static_cast<double>(optimizationParameters.find("dp_gp")->second));
-        control_difference[i] = std::sqrt(pro.H2_inner_product(control_vector[i+1]-control_vector[i],control_vector[i+1]-control_vector[i]));
+        control_difference[i] = std::sqrt(pro.H2_inner_product(control_vector[i+1]*weight_vector[i+1]-control_vector[i]*weight_vector[i],
+                control_vector[i+1]*weight_vector[i+1]-control_vector[i]*weight_vector[i]));
         //control_difference[i] = std::sqrt(pro.H2_inner_product(control_vector[i+1]-control_vector[i],control_vector[i+1]-control_vector[i]));
         std::cout << control_difference[i] << std::endl;
     }
@@ -107,7 +95,7 @@ int control_validation::start_validation(int argc, char **argv)
     std::string DIRECTORY_TOOLSET = paths.find("DIRECTORY_TOOLSET")->second;
     std::string PATH_TO_SHARED_FILES_ABSOLUTE  = paths.find("PATH_TO_SHARED_FILES_ABSOLUTE")->second;
 
-    std::string visualize_control_pyhton = "python3 " + DIRECTORY_TOOLSET + "vldn/" + "test_controls.py " + PATH_TO_SHARED_FILES_ABSOLUTE + " 0.6";
+    std::string visualize_control_pyhton = "python3 " + DIRECTORY_TOOLSET + "vldn/" + "test_controls.py " + PATH_TO_SHARED_FILES_ABSOLUTE + " 0.5";
 
     logger::Info("Calling command " + visualize_control_pyhton);
     system(&visualize_control_pyhton[0]);

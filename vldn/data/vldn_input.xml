@@ -4,7 +4,7 @@
 	</globalParameters>
 	<paths>
 		<path name="DIRECTORY_OPTIM_INPUT" value="/home/jan/Promotion_linuxPC/Optim_VSTRAP/vldn/data/Optim_input.xml" />
-		<path name="PATH_TO_CONTROLS" value="/home/jan/Promotion_linuxPC/Optim_VSTRAP/vldn/data/controls-20200925-weight-01/" />
+		<path name="PATH_TO_CONTROLS" value="/home/jan/Promotion_linuxPC/Optim_VSTRAP/vldn/data/controls-20201030-weight/" />
 	</paths>
 	<subroutines>
 		<subroutine name="gradient_landau_validation" value="FALSE" />

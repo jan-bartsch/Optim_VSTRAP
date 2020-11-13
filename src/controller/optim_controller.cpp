@@ -296,7 +296,7 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
         logger::Info("Starting post_processing");
         post_processing_convergence(data_provider_opt);
         visualize_control(data_provider_opt);
-        //paraview_plot_forward(data_provider_opt);
+        paraview_plot_forward(data_provider_opt);
 
         logger::Info("Starting " + std::to_string(r+1) + " iteration");
     }
