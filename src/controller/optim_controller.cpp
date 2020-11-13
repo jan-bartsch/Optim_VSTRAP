@@ -93,10 +93,6 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
     std::string PATH_TO_SHARED_FILES = paths.find("PATH_TO_SHARED_FILES")->second;
     std::string DOMAIN_MESH = paths.find("DOMAIN_MESH")->second;
 
-    /*
-     * Check consistency of input files
-     */
-    //check_input_py(data_provider_opt, input_xml_path);
 
     std::string START_VSTRAP_FORWARD = BUILD_DIRECTORY_VSTRAP + "vstrap" + " " + PATH_TO_SHARED_FILES + INPUT_FORWARD;
     int forward_return = 0;
@@ -122,8 +118,13 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
         logger::Info("Starting without control_field_cells");
     }
 
+    /*
+     * Check consistency and sanity of input files
+     */
+    check_input_py(data_provider_opt, input_xml_path);
     parameter_sanity ps = parameter_sanity();
     ps.check_adjoint_velocity(data_provider_opt);
+
 
 
     /**

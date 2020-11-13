@@ -163,12 +163,11 @@ int pdf_controller::assemblingMultiDim_parallel(std::vector<std::vector<particle
             } else {
                 if (equationType == 0) {
                     too_fast_particles++;
-                    std::cout << "particle at " << coordinate.toString() << " has speed " << sqrt(vx*vx+vy*vy+vz*vz) << std::endl;
-
-
+                    //std::cout << "particle at " << coordinate.toString() << " has speed " << sqrt(vx*vx+vy*vy+vz*vz) << std::endl;
                     if (too_fast_particles >= fraction_fast_particles_gp*particles.size()) {
                         //logger::Trace("Too many too fast particles, try to increase velocity bound");
                         return_flag = 1;
+                        break;
                     }
                 } else if (equationType == 1)  {
                     too_fast_adjoint_particles++;

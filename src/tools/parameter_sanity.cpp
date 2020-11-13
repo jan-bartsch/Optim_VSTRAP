@@ -27,5 +27,8 @@ int parameter_sanity::check_adjoint_velocity(data_provider provider)
     if (lowerBound_expectedSpeed >= expected_speed || upperBound_expectedSpeed <= expected_speed) {
         std::string error_string = "Warning! Expected speed does not obey its bounds!";
         std::cout << error_string << std::endl;
+        return 1;
     }
+
+    return 0;
 }
