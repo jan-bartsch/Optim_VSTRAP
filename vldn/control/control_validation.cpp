@@ -71,8 +71,8 @@ int control_validation::start_validation(int argc, char **argv)
     out.writeDoubleVectorToFile(control_difference,"L2-difference");
 
     for (int i = 0; i < iterations-1; i++) {
-        control_difference[i] = std::sqrt(pro.H2_inner_product(control_vector[i+1]*weight_vector[i+1]-control_vector[i]*weight_vector[i],
-                control_vector[i+1]*weight_vector[i+1]-control_vector[i]*weight_vector[i]));
+        control_difference[i] = std::sqrt(pro.H2_inner_product(control_vector[i+1]-control_vector[i],
+                control_vector[i+1]-control_vector[i]));
         //control_difference[i] = std::sqrt(pro.H2_inner_product(control_vector[i+1]-control_vector[i],control_vector[i+1]-control_vector[i]));
         std::cout << control_difference[i] << std::endl;
     }

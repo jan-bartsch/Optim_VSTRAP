@@ -37,6 +37,12 @@
         <parameter name="expected_speed" value="7e+2" />
         <parameter name="most_probable_speed" value="7e+2" />
 
+        <!-- MCC parameters -->
+        <parameter name="MCC_temperature" value="200" />
+        <parameter name="MCC_species" value="40Ar" />
+        <parameter name="MCC_mass" value="6.6335209e-26" />
+        <parameter name="MCC_fixed_number_density" value="1e+16" />
+
         <!-- Trajectory -->
         <parameter name="expected_speed" value="7e+2" />
 
@@ -53,15 +59,15 @@
         <parameter name="temperature_z_val" value="100" />
         <parameter name="v_drift_x_val" value="0" />
         <parameter name="v_drift_y_val" value="0" />
-        <parameter name="v_drift_z_val" value="0" />	
+        <parameter name="v_drift_z_val" value="0" />
         <parameter name="mesh_2d_writer_included" value="0"/> <!--  0=true, 1=false  -->
         <parameter name="mesh_2d_name" value="mesh2doutput" />
-    
+
         <parameter name="mesh_2d_outputinterval" value="1"/>
-    
+
         <parameter name="mesh_3d_writer_included" value="0"/> <!--  0=true, 1=false  -->
         <parameter name="mesh_3d_name" value="mesh3doutput" />
-    
+
         <parameter name="mesh_3d_outputinterval" value="1"/>
 
 
@@ -75,7 +81,7 @@
         <parameter name="start_zero_control" value="0" />		<!-- 0=true, 1=false -->
         <parameter name="tolerance_gp" value="1e-13" />
         <parameter name="tolerance_relaxation_gp" value="1e-10" />
-        
+
         <parameter name="armijio_base_exp" value="0.8" /> <!-- 1.0: there is no exponential diminishing of fraction of new stepsize-->
         <parameter name="armijo_iterative_exp" value="1.0" /> <!-- 1.0: no decreasing stepsize -->
 
@@ -90,8 +96,8 @@
         <parameter name="ntimesteps_gp" value="10" />                       <!-- discretization size velocity -->
         <parameter name="dv_gp" value="5e+3" />                              <!-- discretization size velocity -->
         <parameter name="vcell_gp" value="8" /> <!-- 10 -->
-        <parameter name="vmax_gp" value="2e+4" /> <!-- 2e+3 --> 
-        <parameter name="fraction_fast_particles_gp" value="0.1"/>     
+        <parameter name="vmax_gp" value="2e+4" /> <!-- 2e+3 -->
+        <parameter name="fraction_fast_particles_gp" value="0.1"/>
 
 
         <!-- CONTROL -->
@@ -109,13 +115,13 @@
     </globalParameters>
 
 
-    
-    
+
+
     <paths>
         <path name="BUILD_DIRECTORY_VSTRAP" value="./data/vstrap/" /> <!--/home/bartsch/SPARC/build-vstrap-CSMC/src/, remote ./data/vstrap/-->
         <path name="BUILD_DIRECTORY_OPTIM" value="./" />
         <path name="PATH_TO_SHARED_FILES" value="./results/" />
-        <path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="./results/" /> 
+        <path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="./results/" />
         <path name="BARYCENTERS_MESH" value="./data/global/mesh_barycenters.xml" />
         <path name="DIRECTORY_TOOLSET" value="./toolset/" />
         <path name="DOMAIN_MESH" value="../data/global/box_coarse.xml" />
@@ -129,9 +135,9 @@
         <path name="DSMC_interaction" value="../data/global/interaction_data.xml"/>
         <path name="MCC_interaction" value="../data/global/interaction_data_mcc.xml"/>
         <path name="CONTROL_FIELD_CELLS_NAME" valie="control_field_cells.xml"/>
-        
+
         <path name="START_WITH_EXISTING_CONTROL" value="./results/control_field_cells.xml"/>
-        
+
         <path name="mesh_3d_path" value="mesh3d/"/>
         <path name="mesh_2d_path" value="mesh2d/"/>
     </paths>
@@ -141,8 +147,8 @@
 	<!--subroutine group="control_update" name="armijo_linesearch" /-->
 	<!--subroutine group="control_update" name="successive_approximation" /-->
 	<subroutine group="direction_update" name="negative_gradient" />
-        <!--subroutine group="desired_trajectory" name="box_center" /-->	
-        <subroutine group="desired_trajectory" name="box_shifting_negative_x" />	
+        <!--subroutine group="desired_trajectory" name="box_center" /-->
+        <subroutine group="desired_trajectory" name="box_shifting_negative_x" />
         <subroutine group="objective_calculation" name="magnitude"/>
       <!--  subroutine group="objective_calculation" name="components" / -->
     </subroutines>
