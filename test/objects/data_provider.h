@@ -16,12 +16,12 @@ TEST(dataprovider,amount_inputData) {
     std::map<std::string,std::string> paths = provider.read_paths(filename);
     std::map<std::string,std::string> routines = provider.read_subroutines(filename);
 
-    if (parameters.size() != 73) {
-        std::cout << "Parameters size wrong; Expected 64 but was " + std::to_string(parameters.size()) << std::endl;
+    if (parameters.size() != 77) {
+        std::cout << "Parameters size wrong; Expected 77 but was " + std::to_string(parameters.size()) << std::endl;
         all_clear = false;
     }
     if (paths.size() != 19) {
-        std::cout << "Parameters size wrong; Expected 15 but was " + std::to_string(paths.size()) << std::endl;
+        std::cout << "Parameters size wrong; Expected 19 but was " + std::to_string(paths.size()) << std::endl;
         all_clear = false;
     }
     if (routines.size() != 4) {
