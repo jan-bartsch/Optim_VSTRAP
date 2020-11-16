@@ -7,7 +7,7 @@
     <parameter name="C_theta_gp" value="1e+20"/>
     <parameter name="C_phi_gp" value="1e+20"/>
     <parameter name="sigma_x_gp" value="0.015"/>
-    <parameter name="sigma_v_gp" value="6266.570686577501"/> <!-- 62.66570686577501-->
+    <parameter name="sigma_v_gp" value="375.99424119465004"/> <!-- 62.66570686577501-->
 
     <!--  create adjoint particles and trajectory  -->
     <parameter name="adjoint_mu_x" value="0.0"/>
@@ -27,8 +27,8 @@
     <parameter name="adjoint_charge_number" value="+1"/>
     <parameter name="adjoint_mass" value="6.63e-26"/>
     <parameter name="adjoint_species" value="40Ar"/>
-    <parameter name="expected_speed" value="2e3"/>
-    <parameter name="most_probable_speed" value="2e3"/>
+    <parameter name="expected_speed" value="6e2"/>
+    <parameter name="most_probable_speed" value="6e2"/>
     <!-- MCC parameters -->
     <parameter name="MCC_temperature" value="200" />
     <parameter name="MCC_species" value="40Ar" />
@@ -76,41 +76,44 @@
     <parameter name="armijo_iterative_exp" value="1.0"/>     <!--  1.0: no decreasing stepsize  -->
 
     <!--  DOMAIN PARAMETERS  -->
-    <parameter name="dp_gp" value="0.0000156"/>     <!--  discretization size position 64:0.0156 1000:0.0001 512:0.002  216:0.00462963 -->
-    <parameter name="pcell_gp" value="64"/>
+    <parameter name="dp_gp" value="0.00000462963"/>     <!--  discretization size position 64:0.0156 1000:0.0001 512:0.002  216:0.00462963 (per m^3)-->
+    <parameter name="pcell_gp" value="216"/>
     <parameter name="pmax_gp" value="0.05"/>
-    <parameter name="db_gp" value="0.025"/>     <!--  box-side-length 216:0.16666667  -->
+    <parameter name="db_gp" value="0.016666667"/>     <!--  64:0.25 box-side-length 216:0.16666667  512:0.125 -->
     <parameter name="dt_gp" value="1e-6"/>     <!--  discretization size time  -->
-    <parameter name="ntimesteps_gp" value="20"/>
-    <parameter name="dv_gp" value="3e+2"/>      <!--  discretization size velocity  -->
+    <parameter name="ntimesteps_gp" value="40"/>
+    <parameter name="dv_gp" value="5e+2"/>      <!--  discretization size velocity  -->
     <parameter name="vcell_gp" value="10"/>     <!--  10  -->
-    <parameter name="vmax_gp" value="1.5e+3"/>     <!--  2e+3  -->     <!--  maximal velocity (support of forward equaiton)  -->
+    <parameter name="vmax_gp" value="2.5e+3"/>     <!--  2e+3  -->     <!--  maximal velocity (support of forward equaiton)  -->
     <parameter name="fraction_fast_particles_gp" value="0.1"/>
 
     <!--  CONTROL  -->
-    <parameter name="dimensionOfControl_gp" value="64"/>    <!--  number of elements of the control  -->
-    <parameter name="end_control_gp" value="64"/>
+    <parameter name="dimensionOfControl_gp" value="216"/>    <!--  number of elements of the control  -->
+    <parameter name="end_control_gp" value="216"/>
     <parameter name="start_control_gp" value="1"/>
     <parameter name="local_control_x_min_gp" value="-0.05"/>
     <parameter name="local_control_x_max_gp" value="0.05"/>
     <parameter name="weight_control_gp" value="1e+1"/>
-    <parameter name="velocity_part_objective" value="1e-9"/>
+    <parameter name="velocity_part_objective" value="1e-9"/> <!-- 1e-9 -->
+    <parameter name="visalization_scaling" value="0.0025" />
+    
     <!--   -->
     <parameter name="fabs_tol_gp" value="1e-9"/>
 </globalParameters>
 <paths>
 	<path name="BUILD_DIRECTORY_VSTRAP" value="/HOME/bartsch/SPARC/build-vstrap-CSMC/src/" />
-	<path name="BUILD_DIRECTORY_OPTIM" value="/HOME/bartsch/SPARC/build-Optim-CSMC4/src/" />
-	<path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/HOME/bartsch/SPARC/build-Optim-CSMC4/src/results/" />
+	<path name="BUILD_DIRECTORY_OPTIM" value="/HOME/bartsch/SPARC/build-Optim-CSMC/src/" />
+	<path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/HOME/bartsch/SPARC/build-Optim-CSMC/src/results/" />
   <!--path name="BUILD_DIRECTORY_VSTRAP" value="/home/jan/Promotion_linuxPC/build-vstrap/src/" />
   <path name="BUILD_DIRECTORY_OPTIM" value="/home/jan/Promotion_linuxPC/build-Optim/src/" />
   <path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/home/jan/Promotion_linuxPC/build-Optim/src/results/" /-->
 	<path name="PATH_TO_SHARED_FILES" value="./results/" />
-	<path name="PVPYTHON_ABSOLUTE_DIR" value="/usr/bin/pvpython" />
-	<path name="BARYCENTERS_MESH" value="../../Optim_VSTRAP/data/global/mesh_barycenters_small.xml"/>
+	<!--path name="PVPYTHON_ABSOLUTE_DIR" value="/usr/bin/pvpython" /-->
+  <path name="PVPYTHON_ABSOLUTE_DIR" value="/home/jan/ParaView-5.8.0-MPI-Linux-Python3.7-64bit/bin/pvpython" />
+	<path name="BARYCENTERS_MESH" value="../../Optim_VSTRAP/data/global/mesh_barycenters_small_216.xml"/>
 	<path name="DIRECTORY_TOOLSET" value="../../Optim_VSTRAP/optim-vstrap-toolset/toolset/"/>
-	<path name="DOMAIN_MESH" value="../../../Optim_VSTRAP/data/global/box_vol_regular_small.xml"/>
-    <path name="DOMAIN_MESH_FILE" value="box_vol_regular_small_fine.xml"/>
+	<path name="DOMAIN_MESH" value="../../../Optim_VSTRAP/data/global/box_vol_regular_small_216.xml"/>
+    <path name="DOMAIN_MESH_FILE" value="box_vol_regular_small_216.xml"/>
 	<path name="RESULTS_DIRECTORY" value="results/"/>
 	<path name="INPUT_FORWARD" value="input_forward_64.xml"/>
 	<path name="INPUT_BACKWARD" value="input_backward_64.xml"/>

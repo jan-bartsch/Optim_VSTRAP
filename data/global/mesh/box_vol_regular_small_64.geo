@@ -2,7 +2,7 @@
 
 SetFactory("OpenCASCADE");
 
-boxSize = 100;
+boxSize = 100; //in mm
 division = 3;
 gridSize = boxSize/division;
 
