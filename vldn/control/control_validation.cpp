@@ -19,6 +19,13 @@ int control_validation::start_validation(int argc, char **argv)
     output_diagnostics out = output_diagnostics();
     out.setData_provider_optim(optimization_provider);
 
+    equation_solving_controller solver = equation_solving_controller();
+    solver.setData_provider_optim(optimization_provider);
+
+    inner_products pro = inner_products();
+    pro.setData_provider_optim(optimization_provider);
+
+
     int iterations = static_cast<int>(validation_params.find("number_controls")->second);
     std::cout << "Running " << iterations << " validation iterations" << std::endl;
 
@@ -41,17 +48,13 @@ int control_validation::start_validation(int argc, char **argv)
         number = std::to_string(i);
         file = CONTROLS_DIRECTORY +"control_" + number + ".xml";
         std::cout << "Open file with name " << file << std::endl;
-        arma::mat control =  in.readControl(file.c_str());
-        control_vector.push_back(control);
-        std::cout << "norm: " << arma::norm(control) << std::endl;
+        //arma::mat control =  in.readControl(file.c_str());
+       // control_vector.push_back(control);
+        std::cout << "H2 norm: " << std::sqrt(pro.H2_inner_product(in.readControl(file.c_str()),in.readControl(file.c_str()))) << std::endl;
+        std::cout << "H1 norm: " << std::sqrt(pro.H1_inner_product(in.readControl(file.c_str()),in.readControl(file.c_str()))) << std::endl;
+        std::cout << "L2 norm: " << std::sqrt(pro.L2_inner_product(in.readControl(file.c_str()),in.readControl(file.c_str()))) << std::endl;
+        std::cout << "norm: " << arma::norm(in.readControl(file.c_str())) << std::endl;
     }
-
-    equation_solving_controller solver = equation_solving_controller();
-    solver.setData_provider_optim(optimization_provider);
-
-    inner_products pro = inner_products();
-    pro.setData_provider_optim(optimization_provider);
-
 
     for (int i = 0; i < iterations-1; i++) {
         control_difference[i] = std::sqrt(pro.H1_inner_product(control_vector[i+1]*weight_vector[i+1]-control_vector[i]*weight_vector[i],
