@@ -30,7 +30,7 @@ public:
      * @param filename
      * @return
      */
-    arma::mat readControl(const char *filename);
+    arma::mat readControl(const char *filename, int pcell_gp);
 
     static std::vector<double> readDoubleVector(const char *filename);
 };

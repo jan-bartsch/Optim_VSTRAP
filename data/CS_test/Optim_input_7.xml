@@ -1,6 +1,7 @@
 <optimizer_input>
 <globalParameters>
     <parameter name="simulating_plasma" value="1" />
+    <parameter name="fmm" value="0" />
     <parameter name="armijo_descent_fraction" value="1e-30"/>
     <parameter name="calculation_functional" value="1"/>
     <parameter name="calculation_wasserstein" value="0"/>
@@ -96,7 +97,7 @@
     <parameter name="weight_control_gp" value="1e+1"/>
     <parameter name="velocity_part_objective" value="1e-9"/> <!-- 1e-9 -->
     <parameter name="visalization_scaling" value="0.0025" />
-    
+
     <!--   -->
     <parameter name="fabs_tol_gp" value="1e-9"/>
 </globalParameters>

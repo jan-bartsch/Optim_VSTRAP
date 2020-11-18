@@ -13,6 +13,8 @@ int control_validation::start_validation(int argc, char **argv)
     std::map<std::string, double> optimizationParameters = optimization_provider.getOptimizationParameters();
     std::map<std::string,std::string> paths = optimization_provider.getPaths();
 
+    int pcell_gp = static_cast<int>(optimizationParameters.find("pcell_gp")->second);
+
     input in = input();
     in.setData_provider_optim(optimization_provider);
 
@@ -37,10 +39,10 @@ int control_validation::start_validation(int argc, char **argv)
     std::vector<arma::mat> control_vector;
     std::vector<double> control_difference(iterations-1,0.0);
 
-    std::string weight_file = CONTROLS_DIRECTORY + "weight_vector.txt";
-    std::vector<double> weight_vector = in.readDoubleVector(weight_file.c_str());
+    std::string discretization_file = CONTROLS_DIRECTORY + "discretization_vector.txt";
+    std::vector<double> discretization_vector = in.readDoubleVector(discretization_file.c_str());
 
-    if(static_cast<int>(weight_vector.size()) != iterations) {
+    if(static_cast<int>(discretization_vector.size()) != iterations) {
         throw std::invalid_argument("Number of weights and controls does not match");
     }
 
@@ -48,25 +50,23 @@ int control_validation::start_validation(int argc, char **argv)
         number = std::to_string(i);
         file = CONTROLS_DIRECTORY +"control_" + number + ".xml";
         std::cout << "Open file with name " << file << std::endl;
-        //arma::mat control =  in.readControl(file.c_str());
+        arma::mat control =  in.readControl(file.c_str(),static_cast<int>(discretization_vector[i]));
        // control_vector.push_back(control);
-        std::cout << "H2 norm: " << std::sqrt(pro.H2_inner_product(in.readControl(file.c_str()),in.readControl(file.c_str()))) << std::endl;
-        std::cout << "H1 norm: " << std::sqrt(pro.H1_inner_product(in.readControl(file.c_str()),in.readControl(file.c_str()))) << std::endl;
-        std::cout << "L2 norm: " << std::sqrt(pro.L2_inner_product(in.readControl(file.c_str()),in.readControl(file.c_str()))) << std::endl;
-        std::cout << "norm: " << arma::norm(in.readControl(file.c_str())) << std::endl;
+        std::cout << "L2 norm: " << std::sqrt(pro.L2_inner_product(control,control)) << std::endl;
+        std::cout << "norm: " << arma::norm(control,"fro")*std::sqrt(0.001/discretization_file[i]) << std::endl; //*0.001/discretization_vector[i]
     }
 
     for (int i = 0; i < iterations-1; i++) {
-        control_difference[i] = std::sqrt(pro.H1_inner_product(control_vector[i+1]*weight_vector[i+1]-control_vector[i]*weight_vector[i],
-                control_vector[i+1]*weight_vector[i+1]-control_vector[i]*weight_vector[i]));
+        control_difference[i] = std::sqrt(pro.H1_inner_product(control_vector[i+1]*discretization_vector[i+1]-control_vector[i]*discretization_vector[i],
+                control_vector[i+1]*discretization_vector[i+1]-control_vector[i]*discretization_vector[i]));
         std::cout << control_difference[i] << std::endl;
     }
 
     out.writeDoubleVectorToFile(control_difference,"H1-difference");
 
     for (int i = 0; i < iterations-1; i++) {
-        control_difference[i] = std::sqrt(pro.L2_inner_product(control_vector[i+1]*weight_vector[i+1]-control_vector[i]*weight_vector[i],
-                control_vector[i+1]*weight_vector[i+1]-control_vector[i]*weight_vector[i]));
+        control_difference[i] = std::sqrt(pro.L2_inner_product(control_vector[i+1]*discretization_vector[i+1]-control_vector[i]*discretization_vector[i],
+                control_vector[i+1]*discretization_vector[i+1]-control_vector[i]*discretization_vector[i]));
         //control_difference[i] = std::sqrt(pro.H2_inner_product(control_vector[i+1]-control_vector[i],control_vector[i+1]-control_vector[i]));
         std::cout << control_difference[i] << std::endl;
     }

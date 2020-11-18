@@ -58,7 +58,7 @@
 		<executable name="fmm" mode="CPU">
 			<smearing_radius value="0.0"/>
 			<method name="fmm"/>
-			<particle_group name="forward_particles"/>
+						<particle_group name="forward_particles"/>
             <particle_group name="forward_particles_electrons"/>
 		</executable>
          <executable name="dsmc" mode="CPU">

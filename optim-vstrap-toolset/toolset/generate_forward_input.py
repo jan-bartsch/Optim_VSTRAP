@@ -59,7 +59,7 @@ elif(str(params['creation_forward_particles_method'])=='create_existing'):
     print("Initialize forward particles using existing values")
     file_forward_input.write("\t\t <executable name=\"particle_initializer\" mode=\"CPU\"> \n \t\t\t<group name=\"forward_particles\">\n")
     file_forward_input.write("\t\t\t <load>"+str(params['initial_condition_file'])+"</load> \n \t\t\t </group> \n \t\t </executable> \n ")
-    
+
 
 file_forward_input.write("\t\t <executable name=\"pwi\" mode=\"CPU\"> \n \t\t\t<boundary_type name=\"cuboid\"/>\n")
 file_forward_input.write("\t\t\t <geometry x_min=\"-" +str(optim_pmax_gp) +" \" x_max=\"" +str(optim_pmax_gp) +" \" y_min=\"-" +str(optim_pmax_gp) +" \" y_max=\"" +str(optim_pmax_gp) +" \" z_min=\"-" +str(optim_pmax_gp) +" \" z_max=\"" +str(optim_pmax_gp) +" \"/> \n ")
@@ -86,7 +86,7 @@ if(float(params['mesh_2d_writer_included'])==0):
     file_forward_input.write("\t\t\t <particle_group name=\"forward_particles\"/>\n")
     file_forward_input.write("\t\t\t <values height=\"1.0\" min_1=\"-0.5\" min_2=\"-0.5\" dl=\"0.25\" n_1=\"4\" n_2=\"4\" plane=\"xy\"/>\n")
     file_forward_input.write("\t\t </executable>\n")
-    
+
 if(float(params['mesh_3d_writer_included'])==0):
     print("Include mesh_3d_writer")
     print(str(pathsList['PATH_TO_SHARED_FILES']))
@@ -94,6 +94,8 @@ if(float(params['mesh_3d_writer_included'])==0):
     file_forward_input.write("\t\t\t <file name=\"" + str(params['mesh_3d_name']) + "\" format=\"vtu\" path=\"" + str(pathsList['PATH_TO_SHARED_FILES']) + str(pathsList['mesh_3d_path']) + "\" output_interval=\"" + str(params['mesh_3d_outputinterval']) +"\" />\n")
     file_forward_input.write("\t\t\t <particle_group name=\"forward_particles\"/>\n")
     file_forward_input.write("\t\t </executable>\n")
+
+file_forward_input.write("\t\t <executable name=\"fmm\" mode=\"CPU\"> \t\t\t <smearing_radius value=\"0.0\"/> \t\t\t <method name=\"fmm\"/> \t\t\t <particle_group name=\"forward_particles\"/> \t\t </executable>")
 
 file_forward_input.write("\t </executables>\n")
 
@@ -106,6 +108,8 @@ file_forward_input.write("\t\t\t <executable name=\"plasma_state\"/> \n")
 file_forward_input.write("\t\t\t <executable name=\"pusher\"/> \n")
 file_forward_input.write("\t\t\t <executable name=\"pwi\"/> \n")
 file_forward_input.write("\t\t\t <executable name=\"dsmc\"/> \n")
+if(float(params['fmm'])==0):
+	file_forward_input.write("\t\t\t <executable name=\"fmm\" />\n")
 if(float(params['mesh_2d_writer_included'])==0):
     file_forward_input.write("\t\t\t <executable name=\"mesh_2d_data_writer\" />\n")
 if(float(params['mesh_3d_writer_included'])==0):
@@ -114,6 +118,8 @@ file_forward_input.write("\t\t\t <executable name=\"bgf\"/> \n \t\t</init> \n")
 
 file_forward_input.write("\t\t <exec> \n")
 file_forward_input.write("\t\t\t <executable name=\"bgf\"/> \n")
+if(float(params['fmm'])==0):
+	file_forward_input.write("\t\t\t <executable name=\"fmm\" />\n")
 file_forward_input.write("\t\t\t <executable name=\"dsmc\"/> \n")
 file_forward_input.write("\t\t\t <executable name=\"pusher\"/> \n")
 file_forward_input.write("\t\t\t <executable name=\"pwi\"/> \n")
@@ -124,11 +130,3 @@ if(float(params['mesh_3d_writer_included'])==0):
 file_forward_input.write("\t\t\t <executable name=\"plasma_state\"/> \n \t\t </exec> \n")
 file_forward_input.write("\t</schedule>\n")
 file_forward_input.write("</simulation>")
-
-
-
-
-
-
-
-

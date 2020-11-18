@@ -377,6 +377,7 @@ arma::mat optim_controller::start_with_given_control(const char *input_xml_path)
     std::map<std::string, std::string> paths = data_provider_opt.getPaths();
     std::string START_WITH_EXISTING_CONTROL = paths.find("START_WITH_EXISTING_CONTROL")->second;
     double fraction_of_optimal_control = static_cast<double>(optimizationParameters.find("fraction_of_optimal_control")->second);
+     int pcell_gp = static_cast<int>(optimizationParameters.find("pcell_gp")->second);
 
     logger::Info("Deleting old .txt and .csv files");
     std::string COMMAND_RM_RESULTS = "rm *.csv && rm *.txt";
@@ -384,7 +385,7 @@ arma::mat optim_controller::start_with_given_control(const char *input_xml_path)
 
     logger::Info("Starting with existing control (multiplied by a positive constant)");
     std::string READ_CONTROL = START_WITH_EXISTING_CONTROL;
-    arma::mat control = in.readControl(&READ_CONTROL[0]);
+    arma::mat control = in.readControl(&READ_CONTROL[0],pcell_gp);
     outController.writeControl_XML(fraction_of_optimal_control*control);
     outController.interpolate_control(data_provider_opt);
 

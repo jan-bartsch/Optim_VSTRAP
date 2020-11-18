@@ -66,9 +66,6 @@ double inner_products::H1_inner_product(arma::mat m1, arma::mat m2)
     arma::mat D1mat1 = D1*m1.rows(start_control-1,end_control-1)/(2.0*db_gp);
     arma::mat D1mat2 = D1*m2.rows(start_control-1,end_control-1)/(2.0*db_gp);
 
-    std::cout << m1 << std::endl;
-
-
     for(int i = 0; i < D1mat1.n_cols; i++) {
         std::cout << arma::dot(D1mat1.col(i),D1mat2.col(i))*dp_gp << std::endl;
         product += arma::dot(D1mat1.col(i),D1mat2.col(i))*dp_gp;
