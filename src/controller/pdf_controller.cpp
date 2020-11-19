@@ -137,8 +137,8 @@ int pdf_controller::assemblingMultiDim_parallel(std::vector<std::vector<particle
             px = particles[i].getPx(); py = particles[i].getPy(); pz = particles[i].getPz();
             vx = particles[i].getVx(); vy = particles[i].getVy(); vz = particles[i].getVz();
 
-            if (sqrt(vx*vx+vy*vy+vz*vz) <= vmax_gp ) { //else not needed
-
+            //if (sqrt(vx*vx+vy*vy+vz*vz) <= vmax_gp ) { //else not needed
+            if(vx < vmax_gp && vy < vmax_gp && vz < vmax_gp) {
 
                 binNumberTime = static_cast<int>(o);
 
@@ -166,8 +166,9 @@ int pdf_controller::assemblingMultiDim_parallel(std::vector<std::vector<particle
                     //std::cout << "particle at " << coordinate.toString() << " has speed " << sqrt(vx*vx+vy*vy+vz*vz) << std::endl;
                     if (too_fast_particles >= fraction_fast_particles_gp*particles.size()) {
                         //logger::Trace("Too many too fast particles, try to increase velocity bound");
+                        too_fast_particles++;
                         return_flag = 1;
-                        break;
+                        //break;
                     }
                 } else if (equationType == 1)  {
                     too_fast_adjoint_particles++;

@@ -223,7 +223,7 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm(std::vect
     //Caculate integral in gradient
     const unsigned int n = pcell_gp;
 
-#pragma omp parallel for
+//#pragma omp parallel for
     for(unsigned int i = 1; i< n+1; i++) {
 
         std::cout << "Calculating gradient in Cell " << i << std::endl;
