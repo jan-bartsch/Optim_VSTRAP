@@ -84,9 +84,9 @@
 	<parameter name="db_gp" value="0.025"/> 	<!--  box-side-length 216:0.16666667  -->
 	<parameter name="dt_gp" value="1e-9"/> 	<!--  discretization size time  -->
 	<parameter name="ntimesteps_gp" value="15"/>
-	<parameter name="dv_gp" value="10e+4"/> 	<!--  discretization size velocity  -->
+	<parameter name="dv_gp" value="10e+5"/> 	<!--  discretization size velocity  -->
 	<parameter name="vcell_gp" value="10"/>  	<!--  10  -->
-	<parameter name="vmax_gp" value="5e+5"/> <!--  2e+3  --> 	<!--  maximal velocity (support of forward equaiton)  -->
+	<parameter name="vmax_gp" value="5e+6"/> <!--  2e+3  --> 	<!--  maximal velocity (support of forward equaiton)  -->
 	<parameter name="fraction_fast_particles_gp" value="0.3"/>
 
 	<!--  CONTROL  -->

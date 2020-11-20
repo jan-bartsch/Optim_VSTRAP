@@ -104,7 +104,7 @@ int pdf_controller::assemblingMultiDim_parallel(std::vector<std::vector<particle
     double vmax_gp = this->getData_provider_optim().getOptimizationParameters().find("vmax_gp")->second;
 
     double fraction_fast_particles_gp = this->getData_provider_optim().getOptimizationParameters().find("fraction_fast_particles_gp")->second;
-    int too_fast_particles = 0;
+    std::vector<int> too_fast_particles(ntimesteps_gp,0);
     int too_fast_adjoint_particles = 0;
 
     double dv_gp = this->getData_provider_optim().getOptimizationParameters().find("dv_gp")->second;
@@ -162,12 +162,12 @@ int pdf_controller::assemblingMultiDim_parallel(std::vector<std::vector<particle
                 }
             } else {
                 if (equationType == 0) {
-                    too_fast_particles++;
+                    too_fast_particles[o]++;
                     //std::cout << "particle at " << coordinate.toString() << " has speed " << sqrt(vx*vx+vy*vy+vz*vz) << std::endl;
-                    if (too_fast_particles >= fraction_fast_particles_gp*particles.size()) {
+                    if (too_fast_particles[o] >= fraction_fast_particles_gp*particles.size()) {
                         //logger::Trace("Too many too fast particles, try to increase velocity bound");
-                        too_fast_particles++;
-                        return_flag = 1;
+                        too_fast_particles[o]++;
+                        //return_flag = 1;
                         //break;
                     }
                 } else if (equationType == 1)  {
@@ -179,8 +179,12 @@ int pdf_controller::assemblingMultiDim_parallel(std::vector<std::vector<particle
         }
     }
 
-    if (equationType == 0 && too_fast_particles>0) {
-        logger::Info("Particles faster than " + std::to_string(vmax_gp) + ": " + std::to_string(too_fast_particles));
+     std::vector<int>::iterator max_too_fast_particles = std::max_element(too_fast_particles.begin(),too_fast_particles.end());
+     int number_too_fast_particles = max_too_fast_particles[std::distance(too_fast_particles.begin(),max_too_fast_particles)];
+
+    if (equationType == 0 && number_too_fast_particles>0) {
+        logger::Info("(Maximum) particles faster than " + std::to_string(vmax_gp) + ": " + std::to_string(number_too_fast_particles) + " in iteration "
+                     + std::to_string(std::distance(too_fast_particles.begin(),max_too_fast_particles)));
     }
     if (equationType == 1 && too_fast_adjoint_particles>0) {
         logger::Info("Too fast adjoint particles: " + std::to_string(too_fast_adjoint_particles));
