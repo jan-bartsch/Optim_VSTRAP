@@ -67,7 +67,7 @@
   <parameter name="mesh_3d_outputinterval" value="1"/>
 
 	<!--  optimization techniques  -->
-	<parameter name="fixed_gradient_descent_stepsize" value="1e+10"/>
+	<parameter name="fixed_gradient_descent_stepsize" value="1e+7"/>
 	<parameter name="fraction_of_optimal_control" value="1e-5"/>
 	<parameter name="optimizationIteration_max_gp" value="100"/> 	<!--  number of maximal interations  -->
 	<parameter name="numberParticles_gp" value="2000"/>
@@ -97,6 +97,7 @@
 	<parameter name="local_control_x_max_gp" value="0.5"/>
 	<parameter name="weight_control_gp" value="1e+2"/>
 	<parameter name="velocity_part_objective" value="0"/>
+    <parameter name="visalization_scaling" value="0.0025" />
 	<!--   -->
 	<parameter name="fabs_tol_gp" value="1e-5"/>
 </globalParameters>

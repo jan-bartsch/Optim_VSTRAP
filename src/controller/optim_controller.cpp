@@ -436,9 +436,11 @@ int optim_controller::visualize_control(data_provider provider)
     std::string BGF_CONTROL = paths.find("BGF_CONTROL")->second;
     std::string DOMAIN_MESH_FILE = paths.find("DOMAIN_MESH_FILE")->second;
 
+    double visalization_scaling = parameters.find("visalization_scaling")->second;
+
     std::string VISUALIZING_STRING = "python3 " + DIRECTORY_TOOLSET + "visualize_control.py "
             + PATH_TO_SHARED_FILES_ABSOLUTE + BGF_CONTROL + " ../../Optim_VSTRAP/data/global/"
-            + DOMAIN_MESH_FILE + " 0.25 " + PATH_TO_SHARED_FILES_ABSOLUTE + " "
+            + DOMAIN_MESH_FILE + " " + std::to_string(visalization_scaling) + " " + PATH_TO_SHARED_FILES_ABSOLUTE + " "
             + std::to_string(parameters.find("pmax_gp")->second);
 
     logger::Info("Visualize control ... using command " + VISUALIZING_STRING);
