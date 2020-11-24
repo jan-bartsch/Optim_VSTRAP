@@ -45,7 +45,7 @@
     <parameter name="creation_forward_particles_method" value="create_new"/> <!-- create_existing create_new-->
     <parameter name="initial_condition_file" value="plasma_state_batch_1_forward_particles_CPU_1.csv"/> <!-- only in effect if create_existing-->
     <parameter name="number_density_forward" value="1e+16"/>
-    <parameter name="weight_forward" value="5e+8"/>
+    <parameter name="weight_forward" value="1e+7"/>
     <parameter name="charge_number_forward" value="+1"/>
     <parameter name="mass_forward" value="6.63e-26"/>
     <parameter name="species_forward" value="40Ar+"/>
@@ -116,14 +116,14 @@
 	<path name="DOMAIN_MESH" value="../../../Optim_VSTRAP/data/global/box_vol_regular_small_216.xml"/>
     <path name="DOMAIN_MESH_FILE" value="box_vol_regular_small_216.xml"/>
 	<path name="RESULTS_DIRECTORY" value="results/"/>
-	<path name="INPUT_FORWARD" value="input_forward_64.xml"/>
-	<path name="INPUT_BACKWARD" value="input_backward_64.xml"/>
+	<path name="INPUT_FORWARD" value="input_forward_216.xml"/>
+	<path name="INPUT_BACKWARD" value="input_backward_216.xml"/>
 	<path name="CREATION_ADJOINT_PARTCLES" value="./creation_adjoint_particles_new.xml"/>
-	<path name="BGF_CONTROL" value="interpolated_control_field_64.xml"/>
+	<path name="BGF_CONTROL" value="interpolated_control_field_216.xml"/>
 	<!--  shared forward/backward  -->
 	<path name="DSMC_interaction" value="../../../Optim_VSTRAP/data/global/interaction_data.xml"/>
 	<path name="MCC_interaction" value="../../../Optim_VSTRAP/data/global/interaction_data_mcc.xml"/>
-	<path name="CONTROL_FIELD_CELLS_NAME" valie="control_field_cells_64.xml"/>
+	<path name="CONTROL_FIELD_CELLS_NAME" valie="control_field_cells_216.xml"/>
 
     <path name="mesh_3d_path" value="mesh3d/"/>
     <path name="mesh_2d_path" value="mesh2d/"/>

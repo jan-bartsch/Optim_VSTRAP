@@ -7,7 +7,7 @@ set(CMAKE_BUILD_TYPE DEBUG)
 
 message("INFO: CMAKE_SYSTEM IS ${CMAKE_SYSTEM}")
 
-if(("${CMAKE_SYSTEM}" STREQUAL "Linux-4.12.14-lp151.28.75-default") OR ("${CMAKE_SYSTEM}" STREQUAL "Linux-4.12.14-lp151.28.59-default")
+if(("${CMAKE_SYSTEM}" STREQUAL "Linux-4.12.14-lp151.28.75-default") OR ("${CMAKE_SYSTEM}" STREQUAL "Linux-4.12.14-lp151.28.79-default")
         OR ("${CMAKE_SYSTEM}" STREQUAL "Linux-4.12.14-lp151.28.67-default" OR ("${CMAKE_SYSTEM}" STREQUAL "Linux-4.12.14-lp151.28.71-default")))
 
 message("INFO: some libraries are included manually")

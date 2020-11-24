@@ -1,30 +1,19 @@
-echo -e "\e[32mStarting B2xx\e[39m"
-./Optim_VSTRAP_CMAKE ../../Optim_VSTRAP/data/box_shifting_temp_weight/Optim_input_B3001.xml
-echo -e "\e[32mCopying results\e[39m"
-rm -r results_B3001 
-mkdir results_B3001
-cp -r ./results/ ./results_B3001
-cp ../../Optim_VSTRAP/data/box_shifting_temp_weight/interpolated_control_field.xml ./results_B3001
-cp ../../Optim_VSTRAP/data/box_shifting_temp_weight/control_field_cells.xml ./results_B3001
-cp ../../Optim_VSTRAP/data/box_shifting_temp_weight/creation_adjoint_particles.xml ./results_B3001
-echo -e "\e[32mFinishedB1001\e[39m"
+./Optim_VSTRAP_CMAKE ../../Optim_VSTRAP/data/CS_test/Optim_input_71.xml
+rm -r -f results_71
+mkdir results_71
+cp -r ./results/ ./results_71
 
-./Optim_VSTRAP_CMAKE ../../Optim_VSTRAP/data/box_shifting_temp_weight/Optim_input_B3002.xml
-echo -e "\e[32mCopying results \e[39m"
-rm -r results_B3002 
-mkdir results_B3002
-cp -r ./results/ ./results_B3002
-cp ../../Optim_VSTRAP/data/box_shifting_temp_weight/interpolated_control_field.xml ./results_B3002
-cp ../../Optim_VSTRAP/data/box_shifting_temp_weight/control_field_cells.xml ./results_B3002
-cp ../../Optim_VSTRAP/data/box_shifting_temp_weight/creation_adjoint_particles.xml ./results_B3002
-echo -e "\e[32mFinished A1002\e[39m"
+./Optim_VSTRAP_CMAKE ../../Optim_VSTRAP/data/CS_test/Optim_input_72.xml
+rm -r -f results_72
+mkdir results_72
+cp -r ./results/ ./results_72
 
-./Optim_VSTRAP_CMAKE ../../Optim_VSTRAP/data/box_shifting_temp_weight/Optim_input_B3003.xml
-echo -e "\e[32mCopying results \e[39m"
-rm -r results_B3003 
-mkdir results_B3003
-cp -r ./results/ ./results_B3003
-cp ../../Optim_VSTRAP/data/box_shifting_temp_weight/interpolated_control_field.xml ./results_B3003
-cp ../../Optim_VSTRAP/data/box_shifting_temp_weight/control_field_cells.xml ./results_B3003
-cp ../../Optim_VSTRAP/data/box_shifting_temp_weight/creation_adjoint_particles.xml ./results_B3003
-echo -e "\e[32mFinished \e[39m"
+./Optim_VSTRAP_CMAKE ../../Optim_VSTRAP/data/CS_test/Optim_input_73.xml
+rm -r -f results_73
+mkdir results_73
+cp -r ./results/ ./results_73
+
+./Optim_VSTRAP_CMAKE ../../Optim_VSTRAP/data/CS_test/Optim_input_74.xml
+rm -r -f results_74
+mkdir results_74
+cp -r ./results/ ./results_74
