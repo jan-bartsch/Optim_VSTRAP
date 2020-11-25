@@ -1,0 +1,2 @@
+ssh bartsch@login1.mathematik.uni-wuerzburg.de
+scp -r bartsch@csmc.mathematik.uni-wuerzburg.de:/LocalData/bartsch/build-Optim-CSMC/src/results/ /home/bartsch/SPARC/
