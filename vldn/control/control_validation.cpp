@@ -50,24 +50,27 @@ int control_validation::start_validation(int argc, char **argv)
         number = std::to_string(i);
         file = CONTROLS_DIRECTORY +"control_" + number + ".xml";
         std::cout << "Open file with name " << file << std::endl;
-        arma::mat control =  in.readControl(file.c_str(),static_cast<int>(discretization_vector[i]));
-       // control_vector.push_back(control);
-        std::cout << "L2 norm: " << std::sqrt(pro.L2_inner_product(control,control)) << std::endl;
-        std::cout << "norm: " << arma::norm(control,"fro")*std::sqrt(0.001/discretization_file[i]) << std::endl; //*0.001/discretization_vector[i]
+        //arma::mat control =  in.readControl(file.c_str(),static_cast<int>(discretization_vector[i]));
+        arma::mat control =  in.readControl(file.c_str(),pcell_gp);
+        std::cout << control << std::endl;
+        control_vector.push_back(control);
+        //std::cout << "L2 norm: " << std::sqrt(pro.L2_inner_product(control,control)) << std::endl;
+        //std::cout << "norm: " << arma::norm(control,"fro")*std::sqrt(0.001/discretization_file[i]) << std::endl; //*0.001/discretization_vector[i]
     }
 
     for (int i = 0; i < iterations-1; i++) {
-        control_difference[i] = std::sqrt(pro.H1_inner_product(control_vector[i+1]*discretization_vector[i+1]-control_vector[i]*discretization_vector[i],
-                control_vector[i+1]*discretization_vector[i+1]-control_vector[i]*discretization_vector[i]));
+//        control_difference[i] = std::sqrt(pro.H1_inner_product(control_vector[i+1]*discretization_vector[i+1]-control_vector[i]*discretization_vector[i],
+//                control_vector[i+1]*discretization_vector[i+1]-control_vector[i]*discretization_vector[i]));
+        control_difference[i] = std::sqrt(pro.H1_inner_product(control_vector[i+1]-control_vector[i],control_vector[i+1]-control_vector[i]));
         std::cout << control_difference[i] << std::endl;
     }
 
     out.writeDoubleVectorToFile(control_difference,"H1-difference");
 
     for (int i = 0; i < iterations-1; i++) {
-        control_difference[i] = std::sqrt(pro.L2_inner_product(control_vector[i+1]*discretization_vector[i+1]-control_vector[i]*discretization_vector[i],
-                control_vector[i+1]*discretization_vector[i+1]-control_vector[i]*discretization_vector[i]));
-        //control_difference[i] = std::sqrt(pro.H2_inner_product(control_vector[i+1]-control_vector[i],control_vector[i+1]-control_vector[i]));
+//        control_difference[i] = std::sqrt(pro.L2_inner_product(control_vector[i+1]*discretization_vector[i+1]-control_vector[i]*discretization_vector[i],
+//                control_vector[i+1]*discretization_vector[i+1]-control_vector[i]*discretization_vector[i]));
+        control_difference[i] = std::sqrt(pro.L2_inner_product(control_vector[i+1]-control_vector[i],control_vector[i+1]-control_vector[i]));
         std::cout << control_difference[i] << std::endl;
     }
 

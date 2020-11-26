@@ -21,7 +21,7 @@ H1_difference_file = open(args.pathToResults + "H1-difference.txt")
 H2_difference_file = open(args.pathToResults + "H2-difference.txt")
 L2_difference_file = open(args.pathToResults + "L2-difference.txt")
 
-weight_vector_file = open(args.pathToResults + "weight_vector.txt")
+weight_vector_file = open(args.pathToResults + "discretization_vector.txt")
 
 H1_difference = H1_difference_file.read().split("\n")
 H1_difference_float = []
@@ -59,7 +59,7 @@ print(weight_vector_float1)
 ax1 = plt.gca()
 plt.plot(H1_difference_float, label="difference H1")
 plt.plot(H2_difference_float, label="difference H2")
-plt.plot(L2_difference_float, label="difference L2")
+#plt.plot(L2_difference_float, label="difference L2")
 plt.plot(weight_vector_float, label="fraction weights")
 plt.plot(weight_vector_float1, label="difference weights")
 linear_label = "linear (" + str(scale)+")";
