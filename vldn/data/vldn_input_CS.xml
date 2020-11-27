@@ -1,6 +1,6 @@
 <optimizer_input>
 	<globalParameters>
-		<parameter name="number_controls" value="4" />
+		<parameter name="number_controls" value="5" />
 	</globalParameters>
 	<paths>
 		<path name="DIRECTORY_OPTIM_INPUT" value="/HOME/bartsch/SPARC/Optim_VSTRAP/vldn/data/Optim_input.xml" />

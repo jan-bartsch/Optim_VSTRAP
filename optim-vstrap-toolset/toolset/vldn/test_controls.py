@@ -59,7 +59,7 @@ print(weight_vector_float1)
 ax1 = plt.gca()
 plt.plot(H1_difference_float, label="difference H1")
 plt.plot(H2_difference_float, label="difference H2")
-#plt.plot(L2_difference_float, label="difference L2")
+plt.plot(L2_difference_float, label="difference L2")
 plt.plot(weight_vector_float, label="fraction weights")
 plt.plot(weight_vector_float1, label="difference weights")
 linear_label = "linear (" + str(scale)+")";

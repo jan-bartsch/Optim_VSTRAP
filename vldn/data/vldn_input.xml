@@ -1,6 +1,6 @@
 <optimizer_input>
 	<globalParameters>
-		<parameter name="number_controls" value="3" />
+		<parameter name="number_controls" value="4" />
 	</globalParameters>
 	<paths>
 		<path name="DIRECTORY_OPTIM_INPUT" value="/home/jan/Promotion_linuxPC/Optim_VSTRAP/vldn/data/Optim_input.xml" />
