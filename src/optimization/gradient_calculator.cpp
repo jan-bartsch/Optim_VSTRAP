@@ -115,6 +115,9 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm_not_paral
                             } else {
                                 firstDerivativeForwardPDF_V3_current = (forwardPDFdouble[o][l][m][n+1]-forwardPDFdouble[o][l][m][n-1])/(2.0*dv_gp);
                             }
+                            /*
+                             * electric field
+                            */
                             gradient(i-1,0) += backwardPDFdouble[o][l][m][n]*firstDerivativeForwardPDF_V1_current*pow(dv_gp,3.0)*pow(dt_gp,1.0);
                             gradient(i-1,1) += backwardPDFdouble[o][l][m][n]*firstDerivativeForwardPDF_V2_current*pow(dv_gp,3.0)*pow(dt_gp,1.0);
                             gradient(i-1,2) += backwardPDFdouble[o][l][m][n]*firstDerivativeForwardPDF_V3_current*pow(dv_gp,3.0)*pow(dt_gp,1.0);
@@ -187,7 +190,6 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm(std::vect
     std::map<std::string, double> optimizationParameters = this->getData_provider_optim().getOptimizationParameters();
     std::map<int,std::vector<double>> barycenters = this->getData_provider_optim().getMesh_barycenters();
 
-
     pdf_controller pdf_control = pdf_controller();
     pdf_control.setData_provider_optim(this->getData_provider_optim());
     equation_solving_controller model_solver = equation_solving_controller();
@@ -202,6 +204,7 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm(std::vect
     double dv_gp = static_cast<double>(optimizationParameters.find("dv_gp")->second);
     double dt_gp = static_cast<double>(optimizationParameters.find("dt_gp")->second);
     double db_gp = static_cast<double>(optimizationParameters.find("db_gp")->second);
+    double vmax_gp = static_cast<double>(optimizationParameters.find("vmax_gp")->second);
     double weight_control_gp = static_cast<double>(optimizationParameters.find("weight_control_gp")->second);
     double local_control_x_min_gp = static_cast<double>(optimizationParameters.find("local_control_x_min_gp")->second);
     double local_control_x_max_gp = static_cast<double>(optimizationParameters.find("local_control_x_max_gp")->second);
@@ -219,6 +222,8 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm(std::vect
     arma::mat gradient_2(pcell_gp,3,arma::fill::zeros);
     arma::mat gradient_Riesz(dimensionOfControl_gp,3,arma::fill::zeros);
     arma::mat rhs_Riesz(dimensionOfControl_gp,3,arma::fill::zeros);
+
+    arma::vec velocity_Discr = arma::linspace<arma::vec>(-vmax_gp,vmax_gp,vcell_gp);
 
     //Caculate integral in gradient
     const unsigned int n = pcell_gp;
@@ -314,6 +319,8 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm(std::vect
                                 firstDerivativeForwardPDF_V3_current = (forwardPDFdouble[o][l][m][n+1]-forwardPDFdouble[o][l][m][n-1])/(2.0*dv_gp);
                                 //firstDerivativeBackwardPDF_V3_current = (backwardPDFdouble[o][l][m][n+1]-backwardPDFdouble[o][l][m][n-1])/(2.0*dv_gp);
                             }
+                            /*
+                             * Electric field
                             gradient(i-1,0) += backwardPDFdouble[o][l][m][n]*firstDerivativeForwardPDF_V1_current*pow(dv_gp,3.0)*pow(dt_gp,1.0);
                             gradient(i-1,1) += backwardPDFdouble[o][l][m][n]*firstDerivativeForwardPDF_V2_current*pow(dv_gp,3.0)*pow(dt_gp,1.0);
                             gradient(i-1,2) += backwardPDFdouble[o][l][m][n]*firstDerivativeForwardPDF_V3_current*pow(dv_gp,3.0)*pow(dt_gp,1.0);
@@ -321,6 +328,15 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm(std::vect
                             //                            gradient_2(i-1,0) -= forwardPDFdouble[o][l][m][n]*firstDerivativeBackwardPDF_V1_current*pow(dv_gp,3.0)*pow(dt_gp,1.0);
                             //                            gradient_2(i-1,1) -= forwardPDFdouble[o][l][m][n]*firstDerivativeBackwardPDF_V2_current*pow(dv_gp,3.0)*pow(dt_gp,1.0);
                             //                            gradient_2(i-1,2) -= forwardPDFdouble[o][l][m][n]*firstDerivativeBackwardPDF_V3_current*pow(dv_gp,3.0)*pow(dt_gp,1.0);
+                            */
+
+                            /*
+                             * Magnetic field
+                             */
+                            gradient(i-1,0) += backwardPDFdouble[o][l][m][n]*(-velocity_Discr[n]*firstDerivativeForwardPDF_V2_current+velocity_Discr[m]*firstDerivativeForwardPDF_V3_current)*pow(dv_gp,3.0)*pow(dt_gp,1.0);
+                            gradient(i-1,1) += backwardPDFdouble[o][l][m][n]*(velocity_Discr[n]*firstDerivativeForwardPDF_V1_current-velocity_Discr[l]*firstDerivativeForwardPDF_V3_current)*pow(dv_gp,3.0)*pow(dt_gp,1.0);
+                            gradient(i-1,2) += backwardPDFdouble[o][l][m][n]*(-velocity_Discr[m]*firstDerivativeForwardPDF_V1_current+velocity_Discr[l]*firstDerivativeForwardPDF_V2_current)*pow(dv_gp,3.0)*pow(dt_gp,1.0);
+
                         }
                     }
                 }

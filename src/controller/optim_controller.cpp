@@ -215,6 +215,7 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
                                                                   (end-start).count()) + " second(s)");
 
 
+
         logger::Info("Building gradient...");
         if (simulating_plasma == 0) {
             gradient = gradient_calculator_opt.calculateGradient_forceControl_space_Hm_plasma(forwardPDF,backwardPDF,forwardPDF_electrons,backwardPDF_electrons,control);
