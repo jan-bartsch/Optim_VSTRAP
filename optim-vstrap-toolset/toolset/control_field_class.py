@@ -96,6 +96,6 @@ class Control_field:
 		plt.draw()
 
 		print("Generating tikz file...")
-		tikzplotlib.save(directorySRC + "control_field.tex")
+		#tikzplotlib.save(directorySRC + "control_field.tex")
 		plt.savefig(directorySRC + "force_field.png")
-		#plt.show()
+		plt.show()

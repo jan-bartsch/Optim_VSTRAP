@@ -12,9 +12,6 @@ parser.add_argument('pathToResults', type=str, help='path to the results directo
 parser.add_argument('scale', type=float, help='diminishing scale')
 args = parser.parse_args()
 
-####
-# objective
-####
 
 #try:
 H1_difference_file = open(args.pathToResults + "H1-difference.txt")

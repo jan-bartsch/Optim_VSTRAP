@@ -63,7 +63,7 @@ file.write("<parameraters>\n")
 #	file.write("\t</set>\n")
 #file.write("</parameraters>")
 
-v_x = 2.0*float(params['pmax_gp'])/(float(params['ntimesteps_gp'])*float(params['dt_gp']))
+v_x = 100; #2.0*float(params['pmax_gp'])/(float(params['ntimesteps_gp'])*float(params['dt_gp']))
 v_y = 0.0;
 v_z = 0.0;
 

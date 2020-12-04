@@ -164,7 +164,7 @@ std::vector<double> input::readDoubleVector(const char *filename)
     std::vector<double> out;
 
     //check to see that the file was opened correctly:
-    if (!ifile.is_open()) {
+      if (!ifile.is_open()) {
         std::cout << filename << std::endl;
         std::cerr << "There was a problem opening the input file with name!\n";
     }

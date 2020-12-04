@@ -57,24 +57,24 @@
 <parameter name="armijo_iterative_exp" value="1.0"/>
 <!--  1.0: no decreasing stepsize  -->
 <!--  DOMAIN PARAMETERS  -->
-<!--parameter name="dp_gp" value="0.0000156"/>  
+<!--parameter name="dp_gp" value="0.0000156"/>
 <parameter name="pcell_gp" value="64"/>
 <parameter name="pmax_gp" value="0.05"/>
-<parameter name="db_gp" value="0.025"/--> 
+<parameter name="db_gp" value="0.025"/-->
 
 <!--  discretization size position 64:0.0156 1000:0.0001 512:0.002  216:0.00462963 -->
 <!--  box-side-length 64: 0.25 216:0.16666667  -->
 
-<!--parameter name="dp_gp" value="0.0000156"/>  
+<!--parameter name="dp_gp" value="0.0000156"/>
 <parameter name="pcell_gp" value="64"/>
 <parameter name="pmax_gp" value="0.05"/>
-<parameter name="db_gp" value="0.025"/--> 
+<parameter name="db_gp" value="0.025"/-->
 
 
-<parameter name="dp_gp" value="0.00000462963"/>  
+<parameter name="dp_gp" value="0.00000462963"/>
 <parameter name="pcell_gp" value="216"/>
 <parameter name="pmax_gp" value="0.05"/>
-<parameter name="db_gp" value="0.0166666667"/> 
+<parameter name="db_gp" value="0.0166666667"/>
 
 
 <parameter name="dt_gp" value="1e-5"/> <!--  discretization size time  -->
@@ -96,12 +96,14 @@
 <parameter name="fabs_tol_gp" value="1e-5"/>
 </globalParameters>
 <paths>
-	<!--path name="BUILD_DIRECTORY_VSTRAP" value="/home/jan/Promotion_linuxPC/build-vstrap/src/" />
+	<path name="BUILD_DIRECTORY_VSTRAP" value="/home/jan/Promotion_linuxPC/build-vstrap/src/" />
 	<path name="BUILD_DIRECTORY_OPTIM" value="/home/jan/Promotion_linuxPC/build-Optim/vldn/" />
-	<path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/home/jan/Promotion_linuxPC/build-Optim/vldn/results/" /-->
-    <path name="BUILD_DIRECTORY_VSTRAP" value="/HOME/bartsch/SPARC/build-vstrap-Desktop/src/" />
+	<path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/home/jan/Promotion_linuxPC/build-Optim/vldn/results/" />
+
+  <!--path name="BUILD_DIRECTORY_VSTRAP" value="/HOME/bartsch/SPARC/build-vstrap-Desktop/src/" />
 	<path name="BUILD_DIRECTORY_OPTIM" value="/HOME/bartsch/SPARC/build-Optim-Desktop/vldn/" />
-	<path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/HOME/bartsch/SPARC/build-Optim-Desktop/vldn/results/" />
+	<path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/HOME/bartsch/SPARC/build-Optim-Desktop/vldn/results/" /-->
+
 	<path name="PATH_TO_SHARED_FILES" value="./results/" />
 	<path name="PVPYTHON_ABSOLUTE_DIR" value="/HOME/jan/ParaView-5.8.0-MPI-Linux-Python3.7-64bit/bin/pvpython" />
 	<path name="BARYCENTERS_MESH" value="../../Optim_VSTRAP/data/global/mesh_barycenters_small_216.xml"/>

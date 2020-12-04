@@ -46,21 +46,28 @@ int control_validation::start_validation(int argc, char **argv)
         throw std::invalid_argument("Number of weights and controls does not match");
     }
 
+    arma::mat means;
+
     for (int i = 0; i < iterations; i++) {
         number = std::to_string(i);
         file = CONTROLS_DIRECTORY +"control_" + number + ".xml";
         std::cout << "Open file with name " << file << std::endl;
-        //arma::mat control =  in.readControl(file.c_str(),static_cast<int>(discretization_vector[i]));
-        arma::mat control =  in.readControl(file.c_str(),pcell_gp);
-        std::cout << control << std::endl;
+       arma::mat control =  in.readControl(file.c_str(),static_cast<int>(discretization_vector[i]));
+       // arma::mat control =  in.readControl(file.c_str(),pcell_gp);
+        //std::cout << control << std::endl;
         control_vector.push_back(control);
+        std::cout << calculate_mean(control) << std::endl;
+        means.insert_rows(i,arma::mean(control)*0.001);
         //std::cout << "L2 norm: " << std::sqrt(pro.L2_inner_product(control,control)) << std::endl;
         //std::cout << "norm: " << arma::norm(control,"fro")*std::sqrt(0.001/discretization_file[i]) << std::endl; //*0.001/discretization_vector[i]
     }
 
+    std::cout << means << std::endl;
+    out.writeGradientToFile(means,"Means");
+
     for (int i = 0; i < iterations-1; i++) {
-//        control_difference[i] = std::sqrt(pro.H1_inner_product(control_vector[i+1]*discretization_vector[i+1]-control_vector[i]*discretization_vector[i],
-//                control_vector[i+1]*discretization_vector[i+1]-control_vector[i]*discretization_vector[i]));
+        //        control_difference[i] = std::sqrt(pro.H1_inner_product(control_vector[i+1]*discretization_vector[i+1]-control_vector[i]*discretization_vector[i],
+        //                control_vector[i+1]*discretization_vector[i+1]-control_vector[i]*discretization_vector[i]));
         control_difference[i] = std::sqrt(pro.H1_inner_product(control_vector[i+1]-control_vector[i],control_vector[i+1]-control_vector[i]));
         std::cout << control_difference[i] << std::endl;
     }
@@ -68,8 +75,8 @@ int control_validation::start_validation(int argc, char **argv)
     out.writeDoubleVectorToFile(control_difference,"H1-difference");
 
     for (int i = 0; i < iterations-1; i++) {
-//        control_difference[i] = std::sqrt(pro.L2_inner_product(control_vector[i+1]*discretization_vector[i+1]-control_vector[i]*discretization_vector[i],
-//                control_vector[i+1]*discretization_vector[i+1]-control_vector[i]*discretization_vector[i]));
+        //        control_difference[i] = std::sqrt(pro.L2_inner_product(control_vector[i+1]*discretization_vector[i+1]-control_vector[i]*discretization_vector[i],
+        //                control_vector[i+1]*discretization_vector[i+1]-control_vector[i]*discretization_vector[i]));
         control_difference[i] = std::sqrt(pro.L2_inner_product(control_vector[i+1]-control_vector[i],control_vector[i+1]-control_vector[i]));
         std::cout << control_difference[i] << std::endl;
     }
@@ -78,7 +85,7 @@ int control_validation::start_validation(int argc, char **argv)
 
     for (int i = 0; i < iterations-1; i++) {
         control_difference[i] = std::sqrt(pro.H2_inner_product(control_vector[i+1]-control_vector[i],
-                control_vector[i+1]-control_vector[i]));
+                                          control_vector[i+1]-control_vector[i]));
         //control_difference[i] = std::sqrt(pro.H2_inner_product(control_vector[i+1]-control_vector[i],control_vector[i+1]-control_vector[i]));
         std::cout << control_difference[i] << std::endl;
     }
@@ -108,4 +115,21 @@ int control_validation::start_validation(int argc, char **argv)
 
 
     return 0;
+}
+
+double control_validation::calculate_mean(arma::mat control)
+{
+    std::vector<double> mean(3,0.0);
+
+    std::cout << arma::mean(control)*0.001 << std::endl;
+
+
+    for(unsigned long j = 0; j < control.n_cols; j++ ) {
+        for(unsigned long i = 0; i<control.n_rows; i++) {
+            mean[j] += control(i,j);
+        }
+        mean[j] /= static_cast<double>(control.n_rows);
+        std::cout << "Mean in column " << j << ": " << mean[j] << std::endl;
+    }
+    return (std::abs(mean[0])+(mean[1])+(mean[2]))*0.001/3.0;
 }

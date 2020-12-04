@@ -21,6 +21,8 @@ public:
     control_validation();
 
     static int start_validation(int argc, char **argv);
+
+    static double calculate_mean(arma::mat control);
 };
 
 #endif // CONTROL_VALIDATION_H
