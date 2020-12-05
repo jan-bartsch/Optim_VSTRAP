@@ -75,8 +75,8 @@ dt_gp = float(params['dt_gp']);
 
 for timestep in range(0,ntimesteps):
 	s_x = 0.0001
-	s_y = 0.00015/(-0.05+0.1/(float(params['ntimesteps_gp']))*timestep+0.06)
-	s_z = 0.00015/(-0.05+0.1/(float(params['ntimesteps_gp']))*timestep+0.06)
+	s_y = 2*0.00015/(-0.05+0.1/(float(params['ntimesteps_gp']))*timestep+0.06)
+	s_z = 2*0.00015/(-0.05+0.1/(float(params['ntimesteps_gp']))*timestep+0.06)
 	mu_x = -0.05+0.1/(float(params['ntimesteps_gp']))*timestep
 	print(mu_x)
 	file.write("\t<set iteration=\"" + str(timestep) + "\">\n")
