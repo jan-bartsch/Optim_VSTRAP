@@ -59,7 +59,7 @@
 				<particle_group name="forward_particles"/>
 				<values number_density=" 1e+16 " weight="1e+9" charge_number="+1" mass="6.63e-26" species="40Ar+"/> 
 				<temperature x_val="300" y_val="300" z_val="300"/>
-				<v_drift x_val="1e+2" y_val="0" z_val="0"/>
+				<v_drift x_val="1e+3" y_val="0" z_val="0"/>
 				<physical_surface tag="6"/>
 			</batch>
 			<mesh name = "surf_mesh"/>
