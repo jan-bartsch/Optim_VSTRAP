@@ -3,7 +3,7 @@
     <parameter name="simulating_plasma" value="1" />
     <parameter name="fmm" value="1" />
     <parameter name="armijo_descent_fraction" value="1e-30"/>
-    <parameter name="calculation_functional" value="1"/>
+    <parameter name="calculation_functional" value="0"/>
     <parameter name="calculation_wasserstein" value="0"/>
     <parameter name="C_theta_gp" value="1e+20"/>
     <parameter name="C_phi_gp" value="1e+20"/>
@@ -66,7 +66,7 @@
     <parameter name="mesh_3d_outputinterval" value="1"/>
 
     <!--  optimization techniques  -->
-    <parameter name="fixed_gradient_descent_stepsize" value="1e+5"/>
+    <parameter name="fixed_gradient_descent_stepsize" value="1e+0"/>
     <parameter name="fraction_of_optimal_control" value="1e-5"/>
     <parameter name="optimizationIteration_max_gp" value="100"/>     <!--  number of maximal interations  -->
     <parameter name="numberParticles_gp" value="2000"/>
@@ -102,17 +102,18 @@
     <parameter name="fabs_tol_gp" value="1e-9"/>
 </globalParameters>
 <paths>
-  <path name="BUILD_DIRECTORY_VSTRAP" value="/HOME/bartsch/SPARC/build-vstrap-Desktop/src/" />
+  <!--path name="BUILD_DIRECTORY_VSTRAP" value="/HOME/bartsch/SPARC/build-vstrap-Desktop/src/" />
   <path name="BUILD_DIRECTORY_OPTIM" value="/HOME/bartsch/SPARC/build-Optim-Desktop/src/" />
-  <path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/HOME/bartsch/SPARC/build-Optim-Desktop/src/results/" />
+  <path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/HOME/bartsch/SPARC/build-Optim-Desktop/src/results/" /-->
 
   <!--path name="BUILD_DIRECTORY_VSTRAP" value="/LocalData/bartsch/build-vstrap-CSMC/src/" />
   <path name="BUILD_DIRECTORY_OPTIM" value="/LocalData/bartsch/build-Optim-CSMC/src/" />
   <path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/LocalData/bartsch/build-Optim-CSMC/src/results/" /-->
 
-  <!--path name="BUILD_DIRECTORY_VSTRAP" value="/home/jan/Promotion_linuxPC/build-vstrap/src/" />
+  <path name="BUILD_DIRECTORY_VSTRAP" value="/home/jan/Promotion_linuxPC/build-vstrap/src/" />
   <path name="BUILD_DIRECTORY_OPTIM" value="/home/jan/Promotion_linuxPC/build-Optim/src/" />
-  <path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/home/jan/Promotion_linuxPC/build-Optim/src/results/" /-->
+  <path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/home/jan/Promotion_linuxPC/build-Optim/src/results/" />
+
 	<path name="PATH_TO_SHARED_FILES" value="./results/" />
 	<!--path name="PVPYTHON_ABSOLUTE_DIR" value="/usr/bin/pvpython" /-->
   <path name="PVPYTHON_ABSOLUTE_DIR" value="/home/jan/ParaView-5.8.0-MPI-Linux-Python3.7-64bit/bin/pvpython" />

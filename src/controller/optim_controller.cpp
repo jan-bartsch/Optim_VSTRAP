@@ -330,7 +330,7 @@ int optim_controller::check_input_py(data_provider provider, const char *filePat
     if(check_input_flag == 512) {
         throw std::runtime_error("File not found in Python check");
     } else if (check_input_flag == 256) {
-        throw std::runtime_error("Encountered inconsitency in input files");
+        throw std::runtime_error("Encountered inconsitency in input files OR File not found");
     } else {
         logger::Info("Python check: **ALL CLEAR**");
     }
