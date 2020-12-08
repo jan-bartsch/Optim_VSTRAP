@@ -83,7 +83,7 @@ class Control_field:
 		ax.set_xlabel('x axis')
 		ax.set_ylabel('y axis')
 		ax.set_zlabel('z axis')
-		ax.view_init(azim=-90, elev=0)
+		ax.view_init(azim=180, elev=0) #centering electric azim=-90
 
 		for n in range(1,len(nodesMesh)):
 			a = Arrow3D([nodesMesh[n-1][0], endPoints[n-1][0]], [nodesMesh[n-1][1], endPoints[n-1][1]], [nodesMesh[n-1][2], endPoints[n-1][2]], mutation_scale=20, lw=1, arrowstyle="-|>", color="k")
@@ -98,4 +98,4 @@ class Control_field:
 		print("Generating tikz file...")
 		#tikzplotlib.save(directorySRC + "control_field.tex")
 		plt.savefig(directorySRC + "force_field.png")
-		plt.show()
+		#plt.show()

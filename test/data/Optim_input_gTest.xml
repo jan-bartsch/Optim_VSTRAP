@@ -4,6 +4,7 @@
 
 <globalParameters>
       <parameter name="simulating_plasma" value="1" />
+      <parameter name="fmm" value="1" />
       <parameter name="armijo_descent_fraction" value="1e-30" />
       <parameter name="calculation_functional" value="1" />
       <parameter name="calculation_wasserstein" value="0" />

@@ -190,6 +190,7 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
         logger::Info("Finished backward VSTRAP");
 
 
+
         logger::Info("Reading particle files...");
         input_control.read_plasma_state_backward(backwardParticles,"plasma_state_batch_1_adjoint_particles_CPU_");
         if (simulating_plasma == 0) {
