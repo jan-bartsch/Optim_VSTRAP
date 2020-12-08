@@ -112,7 +112,7 @@ int gradient_validation::landau_validation(int argc, char **argv) {
         throw std::runtime_error("Too many too fast particles!");
     }
 
-    double functional_value0 = objective.calculate_objective_L2(forwardPDF,control0);
+    double functional_value0 = objective.calculate_objective(forwardPDF,control0);
 
 
     logger::Info("Building gradient...");
@@ -153,7 +153,7 @@ int gradient_validation::landau_validation(int argc, char **argv) {
             throw std::runtime_error("Too many too fast particles!");
         }
 
-        functional_values[i] = objective.calculate_objective_L2(forwardPDF,control_temp);
+        functional_values[i] = objective.calculate_objective(forwardPDF,control_temp);
         std::cout << std::to_string(functional_values[i]) << std::endl;
         std::cout << "Stepsize: " << pow(reducing_factor,i) << std::endl;
         difference[i] = (functional_values[i]-functional_value0)-(pow(reducing_factor,i))*product.H2_inner_product(gradient0,delta_control);

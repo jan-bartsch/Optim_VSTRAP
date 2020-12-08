@@ -16,13 +16,15 @@
 
 #include "../tools/inner_products.h"
 
+#include "../io/input.h"
+
 class objective_calculator : public abstract_controller
 {
 public:
     objective_calculator();
     objective_calculator(const char * filename);
 
-    double calculate_objective_L2(std::vector<std::unordered_map<coordinate_phase_space_time,double>> forwardPDF_time, arma::mat control);
+    double calculate_objective(std::vector<std::unordered_map<coordinate_phase_space_time,double>> forwardPDF_time, arma::mat control);
 };
 
 #endif // OBJECTIVE_CALCULATOR_H

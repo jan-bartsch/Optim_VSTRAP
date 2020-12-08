@@ -10,13 +10,17 @@ objective_calculator::objective_calculator(const char *filename)
     this->setData_provider_optim(data_provider(filename));
 }
 
-double objective_calculator::calculate_objective_L2(std::vector<std::unordered_map<coordinate_phase_space_time, double> > forwardPDF_time, arma::mat control)
+double objective_calculator::calculate_objective(std::vector<std::unordered_map<coordinate_phase_space_time, double> > forwardPDF_time, arma::mat control)
 {
 
     equation_solving_controller solver = equation_solving_controller();
+    input in = input();
+
     solver.setData_provider_optim(this->getData_provider_optim());
+    in.setData_provider_optim(this->getData_provider_optim());
 
     std::map<std::string, double> optimizationParameters = this->getData_provider_optim().getOptimizationParameters();
+    std::map<std::string, std::string> paths = this->getData_provider_optim().getPaths();
 
     unsigned int pcell_gp = static_cast<unsigned int>(optimizationParameters.find("pcell_gp")->second);
     double pmax_gp = static_cast<double>(optimizationParameters.find("pmax_gp")->second);
@@ -56,6 +60,8 @@ double objective_calculator::calculate_objective_L2(std::vector<std::unordered_m
     double costOfControl = 0.0;
 
     std::vector<double> objective_time(pcell_gp,0.0);
+
+    std::vector<std::vector<double>> brockettVector = in.readBrockettFile(paths.find("PATH_TO_SHARED_FILES")->second+"brockett.csv",",",ntimesteps_gp);
 
 
     /*
@@ -111,9 +117,12 @@ double objective_calculator::calculate_objective_L2(std::vector<std::unordered_m
                         coordinate_phase_space_time coordinate = coordinate_phase_space_time(static_cast<int>(i),static_cast<int>(l),static_cast<int>(m),static_cast<int>(n),static_cast<int>(o));
                         // std::cout << velocityDiscr_gp(l) << std::endl;
                         double current_trackPot = 0.0;
+                        double sigma_x_1 = brockettVector[o][3];
+                        double sigma_x_2 = brockettVector[o][4];
+                        double sigma_x_3 = brockettVector[o][5];
                         if(objective_calculation.compare("magnitude")==0) {
-                            current_trackPot = - 1.0/(2.0*M_PI*sigma_x_gp*sigma_v_gp)*exp(
-                                        -((std::pow(current_barycenter[0]-p_d[0],2)+std::pow(current_barycenter[1]-p_d[1],2)+std::pow(current_barycenter[2]-p_d[2],2))/(2.0*sigma_x_gp*sigma_x_gp)+
+                            current_trackPot = - 1.0/std::sqrt(pow(2.0*M_PI,6.0)*pow(sigma_x_1*sigma_x_2*sigma_x_3,2.0)*pow(sigma_v_gp*sigma_v_gp,3.0))*exp(
+                                        -(std::pow(current_barycenter[0]-p_d[0],2)/(2.0*sigma_x_1*sigma_x_1)+std::pow(current_barycenter[1]-p_d[1],2)/(2.0*sigma_x_2*sigma_x_2)+std::pow(current_barycenter[2]-p_d[2],2)/(2.0*sigma_x_3*sigma_x_3)+
                                     velocity_part_objective*(std::abs(velocityDiscr_gp(l)*velocityDiscr_gp(l)+
                                                                       velocityDiscr_gp(m)*velocityDiscr_gp(m)+
                                                                       velocityDiscr_gp(n)*velocityDiscr_gp(n)-p_d[4]*p_d[4]))/(2.0*sigma_v_gp*sigma_v_gp)

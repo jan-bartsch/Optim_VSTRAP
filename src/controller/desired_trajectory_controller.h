@@ -6,6 +6,8 @@
 #include "../logger/logger.h"
 #include "abstract_controller.h"
 
+#include "../io/input.h"
+
 class desired_trajectory_controller : public abstract_controller
 {
 public:
@@ -32,6 +34,10 @@ public:
                                            unsigned int o);
 
     std::vector<double> trajectory_desired_concentrating_center(std::vector<double> barycenter,
+                                           unsigned int l, unsigned int m, unsigned int n,
+                                           unsigned int o);
+
+    std::vector<double> trajectory_desired_brockett(std::vector<double> barycenter,
                                            unsigned int l, unsigned int m, unsigned int n,
                                            unsigned int o);
 

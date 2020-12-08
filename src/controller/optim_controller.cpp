@@ -159,6 +159,8 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
 
     unsigned int optimizationIteration_max_gp = static_cast<unsigned int>(optimizationParameters.find("optimizationIteration_max_gp")->second);
 
+    input_control.readBrockettFile(PATH_TO_SHARED_FILES+"brockett.csv",",",ntimesteps_gp);
+
     for(unsigned int r = 1; r <= optimizationIteration_max_gp; r++) {
 
         logger::Info("Starting VSTRAP (foward)... ");
@@ -248,7 +250,7 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
         else if (fmod(r,calculation_functional) == 0.0) {
             logger::Info("Calculating functional...");
             start = std::chrono::system_clock::now();
-            value_objective = objective.calculate_objective_L2(forwardPDF,control);
+            value_objective = objective.calculate_objective(forwardPDF,control);
             end = std::chrono::system_clock::now();
             logger::Info("Calculation of functional took: " + std::to_string(std::chrono::duration_cast<std::chrono::seconds>
                                                                              (end-start).count()) + " second(s)");

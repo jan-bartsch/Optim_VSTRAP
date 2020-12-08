@@ -33,6 +33,8 @@ public:
     arma::mat readControl(const char *filename, int pcell_gp);
 
     static std::vector<double> readDoubleVector(const char *filename);
+
+    static std::vector<std::vector<double> > readBrockettFile(std::string filename, std::string delimiter, int lines);
 };
 
 #endif // INPUT_H

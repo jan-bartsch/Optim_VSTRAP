@@ -116,7 +116,7 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
         assembling_flag = pdf_control.assemblingMultiDim_parallel(forwardParticles,0,pdf_time);
         forwardPDF_time = pdf_time;
         if (assembling_flag == 0) {
-            Jtemp = objective.calculate_objective_L2(forwardPDF_time,control0 + alpha*stepdirection);
+            Jtemp = objective.calculate_objective(forwardPDF_time,control0 + alpha*stepdirection);
         }
     } else {
         logger::Info("Forward VSTRAP returned non-zero value: " + std::to_string(forward_return));
@@ -140,7 +140,7 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
             assembling_flag = pdf_control.assemblingMultiDim_parallel(forwardParticles,0,pdf_time);
             forwardPDF_time = pdf_time;
             if (assembling_flag == 0) {
-                Jtemp = objective.calculate_objective_L2(forwardPDF_time,control0 + alpha*stepdirection);
+                Jtemp = objective.calculate_objective(forwardPDF_time,control0 + alpha*stepdirection);
             }
         } else {
             logger::Info("Forward VSTRAP returned non-zero value: " + std::to_string(forward_return));

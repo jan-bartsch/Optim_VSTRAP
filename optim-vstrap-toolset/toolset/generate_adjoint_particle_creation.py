@@ -45,12 +45,7 @@ expected_speed = float(params["most_probable_speed"])
 sigma_v = math.sqrt(math.pi/8.0)*expected_speed
 #sigma_v = math.sqrt(1.0/2.0)*most_probable_-speed
 
-brockett_file = open("brockett.txt","a")
-	for i in range(0,len(control)):
-		print(control[i])
-		control_file.write(str(control[i])+"\n") 
-	control_file.close() 	
-	print(control)
+brockett_file = open(args.target_folder+"brockett.csv","w+")
 
 
 v_s_x = sigma_v;
@@ -93,5 +88,7 @@ for timestep in range(0,ntimesteps):
 	file.write("\t\t<velocity> \n \t\t\t<mu x_val = \"" + str(v_x) + " \" y_val = \"" + str(v_y) + "\" z_val = \"" + str(v_z) + "\" />\n")
 	file.write("\t\t\t<sigma x_val = \"" + str(v_s_x) +"\" y_val = \"" + str(v_s_y)+ "\" z_val = \"" + str(v_s_z) +"\"/> \n \t\t</velocity>\n")
 	file.write("\t</set>\n")
-	control_file.write(str(mu_x)+str(mu_y)+str(mu_z)+str(s_x)+str(s_y)+str(s_z)+str(v_x)+str(v_y)+str(v_z)+str(v_s_x)+str(v_s_y)+str(v_s_z)+"\n") 
+	brockett_file.write(str(mu_x)+","+str(mu_y)+","+str(mu_z)+","+str(s_x)+","+str(s_y)+","+str(s_z)+","+str(v_x)+","+str(v_y)+","+str(v_z)+","+str(v_s_x)+","+str(v_s_y)+","+str(v_s_z)+"\n") 
 file.write("</parameraters>")
+brockett_file.close() 	
+file.close()

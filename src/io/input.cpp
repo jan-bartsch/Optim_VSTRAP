@@ -164,7 +164,7 @@ std::vector<double> input::readDoubleVector(const char *filename)
     std::vector<double> out;
 
     //check to see that the file was opened correctly:
-      if (!ifile.is_open()) {
+    if (!ifile.is_open()) {
         std::cout << filename << std::endl;
         std::cerr << "There was a problem opening the input file with name!\n";
     }
@@ -183,5 +183,55 @@ std::vector<double> input::readDoubleVector(const char *filename)
     }
 
     return out;
+}
+
+std::vector<std::vector<double>> input::readBrockettFile(std::string filename,std::string delimiter, int lines)
+{
+    std::vector<std::vector<double>> brockettVector;
+    brockettVector.resize(lines);
+
+    int counter = 0;
+
+    std::ifstream file(filename);
+
+    std::string line = "";
+
+    if( !file.is_open() ) {
+        logger::Warning("File not found: " + filename);
+        throw  std::runtime_error("File could not be opened");
+    }
+
+
+    while(std::getline(file,line) ) {
+
+        // std::cout << line << std::endl;
+
+        size_t pos = 0;
+        std::string token;
+        std::vector<std::string> vec;
+
+        while ((pos = line.find(delimiter)) != std::string::npos) {
+            token = line.substr(0, pos);
+            vec.push_back(token);
+            line.erase(0, pos + delimiter.length());
+        }
+        // push back last element
+        vec.push_back(line);
+
+        if (vec.size() < 12 ) {
+            std::cout << "Line was: " << line << std::endl;
+            throw std::length_error("Too less attributes for writing brockett-vector");
+        }
+
+        brockettVector[counter].resize(12);
+
+        for(int i=0; i< vec.size(); i++) {
+            brockettVector[counter][i] = std::stod(vec[i]);
+            //str(mu_x)+","+str(mu_y)+","+str(mu_z)+","+str(s_x)+","+str(s_y)+","+str(s_z)+","+str(v_x)+","+str(v_y)+","+str(v_z)+","+str(v_s_x)+","+str(v_s_y)+","+str(v_s_z)+"\n")
+        }
+        counter++;
+    }
+
+    return brockettVector;
 }
 

@@ -36,7 +36,7 @@ TEST(objective,calculationNR1) {
     arma::mat control(64,64,arma::fill::zeros);
 
     try {
-        double value = calculator.calculate_objective_L2(forwardPDF,control);
+        double value = calculator.calculate_objective(forwardPDF,control);
     } catch (std::exception e)  {
         std::cout << e.what() << std::endl;
     }
