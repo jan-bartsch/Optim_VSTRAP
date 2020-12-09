@@ -135,10 +135,10 @@
     <path name="mesh_2d_path" value="mesh2d/"/>
 </paths>
 <subroutines>
-	<subroutine group="control_update" name="gradient_descent"/>
-	<!--  subroutine group="control_update" name="successive_approximation" /-->
-	<!--subroutine group="control_update" name="armijo_linesearch"/-->
-    <subroutine group="direction_update" name="negative_gradient" />
+	<!--subroutine group="control_update" name="gradient_descent"/-->
+	<!--subroutine group="control_update" name="successive_approximation" /-->
+	<subroutine group="control_update" name="armijo_linesearch"/>
+  <!--subroutine group="direction_update" name="negative_gradient" /-->
 	<subroutine group="direction_update" name="ncg_FR"/>
 	<subroutine group="desired_trajectory" name="brockett"/>
 	<subroutine group="objective_calculation" name="magnitude"/>
