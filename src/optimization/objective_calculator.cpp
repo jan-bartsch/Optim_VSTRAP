@@ -110,10 +110,20 @@ double objective_calculator::calculate_objective(std::vector<std::unordered_map<
 
         for(unsigned int  o = 0; o<ntimesteps_gp; o++) {
             //std::cout << "Calculating functional in " << o << " timestep" << std::endl;
-
+            std::vector<double> p_d(6,0.0);
             double sigma_x_1 = brockettVector[o][3];
             double sigma_x_2 = brockettVector[o][4];
             double sigma_x_3 = brockettVector[o][5];
+
+            //position
+            p_d[0] = brockettVector[o][0];
+            p_d[1] = brockettVector[o][1];
+            p_d[2] = brockettVector[o][2];
+
+            //velocity
+            p_d[3] = brockettVector[o][6];
+            p_d[4] = brockettVector[o][7];
+            p_d[5] = brockettVector[o][8];
 
             double scaling_gaussian = std::sqrt(pow(2.0*M_PI,6.0)*pow(sigma_x_1*sigma_x_2*sigma_x_3,2.0)*pow(sigma_v_gp*sigma_v_gp,3.0));
 
@@ -121,7 +131,7 @@ double objective_calculator::calculate_objective(std::vector<std::unordered_map<
             for( unsigned int l = 0; l<vcell_gp; l++) {
                 for(unsigned int  m = 0; m<vcell_gp; m++) {
                     for(unsigned int n = 0; n<vcell_gp; n++) {
-                        std::vector<double> p_d = trajectory_controller.trajectory_desired(current_barycenter,l,m,n,o);
+                        //std::vector<double> p_d = trajectory_controller.trajectory_desired(current_barycenter,l,m,n,o);
                         coordinate_phase_space_time coordinate = coordinate_phase_space_time(static_cast<int>(i),static_cast<int>(l),static_cast<int>(m),static_cast<int>(n),static_cast<int>(o));
                         // std::cout << velocityDiscr_gp(l) << std::endl;
                         double current_trackPot = 0.0;
