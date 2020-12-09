@@ -95,6 +95,6 @@ try:
 except:
 	print("No stepsizeTrack file existing")
 
-tikzplotlib.save(args.pathToBuildSRC+"post_processing_converging.tex")
+#tikzplotlib.save(args.pathToBuildSRC+"post_processing_converging.tex")
 plt.savefig(args.pathToBuildSRC+"optimization_monitoring.png")
 #plt.show(block=False)

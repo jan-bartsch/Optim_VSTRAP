@@ -65,7 +65,7 @@ file.write("<parameraters>\n")
 #	file.write("\t</set>\n")
 #file.write("</parameraters>")
 
-v_x = 100; #2.0*float(params['pmax_gp'])/(float(params['ntimesteps_gp'])*float(params['dt_gp']))
+v_x = 1000; #2.0*float(params['pmax_gp'])/(float(params['ntimesteps_gp'])*float(params['dt_gp']))
 v_y = 0.0;
 v_z = 0.0;
 
@@ -76,7 +76,7 @@ mu_z = 0.0;
 dt_gp = float(params['dt_gp']);
 
 for timestep in range(0,ntimesteps):
-	s_x = 0.0001
+	s_x = 0.01
 	s_y = 2*0.00015/(-0.05+0.1/(float(params['ntimesteps_gp']))*timestep+0.06)
 	s_z = 2*0.00015/(-0.05+0.1/(float(params['ntimesteps_gp']))*timestep+0.06)
 	mu_x = -0.05+0.1/(float(params['ntimesteps_gp']))*timestep
@@ -88,7 +88,7 @@ for timestep in range(0,ntimesteps):
 	file.write("\t\t<velocity> \n \t\t\t<mu x_val = \"" + str(v_x) + " \" y_val = \"" + str(v_y) + "\" z_val = \"" + str(v_z) + "\" />\n")
 	file.write("\t\t\t<sigma x_val = \"" + str(v_s_x) +"\" y_val = \"" + str(v_s_y)+ "\" z_val = \"" + str(v_s_z) +"\"/> \n \t\t</velocity>\n")
 	file.write("\t</set>\n")
-	brockett_file.write(str(mu_x)+","+str(mu_y)+","+str(mu_z)+","+str(s_x)+","+str(s_y)+","+str(s_z)+","+str(v_x)+","+str(v_y)+","+str(v_z)+","+str(v_s_x)+","+str(v_s_y)+","+str(v_s_z)+"\n") 
+	brockett_file.write(str(mu_x)+","+str(mu_y)+","+str(mu_z)+","+str(s_x)+","+str(s_y)+","+str(s_z)+","+str(v_x)+","+str(v_y)+","+str(v_z)+","+str(v_s_x)+","+str(v_s_y)+","+str(v_s_z)+"\n")
 file.write("</parameraters>")
-brockett_file.close() 	
+brockett_file.close()
 file.close()
