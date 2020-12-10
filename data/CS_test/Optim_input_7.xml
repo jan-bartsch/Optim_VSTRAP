@@ -67,10 +67,10 @@
 
     <!--  optimization techniques  -->
     <parameter name="fixed_gradient_descent_stepsize" value="1e+0"/>
-    <parameter name="fraction_of_optimal_control" value="1e-5"/>
+    <parameter name="fraction_of_optimal_control" value="1e+0"/>
     <parameter name="optimizationIteration_max_gp" value="100"/>     <!--  number of maximal interations  -->
     <parameter name="numberParticles_gp" value="2000"/>
-    <parameter name="start_zero_control" value="0"/>     <!--  0=true, 1=false, 2: start with given files  -->
+    <parameter name="start_zero_control" value="1"/>     <!--  0=true, 1=false, 2: start with given files  -->
     <parameter name="tolerance_gp" value="1e-14"/>
     <parameter name="tolerance_relaxation_gp" value="1e-10"/>     <!--  for Gauß-Seidel smoothing -->
     <parameter name="armijio_base_exp" value="0.8"/>     <!--  1.0: there is no exponential diminishing of fraction of new stepsize -->
@@ -130,6 +130,8 @@
 	<path name="DSMC_interaction" value="../../../Optim_VSTRAP/data/global/interaction_data.xml"/>
 	<path name="MCC_interaction" value="../../../Optim_VSTRAP/data/global/interaction_data_mcc.xml"/>
 	<path name="CONTROL_FIELD_CELLS_NAME" valie="control_field_cells_64.xml"/>
+
+  <path name="START_WITH_EXISTING_CONTROL" value="/home/jan/Promotion_linuxPC/build-Optim/src/results/control_field_cells_64.xml"/>
 
     <path name="mesh_3d_path" value="mesh3d/"/>
     <path name="mesh_2d_path" value="mesh2d/"/>

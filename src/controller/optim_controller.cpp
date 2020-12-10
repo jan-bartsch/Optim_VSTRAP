@@ -121,7 +121,7 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
     /*
      * Check consistency and sanity of input files
      */
-    check_input_py(data_provider_opt, input_xml_path);
+    //check_input_py(data_provider_opt, input_xml_path);
     parameter_sanity ps = parameter_sanity();
     ps.check_adjoint_velocity(data_provider_opt);
 
