@@ -45,7 +45,7 @@
     <parameter name="creation_forward_particles_method" value="create_new"/> <!-- create_existing create_new-->
     <parameter name="initial_condition_file" value="plasma_state_batch_1_forward_particles_CPU_1.csv"/> <!-- only in effect if create_existing-->
     <parameter name="number_density_forward" value="1e+16"/>
-    <parameter name="weight_forward" value="1e+5"/>
+    <parameter name="weight_forward" value="5e+5"/>
     <parameter name="charge_number_forward" value="+1"/>
     <parameter name="mass_forward" value="6.63e-26"/>
     <parameter name="species_forward" value="40Ar+"/>
