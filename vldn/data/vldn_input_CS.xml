@@ -7,7 +7,8 @@
 		<path name="PATH_TO_CONTROLS" value="/HOME/bartsch/SPARC/Optim_VSTRAP/vldn/data/controls-20201126-weight/" />
 	</paths>
 	<subroutines>
-		<subroutine name="gradient_landau_validation" value="FALSE" />
-		<subroutine name="control_validation" value="TRUE" />
+		<subroutine name="gradient_landau_verification" value="FALSE" />
+		<subroutine name="control_verification" value="TRUE" />
+        <subroutine name="type_control_verification" value="weight"/> <!-- value="weight" value="position" -->
 	</subroutines>
 </optimizer_input>

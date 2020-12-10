@@ -21,7 +21,7 @@
 #include "../../src/tools/inner_products.h"
 
 
-class gradient_validation : public abstract_validation
+class gradient_validation : public abstract_verification
 {
 public:
     gradient_validation();

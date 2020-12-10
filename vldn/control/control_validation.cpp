@@ -1,12 +1,13 @@
 #include "control_validation.h"
 
-control_validation::control_validation() { }
+control_verification::control_verification() { }
 
-int control_validation::start_validation(int argc, char **argv)
+int control_verification::start_verification(int argc, char **argv)
 {
     data_provider validation_provider = data_provider(argv[1]);
     std::map<std::string,std::string> validation_paths = validation_provider.getPaths();
     std::map<std::string,double> validation_params = validation_provider.getOptimizationParameters();
+    std::map<std::string,std::string> validation_routines = validation_provider.getSubroutines();
 
     std::string DIRECTORY_OPTIM_INPUT = validation_paths.find("DIRECTORY_OPTIM_INPUT")->second;
     data_provider optimization_provider = data_provider(DIRECTORY_OPTIM_INPUT.c_str());
@@ -32,6 +33,7 @@ int control_validation::start_validation(int argc, char **argv)
     std::cout << "Running " << iterations << " validation iterations" << std::endl;
 
     std::string CONTROLS_DIRECTORY = validation_paths.find("PATH_TO_CONTROLS")->second;
+    std::string VALIDATION_TYPE = validation_routines.find("type_control_verification")->second;
     std::string number = "";
     std::string file = "";
 
@@ -46,14 +48,26 @@ int control_validation::start_validation(int argc, char **argv)
         throw std::invalid_argument("Number of weights and controls does not match");
     }
 
+
+    std::vector<std::vector<double>> control1 = in.readDoubleMatrix("/afs/ifm/home/bartsch/SPARC/Optim_VSTRAP/vldn/data/controls-20201126-weight/control_1.csv",pcell_gp,",");
+    //std::count << control1 << std::endl;
+
+    std::vector<double> mean_weight6 = calculate_mean_doubleMatrix(control1);
+
     arma::mat means;
+    arma::mat control;
 
     for (int i = 0; i < iterations; i++) {
         number = std::to_string(i);
         file = CONTROLS_DIRECTORY +"control_" + number + ".xml";
         std::cout << "Open file with name " << file << std::endl;
-       arma::mat control =  in.readControl(file.c_str(),static_cast<int>(discretization_vector[i]));
-       // arma::mat control =  in.readControl(file.c_str(),pcell_gp);
+        if (VALIDATION_TYPE.compare("position")==0) {
+            arma::mat control =  in.readControl(file.c_str(),static_cast<int>(discretization_vector[i]));
+        } else if (VALIDATION_TYPE.compare("weight")==0) {
+            control =  in.readControl(file.c_str(),pcell_gp);
+        } else {
+            throw std::invalid_argument("No such control verification type");
+        }
         //std::cout << control << std::endl;
         control_vector.push_back(control);
         std::cout << calculate_mean(control) << std::endl;
@@ -62,8 +76,12 @@ int control_validation::start_validation(int argc, char **argv)
         //std::cout << "norm: " << arma::norm(control,"fro")*std::sqrt(0.001/discretization_file[i]) << std::endl; //*0.001/discretization_vector[i]
     }
 
+    means(iterations-1,0) = mean_weight6[0]*0.001;
+    means(iterations-1,1) = mean_weight6[1]*0.001;
+    means(iterations-1,2) = mean_weight6[2]*0.001;
     std::cout << means << std::endl;
-    out.writeGradientToFile(means,"Means");
+
+    out.writeArmaMatrixToFile(means,"Means");
 
     for (int i = 0; i < iterations-1; i++) {
         //        control_difference[i] = std::sqrt(pro.H1_inner_product(control_vector[i+1]*discretization_vector[i+1]-control_vector[i]*discretization_vector[i],
@@ -117,7 +135,7 @@ int control_validation::start_validation(int argc, char **argv)
     return 0;
 }
 
-double control_validation::calculate_mean(arma::mat control)
+double control_verification::calculate_mean(arma::mat control)
 {
     std::vector<double> mean(3,0.0);
 
@@ -132,4 +150,23 @@ double control_validation::calculate_mean(arma::mat control)
         std::cout << "Mean in column " << j << ": " << mean[j] << std::endl;
     }
     return (std::abs(mean[0])+(mean[1])+(mean[2]))*0.001/3.0;
+}
+
+
+std::vector<double> control_verification::calculate_mean_doubleMatrix(std::vector<std::vector<double>> control)
+{
+    std::vector<double> mean(3,0.0);
+
+    int columns = control[0].size();
+    int rows = control.size();
+
+
+    for(unsigned long j = 0; j < columns; j++ ) {
+        for(unsigned long i = 0; i< rows; i++) {
+            mean[j] += control[i][j];
+        }
+        mean[j] /= static_cast<double>(rows);
+        std::cout << "Mean in column " << j << ": " << mean[j] << std::endl;
+    }
+    return mean;
 }

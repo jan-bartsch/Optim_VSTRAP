@@ -7,15 +7,15 @@
 
 int main(int argc, char **argv) {
 
-    data_provider validation_provider = data_provider(argv[1]);
-    std::map<std::string,std::string> validation_routines = validation_provider.getSubroutines();
+    data_provider verification_provider = data_provider(argv[1]);
+    std::map<std::string,std::string> verification_routines = verification_provider.getSubroutines();
 
-    if (validation_routines.find("gradient_landau_validation")->second.compare("TRUE")==0) {
+    if (verification_routines.find("gradient_landau_verification")->second.compare("TRUE")==0) {
         gradient_validation::landau_validation(argc,argv);
     }
 
-    if (validation_routines.find("control_validation")->second.compare("TRUE")==0) {
-        control_validation::start_validation(argc,argv);
+    if (verification_routines.find("control_verification")->second.compare("TRUE")==0) {
+        control_verification::start_verification(argc,argv);
     }
 
     return 0;

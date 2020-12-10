@@ -226,7 +226,7 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
             gradient = gradient_calculator_opt.calculateGradient_forceControl_space_Hm(forwardPDF,backwardPDF,control);
         }
         outDiag.writeDoubleToFile(arma::norm(gradient,"fro"),"normGradientTrack");
-        outDiag.writeGradientToFile(gradient,"gradient_"+std::to_string(r));
+        outDiag.writeArmaMatrixToFile(gradient,"gradient_"+std::to_string(r));
         norm_Gradient = arma::norm(gradient,"fro");
 
         if (r == 0) {
@@ -284,7 +284,7 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
 
         std::cout << "Control in iteration " << r << std::endl;
         std::cout << control << std::endl;
-        outDiag.writeGradientToFile(control,"control_"+std::to_string(r));
+        outDiag.writeArmaMatrixToFile(control,"control_"+std::to_string(r));
 
         if (stepsize_flag == 1) {
             std::string small_stepsize = "Linesearch returned too small stepsize; Found minimum after " + std::to_string(r) + " iterations";

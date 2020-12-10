@@ -1,12 +1,12 @@
-#ifndef ABSTRACT_VALIDATION_H
-#define ABSTRACT_VALIDATION_H
+#ifndef ABSTRACT_VERIFICATION_H
+#define ABSTRACT_VERIFICATION_H
 
 #include "../../src/controller/abstract_controller.h"
 
-class abstract_validation
+class abstract_verification
 {
 public:
-    abstract_validation();
+    abstract_verification();
 
     data_provider getData_provider_validation() const;
     void setData_provider_validation(const data_provider &value);
@@ -16,7 +16,7 @@ public:
 
 private:
     data_provider data_provider_optim;
-    data_provider data_provider_validation;
+    data_provider data_provider_verification;
 };
 
-#endif // ABSTRACT_VALIDATION_H
+#endif // ABSTRACT_VERIFICATION_H

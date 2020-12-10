@@ -158,6 +158,56 @@ arma::mat input::readControl(const char *filename, int pcell_gp)
     return control;
 }
 
+std::vector<std::vector<double> > input::readDoubleMatrix(std::string filename, int pcell_gp,std::string delimiter)
+{
+    std::vector<std::vector<double>> matrix;
+    matrix.resize(pcell_gp);
+
+    int counter = 0;
+
+    std::ifstream file(filename);
+
+    std::string line = "";
+
+    if( !file.is_open() ) {
+        logger::Warning("File not found: " + filename);
+        throw  std::runtime_error("File could not be opened");
+    }
+
+
+    while(std::getline(file,line) ) {
+
+        // std::cout << line << std::endl;
+
+        size_t pos = 0;
+        std::string token;
+        std::vector<std::string> vec;
+
+        while ((pos = line.find(delimiter)) != std::string::npos) {
+            token = line.substr(0, pos);
+            vec.push_back(token);
+            line.erase(0, pos + delimiter.length());
+        }
+        // push back last element
+        vec.push_back(line);
+
+        if (vec.size() < 3 ) {
+            std::cout << "Line was: " << line << std::endl;
+            throw std::length_error("Too less attributes for reading 3d matrix");
+        }
+
+        matrix[counter].resize(3);
+
+        for(int i=0; i< vec.size(); i++) {
+            matrix[counter][i] = std::stod(vec[i]);
+            //str(mu_x)+","+str(mu_y)+","+str(mu_z)+","+str(s_x)+","+str(s_y)+","+str(s_z)+","+str(v_x)+","+str(v_y)+","+str(v_z)+","+str(v_s_x)+","+str(v_s_y)+","+str(v_s_z)+"\n")
+        }
+        counter++;
+    }
+
+    return matrix;
+}
+
 std::vector<double> input::readDoubleVector(const char *filename)
 {
     std::ifstream ifile(filename, std::ios::in);
