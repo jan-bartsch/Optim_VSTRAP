@@ -18,7 +18,7 @@ H1_difference_file = open(args.pathToResults + "H1-difference.txt")
 H2_difference_file = open(args.pathToResults + "H2-difference.txt")
 L2_difference_file = open(args.pathToResults + "L2-difference.txt")
 
-weight_vector_file = open(args.pathToResults + "discretization_vector.txt")
+discretization_vector_file = open(args.pathToResults + "discretization_vector.txt")
 
 H1_difference = H1_difference_file.read().split("\n")
 H1_difference_float = []
@@ -29,10 +29,10 @@ H2_difference_float = []
 L2_difference = L2_difference_file.read().split("\n")
 L2_difference_float = []
 
-weight_vector = weight_vector_file.read().split("\n")
-weight_vector_float = []
+discretization_vector = discretization_vector_file.read().split("\n")
+discretization_vector_float = []
 
-weight_vector_float1 = []
+discretization_vector_float1 = []
 
 landau_decrease_linear = []
 landau_decrease_quadratic = []
@@ -47,18 +47,18 @@ for i in range(0,len(H1_difference)-1):
 	landau_decrease_linear.insert(len(landau_decrease_linear),pow(scale,i)*H1_difference_float[0])
 	landau_decrease_quadratic.insert(len(landau_decrease_quadratic),pow(pow(scale,i),2)*H1_difference_float[0])
 
-	weight_vector_float1.insert(len(weight_vector_float1),(float(weight_vector[i])-float(weight_vector[i+1]))/(float(weight_vector[0])))
-	weight_vector_float.insert(len(weight_vector_float),(float(weight_vector[i]))/(float(weight_vector[0])))
+	discretization_vector_float1.insert(len(discretization_vector_float1),(float(discretization_vector[i])-float(discretization_vector[i+1]))/(float(discretization_vector[0])))
+	discretization_vector_float.insert(len(discretization_vector_float),(float(discretization_vector[i]))/(float(discretization_vector[0])))
 
-print(weight_vector_float)
-print(weight_vector_float1)
+print(discretization_vector_float)
+print(discretization_vector_float1)
 
 ax1 = plt.gca()
 plt.plot(H1_difference_float, label="difference H1")
 plt.plot(H2_difference_float, label="difference H2")
 plt.plot(L2_difference_float, label="difference L2")
-#plt.plot(weight_vector_float, label="fraction weights")
-plt.plot(weight_vector_float1, label="difference weights")
+#plt.plot(discretization_vector_float, label="fraction weights")
+plt.plot(discretization_vector_float1, label="difference weights")
 linear_label = "linear (" + str(scale)+")";
 #plt.plot(landau_decrease_linear, label=linear_label)
 #plt.plot(landau_decrease_quadratic, label="quadratic")

@@ -133,6 +133,21 @@ std::map<int, std::vector<double> > data_provider::read_mesh_barycenters(const c
     return mesh_barycenters;
 }
 
+arma::mat data_provider::convert_barycenters_toArmaMat(std::map<int, std::vector<double> > barycenters)
+{
+    arma::mat bary(barycenters.size(),3);
+    std::vector<double> current_barycenter;
+
+    for(unsigned int cell_id = 0; cell_id < barycenters.size(); cell_id++) {
+        current_barycenter = barycenters.find(cell_id+1)->second;
+        for(unsigned int j = 0; j<3; j++) {
+            bary(cell_id,j) = current_barycenter[j];
+        }
+    }
+
+    return bary;
+}
+
 
 std::map<std::string, std::string> data_provider::read_paths(const char *filename)
 {

@@ -1,6 +1,8 @@
 #ifndef DATA_PROVIDER_H
 #define DATA_PROVIDER_H
 
+
+#include<armadillo>
 #include <map>
 #include <vector>
 #include <string>
@@ -22,6 +24,8 @@ public:
     std::map<std::string, double> read_optimization_parameters(const char* filename);
     std::map<std::string,std::string> read_subroutines(const char* filename);
     std::map<int,std::vector<double>> read_mesh_barycenters(const char* filename);
+
+    static arma::mat convert_barycenters_toArmaMat(std::map<int,std::vector<double>>  barycenters);
 
     /*
      * Getters and Setters

@@ -52,12 +52,25 @@ int control_verification::start_verification(int argc, char **argv)
     std::vector<std::vector<double>> control1 = in.readDoubleMatrix("/afs/ifm/home/bartsch/SPARC/Optim_VSTRAP/vldn/data/controls-20201126-weight/control_1.csv",pcell_gp,",");
     //std::count << control1 << std::endl;
 
+    arma::mat control1_mat(control1.size(),3,arma::fill::zeros);
+    for(unsigned int i=0; i<control1.size(); i++) {
+        for(unsigned int j=0; j<3; j++) {
+            control1_mat(i,j) = control1[i][j];
+        }
+    }
+
     std::vector<double> mean_weight6 = calculate_mean_doubleMatrix(control1);
 
     arma::mat means;
     arma::mat control;
 
-    for (int i = 0; i < iterations; i++) {
+    std::map<int, std::vector<double>> barycenters = optimization_provider.getMesh_barycenters();
+    arma::mat bary = data_provider::convert_barycenters_toArmaMat(barycenters);
+
+    std::vector<double> valide_vector;
+
+
+    for (int i = 0; i < iterations-1; i++) {
         number = std::to_string(i);
         file = CONTROLS_DIRECTORY +"control_" + number + ".xml";
         std::cout << "Open file with name " << file << std::endl;
@@ -70,18 +83,34 @@ int control_verification::start_verification(int argc, char **argv)
         }
         //std::cout << control << std::endl;
         control_vector.push_back(control);
-        std::cout << calculate_mean(control) << std::endl;
-        means.insert_rows(i,arma::mean(control)*0.001);
+        //calculate_cross_error(control,bary,valide_vector);
+        //std::cout << arma::mean(calculate_cross_error(control,bary,valide_vector)) << std::endl;
+//        means.insert_rows(i,arma::mean(control)*0.001);
+        means.insert_rows(i,arma::mean(calculate_cross_error(control,bary,valide_vector)) );
         //std::cout << "L2 norm: " << std::sqrt(pro.L2_inner_product(control,control)) << std::endl;
         //std::cout << "norm: " << arma::norm(control,"fro")*std::sqrt(0.001/discretization_file[i]) << std::endl; //*0.001/discretization_vector[i]
     }
 
-    means(iterations-1,0) = mean_weight6[0]*0.001;
-    means(iterations-1,1) = mean_weight6[1]*0.001;
-    means(iterations-1,2) = mean_weight6[2]*0.001;
+//    means(iterations-1,0) = mean_weight6[0]*0.001;
+//    means(iterations-1,1) = mean_weight6[1]*0.001;
+//    means(iterations-1,2) = mean_weight6[2]*0.001;
+    means.insert_rows(iterations-1,arma::mean(calculate_cross_error(control1_mat,bary,valide_vector)));
     std::cout << means << std::endl;
 
+
+
     out.writeArmaMatrixToFile(means,"Means");
+    out.writeDoubleVectorToFile(valide_vector,"Valide");
+
+    std::string DIRECTORY_TOOLSET = paths.find("DIRECTORY_TOOLSET")->second;
+    std::string PATH_TO_SHARED_FILES_ABSOLUTE  = paths.find("PATH_TO_SHARED_FILES_ABSOLUTE")->second;
+
+    std::string visualize_control_pyhton = "python3 " + DIRECTORY_TOOLSET + "vldn/" + "test_controls_mean.py " + PATH_TO_SHARED_FILES_ABSOLUTE;
+
+    logger::Info("Calling command " + visualize_control_pyhton);
+    system(&visualize_control_pyhton[0]);
+
+
 
     for (int i = 0; i < iterations-1; i++) {
         //        control_difference[i] = std::sqrt(pro.H1_inner_product(control_vector[i+1]*discretization_vector[i+1]-control_vector[i]*discretization_vector[i],
@@ -109,28 +138,6 @@ int control_verification::start_verification(int argc, char **argv)
     }
 
     out.writeDoubleVectorToFile(control_difference,"H2-difference");
-
-
-    //    std::cout << solver.D1_second_order() << std::endl;
-    //    arma::mat test(32,3,arma::fill::ones);
-
-    //    std::cout << -solver.Laplacian_3D()/(static_cast<double>(optimizationParameters.find("db_gp")->second)*static_cast<double>(optimizationParameters.find("db_gp")->second))*test << std::endl;
-
-
-
-    //    std::cout << "L2 norm " << std::sqrt(pro.L2_inner_product(control_vector[0],control_vector[0])) << std::endl;
-    //    std::cout << "Arma norm " << arma::norm((control_vector[0]),"fro")*std::sqrt(static_cast<double>(optimizationParameters.find("dp_gp")->second)) << std::endl;
-    //    std::cout << std::sqrt(pro.H1_inner_product(control_vector[0],control_vector[0])) << std::endl;
-    //    std::cout << std::sqrt(pro.H2_inner_product(control_vector[0],control_vector[0])) << std::endl;
-
-    std::string DIRECTORY_TOOLSET = paths.find("DIRECTORY_TOOLSET")->second;
-    std::string PATH_TO_SHARED_FILES_ABSOLUTE  = paths.find("PATH_TO_SHARED_FILES_ABSOLUTE")->second;
-
-    std::string visualize_control_pyhton = "python3 " + DIRECTORY_TOOLSET + "vldn/" + "test_controls.py " + PATH_TO_SHARED_FILES_ABSOLUTE + " 0.5";
-
-    logger::Info("Calling command " + visualize_control_pyhton);
-    system(&visualize_control_pyhton[0]);
-
 
     return 0;
 }
@@ -169,4 +176,29 @@ std::vector<double> control_verification::calculate_mean_doubleMatrix(std::vecto
         std::cout << "Mean in column " << j << ": " << mean[j] << std::endl;
     }
     return mean;
+}
+
+arma::mat control_verification::calculate_cross_error(arma::mat control, arma::mat barycenters, std::vector<double> &valide_vector)
+{
+    arma::mat error_vector;
+    std::vector<double> orientation(control.n_rows);
+    double valide = 1.0;
+
+
+    for(unsigned int cell_id = 0; cell_id < barycenters.n_rows; cell_id++) {
+        //std::cout << control.row(cell_id) << std::endl;
+        //std::cout << -barycenters.row(cell_id) << std::endl;
+        orientation[cell_id] = arma::dot(control.row(cell_id),-barycenters.row(cell_id));
+        if(orientation[cell_id]<0) {
+            std::cerr << "Wrong orientation of control vector" << std::endl;
+            valide = -1.0;
+        }
+         error_vector.insert_rows(cell_id, arma::cross(control.row(cell_id),(-barycenters.row(cell_id))));
+    }
+
+    valide_vector.push_back(valide);
+
+    //std::cout << error_vector << std::endl;
+    return error_vector;
+
 }

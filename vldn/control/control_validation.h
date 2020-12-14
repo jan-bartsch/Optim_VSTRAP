@@ -28,6 +28,8 @@ public:
     static double calculate_mean(arma::mat control);
 
     static std::vector<double> calculate_mean_doubleMatrix(std::vector<std::vector<double>> control);
+
+    static arma::mat calculate_cross_error(arma::mat control, arma::mat barycenters, std::vector<double> &valide_vector);
 };
 
 #endif // CONTROL_VERIFICATION_H

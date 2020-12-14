@@ -96,13 +96,13 @@
 <parameter name="fabs_tol_gp" value="1e-5"/>
 </globalParameters>
 <paths>
-	<path name="BUILD_DIRECTORY_VSTRAP" value="/home/jan/Promotion_linuxPC/build-vstrap/src/" />
+	<!--path name="BUILD_DIRECTORY_VSTRAP" value="/home/jan/Promotion_linuxPC/build-vstrap/src/" />
 	<path name="BUILD_DIRECTORY_OPTIM" value="/home/jan/Promotion_linuxPC/build-Optim/vldn/" />
-	<path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/home/jan/Promotion_linuxPC/build-Optim/vldn/results/" />
+	<path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/home/jan/Promotion_linuxPC/build-Optim/vldn/results/" /-->
 
-  <!--path name="BUILD_DIRECTORY_VSTRAP" value="/HOME/bartsch/SPARC/build-vstrap-Desktop/src/" />
+  <path name="BUILD_DIRECTORY_VSTRAP" value="/HOME/bartsch/SPARC/build-vstrap-Desktop/src/" />
 	<path name="BUILD_DIRECTORY_OPTIM" value="/HOME/bartsch/SPARC/build-Optim-Desktop/vldn/" />
-	<path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/HOME/bartsch/SPARC/build-Optim-Desktop/vldn/results/" /-->
+	<path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/HOME/bartsch/SPARC/build-Optim-Desktop/vldn/results/" />
 
 	<path name="PATH_TO_SHARED_FILES" value="./results/" />
 	<path name="PVPYTHON_ABSOLUTE_DIR" value="/HOME/jan/ParaView-5.8.0-MPI-Linux-Python3.7-64bit/bin/pvpython" />
