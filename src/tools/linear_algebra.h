@@ -15,6 +15,8 @@ public:
     linear_algebra();
 
     static std::vector<double> cross_product(std::vector<double> v1, std::vector<double> v2);
+
+    double divergence_vector(arma::mat input);
 };
 
 #endif // LINEAR_ALGEBRA_H

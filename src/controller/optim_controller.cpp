@@ -125,6 +125,10 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
     parameter_sanity ps = parameter_sanity();
     ps.check_adjoint_velocity(data_provider_opt);
 
+    linear_algebra linA = linear_algebra();
+    linA.setData_provider_optim(data_provider_opt);
+    linA.divergence_vector(control);
+
 
 
     /**
