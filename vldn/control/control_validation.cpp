@@ -62,6 +62,7 @@ int control_verification::start_verification(int argc, char **argv)
     std::vector<double> mean_weight6 = calculate_mean_doubleMatrix(control1);
 
     arma::mat means;
+    std::vector<double> norms;
     arma::mat control;
 
     std::map<int, std::vector<double>> barycenters = optimization_provider.getMesh_barycenters();
@@ -87,6 +88,7 @@ int control_verification::start_verification(int argc, char **argv)
         //std::cout << arma::mean(calculate_cross_error(control,bary,valide_vector)) << std::endl;
 //        means.insert_rows(i,arma::mean(control)*0.001);
         means.insert_rows(i,arma::mean(calculate_cross_error(control,bary,valide_vector)) );
+        norms.push_back(arma::norm(means.row(i))*valide_vector[i]);
         //std::cout << "L2 norm: " << std::sqrt(pro.L2_inner_product(control,control)) << std::endl;
         //std::cout << "norm: " << arma::norm(control,"fro")*std::sqrt(0.001/discretization_file[i]) << std::endl; //*0.001/discretization_vector[i]
     }
@@ -95,10 +97,11 @@ int control_verification::start_verification(int argc, char **argv)
 //    means(iterations-1,1) = mean_weight6[1]*0.001;
 //    means(iterations-1,2) = mean_weight6[2]*0.001;
     means.insert_rows(iterations-1,arma::mean(calculate_cross_error(control1_mat,bary,valide_vector)));
+    norms.push_back(arma::norm(means.row(iterations-1))*valide_vector[iterations-1]);
     std::cout << means << std::endl;
 
 
-
+    out.writeDoubleVectorToFile(norms,"Norms");
     out.writeArmaMatrixToFile(means,"Means");
     out.writeDoubleVectorToFile(valide_vector,"Valide");
 

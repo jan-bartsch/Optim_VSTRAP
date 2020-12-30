@@ -42,8 +42,8 @@ with open(args.pathToResults +'Means.csv', newline='') as csvfile:
 		counter = counter +1
 
 ax1 = plt.gca()
-plt.title("Norm of matrix barycenter")
-plt.plot(means_distance,'--o',label="Norm barycenter")
+plt.title("Norm of cross product (control x perfect control) multiplied by orientation")
+plt.plot(means_distance,'--o',label="Norm")
 plt.plot(zeros,'k')
 #ax1.set_yscale('log')
 #ax1.set_xscale('log')
