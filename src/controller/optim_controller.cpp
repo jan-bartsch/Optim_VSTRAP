@@ -163,23 +163,23 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
 
     unsigned int optimizationIteration_max_gp = static_cast<unsigned int>(optimizationParameters.find("optimizationIteration_max_gp")->second);
 
-    input_control.readBrockettFile(PATH_TO_SHARED_FILES+"brockett.csv",",",ntimesteps_gp);
+    //input_control.readBrockettFile(PATH_TO_SHARED_FILES+"brockett.csv",",",ntimesteps_gp);
 
     for(unsigned int r = 1; r <= optimizationIteration_max_gp; r++) {
 
-        logger::Info("Starting VSTRAP (foward)... ");
-        forward_return = model_solver.start_solving_forward(START_VSTRAP_FORWARD);
-        if (forward_return != 0) {
-            logger::Info("Forward VSTRAP returned non-zero value: " + std::to_string(forward_return));
-            throw  std::system_error();
-        }
-        logger::Info("Finished VSTRAP");
+//        logger::Info("Starting VSTRAP (foward)... ");
+//        forward_return = model_solver.start_solving_forward(START_VSTRAP_FORWARD);
+//        if (forward_return != 0) {
+//            logger::Info("Forward VSTRAP returned non-zero value: " + std::to_string(forward_return));
+//            throw  std::system_error();
+//        }
+//        logger::Info("Finished VSTRAP");
 
-        logger::Info("Reading particle files");
-        input_control.read_plasma_state_forward(forwardParticles,"plasma_state_batch_1_forward_particles_CPU_");
-        if (simulating_plasma == 0) {
-            input_control.read_plasma_state_forward(forwardParticles_electrons,"plasma_state_batch_e_forward_particles_electrons_CPU_");
-        }
+//        logger::Info("Reading particle files");
+//        input_control.read_plasma_state_forward(forwardParticles,"plasma_state_batch_1_forward_particles_CPU_");
+//        if (simulating_plasma == 0) {
+//            input_control.read_plasma_state_forward(forwardParticles_electrons,"plasma_state_batch_e_forward_particles_electrons_CPU_");
+//        }
 
 
         //        forwardPDF = pdf_control.assemblingMultiDim_parallel(forwardParticles,0);
