@@ -104,10 +104,10 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
     logger::Info("Reading paramters done");
 
     arma::mat control(static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second),3,arma::fill::zeros);
-    if(zero_control == 0) {
+    if(zero_control == 1) {
         control = start_with_zero_control(input_xml_path);
         generate_input_files(input_xml_path);
-    } else if (zero_control == 1) {
+    } else if (zero_control == 0) {
         control = start_with_given_control(input_xml_path);
         std::cout << control << std::endl;
     } else if (zero_control == 2) {
@@ -167,19 +167,19 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
 
     for(unsigned int r = 1; r <= optimizationIteration_max_gp; r++) {
 
-//        logger::Info("Starting VSTRAP (foward)... ");
-//        forward_return = model_solver.start_solving_forward(START_VSTRAP_FORWARD);
-//        if (forward_return != 0) {
-//            logger::Info("Forward VSTRAP returned non-zero value: " + std::to_string(forward_return));
-//            throw  std::system_error();
-//        }
-//        logger::Info("Finished VSTRAP");
+        logger::Info("Starting VSTRAP (foward)... ");
+        forward_return = model_solver.start_solving_forward(START_VSTRAP_FORWARD);
+        if (forward_return != 0) {
+            logger::Info("Forward VSTRAP returned non-zero value: " + std::to_string(forward_return));
+            throw  std::system_error();
+        }
+        logger::Info("Finished VSTRAP");
 
-//        logger::Info("Reading particle files");
-//        input_control.read_plasma_state_forward(forwardParticles,"plasma_state_batch_1_forward_particles_CPU_");
-//        if (simulating_plasma == 0) {
-//            input_control.read_plasma_state_forward(forwardParticles_electrons,"plasma_state_batch_e_forward_particles_electrons_CPU_");
-//        }
+        logger::Info("Reading particle files");
+        input_control.read_plasma_state_forward(forwardParticles,"plasma_state_batch_1_forward_particles_CPU_");
+        if (simulating_plasma==1) {
+            input_control.read_plasma_state_forward(forwardParticles_electrons,"plasma_state_batch_e_forward_particles_electrons_CPU_");
+        }
 
 
         //        forwardPDF = pdf_control.assemblingMultiDim_parallel(forwardParticles,0);
@@ -199,7 +199,7 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
 
         logger::Info("Reading particle files...");
         input_control.read_plasma_state_backward(backwardParticles,"plasma_state_batch_1_adjoint_particles_CPU_");
-        if (simulating_plasma == 0) {
+        if (simulating_plasma == 1) {
             input_control.read_plasma_state_backward(backwardParticles_electrons,"plasma_state_batch_e_adjoint_particles_electrons_CPU_");
         }
 
@@ -211,7 +211,7 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
         assembling_flag = pdf_control.assemblingMultiDim_parallel(backwardParticles,1,pdf_time);
         backwardPDF = pdf_time;
 
-        if (simulating_plasma == 0) {
+        if (simulating_plasma == 1) {
             assembling_flag = pdf_control.assemblingMultiDim_parallel(forwardParticles_electrons,0,pdf_time);
             forwardPDF_electrons = pdf_time;
             assembling_flag = pdf_control.assemblingMultiDim_parallel(backwardParticles_electrons,1,pdf_time);
@@ -224,7 +224,7 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
 
 
         logger::Info("Building gradient...");
-        if (simulating_plasma == 0) {
+        if (simulating_plasma == 1) {
             gradient = gradient_calculator_opt.calculateGradient_forceControl_space_Hm_plasma(forwardPDF,backwardPDF,forwardPDF_electrons,backwardPDF_electrons,control);
         } else {
             gradient = gradient_calculator_opt.calculateGradient_forceControl_space_Hm(forwardPDF,backwardPDF,control);

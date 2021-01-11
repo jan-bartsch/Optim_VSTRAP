@@ -35,6 +35,16 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm_not_paral
     int start_control = static_cast<int>(optimizationParameters.find("start_control_gp")->second);
     int end_control = static_cast<int>(optimizationParameters.find("end_control_gp")->second);
 
+    int magnetic_force = static_cast<int>(optimizationParameters.find("magnetic_force")->second);
+    int electric_force = static_cast<int>(optimizationParameters.find("electric_force")->second);
+
+    if (magnetic_force == 1 && electric_force == 1) {
+        std::cerr << "Magnetic and electric force combined is not implemented yet" << std::endl;
+    }
+    if (magnetic_force == 0 && electric_force == 0) {
+        std::cerr << "Force/Control should be either magnetic or electric. Nothing was specified" << std::endl;
+    }
+
     arma::mat Laplace = model_solver.Laplacian_3D();
     arma::mat Laplace_Squared = model_solver.Laplacian_Squared_3D();
 
@@ -118,9 +128,19 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm_not_paral
                             /*
                              * electric field
                             */
-                            gradient(i-1,0) += backwardPDFdouble[o][l][m][n]*firstDerivativeForwardPDF_V1_current*pow(dv_gp,3.0)*pow(dt_gp,1.0);
-                            gradient(i-1,1) += backwardPDFdouble[o][l][m][n]*firstDerivativeForwardPDF_V2_current*pow(dv_gp,3.0)*pow(dt_gp,1.0);
-                            gradient(i-1,2) += backwardPDFdouble[o][l][m][n]*firstDerivativeForwardPDF_V3_current*pow(dv_gp,3.0)*pow(dt_gp,1.0);
+                            if (electric_force == 1) {
+                                gradient(i-1,0) += backwardPDFdouble[o][l][m][n]*firstDerivativeForwardPDF_V1_current*pow(dv_gp,3.0)*pow(dt_gp,1.0);
+                                gradient(i-1,1) += backwardPDFdouble[o][l][m][n]*firstDerivativeForwardPDF_V2_current*pow(dv_gp,3.0)*pow(dt_gp,1.0);
+                                gradient(i-1,2) += backwardPDFdouble[o][l][m][n]*firstDerivativeForwardPDF_V3_current*pow(dv_gp,3.0)*pow(dt_gp,1.0);
+                            }
+                            /*
+                             * Magnetic field
+                             */
+                            if (magnetic_force == 1) {
+                                gradient(i-1,0) += backwardPDFdouble[o][l][m][n]*(-velocity_Discr[n]*firstDerivativeForwardPDF_V2_current+velocity_Discr[m]*firstDerivativeForwardPDF_V3_current)*pow(dv_gp,3.0)*pow(dt_gp,1.0);
+                                gradient(i-1,1) += backwardPDFdouble[o][l][m][n]*(velocity_Discr[n]*firstDerivativeForwardPDF_V1_current-velocity_Discr[l]*firstDerivativeForwardPDF_V3_current)*pow(dv_gp,3.0)*pow(dt_gp,1.0);
+                                gradient(i-1,2) += backwardPDFdouble[o][l][m][n]*(-velocity_Discr[m]*firstDerivativeForwardPDF_V1_current+velocity_Discr[l]*firstDerivativeForwardPDF_V2_current)*pow(dv_gp,3.0)*pow(dt_gp,1.0);
+                            }
                         }
                     }
                 }
@@ -211,6 +231,16 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm(std::vect
 
     int start_control = static_cast<int>(optimizationParameters.find("start_control_gp")->second);
     int end_control = static_cast<int>(optimizationParameters.find("end_control_gp")->second);
+
+    int magnetic_force = static_cast<int>(optimizationParameters.find("magnetic_force")->second);
+    int electric_force = static_cast<int>(optimizationParameters.find("electric_force")->second);
+
+    if (magnetic_force == 1 && electric_force == 1) {
+        std::cerr << "Magnetic and electric force combined is not implemented yet" << std::endl;
+    }
+    if (magnetic_force == 0 && electric_force == 0) {
+        std::cerr << "Force/Control should be either magnetic or electric. Nothing was specified" << std::endl;
+    }
 
     arma::mat Laplace = model_solver.Laplacian_3D();
     arma::mat Laplace_Squared = model_solver.Laplacian_Squared_3D();
@@ -321,22 +351,27 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm(std::vect
                             }
                             /*
                              * Electric field
-                            gradient(i-1,0) += backwardPDFdouble[o][l][m][n]*firstDerivativeForwardPDF_V1_current*pow(dv_gp,3.0)*pow(dt_gp,1.0);
-                            gradient(i-1,1) += backwardPDFdouble[o][l][m][n]*firstDerivativeForwardPDF_V2_current*pow(dv_gp,3.0)*pow(dt_gp,1.0);
-                            gradient(i-1,2) += backwardPDFdouble[o][l][m][n]*firstDerivativeForwardPDF_V3_current*pow(dv_gp,3.0)*pow(dt_gp,1.0);
+                             *  */
+
+                            if (electric_force == 1) {
+                                gradient(i-1,0) += backwardPDFdouble[o][l][m][n]*firstDerivativeForwardPDF_V1_current*pow(dv_gp,3.0)*pow(dt_gp,1.0);
+                                gradient(i-1,1) += backwardPDFdouble[o][l][m][n]*firstDerivativeForwardPDF_V2_current*pow(dv_gp,3.0)*pow(dt_gp,1.0);
+                                gradient(i-1,2) += backwardPDFdouble[o][l][m][n]*firstDerivativeForwardPDF_V3_current*pow(dv_gp,3.0)*pow(dt_gp,1.0);
+                            }
                             //integration by parts leads to
                             //                            gradient_2(i-1,0) -= forwardPDFdouble[o][l][m][n]*firstDerivativeBackwardPDF_V1_current*pow(dv_gp,3.0)*pow(dt_gp,1.0);
                             //                            gradient_2(i-1,1) -= forwardPDFdouble[o][l][m][n]*firstDerivativeBackwardPDF_V2_current*pow(dv_gp,3.0)*pow(dt_gp,1.0);
                             //                            gradient_2(i-1,2) -= forwardPDFdouble[o][l][m][n]*firstDerivativeBackwardPDF_V3_current*pow(dv_gp,3.0)*pow(dt_gp,1.0);
-                            */
+
 
                             /*
                              * Magnetic field
                              */
-                            gradient(i-1,0) += backwardPDFdouble[o][l][m][n]*(-velocity_Discr[n]*firstDerivativeForwardPDF_V2_current+velocity_Discr[m]*firstDerivativeForwardPDF_V3_current)*pow(dv_gp,3.0)*pow(dt_gp,1.0);
-                            gradient(i-1,1) += backwardPDFdouble[o][l][m][n]*(velocity_Discr[n]*firstDerivativeForwardPDF_V1_current-velocity_Discr[l]*firstDerivativeForwardPDF_V3_current)*pow(dv_gp,3.0)*pow(dt_gp,1.0);
-                            gradient(i-1,2) += backwardPDFdouble[o][l][m][n]*(-velocity_Discr[m]*firstDerivativeForwardPDF_V1_current+velocity_Discr[l]*firstDerivativeForwardPDF_V2_current)*pow(dv_gp,3.0)*pow(dt_gp,1.0);
-
+                            if (magnetic_force == 1) {
+                                gradient(i-1,0) += backwardPDFdouble[o][l][m][n]*(-velocity_Discr[n]*firstDerivativeForwardPDF_V2_current+velocity_Discr[m]*firstDerivativeForwardPDF_V3_current)*pow(dv_gp,3.0)*pow(dt_gp,1.0);
+                                gradient(i-1,1) += backwardPDFdouble[o][l][m][n]*(velocity_Discr[n]*firstDerivativeForwardPDF_V1_current-velocity_Discr[l]*firstDerivativeForwardPDF_V3_current)*pow(dv_gp,3.0)*pow(dt_gp,1.0);
+                                gradient(i-1,2) += backwardPDFdouble[o][l][m][n]*(-velocity_Discr[m]*firstDerivativeForwardPDF_V1_current+velocity_Discr[l]*firstDerivativeForwardPDF_V2_current)*pow(dv_gp,3.0)*pow(dt_gp,1.0);
+                            }
                         }
                     }
                 }

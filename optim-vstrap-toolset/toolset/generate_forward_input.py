@@ -78,7 +78,7 @@ file_forward_input.write("\t\t <executable name=\"plasma_state\" mode=\"CPU\"> \
 file_forward_input.write("\t\t\t<file path = \"./results/\" name=\"plasma_state\" format=\"csv\" output_interval=\"1\"/> \n \t\t </executable>\n")
 
 
-if(float(params['mesh_2d_writer_included'])==0):
+if(float(params['mesh_2d_writer_included'])==1):
     print("Include mesh_2d_writer")
     print(str(pathsList['PATH_TO_SHARED_FILES']))
     file_forward_input.write("\t\t <executable name=\"mesh_2d_data_writer\" mode=\"CPU\">\n")
@@ -87,7 +87,7 @@ if(float(params['mesh_2d_writer_included'])==0):
     file_forward_input.write("\t\t\t <values height=\"1.0\" min_1=\"-0.5\" min_2=\"-0.5\" dl=\"0.25\" n_1=\"4\" n_2=\"4\" plane=\"xy\"/>\n")
     file_forward_input.write("\t\t </executable>\n")
 
-if(float(params['mesh_3d_writer_included'])==0):
+if(float(params['mesh_3d_writer_included'])==1):
     print("Include mesh_3d_writer")
     print(str(pathsList['PATH_TO_SHARED_FILES']))
     file_forward_input.write("\t\t <executable name=\"mesh_3d_data_writer\" mode=\"CPU\">\n")
@@ -108,24 +108,24 @@ file_forward_input.write("\t\t\t <executable name=\"plasma_state\"/> \n")
 file_forward_input.write("\t\t\t <executable name=\"pusher\"/> \n")
 file_forward_input.write("\t\t\t <executable name=\"pwi\"/> \n")
 file_forward_input.write("\t\t\t <executable name=\"dsmc\"/> \n")
-if(float(params['fmm'])==0):
+if(float(params['fmm'])==1):
 	file_forward_input.write("\t\t\t <executable name=\"fmm\" />\n")
-if(float(params['mesh_2d_writer_included'])==0):
+if(float(params['mesh_2d_writer_included'])==1):
     file_forward_input.write("\t\t\t <executable name=\"mesh_2d_data_writer\" />\n")
-if(float(params['mesh_3d_writer_included'])==0):
+if(float(params['mesh_3d_writer_included'])==1):
     file_forward_input.write("\t\t\t <executable name=\"mesh_3d_data_writer\" />\n")
 file_forward_input.write("\t\t\t <executable name=\"bgf\"/> \n \t\t</init> \n")
 
 file_forward_input.write("\t\t <exec> \n")
 file_forward_input.write("\t\t\t <executable name=\"bgf\"/> \n")
-if(float(params['fmm'])==0):
+if(float(params['fmm'])==1):
 	file_forward_input.write("\t\t\t <executable name=\"fmm\" />\n")
 file_forward_input.write("\t\t\t <executable name=\"dsmc\"/> \n")
 file_forward_input.write("\t\t\t <executable name=\"pusher\"/> \n")
 file_forward_input.write("\t\t\t <executable name=\"pwi\"/> \n")
-if(float(params['mesh_2d_writer_included'])==0):
+if(float(params['mesh_2d_writer_included'])==1):
     file_forward_input.write("\t\t\t <executable name=\"mesh_2d_data_writer\" />\n")
-if(float(params['mesh_3d_writer_included'])==0):
+if(float(params['mesh_3d_writer_included'])==1):
     file_forward_input.write("\t\t\t <executable name=\"mesh_3d_data_writer\" />\n")
 file_forward_input.write("\t\t\t <executable name=\"plasma_state\"/> \n \t\t </exec> \n")
 file_forward_input.write("\t</schedule>\n")
