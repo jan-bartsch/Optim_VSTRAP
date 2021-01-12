@@ -2,8 +2,8 @@
 <globalParameters>
     <parameter name="simulating_plasma" value="0" />
     <parameter name="fmm" value="0" />
-    <parameter name="magnetic_force" value="0" />
-    <parameter name="electric_force" value="1" />
+    <parameter name="magnetic_force" value="1" />
+    <parameter name="electric_force" value="0" />
     
     <parameter name="armijo_descent_fraction" value="1e-30"/>
     <parameter name="calculation_functional" value="1"/>
@@ -45,13 +45,13 @@
     <parameter name="desired_position_z" value="0.0"/>
 
     <!--  forward input  -->
-    <parameter name="creation_forward_particles_method" value="create_new"/> <!-- create_existing create_new-->
+    <parameter name="creation_forward_particles_method" value="only_inflow"/> <!-- create_existing create_new only_inflow-->
     <parameter name="initial_condition_file" value="plasma_state_batch_1_forward_particles_CPU_1.csv"/> <!-- only in effect if create_existing-->
     <parameter name="number_density_forward" value="1e+16"/>
-    <parameter name="weight_forward" value="1e+10"/>
+    <!--parameter name="weight_forward" value="1e+10"/-->
     <!--parameter name="weight_forward" value="1e+9"/-->
     <!--parameter name="weight_forward" value="1e+8"/-->
-    <!--parameter name="weight_forward" value="1e+7"/-->
+    <parameter name="weight_forward" value="1e+7"/>
      <!--parameter name="weight_forward" value="1e+6"/-->
     <parameter name="charge_number_forward" value="+1"/>
     <parameter name="mass_forward" value="6.63e-26"/>
@@ -69,6 +69,19 @@
     <parameter name="mesh_3d_writer_included" value="0"/> <!--  1=true, 0=false  -->
     <parameter name="mesh_3d_name" value="mesh3doutput" />
     <parameter name="mesh_3d_outputinterval" value="1"/>
+    
+    <parameter name="inflow_included" value="1"/>
+    <parameter name="number_density_forward_inflow" value="1e+16"/>
+    <parameter name="weight_forward_inflow" value="5e+8"/>
+    <parameter name="charge_number_forward_inflow" value="+1"/>
+    <parameter name="mass_forward_inflow" value="6.63e-26"/>
+    <parameter name="species_forward_inflow" value="40Ar+"/>
+    <parameter name="temperature_x_val_inflow" value="300"/>
+    <parameter name="temperature_y_val_inflow" value="300"/>
+    <parameter name="temperature_z_val_inflow" value="300"/>
+    <parameter name="v_drift_x_val_inflow" value="1e+3"/>
+    <parameter name="v_drift_y_val_inflow" value="0"/>
+    <parameter name="v_drift_z_val_inflow" value="0"/>
 
     <!--  optimization techniques  -->
     <parameter name="fixed_gradient_descent_stepsize" value="1e+2"/>
@@ -107,11 +120,11 @@
     
     
 
-    <!--parameter name="dt_gp" value="1e-6"/>    
-    <parameter name="ntimesteps_gp" value="40"/-->
+    <parameter name="dt_gp" value="1e-6"/>    
+    <parameter name="ntimesteps_gp" value="40"/>
     
-    <parameter name="dt_gp" value="5e-6"/>     
-    <parameter name="ntimesteps_gp" value="8"/>
+    <!--parameter name="dt_gp" value="5e-6"/>     
+    <parameter name="ntimesteps_gp" value="8"/-->
     
     <!--parameter name="dt_gp" value="0.2e-6"/>     
     <parameter name="ntimesteps_gp" value="200"/-->
@@ -156,7 +169,6 @@
 	<!--path name="PVPYTHON_ABSOLUTE_DIR" value="/usr/bin/pvpython" /-->
     <path name="PVPYTHON_ABSOLUTE_DIR" value="/home/jan/ParaView-5.8.0-MPI-Linux-Python3.7-64bit/bin/pvpython" />
   
-  
     <path name="BARYCENTERS_MESH" value="../../Optim_VSTRAP/data/global/mesh_barycenters_small_64.xml"/>
     <path name="DOMAIN_MESH" value="../../../Optim_VSTRAP/data/global/box_vol_regular_small.xml"/>
     <path name="DOMAIN_MESH_FILE" value="box_vol_regular_small.xml"/>
@@ -165,10 +177,12 @@
 	<path name="DOMAIN_MESH" value="../../../Optim_VSTRAP/data/global/box_vol_regular_small_216.xml"/>
     <path name="DOMAIN_MESH_FILE" value="box_vol_regular_small_216.xml"/-->
     
+    
     <!--path name="BARYCENTERS_MESH" value="../../Optim_VSTRAP/data/global/mesh_barycenters_small_512.xml"/>
 	<path name="DOMAIN_MESH" value="../../../Optim_VSTRAP/data/global/box_vol_regular_small_512.xml"/>
     <path name="DOMAIN_MESH_FILE" value="box_vol_regular_small_512.xml"/-->
     
+    <path name="SURFACE_MESH" value="../../../Optim_VSTRAP/data/global/mesh/box_surf.xml"/>
     <!-- shared  -->
     <path name="INPUT_FORWARD" value="input_forward.xml"/>
 	<path name="INPUT_BACKWARD" value="input_backward.xml"/>

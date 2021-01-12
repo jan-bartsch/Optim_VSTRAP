@@ -41,10 +41,15 @@ file_forward_input.write("\t <global_values> \n \t\t <time_step value=\"" + str(
 file_forward_input.write("\t <abort_criterium> \n \t\t <max_itterations value=\"" + str(params["ntimesteps_gp"]) + "\" /> \n \t </abort_criterium>\n")
 
 optim_vMesh = pathsList["DOMAIN_MESH"]
+optim_sMesh = pathsList["SURFACE_MESH"]
 #optim_vMesh = optim_vMesh.replace("../../Optim_VSTRAP/data/","../")
 
 file_forward_input.write("\t <executables> \n \t \t <executable name=\"mesh_initializer\" mode=\"CPU\"> \n \t\t\t <mesh name=\"vol_mesh\">\n")
-file_forward_input.write("\t\t\t\t <load>"+str(optim_vMesh)+"</load> \n \t\t\t </mesh> \n \t\t </executable>\n")
+file_forward_input.write("\t\t\t\t <load>"+str(optim_vMesh)+"</load> \n \t\t\t </mesh> \n")
+if(float(params['inflow_included'])==1):
+    file_forward_input.write("\t\t\t<mesh name=\"surf_mesh\">\n")
+    file_forward_input.write("\t\t\t\t <load>"+str(optim_sMesh)+"</load> \n \t\t\t\t <face_data name=\"surface_charging\" type=\"double\"/>\n \t\t\t </mesh> \n")
+file_forward_input.write("\t\t </executable>\n")
 
 optim_pmax_gp = params['pmax_gp']
 
@@ -59,6 +64,9 @@ elif(str(params['creation_forward_particles_method'])=='create_existing'):
     print("Initialize forward particles using existing values")
     file_forward_input.write("\t\t <executable name=\"particle_initializer\" mode=\"CPU\"> \n \t\t\t<group name=\"forward_particles\">\n")
     file_forward_input.write("\t\t\t <load>"+str(params['initial_condition_file'])+"</load> \n \t\t\t </group> \n \t\t </executable> \n ")
+elif(str(params['creation_forward_particles_method'])=='only_inflow'):
+    file_forward_input.write("\t\t <executable name=\"particle_initializer\" mode=\"CPU\"> \n \t\t\t<group name=\"forward_particles\" empty=\"true\"/>\n")
+    file_forward_input.write("\t\t </executable> \n ")
 
 
 file_forward_input.write("\t\t <executable name=\"pwi\" mode=\"CPU\"> \n \t\t\t<boundary_type name=\"cuboid\"/>\n")
@@ -94,8 +102,17 @@ if(float(params['mesh_3d_writer_included'])==1):
     file_forward_input.write("\t\t\t <file name=\"" + str(params['mesh_3d_name']) + "\" format=\"vtu\" path=\"" + str(pathsList['PATH_TO_SHARED_FILES']) + str(pathsList['mesh_3d_path']) + "\" output_interval=\"" + str(params['mesh_3d_outputinterval']) +"\" />\n")
     file_forward_input.write("\t\t\t <particle_group name=\"forward_particles\"/>\n")
     file_forward_input.write("\t\t </executable>\n")
+    
+if(float(params['inflow_included'])==1):
+    print("Inflow present")
+    file_forward_input.write("\t\t <executable name=\"inflow\" mode=\"CPU\">\n \t\t\t <batch name=\"static\" type=\"static\"> \n")
+    file_forward_input.write("\t\t\t\t <particle_group name=\"forward_particles\"/>\n")
+    file_forward_input.write("\t\t\t\t <values number_density=\" "+ str(params["number_density_forward_inflow"]) +" \" weight=\""+ str(params["weight_forward_inflow"]) +"\" charge_number=\""+ str(params["charge_number_forward_inflow"]) +"\" mass=\"" + str(params["mass_forward_inflow"]) + "\" species=\"" + str(params["species_forward_inflow"]) + "\"/>\n")
+    file_forward_input.write("\t\t\t\t <temperature x_val=\"" + str(params["temperature_x_val_inflow"]) + "\" y_val=\"" + str(params["temperature_y_val_inflow"]) + "\" z_val=\"" + str(params["temperature_z_val_inflow"]) + "\"/> \n ")
+    file_forward_input.write("\t\t\t\t <v_drift x_val=\"" + str(params["v_drift_x_val_inflow"]) + "\" y_val=\"" + str(params["v_drift_y_val_inflow"]) + "\" z_val=\"" + str(params["v_drift_z_val_inflow"]) + "\"/> \n ")
+    file_forward_input.write("\t\t\t\t <physical_surface tag=\"6\"/>\n \t\t\t </batch>\n \t\t\t <mesh name=\"surf_mesh\"/> \n \t\t </executable>\n")
 
-file_forward_input.write("\t\t <executable name=\"fmm\" mode=\"CPU\"> \t\t\t <smearing_radius value=\"0.0\"/> \t\t\t <method name=\"fmm\"/> \t\t\t <particle_group name=\"forward_particles\"/> \t\t </executable>")
+file_forward_input.write("\t\t <executable name=\"fmm\" mode=\"CPU\">\n \t\t\t <smearing_radius value=\"0.0\"/>\n \t\t\t <method name=\"fmm\"/>\n \t\t\t <particle_group name=\"forward_particles\"/>\n \t\t </executable>\n")
 
 file_forward_input.write("\t </executables>\n")
 
@@ -104,6 +121,8 @@ file_forward_input.write("\t </executables>\n")
 file_forward_input.write("\t <schedule> \n \t\t <init> \n")
 file_forward_input.write("\t\t\t <executable name=\"mesh_initializer\"/> \n")
 file_forward_input.write("\t\t\t <executable name=\"particle_initializer\"/> \n")
+if(float(params['inflow_included'])==1):
+    file_forward_input.write("\t\t\t <executable name=\"inflow\"/> \n")
 file_forward_input.write("\t\t\t <executable name=\"plasma_state\"/> \n")
 file_forward_input.write("\t\t\t <executable name=\"pusher\"/> \n")
 file_forward_input.write("\t\t\t <executable name=\"pwi\"/> \n")
@@ -117,6 +136,8 @@ if(float(params['mesh_3d_writer_included'])==1):
 file_forward_input.write("\t\t\t <executable name=\"bgf\"/> \n \t\t</init> \n")
 
 file_forward_input.write("\t\t <exec> \n")
+if(float(params['inflow_included'])==1):
+    file_forward_input.write("\t\t\t <executable name=\"inflow\"/> \n")
 file_forward_input.write("\t\t\t <executable name=\"bgf\"/> \n")
 if(float(params['fmm'])==1):
 	file_forward_input.write("\t\t\t <executable name=\"fmm\" />\n")

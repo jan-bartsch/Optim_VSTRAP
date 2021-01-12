@@ -65,7 +65,7 @@ class Control_field:
 
 		print("Length of control: " + str(len(self.control)))
 		for n in mesh.nodes:
-			#print(n)
+			print(self.control[n-1][0])
 			self.endPoints.insert(len(self.endPoints),[self.nodesMesh[n-1][0]+control_scaling*self.control[n-1][0],self.nodesMesh[n-1][1]+control_scaling*self.control[n-1][1],self.nodesMesh[n-1][2]+control_scaling*self.control[n-1][2]])
 
 

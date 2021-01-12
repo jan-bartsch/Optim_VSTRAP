@@ -32,3 +32,21 @@ int parameter_sanity::check_adjoint_velocity(data_provider provider)
 
     return 0;
 }
+
+int parameter_sanity::check_velocity_discretization(data_provider provider)
+{
+    std::ostringstream streamObj;
+
+    std::map<std::string,double> parameters = provider.getOptimizationParameters();
+
+    double dv_gp = parameters.find("dv_gp")->second;
+    double vcell_gp = parameters.find("vcell_gp")->second;
+    double vmax_gp = parameters.find("vmax_gp")->second;
+
+    double max = dv_gp*vcell_gp;
+
+    if (max != 2.0*vmax_gp) {
+        std::cerr << "Discretization of velocity space is erroneous" << std::endl;
+    }
+
+}

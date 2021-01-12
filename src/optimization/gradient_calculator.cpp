@@ -55,6 +55,9 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm_not_paral
     arma::mat gradient_Riesz(dimensionOfControl_gp,3,arma::fill::zeros);
     arma::mat rhs_Riesz(dimensionOfControl_gp,3,arma::fill::zeros);
 
+    double vmax_gp = static_cast<double>(optimizationParameters.find("vmax_gp")->second);
+    arma::vec velocity_Discr = arma::linspace<arma::vec>(-vmax_gp,vmax_gp,vcell_gp);
+
     //Caculate integral in gradient
     const unsigned int n = pcell_gp;
 

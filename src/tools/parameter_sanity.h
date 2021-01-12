@@ -15,6 +15,8 @@ public:
     parameter_sanity();
 
     int check_adjoint_velocity(data_provider provider);
+
+    int check_velocity_discretization(data_provider provider);
 };
 
 #endif // PARAMETER_SANITY_H
