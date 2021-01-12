@@ -72,7 +72,7 @@
     
     <parameter name="inflow_included" value="1"/>
     <parameter name="number_density_forward_inflow" value="1e+16"/>
-    <parameter name="weight_forward_inflow" value="5e+8"/>
+    <parameter name="weight_forward_inflow" value="1e+8"/>
     <parameter name="charge_number_forward_inflow" value="+1"/>
     <parameter name="mass_forward_inflow" value="6.63e-26"/>
     <parameter name="species_forward_inflow" value="40Ar+"/>
@@ -130,17 +130,17 @@
     <parameter name="ntimesteps_gp" value="200"/-->
     
     
-    <!--parameter name="dv_gp" value="5e+2"/>      
+    <parameter name="dv_gp" value="5e+2"/>      
     <parameter name="vcell_gp" value="10"/>     
-    <parameter name="vmax_gp" value="2.5e+3"/-->
+    <parameter name="vmax_gp" value="2.5e+3"/>
     
     <!-- parameter name="dv_gp" value="2.5e+2"/>     
     <parameter name="vcell_gp" value="20"/>     
     <parameter name="vmax_gp" value="2.5e+3"/-->
     
-    <parameter name="dv_gp" value="10e+2"/>     
+    <!--parameter name="dv_gp" value="10e+2"/>     
     <parameter name="vcell_gp" value="5"/>   
-    <parameter name="vmax_gp" value="2.5e+3"/>
+    <parameter name="vmax_gp" value="2.5e+3"/-->
     
     <parameter name="fraction_fast_particles_gp" value="0.1"/>
 
