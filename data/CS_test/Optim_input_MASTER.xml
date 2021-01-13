@@ -4,7 +4,7 @@
     <parameter name="fmm" value="0" />
     <parameter name="magnetic_force" value="1" />
     <parameter name="electric_force" value="0" />
-    
+
     <parameter name="armijo_descent_fraction" value="1e-30"/>
     <parameter name="calculation_functional" value="1"/>
     <parameter name="calculation_wasserstein" value="0"/>
@@ -69,10 +69,10 @@
     <parameter name="mesh_3d_writer_included" value="0"/> <!--  1=true, 0=false  -->
     <parameter name="mesh_3d_name" value="mesh3doutput" />
     <parameter name="mesh_3d_outputinterval" value="1"/>
-    
+
     <parameter name="inflow_included" value="1"/>
     <parameter name="number_density_forward_inflow" value="1e+16"/>
-    <parameter name="weight_forward_inflow" value="1e+7"/>
+    <parameter name="weight_forward_inflow" value="1e+8"/>
     <parameter name="charge_number_forward_inflow" value="+1"/>
     <parameter name="mass_forward_inflow" value="6.63e-26"/>
     <parameter name="species_forward_inflow" value="40Ar+"/>
@@ -95,56 +95,56 @@
     <parameter name="armijo_iterative_exp" value="1.0"/>     <!--  1.0: no decreasing stepsize  -->
 
     <!--  DOMAIN PARAMETERS  -->
-    <parameter name="pmax_gp" value="0.05"/> 
-    
+    <parameter name="pmax_gp" value="0.05"/>
+
     <!--parameter name="pcell_gp" value="64"/>
-    <parameter name="dp_gp" value="0.000015625"/> 
-    <parameter name="db_gp" value="0.025"/> 
-     <parameter name="dimensionOfControl_gp" value="64"/>    
+    <parameter name="dp_gp" value="0.000015625"/>
+    <parameter name="db_gp" value="0.025"/>
+     <parameter name="dimensionOfControl_gp" value="64"/>
     <parameter name="end_control_gp" value="64"/>
     <parameter name="start_control_gp" value="1"/-->
-    
+
     <parameter name="pcell_gp" value="216"/>
     <parameter name="dp_gp" value="4.62962962962963e-6"/>
     <parameter name="db_gp" value="0.016666667"/>
-     <parameter name="dimensionOfControl_gp" value="216"/>    
+     <parameter name="dimensionOfControl_gp" value="216"/>
     <parameter name="end_control_gp" value="216"/>
     <parameter name="start_control_gp" value="1"/>
-    
+
     <!--parameter name="pcell_gp" value="512"/>
-    <parameter name="dp_gp" value="1.953125e-6"/> 
+    <parameter name="dp_gp" value="1.953125e-6"/>
     <parameter name="db_gp" value="0.0125"/>
-     <parameter name="dimensionOfControl_gp" value="512"/>   
+     <parameter name="dimensionOfControl_gp" value="512"/>
     <parameter name="end_control_gp" value="512"/>
     <parameter name="start_control_gp" value="1"/-->
-    
-    
 
-    <parameter name="dt_gp" value="1e-6"/>    
+
+
+    <parameter name="dt_gp" value="1e-6"/>
     <parameter name="ntimesteps_gp" value="40"/>
-    
-    <!--parameter name="dt_gp" value="5e-6"/>     
+
+    <!--parameter name="dt_gp" value="5e-6"/>
     <parameter name="ntimesteps_gp" value="8"/-->
-    
-    <!--parameter name="dt_gp" value="0.2e-6"/>     
+
+    <!--parameter name="dt_gp" value="0.2e-6"/>
     <parameter name="ntimesteps_gp" value="200"/-->
-    
-    
-    <parameter name="dv_gp" value="5e+2"/>      
-    <parameter name="vcell_gp" value="10"/>     
+
+
+    <parameter name="dv_gp" value="5e+2"/>
+    <parameter name="vcell_gp" value="10"/>
     <parameter name="vmax_gp" value="2.5e+3"/>
-    
-    <!-- parameter name="dv_gp" value="2.5e+2"/>     
-    <parameter name="vcell_gp" value="20"/>     
+
+    <!-- parameter name="dv_gp" value="2.5e+2"/>
+    <parameter name="vcell_gp" value="20"/>
     <parameter name="vmax_gp" value="2.5e+3"/-->
-    
-    <!--parameter name="dv_gp" value="10e+2"/>     
-    <parameter name="vcell_gp" value="5"/>   
+
+    <!--parameter name="dv_gp" value="10e+2"/>
+    <parameter name="vcell_gp" value="5"/>
     <parameter name="vmax_gp" value="2.5e+3"/-->
-    
+
     <parameter name="fraction_fast_particles_gp" value="0.1"/>
 
-    <!--  CONTROL  -->   
+    <!--  CONTROL  -->
     <parameter name="local_control_x_min_gp" value="-0.05"/>
     <parameter name="local_control_x_max_gp" value="0.05"/>
     <parameter name="weight_control_gp" value="1e+1"/>
@@ -156,32 +156,34 @@
 </globalParameters>
 
 <paths>
-	<path name="BUILD_DIRECTORY_VSTRAP" value="/HOME/bartsch/SPARC/build-vstrap-Desktop/src/" />
+	<!--path name="BUILD_DIRECTORY_VSTRAP" value="/HOME/bartsch/SPARC/build-vstrap-Desktop/src/" />
 	<path name="BUILD_DIRECTORY_OPTIM" value="/HOME/bartsch/SPARC/build-Optim-Desktop/src/" />
-	<path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/HOME/bartsch/SPARC/build-Optim-Desktop/src/results/" />
+	<path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/HOME/bartsch/SPARC/build-Optim-Desktop/src/results/" /-->
+
     <!--path name="BUILD_DIRECTORY_VSTRAP" value="/LocalData/bartsch/build-vstrap-CSMC/src/" />
 	<path name="BUILD_DIRECTORY_OPTIM" value="/LocalData/bartsch/build-Optim-CSMC/src/" />
 	<path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/LocalData/bartsch/build-Optim-CSMC/src/results/" /-->
-    <!--path name="BUILD_DIRECTORY_VSTRAP" value="/home/jan/Promotion_linuxPC/build-vstrap/src/" />
+
+    <path name="BUILD_DIRECTORY_VSTRAP" value="/home/jan/Promotion_linuxPC/build-vstrap/src/" />
     <path name="BUILD_DIRECTORY_OPTIM" value="/home/jan/Promotion_linuxPC/build-Optim/src/" />
-    <path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/home/jan/Promotion_linuxPC/build-Optim/src/results/" /-->
-	
+    <path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/home/jan/Promotion_linuxPC/build-Optim/src/results/" />
+
 	<!--path name="PVPYTHON_ABSOLUTE_DIR" value="/usr/bin/pvpython" /-->
     <path name="PVPYTHON_ABSOLUTE_DIR" value="/home/jan/ParaView-5.8.0-MPI-Linux-Python3.7-64bit/bin/pvpython" />
-  
+
     <!--path name="BARYCENTERS_MESH" value="../../Optim_VSTRAP/data/global/mesh_barycenters_small_64.xml"/>
     <path name="DOMAIN_MESH" value="../../../Optim_VSTRAP/data/global/box_vol_regular_small.xml"/>
     <path name="DOMAIN_MESH_FILE" value="box_vol_regular_small.xml"/-->
-  
+
 	<path name="BARYCENTERS_MESH" value="../../Optim_VSTRAP/data/global/mesh_barycenters_small_216.xml"/>
 	<path name="DOMAIN_MESH" value="../../../Optim_VSTRAP/data/global/box_vol_regular_small_216.xml"/>
     <path name="DOMAIN_MESH_FILE" value="box_vol_regular_small_216.xml"/>
-    
-    
+
+
     <!--path name="BARYCENTERS_MESH" value="../../Optim_VSTRAP/data/global/mesh_barycenters_small_512.xml"/>
 	<path name="DOMAIN_MESH" value="../../../Optim_VSTRAP/data/global/box_vol_regular_small_512.xml"/>
     <path name="DOMAIN_MESH_FILE" value="box_vol_regular_small_512.xml"/-->
-    
+
     <path name="SURFACE_MESH" value="../../../Optim_VSTRAP/data/global/mesh/box_surf.xml"/>
     <!-- shared  -->
     <path name="INPUT_FORWARD" value="input_forward.xml"/>
@@ -193,14 +195,14 @@
 	<path name="CREATION_ADJOINT_PARTCLES" value="./creation_adjoint_particles_new.xml"/>
 	<path name="BGF_CONTROL" value="interpolated_control_field.xml"/>
     <path name="CONTROL_FIELD_CELLS_NAME" valie="control_field_cells.xml"/>
-    
+
     <!--path name="START_WITH_EXISTING_CONTROL" value="/home/jan/Promotion_linuxPC/build-Optim/src/results/control_field_cells_64.xml"/-->
     <path name="START_WITH_EXISTING_CONTROL" value="/HOME/bartsch/SPARC/build-Optim-Desktop/src/results/control_field_cells.xml"/>
-	
+
 	<path name="DSMC_interaction" value="../../../Optim_VSTRAP/data/global/interaction_data.xml"/>
 	<path name="MCC_interaction" value="../../../Optim_VSTRAP/data/global/interaction_data_mcc.xml"/>
-    
-	
+
+
     <path name="mesh_3d_path" value="mesh3d/"/>
     <path name="mesh_2d_path" value="mesh2d/"/>
 </paths>

@@ -142,14 +142,14 @@ double objective_calculator::calculate_objective(std::vector<std::unordered_map<
                                     velocity_part_objective*(std::abs(velocityDiscr_gp(l)*velocityDiscr_gp(l)+
                                                                       velocityDiscr_gp(m)*velocityDiscr_gp(m)+
                                                                       velocityDiscr_gp(n)*velocityDiscr_gp(n)-p_d[4]*p_d[4]))/(2.0*sigma_v_gp*sigma_v_gp)
-                                    ));
+                                    ))+0.01;
                         } else if(objective_calculation.compare("components")==0) {
                             current_trackPot =  - 1.0/std::sqrt(pow(2.0*M_PI,6.0)*pow(sigma_x_1*sigma_x_2*sigma_x_3,2.0)*pow(sigma_v_gp*sigma_v_gp,3.0))*exp(
                                         -(std::pow(current_barycenter[0]-p_d[0],2)/(2.0*sigma_x_1*sigma_x_1)+std::pow(current_barycenter[1]-p_d[1],2)/(2.0*sigma_x_2*sigma_x_2)+std::pow(current_barycenter[2]-p_d[2],2)/(2.0*sigma_x_3*sigma_x_3)+
                                     velocity_part_objective*pow(velocityDiscr_gp(l)-p_d[3],2.0)/(2.0*sigma_v_gp*sigma_v_gp)+
                                     velocity_part_objective*pow(velocityDiscr_gp(m)-p_d[4],2.0)/(2.0*sigma_v_gp*sigma_v_gp)+
                                     velocity_part_objective*pow(velocityDiscr_gp(n)-p_d[5],2.0)/(2.0*sigma_v_gp*sigma_v_gp)
-                                    ));
+                                    ))+0.01;
                         }
                         if (forwardPDF_time[o].find(coordinate) != forwardPDF_time[o].end()) {
                             objective_time[i] += forwardPDF_time[o].at(coordinate)*current_trackPot*dp_gp*pow(dv_gp,3.0)*dt_gp;
@@ -157,8 +157,8 @@ double objective_calculator::calculate_objective(std::vector<std::unordered_map<
                             std::runtime_error("No such objective calculation rule");
                         }
                         if (objective_time[o]>0) {
-                            logger::Info("Functional tracking part positiv");
-                            std::runtime_error("Functional tracking part positiv");
+                            //logger::Info("Functional tracking part positiv");
+                            //std::runtime_error("Functional tracking part positiv");
                         }
                     }
                 }

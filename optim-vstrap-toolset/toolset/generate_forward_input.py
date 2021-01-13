@@ -102,7 +102,7 @@ if(float(params['mesh_3d_writer_included'])==1):
     file_forward_input.write("\t\t\t <file name=\"" + str(params['mesh_3d_name']) + "\" format=\"vtu\" path=\"" + str(pathsList['PATH_TO_SHARED_FILES']) + str(pathsList['mesh_3d_path']) + "\" output_interval=\"" + str(params['mesh_3d_outputinterval']) +"\" />\n")
     file_forward_input.write("\t\t\t <particle_group name=\"forward_particles\"/>\n")
     file_forward_input.write("\t\t </executable>\n")
-    
+
 if(float(params['inflow_included'])==1):
     print("Inflow present")
     file_forward_input.write("\t\t <executable name=\"inflow\" mode=\"CPU\">\n \t\t\t <batch name=\"static\" type=\"static\"> \n")
@@ -138,12 +138,12 @@ file_forward_input.write("\t\t\t <executable name=\"bgf\"/> \n \t\t</init> \n")
 file_forward_input.write("\t\t <exec> \n")
 if(float(params['inflow_included'])==1):
     file_forward_input.write("\t\t\t <executable name=\"inflow\"/> \n")
-file_forward_input.write("\t\t\t <executable name=\"bgf\"/> \n")
 if(float(params['fmm'])==1):
 	file_forward_input.write("\t\t\t <executable name=\"fmm\" />\n")
 file_forward_input.write("\t\t\t <executable name=\"dsmc\"/> \n")
 file_forward_input.write("\t\t\t <executable name=\"pusher\"/> \n")
 file_forward_input.write("\t\t\t <executable name=\"pwi\"/> \n")
+file_forward_input.write("\t\t\t <executable name=\"bgf\"/> \n")
 if(float(params['mesh_2d_writer_included'])==1):
     file_forward_input.write("\t\t\t <executable name=\"mesh_2d_data_writer\" />\n")
 if(float(params['mesh_3d_writer_included'])==1):

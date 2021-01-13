@@ -183,8 +183,10 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
         }
 
 
-        //        forwardPDF = pdf_control.assemblingMultiDim_parallel(forwardParticles,0);
-        //        value_objective = objective.calculate_objective_L2(forwardPDF,control);
+        /*assembling_flag = pdf_control.assemblingMultiDim_parallel(forwardParticles,0,pdf_time);
+        forwardPDF = pdf_time;
+        value_objective = objective.calculate_objective(forwardPDF,control);
+        */
 
         logger::Info("Finished reading files...");
         logger::Info("Starting VSTRAP (backward)...");
