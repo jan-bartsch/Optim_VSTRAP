@@ -150,7 +150,7 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
         std::cout << "Armijo: " << "Jtemp = " << Jtemp << std::endl
                   << "J0 + scalarProduct*armijo_descent_fraction = " << J0 + scalarProduct*armijo_descent_fraction << std::endl
                   << "Stepsize " << alpha << " in " << counter << ". iteration" << std::endl;
-        counter++;
+    counter++;
     }
 
     if (alpha < tolerance) {

@@ -1,0 +1,219 @@
+<optimizer_input>
+<globalParameters>
+    <parameter name="simulating_plasma" value="0" />
+    <parameter name="fmm" value="0" />
+    <parameter name="magnetic_force" value="1" />
+    <parameter name="electric_force" value="0" />
+
+    <parameter name="armijo_descent_fraction" value="1e-30"/>
+    <parameter name="calculation_functional" value="1"/>
+    <parameter name="calculation_wasserstein" value="0"/>
+    <parameter name="C_theta_gp" value="1e+20"/>
+    <parameter name="C_phi_gp" value="1e+20"/>
+    <parameter name="sigma_x_gp" value="0.015"/>
+    <parameter name="sigma_v_gp" value="375.99424119465004"/> <!-- 62.66570686577501-->
+
+    <!--  create adjoint particles and trajectory  -->
+    <parameter name="adjoint_mu_x" value="0.0"/>
+    <parameter name="desired_position_x" value="0.0"/>
+    <parameter name="adjoint_mu_y" value="0.0"/>
+    <parameter name="desired_position_y" value="0.0"/>
+    <parameter name="adjoint_mu_z" value="0.0"/>
+    <parameter name="desired_position_z" value="0.0"/>
+    <parameter name="adjoint_s_x" value="0.015"/>
+    <parameter name="adjoint_s_y" value="0.015"/>
+    <parameter name="adjoint_s_z" value="0.015"/>
+    <parameter name="adjoint_vx" value="0.0"/>
+    <parameter name="adjoint_vy" value="0.0"/>
+    <parameter name="adjoint_vz" value="0.0"/>
+    <parameter name="adjoint_number_density" value="1e+16"/>
+    <parameter name="adjoint_weight" value="5e+9"/>
+    <parameter name="adjoint_charge_number" value="+1"/>
+    <parameter name="adjoint_mass" value="6.63e-26"/>
+    <parameter name="adjoint_species" value="40Ar"/>
+    <parameter name="expected_speed" value="6e2"/>
+    <parameter name="most_probable_speed" value="6e2"/>
+    <!-- MCC parameters -->
+    <parameter name="MCC_temperature" value="200" />
+    <parameter name="MCC_species" value="40Ar" />
+    <parameter name="MCC_mass" value="6.6335209e-26" />
+    <parameter name="MCC_fixed_number_density" value="1e+16" />
+
+    <!--  Trajectory  -->
+    <parameter name="desired_position_x" value="0.0"/>
+    <parameter name="desired_position_y" value="0.0"/>
+    <parameter name="desired_position_z" value="0.0"/>
+
+    <!--  forward input  -->
+    <parameter name="creation_forward_particles_method" value="only_inflow"/> <!-- create_existing create_new only_inflow-->
+    <parameter name="initial_condition_file" value="plasma_state_batch_1_forward_particles_CPU_1.csv"/> <!-- only in effect if create_existing-->
+    <parameter name="number_density_forward" value="1e+16"/>
+    <!--parameter name="weight_forward" value="1e+10"/-->
+    <!--parameter name="weight_forward" value="1e+9"/-->
+    <!--parameter name="weight_forward" value="1e+8"/-->
+    <parameter name="weight_forward" value="1e+7"/>
+     <!--parameter name="weight_forward" value="1e+6"/-->
+    <parameter name="charge_number_forward" value="+1"/>
+    <parameter name="mass_forward" value="6.63e-26"/>
+    <parameter name="species_forward" value="40Ar+"/>
+    <parameter name="temperature_x_val" value="300"/>
+    <parameter name="temperature_y_val" value="300"/>
+    <parameter name="temperature_z_val" value="300"/>
+    <parameter name="v_drift_x_val" value="0"/>
+    <parameter name="v_drift_y_val" value="0"/>
+    <parameter name="v_drift_z_val" value="0"/>
+    <parameter name="mesh_2d_writer_included" value="0"/> <!--  1=true, 0=false  -->
+    <parameter name="mesh_2d_name" value="mesh2doutput" />
+    <parameter name="mesh_2d_outputinterval" value="1"/>
+
+    <parameter name="mesh_3d_writer_included" value="0"/> <!--  1=true, 0=false  -->
+    <parameter name="mesh_3d_name" value="mesh3doutput" />
+    <parameter name="mesh_3d_outputinterval" value="1"/>
+
+    <parameter name="inflow_included" value="1"/>
+    <parameter name="number_density_forward_inflow" value="1e+16"/>
+    <parameter name="weight_forward_inflow" value="1e+8"/>
+    <parameter name="charge_number_forward_inflow" value="+1"/>
+    <parameter name="mass_forward_inflow" value="6.63e-26"/>
+    <parameter name="species_forward_inflow" value="40Ar+"/>
+    <parameter name="temperature_x_val_inflow" value="300"/>
+    <parameter name="temperature_y_val_inflow" value="300"/>
+    <parameter name="temperature_z_val_inflow" value="300"/>
+    <parameter name="v_drift_x_val_inflow" value="1e+3"/>
+    <parameter name="v_drift_y_val_inflow" value="0"/>
+    <parameter name="v_drift_z_val_inflow" value="0"/>
+
+    <!--  optimization techniques  -->
+    <parameter name="fixed_gradient_descent_stepsize" value="1e+1"/>
+    <parameter name="fraction_of_optimal_control" value="1e+0"/>
+    <parameter name="optimizationIteration_max_gp" value="100"/>     <!--  number of maximal interations  -->
+    <parameter name="numberParticles_gp" value="2000"/>
+    <parameter name="start_zero_control" value="1"/>     <!--  1=true, 0=false (start with given control) , 2: start with given files  -->
+    <parameter name="tolerance_gp" value="1e-14"/>
+    <parameter name="tolerance_relaxation_gp" value="1e-10"/>     <!--  for Gauß-Seidel smoothing -->
+    <parameter name="armijio_base_exp" value="0.8"/>     <!--  1.0: there is no exponential diminishing of fraction of new stepsize -->
+    <parameter name="armijo_iterative_exp" value="1.0"/>     <!--  1.0: no decreasing stepsize  -->
+
+    <!--  DOMAIN PARAMETERS  -->
+    <parameter name="pmax_gp" value="0.05"/>
+
+    <!--parameter name="pcell_gp" value="64"/>
+    <parameter name="dp_gp" value="0.000015625"/>
+    <parameter name="db_gp" value="0.025"/>
+     <parameter name="dimensionOfControl_gp" value="64"/>
+    <parameter name="end_control_gp" value="64"/>
+    <parameter name="start_control_gp" value="1"/-->
+
+    <parameter name="pcell_gp" value="216"/>
+    <parameter name="dp_gp" value="4.62962962962963e-6"/>
+    <parameter name="db_gp" value="0.016666667"/>
+     <parameter name="dimensionOfControl_gp" value="216"/>
+    <parameter name="end_control_gp" value="216"/>
+    <parameter name="start_control_gp" value="1"/>
+
+    <!--parameter name="pcell_gp" value="512"/>
+    <parameter name="dp_gp" value="1.953125e-6"/>
+    <parameter name="db_gp" value="0.0125"/>
+     <parameter name="dimensionOfControl_gp" value="512"/>
+    <parameter name="end_control_gp" value="512"/>
+    <parameter name="start_control_gp" value="1"/-->
+
+
+
+    <parameter name="dt_gp" value="1e-6"/>
+    <parameter name="ntimesteps_gp" value="60"/>
+
+    <!--parameter name="dt_gp" value="5e-6"/>
+    <parameter name="ntimesteps_gp" value="8"/-->
+
+    <!--parameter name="dt_gp" value="0.2e-6"/>
+    <parameter name="ntimesteps_gp" value="200"/-->
+
+
+    <parameter name="dv_gp" value="5e+2"/>
+    <parameter name="vcell_gp" value="10"/>
+    <parameter name="vmax_gp" value="2.5e+3"/>
+
+    <!-- parameter name="dv_gp" value="2.5e+2"/>
+    <parameter name="vcell_gp" value="20"/>
+    <parameter name="vmax_gp" value="2.5e+3"/-->
+
+    <!--parameter name="dv_gp" value="10e+2"/>
+    <parameter name="vcell_gp" value="5"/>
+    <parameter name="vmax_gp" value="2.5e+3"/-->
+
+    <parameter name="fraction_fast_particles_gp" value="0.1"/>
+
+    <!--  CONTROL  -->
+    <parameter name="local_control_x_min_gp" value="-0.05"/>
+    <parameter name="local_control_x_max_gp" value="0.05"/>
+    <parameter name="weight_control_gp" value="1e+1"/>
+    <parameter name="velocity_part_objective" value="1e-9"/> <!-- 1e-9 -->
+    <parameter name="visalization_scaling" value="0.0025" />
+
+    <!--   -->
+    <parameter name="fabs_tol_gp" value="0.0"/> <!-- 1e-9 -->
+</globalParameters>
+
+<paths>
+	<path name="BUILD_DIRECTORY_VSTRAP" value="/HOME/bartsch/SPARC/build-vstrap-Desktop/src/" />
+	<path name="BUILD_DIRECTORY_OPTIM" value="/HOME/bartsch/SPARC/build-Optim-Desktop/src/" />
+	<path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/HOME/bartsch/SPARC/build-Optim-Desktop/src/results/"/>
+
+    <!--path name="BUILD_DIRECTORY_VSTRAP" value="/LocalData/bartsch/build-vstrap-CSMC/src/" />
+	<path name="BUILD_DIRECTORY_OPTIM" value="/LocalData/bartsch/build-Optim-CSMC/src/" />
+	<path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/LocalData/bartsch/build-Optim-CSMC/src/results/" /-->
+
+    <!--path name="BUILD_DIRECTORY_VSTRAP" value="/home/jan/Promotion_linuxPC/build-vstrap/src/" />
+    <path name="BUILD_DIRECTORY_OPTIM" value="/home/jan/Promotion_linuxPC/build-Optim/src/" />
+    <path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/home/jan/Promotion_linuxPC/build-Optim/src/results/" /-->
+
+	<!--path name="PVPYTHON_ABSOLUTE_DIR" value="/usr/bin/pvpython" /-->
+    <path name="PVPYTHON_ABSOLUTE_DIR" value="/home/jan/ParaView-5.8.0-MPI-Linux-Python3.7-64bit/bin/pvpython" />
+
+    <!--path name="BARYCENTERS_MESH" value="../../Optim_VSTRAP/data/global/mesh_barycenters_small_64.xml"/>
+    <path name="DOMAIN_MESH" value="../../../Optim_VSTRAP/data/global/box_vol_regular_small.xml"/>
+    <path name="DOMAIN_MESH_FILE" value="box_vol_regular_small.xml"/-->
+
+	<path name="BARYCENTERS_MESH" value="../../Optim_VSTRAP/data/global/mesh_barycenters_small_216.xml"/>
+	<path name="DOMAIN_MESH" value="../../../Optim_VSTRAP/data/global/box_vol_regular_small_216.xml"/>
+    <path name="DOMAIN_MESH_FILE" value="box_vol_regular_small_216.xml"/>
+
+
+    <!--path name="BARYCENTERS_MESH" value="../../Optim_VSTRAP/data/global/mesh_barycenters_small_512.xml"/>
+	<path name="DOMAIN_MESH" value="../../../Optim_VSTRAP/data/global/box_vol_regular_small_512.xml"/>
+    <path name="DOMAIN_MESH_FILE" value="box_vol_regular_small_512.xml"/-->
+
+    <path name="SURFACE_MESH" value="../../../Optim_VSTRAP/data/global/mesh/box_surf.xml"/>
+    <!-- shared  -->
+    <path name="INPUT_FORWARD" value="input_forward.xml"/>
+	<path name="INPUT_BACKWARD" value="input_backward.xml"/>
+    <path name="RESULTS_DIRECTORY" value="results/"/>
+    <path name="PATH_TO_SHARED_FILES" value="./results/" />
+    <path name="DIRECTORY_TOOLSET" value="../../Optim_VSTRAP/optim-vstrap-toolset/toolset/"/>
+
+	<path name="CREATION_ADJOINT_PARTCLES" value="./creation_adjoint_particles_new.xml"/>
+	<path name="BGF_CONTROL" value="interpolated_control_field.xml"/>
+    <path name="CONTROL_FIELD_CELLS_NAME" valie="control_field_cells.xml"/>
+
+    <!--path name="START_WITH_EXISTING_CONTROL" value="/home/jan/Promotion_linuxPC/build-Optim/src/results/control_field_cells_64.xml"/-->
+    <path name="START_WITH_EXISTING_CONTROL" value="/HOME/bartsch/SPARC/build-Optim-Desktop/src/results/control_field_cells.xml"/>
+
+	<path name="DSMC_interaction" value="../../../Optim_VSTRAP/data/global/interaction_data.xml"/>
+	<path name="MCC_interaction" value="../../../Optim_VSTRAP/data/global/interaction_data_mcc.xml"/>
+
+
+    <path name="mesh_3d_path" value="mesh3d/"/>
+    <path name="mesh_2d_path" value="mesh2d/"/>
+</paths>
+<subroutines>
+	<!--subroutine group="control_update" name="gradient_descent"/-->
+	<!--  subroutine group="control_update" name="successive_approximation" /-->
+	<subroutine group="control_update" name="armijo_linesearch"/>
+	<!--  subroutine group="direction_update" name="negative_gradient" /  -->
+	<subroutine group="direction_update" name="ncg_FR"/>
+	<subroutine group="desired_trajectory" name="box_center"/>
+	<subroutine group="objective_calculation" name="magnitude"/>
+	<!--   subroutine group="objective_calculation" name="components" /  -->
+</subroutines>
+</optimizer_input>
