@@ -55,6 +55,7 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
     unsigned int ntimesteps_gp = static_cast<unsigned int>(optimizationParameters.find("ntimesteps_gp")->second);
     unsigned int optimizationIteration_max_gp = static_cast<unsigned int>(optimizationParameters.find("optimizationIteration_max_gp")->second);
     double dt_gp = static_cast<double>(optimizationParameters.find("dt_gp")->second);
+     double db_gp = static_cast<double>(optimizationParameters.find("db_gp")->second);
     double armijo_descent_fraction = static_cast<double>(optimizationParameters.find("armijo_descent_fraction")->second);
     double tolerance = static_cast<double>(optimizationParameters.find("tolerance_gp")->second);
     double armijio_base_exp = static_cast<double>(optimizationParameters.find("armijio_base_exp")->second);
@@ -77,7 +78,11 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
 
     double scalarProduct = (arma::dot(gradient.col(0),stepdirection.col(0))
                             + arma::dot(gradient.col(1),stepdirection.col(1))+
-                            arma::dot(gradient.col(2),stepdirection.col(2)))*dt_gp;
+                            arma::dot(gradient.col(2),stepdirection.col(2)))*db_gp;
+
+    double scalarProduct_Stepdirection = (arma::dot(stepdirection.col(0),stepdirection.col(0))
+                            + arma::dot(stepdirection.col(1),stepdirection.col(1))+
+                            arma::dot(stepdirection.col(2),stepdirection.col(2)))*db_gp;
 
     std::cout << "scalarProduct: " << scalarProduct << std::endl;
     std::cout << "Stepdirection: " << stepdirection << std::endl;
@@ -124,8 +129,10 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
     }
 
 
-    while (Jtemp > J0 + scalarProduct*armijo_descent_fraction && alpha > tolerance
-           && counter <= optimizationIteration_max_gp) {
+    while (Jtemp > J0 + alpha*scalarProduct*armijo_descent_fraction && alpha > tolerance
+          && counter <= optimizationIteration_max_gp) {
+    //while (Jtemp > J0 - alpha*scalarProduct_Stepdirection*armijo_descent_fraction && alpha > tolerance
+     //      && counter <= optimizationIteration_max_gp) {
         alpha = pow(armijio_base_exp,counter)*armijo_iterative_exp*alpha;
 
         control = control0 + alpha*stepdirection;
@@ -148,9 +155,9 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
         }
 
         std::cout << "Armijo: " << "Jtemp = " << Jtemp << std::endl
-                  << "J0 + scalarProduct*armijo_descent_fraction = " << J0 + scalarProduct*armijo_descent_fraction << std::endl
+                  << "J0 + scalarProduct*armijo_descent_fraction = " << J0 + alpha*scalarProduct*armijo_descent_fraction << std::endl
                   << "Stepsize " << alpha << " in " << counter << ". iteration" << std::endl;
-    counter++;
+        counter++;
     }
 
     if (alpha < tolerance) {
