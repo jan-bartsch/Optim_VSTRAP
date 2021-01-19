@@ -181,10 +181,9 @@ class Mesh:
             for id, node in self.nodes.items():
                 file.write(str(id) + ',' + str(node.value[0]) + ',' + str(node.value[1]) + ',' + str(node.value[2]) + '\n')
 
-    def write_control_xml(self, file_name):
+    def write_control_xml(self, file_name,control_type):
         with open(file_name, 'w+') as file:
-            file.write("<field name=\"interpolated_control_field\" type=\"magnetic_field\" dimensions=\"3\" number_of_elements=\"" + str(len(self.nodes)) + "\">\n")
-
+            file.write("<field name=\"interpolated_control_field\" type=\""+str(control_type)+"\" dimensions=\"3\" number_of_elements=\"" + str(len(self.nodes)) + "\">\n")
             for id, node in self.nodes.items():
                 file.write("<value node_number=\"" + str(id) + "\">")
                 file.write(str(node.value[0]) + "," + str(node.value[1]) + "," + str(node.value[2]))
@@ -195,7 +194,7 @@ class Mesh:
     def write_barycenters_xml(self, file_name):
         print("Generating barycenters")
         with open(file_name, 'w+') as file:
-            file.write("<root>\n") 
+            file.write("<root>\n")
             file.write("<mesh_barycenters name=\"box_hexahedrons\" type=\" \" dimensions=\"3\" number_of_elements=\"" + str(len(self.cells)) + "\">\n")
 
             for id, cell in self.cells.items():

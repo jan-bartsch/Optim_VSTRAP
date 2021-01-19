@@ -37,8 +37,8 @@ print("Creating file " + str(pathsList["PATH_TO_SHARED_FILES_ABSOLUTE"]) + str(p
 file_backward_input = open(str(pathsList["PATH_TO_SHARED_FILES_ABSOLUTE"]) + str(pathsList["INPUT_BACKWARD"]), 'w+')
 
 file_backward_input.write("<simulation>\n")
-file_backward_input.write("\t <global_values> \n \t\t <time_step value=\"" + str(params["dt_gp"]) + "\"/> \n \t </global_values> \n")
-file_backward_input.write("\t <abort_criterium> \n \t\t <max_itterations value=\"" + str(params["ntimesteps_gp"]) + "\" /> \n \t </abort_criterium>\n")
+file_backward_input.write("\t <global_values> \n \t\t <time_step value=\"" + str(params["dt_VSTRAP"]) + "\"/> \n \t </global_values> \n")
+file_backward_input.write("\t <abort_criterium> \n \t\t <max_itterations value=\"" + str(params["ntimesteps_gp_VSTRAP"]) + "\" /> \n \t </abort_criterium>\n")
 
 optim_vMesh = pathsList["DOMAIN_MESH"]
 #optim_vMesh = optim_vMesh.replace("../../Optim_VSTRAP/data/","../")
@@ -77,7 +77,7 @@ file_backward_input.write("<background> \n \t\t\t\t <species name=\""+str(params
 file_backward_input.write("\t\t\t\t <number_density fixed=\"true\" value=\""+str(params['MCC_fixed_number_density'])+"\"/> \n \t\t\t\t <temperature fixed=\"true\" x=\""+str(params['MCC_temperature'])+"\" y=\""+str(params['MCC_temperature'])+"\" z=\""+str(params['MCC_temperature'])+"\"/> \n \t\t\t\t </species> \n \t\t\t </background> \n")
 file_backward_input.write("\t\t\t <load>"+str(pathsList["MCC_interaction"])+"</load> \n \t\t </executable> \n")
 
-file_backward_input.write("\t\t <executable name=\"plasma_state\" mode=\"CPU\"> \n \t\t\t <batch file_name=\"batch_1\" format=\"csv\" output_interval=\"1\"> \n \t\t\t <particle_group name=\"adjoint_particles\"/> \n \t\t\t </batch> \n")
+file_backward_input.write("\t\t <executable name=\"plasma_state\" mode=\"CPU\"> \n \t\t\t <batch file_name=\"batch_1\" format=\"csv\" output_interval=\""+str(params['plasma_state_output_interval'])+"\"> \n \t\t\t <particle_group name=\"adjoint_particles\"/> \n \t\t\t </batch> \n")
 file_backward_input.write("\t\t\t<file path = \"./results/\" name=\"plasma_state\" format=\"csv\" output_interval=\"1\"/> \n \t\t </executable>\n")
 file_backward_input.write("\t </executables>\n")
 

@@ -7,13 +7,14 @@ from mesh import*
 
 if __name__ == '__main__':
     mesh = Mesh()
-    
+
     print('Starting main...')
 
     parser = argparse.ArgumentParser(prog="Mesh data interpolation script", description='Reads mesh and control file. Interpolates control defined in cells to mesh nodes.')
     parser.add_argument('mesh', type=str, help='path to the mesh file')
     parser.add_argument('control', type=str, help='path to the control file')
     parser.add_argument('new_control', type=str, help='path to the created control file')
+    parser.add_argument('control_type', type=str, help='electric or magnetic field')
     parser.add_argument('-i', '--input', type=str, help='input format', default='xml')
     parser.add_argument('-o', '--output', type=str, help='output format', default='xml')
 
@@ -38,7 +39,7 @@ if __name__ == '__main__':
         mesh.interpolate_cell2node()
 
         if args.output == "xml":
-            mesh.write_control_xml(args.new_control)
+            mesh.write_control_xml(args.new_control,args.control_type)
             print('[Interpolate cell2Node]: Successfully wrote control xml')
         elif args.output == "csv":
             mesh.write_control_csv(args.new_control)

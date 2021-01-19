@@ -27,7 +27,7 @@ for p in paths.getElementsByTagName('path'):
 
 file = open(args.target_folder + str(pathsList["CREATION_ADJOINT_PARTCLES"]), 'w+');
 
-ntimesteps = int(params["ntimesteps_gp"])
+ntimesteps = int(params["ntimesteps_gp_VSTRAP"])
 mu_x = float(params["adjoint_mu_x"])
 mu_y = float(params["adjoint_mu_y"])
 mu_z = float(params["adjoint_mu_z"])
@@ -75,14 +75,14 @@ mu_y = 0.0;
 mu_z = 0.0;
 
 
-dt_gp = float(params['dt_gp']);
+dt_gp = float(params['dt_VSTRAP']);
 
 if (float(params["magnetic_force"])==1):
 	for timestep in range(0,ntimesteps):
 		s_x = 0.001
 		s_y = 2*0.00015/(-0.05+0.1/(float(params['ntimesteps_gp']))*timestep+0.06); #8*5*0.000015/(-0.05+0.1/(float(params['ntimesteps_gp']))*timestep+0.06)
 		s_z = 2*0.00015/(-0.05+0.1/(float(params['ntimesteps_gp']))*timestep+0.06); #8*5*0.000015/(-0.05+0.1/(float(params['ntimesteps_gp']))*timestep+0.06)
-		mu_x = -0.05+0.1/(float(params['ntimesteps_gp']))*timestep
+		mu_x = -0.05+0.1/ntimesteps*timestep
 		print(mu_x)
 		file.write("\t<set iteration=\"" + str(timestep) + "\">\n")
 		file.write("\t\t<particle_values number_density=\""+str(params["adjoint_number_density"])+" \" weight=\""+str(params["adjoint_weight"])+"\" charge_number=\""+str(params["adjoint_charge_number"])+"\" mass=\""+str(params["adjoint_mass"])+"\" species=\""+str(params["adjoint_species"])+"\"/>\n")

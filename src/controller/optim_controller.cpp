@@ -154,6 +154,7 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
     arma::mat gradient(static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second),3,arma::fill::zeros);
     arma::mat gradient_old(static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second),3,arma::fill::zeros);
     arma::mat stepDirection(static_cast<unsigned int>(optimizationParameters.find("pcell_gp")->second),3,arma::fill::zeros);
+    arma::mat stepDirection_old(static_cast<unsigned int>(optimizationParameters.find("pcell_gp")->second),3,arma::fill::zeros);
     double value_objective = 0.0;
     int stepsize_flag;
     double stepsize = fixed_gradient_descent_stepsize;
@@ -280,7 +281,8 @@ int optim_controller::start_optimization_iteration(const char * input_xml_path)
         }
 
         logger::Info("Updating the control...");
-        stepDirection = stepdir_contr.get_stepdirection(gradient,gradient_old,stepDirection,r);
+        stepDirection = stepdir_contr.get_stepdirection(gradient,gradient_old,stepDirection_old,r);
+        stepDirection_old = stepDirection;
         gradient_old = gradient;
         stepsize_before = stepsize;
         stepsize_flag = stepsize_contr.calculate_stepsize(gradient,value_objective,control,

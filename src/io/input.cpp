@@ -12,11 +12,12 @@ unsigned int input::read_plasma_state_forward(std::vector<std::vector<particle> 
 
     std::map<std::string, double> optimizationParameters = this->getData_provider_optim().getOptimizationParameters();
     unsigned int ntimesteps_gp = static_cast<unsigned int>(optimizationParameters.find("ntimesteps_gp")->second);
+    unsigned int plasma_state_output_interval = static_cast<unsigned int>(optimizationParameters.find("plasma_state_output_interval")->second);
 
 #pragma omp parallel for
     for(unsigned int o = 1; o<=ntimesteps_gp; o++) {
         try {
-            forwardParticles[o-1] = input::readParticleVector(BUILD_DIRECTORY_OPTIM+RESULTS_DIRECTORY+file_name+std::to_string(o)+".csv",",");
+            forwardParticles[o-1] = input::readParticleVector(BUILD_DIRECTORY_OPTIM+RESULTS_DIRECTORY+file_name+std::to_string(o*plasma_state_output_interval)+".csv",",");
         } catch (std::exception e) {
             logger::Warning("Iteration: " + std::to_string(o));
             logger::Warning("BUILD_DIRECTORY_OPTIM: " + BUILD_DIRECTORY_OPTIM);
@@ -35,13 +36,16 @@ unsigned int input::read_plasma_state_backward(std::vector<std::vector<particle>
     std::string BUILD_DIRECTORY_OPTIM = paths.find("BUILD_DIRECTORY_OPTIM")->second;
     std::string RESULTS_DIRECTORY = paths.find("RESULTS_DIRECTORY")->second;
 
+
     std::map<std::string, double> optimizationParameters = this->getData_provider_optim().getOptimizationParameters();
     unsigned int ntimesteps_gp = static_cast<unsigned int>(optimizationParameters.find("ntimesteps_gp")->second);
+    unsigned int plasma_state_output_interval = static_cast<unsigned int>(optimizationParameters.find("plasma_state_output_interval")->second);
+
 
 #pragma omp parallel for
     for(unsigned int o = 1; o<=ntimesteps_gp; o++) {
         try {
-            backwardParticles[ntimesteps_gp - o] = input::readParticleVector(BUILD_DIRECTORY_OPTIM+RESULTS_DIRECTORY+file_name+std::to_string(o)+".csv",",");
+            backwardParticles[ntimesteps_gp - o] = input::readParticleVector(BUILD_DIRECTORY_OPTIM+RESULTS_DIRECTORY+file_name+std::to_string(o*plasma_state_output_interval)+".csv",",");
         } catch (std::exception e) {
             logger::Warning("BUILD_DIRECTORY_OPTIM: " + BUILD_DIRECTORY_OPTIM);
             logger::Warning("RESULTS_DIRECTORY: " + RESULTS_DIRECTORY);

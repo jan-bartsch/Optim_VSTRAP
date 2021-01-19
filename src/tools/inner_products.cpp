@@ -112,7 +112,7 @@ double inner_products::H2_inner_product(arma::mat m1, arma::mat m2)
 
 
     for(int i = 0; i < m1.n_cols; i++) {
-        product += arma::dot(D2mat1.col(i),D2mat2.col(i))*dp_gp;
+        product += arma::dot(D2mat1.col(i),D2mat2.col(i))*db_gp;
     }
 
     return product;

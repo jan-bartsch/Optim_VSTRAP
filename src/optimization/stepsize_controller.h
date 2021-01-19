@@ -14,6 +14,8 @@
 
 #include "../optimization/objective_calculator.h"
 
+#include "../tools/inner_products.h"
+
 
 
 class stepsize_controller : public abstract_controller

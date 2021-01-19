@@ -37,8 +37,8 @@ print("Creating file " + str(pathsList["PATH_TO_SHARED_FILES_ABSOLUTE"]) + str(p
 file_forward_input = open(str(pathsList["PATH_TO_SHARED_FILES_ABSOLUTE"]) + str(pathsList["INPUT_FORWARD"]), 'w+')
 
 file_forward_input.write("<simulation>\n")
-file_forward_input.write("\t <global_values> \n \t\t <time_step value=\"" + str(params["dt_gp"]) + "\"/> \n \t </global_values> \n")
-file_forward_input.write("\t <abort_criterium> \n \t\t <max_itterations value=\"" + str(params["ntimesteps_gp"]) + "\" /> \n \t </abort_criterium>\n")
+file_forward_input.write("\t <global_values> \n \t\t <time_step value=\"" + str(params["dt_VSTRAP"]) + "\"/> \n \t </global_values> \n")
+file_forward_input.write("\t <abort_criterium> \n \t\t <max_itterations value=\"" + str(params["ntimesteps_gp_VSTRAP"]) + "\" /> \n \t </abort_criterium>\n")
 
 optim_vMesh = pathsList["DOMAIN_MESH"]
 optim_sMesh = pathsList["SURFACE_MESH"]
@@ -82,7 +82,7 @@ file_forward_input.write("\t\t\t <particle_group name=\"forward_particles\"/> \n
 
 file_forward_input.write("\t\t  <executable name=\"dsmc\" mode=\"CPU\"> \n \t\t\t <particle_group name=\"forward_particles\"/> \n \t\t\t <load>"+ str(pathsList["DSMC_interaction"]) +"</load> \n \t\t </executable>\n")
 
-file_forward_input.write("\t\t <executable name=\"plasma_state\" mode=\"CPU\"> \n \t\t\t <batch file_name=\"batch_1\" format=\"csv\" output_interval=\"1\"> \n \t\t\t <particle_group name=\"forward_particles\"/> \n \t\t\t </batch> \n")
+file_forward_input.write("\t\t <executable name=\"plasma_state\" mode=\"CPU\"> \n \t\t\t <batch file_name=\"batch_1\" format=\"csv\" output_interval=\""+str(params['plasma_state_output_interval'])+"\"> \n \t\t\t <particle_group name=\"forward_particles\"/> \n \t\t\t </batch> \n")
 file_forward_input.write("\t\t\t<file path = \"./results/\" name=\"plasma_state\" format=\"csv\" output_interval=\"1\"/> \n \t\t </executable>\n")
 
 

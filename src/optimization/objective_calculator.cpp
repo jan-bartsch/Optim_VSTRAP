@@ -27,6 +27,8 @@ double objective_calculator::calculate_objective(std::vector<std::unordered_map<
     double vmax_gp = static_cast<double>(optimizationParameters.find("vmax_gp")->second);
     unsigned int vcell_gp = static_cast<unsigned int>(optimizationParameters.find("vcell_gp")->second);
     unsigned int ntimesteps_gp = static_cast<unsigned int>(optimizationParameters.find("ntimesteps_gp")->second);
+    unsigned int plasma_state_output_interval = static_cast<unsigned int>(optimizationParameters.find("plasma_state_output_interval")->second);
+
     unsigned int dimensionOfControl_gp = static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second);
     double dv_gp = static_cast<double>(optimizationParameters.find("dv_gp")->second);
     double dt_gp = static_cast<double>(optimizationParameters.find("dt_gp")->second);
@@ -38,6 +40,7 @@ double objective_calculator::calculate_objective(std::vector<std::unordered_map<
     double sigma_x_gp = static_cast<double>(optimizationParameters.find("sigma_x_gp")->second);
     double sigma_v_gp = static_cast<double>(optimizationParameters.find("sigma_v_gp")->second);
     double velocity_part_objective = static_cast<double>(optimizationParameters.find("velocity_part_objective")->second);
+     double shifting_objective = static_cast<double>(optimizationParameters.find("shifting_objective")->second);
 
     int start_control = static_cast<int>(optimizationParameters.find("start_control_gp")->second);
     int end_control = static_cast<int>(optimizationParameters.find("end_control_gp")->second);
@@ -61,7 +64,7 @@ double objective_calculator::calculate_objective(std::vector<std::unordered_map<
 
     std::vector<double> objective_time(pcell_gp,0.0);
 
-    std::vector<std::vector<double>> brockettVector = in.readBrockettFile(paths.find("PATH_TO_SHARED_FILES")->second+"brockett.csv",",",ntimesteps_gp);
+    std::vector<std::vector<double>> brockettVector = in.readBrockettFile(paths.find("PATH_TO_SHARED_FILES")->second+"brockett.csv",",",ntimesteps_gp*plasma_state_output_interval);
 
 
     /*
@@ -111,19 +114,19 @@ double objective_calculator::calculate_objective(std::vector<std::unordered_map<
         for(unsigned int  o = 0; o<ntimesteps_gp; o++) {
             //std::cout << "Calculating functional in " << o << " timestep" << std::endl;
             std::vector<double> p_d(6,0.0);
-            double sigma_x_1 = brockettVector[o][3];
-            double sigma_x_2 = brockettVector[o][4];
-            double sigma_x_3 = brockettVector[o][5];
+            double sigma_x_1 = brockettVector[o*plasma_state_output_interval][3];
+            double sigma_x_2 = brockettVector[o*plasma_state_output_interval][4];
+            double sigma_x_3 = brockettVector[o*plasma_state_output_interval][5];
 
             //position
-            p_d[0] = brockettVector[o][0];
-            p_d[1] = brockettVector[o][1];
-            p_d[2] = brockettVector[o][2];
+            p_d[0] = brockettVector[o*plasma_state_output_interval][0];
+            p_d[1] = brockettVector[o*plasma_state_output_interval][1];
+            p_d[2] = brockettVector[o*plasma_state_output_interval][2];
 
             //velocity
-            p_d[3] = brockettVector[o][6];
-            p_d[4] = brockettVector[o][7];
-            p_d[5] = brockettVector[o][8];
+            p_d[3] = brockettVector[o*plasma_state_output_interval][6];
+            p_d[4] = brockettVector[o*plasma_state_output_interval][7];
+            p_d[5] = brockettVector[o*plasma_state_output_interval][8];
 
             double scaling_gaussian = std::sqrt(pow(2.0*M_PI,6.0)*pow(sigma_x_1*sigma_x_2*sigma_x_3,2.0)*pow(sigma_v_gp*sigma_v_gp,3.0));
 
@@ -142,14 +145,14 @@ double objective_calculator::calculate_objective(std::vector<std::unordered_map<
                                     velocity_part_objective*(std::abs(velocityDiscr_gp(l)*velocityDiscr_gp(l)+
                                                                       velocityDiscr_gp(m)*velocityDiscr_gp(m)+
                                                                       velocityDiscr_gp(n)*velocityDiscr_gp(n)-p_d[4]*p_d[4]))/(2.0*sigma_v_gp*sigma_v_gp)
-                                    ))+0.05;
+                                    ))+shifting_objective;
                         } else if(objective_calculation.compare("components")==0) {
                             current_trackPot =  - 1.0/std::sqrt(pow(2.0*M_PI,6.0)*pow(sigma_x_1*sigma_x_2*sigma_x_3,2.0)*pow(sigma_v_gp*sigma_v_gp,3.0))*exp(
                                         -(std::pow(current_barycenter[0]-p_d[0],2)/(2.0*sigma_x_1*sigma_x_1)+std::pow(current_barycenter[1]-p_d[1],2)/(2.0*sigma_x_2*sigma_x_2)+std::pow(current_barycenter[2]-p_d[2],2)/(2.0*sigma_x_3*sigma_x_3)+
                                     velocity_part_objective*pow(velocityDiscr_gp(l)-p_d[3],2.0)/(2.0*sigma_v_gp*sigma_v_gp)+
                                     velocity_part_objective*pow(velocityDiscr_gp(m)-p_d[4],2.0)/(2.0*sigma_v_gp*sigma_v_gp)+
                                     velocity_part_objective*pow(velocityDiscr_gp(n)-p_d[5],2.0)/(2.0*sigma_v_gp*sigma_v_gp)
-                                    ))+0.05;
+                                    ))+shifting_objective;
                         }
                         if (forwardPDF_time[o].find(coordinate) != forwardPDF_time[o].end()) {
                             objective_time[i] += forwardPDF_time[o].at(coordinate)*current_trackPot*dp_gp*pow(dv_gp,3.0)*dt_gp;

@@ -6,6 +6,7 @@
 
 #include "../controller/abstract_controller.h"
 #include "../logger/logger.h"
+#include "../tools/inner_products.h"
 
 class stepdirection_controller : public abstract_controller
 {

@@ -53,7 +53,11 @@ arma::mat stepdirection_controller::fixed_gradient_descent(arma::mat gradient, u
 arma::mat stepdirection_controller::ncg_scheme_FR(arma::mat gradient, arma::mat gradient_old, arma::mat stepdirectionOld, unsigned int optimization_iteration)
 {
     arma::mat stepdirection_new;
-    double beta = arma::dot(gradient,gradient)/arma::dot(gradient_old,gradient_old);
+    inner_products pro = inner_products();
+    pro.setData_provider_optim(this->getData_provider_optim());
+
+    //double beta = arma::dot(gradient,gradient)/arma::dot(gradient_old,gradient_old);
+    double beta = pro.H1_inner_product(gradient,gradient)/pro.H2_inner_product(gradient_old,gradient_old);
 
     stepdirection_new = -gradient + beta*stepdirectionOld;
 

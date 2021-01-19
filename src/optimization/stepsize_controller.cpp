@@ -84,10 +84,14 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
                             + arma::dot(stepdirection.col(1),stepdirection.col(1))+
                             arma::dot(stepdirection.col(2),stepdirection.col(2)))*db_gp;
 
+    inner_products pro = inner_products();
+    pro.setData_provider_optim(this->getData_provider_optim());
+    double scalarProduct_Hm = pro.H1_inner_product(gradient,stepdirection);
+
     std::cout << "scalarProduct: " << scalarProduct << std::endl;
     std::cout << "Stepdirection: " << stepdirection << std::endl;
 
-    if (scalarProduct>0) {
+    if (scalarProduct_Hm>0) {
         std::cout << "No descent direction!" << std::endl;
     }
 
@@ -129,7 +133,7 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
     }
 
 
-    while (Jtemp > J0 + alpha*scalarProduct*armijo_descent_fraction && alpha > tolerance
+    while (Jtemp > J0 + alpha*scalarProduct_Hm*armijo_descent_fraction && alpha > tolerance
           && counter <= optimizationIteration_max_gp) {
     //while (Jtemp > J0 - alpha*scalarProduct_Stepdirection*armijo_descent_fraction && alpha > tolerance
      //      && counter <= optimizationIteration_max_gp) {
