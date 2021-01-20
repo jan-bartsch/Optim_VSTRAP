@@ -8,8 +8,8 @@
     <parameter name="armijo_descent_fraction" value="1e-10"/>
     <parameter name="calculation_functional" value="1"/>
     <parameter name="calculation_wasserstein" value="0"/>
-    <parameter name="C_theta_gp" value="1e+20"/>
-    <parameter name="C_phi_gp" value="1e+20"/>
+    <parameter name="C_theta_gp" value="1e+6"/>
+    <parameter name="C_phi_gp" value="1e+6"/>
     <parameter name="sigma_x_gp" value="0.015"/>
     <parameter name="sigma_v_gp" value="375.99424119465004"/> <!-- 62.66570686577501-->
 
@@ -86,7 +86,7 @@
     <parameter name="v_drift_z_val_inflow" value="0"/>
 
     <!--  optimization techniques  -->
-    <parameter name="fixed_gradient_descent_stepsize" value="1e+2"/>
+    <parameter name="fixed_gradient_descent_stepsize" value="1e+1"/>
     <parameter name="fraction_of_optimal_control" value="1e+0"/>
     <parameter name="optimizationIteration_max_gp" value="100"/>     <!--  number of maximal interations  -->
     <parameter name="numberParticles_gp" value="2000"/>
@@ -155,7 +155,7 @@
     <parameter name="local_control_x_max_gp" value="0.05"/>
     <parameter name="weight_control_gp" value="1e+1"/>
     <parameter name="velocity_part_objective" value="0.0"/> <!-- 1e-9 -->
-      <parameter name="shifting_objective" value="0.025"/>
+      <parameter name="shifting_objective" value="0.0025"/>
     <parameter name="visalization_scaling" value="0.0025" />
 
     <!--   -->

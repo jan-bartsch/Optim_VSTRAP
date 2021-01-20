@@ -33,14 +33,14 @@ double objective_calculator::calculate_objective(std::vector<std::unordered_map<
     double dv_gp = static_cast<double>(optimizationParameters.find("dv_gp")->second);
     double dt_gp = static_cast<double>(optimizationParameters.find("dt_gp")->second);
     double dp_gp = static_cast<double>(optimizationParameters.find("dp_gp")->second);
-     double db_gp = static_cast<double>(optimizationParameters.find("db_gp")->second);
+    double db_gp = static_cast<double>(optimizationParameters.find("db_gp")->second);
     double weight_control_gp = static_cast<double>(optimizationParameters.find("weight_control_gp")->second);
     double C_phi_gp = static_cast<double>(optimizationParameters.find("C_phi_gp")->second);
     double C_theta_gp = static_cast<double>(optimizationParameters.find("C_theta_gp")->second);
     double sigma_x_gp = static_cast<double>(optimizationParameters.find("sigma_x_gp")->second);
     double sigma_v_gp = static_cast<double>(optimizationParameters.find("sigma_v_gp")->second);
     double velocity_part_objective = static_cast<double>(optimizationParameters.find("velocity_part_objective")->second);
-     double shifting_objective = static_cast<double>(optimizationParameters.find("shifting_objective")->second);
+    double shifting_objective = static_cast<double>(optimizationParameters.find("shifting_objective")->second);
 
     int start_control = static_cast<int>(optimizationParameters.find("start_control_gp")->second);
     int end_control = static_cast<int>(optimizationParameters.find("end_control_gp")->second);
@@ -110,58 +110,60 @@ double objective_calculator::calculate_objective(std::vector<std::unordered_map<
     for(unsigned int  i = 1; i<=pcell_gp; i++)  {
         std::cout << "Functionalcalc. in part " << i << std::endl;
         std::vector<double> current_barycenter = baryc.find(static_cast<int> (i))->second;
+        if (current_barycenter[0]>-0.04) {
 
-        for(unsigned int  o = 0; o<ntimesteps_gp; o++) {
-            //std::cout << "Calculating functional in " << o << " timestep" << std::endl;
-            std::vector<double> p_d(6,0.0);
-            double sigma_x_1 = brockettVector[o*plasma_state_output_interval][3];
-            double sigma_x_2 = brockettVector[o*plasma_state_output_interval][4];
-            double sigma_x_3 = brockettVector[o*plasma_state_output_interval][5];
+            for(unsigned int  o = 0; o<ntimesteps_gp; o++) {
+                //std::cout << "Calculating functional in " << o << " timestep" << std::endl;
+                std::vector<double> p_d(6,0.0);
+                double sigma_x_1 = brockettVector[o*plasma_state_output_interval][3];
+                double sigma_x_2 = brockettVector[o*plasma_state_output_interval][4];
+                double sigma_x_3 = brockettVector[o*plasma_state_output_interval][5];
 
-            //position
-            p_d[0] = brockettVector[o*plasma_state_output_interval][0];
-            p_d[1] = brockettVector[o*plasma_state_output_interval][1];
-            p_d[2] = brockettVector[o*plasma_state_output_interval][2];
+                //position
+                p_d[0] = brockettVector[o*plasma_state_output_interval][0];
+                p_d[1] = brockettVector[o*plasma_state_output_interval][1];
+                p_d[2] = brockettVector[o*plasma_state_output_interval][2];
 
-            //velocity
-            p_d[3] = brockettVector[o*plasma_state_output_interval][6];
-            p_d[4] = brockettVector[o*plasma_state_output_interval][7];
-            p_d[5] = brockettVector[o*plasma_state_output_interval][8];
+                //velocity
+                p_d[3] = brockettVector[o*plasma_state_output_interval][6];
+                p_d[4] = brockettVector[o*plasma_state_output_interval][7];
+                p_d[5] = brockettVector[o*plasma_state_output_interval][8];
 
-            double scaling_gaussian = std::sqrt(pow(2.0*M_PI,6.0)*pow(sigma_x_1*sigma_x_2*sigma_x_3,2.0)*pow(sigma_v_gp*sigma_v_gp,3.0));
+                double scaling_gaussian = std::sqrt(pow(2.0*M_PI,6.0)*pow(sigma_x_1*sigma_x_2*sigma_x_3,2.0)*pow(sigma_v_gp*sigma_v_gp,3.0));
 
 
-            for( unsigned int l = 1; l<vcell_gp; l++) {
-                for(unsigned int  m = 0; m<vcell_gp; m++) {
-                    for(unsigned int n = 0; n<vcell_gp; n++) {
-                        //std::vector<double> p_d = trajectory_controller.trajectory_desired(current_barycenter,l,m,n,o);
-                        coordinate_phase_space_time coordinate = coordinate_phase_space_time(static_cast<int>(i),static_cast<int>(l),static_cast<int>(m),static_cast<int>(n),static_cast<int>(o));
-                        // std::cout << velocityDiscr_gp(l) << std::endl;
-                        double current_trackPot = 0.0;
+                for( unsigned int l = 0; l<vcell_gp; l++) {
+                    for(unsigned int  m = 0; m<vcell_gp; m++) {
+                        for(unsigned int n = 0; n<vcell_gp; n++) {
+                            //std::vector<double> p_d = trajectory_controller.trajectory_desired(current_barycenter,l,m,n,o);
+                            coordinate_phase_space_time coordinate = coordinate_phase_space_time(static_cast<int>(i),static_cast<int>(l),static_cast<int>(m),static_cast<int>(n),static_cast<int>(o));
+                            // std::cout << velocityDiscr_gp(l) << std::endl;
+                            double current_trackPot = 0.0;
 
-                        if(objective_calculation.compare("magnitude")==0) {
-                            current_trackPot = - 1.0/scaling_gaussian*exp(
-                                        -(std::pow(current_barycenter[0]-p_d[0],2)/(2.0*sigma_x_1*sigma_x_1)+std::pow(current_barycenter[1]-p_d[1],2)/(2.0*sigma_x_2*sigma_x_2)+std::pow(current_barycenter[2]-p_d[2],2)/(2.0*sigma_x_3*sigma_x_3)+
-                                    velocity_part_objective*(std::abs(velocityDiscr_gp(l)*velocityDiscr_gp(l)+
-                                                                      velocityDiscr_gp(m)*velocityDiscr_gp(m)+
-                                                                      velocityDiscr_gp(n)*velocityDiscr_gp(n)-p_d[4]*p_d[4]))/(2.0*sigma_v_gp*sigma_v_gp)
-                                    ))+shifting_objective;
-                        } else if(objective_calculation.compare("components")==0) {
-                            current_trackPot =  - 1.0/std::sqrt(pow(2.0*M_PI,6.0)*pow(sigma_x_1*sigma_x_2*sigma_x_3,2.0)*pow(sigma_v_gp*sigma_v_gp,3.0))*exp(
-                                        -(std::pow(current_barycenter[0]-p_d[0],2)/(2.0*sigma_x_1*sigma_x_1)+std::pow(current_barycenter[1]-p_d[1],2)/(2.0*sigma_x_2*sigma_x_2)+std::pow(current_barycenter[2]-p_d[2],2)/(2.0*sigma_x_3*sigma_x_3)+
-                                    velocity_part_objective*pow(velocityDiscr_gp(l)-p_d[3],2.0)/(2.0*sigma_v_gp*sigma_v_gp)+
-                                    velocity_part_objective*pow(velocityDiscr_gp(m)-p_d[4],2.0)/(2.0*sigma_v_gp*sigma_v_gp)+
-                                    velocity_part_objective*pow(velocityDiscr_gp(n)-p_d[5],2.0)/(2.0*sigma_v_gp*sigma_v_gp)
-                                    ))+shifting_objective;
-                        }
-                        if (forwardPDF_time[o].find(coordinate) != forwardPDF_time[o].end()) {
-                            objective_time[i] += forwardPDF_time[o].at(coordinate)*current_trackPot*dp_gp*pow(dv_gp,3.0)*dt_gp;
-                        } else {
-                            std::runtime_error("No such objective calculation rule");
-                        }
-                        if (objective_time[o]>0) {
-                            //logger::Info("Functional tracking part positiv");
-                            //std::runtime_error("Functional tracking part positiv");
+                            if(objective_calculation.compare("magnitude")==0) {
+                                current_trackPot = - 1.0/scaling_gaussian*exp(
+                                            -(std::pow(current_barycenter[0]-p_d[0],2)/(2.0*sigma_x_1*sigma_x_1)+std::pow(current_barycenter[1]-p_d[1],2)/(2.0*sigma_x_2*sigma_x_2)+std::pow(current_barycenter[2]-p_d[2],2)/(2.0*sigma_x_3*sigma_x_3)+
+                                        velocity_part_objective*(std::abs(velocityDiscr_gp(l)*velocityDiscr_gp(l)+
+                                                                          velocityDiscr_gp(m)*velocityDiscr_gp(m)+
+                                                                          velocityDiscr_gp(n)*velocityDiscr_gp(n)-p_d[4]*p_d[4]))/(2.0*sigma_v_gp*sigma_v_gp)
+                                        ))+shifting_objective;
+                            } else if(objective_calculation.compare("components")==0) {
+                                current_trackPot =  - 1.0/std::sqrt(pow(2.0*M_PI,6.0)*pow(sigma_x_1*sigma_x_2*sigma_x_3,2.0)*pow(sigma_v_gp*sigma_v_gp,3.0))*exp(
+                                            -(std::pow(current_barycenter[0]-p_d[0],2)/(2.0*sigma_x_1*sigma_x_1)+std::pow(current_barycenter[1]-p_d[1],2)/(2.0*sigma_x_2*sigma_x_2)+std::pow(current_barycenter[2]-p_d[2],2)/(2.0*sigma_x_3*sigma_x_3)+
+                                        velocity_part_objective*pow(velocityDiscr_gp(l)-p_d[3],2.0)/(2.0*sigma_v_gp*sigma_v_gp)+
+                                        velocity_part_objective*pow(velocityDiscr_gp(m)-p_d[4],2.0)/(2.0*sigma_v_gp*sigma_v_gp)+
+                                        velocity_part_objective*pow(velocityDiscr_gp(n)-p_d[5],2.0)/(2.0*sigma_v_gp*sigma_v_gp)
+                                        ))+shifting_objective;
+                            }
+                            if (forwardPDF_time[o].find(coordinate) != forwardPDF_time[o].end()) {
+                                objective_time[i] += forwardPDF_time[o].at(coordinate)*current_trackPot*dp_gp*pow(dv_gp,3.0)*dt_gp;
+                            } else {
+                                std::runtime_error("No such objective calculation rule");
+                            }
+                            if (objective_time[o]>0) {
+                                //logger::Info("Functional tracking part positiv");
+                                //std::runtime_error("Functional tracking part positiv");
+                            }
                         }
                     }
                 }
@@ -176,14 +178,14 @@ double objective_calculator::calculate_objective(std::vector<std::unordered_map<
 
     //add control, no trapezodial rule needed since control is zero at the boundary (?)
     //std::cout << control << std::endl;
-//    costOfControl += 1.0/2.0*arma::norm(control.rows(start_control-1,end_control-1),"fro")*arma::norm(control.rows(start_control-1,end_control-1),"fro")*pow(dp_gp,1.0);
+    //    costOfControl += 1.0/2.0*arma::norm(control.rows(start_control-1,end_control-1),"fro")*arma::norm(control.rows(start_control-1,end_control-1),"fro")*pow(dp_gp,1.0);
 
-//    arma::mat second_derivative = solver.Laplacian_3D();
-//    costOfControl += arma::accu(second_derivative*control.rows(start_control-1,end_control-1))/(db_gp*db_gp)*dp_gp;
+    //    arma::mat second_derivative = solver.Laplacian_3D();
+    //    costOfControl += arma::accu(second_derivative*control.rows(start_control-1,end_control-1))/(db_gp*db_gp)*dp_gp;
     inner_products product = inner_products();
     product.setData_provider_optim(this->getData_provider_optim());
 
-   costOfControl += std::sqrt(product.H2_inner_product(control,control));
+    costOfControl += std::sqrt(product.H2_inner_product(control,control));
 
     objective += 1.0/C_theta_gp*weight_control_gp*costOfControl;
 
