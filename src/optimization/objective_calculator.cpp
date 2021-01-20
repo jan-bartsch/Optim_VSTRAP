@@ -131,7 +131,7 @@ double objective_calculator::calculate_objective(std::vector<std::unordered_map<
             double scaling_gaussian = std::sqrt(pow(2.0*M_PI,6.0)*pow(sigma_x_1*sigma_x_2*sigma_x_3,2.0)*pow(sigma_v_gp*sigma_v_gp,3.0));
 
 
-            for( unsigned int l = 0; l<vcell_gp; l++) {
+            for( unsigned int l = 1; l<vcell_gp; l++) {
                 for(unsigned int  m = 0; m<vcell_gp; m++) {
                     for(unsigned int n = 0; n<vcell_gp; n++) {
                         //std::vector<double> p_d = trajectory_controller.trajectory_desired(current_barycenter,l,m,n,o);

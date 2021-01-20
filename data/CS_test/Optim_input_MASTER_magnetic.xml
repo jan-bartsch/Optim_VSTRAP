@@ -5,7 +5,7 @@
     <parameter name="magnetic_force" value="1" />
     <parameter name="electric_force" value="0" />
 
-    <parameter name="armijo_descent_fraction" value="1e-30"/>
+    <parameter name="armijo_descent_fraction" value="1e-10"/>
     <parameter name="calculation_functional" value="1"/>
     <parameter name="calculation_wasserstein" value="0"/>
     <parameter name="C_theta_gp" value="1e+20"/>
@@ -74,7 +74,7 @@
 
     <parameter name="inflow_included" value="1"/>
     <parameter name="number_density_forward_inflow" value="1e+16"/>
-    <parameter name="weight_forward_inflow" value="5e+8"/>
+    <parameter name="weight_forward_inflow" value="1e+8"/>
     <parameter name="charge_number_forward_inflow" value="+1"/>
     <parameter name="mass_forward_inflow" value="6.63e-26"/>
     <parameter name="species_forward_inflow" value="40Ar+"/>

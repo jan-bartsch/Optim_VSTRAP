@@ -93,6 +93,7 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
 
     if (scalarProduct_Hm>0) {
         std::cout << "No descent direction!" << std::endl;
+        throw std::runtime_error("No descent-direction");
     }
 
     unsigned int counter = 0;
