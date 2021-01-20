@@ -3,7 +3,7 @@
  		 <time_step value="1e-6"/> 
  	 </global_values> 
 	 <abort_criterium> 
- 		 <max_itterations value="40" /> 
+ 		 <max_itterations value="100" /> 
  	 </abort_criterium>
 	 <executables> 
  	 	 <executable name="mesh_initializer" mode="CPU"> 
@@ -39,7 +39,7 @@
  			 <load>../../../Optim_VSTRAP/data/global/interaction_data.xml</load> 
  		 </executable>
 		 <executable name="plasma_state" mode="CPU"> 
- 			 <batch file_name="batch_1" format="csv" output_interval="1"> 
+ 			 <batch file_name="batch_1" format="csv" output_interval="10"> 
  			 <particle_group name="forward_particles"/> 
  			 </batch> 
 			<file path = "./results/" name="plasma_state" format="csv" output_interval="1"/> 
@@ -47,7 +47,7 @@
 		 <executable name="inflow" mode="CPU">
  			 <batch name="static" type="static"> 
 				 <particle_group name="forward_particles"/>
-				 <values number_density=" 1e+16 " weight="1e+8" charge_number="+1" mass="6.63e-26" species="40Ar+"/>
+				 <values number_density=" 1e+16 " weight="5e+8" charge_number="+1" mass="6.63e-26" species="40Ar+"/>
 				 <temperature x_val="300" y_val="300" z_val="300"/> 
  				 <v_drift x_val="1e+3" y_val="0" z_val="0"/> 
  				 <physical_surface tag="6"/>
