@@ -152,7 +152,7 @@
 	<!--subroutine group="control_update" name="successive_approximation" /-->
 	<subroutine group="direction_update" name="negative_gradient" />
         <!--subroutine group="desired_trajectory" name="box_center" /-->
-        <subroutine group="desired_trajectory" name="box_shifting_negative_x" />
+        <subroutine group="desired_trajectory" name="parameters"/> <!-- parameters brockett-->
         <subroutine group="objective_calculation" name="magnitude"/>
       <!--  subroutine group="objective_calculation" name="components" / -->
     </subroutines>

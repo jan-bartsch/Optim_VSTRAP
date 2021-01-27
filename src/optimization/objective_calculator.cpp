@@ -66,7 +66,6 @@ double objective_calculator::calculate_objective(std::vector<std::unordered_map<
 
     std::vector<std::vector<double>> brockettVector = in.readBrockettFile(paths.find("PATH_TO_SHARED_FILES")->second+"brockett.csv",",",ntimesteps_gp*plasma_state_output_interval);
 
-
     /*
     * Add terminal integral
     */
@@ -115,19 +114,17 @@ double objective_calculator::calculate_objective(std::vector<std::unordered_map<
             for(unsigned int  o = 0; o<ntimesteps_gp; o++) {
                 //std::cout << "Calculating functional in " << o << " timestep" << std::endl;
                 std::vector<double> p_d(6,0.0);
-                double sigma_x_1 = brockettVector[o*plasma_state_output_interval][3];
-                double sigma_x_2 = brockettVector[o*plasma_state_output_interval][4];
-                double sigma_x_3 = brockettVector[o*plasma_state_output_interval][5];
+                double sigma_x_1 = 0.0;
+                double sigma_x_2 = 0.0;
+                double sigma_x_3 = 0.0;
 
-                //position
-                p_d[0] = brockettVector[o*plasma_state_output_interval][0];
-                p_d[1] = brockettVector[o*plasma_state_output_interval][1];
-                p_d[2] = brockettVector[o*plasma_state_output_interval][2];
+                if (desired_traj.compare("brockett")==0) {
+                    sigma_x_1 = brockettVector[o*plasma_state_output_interval][3];
+                    sigma_x_2 = brockettVector[o*plasma_state_output_interval][4];
+                    sigma_x_3 = brockettVector[o*plasma_state_output_interval][5];
 
-                //velocity
-                p_d[3] = brockettVector[o*plasma_state_output_interval][6];
-                p_d[4] = brockettVector[o*plasma_state_output_interval][7];
-                p_d[5] = brockettVector[o*plasma_state_output_interval][8];
+                    p_d = trajectory_controller.trajectory_desired_brockett(brockettVector,o, plasma_state_output_interval);
+                }
 
                 double scaling_gaussian = std::sqrt(pow(2.0*M_PI,6.0)*pow(sigma_x_1*sigma_x_2*sigma_x_3,2.0)*pow(sigma_v_gp*sigma_v_gp,3.0));
 
@@ -135,7 +132,9 @@ double objective_calculator::calculate_objective(std::vector<std::unordered_map<
                 for( unsigned int l = 0; l<vcell_gp; l++) {
                     for(unsigned int  m = 0; m<vcell_gp; m++) {
                         for(unsigned int n = 0; n<vcell_gp; n++) {
-                            //std::vector<double> p_d = trajectory_controller.trajectory_desired(current_barycenter,l,m,n,o);
+                            if (desired_traj.compare("brockett")!=0) {
+                                p_d = trajectory_controller.trajectory_desired(current_barycenter,l,m,n,o,brockettVector,plasma_state_output_interval);
+                            }
                             coordinate_phase_space_time coordinate = coordinate_phase_space_time(static_cast<int>(i),static_cast<int>(l),static_cast<int>(m),static_cast<int>(n),static_cast<int>(o));
                             // std::cout << velocityDiscr_gp(l) << std::endl;
                             double current_trackPot = 0.0;

@@ -62,7 +62,7 @@
     <parameter name="v_drift_x_val" value="0"/>
     <parameter name="v_drift_y_val" value="0"/>
     <parameter name="v_drift_z_val" value="0"/>
-    
+
     <parameter name="mesh_2d_writer_included" value="0"/> <!--  1=true, 0=false  -->
     <parameter name="mesh_2d_name" value="mesh2doutput" />
     <parameter name="mesh_2d_outputinterval" value="1"/>
@@ -216,7 +216,7 @@
 	<subroutine group="control_update" name="armijo_linesearch"/>
 	<!--  subroutine group="direction_update" name="negative_gradient" /  -->
 	<subroutine group="direction_update" name="ncg_FR"/> <!-- ncg_FR ncg_PR ncg_HZ-->
-	<subroutine group="desired_trajectory" name="box_center"/>
+<subroutine group="desired_trajectory" name="parameters"/> <!-- parameters brockett-->
 	<subroutine group="objective_calculation" name="magnitude"/> <!-- components -->
 </subroutines>
 </optimizer_input>

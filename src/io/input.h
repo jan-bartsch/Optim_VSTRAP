@@ -36,7 +36,7 @@ public:
 
     static std::vector<double> readDoubleVector(const char *filename);
 
-    static std::vector<std::vector<double> > readBrockettFile(std::string filename, std::string delimiter, int lines);
+    static std::vector<std::vector<double> > readBrockettFile(std::string filename, std::string delimiter, unsigned int lines);
 };
 
 #endif // INPUT_H

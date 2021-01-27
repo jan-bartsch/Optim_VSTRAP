@@ -239,12 +239,12 @@ std::vector<double> input::readDoubleVector(const char *filename)
     return out;
 }
 
-std::vector<std::vector<double>> input::readBrockettFile(std::string filename,std::string delimiter, int lines)
+std::vector<std::vector<double>> input::readBrockettFile(std::string filename,std::string delimiter, unsigned int lines)
 {
     std::vector<std::vector<double>> brockettVector;
     brockettVector.resize(lines);
 
-    int counter = 0;
+    unsigned int long counter = 0;
 
     std::ifstream file(filename);
 
@@ -256,7 +256,7 @@ std::vector<std::vector<double>> input::readBrockettFile(std::string filename,st
     }
 
 
-    while(std::getline(file,line) ) {
+    while(std::getline(file,line) && counter < lines ) {
 
         // std::cout << line << std::endl;
 
@@ -279,8 +279,9 @@ std::vector<std::vector<double>> input::readBrockettFile(std::string filename,st
 
         brockettVector[counter].resize(12);
 
-        for(int i=0; i< vec.size(); i++) {
-            brockettVector[counter][i] = std::stod(vec[i]);
+        for(unsigned int i=0; i < vec.size(); i++) {
+            double current_value =  std::stod(vec[i]);
+            brockettVector[counter][i] = current_value;
             //str(mu_x)+","+str(mu_y)+","+str(mu_z)+","+str(s_x)+","+str(s_y)+","+str(s_z)+","+str(v_x)+","+str(v_y)+","+str(v_z)+","+str(v_s_x)+","+str(v_s_y)+","+str(v_s_z)+"\n")
         }
         counter++;

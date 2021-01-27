@@ -15,31 +15,16 @@ public:
 
     std::vector<double> trajectory_desired(std::vector<double> barycenter,
                                            unsigned int l, unsigned int m, unsigned int n,
-                                           unsigned int o);
+                                           unsigned int o, std::vector<std::vector<double> > brockettVector,
+                                           unsigned int plasma_state_output_interval);
 
-    std::vector<double> trajectory_desired_harmonic_oscillation(std::vector<double> barycenter,
-                                           unsigned int l, unsigned int m, unsigned int n,
-                                           unsigned int o);
+    std::vector<double> trajectory_desired_parameters(std::vector<double> barycenter,
+                                                      unsigned int l, unsigned int m, unsigned int n,
+                                                      unsigned int o,
+                                                      unsigned int plasma_state_output_interval);
 
-    std::vector<double> trajectory_desired_concentrating_mean(std::vector<double> barycenter,
-                                           unsigned int l, unsigned int m, unsigned int n,
-                                           unsigned int o);
-
-    std::vector<double> trajectory_desired_shifting_halfbox(std::vector<double> barycenter,
-                                           unsigned int l, unsigned int m, unsigned int n,
-                                           unsigned int o);
-
-    std::vector<double> trajectory_desired_shifting_halfbox_components(std::vector<double> barycenter,
-                                           unsigned int l, unsigned int m, unsigned int n,
-                                           unsigned int o);
-
-    std::vector<double> trajectory_desired_concentrating_center(std::vector<double> barycenter,
-                                           unsigned int l, unsigned int m, unsigned int n,
-                                           unsigned int o);
-
-    std::vector<double> trajectory_desired_brockett(std::vector<double> barycenter,
-                                           unsigned int l, unsigned int m, unsigned int n,
-                                           unsigned int o);
+    std::vector<double> trajectory_desired_brockett(std::vector<std::vector<double> > brockettVector, unsigned int o,
+                                                    unsigned int plasma_state_output_interval);
 
 private:
     std::map<int,std::vector<double>> barycenters;

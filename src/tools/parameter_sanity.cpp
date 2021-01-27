@@ -47,6 +47,8 @@ int parameter_sanity::check_velocity_discretization(data_provider provider)
 
     if (max != 2.0*vmax_gp) {
         std::cerr << "Discretization of velocity space is erroneous" << std::endl;
+        return 1;
     }
 
+    return 0;
 }

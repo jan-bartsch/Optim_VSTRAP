@@ -2,7 +2,10 @@
 
 desired_trajectory_controller::desired_trajectory_controller() { }
 
-std::vector<double> desired_trajectory_controller::trajectory_desired(std::vector<double> barycenter, unsigned int l, unsigned int m, unsigned int n, unsigned int o)
+std::vector<double> desired_trajectory_controller::trajectory_desired(std::vector<double> barycenter,
+                                                                      unsigned int l, unsigned int m, unsigned int n,
+                                                                      unsigned int o, std::vector<std::vector<double> > brockettVector,
+                                                                       unsigned int plasma_state_output_interval)
 {
     std::vector<double> p_d(6,0.0);
     std::map<std::string,std::string> subroutines = this->getData_provider_optim().getSubroutines();
@@ -10,10 +13,10 @@ std::vector<double> desired_trajectory_controller::trajectory_desired(std::vecto
     std::string objective_calculation = subroutines.find("objective_calculation")->second;
 
 
-    if(desired_traj.compare("box_center")==0) {
-        p_d = this->trajectory_desired_concentrating_center(barycenter,l,m,n,o);
+    if(desired_traj.compare("parameter")==0) {
+        p_d = this->trajectory_desired_parameters(barycenter,l,m,n,o, plasma_state_output_interval);
     } else if (desired_traj.compare("brockett")==0) {
-        p_d = this->trajectory_desired_brockett(barycenter,l,m,n,o);
+        p_d = this->trajectory_desired_brockett(brockettVector, o, plasma_state_output_interval);
     } else {
         std::invalid_argument("No such desired_trajectory subroutine");
         throw std::runtime_error("No such desired_trajectory subroutine");
@@ -81,7 +84,8 @@ std::vector<double> desired_trajectory_controller::trajectory_desired_shifting_h
 }
 */
 
-std::vector<double> desired_trajectory_controller::trajectory_desired_concentrating_center(std::vector<double> barycenter, unsigned int l, unsigned int m, unsigned int n, unsigned int o)
+std::vector<double> desired_trajectory_controller::trajectory_desired_parameters(std::vector<double> barycenter, unsigned int l, unsigned int m, unsigned int n, unsigned int o,
+                                                                                 unsigned int plasma_state_output_interval)
 {
     std::vector<double> p_d(6,0.0);
 
@@ -108,27 +112,21 @@ std::vector<double> desired_trajectory_controller::trajectory_desired_concentrat
     return p_d;
 }
 
-std::vector<double> desired_trajectory_controller::trajectory_desired_brockett(std::vector<double> barycenter, unsigned int l, unsigned int m, unsigned int n, unsigned int o)
+std::vector<double> desired_trajectory_controller::trajectory_desired_brockett(std::vector<std::vector<double> > brockettVector, unsigned int o, unsigned int plasma_state_output_interval)
 {
     input in = input();
 
     std::vector<double> p_d(6,0.0);
 
-    data_provider optim_provider = this->getData_provider_optim();
-    std::map<std::string,double> parameters = optim_provider.getOptimizationParameters();
-    std::map<std::string,std::string> paths = optim_provider.getPaths();
-
-    std::vector<std::vector<double>> brockettVector = in.readBrockettFile(paths.find("PATH_TO_SHARED_FILES")->second+"brockett.csv",",", static_cast<unsigned int>(parameters.find("ntimesteps_gp")->second));
-
     //position
-    p_d[0] = brockettVector[o][0];
-    p_d[1] = brockettVector[o][1];
-    p_d[2] = brockettVector[o][2];
+    p_d[0] = brockettVector[o*plasma_state_output_interval][0];
+    p_d[1] = brockettVector[o*plasma_state_output_interval][1];
+    p_d[2] = brockettVector[o*plasma_state_output_interval][2];
 
     //velocity
-    p_d[3] = brockettVector[o][6];
-    p_d[4] = brockettVector[o][7];
-    p_d[5] = brockettVector[o][8];
+    p_d[3] = brockettVector[o*plasma_state_output_interval][6];
+    p_d[4] = brockettVector[o*plasma_state_output_interval][7];
+    p_d[5] = brockettVector[o*plasma_state_output_interval][8];
 
     return p_d;
 }
