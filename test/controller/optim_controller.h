@@ -4,7 +4,7 @@
 #include "../../src/objects/data_provider.h"
 #include "../../src/io/output_control_update.h"
 
-//TEST(optimContr,startup) {
+//TEST(optContr,startup) {
 //    optim_controller contr = optim_controller();
 
 //    int argc = 3;
@@ -23,7 +23,7 @@
 //    EXPECT_DOUBLE_EQ(ret_flag-3,0.0);
 //}
 
-TEST(optimContr,interpolateControl) {
+TEST(optContr,interpolateControl) {
     std::string input_directory = "./data/Optim_input_gTest.xml";
     const char *  filename = input_directory.c_str();
 
@@ -34,7 +34,7 @@ TEST(optimContr,interpolateControl) {
     ASSERT_NO_THROW(outContr.interpolate_control(provider));
 }
 
-TEST(optimContr,startZeroControl) {
+TEST(optContr,startZeroControl) {
     std::string input_directory = "./data/Optim_input_gTest.xml";
     const char *  filename = input_directory.c_str();
 
@@ -79,6 +79,7 @@ TEST(optContr,startReadInControl) {
     ASSERT_LE(norm_difference,pow(10,-5));
 }
 
+/*
 TEST(optContr,runIterationMaxDepth) {
     std::string input_directory = "./data/Optim_input_gTest.xml";
     const char *  filename = input_directory.c_str();
@@ -97,5 +98,5 @@ TEST(optContr,runIterationMaxDepth) {
 
     int flag = contr.start_optimization_iteration(filename);
     std::cout << flag << std::endl;
-
 }
+*/

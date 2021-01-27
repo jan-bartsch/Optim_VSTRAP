@@ -3,12 +3,15 @@
 <optimizer_input>
 
 <globalParameters>
-      <parameter name="simulating_plasma" value="1" />
-      <parameter name="fmm" value="1" />
-      <parameter name="armijo_descent_fraction" value="1e-30" />
-      <parameter name="calculation_functional" value="1" />
-      <parameter name="calculation_wasserstein" value="0" />
-      <parameter name="C_theta_gp" value="1e+20" />
+        <parameter name="simulating_plasma" value="0" />
+        <parameter name="fmm" value="0" />
+        <parameter name="magnetic_force" value="0" />
+        <parameter name="electric_force" value="1" />
+
+        <parameter name="armijo_descent_fraction" value="1e-30" />
+        <parameter name="calculation_functional" value="1" />
+        <parameter name="calculation_wasserstein" value="0" />
+        <parameter name="C_theta_gp" value="1e+20" />
         <parameter name="C_phi_gp" value="1e+20" />
         <parameter name="sigma_x_gp" value="0.25" />
         <parameter name="sigma_v_gp" value="438.65" />
@@ -48,7 +51,7 @@
         <parameter name="expected_speed" value="7e+2" />
 
         <!-- forward input -->
-        <parameter name="creation_forward_particles_method" value="create_new"/> <!-- create_existing create_new-->
+        <parameter name="creation_forward_particles_method" value="create_new"/> <!-- create_existing create_new only_inflow-->
         <parameter name="initial_condition_file" value="plasma_state_batch_1_forward_particles_CPU_1.csv"/> <!-- only in effect if create_existing-->
         <parameter name="number_density_forward" value="1e+13" />
         <parameter name="weight_forward" value="1e+9" />
@@ -62,16 +65,13 @@
         <parameter name="v_drift_y_val" value="0" />
         <parameter name="v_drift_z_val" value="0" />
         <parameter name="mesh_2d_writer_included" value="0"/> <!--  0=true, 1=false  -->
-        <parameter name="mesh_2d_name" value="mesh2doutput" />
 
+        <parameter name="mesh_2d_name" value="mesh2doutput" />
         <parameter name="mesh_2d_outputinterval" value="1"/>
 
         <parameter name="mesh_3d_writer_included" value="0"/> <!--  0=true, 1=false  -->
         <parameter name="mesh_3d_name" value="mesh3doutput" />
-
         <parameter name="mesh_3d_outputinterval" value="1"/>
-
-
 
         <!-- optimization techniques -->
         <parameter name="fixed_gradient_descent_stepsize" value="1e+1" />
@@ -110,12 +110,12 @@
         <parameter name="weight_control_gp" value="1e+0" />
 
         <parameter name="velocity_part_objective" value="1e-3" />
+        <parameter name="shifting_objective" value="0.0"/>
+        <parameter name="visalization_scaling" value="0.0025" />
 
         <!-- -->
         <parameter name="fabs_tol_gp" value="1e-5" />
     </globalParameters>
-
-
 
 
     <paths>
@@ -123,6 +123,9 @@
         <path name="BUILD_DIRECTORY_OPTIM" value="./" />
         <path name="PATH_TO_SHARED_FILES" value="./results/" />
         <path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="./results/" />
+
+        <path name="PVPYTHON_ABSOLUTE_DIR" value="/home/jan/ParaView-5.8.0-MPI-Linux-Python3.7-64bit/bin/pvpython" />
+
         <path name="BARYCENTERS_MESH" value="./data/global/mesh_barycenters.xml" />
         <path name="DIRECTORY_TOOLSET" value="./toolset/" />
         <path name="DOMAIN_MESH" value="../data/global/box_coarse.xml" />

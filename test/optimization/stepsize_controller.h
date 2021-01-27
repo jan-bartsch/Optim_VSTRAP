@@ -68,6 +68,7 @@ TEST(stepdirection,gradientDescentNoThrow) {
     EXPECT_EQ(return_flag,0);
 }
 
+/*
 TEST(stepdirection,armijoLinesearchNoThrow) {
     std::string input_directory = "./data/Optim_input_gTest.xml";
     const char *  filename = input_directory.c_str();
@@ -98,6 +99,7 @@ TEST(stepdirection,armijoLinesearchNoThrow) {
     arma::mat updated_control_test = control_test + stepsize*stepdirection;
     EXPECT_NO_THROW(size_contr.calculate_stepsize(gradient,J0,control,stepdirection,inputParticles,stepsize0));
 }
+*/
 
 TEST(stepdirection,successiveApproximationNoThrow) {
     std::string input_directory = "./data/Optim_input_gTest.xml";
