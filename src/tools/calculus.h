@@ -1,5 +1,5 @@
-#ifndef LINEAR_ALGEBRA_H
-#define LINEAR_ALGEBRA_H
+#ifndef CALCULUS_H
+#define CALCULUS_H
 
 #include <armadillo>
 #include <map>
@@ -9,14 +9,14 @@
 #include "../controller/equation_solving_controller.h"
 
 
-class linear_algebra : public abstract_controller
+class calculus : public abstract_controller
 {
 public:
-    linear_algebra();
+    calculus();
 
     static std::vector<double> cross_product(std::vector<double> v1, std::vector<double> v2);
 
     double divergence_vector(arma::mat input);
 };
 
-#endif // LINEAR_ALGEBRA_H
+#endif // CALCULUS_H

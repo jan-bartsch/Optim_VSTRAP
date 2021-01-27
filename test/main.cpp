@@ -20,6 +20,7 @@
 #include "optimization/stepsize_controller.h"
 
 #include "tools/inner_products.h"
+#include "tools/calculus.h"
 
 int main(int argc, char **argv) {
     testing::InitGoogleTest(&argc, argv);

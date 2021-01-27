@@ -1,8 +1,8 @@
-#include "linear_algebra.h"
+#include "calculus.h"
 
-linear_algebra::linear_algebra() { }
+calculus::calculus() { }
 
-double linear_algebra::divergence_vector(arma::mat input)
+double calculus::divergence_vector(arma::mat input)
 {
     data_provider optim_provider = this->getData_provider_optim();
     std::map<std::string,double> parameters = optim_provider.getOptimizationParameters();

@@ -29,7 +29,7 @@
 #include "../objects/data_provider.h"
 
 #include "../tools/parameter_sanity.h"
-#include "../tools/linear_algebra.h"
+#include "../tools/calculus.h"
 
 class optim_controller : public abstract_controller
 {
