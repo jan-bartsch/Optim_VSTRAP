@@ -28,6 +28,7 @@ public:
     /**
      * @brief readControl reads in control cells (control in volume, xml format)
      * @param filename
+     * @param pcell_gp
      * @return
      */
     arma::mat readControl(const char *filename, int pcell_gp);
@@ -36,6 +37,14 @@ public:
 
     static std::vector<double> readDoubleVector(const char *filename);
 
+    /**
+     * @brief readBrockettFile reads file with time-dependent desired trajectory of the mean
+     *
+     * @param filename
+     * @param delimiter
+     * @param lines
+     * @return
+     */
     static std::vector<std::vector<double> > readBrockettFile(std::string filename, std::string delimiter, unsigned int lines);
 };
 

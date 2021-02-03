@@ -1,5 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classabstract__validation.html" title="abstract_validation" alt="" coords="5,31,136,57"/>
-<area shape="rect" id="node2" href="$classcontrol__validation.html" title="control_validation" alt="" coords="188,5,311,32"/>
-<area shape="rect" id="node3" href="$classgradient__validation.html" title="gradient_validation" alt="" coords="184,56,315,83"/>
+<area shape="rect" id="node1" href="$classabstract__verification.html" title="abstract_verification" alt="" coords="5,31,144,57"/>
+<area shape="rect" id="node2" href="$classcontrol__verification.html" title="control_verification" alt="" coords="192,5,323,32"/>
+<area shape="rect" id="node3" href="$classgradient__validation.html" title="gradient_validation" alt="" coords="192,56,323,83"/>
 </map>

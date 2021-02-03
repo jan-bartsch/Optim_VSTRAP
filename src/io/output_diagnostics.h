@@ -10,7 +10,9 @@
 
 
 
-
+/**
+ * @brief The output_diagnostics class writes the value of different objects to txt files
+ */
 class output_diagnostics : public abstract_controller
 {
 public:

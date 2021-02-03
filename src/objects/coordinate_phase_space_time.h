@@ -5,6 +5,9 @@
 #include <string>
 #include <cmath>
 
+/**
+ * @brief The coordinate_phase_space_time class defines coordinates in the seven dimensional time-phase-space cylinder
+ */
 class coordinate_phase_space_time
 {
 public:

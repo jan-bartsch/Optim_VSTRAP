@@ -7,6 +7,11 @@
 #include "../objects/data_provider.h"
 #include "../logger/logger.h"
 
+
+/**
+ * @brief The abstract_controller class
+ * is inherited by all controller classes
+ */
 class abstract_controller
 {
 public:

@@ -53,15 +53,13 @@ public:
     void setPy(double value);
     double getPz() const;
     void setPz(double value);
+
     double getVx() const;
     void setVx(double value);
     double getVy() const;
     void setVy(double value);
     double getVz() const;
     void setVz(double value);
-
-    //    double getTimestep() const;
-    //    void setTimestep(double value);
 
 
     int getCell_id() const;

@@ -31,7 +31,7 @@ int optim_controller::start_optimizer(int argc, const char **argv)
 
     std::chrono::time_point<std::chrono::system_clock> start_optim = std::chrono::system_clock::now();
 
-    int optim_flag = optim_controller::start_optimization_iteration(input_xml_path);
+    int optim_flag = optim_controller::main_optimization_algorithm(input_xml_path);
 
     std::chrono::time_point<std::chrono::system_clock> end_optim = std::chrono::system_clock::now();
     logger::Info("Optimization took: " + std::to_string(std::chrono::duration_cast<std::chrono::minutes>
@@ -48,7 +48,7 @@ int optim_controller::start_optimizer(int argc, const char **argv)
 
 }
 
-int optim_controller::start_optimization_iteration(const char * input_xml_path)
+int optim_controller::main_optimization_algorithm(const char * input_xml_path)
 {
     data_provider data_provider_opt = data_provider(input_xml_path);
     gradient_calculator gradient_calculator_opt = gradient_calculator(input_xml_path);

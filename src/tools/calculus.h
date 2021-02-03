@@ -8,7 +8,9 @@
 #include "../controller/abstract_controller.h"
 #include "../controller/equation_solving_controller.h"
 
-
+/**
+ * @brief The calculus class provides method from analysis
+ */
 class calculus : public abstract_controller
 {
 public:

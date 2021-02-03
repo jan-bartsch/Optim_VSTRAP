@@ -18,6 +18,13 @@
 
 #include "../io/input.h"
 
+
+/**
+ * @brief The objective_calculator class calculates the objective/functional
+ * according to Brockett's approach of ensemble optimal control problems;
+ * see, e.g.,  Bartsch, J., Borzì, A., Fanelli, F. et al. A theoretical investigation of Brockett’s ensemble optimal control problems.
+ * Calc. Var. 58, 162 (2019). https://doi.org/10.1007/s00526-019-1604-2
+ */
 class objective_calculator : public abstract_controller
 {
 public:

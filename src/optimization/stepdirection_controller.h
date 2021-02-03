@@ -8,13 +8,26 @@
 #include "../logger/logger.h"
 #include "../tools/inner_products.h"
 
+/**
+ * @brief The stepdirection_controller class provides different methods for finding the step-direction,
+ * as gradient descent and NCG schemes with different update rules
+ */
 class stepdirection_controller : public abstract_controller
 {
 public:
     stepdirection_controller(const char * filename);
 
+    /**
+     * @brief get_stepdirection generic method called in the main optimizer algorithm
+     * @param gradient
+     * @param gradient_old
+     * @param stepdirectionOld
+     * @param optimization_iteration
+     * @return
+     */
     arma::mat get_stepdirection(arma::mat gradient, arma::mat gradient_old, arma::mat stepdirectionOld, unsigned int optimization_iteration);
 
+private:
     arma::mat fixed_gradient_descent(arma::mat gradient, unsigned int optimization_iteration);
     arma::mat ncg_scheme_FR(arma::mat gradient, arma::mat gradient_old, arma::mat stepdirectionOld, unsigned int optimization_iteration);
     arma::mat ncg_scheme_PR(arma::mat gradient, arma::mat gradient_old, arma::mat stepdirectionOld, unsigned int optimization_iteration);

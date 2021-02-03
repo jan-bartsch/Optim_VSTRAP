@@ -9,6 +9,11 @@
 #include "../controller/abstract_controller.h"
 #include "../objects/data_provider.h"
 
+
+/**
+ * @brief The parameter_sanity class provides sanity checks for parameters
+ * definied in the input file of the optimizer
+ */
 class parameter_sanity
 {
 public:

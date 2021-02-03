@@ -112,7 +112,7 @@ std::vector<particle> input::readParticleVector(std::string filename, std::strin
 
 arma::mat input::readControl(const char *filename, int pcell_gp)
 {       
-    arma::mat control(pcell_gp,3,arma::fill::zeros);
+    arma::mat control(static_cast<unsigned long long>(pcell_gp),3,arma::fill::zeros);
 
     TiXmlDocument inputFile(filename);
     if (!inputFile.LoadFile()) {
@@ -133,7 +133,7 @@ arma::mat input::readControl(const char *filename, int pcell_gp)
     {
         TiXmlAttribute *node_number = value_control->FirstAttribute();
         std::string name_string(node_number->Value());
-        int cell_id_int = std::stoi(name_string);
+        unsigned long long cell_id_int = static_cast<unsigned long long>(std::stol(name_string));
 
         std::string coordinate_string = value_control->GetText();
         std::vector<std::string> vec;

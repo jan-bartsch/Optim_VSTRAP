@@ -65,12 +65,17 @@ $(function() {
 <div class="title">gradient_calculator Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>The <a class="el" href="classgradient__calculator.html" title="The gradient_calculator class provides method for assembling to gradient, which is used in the calcul...">gradient_calculator</a> class provides method for assembling to gradient, which is used in the calculation of the new step-direction for controls in H^2 Sobolev-space.  
+ <a href="classgradient__calculator.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="src_2optimization_2gradient__calculator_8h_source.html">gradient_calculator.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for gradient_calculator:</div>
 <div class="dyncontent">
 <div class="center"><img src="classgradient__calculator__inherit__graph.png" border="0" usemap="#gradient__calculator_inherit__map" alt="Inheritance graph"/></div>
 <map name="gradient__calculator_inherit__map" id="gradient__calculator_inherit__map">
-<area shape="rect" id="node2" href="classabstract__controller.html" title="abstract_controller" alt="" coords="6,5,135,32"/>
+<area shape="rect" id="node2" href="classabstract__controller.html" title="The abstract_controller class is inherited by all controller classes. " alt="" coords="6,5,135,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -78,7 +83,7 @@ Collaboration diagram for gradient_calculator:</div>
 <div class="dyncontent">
 <div class="center"><img src="classgradient__calculator__coll__graph.png" border="0" usemap="#gradient__calculator_coll__map" alt="Collaboration graph"/></div>
 <map name="gradient__calculator_coll__map" id="gradient__calculator_coll__map">
-<area shape="rect" id="node2" href="classabstract__controller.html" title="abstract_controller" alt="" coords="6,5,135,32"/>
+<area shape="rect" id="node2" href="classabstract__controller.html" title="The abstract_controller class is inherited by all controller classes. " alt="" coords="6,5,135,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -87,12 +92,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a811af658cf499119c6f00e6457880824"><td class="memItemLeft" align="right" valign="top"><a id="a811af658cf499119c6f00e6457880824"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>gradient_calculator</b> (const char *filename)</td></tr>
 <tr class="separator:a811af658cf499119c6f00e6457880824"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a087141d845a78621543e127a1e180809"><td class="memItemLeft" align="right" valign="top"><a id="a087141d845a78621543e127a1e180809"></a>
-arma::mat&#160;</td><td class="memItemRight" valign="bottom"><b>calculateGradient_forceControl_space_L2</b> (std::vector&lt; std::unordered_map&lt; <a class="el" href="classcoordinate__phase__space__time.html">coordinate_phase_space_time</a>, double &gt;&gt; forwardPDF_time, std::vector&lt; std::unordered_map&lt; <a class="el" href="classcoordinate__phase__space__time.html">coordinate_phase_space_time</a>, double &gt;&gt; backwardPDF_time, arma::mat control)</td></tr>
-<tr class="separator:a087141d845a78621543e127a1e180809"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8381a8497dfe88bcb04ff40ce1e235e0"><td class="memItemLeft" align="right" valign="top"><a id="a8381a8497dfe88bcb04ff40ce1e235e0"></a>
-arma::mat&#160;</td><td class="memItemRight" valign="bottom"><b>calculateGradient_forceControl_space_Hm</b> (std::vector&lt; std::unordered_map&lt; <a class="el" href="classcoordinate__phase__space__time.html">coordinate_phase_space_time</a>, double &gt;&gt; forwardPDF_time, std::vector&lt; std::unordered_map&lt; <a class="el" href="classcoordinate__phase__space__time.html">coordinate_phase_space_time</a>, double &gt;&gt; backwardPDF_time, arma::mat control)</td></tr>
+<tr class="memitem:a62952c354762514d88d70e323957fb34"><td class="memItemLeft" align="right" valign="top">arma::mat&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgradient__calculator.html#a62952c354762514d88d70e323957fb34">calculateGradient_forceControl_space_Hm_not_parallel</a> (std::vector&lt; std::unordered_map&lt; <a class="el" href="classcoordinate__phase__space__time.html">coordinate_phase_space_time</a>, double &gt;&gt; forwardPDF_time, std::vector&lt; std::unordered_map&lt; <a class="el" href="classcoordinate__phase__space__time.html">coordinate_phase_space_time</a>, double &gt;&gt; backwardPDF_time, arma::mat control)</td></tr>
+<tr class="memdesc:a62952c354762514d88d70e323957fb34"><td class="mdescLeft">&#160;</td><td class="mdescRight">calculateGradient_forceControl_space_Hm_not_parallel calculates the gradient without using any parallelization;  <a href="#a62952c354762514d88d70e323957fb34">More...</a><br /></td></tr>
+<tr class="separator:a62952c354762514d88d70e323957fb34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8381a8497dfe88bcb04ff40ce1e235e0"><td class="memItemLeft" align="right" valign="top">arma::mat&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgradient__calculator.html#a8381a8497dfe88bcb04ff40ce1e235e0">calculateGradient_forceControl_space_Hm</a> (std::vector&lt; std::unordered_map&lt; <a class="el" href="classcoordinate__phase__space__time.html">coordinate_phase_space_time</a>, double &gt;&gt; forwardPDF_time, std::vector&lt; std::unordered_map&lt; <a class="el" href="classcoordinate__phase__space__time.html">coordinate_phase_space_time</a>, double &gt;&gt; backwardPDF_time, arma::mat control)</td></tr>
+<tr class="memdesc:a8381a8497dfe88bcb04ff40ce1e235e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">calculateGradient_forceControl_space_Hm calculates the gradient with parallelization  <a href="#a8381a8497dfe88bcb04ff40ce1e235e0">More...</a><br /></td></tr>
 <tr class="separator:a8381a8497dfe88bcb04ff40ce1e235e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a53b6132184c796ef3aca1e306e2211"><td class="memItemLeft" align="right" valign="top">arma::mat&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgradient__calculator.html#a3a53b6132184c796ef3aca1e306e2211">calculateGradient_forceControl_space_Hm_plasma</a> (std::vector&lt; std::unordered_map&lt; <a class="el" href="classcoordinate__phase__space__time.html">coordinate_phase_space_time</a>, double &gt;&gt; forwardPDF_time, std::vector&lt; std::unordered_map&lt; <a class="el" href="classcoordinate__phase__space__time.html">coordinate_phase_space_time</a>, double &gt;&gt; backwardPDF_time, std::vector&lt; std::unordered_map&lt; <a class="el" href="classcoordinate__phase__space__time.html">coordinate_phase_space_time</a>, double &gt;&gt; forwardPDF_time_electrons, std::vector&lt; std::unordered_map&lt; <a class="el" href="classcoordinate__phase__space__time.html">coordinate_phase_space_time</a>, double &gt;&gt; backwardPDF_time_electrons, arma::mat control)</td></tr>
+<tr class="memdesc:a3a53b6132184c796ef3aca1e306e2211"><td class="mdescLeft">&#160;</td><td class="mdescRight">calculateGradient_forceControl_space_Hm_plasma calculates the gradient with two different species (ions, electrons) present  <a href="#a3a53b6132184c796ef3aca1e306e2211">More...</a><br /></td></tr>
+<tr class="separator:a3a53b6132184c796ef3aca1e306e2211"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classabstract__controller"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classabstract__controller')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classabstract__controller.html">abstract_controller</a></td></tr>
 <tr class="memitem:ae4a15450620978e51c578666d359349c inherit pub_methods_classabstract__controller"><td class="memItemLeft" align="right" valign="top"><a id="ae4a15450620978e51c578666d359349c"></a>
 <a class="el" href="classdata__provider.html">data_provider</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getData_provider_optim</b> () const</td></tr>
@@ -101,6 +109,158 @@ arma::mat&#160;</td><td class="memItemRight" valign="bottom"><b>calculateGradien
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setData_provider_optim</b> (const <a class="el" href="classdata__provider.html">data_provider</a> &amp;value)</td></tr>
 <tr class="separator:a35988272a58784db06c9d1e48f0a3292 inherit pub_methods_classabstract__controller"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>The <a class="el" href="classgradient__calculator.html" title="The gradient_calculator class provides method for assembling to gradient, which is used in the calcul...">gradient_calculator</a> class provides method for assembling to gradient, which is used in the calculation of the new step-direction for controls in H^2 Sobolev-space. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a8381a8497dfe88bcb04ff40ce1e235e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8381a8497dfe88bcb04ff40ce1e235e0">&#9670;&nbsp;</a></span>calculateGradient_forceControl_space_Hm()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; std::unordered_map&lt; <a class="el" href="classcoordinate__phase__space__time.html">coordinate_phase_space_time</a>, double &gt;&gt;&#160;</td>
+          <td class="paramname"><em>forwardPDF_time</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; std::unordered_map&lt; <a class="el" href="classcoordinate__phase__space__time.html">coordinate_phase_space_time</a>, double &gt;&gt;&#160;</td>
+          <td class="paramname"><em>backwardPDF_time</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">arma::mat&#160;</td>
+          <td class="paramname"><em>control</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>calculateGradient_forceControl_space_Hm calculates the gradient with parallelization </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">forwardPDF_time</td><td></td></tr>
+    <tr><td class="paramname">backwardPDF_time</td><td></td></tr>
+    <tr><td class="paramname">control</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+
+</div>
+</div>
+<a id="a62952c354762514d88d70e323957fb34"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62952c354762514d88d70e323957fb34">&#9670;&nbsp;</a></span>calculateGradient_forceControl_space_Hm_not_parallel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm_not_parallel </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; std::unordered_map&lt; <a class="el" href="classcoordinate__phase__space__time.html">coordinate_phase_space_time</a>, double &gt;&gt;&#160;</td>
+          <td class="paramname"><em>forwardPDF_time</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; std::unordered_map&lt; <a class="el" href="classcoordinate__phase__space__time.html">coordinate_phase_space_time</a>, double &gt;&gt;&#160;</td>
+          <td class="paramname"><em>backwardPDF_time</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">arma::mat&#160;</td>
+          <td class="paramname"><em>control</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>calculateGradient_forceControl_space_Hm_not_parallel calculates the gradient without using any parallelization; </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">forwardPDF_time</td><td></td></tr>
+    <tr><td class="paramname">backwardPDF_time</td><td></td></tr>
+    <tr><td class="paramname">control</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+
+</div>
+</div>
+<a id="a3a53b6132184c796ef3aca1e306e2211"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a53b6132184c796ef3aca1e306e2211">&#9670;&nbsp;</a></span>calculateGradient_forceControl_space_Hm_plasma()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm_plasma </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; std::unordered_map&lt; <a class="el" href="classcoordinate__phase__space__time.html">coordinate_phase_space_time</a>, double &gt;&gt;&#160;</td>
+          <td class="paramname"><em>forwardPDF_time</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; std::unordered_map&lt; <a class="el" href="classcoordinate__phase__space__time.html">coordinate_phase_space_time</a>, double &gt;&gt;&#160;</td>
+          <td class="paramname"><em>backwardPDF_time</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; std::unordered_map&lt; <a class="el" href="classcoordinate__phase__space__time.html">coordinate_phase_space_time</a>, double &gt;&gt;&#160;</td>
+          <td class="paramname"><em>forwardPDF_time_electrons</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; std::unordered_map&lt; <a class="el" href="classcoordinate__phase__space__time.html">coordinate_phase_space_time</a>, double &gt;&gt;&#160;</td>
+          <td class="paramname"><em>backwardPDF_time_electrons</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">arma::mat&#160;</td>
+          <td class="paramname"><em>control</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>calculateGradient_forceControl_space_Hm_plasma calculates the gradient with two different species (ions, electrons) present </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">forwardPDF_time</td><td></td></tr>
+    <tr><td class="paramname">backwardPDF_time</td><td></td></tr>
+    <tr><td class="paramname">forwardPDF_time_electrons</td><td></td></tr>
+    <tr><td class="paramname">backwardPDF_time_electrons</td><td></td></tr>
+    <tr><td class="paramname">control</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>/home/jan/Promotion_linuxPC/Optim_VSTRAP/src/optimization/<a class="el" href="src_2optimization_2gradient__calculator_8h_source.html">gradient_calculator.h</a></li>
 <li>/home/jan/Promotion_linuxPC/Optim_VSTRAP/src/optimization/gradient_calculator.cpp</li>

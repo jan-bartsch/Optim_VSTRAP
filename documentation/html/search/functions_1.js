@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['h1_5finner_5fproduct',['H1_inner_product',['../classinner__products.html#aa134d04eb9c9bab2fc8965fe2f4563c9',1,'inner_products']]],
-  ['h2_5finner_5fproduct',['H2_inner_product',['../classinner__products.html#a403653f09d10e5cc0f1f5c718b66aeb9',1,'inner_products']]]
+  ['get_5fstepdirection',['get_stepdirection',['../classstepdirection__controller.html#ab2d76b39009f8d6c0121288d79c42a9d',1,'stepdirection_controller']]],
+  ['getvelocitymagnitudeparticle',['getVelocityMagnitudeParticle',['../classparticle.html#a4746319805ea7d18c4a3eac998b02043',1,'particle']]]
 ];

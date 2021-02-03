@@ -36,11 +36,25 @@ class optim_controller : public abstract_controller
 public:
     optim_controller();
 
+    /**
+     * @brief start_optimizer reads in the command line command and starts the optimizer
+     *
+     * @param argc
+     * @param argv
+     * @return
+     */
     int start_optimizer(int argc, const char** argv);
-    static int start_optimization_iteration(const char * input_xml_path);
 
-    static std::unordered_map<coordinate_phase_space_time,double> assemblePDF_thread(std::vector<std::vector<particle>> &particles, unsigned int equation_type, data_provider data_provider_);
+    /**
+     * @brief main_optimization_algorithm is the core optimization algorithm which uses the
+     * paramteres defined in the input file for the optimizer
+     *
+     * @param input_xml_path
+     * @return
+     */
+    static int main_optimization_algorithm(const char * input_xml_path);
 
+private:
     static int check_input_py(data_provider provider, const char * filePathOptimInput);
 
     static arma::mat start_with_zero_control(const char * input_xml_path);

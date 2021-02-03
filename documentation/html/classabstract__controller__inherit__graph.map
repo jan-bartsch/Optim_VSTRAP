@@ -1,15 +1,16 @@
 <map id="abstract_controller" name="abstract_controller">
-<area shape="rect" id="node2" href="$classcomparator.html" title="comparator" alt="" coords="229,5,315,32"/>
-<area shape="rect" id="node3" href="$classdesired__trajectory__controller.html" title="desired_trajectory\l_controller" alt="" coords="209,57,335,98"/>
-<area shape="rect" id="node4" href="$classequation__solving__controller.html" title="equation_solving_controller" alt="" coords="183,123,361,149"/>
-<area shape="rect" id="node5" href="$classgradient__calculator.html" title="gradient_calculator" alt="" coords="207,173,337,200"/>
-<area shape="rect" id="node6" href="$classinner__products.html" title="inner_products" alt="" coords="219,224,325,251"/>
-<area shape="rect" id="node7" href="$classinput.html" title="input" alt="" coords="247,275,297,301"/>
-<area shape="rect" id="node8" href="$classobjective__calculator.html" title="objective_calculator" alt="" coords="203,325,341,352"/>
-<area shape="rect" id="node9" href="$classoptim__controller.html" title="optim_controller" alt="" coords="215,376,329,403"/>
-<area shape="rect" id="node10" href="$classoutput__control__update.html" title="The output_control_update class offers functions to write the update of the control in a file that is..." alt="" coords="197,427,347,453"/>
-<area shape="rect" id="node11" href="$classoutput__diagnostics.html" title="output_diagnostics" alt="" coords="207,477,337,504"/>
-<area shape="rect" id="node12" href="$classpdf__controller.html" title="pdf_controller" alt="" coords="222,528,322,555"/>
-<area shape="rect" id="node13" href="$classstepdirection__controller.html" title="stepdirection_controller" alt="" coords="194,579,350,605"/>
-<area shape="rect" id="node14" href="$classstepsize__controller.html" title="stepsize_controller" alt="" coords="207,629,337,656"/>
+<area shape="rect" id="node2" href="$classcalculus.html" title="The calculus class provides method from analysis. " alt="" coords="237,5,307,32"/>
+<area shape="rect" id="node3" href="$classcomparator.html" title="comparator" alt="" coords="229,56,315,83"/>
+<area shape="rect" id="node4" href="$classdesired__trajectory__controller.html" title="The desired_trajectory_controller class provides the trajectory of the mean value in phase space..." alt="" coords="209,107,335,149"/>
+<area shape="rect" id="node5" href="$classequation__solving__controller.html" title="equation_solving_controller" alt="" coords="183,173,361,200"/>
+<area shape="rect" id="node6" href="$classgradient__calculator.html" title="The gradient_calculator class provides method for assembling to gradient, which is used in the calcul..." alt="" coords="207,224,337,251"/>
+<area shape="rect" id="node7" href="$classinner__products.html" title="inner_products" alt="" coords="219,275,325,301"/>
+<area shape="rect" id="node8" href="$classinput.html" title="input" alt="" coords="247,325,297,352"/>
+<area shape="rect" id="node9" href="$classobjective__calculator.html" title="The objective_calculator class calculates the objective/functional according to Brockett&#39;s approach o..." alt="" coords="203,376,341,403"/>
+<area shape="rect" id="node10" href="$classoptim__controller.html" title="optim_controller" alt="" coords="215,427,329,453"/>
+<area shape="rect" id="node11" href="$classoutput__control__update.html" title="The output_control_update class offers functions to write the update of the control in a file that is..." alt="" coords="197,477,347,504"/>
+<area shape="rect" id="node12" href="$classoutput__diagnostics.html" title="The output_diagnostics class writes the value of different objects to txt files. " alt="" coords="207,528,337,555"/>
+<area shape="rect" id="node13" href="$classpdf__controller.html" title="pdf_controller" alt="" coords="222,579,322,605"/>
+<area shape="rect" id="node14" href="$classstepdirection__controller.html" title="The stepdirection_controller class provides different methods for finding the step&#45;direction, as gradient descent and NCG schemes with different update rules. " alt="" coords="194,629,350,656"/>
+<area shape="rect" id="node15" href="$classstepsize__controller.html" title="The stepsize_controller class provides different methods for finding an accepted step&#45;size (resulting..." alt="" coords="207,680,337,707"/>
 </map>

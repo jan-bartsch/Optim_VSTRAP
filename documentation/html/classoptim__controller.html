@@ -71,7 +71,7 @@ Inheritance diagram for optim_controller:</div>
 <div class="dyncontent">
 <div class="center"><img src="classoptim__controller__inherit__graph.png" border="0" usemap="#optim__controller_inherit__map" alt="Inheritance graph"/></div>
 <map name="optim__controller_inherit__map" id="optim__controller_inherit__map">
-<area shape="rect" id="node2" href="classabstract__controller.html" title="abstract_controller" alt="" coords="5,5,135,32"/>
+<area shape="rect" id="node2" href="classabstract__controller.html" title="The abstract_controller class is inherited by all controller classes. " alt="" coords="5,5,135,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -79,14 +79,14 @@ Collaboration diagram for optim_controller:</div>
 <div class="dyncontent">
 <div class="center"><img src="classoptim__controller__coll__graph.png" border="0" usemap="#optim__controller_coll__map" alt="Collaboration graph"/></div>
 <map name="optim__controller_coll__map" id="optim__controller_coll__map">
-<area shape="rect" id="node2" href="classabstract__controller.html" title="abstract_controller" alt="" coords="5,5,135,32"/>
+<area shape="rect" id="node2" href="classabstract__controller.html" title="The abstract_controller class is inherited by all controller classes. " alt="" coords="5,5,135,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a239f21ed616ef8f350b386cea9be81c1"><td class="memItemLeft" align="right" valign="top"><a id="a239f21ed616ef8f350b386cea9be81c1"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>start_optimizer</b> (int argc, const char **argv)</td></tr>
+<tr class="memitem:a239f21ed616ef8f350b386cea9be81c1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoptim__controller.html#a239f21ed616ef8f350b386cea9be81c1">start_optimizer</a> (int argc, const char **argv)</td></tr>
+<tr class="memdesc:a239f21ed616ef8f350b386cea9be81c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">start_optimizer reads in the command line command and starts the optimizer  <a href="#a239f21ed616ef8f350b386cea9be81c1">More...</a><br /></td></tr>
 <tr class="separator:a239f21ed616ef8f350b386cea9be81c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classabstract__controller"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classabstract__controller')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classabstract__controller.html">abstract_controller</a></td></tr>
 <tr class="memitem:ae4a15450620978e51c578666d359349c inherit pub_methods_classabstract__controller"><td class="memItemLeft" align="right" valign="top"><a id="ae4a15450620978e51c578666d359349c"></a>
@@ -98,33 +98,13 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setData_provider_opti
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:abbf7841344a99ccd29fc38891763b43f"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoptim__controller.html#abbf7841344a99ccd29fc38891763b43f">start_optimization_iteration</a> (const char *input_xml_path)</td></tr>
-<tr class="separator:abbf7841344a99ccd29fc38891763b43f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a040447ec4b6c5ffbdac936f2c7f62b2a"><td class="memItemLeft" align="right" valign="top"><a id="a040447ec4b6c5ffbdac936f2c7f62b2a"></a>
-static std::unordered_map&lt; <a class="el" href="classcoordinate__phase__space__time.html">coordinate_phase_space_time</a>, double &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>assemblePDF_thread</b> (std::vector&lt; std::vector&lt; <a class="el" href="classparticle.html">particle</a> &gt;&gt; &amp;particles, unsigned int equation_type, <a class="el" href="classdata__provider.html">data_provider</a> data_provider_)</td></tr>
-<tr class="separator:a040447ec4b6c5ffbdac936f2c7f62b2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0b0264fedf364aca6d7531fb54239f10"><td class="memItemLeft" align="right" valign="top"><a id="a0b0264fedf364aca6d7531fb54239f10"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>check_input_py</b> (<a class="el" href="classdata__provider.html">data_provider</a> provider, const char *filePathOptimInput)</td></tr>
-<tr class="separator:a0b0264fedf364aca6d7531fb54239f10"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a97a287ae5ad640cc535a5cb3c1daad7f"><td class="memItemLeft" align="right" valign="top"><a id="a97a287ae5ad640cc535a5cb3c1daad7f"></a>
-static arma::mat&#160;</td><td class="memItemRight" valign="bottom"><b>start_with_zero_control</b> (const char *input_xml_path)</td></tr>
-<tr class="separator:a97a287ae5ad640cc535a5cb3c1daad7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a13e9d1f3242d17fb59bdb7c3f3cec85a"><td class="memItemLeft" align="right" valign="top"><a id="a13e9d1f3242d17fb59bdb7c3f3cec85a"></a>
-static arma::mat&#160;</td><td class="memItemRight" valign="bottom"><b>start_with_given_control</b> (const char *input_xml_path)</td></tr>
-<tr class="separator:a13e9d1f3242d17fb59bdb7c3f3cec85a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1fb82035a148ecf540de3619a67783ce"><td class="memItemLeft" align="right" valign="top"><a id="a1fb82035a148ecf540de3619a67783ce"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>generate_input_files</b> (const char *input_xml_path)</td></tr>
-<tr class="separator:a1fb82035a148ecf540de3619a67783ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab4749dcfcb94282f3bbf707c6b4b2ab9"><td class="memItemLeft" align="right" valign="top"><a id="ab4749dcfcb94282f3bbf707c6b4b2ab9"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>post_processing_convergence</b> (<a class="el" href="classdata__provider.html">data_provider</a> provider)</td></tr>
-<tr class="separator:ab4749dcfcb94282f3bbf707c6b4b2ab9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a09e7a25d8170e2f0a2947c93140bcd99"><td class="memItemLeft" align="right" valign="top"><a id="a09e7a25d8170e2f0a2947c93140bcd99"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>final_postprocessing</b> (<a class="el" href="classdata__provider.html">data_provider</a> provider)</td></tr>
-<tr class="separator:a09e7a25d8170e2f0a2947c93140bcd99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa2c0fefd82a319ebc1f4407abb17476a"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoptim__controller.html#aa2c0fefd82a319ebc1f4407abb17476a">main_optimization_algorithm</a> (const char *input_xml_path)</td></tr>
+<tr class="memdesc:aa2c0fefd82a319ebc1f4407abb17476a"><td class="mdescLeft">&#160;</td><td class="mdescRight">main_optimization_algorithm is the core optimization algorithm which uses the paramteres defined in the input file for the optimizer  <a href="#aa2c0fefd82a319ebc1f4407abb17476a">More...</a><br /></td></tr>
+<tr class="separator:aa2c0fefd82a319ebc1f4407abb17476a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="abbf7841344a99ccd29fc38891763b43f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abbf7841344a99ccd29fc38891763b43f">&#9670;&nbsp;</a></span>start_optimization_iteration()</h2>
+<a id="aa2c0fefd82a319ebc1f4407abb17476a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa2c0fefd82a319ebc1f4407abb17476a">&#9670;&nbsp;</a></span>main_optimization_algorithm()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -133,7 +113,7 @@ static int&#160;</td><td class="memItemRight" valign="bottom"><b>final_postproce
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int optim_controller::start_optimization_iteration </td>
+          <td class="memname">int optim_controller::main_optimization_algorithm </td>
           <td>(</td>
           <td class="paramtype">const char *&#160;</td>
           <td class="paramname"><em>input_xml_path</em></td><td>)</td>
@@ -146,14 +126,82 @@ static int&#160;</td><td class="memItemRight" valign="bottom"><b>final_postproce
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>main_optimization_algorithm is the core optimization algorithm which uses the paramteres defined in the input file for the optimizer </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">input_xml_path</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
 <p>START OPTIMIZATION ITERATION</p>
+<p>first stepsize guess, scaled with norm of gradient</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="classoptim__controller_abbf7841344a99ccd29fc38891763b43f_cgraph.png" border="0" usemap="#classoptim__controller_abbf7841344a99ccd29fc38891763b43f_cgraph" alt=""/></div>
-<map name="classoptim__controller_abbf7841344a99ccd29fc38891763b43f_cgraph" id="classoptim__controller_abbf7841344a99ccd29fc38891763b43f_cgraph">
-<area shape="rect" id="node2" href="classoutput__control__update.html#a8261c07e1a6a3a34171ceecb93b27382" title="writeControl_XML takes a control and writes a corresponding XML file " alt="" coords="205,5,356,47"/>
-<area shape="rect" id="node3" href="classinput.html#abc407f396e45ac72844e65cb73cfb335" title="readControl reads in control cells (control in volume) " alt="" coords="218,71,343,98"/>
+<div class="center"><img src="classoptim__controller_aa2c0fefd82a319ebc1f4407abb17476a_cgraph.png" border="0" usemap="#classoptim__controller_aa2c0fefd82a319ebc1f4407abb17476a_cgraph" alt=""/></div>
+<map name="classoptim__controller_aa2c0fefd82a319ebc1f4407abb17476a_cgraph" id="classoptim__controller_aa2c0fefd82a319ebc1f4407abb17476a_cgraph">
+<area shape="rect" id="node2" href="classoutput__control__update.html#a8261c07e1a6a3a34171ceecb93b27382" title="writeControl_XML takes a control and writes a corresponding XML file " alt="" coords="222,5,373,47"/>
+<area shape="rect" id="node3" href="classgradient__calculator.html#a3a53b6132184c796ef3aca1e306e2211" title="calculateGradient_forceControl_space_Hm_plasma calculates the gradient with two different species (io..." alt="" coords="212,71,383,141"/>
+<area shape="rect" id="node4" href="classgradient__calculator.html#a8381a8497dfe88bcb04ff40ce1e235e0" title="calculateGradient_forceControl_space_Hm calculates the gradient with parallelization ..." alt="" coords="212,166,383,222"/>
+<area shape="rect" id="node5" href="classstepdirection__controller.html#ab2d76b39009f8d6c0121288d79c42a9d" title="get_stepdirection generic method called in the main optimizer algorithm " alt="" coords="219,247,375,288"/>
+<area shape="rect" id="node8" href="classinput.html#add508a80b7b6902e59c4867aa8322fc9" title="readControl reads in control cells (control in volume, xml format) " alt="" coords="235,313,360,339"/>
+<area shape="rect" id="node6" href="classinner__products.html#aa134d04eb9c9bab2fc8965fe2f4563c9" title="inner_products::H1\l_inner_product" alt="" coords="611,247,743,288"/>
+<area shape="rect" id="node7" href="classinner__products.html#a403653f09d10e5cc0f1f5c718b66aeb9" title="inner_products::H2\l_inner_product" alt="" coords="431,276,563,317"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a239f21ed616ef8f350b386cea9be81c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a239f21ed616ef8f350b386cea9be81c1">&#9670;&nbsp;</a></span>start_optimizer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int optim_controller::start_optimizer </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>argc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char **&#160;</td>
+          <td class="paramname"><em>argv</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>start_optimizer reads in the command line command and starts the optimizer </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">argc</td><td></td></tr>
+    <tr><td class="paramname">argv</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classoptim__controller_a239f21ed616ef8f350b386cea9be81c1_cgraph.png" border="0" usemap="#classoptim__controller_a239f21ed616ef8f350b386cea9be81c1_cgraph" alt=""/></div>
+<map name="classoptim__controller_a239f21ed616ef8f350b386cea9be81c1_cgraph" id="classoptim__controller_a239f21ed616ef8f350b386cea9be81c1_cgraph">
+<area shape="rect" id="node2" href="classoptim__controller.html#aa2c0fefd82a319ebc1f4407abb17476a" title="main_optimization_algorithm is the core optimization algorithm which uses the paramteres defined in t..." alt="" coords="201,173,360,215"/>
+<area shape="rect" id="node3" href="classoutput__control__update.html#a8261c07e1a6a3a34171ceecb93b27382" title="writeControl_XML takes a control and writes a corresponding XML file " alt="" coords="418,5,569,47"/>
+<area shape="rect" id="node4" href="classgradient__calculator.html#a3a53b6132184c796ef3aca1e306e2211" title="calculateGradient_forceControl_space_Hm_plasma calculates the gradient with two different species (io..." alt="" coords="408,71,579,141"/>
+<area shape="rect" id="node5" href="classgradient__calculator.html#a8381a8497dfe88bcb04ff40ce1e235e0" title="calculateGradient_forceControl_space_Hm calculates the gradient with parallelization ..." alt="" coords="408,166,579,222"/>
+<area shape="rect" id="node6" href="classstepdirection__controller.html#ab2d76b39009f8d6c0121288d79c42a9d" title="get_stepdirection generic method called in the main optimizer algorithm " alt="" coords="415,247,571,288"/>
+<area shape="rect" id="node9" href="classinput.html#add508a80b7b6902e59c4867aa8322fc9" title="readControl reads in control cells (control in volume, xml format) " alt="" coords="431,313,556,339"/>
+<area shape="rect" id="node7" href="classinner__products.html#aa134d04eb9c9bab2fc8965fe2f4563c9" title="inner_products::H1\l_inner_product" alt="" coords="807,247,939,288"/>
+<area shape="rect" id="node8" href="classinner__products.html#a403653f09d10e5cc0f1f5c718b66aeb9" title="inner_products::H2\l_inner_product" alt="" coords="627,276,759,317"/>
 </map>
 </div>
 

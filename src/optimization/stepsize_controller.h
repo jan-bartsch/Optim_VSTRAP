@@ -17,7 +17,10 @@
 #include "../tools/inner_products.h"
 
 
-
+/**
+ * @brief The stepsize_controller class provides different methods for finding an accepted step-size
+ * (resulting in a decreasing value of the functional)
+ */
 class stepsize_controller : public abstract_controller
 {
 public:
