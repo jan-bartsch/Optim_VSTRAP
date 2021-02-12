@@ -34,7 +34,7 @@ public:
     std::vector<double> trajectory_desired_brockett(std::vector<std::vector<double> > brockettVector, unsigned int o,
                                                     unsigned int plasma_state_output_interval);
 
-private:
+
     std::map<int,std::vector<double>> barycenters;
 
     /**

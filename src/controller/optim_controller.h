@@ -54,7 +54,7 @@ public:
      */
     static int main_optimization_algorithm(const char * input_xml_path);
 
-private:
+
     static int check_input_py(data_provider provider, const char * filePathOptimInput);
 
     static arma::mat start_with_zero_control(const char * input_xml_path);

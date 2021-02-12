@@ -90,7 +90,7 @@
     <parameter name="fraction_of_optimal_control" value="1e+0"/>
     <parameter name="optimizationIteration_max_gp" value="100"/>     <!--  number of maximal interations  -->
     <parameter name="numberParticles_gp" value="2000"/>
-    <parameter name="start_zero_control" value="1"/>     <!--  1=true, 0=false (start with given control and input files) , 2: start with given input files but zero control  -->
+    <parameter name="start_zero_control" value="2"/>     <!--  1=true, 0=false (start with given control and input files) , 2: start with given input files but zero control  -->
     <parameter name="tolerance_gp" value="1e-10"/>
     <parameter name="tolerance_relaxation_gp" value="1e-10"/>     <!--  for Gauß-Seidel smoothing -->
     <parameter name="armijio_base_exp" value="0.8"/>     <!--  1.0: there is no exponential diminishing of fraction of new stepsize -->
