@@ -17,7 +17,7 @@ TEST(traj,parameter) {
 
     std::map<std::string, std::string> subs = provider.getSubroutines();
     subs.erase("desired_trajectory");
-    subs.insert(std::pair<std::string,std::string>("desired_trajectory","parameter"));
+    subs.insert(std::pair<std::string,std::string>("desired_trajectory","parameters"));
     provider.setSubroutines(subs);
     trajContr.setData_provider_optim(provider);
 
