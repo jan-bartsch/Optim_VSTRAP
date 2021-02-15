@@ -112,8 +112,8 @@ int optim_controller::main_optimization_algorithm(const char * input_xml_path)
         std::cout << control << std::endl;
     } else if (zero_control == 2) {
         logger::Info("Starting with zero control but not deleting old files");
-        outController.writeControl_XML(control);
         outController.interpolate_control(data_provider_opt);
+        outController.writeControl_XML(control);
     }else {
         logger::Info("Starting without control_field_cells");
     }
@@ -169,6 +169,7 @@ int optim_controller::main_optimization_algorithm(const char * input_xml_path)
 
     for(unsigned int r = 1; r <= optimizationIteration_max_gp; r++) {
 
+
         logger::Info("Starting VSTRAP (foward)... ");
         forward_return = model_solver.start_solving_forward(START_VSTRAP_FORWARD);
         if (forward_return != 0) {
@@ -189,8 +190,11 @@ int optim_controller::main_optimization_algorithm(const char * input_xml_path)
         value_objective = objective.calculate_objective(forwardPDF,control);
         */
 
+
         logger::Info("Finished reading files...");
         logger::Info("Starting VSTRAP (backward)...");
+
+
 
         backward_return = model_solver.start_solving_backward(START_VSTRAP_BACKWARD);
         if (backward_return != 0)  {

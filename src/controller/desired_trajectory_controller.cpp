@@ -13,7 +13,7 @@ std::vector<double> desired_trajectory_controller::trajectory_desired(std::vecto
     std::string objective_calculation = subroutines.find("objective_calculation")->second;
 
 
-    if(desired_traj.compare("parameter")==0) {
+    if(desired_traj.compare("parameters")==0) {
         p_d = this->trajectory_desired_parameters(barycenter,l,m,n,o, plasma_state_output_interval);
     } else if (desired_traj.compare("brockett")==0) {
         p_d = this->trajectory_desired_brockett(brockettVector, o, plasma_state_output_interval);
