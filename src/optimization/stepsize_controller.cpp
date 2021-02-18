@@ -93,7 +93,7 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
 
     if (scalarProduct_Hm>0) {
         std::cout << "No descent direction!" << std::endl;
-        throw std::runtime_error("No descent-direction");
+        //throw std::runtime_error("No descent-direction");
     }
 
     unsigned int counter = 0;
@@ -162,7 +162,8 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
         std::cout << "Armijo: " << "Jtemp = " << Jtemp << std::endl
                   << "J0 + scalarProduct*armijo_descent_fraction = " << J0 + alpha*scalarProduct*armijo_descent_fraction << std::endl
                   << "Stepsize " << alpha << " in " << counter << ". iteration" << std::endl;
-           counter++;
+
+        counter++;
     }
 
     if (alpha < tolerance) {

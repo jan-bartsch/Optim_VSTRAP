@@ -36,6 +36,7 @@ with open(args.pathToResults +'Means.csv', newline='') as csvfile:
 	reader = csv.reader(csvfile, delimiter=',', quotechar='|')
 	for row in reader:
 		#print(', '.join(row))
+		print(counter)
 		means_distance.insert(len(means_distance),math.sqrt(float(row[0])*float(row[0])+float(row[1])*float(row[1])+float(row[2])*float(row[2]))*valide_vector_float[counter])
 		print(math.sqrt(float(row[0])*float(row[0])+float(row[1])*float(row[1])+float(row[2])*float(row[2])))
 		zeros.insert(len(zeros),0)
@@ -43,11 +44,11 @@ with open(args.pathToResults +'Means.csv', newline='') as csvfile:
 
 ax1 = plt.gca()
 plt.title("Norm of cross product (control x perfect control) multiplied by orientation")
-plt.plot(means_distance,'--o',label="Norm")
-plt.plot(zeros,'k')
+plt.plot(discretization_vector_float,means_distance,'--o',label="Norm")
+plt.plot(discretization_vector_float,zeros,'k')
 #ax1.set_yscale('log')
-#ax1.set_xscale('log')
-plt.xlabel("discretization")
+ax1.set_xscale('log')
+plt.xlabel("discretization of mass (weight of particle)")
 plt.ylabel("norm")
 ax1.legend()
 #except:

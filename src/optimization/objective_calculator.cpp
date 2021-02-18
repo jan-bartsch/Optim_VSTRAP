@@ -187,7 +187,7 @@ double objective_calculator::calculate_objective(std::vector<std::unordered_map<
     inner_products product = inner_products();
     product.setData_provider_optim(this->getData_provider_optim());
 
-    //costOfControl += std::sqrt(product.H2_inner_product(control,control));
+    costOfControl += std::sqrt(product.H2_inner_product(control,control));
 
 
     objective += 1.0/C_theta_gp*weight_control_gp*costOfControl;
