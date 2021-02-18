@@ -89,7 +89,7 @@
     <parameter name="fraction_of_optimal_control" value="1e+2"/>
     <parameter name="optimizationIteration_max_gp" value="100"/>     <!--  number of maximal interations  -->
     <parameter name="numberParticles_gp" value="2000"/>
-    <parameter name="start_zero_control" value="1"/>     <!--  1=true, 0=false (start with given control) , 2: start with given files  -->
+    <parameter name="start_zero_control" value="2"/>     <!--  1=true, 0=false (start with given control) , 2: start with given files  -->
     <parameter name="tolerance_gp" value="1e-14"/>
     <parameter name="tolerance_relaxation_gp" value="1e-10"/>     <!--  for Gauß-Seidel smoothing -->
     <parameter name="armijio_base_exp" value="0.8"/>     <!--  1.0: there is no exponential diminishing of fraction of new stepsize -->
@@ -98,19 +98,19 @@
     <!--  DOMAIN PARAMETERS  -->
     <parameter name="pmax_gp" value="0.05"/>
 
-    <parameter name="pcell_gp" value="64"/>
+    <!--parameter name="pcell_gp" value="64"/>
     <parameter name="dp_gp" value="0.000015625"/>
     <parameter name="db_gp" value="0.025"/>
     <parameter name="dimensionOfControl_gp" value="64"/>
     <parameter name="end_control_gp" value="64"/>
-    <parameter name="start_control_gp" value="1"/>
+    <parameter name="start_control_gp" value="1"/-->
 
-    <!--parameter name="pcell_gp" value="216"/>
+    <parameter name="pcell_gp" value="216"/>
     <parameter name="dp_gp" value="4.62962962962963e-6"/>
     <parameter name="db_gp" value="0.016666667"/>
      <parameter name="dimensionOfControl_gp" value="216"/>
     <parameter name="end_control_gp" value="216"/>
-    <parameter name="start_control_gp" value="1"/-->
+    <parameter name="start_control_gp" value="1"/>
 
     <!--parameter name="pcell_gp" value="512"/>
     <parameter name="dp_gp" value="1.953125e-6"/>
@@ -121,10 +121,11 @@
 
 
 
-    <parameter name="dt_gp" value="1e-6"/>
-    <parameter name="ntimesteps_gp" value="20"/>
+    <parameter name="dt_gp" value="1e-5"/>
     <parameter name="dt_VSTRAP" value="1e-6" />
-    <parameter name="plasma_state_output_interavl" value="1" />
+    <parameter name="ntimesteps_gp" value="10"/>
+    <parameter name="plasma_state_output_interval" value="10"/>
+    <parameter name="ntimesteps_gp_VSTRAP" value="100"/> <!-- ntimesteps_gp*plasma_state_output_interval -->
 
     <!--parameter name="dt_gp" value="5e-6"/>
     <parameter name="ntimesteps_gp" value="8"/-->
@@ -160,28 +161,28 @@
 </globalParameters>
 
 <paths>
-	<!--path name="BUILD_DIRECTORY_VSTRAP" value="/HOME/bartsch/SPARC/build-vstrap-Desktop/src/" />
+	<path name="BUILD_DIRECTORY_VSTRAP" value="/HOME/bartsch/SPARC/build-vstrap-Desktop/src/" />
 	<path name="BUILD_DIRECTORY_OPTIM" value="/HOME/bartsch/SPARC/build-Optim-Desktop/src/" />
-	<path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/HOME/bartsch/SPARC/build-Optim-Desktop/src/results/"/-->
+	<path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/HOME/bartsch/SPARC/build-Optim-Desktop/src/results/"/>
 
     <!--path name="BUILD_DIRECTORY_VSTRAP" value="/LocalData/bartsch/build-vstrap-CSMC/src/" />
 	<path name="BUILD_DIRECTORY_OPTIM" value="/LocalData/bartsch/build-Optim-CSMC/src/" />
 	<path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/LocalData/bartsch/build-Optim-CSMC/src/results/" /-->
 
-    <path name="BUILD_DIRECTORY_VSTRAP" value="/home/jan/Promotion_linuxPC/build-vstrap/src/" />
+    <!--path name="BUILD_DIRECTORY_VSTRAP" value="/home/jan/Promotion_linuxPC/build-vstrap/src/" />
     <path name="BUILD_DIRECTORY_OPTIM" value="/home/jan/Promotion_linuxPC/build-Optim/src/" />
-    <path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/home/jan/Promotion_linuxPC/build-Optim/src/results/" />
+    <path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/home/jan/Promotion_linuxPC/build-Optim/src/results/" /-->
 
 	<!--path name="PVPYTHON_ABSOLUTE_DIR" value="/usr/bin/pvpython" /-->
     <path name="PVPYTHON_ABSOLUTE_DIR" value="/home/jan/ParaView-5.8.0-MPI-Linux-Python3.7-64bit/bin/pvpython" />
 
-    <path name="BARYCENTERS_MESH" value="../../Optim_VSTRAP/data/global/mesh_barycenters_small_64.xml"/>
+    <!--path name="BARYCENTERS_MESH" value="../../Optim_VSTRAP/data/global/mesh_barycenters_small_64.xml"/>
     <path name="DOMAIN_MESH" value="../../../Optim_VSTRAP/data/global/box_vol_regular_small.xml"/>
-    <path name="DOMAIN_MESH_FILE" value="box_vol_regular_small.xml"/>
+    <path name="DOMAIN_MESH_FILE" value="box_vol_regular_small.xml"/-->
 
-	<!--path name="BARYCENTERS_MESH" value="../../Optim_VSTRAP/data/global/mesh_barycenters_small_216.xml"/>
+	<path name="BARYCENTERS_MESH" value="../../Optim_VSTRAP/data/global/mesh_barycenters_small_216.xml"/>
 	<path name="DOMAIN_MESH" value="../../../Optim_VSTRAP/data/global/box_vol_regular_small_216.xml"/>
-    <path name="DOMAIN_MESH_FILE" value="box_vol_regular_small_216.xml"/-->
+    <path name="DOMAIN_MESH_FILE" value="box_vol_regular_small_216.xml"/>
 
 
     <!--path name="BARYCENTERS_MESH" value="../../Optim_VSTRAP/data/global/mesh_barycenters_small_512.xml"/>

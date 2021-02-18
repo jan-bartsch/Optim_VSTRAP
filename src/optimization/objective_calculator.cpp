@@ -172,6 +172,9 @@ double objective_calculator::calculate_objective(std::vector<std::unordered_map<
     }
 
     for(unsigned int o = 0; o<pcell_gp; o++) {
+        if (std::isnan(objective_time[o])) {
+            std::runtime_error("Encountered NAN in functional calculation");
+        }
         objective += objective_time[o];
     }
 
@@ -184,7 +187,8 @@ double objective_calculator::calculate_objective(std::vector<std::unordered_map<
     inner_products product = inner_products();
     product.setData_provider_optim(this->getData_provider_optim());
 
-    costOfControl += std::sqrt(product.H2_inner_product(control,control));
+    //costOfControl += std::sqrt(product.H2_inner_product(control,control));
+
 
     objective += 1.0/C_theta_gp*weight_control_gp*costOfControl;
 
