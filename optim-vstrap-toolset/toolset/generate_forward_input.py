@@ -68,10 +68,23 @@ elif(str(params['creation_forward_particles_method'])=='only_inflow'):
     file_forward_input.write("\t\t <executable name=\"particle_initializer\" mode=\"CPU\"> \n \t\t\t<group name=\"forward_particles\" empty=\"true\"/>\n")
     file_forward_input.write("\t\t </executable> \n ")
 
+#########
+## pwi ##
+#########
 
-file_forward_input.write("\t\t <executable name=\"pwi\" mode=\"CPU\"> \n \t\t\t<boundary_type name=\"cuboid\"/>\n")
-file_forward_input.write("\t\t\t <geometry x_min=\"-" +str(optim_pmax_gp) +" \" x_max=\"" +str(optim_pmax_gp) +" \" y_min=\"-" +str(optim_pmax_gp) +" \" y_max=\"" +str(optim_pmax_gp) +" \" z_min=\"-" +str(optim_pmax_gp) +" \" z_max=\"" +str(optim_pmax_gp) +" \"/> \n ")
-file_forward_input.write("\t\t\t <particle_group name=\"forward_particles\"/> \n \t\t </executable> \n")
+file_forward_input.write("\t\t <executable name=\"pwi\" mode=\"CPU\">\n")
+if(float(params['inflow_included'])==1):
+	file_forward_input.write("\t\t\t<boundary_type name=\"mesh\"/>\n")
+	file_forward_input.write("\t\t\t<mesh name=\"surf_mesh\"/>\n")
+	file_forward_input.write("\t\t\t<outlet_surface tag= \"4\"/>\n")
+	file_forward_input.write("\t\t\t<batch name=\"forward_particles\">\n")
+	file_forward_input.write("\t\t\t\t<species name =\""+str(params["species_forward"])+"\"/>\n")
+	file_forward_input.write("\t\t\t</batch>\n")
+else:
+	file_forward_input.write("\t\t\t<boundary_type name=\"cuboid\"/>\n ")
+	file_forward_input.write("\t\t\t <geometry x_min=\"-" +str(optim_pmax_gp) +" \" x_max=\"" +str(optim_pmax_gp) +" \" y_min=\"-" +str(optim_pmax_gp) +" \" y_max=\"" +str(optim_pmax_gp) +" \" z_min=\"-" +str(optim_pmax_gp) +" \" z_max=\"" +str(optim_pmax_gp) +" \"/> \n ")
+	file_forward_input.write("\t\t\t <particle_group name=\"forward_particles\"/> \n")
+file_forward_input.write("\t\t </executable> \n")
 
 file_forward_input.write("\t\t <executable name=\"bgf\" mode=\"CPU\"> \n \t\t\t<volume_mesh name=\"vol_mesh\"/>\n")
 file_forward_input.write("\t\t\t <load>./"+ str(pathsList["BGF_CONTROL"]) +"</load>\n  ")
@@ -141,9 +154,9 @@ if(float(params['inflow_included'])==1):
 if(float(params['fmm'])==1):
 	file_forward_input.write("\t\t\t <executable name=\"fmm\" />\n")
 file_forward_input.write("\t\t\t <executable name=\"dsmc\"/> \n")
-file_forward_input.write("\t\t\t <executable name=\"pusher\"/> \n")
 file_forward_input.write("\t\t\t <executable name=\"pwi\"/> \n")
 file_forward_input.write("\t\t\t <executable name=\"bgf\"/> \n")
+file_forward_input.write("\t\t\t <executable name=\"pusher\"/> \n")
 if(float(params['mesh_2d_writer_included'])==1):
     file_forward_input.write("\t\t\t <executable name=\"mesh_2d_data_writer\" />\n")
 if(float(params['mesh_3d_writer_included'])==1):

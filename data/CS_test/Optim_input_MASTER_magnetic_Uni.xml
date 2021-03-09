@@ -27,7 +27,7 @@
     <parameter name="adjoint_vy" value="0.0"/>
     <parameter name="adjoint_vz" value="0.0"/>
     <parameter name="adjoint_number_density" value="1e+16"/>
-    <parameter name="adjoint_weight" value="1e+9"/>
+    <parameter name="adjoint_weight" value="5e+10"/>
     <parameter name="adjoint_charge_number" value="+1"/>
     <parameter name="adjoint_mass" value="6.63e-26"/>
     <parameter name="adjoint_species" value="40Ar"/>
@@ -50,7 +50,7 @@
     <parameter name="number_density_forward" value="1e+16"/>
     <!--parameter name="weight_forward" value="1e+10"/-->
     <!--parameter name="weight_forward" value="1e+9"/-->
-    <parameter name="weight_forward" value="1e+8"/>
+    <parameter name="weight_forward" value="1e+9"/>
     <!--parameter name="weight_forward" value="1e+7"/--> <!-- for inflow -->
      <!--parameter name="weight_forward" value="1e+6"/-->
     <parameter name="charge_number_forward" value="+1"/>
@@ -59,7 +59,7 @@
     <parameter name="temperature_x_val" value="300"/>
     <parameter name="temperature_y_val" value="300"/>
     <parameter name="temperature_z_val" value="300"/>
-    <parameter name="v_drift_x_val" value="0"/>
+    <parameter name="v_drift_x_val" value="1000"/>
     <parameter name="v_drift_y_val" value="0"/>
     <parameter name="v_drift_z_val" value="0"/>
 
@@ -74,7 +74,7 @@
 
     <parameter name="inflow_included" value="1"/>
     <parameter name="number_density_forward_inflow" value="1e+16"/>
-    <parameter name="weight_forward_inflow" value="1e+8"/>
+    <parameter name="weight_forward_inflow" value="1e+9"/>
     <parameter name="charge_number_forward_inflow" value="+1"/>
     <parameter name="mass_forward_inflow" value="6.63e-26"/>
     <parameter name="species_forward_inflow" value="40Ar+"/>
@@ -124,9 +124,9 @@
 
     <parameter name="dt_gp" value="1e-5"/>
     <parameter name="dt_VSTRAP" value="1e-6" />
-    <parameter name="ntimesteps_gp" value="10"/>
+    <parameter name="ntimesteps_gp" value="20"/>
     <parameter name="plasma_state_output_interval" value="10"/>
-    <parameter name="ntimesteps_gp_VSTRAP" value="100"/> <!-- ntimesteps_gp*plasma_state_output_interval -->
+    <parameter name="ntimesteps_gp_VSTRAP" value="200"/> <!-- ntimesteps_gp*plasma_state_output_interval -->
 
 
     <!--parameter name="dt_gp" value="5e-6"/>

@@ -41,10 +41,16 @@ file_backward_input.write("\t <global_values> \n \t\t <time_step value=\"" + str
 file_backward_input.write("\t <abort_criterium> \n \t\t <max_itterations value=\"" + str(params["ntimesteps_gp_VSTRAP"]) + "\" /> \n \t </abort_criterium>\n")
 
 optim_vMesh = pathsList["DOMAIN_MESH"]
+optim_sMesh = pathsList["SURFACE_MESH"]
 #optim_vMesh = optim_vMesh.replace("../../Optim_VSTRAP/data/","../")
 
-file_backward_input.write("\t <executables> \n \t \t <executable name=\"mesh_initializer\" mode=\"CPU\"> \n \t\t\t <mesh name=\"vol_mesh\">\n")
-file_backward_input.write("\t\t\t\t <load>"+str(optim_vMesh)+"</load> \n \t\t\t </mesh> \n \t\t </executable>\n")
+file_backward_input.write("\t<executables>\n")
+file_backward_input.write("\t\t<executable name=\"mesh_initializer\" mode=\"CPU\"> \n \t\t\t <mesh name=\"vol_mesh\">\n")
+file_backward_input.write("\t\t\t\t <load>"+str(optim_vMesh)+"</load> \n \t\t\t </mesh> \n")
+if(float(params['inflow_included'])==1):
+    file_backward_input.write("\t\t\t<mesh name=\"surf_mesh\">\n")
+    file_backward_input.write("\t\t\t\t <load>"+str(optim_sMesh)+"</load> \n \t\t\t\t <face_data name=\"surface_charging\" type=\"double\"/>\n \t\t\t </mesh> \n")
+file_backward_input.write("\t\t </executable>\n")
 
 file_backward_input.write("\t\t <executable name=\"particle_initializer\" mode=\"CPU\"> \n \t\t\t<group name=\"adjoint_particles\" empty=\"true\"/>\n \t\t </executable>\n")
 
@@ -59,9 +65,25 @@ file_backward_input.write("\t\t\t <particle_group name=\"adjoint_particles\" typ
 #                          +"\" weight=\""+str(params['adjoint_weight'])+"\" charge_number=\"-1\" mass=\"9.109e-31\" species=\"e-\" /> \n")
 file_backward_input.write("\t\t\t <load>"+str(pathsList["CREATION_ADJOINT_PARTCLES"])+"</load> \n \t\t </executable> \n")
 
-file_backward_input.write("\t\t <executable name=\"pwi\" mode=\"CPU\"> \n \t\t\t<boundary_type name=\"cuboid\"/>\n")
-file_backward_input.write("\t\t\t <geometry x_min=\"-" +str(optim_pmax_gp) +" \" x_max=\"" +str(optim_pmax_gp) +" \" y_min=\"-" +str(optim_pmax_gp) +" \" y_max=\"" +str(optim_pmax_gp) +" \" z_min=\"-" +str(optim_pmax_gp) +" \" z_max=\"" +str(optim_pmax_gp) +" \"/> \n ")
-file_backward_input.write("\t\t\t <particle_group name=\"adjoint_particles\"/> \n \t\t </executable> \n")
+
+#########
+## pwi ##
+#########
+
+file_backward_input.write("\t\t <executable name=\"pwi\" mode=\"CPU\">\n")
+if(float(params['inflow_included'])==1):
+	file_backward_input.write("\t\t\t<boundary_type name=\"mesh\"/>\n")
+	file_backward_input.write("\t\t\t<mesh name=\"surf_mesh\"/>\n")
+	file_backward_input.write("\t\t\t<outlet_surface tag= \"4\"/>\n")
+	file_backward_input.write("\t\t\t<batch name=\"adjoint_particles\">\n")
+	file_backward_input.write("\t\t\t\t<species name =\""+str(params["adjoint_species"])+"\"/>\n")
+	file_backward_input.write("\t\t\t</batch>\n")
+else:
+	file_backward_input.write("\t\t\t<boundary_type name=\"cuboid\"/>\n ")
+	file_backward_input.write("\t\t\t <geometry x_min=\"-" +str(optim_pmax_gp) +" \" x_max=\"" +str(optim_pmax_gp) +" \" y_min=\"-" +str(optim_pmax_gp) +" \" y_max=\"" +str(optim_pmax_gp) +" \" z_min=\"-" +str(optim_pmax_gp) +" \" z_max=\"" +str(optim_pmax_gp) +" \"/> \n ")
+	file_backward_input.write("\t\t\t <particle_group name=\"adjoint_particles\"/> \n")
+file_backward_input.write("\t\t </executable> \n")
+
 
 file_backward_input.write("\t\t <executable name=\"bgf\" mode=\"CPU\"> \n \t\t\t<volume_mesh name=\"vol_mesh\"/>\n")
 file_backward_input.write("\t\t\t <load>./"+ str(pathsList["BGF_CONTROL"]) +"</load>\n  ")
