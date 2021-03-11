@@ -25,7 +25,7 @@ public:
 
     static int start_verification(int argc, char **argv);
 
-    static double calculate_mean(arma::mat control);
+    static std::vector<double> calculate_mean(arma::mat control);
 
     static std::vector<double> calculate_mean_doubleMatrix(std::vector<std::vector<double>> control);
 

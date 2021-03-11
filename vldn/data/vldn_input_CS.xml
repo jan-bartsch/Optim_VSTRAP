@@ -1,14 +1,15 @@
 <optimizer_input>
 	<globalParameters>
-		<parameter name="number_controls" value="5" />
+		<parameter name="number_controls" value="3" />
 	</globalParameters>
 	<paths>
 		<path name="DIRECTORY_OPTIM_INPUT" value="/HOME/bartsch/SPARC/Optim_VSTRAP/vldn/data/Optim_input.xml" />
-		<path name="PATH_TO_CONTROLS" value="/HOME/bartsch/SPARC/Optim_VSTRAP/vldn/data/controls-20201126-weight/" />
+		<!--path name="PATH_TO_CONTROLS" value="/HOME/bartsch/SPARC/Optim_VSTRAP/vldn/data/controls-20201126-weight/" /-->
+        <path name="PATH_TO_CONTROLS" value="/HOME/bartsch/SPARC/Optim_VSTRAP/vldn/data/controls-20210311-spatial/" />
 	</paths>
 	<subroutines>
 		<subroutine name="gradient_landau_verification" value="FALSE" />
 		<subroutine name="control_verification" value="TRUE" />
-        <subroutine name="type_control_verification" value="weight"/> <!-- value="weight" value="position" -->
+        <subroutine name="type_control_verification" value="position"/> <!-- value="weight" value="position" -->
 	</subroutines>
 </optimizer_input>

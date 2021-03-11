@@ -77,8 +77,15 @@ int control_verification::start_verification(int argc, char **argv)
         std::cout << "Open file with name " << file << std::endl;
         if (VALIDATION_TYPE.compare("position")==0) {
             arma::mat control =  in.readControl(file.c_str(),static_cast<int>(discretization_vector[i]));
+            means.insert_rows(i,arma::mean(control)*0.001);
+            //means.insert_rows(i,calculate_mean(control));
+            std::cout << means << std::endl;
+            norms.push_back(arma::norm(means.row(i)));
+            valide_vector.push_back(1.0);
         } else if (VALIDATION_TYPE.compare("weight")==0) {
             control =  in.readControl(file.c_str(),pcell_gp);
+            means.insert_rows(i,arma::mean(calculate_cross_error(control,bary,valide_vector)) );
+            norms.push_back(arma::norm(means.row(i))*valide_vector[i]);
         } else {
             throw std::invalid_argument("No such control verification type");
         }
@@ -86,16 +93,13 @@ int control_verification::start_verification(int argc, char **argv)
         control_vector.push_back(control);
         //calculate_cross_error(control,bary,valide_vector);
         //std::cout << arma::mean(calculate_cross_error(control,bary,valide_vector)) << std::endl;
-//        means.insert_rows(i,arma::mean(control)*0.001);
-        means.insert_rows(i,arma::mean(calculate_cross_error(control,bary,valide_vector)) );
-        norms.push_back(arma::norm(means.row(i))*valide_vector[i]);
         //std::cout << "L2 norm: " << std::sqrt(pro.L2_inner_product(control,control)) << std::endl;
         //std::cout << "norm: " << arma::norm(control,"fro")*std::sqrt(0.001/discretization_file[i]) << std::endl; //*0.001/discretization_vector[i]
     }
 
-//    means(iterations-1,0) = mean_weight6[0]*0.001;
-//    means(iterations-1,1) = mean_weight6[1]*0.001;
-//    means(iterations-1,2) = mean_weight6[2]*0.001;
+    //    means(iterations-1,0) = mean_weight6[0]*0.001;
+    //    means(iterations-1,1) = mean_weight6[1]*0.001;
+    //    means(iterations-1,2) = mean_weight6[2]*0.001;
     means.insert_rows(iterations-1,arma::mean(calculate_cross_error(control1_mat,bary,valide_vector)));
     norms.push_back(arma::norm(means.row(iterations-1))*valide_vector[iterations-1]);
     std::cout << means << std::endl;
@@ -145,7 +149,7 @@ int control_verification::start_verification(int argc, char **argv)
     return 0;
 }
 
-double control_verification::calculate_mean(arma::mat control)
+std::vector<double> control_verification::calculate_mean(arma::mat control)
 {
     std::vector<double> mean(3,0.0);
 
@@ -159,7 +163,8 @@ double control_verification::calculate_mean(arma::mat control)
         mean[j] /= static_cast<double>(control.n_rows);
         std::cout << "Mean in column " << j << ": " << mean[j] << std::endl;
     }
-    return (std::abs(mean[0])+(mean[1])+(mean[2]))*0.001/3.0;
+    //return (std::abs(mean[0])+(mean[1])+(mean[2]))*0.001/3.0;
+    return mean;
 }
 
 
@@ -196,7 +201,7 @@ arma::mat control_verification::calculate_cross_error(arma::mat control, arma::m
             std::cerr << "Wrong orientation of control vector" << std::endl;
             valide = -1.0;
         }
-         error_vector.insert_rows(cell_id, arma::cross(control.row(cell_id),(-barycenters.row(cell_id))));
+        error_vector.insert_rows(cell_id, arma::cross(control.row(cell_id),(-barycenters.row(cell_id))));
     }
 
     valide_vector.push_back(valide);
