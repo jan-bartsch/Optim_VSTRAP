@@ -160,7 +160,7 @@
 	<subroutine group="control_update" name="armijo_linesearch"/>
 	<!--  subroutine group="direction_update" name="negative_gradient" /  -->
 	<subroutine group="direction_update" name="ncg_FR"/>
-	<subroutine group="desired_trajectory" name="box_center"/>
+	<subroutine group="desired_trajectory" name="brockett"/>
 	<subroutine group="objective_calculation" name="magnitude"/>
 	<!--   subroutine group="objective_calculation" name="components" /  -->
 </subroutines>
