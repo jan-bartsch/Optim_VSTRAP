@@ -67,6 +67,19 @@
     <parameter name="mesh_3d_name" value="mesh3doutput" />
 
     <parameter name="mesh_3d_outputinterval" value="1"/>
+    
+    <parameter name="inflow_included" value="0"/>
+    <parameter name="number_density_forward_inflow" value="1e+16"/>
+    <parameter name="weight_forward_inflow" value="1e+9"/>
+    <parameter name="charge_number_forward_inflow" value="+1"/>
+    <parameter name="mass_forward_inflow" value="6.63e-26"/>
+    <parameter name="species_forward_inflow" value="40Ar+"/>
+    <parameter name="temperature_x_val_inflow" value="300"/>
+    <parameter name="temperature_y_val_inflow" value="300"/>
+    <parameter name="temperature_z_val_inflow" value="300"/>
+    <parameter name="v_drift_x_val_inflow" value="1e+3"/>
+    <parameter name="v_drift_y_val_inflow" value="0"/>
+    <parameter name="v_drift_z_val_inflow" value="0"/>
 
     <!--  optimization techniques  -->
     <parameter name="fixed_gradient_descent_stepsize" value="1e+2"/>
