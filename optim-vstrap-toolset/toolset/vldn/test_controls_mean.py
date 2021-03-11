@@ -43,12 +43,14 @@ with open(args.pathToResults +'Means.csv', newline='') as csvfile:
 		counter = counter +1
 
 ax1 = plt.gca()
-plt.title("Norm of cross product (control x perfect control) multiplied by orientation")
+#plt.title("Norm of cross product (control x perfect control) multiplied by orientation")
+plt.title("Norm of barycenter of control")
 plt.plot(discretization_vector_float,means_distance,'--o',label="Norm")
 plt.plot(discretization_vector_float,zeros,'k')
 #ax1.set_yscale('log')
-ax1.set_xscale('log')
-plt.xlabel("discretization of mass (weight of particle)")
+#ax1.set_xscale('log')
+#plt.xlabel("discretization of mass (weight of particle)")
+plt.xlabel("discretization of position (number of volumes)")
 plt.ylabel("norm")
 ax1.legend()
 #except:
