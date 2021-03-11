@@ -126,6 +126,8 @@
 	<path name="DIRECTORY_TOOLSET" value="../../Optim_VSTRAP/optim-vstrap-toolset/toolset/"/>
 	<path name="DOMAIN_MESH" value="../../../Optim_VSTRAP/data/global/box_vol_regular_small_512.xml"/>
     <path name="DOMAIN_MESH_FILE" value="box_vol_regular_small_512.xml"/>
+    <path name="SURFACE_MESH" value="../../../Optim_VSTRAP/data/global/mesh/box_surf.xml"/>
+    
 	<path name="RESULTS_DIRECTORY" value="results/"/>
 	<path name="INPUT_FORWARD" value="input_forward_512.xml"/>
 	<path name="INPUT_BACKWARD" value="input_backward_512.xml"/>
