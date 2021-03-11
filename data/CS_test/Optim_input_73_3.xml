@@ -2,8 +2,8 @@
 <globalParameters>
     <parameter name="simulating_plasma" value="0" />
     <parameter name="fmm" value="0" />
-    <parameter name="magnetic_force" value="1" />
-    <parameter name="electric_force" value="0" />
+    <parameter name="magnetic_force" value="0" />
+    <parameter name="electric_force" value="1" />
     
     <parameter name="armijo_descent_fraction" value="1e-30"/>
     <parameter name="calculation_functional" value="1"/>
