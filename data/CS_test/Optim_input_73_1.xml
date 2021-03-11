@@ -90,6 +90,12 @@
     <parameter name="vcell_gp" value="10"/>     <!--  10  -->
     <parameter name="vmax_gp" value="2.5e+3"/>     <!--  2e+3  -->     <!--  maximal velocity (support of forward equaiton)  -->
     <parameter name="fraction_fast_particles_gp" value="0.1"/>
+    
+    
+    <parameter name="dt_VSTRAP" value="1e-6" />
+    <parameter name="plasma_state_output_interval" value="1"/>
+    <parameter name="ntimesteps_gp_VSTRAP" value="40"/> <!-- ntimesteps_gp*plasma_state_output_interval -->
+
 
     <!--  CONTROL  -->
     <parameter name="dimensionOfControl_gp" value="64"/>    <!--  number of elements of the control  -->
