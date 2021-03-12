@@ -49,38 +49,45 @@ int control_verification::start_verification(int argc, char **argv)
     }
 
 
-    std::vector<std::vector<double>> control1 = in.readDoubleMatrix("/afs/ifm/home/bartsch/SPARC/Optim_VSTRAP/vldn/data/controls-20201126-weight/control_1.csv",pcell_gp,",");
-    //std::count << control1 << std::endl;
+//    std::vector<std::vector<double>> control1 = in.readDoubleMatrix("/afs/ifm/home/bartsch/SPARC/Optim_VSTRAP/vldn/data/controls-20201126-weight/control_1.csv",pcell_gp,",");
+//    //std::count << control1 << std::endl;
 
-    arma::mat control1_mat(control1.size(),3,arma::fill::zeros);
-    for(unsigned int i=0; i<control1.size(); i++) {
-        for(unsigned int j=0; j<3; j++) {
-            control1_mat(i,j) = control1[i][j];
-        }
-    }
+//    arma::mat control1_mat(control1.size(),3,arma::fill::zeros);
+//    for(unsigned int i=0; i<control1.size(); i++) {
+//        for(unsigned int j=0; j<3; j++) {
+//            control1_mat(i,j) = control1[i][j];
+//        }
+//    }
 
-    std::vector<double> mean_weight6 = calculate_mean_doubleMatrix(control1);
+    //std::vector<double> mean_weight6 = calculate_mean_doubleMatrix(control1);
 
     arma::mat means;
     std::vector<double> norms;
     arma::mat control;
 
-    std::map<int, std::vector<double>> barycenters = optimization_provider.getMesh_barycenters();
+    std::map<int, std::vector<double> > barycenters = optimization_provider.getMesh_barycenters();
     arma::mat bary = data_provider::convert_barycenters_toArmaMat(barycenters);
 
     std::vector<double> valide_vector;
 
+    std::string barycenter_mesh_path = "";
+    std::map<int, std::vector<double> > current_barycenters = optimization_provider.getMesh_barycenters();
 
-    for (int i = 0; i < iterations-1; i++) {
+
+    for (int i = 0; i < iterations; i++) {
         number = std::to_string(i);
         file = CONTROLS_DIRECTORY +"control_" + number + ".xml";
         std::cout << "Open file with name " << file << std::endl;
         if (VALIDATION_TYPE.compare("position")==0) {
             arma::mat control =  in.readControl(file.c_str(),static_cast<int>(discretization_vector[i]));
-            means.insert_rows(i,arma::mean(control)*0.001);
-            //means.insert_rows(i,calculate_mean(control));
+            barycenter_mesh_path = "../../Optim_VSTRAP/data/global/mesh_barycenters_small_" + std::to_string(static_cast<int>(discretization_vector[i])) + ".xml" ;
+            current_barycenters = optimization_provider.read_mesh_barycenters(&barycenter_mesh_path[0]);
+            bary = data_provider::convert_barycenters_toArmaMat(current_barycenters);
+            means.insert_rows(i,arma::mean(calculate_cross_error(control,bary,valide_vector))*1.0/(static_cast<double>(discretization_vector[i])) );
+            //means.insert_rows(i,arma::mean(control));
+            //calculate_mean(control);
             std::cout << means << std::endl;
-            norms.push_back(arma::norm(means.row(i)));
+            norms.push_back(arma::norm(means.row(i))*0.001);
             valide_vector.push_back(1.0);
         } else if (VALIDATION_TYPE.compare("weight")==0) {
             control =  in.readControl(file.c_str(),pcell_gp);
@@ -100,8 +107,8 @@ int control_verification::start_verification(int argc, char **argv)
     //    means(iterations-1,0) = mean_weight6[0]*0.001;
     //    means(iterations-1,1) = mean_weight6[1]*0.001;
     //    means(iterations-1,2) = mean_weight6[2]*0.001;
-    means.insert_rows(iterations-1,arma::mean(calculate_cross_error(control1_mat,bary,valide_vector)));
-    norms.push_back(arma::norm(means.row(iterations-1))*valide_vector[iterations-1]);
+    //means.insert_rows(iterations-1,arma::mean(calculate_cross_error(control1_mat,bary,valide_vector)));
+    //norms.push_back(arma::norm(means.row(iterations-1))*valide_vector[iterations-1]);
     std::cout << means << std::endl;
 
 
@@ -155,6 +162,8 @@ std::vector<double> control_verification::calculate_mean(arma::mat control)
 
     std::cout << arma::mean(control)*0.001 << std::endl;
 
+    std::cout << control << std::endl;
+
 
     for(unsigned long j = 0; j < control.n_cols; j++ ) {
         for(unsigned long i = 0; i<control.n_rows; i++) {
@@ -194,8 +203,8 @@ arma::mat control_verification::calculate_cross_error(arma::mat control, arma::m
 
 
     for(unsigned int cell_id = 0; cell_id < barycenters.n_rows; cell_id++) {
-        //std::cout << control.row(cell_id) << std::endl;
-        //std::cout << -barycenters.row(cell_id) << std::endl;
+        std::cout << control.row(cell_id) << std::endl;
+        std::cout << -barycenters.row(cell_id) << std::endl;
         orientation[cell_id] = arma::dot(control.row(cell_id),-barycenters.row(cell_id));
         if(orientation[cell_id]<0) {
             std::cerr << "Wrong orientation of control vector" << std::endl;

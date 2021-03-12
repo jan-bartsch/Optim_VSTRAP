@@ -85,6 +85,7 @@
     <parameter name="fixed_gradient_descent_stepsize" value="1e+2"/>
     <parameter name="fraction_of_optimal_control" value="1e-5"/>
     <parameter name="optimizationIteration_max_gp" value="5"/>     <!--  number of maximal interations  -->
+     <parameter name="linesearchIteration_max_gp" value="50"/>     <!--  number of maximal interations  -->
     <parameter name="numberParticles_gp" value="2000"/>
     <parameter name="start_zero_control" value="1"/>     <!--  1=true, 0=false, 2: start with given files  -->
     <parameter name="tolerance_gp" value="1e-14"/>

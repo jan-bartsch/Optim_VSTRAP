@@ -56,4 +56,5 @@ ax1.legend()
 #except:
 #	print("No Difference file existing")
 
+tikzplotlib.save("./results/control_verification.tex")
 plt.show()

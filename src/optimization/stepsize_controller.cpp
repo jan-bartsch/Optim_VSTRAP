@@ -53,7 +53,7 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
     std::map<std::string, std::string> paths = this->getData_provider_optim().getPaths();
 
     unsigned int ntimesteps_gp = static_cast<unsigned int>(optimizationParameters.find("ntimesteps_gp")->second);
-    unsigned int optimizationIteration_max_gp = static_cast<unsigned int>(optimizationParameters.find("optimizationIteration_max_gp")->second);
+    unsigned int linesearchIteration_max_gp = static_cast<unsigned int>(optimizationParameters.find("linesearchIteration_max_gp")->second);
     double dt_gp = static_cast<double>(optimizationParameters.find("dt_gp")->second);
      double db_gp = static_cast<double>(optimizationParameters.find("db_gp")->second);
     double armijo_descent_fraction = static_cast<double>(optimizationParameters.find("armijo_descent_fraction")->second);
@@ -135,7 +135,7 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
 
 
     while (Jtemp > J0 + alpha*scalarProduct_Hm*armijo_descent_fraction && alpha > tolerance
-          && counter <= optimizationIteration_max_gp) {
+          && counter <= linesearchIteration_max_gp) {
     //while (Jtemp > J0 - alpha*scalarProduct_Stepdirection*armijo_descent_fraction && alpha > tolerance
      //      && counter <= optimizationIteration_max_gp) {
         alpha = pow(armijio_base_exp,counter)*armijo_iterative_exp*alpha;
