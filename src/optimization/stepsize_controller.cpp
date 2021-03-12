@@ -137,7 +137,7 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
     while (Jtemp > J0 + alpha*scalarProduct_Hm*armijo_descent_fraction && alpha > tolerance
           && counter <= linesearchIteration_max_gp) {
     //while (Jtemp > J0 - alpha*scalarProduct_Stepdirection*armijo_descent_fraction && alpha > tolerance
-     //      && counter <= optimizationIteration_max_gp) {
+     //      && counter <= linesearchIteration_max_gp) {
         alpha = pow(armijio_base_exp,counter)*armijo_iterative_exp*alpha;
 
         control = control0 + alpha*stepdirection;
@@ -178,8 +178,11 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
         logger::Info("Minimum already reached. You may want to decrease your tolerance? (Was " + streamObj.str() + ")");
         return_flag = 1;
         return return_flag;
-    } else if (counter > optimizationIteration_max_gp) {
-        logger::Info("Maximum interation depth ( " + std::to_string(optimizationIteration_max_gp) + " ) reached without decrease!");
+    } else if (counter > linesearchIteration_max_gp) {
+        control = control0;
+        outController.writeControl_XML(control0);
+        outController.interpolate_control(outController.getData_provider_optim());
+        logger::Info("Maximum interation depth ( " + std::to_string(linesearchIteration_max_gp) + " ) reached without decrease!");
         return_flag = 2;
         return return_flag;
     } else {
@@ -220,7 +223,7 @@ int stepsize_controller::gradient_descent(arma::mat &control, arma::mat &stepdir
     std::string DOMAIN_MESH = paths.find("DOMAIN_MESH")->second;
 
     unsigned int ntimesteps_gp = static_cast<unsigned int>(optimizationParameters.find("ntimesteps_gp")->second);
-    unsigned int optimizationIteration_max_gp = static_cast<unsigned int>(optimizationParameters.find("optimizationIteration_max_gp")->second);
+    unsigned int linesearchIteration_max_gp = static_cast<unsigned int>(optimizationParameters.find("linesearchIteration_max_gp")->second);
     double dt_gp = static_cast<double>(optimizationParameters.find("dt_gp")->second);
     double armijo_descent_fraction = static_cast<double>(optimizationParameters.find("armijo_descent_fraction")->second);
     double tolerance = static_cast<double>(optimizationParameters.find("tolerance_gp")->second);
@@ -240,7 +243,7 @@ int stepsize_controller::gradient_descent(arma::mat &control, arma::mat &stepdir
     std::vector<std::unordered_map<coordinate_phase_space_time,double>> forwardPDF_time;
     std::vector<std::unordered_map<coordinate_phase_space_time,double>> pdf_time(ntimesteps_gp);
 
-    while (assembling_flag == 1 && static_cast<unsigned int>(counter) <= optimizationIteration_max_gp) {
+    while (assembling_flag == 1 && static_cast<unsigned int>(counter) <= linesearchIteration_max_gp) {
         int forward_return;
         alpha = alpha/2.0;
 
