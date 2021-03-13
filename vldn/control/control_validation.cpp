@@ -83,8 +83,8 @@ int control_verification::start_verification(int argc, char **argv)
             barycenter_mesh_path = "../../Optim_VSTRAP/data/global/mesh_barycenters_small_" + std::to_string(static_cast<int>(discretization_vector[i])) + ".xml" ;
             current_barycenters = optimization_provider.read_mesh_barycenters(&barycenter_mesh_path[0]);
             bary = data_provider::convert_barycenters_toArmaMat(current_barycenters);
-            means.insert_rows(i,arma::mean(calculate_cross_error(control,bary,valide_vector))*1.0/(static_cast<double>(discretization_vector[i])) );
-            //means.insert_rows(i,arma::mean(control));
+            //means.insert_rows(i,arma::mean(calculate_cross_error(control,bary,valide_vector))*1.0/(static_cast<double>(discretization_vector[i])) );
+            means.insert_rows(i,arma::mean(control)*0.001);
             //calculate_mean(control);
             std::cout << means << std::endl;
             norms.push_back(arma::norm(means.row(i))*0.001);
