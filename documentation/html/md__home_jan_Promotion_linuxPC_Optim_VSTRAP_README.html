@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Optim_VSTRAP: LARA  - _A Monte Car**L**o framework for optim**A**l cont**R**ol of plasm**A**_</title>
+<title>MOTIONS: MOTIONS  - _A Monte Carlo framework for optimal control of plasma_</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Optim_VSTRAP
+   <div id="projectname">MOTIONS
    </div>
   </td>
  </tr>
@@ -59,7 +59,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">LARA - _A Monte Car**L**o framework for optim**A**l cont**R**ol of plasm**A**_ </div>  </div>
+<div class="title">MOTIONS - _A Monte Carlo framework for optimal control of plasma_ </div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p>The program solves optimal control problems governed by the non-linear kinetic equations including external forces and a collision term in a Monte Carlo framwork.</p>
@@ -67,9 +67,9 @@ $(function() {
 <p>The code was optimized for Ubuntu 18.04 LTS. Before downloading the dependencies, make sure that Ubuntu is up-to-date using <code>sudo apt-get update</code> and <code>sudo apt-get upgrade</code>.</p>
 <p>To use the optimizer, <code>vstrap</code> must be installed on the machine.</p>
 <p>Before compiling the code the following dependencies and libraries must be installed:</p><ul>
-<li><a href="http://arma.sourceforge.net/docs.html">Armadillo</a> (this includes lapacke and blas): install using <div class="fragment"><div class="line">+ openMP: install using </div><div class="line">```sudo apt install libomp-de</div></div><!-- fragment --></li>
+<li><a href="http://arma.sourceforge.net/docs.html">Armadillo</a> (this includes lapacke and blas): install using <div class="fragment"><div class="line">+ openMP: install using</div><div class="line">```sudo apt install libomp-de</div></div><!-- fragment --></li>
 <li>boost: install using <div class="fragment"><div class="line">+ build-essentials: install using</div><div class="line">+ ```sudo apt-get install build-essentia</div></div><!-- fragment --></li>
-<li>cmake: install using <div class="fragment"><div class="line">For **optional** postprocessing ```python3``` should be installed including the packages</div><div class="line">+ argparse</div><div class="line">+ pyplot from matplotlib</div><div class="line">+ tikzplotlib</div><div class="line">+ numpy </div><div class="line">+ math</div><div class="line">+ pandas</div><div class="line"></div><div class="line">The packages can be installed using the following commands</div><div class="line">```sh</div><div class="line">sudo apt install python3-pip -y</div><div class="line">pip3 install matplotlib tikzplotlib pandas numpy</div></div><!-- fragment --></li>
+<li>cmake: install using <div class="fragment"><div class="line">For **optional** postprocessing ```python3``` should be installed including the packages</div><div class="line">+ argparse</div><div class="line">+ pyplot from matplotlib</div><div class="line">+ tikzplotlib</div><div class="line">+ numpy</div><div class="line">+ math</div><div class="line">+ pandas</div><div class="line"></div><div class="line">The packages can be installed using the following commands</div><div class="line">```sh</div><div class="line">sudo apt install python3-pip -y</div><div class="line">pip3 install matplotlib tikzplotlib pandas numpy</div></div><!-- fragment --></li>
 </ul>
 <h2>Problem specifications</h2>
 <p>In the file <em>Optim_input.xml</em> it is possible to specify the parameters used by the program. View the comments in te file to get information about the purpose of each parameter. The file <code>src/controller/optim_controller.cpp</code> is the core of the optimization.</p>
@@ -90,7 +90,7 @@ $(function() {
 <h2>Compile and run the program</h2>
 <p>After speficying the parameters, it is possible to compile the code and start the program with the following commands executed in the directory containing the <code>MOCOKI</code> folder. </p><div class="fragment"><div class="line">mkdir build-Optim &amp;&amp; cd build-Optim</div><div class="line">cmake ../Optim_VSTRAP</div><div class="line">make</div><div class="line">./Optim_VSTRAP_CMAKE &lt;path/to/&gt;Optim_input.xml</div></div><!-- fragment --> <h2>Post-processing</h2>
 <p>There are <code>python</code> files to visualize the results of the MOCOKI code. Assuming the build directory <code>build-Optim</code> is at the same directory level as the <code>Optim_VSTRAP</code> folder, the following commands executed from the <code>pprc</code> folder can be used to visualize data generated by the code.</p>
-<p>The following command takes files containing data about development of the value of functional, norm of gradient, norm of control and stepsize during the optimization process and plots these. </p><div class="fragment"><div class="line">python3 visualize_control.py ../../data/box_shifting_CSSC/interpolated_control_field.xml ../../data/global/box_coarse_512.xml</div></div><!-- fragment --><p>The following command gives plots the control in the current iteration. One has to call the functional specifying the current control and the discretization of the physical domain. </p><div class="fragment"><div class="line">python3 post_processing_convergence.py ../../../build-Optim/src/results/ </div></div><!-- fragment --><h2>Using the dockerized version - UNDER CONSTRUCTION</h2>
+<p>The following command takes files containing data about development of the value of functional, norm of gradient, norm of control and stepsize during the optimization process and plots these. </p><div class="fragment"><div class="line">python3 visualize_control.py ../../data/box_shifting_CSSC/interpolated_control_field.xml ../../data/global/box_coarse_512.xml</div></div><!-- fragment --><p>The following command gives plots the control in the current iteration. One has to call the functional specifying the current control and the discretization of the physical domain. </p><div class="fragment"><div class="line">python3 post_processing_convergence.py ../../../build-Optim/src/results/</div></div><!-- fragment --><h2>Using the dockerized version - UNDER CONSTRUCTION</h2>
 <p>It is possible to install a docker containing all the needed libraries and dependencies using the following commands executed in the folder in which the <code>mocoki-image.tar</code> file is located. </p><div class="fragment"><div class="line">sudo docker load &lt; mocoki-image.tar #loads image</div><div class="line">sudo docker run --name container_mocoki -it mocoki #creates and starts container named &#39;container_mocoki&#39; using the mocoki:latest image</div></div><!-- fragment --><p> After exiting the container, it can be started again using the command </p><div class="fragment"><div class="line">sudo docker container start -ai container_mocoki</div><div class="line"></div><div class="line">Inside the container go inside the ```MOCOKI``` folder and run</div><div class="line">```sh</div><div class="line">sh setup_cmake.sh</div></div><!-- fragment --><p>This will execute the current version of the code.</p>
 <p>You can also change the code outside the docker container and copy it into and from the container using the commands </p><div class="fragment"><div class="line">sudo docker cp MOCOKI/ container_mocoki:MOCOKI #copy inside the container</div><div class="line">sudo docker cp container_mocoki:build-MOCOKI build-MOCOKI-v08 #copy build folder from container to local machine</div></div><!-- fragment --><p> The <code>sudo</code> command may be discarded inside docker. </p>
 </div></div><!-- contents -->

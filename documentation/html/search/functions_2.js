@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['h1_5finner_5fproduct',['H1_inner_product',['../classinner__products.html#aa134d04eb9c9bab2fc8965fe2f4563c9',1,'inner_products']]],
-  ['h2_5finner_5fproduct',['H2_inner_product',['../classinner__products.html#a403653f09d10e5cc0f1f5c718b66aeb9',1,'inner_products']]]
+  ['d1_5fbackward',['D1_backward',['../classequation__solving__controller.html#aaec311f862924034fef6e7208ac44a21',1,'equation_solving_controller']]],
+  ['d1_5fforward',['D1_forward',['../classequation__solving__controller.html#ac9b385260a874994dec76993910980ec',1,'equation_solving_controller']]],
+  ['d1_5fsecond_5forder',['D1_second_order',['../classequation__solving__controller.html#ae7fa9058be2e5580569a723cfe4040fc',1,'equation_solving_controller']]],
+  ['d1x1_5fsecond_5forder',['D1X1_second_order',['../classequation__solving__controller.html#a1d7f3f877f775de429d4251f189afbab',1,'equation_solving_controller']]]
 ];

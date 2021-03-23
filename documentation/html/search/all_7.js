@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['lara_20_20_2d_20_5fa_20monte_20car_2a_2al_2a_2ao_20framework_20for_20optim_2a_2aa_2a_2al_20cont_2a_2ar_2a_2aol_20of_20plasm_2a_2aa_2a_2a_5f',['LARA  - _A Monte Car**L**o framework for optim**A**l cont**R**ol of plasm**A**_',['../md__home_jan_Promotion_linuxPC_Optim_VSTRAP_README.html',1,'']]]
+  ['laplacian_5f3d',['Laplacian_3D',['../classequation__solving__controller.html#a3488080edc0c9a8cf8579fcd466ca429',1,'equation_solving_controller']]],
+  ['laplacian_5fsquared_5f3d',['Laplacian_Squared_3D',['../classequation__solving__controller.html#a3ecc85d3b88fd0350ed0af025638de1c',1,'equation_solving_controller']]]
 ];

@@ -19,7 +19,7 @@ public:
     stepdirection_controller(const char * filename);
 
     /**
-     * @brief get_stepdirection generic method called in the main optimizer algorithm
+     * @brief get_stepdirection is a generic method called in the main optimizer algorithm
      * @param gradient
      * @param gradient_old
      * @param stepdirectionOld

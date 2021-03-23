@@ -1,5 +1,5 @@
 
-# LARA  - _A Monte Car**L**o framework for optim**A**l cont**R**ol of plasm**A**_
+# MOTIONS  - _A Monte Carlo framework for optimal control of plasma_
 
 The program solves optimal control problems governed by the non-linear kinetic equations including external forces and a collision term in a Monte Carlo framwork.
 
@@ -9,22 +9,22 @@ The code was optimized for Ubuntu 18.04 LTS. Before downloading the dependencies
 To use the optimizer, ```vstrap``` must be installed on the machine.
 
 Before compiling the code the following dependencies and libraries must be installed:
-+ [Armadillo](http://arma.sourceforge.net/docs.html) (this includes lapacke and blas): install using 
++ [Armadillo](http://arma.sourceforge.net/docs.html) (this includes lapacke and blas): install using
 ```sudo apt install liblapack-dev libblas-dev libarmadillo-dev```
-+ openMP: install using 
++ openMP: install using
 ```sudo apt install libomp-dev```
-+ boost: install using 
++ boost: install using
 ```sudo apt install boost-dev```
 + build-essentials: install using
 + ```sudo apt-get install build-essential```
-+ cmake: install using 
++ cmake: install using
 ```sudo apt install cmake```
 
 For **optional** postprocessing ```python3``` should be installed including the packages
 + argparse
 + pyplot from matplotlib
 + tikzplotlib
-+ numpy 
++ numpy
 + math
 + pandas
 
@@ -43,7 +43,7 @@ The file ```src/controller/optim_controller.cpp``` is the core of the optimizati
 
 ## Structure of the code
 The source code is structured in five categories:
-+ **src/controller**: 	contains auxiliary subroutines like generating of probability density functions (pdf) and controller for input/output 
++ **src/controller**: 	contains auxiliary subroutines like generating of probability density functions (pdf) and controller for input/output
 + **src/io**: 		contains methods for solving the linear kinetic and adjoint linear kinetic problem
 + **src/logger**: 	core of optimization methods; contains important ncg subroutines and armijo-linesearch as well as functions providing the value of the functional and building the gradient
 + **src/objects**: 	contains python files for visualizing the results of the program
@@ -74,7 +74,7 @@ python3 visualize_control.py ../../data/box_shifting_CSSC/interpolated_control_f
 
 The following command gives plots the control in the current iteration. One has to call the functional specifying the current control and the discretization of the physical domain.
 ```sh
-python3 post_processing_convergence.py ../../../build-Optim/src/results/ 
+python3 post_processing_convergence.py ../../../build-Optim/src/results/
 ```
 
 ## Using the dockerized version - UNDER CONSTRUCTION

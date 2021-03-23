@@ -121,7 +121,6 @@ int optim_controller::main_optimization_algorithm(const char * input_xml_path)
     /*
      * Check consistency and sanity of input files
      */
-    //check_input_py(data_provider_opt, input_xml_path);
     parameter_sanity ps = parameter_sanity();
     ps.check_adjoint_velocity(data_provider_opt);
     ps.check_adjoint_velocity(data_provider_opt);
@@ -165,11 +164,7 @@ int optim_controller::main_optimization_algorithm(const char * input_xml_path)
 
     unsigned int optimizationIteration_max_gp = static_cast<unsigned int>(optimizationParameters.find("optimizationIteration_max_gp")->second);
 
-    //input_control.readBrockettFile(PATH_TO_SHARED_FILES+"brockett.csv",",",ntimesteps_gp);
-
     for(unsigned int r = 1; r <= optimizationIteration_max_gp; r++) {
-
-
         logger::Info("Starting VSTRAP (foward)... ");
         forward_return = model_solver.start_solving_forward(START_VSTRAP_FORWARD);
         if (forward_return != 0) {
@@ -183,13 +178,6 @@ int optim_controller::main_optimization_algorithm(const char * input_xml_path)
         if (simulating_plasma==1) {
             input_control.read_plasma_state_forward(forwardParticles_electrons,"plasma_state_batch_e_forward_particles_electrons_CPU_");
         }
-
-
-        /*assembling_flag = pdf_control.assemblingMultiDim_parallel(forwardParticles,0,pdf_time);
-        forwardPDF = pdf_time;
-        value_objective = objective.calculate_objective(forwardPDF,control);
-        */
-
 
         logger::Info("Finished reading files...");
         logger::Info("Starting VSTRAP (backward)...");

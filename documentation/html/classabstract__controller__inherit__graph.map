@@ -7,10 +7,10 @@
 <area shape="rect" id="node7" href="$classinner__products.html" title="inner_products" alt="" coords="219,275,325,301"/>
 <area shape="rect" id="node8" href="$classinput.html" title="input" alt="" coords="247,325,297,352"/>
 <area shape="rect" id="node9" href="$classobjective__calculator.html" title="The objective_calculator class calculates the objective/functional according to Brockett&#39;s approach o..." alt="" coords="203,376,341,403"/>
-<area shape="rect" id="node10" href="$classoptim__controller.html" title="optim_controller" alt="" coords="215,427,329,453"/>
+<area shape="rect" id="node10" href="$classoptim__controller.html" title="The optim_controller class provides methods for starting and the optimizer and visualizing the result..." alt="" coords="215,427,329,453"/>
 <area shape="rect" id="node11" href="$classoutput__control__update.html" title="The output_control_update class offers functions to write the update of the control in a file that is..." alt="" coords="197,477,347,504"/>
 <area shape="rect" id="node12" href="$classoutput__diagnostics.html" title="The output_diagnostics class writes the value of different objects to txt files. " alt="" coords="207,528,337,555"/>
-<area shape="rect" id="node13" href="$classpdf__controller.html" title="pdf_controller" alt="" coords="222,579,322,605"/>
-<area shape="rect" id="node14" href="$classstepdirection__controller.html" title="The stepdirection_controller class provides different methods for finding the step&#45;direction, as gradient descent and NCG schemes with different update rules. " alt="" coords="194,629,350,656"/>
+<area shape="rect" id="node13" href="$classpdf__controller.html" title="The pdf_controller class provides important method for assembling and smoothing of probability densit..." alt="" coords="222,579,322,605"/>
+<area shape="rect" id="node14" href="$classstepdirection__controller.html" title="The stepdirection_controller class provides different methods for finding the step&#45;direction, as gradient descent and non&#45;linear conjugate gradient (NCG) schemes with different update rules; see e.g. https://www.caam.rice.edu/~yzhang/caam554/pdf/cgsurvey.pdf. " alt="" coords="194,629,350,656"/>
 <area shape="rect" id="node15" href="$classstepsize__controller.html" title="The stepsize_controller class provides different methods for finding an accepted step&#45;size (resulting..." alt="" coords="207,680,337,707"/>
 </map>

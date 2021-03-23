@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Optim_VSTRAP: particle Class Reference</title>
+<title>MOTIONS: particle Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Optim_VSTRAP
+   <div id="projectname">MOTIONS
    </div>
   </td>
  </tr>
@@ -65,6 +65,11 @@ $(function() {
 <div class="title">particle Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>The particle class defines a particle using its position, velocity and weight.  
+ <a href="classparticle.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="src_2objects_2particle_8h_source.html">particle.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -77,14 +82,14 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a19d2d4e8dc60c0a014415a601671bd07"><td class="memItemLeft" align="right" valign="top"><a id="a19d2d4e8dc60c0a014415a601671bd07"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>particle</b> (double px, double py, double pz, double vx, double vy, double vz, int cell_id)</td></tr>
 <tr class="separator:a19d2d4e8dc60c0a014415a601671bd07"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab743d68f73ebb2ae9fa18c05cf1a5bf3"><td class="memItemLeft" align="right" valign="top"><a id="ab743d68f73ebb2ae9fa18c05cf1a5bf3"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const <a class="el" href="classparticle.html">particle</a> &amp;<a class="el" href="classparticle.html">particle</a>) const</td></tr>
+<tr class="memitem:ab743d68f73ebb2ae9fa18c05cf1a5bf3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classparticle.html#ab743d68f73ebb2ae9fa18c05cf1a5bf3">operator==</a> (const <a class="el" href="classparticle.html">particle</a> &amp;<a class="el" href="classparticle.html">particle</a>) const</td></tr>
+<tr class="memdesc:ab743d68f73ebb2ae9fa18c05cf1a5bf3"><td class="mdescLeft">&#160;</td><td class="mdescRight">operator == overloads the compare operator. Two particles equal if the difference of the values in every component is less than a given tolerance (comparing two doubles)  <a href="#ab743d68f73ebb2ae9fa18c05cf1a5bf3">More...</a><br /></td></tr>
 <tr class="separator:ab743d68f73ebb2ae9fa18c05cf1a5bf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4746319805ea7d18c4a3eac998b02043"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classparticle.html#a4746319805ea7d18c4a3eac998b02043">getVelocityMagnitudeParticle</a> ()</td></tr>
 <tr class="memdesc:a4746319805ea7d18c4a3eac998b02043"><td class="mdescLeft">&#160;</td><td class="mdescRight">getVelocityMagnitudeParticle calculates speed of particles using Euclidean Norm  <a href="#a4746319805ea7d18c4a3eac998b02043">More...</a><br /></td></tr>
 <tr class="separator:a4746319805ea7d18c4a3eac998b02043"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a48098f62cff10f99c3676ac12a168f02"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classparticle.html#a48098f62cff10f99c3676ac12a168f02">toString</a> ()</td></tr>
-<tr class="memdesc:a48098f62cff10f99c3676ac12a168f02"><td class="mdescLeft">&#160;</td><td class="mdescRight">toString  <a href="#a48098f62cff10f99c3676ac12a168f02">More...</a><br /></td></tr>
+<tr class="memitem:a48098f62cff10f99c3676ac12a168f02"><td class="memItemLeft" align="right" valign="top"><a id="a48098f62cff10f99c3676ac12a168f02"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>toString</b> ()</td></tr>
 <tr class="separator:a48098f62cff10f99c3676ac12a168f02"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a932b36c4cdf7439e02f06ca764f9c286"><td class="memItemLeft" align="right" valign="top"><a id="a932b36c4cdf7439e02f06ca764f9c286"></a>
 double&#160;</td><td class="memItemRight" valign="bottom"><b>getPx</b> () const</td></tr>
@@ -135,7 +140,9 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>getWeight</b> () co
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setWeight</b> (double value)</td></tr>
 <tr class="separator:aa87c1c0af14e2143fdb8f9c39a73451c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>The particle class defines a particle using its position, velocity and weight. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a4746319805ea7d18c4a3eac998b02043"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4746319805ea7d18c4a3eac998b02043">&#9670;&nbsp;</a></span>getVelocityMagnitudeParticle()</h2>
 
@@ -156,22 +163,29 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setWeight</b> (double
 
 </div>
 </div>
-<a id="a48098f62cff10f99c3676ac12a168f02"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a48098f62cff10f99c3676ac12a168f02">&#9670;&nbsp;</a></span>toString()</h2>
+<a id="ab743d68f73ebb2ae9fa18c05cf1a5bf3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab743d68f73ebb2ae9fa18c05cf1a5bf3">&#9670;&nbsp;</a></span>operator==()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::string particle::toString </td>
+          <td class="memname">bool particle::operator== </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td class="paramtype">const <a class="el" href="classparticle.html">particle</a> &amp;&#160;</td>
+          <td class="paramname"><em>particle</em></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>toString </p>
+<p>operator == overloads the compare operator. Two particles equal if the difference of the values in every component is less than a given tolerance (comparing two doubles) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">particle</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section return"><dt>Returns</dt><dd></dd></dl>
 
 </div>

@@ -1,0 +1,6 @@
+<map id="output_control_update::writeControl_XML" name="output_control_update::writeControl_XML">
+<area shape="rect" id="node2" href="$classoptim__controller.html#aa2c0fefd82a319ebc1f4407abb17476a" title="main_optimization_algorithm is the core optimization algorithm which uses the paramteres defined in t..." alt="" coords="400,24,559,66"/>
+<area shape="rect" id="node4" href="$classoptim__controller.html#a97a287ae5ad640cc535a5cb3c1daad7f" title="start_with_zero_control deletes the whole folder containing the files from the last optimization run..." alt="" coords="204,24,352,66"/>
+<area shape="rect" id="node5" href="$classoptim__controller.html#a13e9d1f3242d17fb59bdb7c3f3cec85a" title="start_with_given_control delets only the txt and csv files and starts with the control that is curren..." alt="" coords="204,90,352,131"/>
+<area shape="rect" id="node3" href="$classoptim__controller.html#a239f21ed616ef8f350b386cea9be81c1" title="start_optimizer reads in the command line command and starts the optimizer " alt="" coords="607,24,755,66"/>
+</map>
