@@ -12,7 +12,10 @@
 
 #include "../io/tinyXML/tinyxml.h"
 
-
+/**
+ * @brief The data_provider class provides the data given in the
+ * input file for the optimizer
+ */
 class data_provider
 {
 public:
@@ -25,11 +28,6 @@ public:
     std::map<std::string,std::string> read_subroutines(const char* filename);
     std::map<int,std::vector<double>> read_mesh_barycenters(const char* filename);
 
-    static arma::mat convert_barycenters_toArmaMat(std::map<int,std::vector<double>>  barycenters);
-
-    /*
-     * Getters and Setters
-     */
     std::map<std::string, std::string> getPaths() const;
     void setPaths(const std::map<std::string, std::string> &value);
 
@@ -42,11 +40,14 @@ public:
     std::map<int, std::vector<double> > getMesh_barycenters() const;
     void setMesh_barycenters(const std::map<int, std::vector<double> > &value);
 
+    static arma::mat convert_barycenters_toArmaMat(std::map<int,std::vector<double> >  barycenters);
+
 private:
     std::map<std::string,std::string> paths;
     std::map<std::string,double> optimizationParameters;
     std::map<std::string,std::string> subroutines;
     std::map<int,std::vector<double>> mesh_barycenters;
+
 };
 
 #endif // DATA_PROVIDER_H

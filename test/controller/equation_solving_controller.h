@@ -107,8 +107,8 @@ TEST(solver,checksecondDerivativeCalculation) {
 
     std::map<std::string, double> optimizationParameters = provider.getOptimizationParameters();
     unsigned int dimensionOfControl_gp = static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second);
-    unsigned int pcell_gp = static_cast<unsigned int>(optimizationParameters.find("pcell_gp")->second);
-    double db_gp = static_cast<double>(optimizationParameters.find("db_gp")->second);
+    unsigned int number_cells_position = static_cast<unsigned int>(optimizationParameters.find("number_cells_position")->second);
+    double small_discr_sidelength = static_cast<double>(optimizationParameters.find("small_discr_sidelength")->second);
 
     std::map<int,std::vector<double>> barycenters = provider.getMesh_barycenters();
     int start_control = static_cast<int>(optimizationParameters.find("start_control_gp")->second);
@@ -129,7 +129,7 @@ TEST(solver,checksecondDerivativeCalculation) {
         all_checked = false;
     }
 
-    arma::mat control(pcell_gp,3,arma::fill::ones);
+    arma::mat control(number_cells_position,3,arma::fill::ones);
 
     arma::mat D2_fb = D1_forward*D1_backward;
     arma::mat D2_model = solver.Laplacian_3D();
@@ -137,7 +137,7 @@ TEST(solver,checksecondDerivativeCalculation) {
     std::vector<double> current_barycenter;
     double paraboloid = 0.0;
 
-    for(int i = 1; i<=pcell_gp; i++) {
+    for(int i = 1; i<=number_cells_position; i++) {
         //for(int i = 1; i<=dimensionOfControl_gp; i++) {
         current_barycenter = barycenters.find(static_cast<int>(i))->second;
 
@@ -157,14 +157,14 @@ TEST(solver,checksecondDerivativeCalculation) {
 
 
 
-    std::cout << 1.0/(db_gp)*D1_forward*control << std::endl;
+    std::cout << 1.0/(small_discr_sidelength)*D1_forward*control << std::endl;
 
-    outContr.writeControl_XML(1.0/(db_gp)*D1_forward*control);
+    outContr.writeControl_XML(1.0/(small_discr_sidelength)*D1_forward*control);
     outContr.interpolate_control(provider);
 
-    std::cout << 1.0/(db_gp*db_gp)*D1_backward*D1_forward*control << std::endl;
+    std::cout << 1.0/(small_discr_sidelength*small_discr_sidelength)*D1_backward*D1_forward*control << std::endl;
 
-    outContr.writeControl_XML(1.0/(db_gp*db_gp)*D1_backward*D1_forward*control);
+    outContr.writeControl_XML(1.0/(small_discr_sidelength*small_discr_sidelength)*D1_backward*D1_forward*control);
     outContr.interpolate_control(provider);
 
 
@@ -299,17 +299,17 @@ TEST(solver,LaplaciansDefiniteness) {
     }
 
 
-    unsigned int pcell_gp = static_cast<unsigned int>(optimizationParameters.find("pcell_gp")->second);
+    unsigned int number_cells_position = static_cast<unsigned int>(optimizationParameters.find("number_cells_position")->second);
     unsigned int vcell_gp = static_cast<unsigned int>(optimizationParameters.find("vcell_gp")->second);
     unsigned int dimensionOfControl_gp = static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second);
     double dv_gp = static_cast<double>(optimizationParameters.find("dv_gp")->second);
     double dt_gp = static_cast<double>(optimizationParameters.find("dt_gp")->second);
-    double db_gp = static_cast<double>(optimizationParameters.find("db_gp")->second);
+    double small_discr_sidelength = static_cast<double>(optimizationParameters.find("small_discr_sidelength")->second);
     double weight_control_gp = static_cast<double>(optimizationParameters.find("weight_control_gp")->second);
     double local_control_x_min_gp = static_cast<double>(optimizationParameters.find("local_control_x_min_gp")->second);
     double local_control_x_max_gp = static_cast<double>(optimizationParameters.find("local_control_x_max_gp")->second);
 
-    //arma::mat Riesz = weight_control_gp*(arma::eye(dimensionOfControl_gp,dimensionOfControl_gp) - 1.0/(pow(db_gp,2))*Laplace + 1.0/(pow(db_gp,4))*Laplace_Squared);
+    //arma::mat Riesz = weight_control_gp*(arma::eye(dimensionOfControl_gp,dimensionOfControl_gp) - 1.0/(pow(small_discr_sidelength,2))*Laplace + 1.0/(pow(small_discr_sidelength,4))*Laplace_Squared);
     arma::mat Riesz = (arma::eye(dimensionOfControl_gp,dimensionOfControl_gp) - Laplace + Laplace_Squared);
     arma::eig_gen(eigval, eigvec, Riesz);
 

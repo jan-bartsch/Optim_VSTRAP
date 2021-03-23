@@ -22,8 +22,8 @@ double objective_calculator::calculate_objective(std::vector<std::unordered_map<
     std::map<std::string, double> optimizationParameters = this->getData_provider_optim().getOptimizationParameters();
     std::map<std::string, std::string> paths = this->getData_provider_optim().getPaths();
 
-    unsigned int pcell_gp = static_cast<unsigned int>(optimizationParameters.find("pcell_gp")->second);
-    double pmax_gp = static_cast<double>(optimizationParameters.find("pmax_gp")->second);
+    unsigned int number_cells_position = static_cast<unsigned int>(optimizationParameters.find("number_cells_position")->second);
+    double position_max_gp = static_cast<double>(optimizationParameters.find("position_max_gp")->second);
     double vmax_gp = static_cast<double>(optimizationParameters.find("vmax_gp")->second);
     unsigned int vcell_gp = static_cast<unsigned int>(optimizationParameters.find("vcell_gp")->second);
     unsigned int ntimesteps_gp = static_cast<unsigned int>(optimizationParameters.find("ntimesteps_gp")->second);
@@ -32,8 +32,8 @@ double objective_calculator::calculate_objective(std::vector<std::unordered_map<
     unsigned int dimensionOfControl_gp = static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second);
     double dv_gp = static_cast<double>(optimizationParameters.find("dv_gp")->second);
     double dt_gp = static_cast<double>(optimizationParameters.find("dt_gp")->second);
-    double dp_gp = static_cast<double>(optimizationParameters.find("dp_gp")->second);
-    double db_gp = static_cast<double>(optimizationParameters.find("db_gp")->second);
+    double small_discr_volume = static_cast<double>(optimizationParameters.find("small_discr_volume")->second);
+    double small_discr_sidelength = static_cast<double>(optimizationParameters.find("small_discr_sidelength")->second);
     double weight_control_gp = static_cast<double>(optimizationParameters.find("weight_control_gp")->second);
     double C_phi_gp = static_cast<double>(optimizationParameters.find("C_phi_gp")->second);
     double C_theta_gp = static_cast<double>(optimizationParameters.find("C_theta_gp")->second);
@@ -45,7 +45,7 @@ double objective_calculator::calculate_objective(std::vector<std::unordered_map<
     int start_control = static_cast<int>(optimizationParameters.find("start_control_gp")->second);
     int end_control = static_cast<int>(optimizationParameters.find("end_control_gp")->second);
 
-    static arma::vec positionDiscr_gp = arma::linspace<arma::vec>(0.0,pmax_gp,pcell_gp+1);
+    static arma::vec positionDiscr_gp = arma::linspace<arma::vec>(0.0,position_max_gp,number_cells_position+1);
     static arma::vec velocityDiscr_gp = arma::linspace<arma::vec>(-vmax_gp,vmax_gp,vcell_gp);
 
 
@@ -62,7 +62,7 @@ double objective_calculator::calculate_objective(std::vector<std::unordered_map<
     double objective = 0.0;
     double costOfControl = 0.0;
 
-    std::vector<double> objective_time(pcell_gp,0.0);
+    std::vector<double> objective_time(number_cells_position,0.0);
 
     std::vector<std::vector<double>> brockettVector = in.readBrockettFile(paths.find("PATH_TO_SHARED_FILES")->second+"brockett.csv",",",ntimesteps_gp*plasma_state_output_interval);
 
@@ -70,7 +70,7 @@ double objective_calculator::calculate_objective(std::vector<std::unordered_map<
     * Add terminal integral
     */
 
-    /*for(unsigned int i = 0; i<pcell_gp; i++)  {
+    /*for(unsigned int i = 0; i<number_cells_position; i++)  {
      double current_termPot;
      std::vector<double> p_d;
         for(unsigned int l = 0; l<vcell_gp; l++) {
@@ -87,7 +87,7 @@ double objective_calculator::calculate_objective(std::vector<std::unordered_map<
                             pow(velocityDiscr_gp(n)-p_d[5],2.0)/(2.0*sigma_v_gp*sigma_v_gp)
                             ));
                     if (forwardPDF.find(coordinate) != forwardPDF.end()) {
-                        objective += forwardPDF.at(coordinate)*current_termPot*pow(dp_gp,3)*pow(dv_gp,3);
+                        objective += forwardPDF.at(coordinate)*current_termPot*pow(small_discr_volume,3)*pow(dv_gp,3);
 
                     }
                 }
@@ -106,7 +106,7 @@ double objective_calculator::calculate_objective(std::vector<std::unordered_map<
     std::cout << "Using <" << desired_traj << "> for desired trajectory" << std::endl;
 
 #pragma omp parallel for
-    for(unsigned int  i = 1; i<=pcell_gp; i++)  {
+    for(unsigned int  i = 1; i<=number_cells_position; i++)  {
         std::cout << "Functionalcalc. in part " << i << std::endl;
         std::vector<double> current_barycenter = baryc.find(static_cast<int> (i))->second;
         if (current_barycenter[0]>-0.04) {
@@ -124,8 +124,10 @@ double objective_calculator::calculate_objective(std::vector<std::unordered_map<
                     sigma_x_3 = brockettVector[o*plasma_state_output_interval][5];
 
                     p_d = trajectory_controller.trajectory_desired_brockett(brockettVector,o, plasma_state_output_interval);
+
                 }
 
+                //TODO: this currently works only for brockett
                 double scaling_gaussian = std::sqrt(pow(2.0*M_PI,6.0)*pow(sigma_x_1*sigma_x_2*sigma_x_3,2.0)*pow(sigma_v_gp*sigma_v_gp,3.0));
 
 
@@ -155,7 +157,7 @@ double objective_calculator::calculate_objective(std::vector<std::unordered_map<
                                         ))+shifting_objective;
                             }
                             if (forwardPDF_time[o].find(coordinate) != forwardPDF_time[o].end()) {
-                                objective_time[i] += forwardPDF_time[o].at(coordinate)*current_trackPot*dp_gp*pow(dv_gp,3.0)*dt_gp;
+                                objective_time[i] += forwardPDF_time[o].at(coordinate)*current_trackPot*small_discr_volume*pow(dv_gp,3.0)*dt_gp;
                             } else {
                                 std::runtime_error("No such objective calculation rule");
                             }
@@ -171,7 +173,7 @@ double objective_calculator::calculate_objective(std::vector<std::unordered_map<
         }
     }
 
-    for(unsigned int o = 0; o<pcell_gp; o++) {
+    for(unsigned int o = 0; o<number_cells_position; o++) {
         if (std::isnan(objective_time[o])) {
             std::runtime_error("Encountered NAN in functional calculation");
         }
@@ -180,10 +182,10 @@ double objective_calculator::calculate_objective(std::vector<std::unordered_map<
 
     //add control, no trapezodial rule needed since control is zero at the boundary (?)
     //std::cout << control << std::endl;
-    //    costOfControl += 1.0/2.0*arma::norm(control.rows(start_control-1,end_control-1),"fro")*arma::norm(control.rows(start_control-1,end_control-1),"fro")*pow(dp_gp,1.0);
+    //    costOfControl += 1.0/2.0*arma::norm(control.rows(start_control-1,end_control-1),"fro")*arma::norm(control.rows(start_control-1,end_control-1),"fro")*pow(small_discr_volume,1.0);
 
     //    arma::mat second_derivative = solver.Laplacian_3D();
-    //    costOfControl += arma::accu(second_derivative*control.rows(start_control-1,end_control-1))/(db_gp*db_gp)*dp_gp;
+    //    costOfControl += arma::accu(second_derivative*control.rows(start_control-1,end_control-1))/(small_discr_sidelength*small_discr_sidelength)*small_discr_volume;
     inner_products product = inner_products();
     product.setData_provider_optim(this->getData_provider_optim());
 

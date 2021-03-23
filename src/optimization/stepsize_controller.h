@@ -28,7 +28,6 @@ public:
 
     int calculate_stepsize(arma::mat &gradient, double J0, arma::mat &control, arma::mat &stepdirection, std::vector<particle> &inputParticles,  double &stepsize0);
 
-
 private:
     int armijo_linesearch(arma::mat &gradient, double J0, arma::mat &control, arma::mat &stepdirection, std::vector<particle> &inputParticles,  double &stepsize0);
     int gradient_descent(arma::mat &control, arma::mat &stepdirection, std::vector<particle> &inputParticles, double &stepsize);

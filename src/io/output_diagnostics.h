@@ -18,7 +18,9 @@ class output_diagnostics : public abstract_controller
 public:
     output_diagnostics();
 
-    int writeArmaMatrixToFile(arma::mat gradient, std::string filename);
+    int writeGradientMatrixToFile(arma::mat gradient, std::string filename);
+
+    int writeArmaMatrixToFile(arma::mat input, std::string filename);
 
     int writeDoubleToFile(double value, std::string filename);
 

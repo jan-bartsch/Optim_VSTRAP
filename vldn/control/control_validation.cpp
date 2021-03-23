@@ -14,7 +14,7 @@ int control_verification::start_verification(int argc, char **argv)
     std::map<std::string, double> optimizationParameters = optimization_provider.getOptimizationParameters();
     std::map<std::string,std::string> paths = optimization_provider.getPaths();
 
-    int pcell_gp = static_cast<int>(optimizationParameters.find("pcell_gp")->second);
+    int number_cells_position = static_cast<int>(optimizationParameters.find("number_cells_position")->second);
 
     input in = input();
     in.setData_provider_optim(optimization_provider);
@@ -29,7 +29,7 @@ int control_verification::start_verification(int argc, char **argv)
     pro.setData_provider_optim(optimization_provider);
 
 
-    int iterations = static_cast<int>(validation_params.find("number_controls")->second);
+    unsigned long iterations = static_cast<unsigned long>(validation_params.find("number_controls")->second);
     std::cout << "Running " << iterations << " validation iterations" << std::endl;
 
     std::string CONTROLS_DIRECTORY = validation_paths.find("PATH_TO_CONTROLS")->second;
@@ -44,12 +44,12 @@ int control_verification::start_verification(int argc, char **argv)
     std::string discretization_file = CONTROLS_DIRECTORY + "discretization_vector.txt";
     std::vector<double> discretization_vector = in.readDoubleVector(discretization_file.c_str());
 
-    if(static_cast<int>(discretization_vector.size()) != iterations) {
+    if(static_cast<int>(discretization_vector.size()) != static_cast<int>(iterations)) {
         throw std::invalid_argument("Number of weights and controls does not match");
     }
 
 
-//    std::vector<std::vector<double>> control1 = in.readDoubleMatrix("/afs/ifm/home/bartsch/SPARC/Optim_VSTRAP/vldn/data/controls-20201126-weight/control_1.csv",pcell_gp,",");
+//    std::vector<std::vector<double>> control1 = in.readDoubleMatrix("/afs/ifm/home/bartsch/SPARC/Optim_VSTRAP/vldn/data/controls-20201126-weight/control_1.csv",number_cells_position,",");
 //    //std::count << control1 << std::endl;
 
 //    arma::mat control1_mat(control1.size(),3,arma::fill::zeros);
@@ -74,7 +74,7 @@ int control_verification::start_verification(int argc, char **argv)
     std::map<int, std::vector<double> > current_barycenters = optimization_provider.getMesh_barycenters();
 
 
-    for (int i = 0; i < iterations; i++) {
+    for (unsigned long i = 0; i < iterations; i++) {
         number = std::to_string(i);
         file = CONTROLS_DIRECTORY +"control_" + number + ".xml";
         std::cout << "Open file with name " << file << std::endl;
@@ -90,7 +90,7 @@ int control_verification::start_verification(int argc, char **argv)
             norms.push_back(arma::norm(means.row(i))*0.001);
             valide_vector.push_back(1.0);
         } else if (VALIDATION_TYPE.compare("weight")==0) {
-            control =  in.readControl(file.c_str(),pcell_gp);
+            control =  in.readControl(file.c_str(),number_cells_position);
             means.insert_rows(i,arma::mean(calculate_cross_error(control,bary,valide_vector)) );
             norms.push_back(arma::norm(means.row(i))*valide_vector[i]);
         } else {
@@ -113,7 +113,7 @@ int control_verification::start_verification(int argc, char **argv)
 
 
     out.writeDoubleVectorToFile(norms,"Norms");
-    out.writeArmaMatrixToFile(means,"Means");
+    out.writeGradientMatrixToFile(means,"Means");
     out.writeDoubleVectorToFile(valide_vector,"Valide");
 
     std::string DIRECTORY_TOOLSET = paths.find("DIRECTORY_TOOLSET")->second;
@@ -126,7 +126,7 @@ int control_verification::start_verification(int argc, char **argv)
 
 
 
-    for (int i = 0; i < iterations-1; i++) {
+    for (unsigned long i = 0; i < iterations-1; i++) {
         //        control_difference[i] = std::sqrt(pro.H1_inner_product(control_vector[i+1]*discretization_vector[i+1]-control_vector[i]*discretization_vector[i],
         //                control_vector[i+1]*discretization_vector[i+1]-control_vector[i]*discretization_vector[i]));
         control_difference[i] = std::sqrt(pro.H1_inner_product(control_vector[i+1]-control_vector[i],control_vector[i+1]-control_vector[i]));
@@ -135,7 +135,7 @@ int control_verification::start_verification(int argc, char **argv)
 
     out.writeDoubleVectorToFile(control_difference,"H1-difference");
 
-    for (int i = 0; i < iterations-1; i++) {
+    for (unsigned long i = 0; i < iterations-1; i++) {
         //        control_difference[i] = std::sqrt(pro.L2_inner_product(control_vector[i+1]*discretization_vector[i+1]-control_vector[i]*discretization_vector[i],
         //                control_vector[i+1]*discretization_vector[i+1]-control_vector[i]*discretization_vector[i]));
         control_difference[i] = std::sqrt(pro.L2_inner_product(control_vector[i+1]-control_vector[i],control_vector[i+1]-control_vector[i]));
@@ -144,7 +144,7 @@ int control_verification::start_verification(int argc, char **argv)
 
     out.writeDoubleVectorToFile(control_difference,"L2-difference");
 
-    for (int i = 0; i < iterations-1; i++) {
+    for (unsigned long i = 0; i < iterations-1; i++) {
         control_difference[i] = std::sqrt(pro.H2_inner_product(control_vector[i+1]-control_vector[i],
                                           control_vector[i+1]-control_vector[i]));
         //control_difference[i] = std::sqrt(pro.H2_inner_product(control_vector[i+1]-control_vector[i],control_vector[i+1]-control_vector[i]));
@@ -181,8 +181,8 @@ std::vector<double> control_verification::calculate_mean_doubleMatrix(std::vecto
 {
     std::vector<double> mean(3,0.0);
 
-    int columns = control[0].size();
-    int rows = control.size();
+    unsigned long columns = control[0].size();
+    unsigned long rows = control.size();
 
 
     for(unsigned long j = 0; j < columns; j++ ) {

@@ -57,10 +57,10 @@
 	<parameter name="armijo_iterative_exp" value="1.0"/> <!--  1.0: no decreasing stepsize  -->
 	
 	<!--  DOMAIN PARAMETERS  -->
-	<parameter name="dp_gp" value="0.0156"/> 	<!--  discretization size position 64:0.0156 1000:0.0001 512:0.002  216:0.00462963 -->
-	<parameter name="pcell_gp" value="64"/>
-	<parameter name="pmax_gp" value="0.5"/>
-	<parameter name="db_gp" value="0.25"/> 	<!--  box-side-length 216:0.16666667  -->
+	<parameter name="small_discr_volume" value="0.0156"/> 	<!--  discretization size position 64:0.0156 1000:0.0001 512:0.002  216:0.00462963 -->
+	<parameter name="number_cells_position" value="64"/>
+	<parameter name="position_max_gp" value="0.5"/>
+	<parameter name="small_discr_sidelength" value="0.25"/> 	<!--  box-side-length 216:0.16666667  -->
 	<parameter name="dt_gp" value="5e-6"/> 	<!--  discretization size time  -->
 	<parameter name="ntimesteps_gp" value="40"/>
 	<parameter name="dv_gp" value="2e+3"/> 	<!--  discretization size velocity  -->

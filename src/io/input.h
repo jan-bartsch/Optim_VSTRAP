@@ -28,12 +28,12 @@ public:
     /**
      * @brief readControl reads in control cells (control in volume, xml format)
      * @param filename
-     * @param pcell_gp
+     * @param number_cells_position
      * @return
      */
-    arma::mat readControl(const char *filename, int pcell_gp);
+    arma::mat readControl(const char *filename, int number_cells_position);
 
-    static std::vector<std::vector<double> > readDoubleMatrix(std::string filename, int pcell_gp, std::string delimiter);
+    static std::vector<std::vector<double> > readDoubleMatrix(std::string filename, int number_cells_position, std::string delimiter);
 
     static std::vector<double> readDoubleVector(const char *filename);
 

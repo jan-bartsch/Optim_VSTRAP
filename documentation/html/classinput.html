@@ -91,7 +91,7 @@ unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>read_plasma_s
 <tr class="memitem:a0286689da917deed789f90be2818b5b2"><td class="memItemLeft" align="right" valign="top"><a id="a0286689da917deed789f90be2818b5b2"></a>
 unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>read_plasma_state_backward</b> (std::vector&lt; std::vector&lt; <a class="el" href="classparticle.html">particle</a> &gt;&gt; &amp;backwardParticles, std::string file_name)</td></tr>
 <tr class="separator:a0286689da917deed789f90be2818b5b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:add508a80b7b6902e59c4867aa8322fc9"><td class="memItemLeft" align="right" valign="top">arma::mat&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinput.html#add508a80b7b6902e59c4867aa8322fc9">readControl</a> (const char *filename, int pcell_gp)</td></tr>
+<tr class="memitem:add508a80b7b6902e59c4867aa8322fc9"><td class="memItemLeft" align="right" valign="top">arma::mat&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinput.html#add508a80b7b6902e59c4867aa8322fc9">readControl</a> (const char *filename, int number_cells_position)</td></tr>
 <tr class="memdesc:add508a80b7b6902e59c4867aa8322fc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">readControl reads in control cells (control in volume, xml format)  <a href="#add508a80b7b6902e59c4867aa8322fc9">More...</a><br /></td></tr>
 <tr class="separator:add508a80b7b6902e59c4867aa8322fc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classabstract__controller"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classabstract__controller')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classabstract__controller.html">abstract_controller</a></td></tr>
@@ -108,7 +108,7 @@ Static Public Member Functions</h2></td></tr>
 static std::vector&lt; <a class="el" href="classparticle.html">particle</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>readParticleVector</b> (std::string filename, std::string delimiter)</td></tr>
 <tr class="separator:aa52f1efda75b6a38b8058ec4731e4a5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9a5704f010f56c34232655d07973bd85"><td class="memItemLeft" align="right" valign="top"><a id="a9a5704f010f56c34232655d07973bd85"></a>
-static std::vector&lt; std::vector&lt; double &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>readDoubleMatrix</b> (std::string filename, int pcell_gp, std::string delimiter)</td></tr>
+static std::vector&lt; std::vector&lt; double &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>readDoubleMatrix</b> (std::string filename, int number_cells_position, std::string delimiter)</td></tr>
 <tr class="separator:a9a5704f010f56c34232655d07973bd85"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0d6f96fc9ebe9e1802a408b7371a9cbe"><td class="memItemLeft" align="right" valign="top"><a id="a0d6f96fc9ebe9e1802a408b7371a9cbe"></a>
 static std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>readDoubleVector</b> (const char *filename)</td></tr>
@@ -187,7 +187,7 @@ static std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bo
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>pcell_gp</em>&#160;</td>
+          <td class="paramname"><em>number_cells_position</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -201,7 +201,7 @@ static std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bo
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">filename</td><td></td></tr>
-    <tr><td class="paramname">pcell_gp</td><td></td></tr>
+    <tr><td class="paramname">number_cells_position</td><td></td></tr>
   </table>
   </dd>
 </dl>

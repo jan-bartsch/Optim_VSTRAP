@@ -13,12 +13,12 @@ TEST(calc,divergence) {
     calc.setData_provider_optim(provider);
 
     std::map<std::string, double> optimizationParameters = provider.getOptimizationParameters();
-    double dp_gp = static_cast<double>(optimizationParameters.find("dp_gp")->second);
+    double small_discr_volume = static_cast<double>(optimizationParameters.find("small_discr_volume")->second);
     unsigned int dimensionOfControl_gp = static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second);
-    unsigned int pcell_gp = static_cast<unsigned int>(optimizationParameters.find("pcell_gp")->second);
+    unsigned int number_cells_position = static_cast<unsigned int>(optimizationParameters.find("number_cells_position")->second);
     unsigned int ntimesteps_gp = static_cast<unsigned int>(optimizationParameters.find("ntimesteps_gp")->second);
 
-    arma::mat control(pcell_gp,3,arma::fill::zeros);
+    arma::mat control(number_cells_position,3,arma::fill::zeros);
 
     double divergence = calc.divergence_vector(control);
 

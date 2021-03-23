@@ -20,8 +20,8 @@ arma::mat equation_solving_controller::D1_second_order()
     std::map<int,std::vector<double>> barycenters = this->getData_provider_optim().getMesh_barycenters();
 
     unsigned int dimensionOfControl_gp = static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second);
-    double db_gp = static_cast<double>(optimizationParameters.find("db_gp")->second);
-    double pmax_gp = static_cast<double>(optimizationParameters.find("pmax_gp")->second);
+    double small_discr_sidelength = static_cast<double>(optimizationParameters.find("small_discr_sidelength")->second);
+    double position_max_gp = static_cast<double>(optimizationParameters.find("position_max_gp")->second);
 
     std::vector<double> current_barycenter;
     std::vector<double> next_cell_xm; std::vector<double> next_cell_xp;
@@ -52,23 +52,23 @@ arma::mat equation_solving_controller::D1_second_order()
         next_cell_zm = current_barycenter;
         next_cell_zp = current_barycenter;
 
-        if (std::abs(current_barycenter[0]-db_gp)<pmax_gp) {
-            next_cell_xm[0] = current_barycenter[0]-db_gp;
+        if (std::abs(current_barycenter[0]-small_discr_sidelength)<position_max_gp) {
+            next_cell_xm[0] = current_barycenter[0]-small_discr_sidelength;
         }
-        if (std::abs(current_barycenter[0]+db_gp)<pmax_gp) {
-            next_cell_xp[0] = current_barycenter[0]+db_gp;
+        if (std::abs(current_barycenter[0]+small_discr_sidelength)<position_max_gp) {
+            next_cell_xp[0] = current_barycenter[0]+small_discr_sidelength;
         }
-        if (std::abs(current_barycenter[1]-db_gp)<pmax_gp) {
-            next_cell_ym[1] = current_barycenter[1]-db_gp;
+        if (std::abs(current_barycenter[1]-small_discr_sidelength)<position_max_gp) {
+            next_cell_ym[1] = current_barycenter[1]-small_discr_sidelength;
         }
-        if (std::abs(current_barycenter[1]+db_gp)<pmax_gp) {
-            next_cell_yp[1] = current_barycenter[1]+db_gp;
+        if (std::abs(current_barycenter[1]+small_discr_sidelength)<position_max_gp) {
+            next_cell_yp[1] = current_barycenter[1]+small_discr_sidelength;
         }
-        if (std::abs(current_barycenter[2]-db_gp)<pmax_gp) {
-            next_cell_zm[2] = current_barycenter[2]-db_gp;
+        if (std::abs(current_barycenter[2]-small_discr_sidelength)<position_max_gp) {
+            next_cell_zm[2] = current_barycenter[2]-small_discr_sidelength;
         }
-        if (std::abs(current_barycenter[2]+db_gp)<pmax_gp) {
-            next_cell_zp[2] = current_barycenter[2]+db_gp;
+        if (std::abs(current_barycenter[2]+small_discr_sidelength)<position_max_gp) {
+            next_cell_zp[2] = current_barycenter[2]+small_discr_sidelength;
         }
 
         double xm = -1.0;
@@ -130,8 +130,8 @@ arma::mat equation_solving_controller::D1_forward()
     std::map<int,std::vector<double>> barycenters = this->getData_provider_optim().getMesh_barycenters();
 
     unsigned int dimensionOfControl_gp = static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second);
-    double db_gp = static_cast<double>(optimizationParameters.find("db_gp")->second);
-    double pmax_gp = static_cast<double>(optimizationParameters.find("pmax_gp")->second);
+    double small_discr_sidelength = static_cast<double>(optimizationParameters.find("small_discr_sidelength")->second);
+    double position_max_gp = static_cast<double>(optimizationParameters.find("position_max_gp")->second);
 
     std::vector<double> current_barycenter;
     std::vector<double> next_cell_xm; std::vector<double> next_cell_xp;
@@ -163,23 +163,23 @@ arma::mat equation_solving_controller::D1_forward()
         next_cell_zm = current_barycenter;
         next_cell_zp = current_barycenter;
 
-        if (std::abs(current_barycenter[0]-db_gp)<pmax_gp) {
-            next_cell_xm[0] = current_barycenter[0]-db_gp;
+        if (std::abs(current_barycenter[0]-small_discr_sidelength)<position_max_gp) {
+            next_cell_xm[0] = current_barycenter[0]-small_discr_sidelength;
         }
-        if (std::abs(current_barycenter[0]+db_gp)<pmax_gp) {
-            next_cell_xp[0] = current_barycenter[0]+db_gp;
+        if (std::abs(current_barycenter[0]+small_discr_sidelength)<position_max_gp) {
+            next_cell_xp[0] = current_barycenter[0]+small_discr_sidelength;
         }
-        if (std::abs(current_barycenter[1]-db_gp)<pmax_gp) {
-            next_cell_ym[1] = current_barycenter[1]-db_gp;
+        if (std::abs(current_barycenter[1]-small_discr_sidelength)<position_max_gp) {
+            next_cell_ym[1] = current_barycenter[1]-small_discr_sidelength;
         }
-        if (std::abs(current_barycenter[1]+db_gp)<pmax_gp) {
-            next_cell_yp[1] = current_barycenter[1]+db_gp;
+        if (std::abs(current_barycenter[1]+small_discr_sidelength)<position_max_gp) {
+            next_cell_yp[1] = current_barycenter[1]+small_discr_sidelength;
         }
-        if (std::abs(current_barycenter[2]-db_gp)<pmax_gp) {
-            next_cell_zm[2] = current_barycenter[2]-db_gp;
+        if (std::abs(current_barycenter[2]-small_discr_sidelength)<position_max_gp) {
+            next_cell_zm[2] = current_barycenter[2]-small_discr_sidelength;
         }
-        if (std::abs(current_barycenter[2]+db_gp)<pmax_gp) {
-            next_cell_zp[2] = current_barycenter[2]+db_gp;
+        if (std::abs(current_barycenter[2]+small_discr_sidelength)<position_max_gp) {
+            next_cell_zp[2] = current_barycenter[2]+small_discr_sidelength;
         }
 
         double xm = 0.0;
@@ -223,8 +223,8 @@ arma::mat equation_solving_controller::D1_backward()
     std::map<int,std::vector<double>> barycenters = this->getData_provider_optim().getMesh_barycenters();
 
     unsigned int dimensionOfControl_gp = static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second);
-    double db_gp = static_cast<double>(optimizationParameters.find("db_gp")->second);
-    double pmax_gp = static_cast<double>(optimizationParameters.find("pmax_gp")->second);
+    double small_discr_sidelength = static_cast<double>(optimizationParameters.find("small_discr_sidelength")->second);
+    double position_max_gp = static_cast<double>(optimizationParameters.find("position_max_gp")->second);
 
     std::vector<double> current_barycenter;
     std::vector<double> next_cell_xm; std::vector<double> next_cell_xp;
@@ -256,23 +256,23 @@ arma::mat equation_solving_controller::D1_backward()
         next_cell_zm = current_barycenter;
         next_cell_zp = current_barycenter;
 
-        if (std::abs(current_barycenter[0]-db_gp)<pmax_gp) {
-            next_cell_xm[0] = current_barycenter[0]-db_gp;
+        if (std::abs(current_barycenter[0]-small_discr_sidelength)<position_max_gp) {
+            next_cell_xm[0] = current_barycenter[0]-small_discr_sidelength;
         }
-        if (std::abs(current_barycenter[0]+db_gp)<pmax_gp) {
-            next_cell_xp[0] = current_barycenter[0]+db_gp;
+        if (std::abs(current_barycenter[0]+small_discr_sidelength)<position_max_gp) {
+            next_cell_xp[0] = current_barycenter[0]+small_discr_sidelength;
         }
-        if (std::abs(current_barycenter[1]-db_gp)<pmax_gp) {
-            next_cell_ym[1] = current_barycenter[1]-db_gp;
+        if (std::abs(current_barycenter[1]-small_discr_sidelength)<position_max_gp) {
+            next_cell_ym[1] = current_barycenter[1]-small_discr_sidelength;
         }
-        if (std::abs(current_barycenter[1]+db_gp)<pmax_gp) {
-            next_cell_yp[1] = current_barycenter[1]+db_gp;
+        if (std::abs(current_barycenter[1]+small_discr_sidelength)<position_max_gp) {
+            next_cell_yp[1] = current_barycenter[1]+small_discr_sidelength;
         }
-        if (std::abs(current_barycenter[2]-db_gp)<pmax_gp) {
-            next_cell_zm[2] = current_barycenter[2]-db_gp;
+        if (std::abs(current_barycenter[2]-small_discr_sidelength)<position_max_gp) {
+            next_cell_zm[2] = current_barycenter[2]-small_discr_sidelength;
         }
-        if (std::abs(current_barycenter[2]+db_gp)<pmax_gp) {
-            next_cell_zp[2] = current_barycenter[2]+db_gp;
+        if (std::abs(current_barycenter[2]+small_discr_sidelength)<position_max_gp) {
+            next_cell_zp[2] = current_barycenter[2]+small_discr_sidelength;
         }
 
         double xm = 0.0;
@@ -316,8 +316,8 @@ arma::mat equation_solving_controller::Laplacian_3D()
     std::map<int,std::vector<double>> barycenters = this->getData_provider_optim().getMesh_barycenters();
 
     unsigned int dimensionOfControl_gp = static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second);
-    double db_gp = static_cast<double>(optimizationParameters.find("db_gp")->second);
-    double pmax_gp = static_cast<double>(optimizationParameters.find("pmax_gp")->second);
+    double small_discr_sidelength = static_cast<double>(optimizationParameters.find("small_discr_sidelength")->second);
+    double position_max_gp = static_cast<double>(optimizationParameters.find("position_max_gp")->second);
 
     std::vector<double> current_barycenter;
     std::vector<double> next_cell_xm; std::vector<double> next_cell_xp;
@@ -350,23 +350,23 @@ arma::mat equation_solving_controller::Laplacian_3D()
         next_cell_zm = current_barycenter;
         next_cell_zp = current_barycenter;
 
-        if (std::abs(current_barycenter[0]-db_gp)<pmax_gp) {
-            next_cell_xm[0] = current_barycenter[0]-db_gp;
+        if (std::abs(current_barycenter[0]-small_discr_sidelength)<position_max_gp) {
+            next_cell_xm[0] = current_barycenter[0]-small_discr_sidelength;
         }
-        if (std::abs(current_barycenter[0]+db_gp)<pmax_gp) {
-            next_cell_xp[0] = current_barycenter[0]+db_gp;
+        if (std::abs(current_barycenter[0]+small_discr_sidelength)<position_max_gp) {
+            next_cell_xp[0] = current_barycenter[0]+small_discr_sidelength;
         }
-        if (std::abs(current_barycenter[1]-db_gp)<pmax_gp) {
-            next_cell_ym[1] = current_barycenter[1]-db_gp;
+        if (std::abs(current_barycenter[1]-small_discr_sidelength)<position_max_gp) {
+            next_cell_ym[1] = current_barycenter[1]-small_discr_sidelength;
         }
-        if (std::abs(current_barycenter[1]+db_gp)<pmax_gp) {
-            next_cell_yp[1] = current_barycenter[1]+db_gp;
+        if (std::abs(current_barycenter[1]+small_discr_sidelength)<position_max_gp) {
+            next_cell_yp[1] = current_barycenter[1]+small_discr_sidelength;
         }
-        if (std::abs(current_barycenter[2]-db_gp)<pmax_gp) {
-            next_cell_zm[2] = current_barycenter[2]-db_gp;
+        if (std::abs(current_barycenter[2]-small_discr_sidelength)<position_max_gp) {
+            next_cell_zm[2] = current_barycenter[2]-small_discr_sidelength;
         }
-        if (std::abs(current_barycenter[2]+db_gp)<pmax_gp) {
-            next_cell_zp[2] = current_barycenter[2]+db_gp;
+        if (std::abs(current_barycenter[2]+small_discr_sidelength)<position_max_gp) {
+            next_cell_zp[2] = current_barycenter[2]+small_discr_sidelength;
         }
 
         for(int l = start_control; l<=end_control;l++) {
@@ -396,8 +396,8 @@ arma::mat equation_solving_controller::Laplacian_Squared_3D()
     std::map<int,std::vector<double>> barycenters = this->getData_provider_optim().getMesh_barycenters();
 
     unsigned int dimensionOfControl_gp = static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second);
-    double db_gp = static_cast<double>(optimizationParameters.find("db_gp")->second);
-    double pmax_gp = static_cast<double>(optimizationParameters.find("pmax_gp")->second);
+    double small_discr_sidelength = static_cast<double>(optimizationParameters.find("small_discr_sidelength")->second);
+    double position_max_gp = static_cast<double>(optimizationParameters.find("position_max_gp")->second);
     double fabs_tol_gp = static_cast<double>(optimizationParameters.find("fabs_tol_gp")->second);
 
     std::vector<double> current_barycenter;
@@ -435,42 +435,42 @@ arma::mat equation_solving_controller::Laplacian_Squared_3D()
         next_cell_zmm = current_barycenter;
         next_cell_zpp = current_barycenter;
 
-        if (std::abs(current_barycenter[0]-db_gp)<pmax_gp) {
-            next_cell_xm[0] = current_barycenter[0]-db_gp;
+        if (std::abs(current_barycenter[0]-small_discr_sidelength)<position_max_gp) {
+            next_cell_xm[0] = current_barycenter[0]-small_discr_sidelength;
         }
-        if (std::abs(current_barycenter[0]+db_gp)<pmax_gp) {
-            next_cell_xp[0] = current_barycenter[0]+db_gp;
+        if (std::abs(current_barycenter[0]+small_discr_sidelength)<position_max_gp) {
+            next_cell_xp[0] = current_barycenter[0]+small_discr_sidelength;
         }
-        if (std::abs(current_barycenter[1]-db_gp)<pmax_gp) {
-            next_cell_ym[1] = current_barycenter[1]-db_gp;
+        if (std::abs(current_barycenter[1]-small_discr_sidelength)<position_max_gp) {
+            next_cell_ym[1] = current_barycenter[1]-small_discr_sidelength;
         }
-        if (std::abs(current_barycenter[1]+db_gp)<pmax_gp) {
-            next_cell_yp[1] = current_barycenter[1]+db_gp;
+        if (std::abs(current_barycenter[1]+small_discr_sidelength)<position_max_gp) {
+            next_cell_yp[1] = current_barycenter[1]+small_discr_sidelength;
         }
-        if (std::abs(current_barycenter[2]-db_gp)<pmax_gp) {
-            next_cell_zm[2] = current_barycenter[2]-db_gp;
+        if (std::abs(current_barycenter[2]-small_discr_sidelength)<position_max_gp) {
+            next_cell_zm[2] = current_barycenter[2]-small_discr_sidelength;
         }
-        if (std::abs(current_barycenter[2]+db_gp)<pmax_gp) {
-            next_cell_zp[2] = current_barycenter[2]+db_gp;
+        if (std::abs(current_barycenter[2]+small_discr_sidelength)<position_max_gp) {
+            next_cell_zp[2] = current_barycenter[2]+small_discr_sidelength;
         }
 
-        if (std::abs(current_barycenter[0]-2.0*db_gp)<pmax_gp) {
-            next_cell_xmm[0] = current_barycenter[0]-2.0*db_gp;
+        if (std::abs(current_barycenter[0]-2.0*small_discr_sidelength)<position_max_gp) {
+            next_cell_xmm[0] = current_barycenter[0]-2.0*small_discr_sidelength;
         }
-        if (std::abs(current_barycenter[0]+2.0*db_gp)<pmax_gp) {
-            next_cell_xpp[0] = current_barycenter[0]+2.0*db_gp;
+        if (std::abs(current_barycenter[0]+2.0*small_discr_sidelength)<position_max_gp) {
+            next_cell_xpp[0] = current_barycenter[0]+2.0*small_discr_sidelength;
         }
-        if (std::abs(current_barycenter[1]-2.0*db_gp)<pmax_gp) {
-            next_cell_ymm[1] = current_barycenter[1]-2.0*db_gp;
+        if (std::abs(current_barycenter[1]-2.0*small_discr_sidelength)<position_max_gp) {
+            next_cell_ymm[1] = current_barycenter[1]-2.0*small_discr_sidelength;
         }
-        if (std::abs(current_barycenter[1]+2.0*db_gp)<pmax_gp) {
-            next_cell_ypp[1] = current_barycenter[1]+2.0*db_gp;
+        if (std::abs(current_barycenter[1]+2.0*small_discr_sidelength)<position_max_gp) {
+            next_cell_ypp[1] = current_barycenter[1]+2.0*small_discr_sidelength;
         }
-        if (std::abs(current_barycenter[2]-2.0*db_gp)<pmax_gp) {
-            next_cell_zmm[2] = current_barycenter[2]-2.0*db_gp;
+        if (std::abs(current_barycenter[2]-2.0*small_discr_sidelength)<position_max_gp) {
+            next_cell_zmm[2] = current_barycenter[2]-2.0*small_discr_sidelength;
         }
-        if (std::abs(current_barycenter[2]+2.0*db_gp)<pmax_gp) {
-            next_cell_zpp[2] = current_barycenter[2]+2.0*db_gp;
+        if (std::abs(current_barycenter[2]+2.0*small_discr_sidelength)<position_max_gp) {
+            next_cell_zpp[2] = current_barycenter[2]+2.0*small_discr_sidelength;
         }
 
         for(int l = start_control; l<=end_control;l++) {
@@ -508,8 +508,8 @@ arma::mat equation_solving_controller::D1X1_second_order()
     std::map<int,std::vector<double>> barycenters = this->getData_provider_optim().getMesh_barycenters();
 
     unsigned int dimensionOfControl_gp = static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second);
-    double db_gp = static_cast<double>(optimizationParameters.find("db_gp")->second);
-    double pmax_gp = static_cast<double>(optimizationParameters.find("pmax_gp")->second);
+    double small_discr_sidelength = static_cast<double>(optimizationParameters.find("small_discr_sidelength")->second);
+    double position_max_gp = static_cast<double>(optimizationParameters.find("position_max_gp")->second);
 
     std::vector<double> current_barycenter;
     std::vector<double> next_cell_xm; std::vector<double> next_cell_xp;
@@ -534,11 +534,11 @@ arma::mat equation_solving_controller::D1X1_second_order()
         next_cell_xm = current_barycenter;
         next_cell_xp = current_barycenter;
 
-        if (std::abs(current_barycenter[0]-db_gp)<pmax_gp) {
-            next_cell_xm[0] = current_barycenter[0]-db_gp;
+        if (std::abs(current_barycenter[0]-small_discr_sidelength)<position_max_gp) {
+            next_cell_xm[0] = current_barycenter[0]-small_discr_sidelength;
         }
-        if (std::abs(current_barycenter[0]+db_gp)<pmax_gp) {
-            next_cell_xp[0] = current_barycenter[0]+db_gp;
+        if (std::abs(current_barycenter[0]+small_discr_sidelength)<position_max_gp) {
+            next_cell_xp[0] = current_barycenter[0]+small_discr_sidelength;
         }
 
         double xm = -1.0;
@@ -572,8 +572,8 @@ arma::mat equation_solving_controller::D1X2_second_order()
     std::map<int,std::vector<double>> barycenters = this->getData_provider_optim().getMesh_barycenters();
 
     unsigned int dimensionOfControl_gp = static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second);
-    double db_gp = static_cast<double>(optimizationParameters.find("db_gp")->second);
-    double pmax_gp = static_cast<double>(optimizationParameters.find("pmax_gp")->second);
+    double small_discr_sidelength = static_cast<double>(optimizationParameters.find("small_discr_sidelength")->second);
+    double position_max_gp = static_cast<double>(optimizationParameters.find("position_max_gp")->second);
 
     std::vector<double> current_barycenter;
     std::vector<double> next_cell_ym;std::vector<double> next_cell_yp;
@@ -598,11 +598,11 @@ arma::mat equation_solving_controller::D1X2_second_order()
         next_cell_ym = current_barycenter;
         next_cell_yp = current_barycenter;
 
-        if (std::abs(current_barycenter[1]-db_gp)<pmax_gp) {
-            next_cell_ym[1] = current_barycenter[1]-db_gp;
+        if (std::abs(current_barycenter[1]-small_discr_sidelength)<position_max_gp) {
+            next_cell_ym[1] = current_barycenter[1]-small_discr_sidelength;
         }
-        if (std::abs(current_barycenter[1]+db_gp)<pmax_gp) {
-            next_cell_yp[1] = current_barycenter[1]+db_gp;
+        if (std::abs(current_barycenter[1]+small_discr_sidelength)<position_max_gp) {
+            next_cell_yp[1] = current_barycenter[1]+small_discr_sidelength;
         }
 
         double ym = -1.0;
@@ -636,8 +636,8 @@ arma::mat equation_solving_controller::D1X3_second_order()
     std::map<int,std::vector<double>> barycenters = this->getData_provider_optim().getMesh_barycenters();
 
     unsigned int dimensionOfControl_gp = static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second);
-    double db_gp = static_cast<double>(optimizationParameters.find("db_gp")->second);
-    double pmax_gp = static_cast<double>(optimizationParameters.find("pmax_gp")->second);
+    double small_discr_sidelength = static_cast<double>(optimizationParameters.find("small_discr_sidelength")->second);
+    double position_max_gp = static_cast<double>(optimizationParameters.find("position_max_gp")->second);
 
     std::vector<double> current_barycenter;
     std::vector<double> next_cell_zm;std::vector<double> next_cell_zp;
@@ -662,11 +662,11 @@ arma::mat equation_solving_controller::D1X3_second_order()
         next_cell_zm = current_barycenter;
         next_cell_zp = current_barycenter;
 
-        if (std::abs(current_barycenter[2]-db_gp)<pmax_gp) {
-            next_cell_zm[2] = current_barycenter[2]-db_gp;
+        if (std::abs(current_barycenter[2]-small_discr_sidelength)<position_max_gp) {
+            next_cell_zm[2] = current_barycenter[2]-small_discr_sidelength;
         }
-        if (std::abs(current_barycenter[2]+db_gp)<pmax_gp) {
-            next_cell_zp[2] = current_barycenter[2]+db_gp;
+        if (std::abs(current_barycenter[2]+small_discr_sidelength)<position_max_gp) {
+            next_cell_zp[2] = current_barycenter[2]+small_discr_sidelength;
         }
 
         double zm = -1.0;

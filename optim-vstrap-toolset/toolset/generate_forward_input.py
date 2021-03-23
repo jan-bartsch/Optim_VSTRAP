@@ -51,12 +51,12 @@ if(float(params['inflow_included'])==1):
     file_forward_input.write("\t\t\t\t <load>"+str(optim_sMesh)+"</load> \n \t\t\t\t <face_data name=\"surface_charging\" type=\"double\"/>\n \t\t\t </mesh> \n")
 file_forward_input.write("\t\t </executable>\n")
 
-optim_pmax_gp = params['pmax_gp']
+optim_position_max_gp = params['position_max_gp']
 
 if(str(params['creation_forward_particles_method'])=='create_new'):
    print("Initialize forward particles using random values")
    file_forward_input.write("\t \t <executable name=\"particle_initializer\" mode=\"CPU\"> \n \t\t\t<group name=\"forward_particles\" empty=\"false\">\n")
-   file_forward_input.write("\t\t\t\t <geometry x_min=\"-" +str(optim_pmax_gp) +" \" x_max=\"" +str(optim_pmax_gp) +" \" y_min=\"-" +str(optim_pmax_gp) +" \" y_max=\"" +str(optim_pmax_gp) +" \" z_min=\"-" +str(optim_pmax_gp) +" \" z_max=\"" +str(optim_pmax_gp) +" \"/> \n ")
+   file_forward_input.write("\t\t\t\t <geometry x_min=\"-" +str(optim_position_max_gp) +" \" x_max=\"" +str(optim_position_max_gp) +" \" y_min=\"-" +str(optim_position_max_gp) +" \" y_max=\"" +str(optim_position_max_gp) +" \" z_min=\"-" +str(optim_position_max_gp) +" \" z_max=\"" +str(optim_position_max_gp) +" \"/> \n ")
    file_forward_input.write("\t\t\t\t <values number_density=\" "+ str(params["number_density_forward"]) +" \" weight=\""+ str(params["weight_forward"]) +" \" charge_number=\""+ str(params["charge_number_forward"]) +" \" mass=\"" + str(params["mass_forward"]) + "\" species=\"" + str(params["species_forward"]) + "\"/> \n ")
    file_forward_input.write("\t\t\t\t <temperature x_val=\"" + str(params["temperature_x_val"]) + "\" y_val=\"" + str(params["temperature_y_val"]) + "\" z_val=\"" + str(params["temperature_z_val"]) + "\"/> \n ")
    file_forward_input.write("\t\t\t\t <v_drift x_val=\""+ str(params["v_drift_x_val"]) +"\" y_val=\""+ str(params["v_drift_y_val"]) +"\" z_val=\""+ str(params["v_drift_z_val"]) +"\"/> \n \t\t\t </group> \n \t\t </executable> \n ")
@@ -82,7 +82,7 @@ if(float(params['inflow_included'])==1):
 	file_forward_input.write("\t\t\t</batch>\n")
 else:
 	file_forward_input.write("\t\t\t<boundary_type name=\"cuboid\"/>\n ")
-	file_forward_input.write("\t\t\t <geometry x_min=\"-" +str(optim_pmax_gp) +" \" x_max=\"" +str(optim_pmax_gp) +" \" y_min=\"-" +str(optim_pmax_gp) +" \" y_max=\"" +str(optim_pmax_gp) +" \" z_min=\"-" +str(optim_pmax_gp) +" \" z_max=\"" +str(optim_pmax_gp) +" \"/> \n ")
+	file_forward_input.write("\t\t\t <geometry x_min=\"-" +str(optim_position_max_gp) +" \" x_max=\"" +str(optim_position_max_gp) +" \" y_min=\"-" +str(optim_position_max_gp) +" \" y_max=\"" +str(optim_position_max_gp) +" \" z_min=\"-" +str(optim_position_max_gp) +" \" z_max=\"" +str(optim_position_max_gp) +" \"/> \n ")
 	file_forward_input.write("\t\t\t <particle_group name=\"forward_particles\"/> \n")
 file_forward_input.write("\t\t </executable> \n")
 

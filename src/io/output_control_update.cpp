@@ -55,20 +55,6 @@ int output_control_update::writeControl_XML(arma::mat control)
     return 0;
 }
 
-int output_control_update::writeArmaMatrixToFile(arma::mat input, std::string filename) {
-
-    std::ofstream outputFile(filename + ".txt");
-
-    for(unsigned int j = 0; j<input.n_rows; j++) {
-        for(unsigned int k = 0; k < input.n_cols; k++) {
-            outputFile << input(j,k) << " ";
-        }
-        outputFile << std::endl;
-    }
-
-    return 0;
-}
-
 int output_control_update::interpolate_control(data_provider provider)
 {
     std::map<std::string, std::string> paths = provider.getPaths();

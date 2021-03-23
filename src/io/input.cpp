@@ -110,9 +110,9 @@ std::vector<particle> input::readParticleVector(std::string filename, std::strin
     return particleVector;
 }
 
-arma::mat input::readControl(const char *filename, int pcell_gp)
+arma::mat input::readControl(const char *filename, int number_cells_position)
 {       
-    arma::mat control(static_cast<unsigned long long>(pcell_gp),3,arma::fill::zeros);
+    arma::mat control(static_cast<unsigned long long>(number_cells_position),3,arma::fill::zeros);
 
     TiXmlDocument inputFile(filename);
     if (!inputFile.LoadFile()) {
@@ -162,10 +162,10 @@ arma::mat input::readControl(const char *filename, int pcell_gp)
     return control;
 }
 
-std::vector<std::vector<double> > input::readDoubleMatrix(std::string filename, int pcell_gp,std::string delimiter)
+std::vector<std::vector<double> > input::readDoubleMatrix(std::string filename, int number_cells_position,std::string delimiter)
 {
     std::vector<std::vector<double>> matrix;
-    matrix.resize(pcell_gp);
+    matrix.resize(number_cells_position);
 
     int counter = 0;
 

@@ -22,7 +22,7 @@ TEST(gradient,calculationNR1) {
 
     std::map<std::string, double> optimizationParameters = provider.getOptimizationParameters();
     unsigned int dimensionOfControl_gp = static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second);
-    unsigned int pcell_gp = static_cast<unsigned int>(optimizationParameters.find("pcell_gp")->second);
+    unsigned int number_cells_position = static_cast<unsigned int>(optimizationParameters.find("number_cells_position")->second);
     unsigned int ntimesteps_gp = static_cast<unsigned int>(optimizationParameters.find("ntimesteps_gp")->second);
 
     gradient_calculator gradient_calculator_opt = gradient_calculator(filename);
@@ -31,8 +31,8 @@ TEST(gradient,calculationNR1) {
     pdf_controller pdf_control = pdf_controller();
     pdf_control.setData_provider_optim(provider);
 
-    arma::mat gradient(pcell_gp,3,arma::fill::zeros);
-    arma::mat gradient_not_parallel(pcell_gp,3,arma::fill::zeros);
+    arma::mat gradient(number_cells_position,3,arma::fill::zeros);
+    arma::mat gradient_not_parallel(number_cells_position,3,arma::fill::zeros);
 
 
     std::vector<std::vector<particle>> forwardParticles(ntimesteps_gp);
@@ -60,7 +60,7 @@ TEST(gradient,calculationNR1) {
     backwardPDF = pdf_time;
 
 
-    arma::mat control(pcell_gp,3,arma::fill::zeros);
+    arma::mat control(number_cells_position,3,arma::fill::zeros);
 
     try {
         gradient = gradient_calculator_opt.calculateGradient_forceControl_space_Hm(forwardPDF,backwardPDF,control);

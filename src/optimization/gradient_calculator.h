@@ -12,12 +12,14 @@
 #include "../controller/pdf_controller.h"
 #include "../controller/equation_solving_controller.h"
 #include "../io/output_control_update.h"
+#include "../io/output_diagnostics.h"
 
 
 /**
  * @brief The gradient_calculator class provides method for assembling to gradient,
  * which is used in the calculation of the new step-direction for controls in H^2
  * Sobolev-space
+ * For a reference, see https://www.tandfonline.com/doi/abs/10.1080/23324309.2021.1896552
  */
 class gradient_calculator : public abstract_controller
 {

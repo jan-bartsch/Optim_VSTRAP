@@ -1,9 +1,6 @@
 #include "pdf_controller.h"
 
-pdf_controller::pdf_controller()
-{
-
-}
+pdf_controller::pdf_controller() { }
 
 int pdf_controller::assemblingMultiDim(std::vector<std::vector<particle>> &particlesTime, unsigned int equationType,
                                        std::vector<std::unordered_map<coordinate_phase_space_time, double>> &pdf_time)
@@ -179,8 +176,8 @@ int pdf_controller::assemblingMultiDim_parallel(std::vector<std::vector<particle
         }
     }
 
-     std::vector<int>::iterator max_too_fast_particles = std::max_element(too_fast_particles.begin(),too_fast_particles.end());
-     int number_too_fast_particles = max_too_fast_particles[std::distance(too_fast_particles.begin(),max_too_fast_particles)];
+    std::vector<int>::iterator max_too_fast_particles = std::max_element(too_fast_particles.begin(),too_fast_particles.end());
+    int number_too_fast_particles = max_too_fast_particles[std::distance(too_fast_particles.begin(),max_too_fast_particles)];
 
     if (equationType == 0 && number_too_fast_particles>0) {
         logger::Info("(Maximum) particles faster than " + std::to_string(vmax_gp) + ": " + std::to_string(number_too_fast_particles) + " in iteration "
@@ -197,25 +194,21 @@ int pdf_controller::assemblingMultiDim_parallel(std::vector<std::vector<particle
     return return_flag;
 }
 
-std::vector<std::vector<std::vector<std::vector<double>>>> pdf_controller::relaxating_GaussSeidel_4D(std::vector<std::vector<std::vector<std::vector<double>>>> pdf,
+std::vector<std::vector<std::vector<std::vector<double> > > > pdf_controller::relaxating_GaussSeidel_4D(std::vector<std::vector<std::vector<std::vector<double> > > > pdf,
                                                                                                      unsigned int numberOfRelaxationSteps)
 {
 
     double tolerance_relaxation_gp = this->getData_provider_optim().getOptimizationParameters().find("tolerance_relaxation_gp")->second;
     unsigned int ntimesteps_gp = static_cast<unsigned int>(this->getData_provider_optim().getOptimizationParameters().find("ntimesteps_gp")->second);
-    double vmax_gp = this->getData_provider_optim().getOptimizationParameters().find("vmax_gp")->second;
     double dt_gp = this->getData_provider_optim().getOptimizationParameters().find("dt_gp")->second;
-    double dp_gp = this->getData_provider_optim().getOptimizationParameters().find("dp_gp")->second;
     double dv_gp = this->getData_provider_optim().getOptimizationParameters().find("dv_gp")->second;
     double vcell_gp = this->getData_provider_optim().getOptimizationParameters().find("vcell_gp")->second;
 
 
-    std::vector<std::vector<std::vector<std::vector<double>>>> rhs = pdf;
+    std::vector<std::vector<std::vector<std::vector<double> > > > rhs = pdf;
 
-    std::vector<std::vector<std::vector<std::vector<double>>>> relaxated_pdf_New = rhs;
-    //relaxated_pdf_New.assign(pdf.begin(),pdf.end());
-    std::vector<std::vector<std::vector<std::vector<double>>>> relaxated_pdf_Old = rhs;
-    //relaxated_pdf_Old.assign(pdf.begin(),pdf.end());
+    std::vector<std::vector<std::vector<std::vector<double> > > > relaxated_pdf_New = rhs;
+    std::vector<std::vector<std::vector<std::vector<double> > > > relaxated_pdf_Old = rhs;
 
     unsigned int n = 0;
     double norm = 1.0;
@@ -251,7 +244,7 @@ std::vector<std::vector<std::vector<std::vector<double>>>> pdf_controller::relax
         }
         norm = std::sqrt(norm);
         relaxated_pdf_Old.assign(relaxated_pdf_New.begin(),relaxated_pdf_New.end());
-        n++;
+        ++n;
     }
 
     return relaxated_pdf_New;
@@ -289,21 +282,21 @@ double pdf_controller::calculate_wasserstein_metric_histogramm(std::vector<std::
     double vcell_gp = static_cast<unsigned int>(optimization_parameters.find("vcell_gp")->second);
     double dv_gp = static_cast<unsigned int>(optimization_parameters.find("dv_gp")->second);
     double vmax_gp = static_cast<unsigned int>(optimization_parameters.find("vmax_gp")->second);
-    double pcell_gp = static_cast<unsigned int>(optimization_parameters.find("pcell_gp")->second);
+    double number_cells_position = static_cast<unsigned int>(optimization_parameters.find("number_cells_position")->second);
 
     std::map<int,std::vector<double>> barycenters = this->getData_provider_optim().getMesh_barycenters();
 
 #pragma omp parallel for
     for (unsigned int o = 0; o < ntimesteps_gp; o++) {
         std::cout << "Wasserstein in " << o << std::endl;
-        for (unsigned int i1 = 1; i1<=pcell_gp; i1++) {
+        for (unsigned int i1 = 1; i1<=number_cells_position; i1++) {
             for (unsigned int l1 = 0; l1<vcell_gp; l1++) {
                 for (unsigned int m1 = 0; m1<vcell_gp; m1++ ) {
                     for (unsigned int n1 = 0; n1<vcell_gp; n1++) {
 
                         coordinate_phase_space_time c1(o,i1,l1,m1,n1);
 
-                        for(unsigned int i2 = 1; i2 <= pcell_gp; i2++) {
+                        for(unsigned int i2 = 1; i2 <= number_cells_position; i2++) {
                             for (unsigned int l2 = 0; l2<vcell_gp; l2++) {
                                 for (unsigned int m2 = 0; m2<vcell_gp; m2++ ) {
                                     for (unsigned int n2 = 0; n2<vcell_gp; n2++) {

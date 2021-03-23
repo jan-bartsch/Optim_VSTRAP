@@ -13,13 +13,13 @@
       <parameter name="fixed_gradient_descent_stepsize" value="1e-2" />
       <parameter name="fraction_of_optimal_control" value="1.5" />
       <parameter name="optimizationIteration_max_gp" value="100" />       <!-- number of maximal interations -->
-      <parameter name="dp_gp" value="0.0156" />                              <!-- discretization size position 64:0.0156 1000:0.0001 512:0.002 -->
+      <parameter name="small_discr_volume" value="0.0156" />                              <!-- discretization size position 64:0.0156 1000:0.0001 512:0.002 -->
       <parameter name="dt_gp" value="1e-5" />                             <!-- discretization size time -->
       <parameter name="dv_gp" value="400.00" />                              <!-- discretization size velocity -->
       <parameter name="numberParticles_gp" value="2000" />
       <parameter name="ntimesteps_gp" value="30" />
-      <parameter name="pcell_gp" value="64" />
-      <parameter name="pmax_gp" value="0.5" />
+      <parameter name="number_cells_position" value="64" />
+      <parameter name="position_max_gp" value="0.5" />
       <parameter name="sigma_x_gp" value="0.05" />
       <parameter name="sigma_v_gp" value="1e+2" />
       <parameter name="start_control_gp" value="2" />

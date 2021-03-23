@@ -67,7 +67,7 @@ if (float(params["electric_force"])==1):
 		brockett_file.write(str(mu_x)+","+str(mu_y)+","+str(mu_z)+","+str(s_x)+","+str(s_y)+","+str(s_z)+","+str(v_x)+","+str(v_y)+","+str(v_z)+","+str(v_s_x)+","+str(v_s_y)+","+str(v_s_z)+"\n")
 	file.write("</parameraters>")
 
-v_x = 1000; #2.0*float(params['pmax_gp'])/(float(params['ntimesteps_gp'])*float(params['dt_gp']))
+v_x = 1000; #2.0*float(params['position_max_gp'])/(float(params['ntimesteps_gp'])*float(params['dt_gp']))
 v_y = 0.0;
 v_z = 0.0;
 

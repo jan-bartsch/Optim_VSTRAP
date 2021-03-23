@@ -8,7 +8,6 @@ coordinate_phase_space_time::coordinate_phase_space_time(int cell_id, int vx, in
     this->setCell_id(cell_id);
     this->setVx(vx); this->setVy(vy); this->setVz(vz);
     this->setTime(time);
-    //this->setNorm(calculateNorm());
 }
 
 std::string coordinate_phase_space_time::toString() const
@@ -20,13 +19,6 @@ std::string coordinate_phase_space_time::toString() const
             + std::to_string(vy) + ", "
             + std::to_string(vz) + "}";
 }
-
-//double coordinate_phase_space_time::calculateNorm()
-//{
-//    return this->getPx()*this->getPy() + this->getPy()*this->getPy() + this->getPz()*this->getPz()+
-//            this->getVx()*this->getVy() + this->getVy()*this->getVy() + this->getVz()*this->getVz() +
-//            this->getTime()*this->getTime();
-//}
 
 bool coordinate_phase_space_time::operator==(const coordinate_phase_space_time &coordinate) const
 {
@@ -108,16 +100,6 @@ void coordinate_phase_space_time::setTime(int value)
 {
     time = value;
 }
-
-//double coordinate_phase_space_time::getNorm() const
-//{
-//    return norm;
-//}
-
-//void coordinate_phase_space_time::setNorm(double value)
-//{
-//    norm = value;
-//}
 
 int coordinate_phase_space_time::getCell_id() const
 {

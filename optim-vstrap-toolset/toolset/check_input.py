@@ -47,16 +47,16 @@ def check_input():
 
 
 	####
-	# dimensionOfControl_gp, pcell_gp
+	# dimensionOfControl_gp, number_cells_position
 	####
 
-	if (float(params["dimensionOfControl_gp"])>float(params["pcell_gp"])):
-		print("[Check_Input] dimensionOfControl_gp is greater than pcell_gp, this will lead to an error in the calculation of the gradient")
+	if (float(params["dimensionOfControl_gp"])>float(params["number_cells_position"])):
+		print("[Check_Input] dimensionOfControl_gp is greater than number_cells_position, this will lead to an error in the calculation of the gradient")
 		print("dimensionOfControl_gp: " + params["dimensionOfControl_gp"])
-		print("pcell_gp: " + params["pcell_gp"])
+		print("number_cells_position: " + params["number_cells_position"])
 		all_clear = False;
 	else:
-		print("[Check_Input] dimensionOfControl_gp < pcell_gp")
+		print("[Check_Input] dimensionOfControl_gp < number_cells_position")
 
 	####
 	# Time step
@@ -139,7 +139,7 @@ def check_input():
 	####
 	forward_geo = f_executables["particle_initializer"].getElementsByTagName('geometry')[0]
 	backward_geo = b_executables["adjoint_particle_creator"].getElementsByTagName('geometry')[0]
-	optim_geo = float(params["pmax_gp"])
+	optim_geo = float(params["position_max_gp"])
 
 	if (forward_geo.getAttribute("x_min")==backward_geo.getAttribute("x_min") and forward_geo.getAttribute("y_min")==backward_geo.getAttribute("y_min") and forward_geo.getAttribute("z_min")==backward_geo.getAttribute("z_min")
 	and forward_geo.getAttribute("x_max")==backward_geo.getAttribute("x_max") and forward_geo.getAttribute("y_max")==backward_geo.getAttribute("y_max") and forward_geo.getAttribute("z_max")==backward_geo.getAttribute("z_max") ):

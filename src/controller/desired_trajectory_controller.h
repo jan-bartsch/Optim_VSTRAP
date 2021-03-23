@@ -18,6 +18,18 @@ class desired_trajectory_controller : public abstract_controller
 public:
     desired_trajectory_controller();
 
+    /**
+     * @brief trajectory_desired is the generic function for calling the desired trajectory
+     *
+     * @param barycenter
+     * @param l
+     * @param m
+     * @param n
+     * @param o
+     * @param brockettVector
+     * @param plasma_state_output_interval
+     * @return
+     */
     std::vector<double> trajectory_desired(std::vector<double> barycenter,
                                            unsigned int l, unsigned int m, unsigned int n,
                                            unsigned int o, std::vector<std::vector<double> > brockettVector,
@@ -25,7 +37,7 @@ public:
 
     /**
      * @brief trajectory_desired_brockett provides the desired trajectory using a time dependent vector as input
-     *
+     *      *
      * @param brockettVector
      * @param o
      * @param plasma_state_output_interval
