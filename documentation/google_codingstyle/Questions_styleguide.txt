@@ -1,0 +1,5 @@
+Headers:
+- should both .h and .cpp file have the same #include-statements? ("Do not rely on transitive inclusions.)"
+- what about expections ("We do not use C++ exceptions.")
+
+STOPPED AT "Naming"
