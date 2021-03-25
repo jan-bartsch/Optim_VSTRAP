@@ -98,25 +98,25 @@
     <parameter name="armijo_iterative_exp" value="1.0"/>     <!--  1.0: no decreasing stepsize  -->
 
     <!--  DOMAIN PARAMETERS  -->
-    <parameter name="pmax_gp" value="0.05"/>
+    <parameter name="position_max_gp" value="0.05"/>
 
-    <!--parameter name="pcell_gp" value="64"/>
-    <parameter name="dp_gp" value="0.000015625"/>
-    <parameter name="db_gp" value="0.025"/>
+    <!--parameter name="number_cells_position" value="64"/>
+    <parameter name="small_discr_volume" value="0.000015625"/>
+    <parameter name="small_discr_sidelength" value="0.025"/>
      <parameter name="dimensionOfControl_gp" value="64"/>
     <parameter name="end_control_gp" value="64"/>
     <parameter name="start_control_gp" value="1"/-->
 
-    <parameter name="pcell_gp" value="216"/>
-    <parameter name="dp_gp" value="4.62962962962963e-6"/>
-    <parameter name="db_gp" value="0.016666667"/>
+    <parameter name="number_cells_position" value="216"/> <!-- was number_cells_position-->
+    <parameter name="small_discr_volume" value="4.62962962962963e-6"/>
+    <parameter name="small_discr_sidelength" value="0.016666667"/>
      <parameter name="dimensionOfControl_gp" value="216"/>
     <parameter name="end_control_gp" value="216"/>
     <parameter name="start_control_gp" value="1"/>
 
-    <!--parameter name="pcell_gp" value="512"/>
-    <parameter name="dp_gp" value="1.953125e-6"/>
-    <parameter name="db_gp" value="0.0125"/>
+    <!--parameter name="number_cells_position" value="512"/>
+    <parameter name="small_discr_volume" value="1.953125e-6"/>
+    <parameter name="small_discr_sidelength" value="0.0125"/>
      <parameter name="dimensionOfControl_gp" value="512"/>
     <parameter name="end_control_gp" value="512"/>
     <parameter name="start_control_gp" value="1"/-->

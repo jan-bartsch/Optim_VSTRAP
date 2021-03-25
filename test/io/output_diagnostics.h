@@ -23,7 +23,7 @@ TEST(diagnostics,gradientOutput) {
     system(&COMMAND_DELETE_FILES[0]);
 
     try{
-        out.writeArmaMatrixToFile(gradient_out,"testGradient");
+        out.writeGradientMatrixToFile(gradient_out,"testGradient");
     } catch(std::exception e) {
         ASSERT_TRUE(all_clear);
     }

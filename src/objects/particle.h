@@ -3,23 +3,11 @@
 
 #include <string>
 
-
+/**
+ * @brief The particle class defines a particle using its position, velocity and weight
+ */
 class particle
 {
-
-private:
-    double px;
-    double py;
-    double pz;
-
-    double vx;
-    double vy;
-    double vz;
-
-    int cell_id;
-    double weight;
-
-    //double timestep;
 
 public:
 
@@ -31,19 +19,25 @@ public:
     particle(double vx, double vy, double vz);
     particle(double px, double py, double pz, double vx, double vy, double vz);
     particle(double px, double py, double pz, double vx, double vy, double vz, int cell_id);
+
+    /**
+     * @brief operator == overloads the compare operator. Two particles
+     * equal if the difference of the values in every component is
+     * less than a given tolerance (comparing two doubles)
+     *
+     * @param particle
+     * @return
+     */
     bool operator==(const particle &particle) const;
 
 
     /**
      * @brief getVelocityMagnitudeParticle calculates speed of particles using Euclidean Norm
+     *
      * @return
      */
     double getVelocityMagnitudeParticle();
 
-    /**
-     * @brief toString
-     * @return
-     */
     std::string toString();
 
 
@@ -66,6 +60,18 @@ public:
     void setCell_id(int value);
     double getWeight() const;
     void setWeight(double value);
+
+private:
+    double px;
+    double py;
+    double pz;
+
+    double vx;
+    double vy;
+    double vz;
+
+    int cell_id;
+    double weight;
 };
 
 #endif // PARTICLE_H

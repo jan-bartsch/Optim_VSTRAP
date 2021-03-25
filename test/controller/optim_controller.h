@@ -42,7 +42,7 @@ TEST(optContr,startZeroControl) {
     optim_controller contr = optim_controller();
 
     std::map<std::string, double> optimizationParameters = provider.getOptimizationParameters();
-    unsigned int dimensionOfControl_gp = static_cast<unsigned int>(optimizationParameters.find("pcell_gp")->second);
+    unsigned int dimensionOfControl_gp = static_cast<unsigned int>(optimizationParameters.find("number_cells_position")->second);
     arma::mat zero(dimensionOfControl_gp,3,arma::fill::zeros);
 
     arma::mat control = contr.start_with_zero_control(filename);
@@ -63,7 +63,7 @@ TEST(optContr,startReadInControl) {
     updater.setData_provider_optim(provider);
 
     std::map<std::string, double> optimizationParameters = provider.getOptimizationParameters();
-    unsigned int dimensionOfControl_gp = static_cast<unsigned int>(optimizationParameters.find("pcell_gp")->second);
+    unsigned int dimensionOfControl_gp = static_cast<unsigned int>(optimizationParameters.find("number_cells_position")->second);
     arma::mat control_rand(dimensionOfControl_gp,3,arma::fill::randu);
 
     updater.writeControl_XML(control_rand);

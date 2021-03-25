@@ -6,7 +6,8 @@
 #include <cmath>
 
 /**
- * @brief The coordinate_phase_space_time class defines coordinates in the seven dimensional time-phase-space cylinder
+ * @brief The coordinate_phase_space_time class defines coordinates
+ * in the seven dimensional time-phase-space cylinder
  */
 class coordinate_phase_space_time
 {
@@ -17,8 +18,13 @@ public:
 
     std::string toString() const;
 
-    //double calculateNorm();
-
+    /**
+     * @brief operator == overloads the compare operator. Two objects equal
+     * if all attributes equal
+     *
+     * @param coordinate
+     * @return
+     */
     bool operator==(const coordinate_phase_space_time &coordinate) const;
     coordinate_phase_space_time operator-(const coordinate_phase_space_time &coordinate) const;
 
@@ -43,9 +49,6 @@ public:
     int getTime() const;
     void setTime(int value);
 
-//    double getNorm() const;
-//    void setNorm(double value);
-
     int getCell_id() const;
     void setCell_id(int value);
 
@@ -60,11 +63,9 @@ private:
     int vx;
     int vy;
     int vz;
+
     //time
     int time;
-
-    //
-    //double norm;
 
 };
 
@@ -72,16 +73,16 @@ namespace std {
 template<>
 struct hash<coordinate_phase_space_time>
 {
-   typedef coordinate_phase_space_time argument_type;
-   typedef size_t result_type;
+    typedef coordinate_phase_space_time argument_type;
+    typedef size_t result_type;
 
-   size_t operator () (const argument_type& x) const
-   {
-     return (hash<int>()(x.getPx())^hash<int>()(x.getPy())^hash<int>()(x.getPz())^hash<int>()(x.getCell_id())
-             ^hash<int>()(x.getVx())^hash<int>()(x.getVy())^hash<int>()(x.getVz())^
-             hash<int>()(x.getTime())
-             );
-   }
+    size_t operator () (const argument_type& x) const
+    {
+        return (hash<int>()(x.getPx())^hash<int>()(x.getPy())^hash<int>()(x.getPz())^hash<int>()(x.getCell_id())
+                ^hash<int>()(x.getVx())^hash<int>()(x.getVy())^hash<int>()(x.getVz())^
+                hash<int>()(x.getTime())
+                );
+    }
 };
 }
 

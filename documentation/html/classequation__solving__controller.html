@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Optim_VSTRAP: equation_solving_controller Class Reference</title>
+<title>MOTIONS: equation_solving_controller Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Optim_VSTRAP
+   <div id="projectname">MOTIONS
    </div>
   </td>
  </tr>
@@ -65,22 +65,6 @@ $(function() {
 <div class="title">equation_solving_controller Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="dynheader">
-Inheritance diagram for equation_solving_controller:</div>
-<div class="dyncontent">
-<div class="center"><img src="classequation__solving__controller__inherit__graph.png" border="0" usemap="#equation__solving__controller_inherit__map" alt="Inheritance graph"/></div>
-<map name="equation__solving__controller_inherit__map" id="equation__solving__controller_inherit__map">
-<area shape="rect" id="node2" href="classabstract__controller.html" title="The abstract_controller class is inherited by all controller classes. " alt="" coords="30,5,159,32"/>
-</map>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
-<div class="dynheader">
-Collaboration diagram for equation_solving_controller:</div>
-<div class="dyncontent">
-<div class="center"><img src="classequation__solving__controller__coll__graph.png" border="0" usemap="#equation__solving__controller_coll__map" alt="Collaboration graph"/></div>
-<map name="equation__solving__controller_coll__map" id="equation__solving__controller_coll__map">
-<area shape="rect" id="node2" href="classabstract__controller.html" title="The abstract_controller class is inherited by all controller classes. " alt="" coords="30,5,159,32"/>
-</map>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -90,23 +74,22 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>start_solving_forward<
 <tr class="memitem:a549c5c85c794cf0e7fbeacc3600fd830"><td class="memItemLeft" align="right" valign="top"><a id="a549c5c85c794cf0e7fbeacc3600fd830"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>start_solving_backward</b> (std::string start_backward)</td></tr>
 <tr class="separator:a549c5c85c794cf0e7fbeacc3600fd830"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae7fa9058be2e5580569a723cfe4040fc"><td class="memItemLeft" align="right" valign="top"><a id="ae7fa9058be2e5580569a723cfe4040fc"></a>
-arma::mat&#160;</td><td class="memItemRight" valign="bottom"><b>D1_second_order</b> ()</td></tr>
+<tr class="memitem:ae7fa9058be2e5580569a723cfe4040fc"><td class="memItemLeft" align="right" valign="top">arma::mat&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classequation__solving__controller.html#ae7fa9058be2e5580569a723cfe4040fc">D1_second_order</a> ()</td></tr>
+<tr class="memdesc:ae7fa9058be2e5580569a723cfe4040fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">D1_second_order calculates the first derivative with respect to position with a seconr oder accuracy (using the Midpoint scheme)  <a href="#ae7fa9058be2e5580569a723cfe4040fc">More...</a><br /></td></tr>
 <tr class="separator:ae7fa9058be2e5580569a723cfe4040fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac9b385260a874994dec76993910980ec"><td class="memItemLeft" align="right" valign="top"><a id="ac9b385260a874994dec76993910980ec"></a>
-arma::mat&#160;</td><td class="memItemRight" valign="bottom"><b>D1_forward</b> ()</td></tr>
+<tr class="memitem:ac9b385260a874994dec76993910980ec"><td class="memItemLeft" align="right" valign="top">arma::mat&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classequation__solving__controller.html#ac9b385260a874994dec76993910980ec">D1_forward</a> ()</td></tr>
+<tr class="memdesc:ac9b385260a874994dec76993910980ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">D1_forward calculates the first derivitive with respect to position using the forward scheme (first order accuracy)  <a href="#ac9b385260a874994dec76993910980ec">More...</a><br /></td></tr>
 <tr class="separator:ac9b385260a874994dec76993910980ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaec311f862924034fef6e7208ac44a21"><td class="memItemLeft" align="right" valign="top"><a id="aaec311f862924034fef6e7208ac44a21"></a>
-arma::mat&#160;</td><td class="memItemRight" valign="bottom"><b>D1_backward</b> ()</td></tr>
+<tr class="memitem:aaec311f862924034fef6e7208ac44a21"><td class="memItemLeft" align="right" valign="top">arma::mat&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classequation__solving__controller.html#aaec311f862924034fef6e7208ac44a21">D1_backward</a> ()</td></tr>
+<tr class="memdesc:aaec311f862924034fef6e7208ac44a21"><td class="mdescLeft">&#160;</td><td class="mdescRight">D1_backward calculates the first derivitive with respect to position using the backward scheme (first order accuracy)  <a href="#aaec311f862924034fef6e7208ac44a21">More...</a><br /></td></tr>
 <tr class="separator:aaec311f862924034fef6e7208ac44a21"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3488080edc0c9a8cf8579fcd466ca429"><td class="memItemLeft" align="right" valign="top"><a id="a3488080edc0c9a8cf8579fcd466ca429"></a>
-arma::mat&#160;</td><td class="memItemRight" valign="bottom"><b>Laplacian_3D</b> ()</td></tr>
+<tr class="memitem:a3488080edc0c9a8cf8579fcd466ca429"><td class="memItemLeft" align="right" valign="top">arma::mat&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classequation__solving__controller.html#a3488080edc0c9a8cf8579fcd466ca429">Laplacian_3D</a> ()</td></tr>
+<tr class="memdesc:a3488080edc0c9a8cf8579fcd466ca429"><td class="mdescLeft">&#160;</td><td class="mdescRight">Laplacian_3D calculates the Laplacion in position in three dimensions.  <a href="#a3488080edc0c9a8cf8579fcd466ca429">More...</a><br /></td></tr>
 <tr class="separator:a3488080edc0c9a8cf8579fcd466ca429"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3ecc85d3b88fd0350ed0af025638de1c"><td class="memItemLeft" align="right" valign="top"><a id="a3ecc85d3b88fd0350ed0af025638de1c"></a>
-arma::mat&#160;</td><td class="memItemRight" valign="bottom"><b>Laplacian_Squared_3D</b> ()</td></tr>
+<tr class="memitem:a3ecc85d3b88fd0350ed0af025638de1c"><td class="memItemLeft" align="right" valign="top">arma::mat&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classequation__solving__controller.html#a3ecc85d3b88fd0350ed0af025638de1c">Laplacian_Squared_3D</a> ()</td></tr>
+<tr class="memdesc:a3ecc85d3b88fd0350ed0af025638de1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Laplacian_Squared_3D.  <a href="#a3ecc85d3b88fd0350ed0af025638de1c">More...</a><br /></td></tr>
 <tr class="separator:a3ecc85d3b88fd0350ed0af025638de1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1d7f3f877f775de429d4251f189afbab"><td class="memItemLeft" align="right" valign="top"><a id="a1d7f3f877f775de429d4251f189afbab"></a>
-arma::mat&#160;</td><td class="memItemRight" valign="bottom"><b>D1X1_second_order</b> ()</td></tr>
+<tr class="memitem:a1d7f3f877f775de429d4251f189afbab"><td class="memItemLeft" align="right" valign="top">arma::mat&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classequation__solving__controller.html#a1d7f3f877f775de429d4251f189afbab">D1X1_second_order</a> ()</td></tr>
 <tr class="separator:a1d7f3f877f775de429d4251f189afbab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a11679c7ea048b4291b101948ad523a47"><td class="memItemLeft" align="right" valign="top"><a id="a11679c7ea048b4291b101948ad523a47"></a>
 arma::mat&#160;</td><td class="memItemRight" valign="bottom"><b>D1X2_second_order</b> ()</td></tr>
@@ -122,6 +105,163 @@ arma::mat&#160;</td><td class="memItemRight" valign="bottom"><b>D1X3_second_orde
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setData_provider_optim</b> (const <a class="el" href="classdata__provider.html">data_provider</a> &amp;value)</td></tr>
 <tr class="separator:a35988272a58784db06c9d1e48f0a3292 inherit pub_methods_classabstract__controller"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="aaec311f862924034fef6e7208ac44a21"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaec311f862924034fef6e7208ac44a21">&#9670;&nbsp;</a></span>D1_backward()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">arma::mat equation_solving_controller::D1_backward </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>D1_backward calculates the first derivitive with respect to position using the backward scheme (first order accuracy) </p>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+
+</div>
+</div>
+<a id="ac9b385260a874994dec76993910980ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac9b385260a874994dec76993910980ec">&#9670;&nbsp;</a></span>D1_forward()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">arma::mat equation_solving_controller::D1_forward </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>D1_forward calculates the first derivitive with respect to position using the forward scheme (first order accuracy) </p>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+
+</div>
+</div>
+<a id="ae7fa9058be2e5580569a723cfe4040fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7fa9058be2e5580569a723cfe4040fc">&#9670;&nbsp;</a></span>D1_second_order()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">arma::mat equation_solving_controller::D1_second_order </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>D1_second_order calculates the first derivative with respect to position with a seconr oder accuracy (using the Midpoint scheme) </p>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classequation__solving__controller_ae7fa9058be2e5580569a723cfe4040fc_icgraph.png" border="0" usemap="#classequation__solving__controller_ae7fa9058be2e5580569a723cfe4040fc_icgraph" alt=""/></div>
+<map name="classequation__solving__controller_ae7fa9058be2e5580569a723cfe4040fc_icgraph" id="classequation__solving__controller_ae7fa9058be2e5580569a723cfe4040fc_icgraph">
+<area shape="rect" id="node2" href="classinner__products.html#aa134d04eb9c9bab2fc8965fe2f4563c9" title="inner_products::H1\l_inner_product" alt="" coords="232,5,364,47"/>
+<area shape="rect" id="node3" href="classstepdirection__controller.html#ab2d76b39009f8d6c0121288d79c42a9d" title="get_stepdirection is a generic method called in the main optimizer algorithm " alt="" coords="592,5,748,47"/>
+<area shape="rect" id="node6" href="classinner__products.html#a403653f09d10e5cc0f1f5c718b66aeb9" title="inner_products::H2\l_inner_product" alt="" coords="412,35,544,76"/>
+<area shape="rect" id="node4" href="classoptim__controller.html#aa2c0fefd82a319ebc1f4407abb17476a" title="main_optimization_algorithm is the core optimization algorithm which uses the paramteres defined in t..." alt="" coords="796,5,955,47"/>
+<area shape="rect" id="node5" href="classoptim__controller.html#a239f21ed616ef8f350b386cea9be81c1" title="start_optimizer reads in the command line command and starts the optimizer " alt="" coords="1003,5,1151,47"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a1d7f3f877f775de429d4251f189afbab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d7f3f877f775de429d4251f189afbab">&#9670;&nbsp;</a></span>D1X1_second_order()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">arma::mat equation_solving_controller::D1X1_second_order </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>for testing </p>
+
+</div>
+</div>
+<a id="a3488080edc0c9a8cf8579fcd466ca429"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3488080edc0c9a8cf8579fcd466ca429">&#9670;&nbsp;</a></span>Laplacian_3D()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">arma::mat equation_solving_controller::Laplacian_3D </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Laplacian_3D calculates the Laplacion in position in three dimensions. </p>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classequation__solving__controller_a3488080edc0c9a8cf8579fcd466ca429_icgraph.png" border="0" usemap="#classequation__solving__controller_a3488080edc0c9a8cf8579fcd466ca429_icgraph" alt=""/></div>
+<map name="classequation__solving__controller_a3488080edc0c9a8cf8579fcd466ca429_icgraph" id="classequation__solving__controller_a3488080edc0c9a8cf8579fcd466ca429_icgraph">
+<area shape="rect" id="node2" href="classgradient__calculator.html#a62952c354762514d88d70e323957fb34" title="calculateGradient_forceControl_space_Hm_not_parallel calculates the gradient without using any parall..." alt="" coords="232,5,403,76"/>
+<area shape="rect" id="node3" href="classgradient__calculator.html#a8381a8497dfe88bcb04ff40ce1e235e0" title="calculateGradient_forceControl_space_Hm calculates the gradient with parallelization ..." alt="" coords="451,49,621,105"/>
+<area shape="rect" id="node6" href="classgradient__calculator.html#a3a53b6132184c796ef3aca1e306e2211" title="calculateGradient_forceControl_space_Hm_plasma calculates the gradient with two different species (io..." alt="" coords="451,129,621,200"/>
+<area shape="rect" id="node7" href="classinner__products.html#a403653f09d10e5cc0f1f5c718b66aeb9" title="inner_products::H2\l_inner_product" alt="" coords="251,213,383,255"/>
+<area shape="rect" id="node4" href="classoptim__controller.html#aa2c0fefd82a319ebc1f4407abb17476a" title="main_optimization_algorithm is the core optimization algorithm which uses the paramteres defined in t..." alt="" coords="669,144,828,185"/>
+<area shape="rect" id="node5" href="classoptim__controller.html#a239f21ed616ef8f350b386cea9be81c1" title="start_optimizer reads in the command line command and starts the optimizer " alt="" coords="876,144,1024,185"/>
+<area shape="rect" id="node8" href="classstepdirection__controller.html#ab2d76b39009f8d6c0121288d79c42a9d" title="get_stepdirection is a generic method called in the main optimizer algorithm " alt="" coords="458,224,614,265"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a3ecc85d3b88fd0350ed0af025638de1c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ecc85d3b88fd0350ed0af025638de1c">&#9670;&nbsp;</a></span>Laplacian_Squared_3D()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">arma::mat equation_solving_controller::Laplacian_Squared_3D </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Laplacian_Squared_3D. </p>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classequation__solving__controller_a3ecc85d3b88fd0350ed0af025638de1c_icgraph.png" border="0" usemap="#classequation__solving__controller_a3ecc85d3b88fd0350ed0af025638de1c_icgraph" alt=""/></div>
+<map name="classequation__solving__controller_a3ecc85d3b88fd0350ed0af025638de1c_icgraph" id="classequation__solving__controller_a3ecc85d3b88fd0350ed0af025638de1c_icgraph">
+<area shape="rect" id="node2" href="classgradient__calculator.html#a62952c354762514d88d70e323957fb34" title="calculateGradient_forceControl_space_Hm_not_parallel calculates the gradient without using any parall..." alt="" coords="232,5,403,76"/>
+<area shape="rect" id="node3" href="classgradient__calculator.html#a8381a8497dfe88bcb04ff40ce1e235e0" title="calculateGradient_forceControl_space_Hm calculates the gradient with parallelization ..." alt="" coords="232,101,403,157"/>
+<area shape="rect" id="node6" href="classgradient__calculator.html#a3a53b6132184c796ef3aca1e306e2211" title="calculateGradient_forceControl_space_Hm_plasma calculates the gradient with two different species (io..." alt="" coords="232,181,403,252"/>
+<area shape="rect" id="node4" href="classoptim__controller.html#aa2c0fefd82a319ebc1f4407abb17476a" title="main_optimization_algorithm is the core optimization algorithm which uses the paramteres defined in t..." alt="" coords="451,152,609,193"/>
+<area shape="rect" id="node5" href="classoptim__controller.html#a239f21ed616ef8f350b386cea9be81c1" title="start_optimizer reads in the command line command and starts the optimizer " alt="" coords="657,152,805,193"/>
+</map>
+</div>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>/home/jan/Promotion_linuxPC/Optim_VSTRAP/src/controller/<a class="el" href="src_2controller_2equation__solving__controller_8h_source.html">equation_solving_controller.h</a></li>
 <li>/home/jan/Promotion_linuxPC/Optim_VSTRAP/src/controller/equation_solving_controller.cpp</li>

@@ -28,6 +28,6 @@ int main(int argc, char **argv) {
     testing::InitGoogleTest(&argc, argv);
     //testing::GTEST_FLAG(filter) = "sanity.discr";
     //testing::GTEST_FLAG(filter) = "traj.brockett";
-    //testing::GTEST_FLAG(filter) = "gradient.calculationNR1";
+//    testing::GTEST_FLAG(filter) = "io.controlUpdate";
     return RUN_ALL_TESTS();
 }

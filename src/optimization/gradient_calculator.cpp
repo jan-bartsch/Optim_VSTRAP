@@ -18,22 +18,24 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm_not_paral
     pdf_control.setData_provider_optim(this->getData_provider_optim());
     equation_solving_controller model_solver = equation_solving_controller();
     model_solver.setData_provider_optim(this->getData_provider_optim());
-    output_control_update outController = output_control_update();
-    outController.setData_provider_optim(this->getData_provider_optim());
+    //output_control_update outController = output_control_update();
+    //outController.setData_provider_optim(this->getData_provider_optim());
+    output_diagnostics outDiag = output_diagnostics();
+    outDiag.setData_provider_optim(this->getData_provider_optim());
 
-    unsigned int pcell_gp = static_cast<unsigned int>(optimizationParameters.find("pcell_gp")->second);
+    unsigned int number_cells_position = static_cast<unsigned int>(optimizationParameters.find("number_cells_position")->second);
     unsigned int vcell_gp = static_cast<unsigned int>(optimizationParameters.find("vcell_gp")->second);
     unsigned int ntimesteps_gp = static_cast<unsigned int>(optimizationParameters.find("ntimesteps_gp")->second);
     unsigned int dimensionOfControl_gp = static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second);
     double dv_gp = static_cast<double>(optimizationParameters.find("dv_gp")->second);
     double dt_gp = static_cast<double>(optimizationParameters.find("dt_gp")->second);
-    double db_gp = static_cast<double>(optimizationParameters.find("db_gp")->second);
+    double small_discr_sidelength = static_cast<double>(optimizationParameters.find("small_discr_sidelength")->second);
     double weight_control_gp = static_cast<double>(optimizationParameters.find("weight_control_gp")->second);
     double local_control_x_min_gp = static_cast<double>(optimizationParameters.find("local_control_x_min_gp")->second);
     double local_control_x_max_gp = static_cast<double>(optimizationParameters.find("local_control_x_max_gp")->second);
 
-    int start_control = static_cast<int>(optimizationParameters.find("start_control_gp")->second);
-    int end_control = static_cast<int>(optimizationParameters.find("end_control_gp")->second);
+    unsigned long start_control = static_cast<unsigned long>(optimizationParameters.find("start_control_gp")->second);
+    unsigned long end_control = static_cast<unsigned long>(optimizationParameters.find("end_control_gp")->second);
 
     int magnetic_force = static_cast<int>(optimizationParameters.find("magnetic_force")->second);
     int electric_force = static_cast<int>(optimizationParameters.find("electric_force")->second);
@@ -51,7 +53,7 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm_not_paral
     //std::cout << Laplace << std::endl;
     //std::cout << Laplace_Squared << std::endl;
 
-    arma::mat gradient(pcell_gp,3,arma::fill::zeros);
+    arma::mat gradient(number_cells_position,3,arma::fill::zeros);
     arma::mat gradient_Riesz(dimensionOfControl_gp,3,arma::fill::zeros);
     arma::mat rhs_Riesz(dimensionOfControl_gp,3,arma::fill::zeros);
 
@@ -59,7 +61,7 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm_not_paral
     arma::vec velocity_Discr = arma::linspace<arma::vec>(-vmax_gp,vmax_gp,vcell_gp);
 
     //Caculate integral in gradient
-    const unsigned int n = pcell_gp;
+    const unsigned int n = number_cells_position;
 
     //#pragma omp parallel for
     for(unsigned int i = 1; i< n+1; i++) {
@@ -161,7 +163,7 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm_not_paral
     //    std::cout << gradient << std::endl;
 
 
-    for(int j = 0; j < pcell_gp; j++) {
+    for(unsigned long j = 0; j < number_cells_position; j++) {
         if (j>start_control-2 && j<end_control) {
             rhs_Riesz(j-start_control+1,0) = gradient(j,0);
             rhs_Riesz(j-start_control+1,1) = gradient(j,1);
@@ -173,13 +175,13 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm_not_paral
     std::cout << rhs_Riesz << std::endl;
 
     // std::cout << "Riesz Matrix" << std::endl;
-    arma::mat Riesz = weight_control_gp*(arma::eye(dimensionOfControl_gp,dimensionOfControl_gp) - 1.0/(pow(db_gp,2))*Laplace + 1.0/(pow(db_gp,4))*Laplace_Squared);
+    arma::mat Riesz = weight_control_gp*(arma::eye(dimensionOfControl_gp,dimensionOfControl_gp) - 1.0/(pow(small_discr_sidelength,2))*Laplace + 1.0/(pow(small_discr_sidelength,4))*Laplace_Squared);
     //std::cout << Riesz << std::endl;
-    outController.writeArmaMatrixToFile(Riesz,"RiesMatrix");
+    outDiag.writeArmaMatrixToFile(Riesz,"RiesMatrix");
     //std::cout << "Condition number Matrix Riesz: " << arma::cond(Riesz) << std::endl;
 
     arma::mat   Riesz_control(dimensionOfControl_gp,3,arma::fill::zeros);
-    for(int j = 0; j < pcell_gp; j++) {
+    for(unsigned long j = 0; j < number_cells_position; j++) {
         if (j>start_control-2 && j<end_control) {
             Riesz_control(j-start_control+1,0) = control(j,0);
             Riesz_control(j-start_control+1,1) = control(j,1);
@@ -188,12 +190,12 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm_not_paral
     }
 
     gradient_Riesz = arma::solve(Riesz,Riesz*Riesz_control+rhs_Riesz);
-    arma::mat return_gradient(pcell_gp,3,arma::fill::zeros);
+    arma::mat return_gradient(number_cells_position,3,arma::fill::zeros);
 
     //    std::cout << "Solution elliptic equation:" << std::endl;
     std::cout << gradient_Riesz << std::endl;
 
-    for(int j = 0; j < pcell_gp; j++) {
+    for(unsigned long j = 0; j < number_cells_position; j++) {
         if (j>start_control-2 && j<end_control) {
             return_gradient(j,0) = gradient_Riesz(j-start_control+1,0);
             return_gradient(j,1) = gradient_Riesz(j-start_control+1,1);
@@ -217,23 +219,23 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm(std::vect
     pdf_control.setData_provider_optim(this->getData_provider_optim());
     equation_solving_controller model_solver = equation_solving_controller();
     model_solver.setData_provider_optim(this->getData_provider_optim());
-    output_control_update outController = output_control_update();
-    outController.setData_provider_optim(this->getData_provider_optim());
+    output_diagnostics outDiag = output_diagnostics();
+    outDiag.setData_provider_optim(this->getData_provider_optim());
 
-    unsigned int pcell_gp = static_cast<unsigned int>(optimizationParameters.find("pcell_gp")->second);
+    unsigned int number_cells_position = static_cast<unsigned int>(optimizationParameters.find("number_cells_position")->second);
     unsigned int vcell_gp = static_cast<unsigned int>(optimizationParameters.find("vcell_gp")->second);
     unsigned int ntimesteps_gp = static_cast<unsigned int>(optimizationParameters.find("ntimesteps_gp")->second);
     unsigned int dimensionOfControl_gp = static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second);
     double dv_gp = static_cast<double>(optimizationParameters.find("dv_gp")->second);
     double dt_gp = static_cast<double>(optimizationParameters.find("dt_gp")->second);
-    double db_gp = static_cast<double>(optimizationParameters.find("db_gp")->second);
+    double small_discr_sidelength = static_cast<double>(optimizationParameters.find("small_discr_sidelength")->second);
     double vmax_gp = static_cast<double>(optimizationParameters.find("vmax_gp")->second);
     double weight_control_gp = static_cast<double>(optimizationParameters.find("weight_control_gp")->second);
     double local_control_x_min_gp = static_cast<double>(optimizationParameters.find("local_control_x_min_gp")->second);
     double local_control_x_max_gp = static_cast<double>(optimizationParameters.find("local_control_x_max_gp")->second);
 
-    int start_control = static_cast<int>(optimizationParameters.find("start_control_gp")->second);
-    int end_control = static_cast<int>(optimizationParameters.find("end_control_gp")->second);
+    unsigned long start_control = static_cast<unsigned long>(optimizationParameters.find("start_control_gp")->second);
+    unsigned long end_control = static_cast<unsigned long>(optimizationParameters.find("end_control_gp")->second);
 
     int magnetic_force = static_cast<int>(optimizationParameters.find("magnetic_force")->second);
     int electric_force = static_cast<int>(optimizationParameters.find("electric_force")->second);
@@ -251,15 +253,15 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm(std::vect
     //std::cout << Laplace << std::endl;
     //std::cout << Laplace_Squared << std::endl;
 
-    arma::mat gradient(pcell_gp,3,arma::fill::zeros);
-    arma::mat gradient_2(pcell_gp,3,arma::fill::zeros);
+    arma::mat gradient(number_cells_position,3,arma::fill::zeros);
+    arma::mat gradient_2(number_cells_position,3,arma::fill::zeros);
     arma::mat gradient_Riesz(dimensionOfControl_gp,3,arma::fill::zeros);
     arma::mat rhs_Riesz(dimensionOfControl_gp,3,arma::fill::zeros);
 
     arma::vec velocity_Discr = arma::linspace<arma::vec>(-vmax_gp,vmax_gp,vcell_gp);
 
     //Caculate integral in gradient
-    const unsigned int n = pcell_gp;
+    const unsigned int n = number_cells_position;
 
 #pragma omp parallel for
     for(unsigned int i = 1; i< n+1; i++) {
@@ -277,11 +279,6 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm(std::vect
             double firstDerivativeForwardPDF_V1_current = 0.0;
             double firstDerivativeForwardPDF_V2_current = 0.0;
             double firstDerivativeForwardPDF_V3_current = 0.0;
-
-            double firstDerivativeBackwardPDF_V1_current = 0.0;
-            double firstDerivativeBackwardPDF_V2_current = 0.0;
-            double firstDerivativeBackwardPDF_V3_current = 0.0;
-
 
             for(unsigned int o = 0; o<ntimesteps_gp; o++) {
                 for(unsigned int l = 0; l<vcell_gp; l++) {
@@ -394,7 +391,7 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm(std::vect
     //    std::cout << gradient << std::endl;
 
 
-    for(int j = 0; j < pcell_gp; j++) {
+    for(unsigned long j = 0; j < number_cells_position; j++) {
         if (j>start_control-2 && j<end_control) {
             rhs_Riesz(j-start_control+1,0) = gradient(j,0);
             rhs_Riesz(j-start_control+1,1) = gradient(j,1);
@@ -406,13 +403,13 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm(std::vect
     std::cout << rhs_Riesz << std::endl;
 
     // std::cout << "Riesz Matrix" << std::endl;
-    arma::mat Riesz = weight_control_gp*(arma::eye(dimensionOfControl_gp,dimensionOfControl_gp) - 1.0/(pow(db_gp,2))*Laplace + 1.0/(pow(db_gp,4))*Laplace_Squared);
+    arma::mat Riesz = weight_control_gp*(arma::eye(dimensionOfControl_gp,dimensionOfControl_gp) - 1.0/(pow(small_discr_sidelength,2))*Laplace + 1.0/(pow(small_discr_sidelength,4))*Laplace_Squared);
     //std::cout << Riesz << std::endl;
-    outController.writeArmaMatrixToFile(Riesz,"RiesMatrix");
+    outDiag.writeArmaMatrixToFile(Riesz,"RiesMatrix");
     //std::cout << "Condition number Matrix Riesz: " << arma::cond(Riesz) << std::endl;
 
     arma::mat   Riesz_control(dimensionOfControl_gp,3,arma::fill::zeros);
-    for(int j = 0; j < pcell_gp; j++) {
+    for(unsigned long j = 0; j < number_cells_position; j++) {
         if (j>start_control-2 && j<end_control) {
             Riesz_control(j-start_control+1,0) = control(j,0);
             Riesz_control(j-start_control+1,1) = control(j,1);
@@ -422,12 +419,12 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm(std::vect
 
     gradient_Riesz = arma::solve(Riesz,Riesz*Riesz_control+rhs_Riesz);
     //gradient_Riesz = arma::solve(Riesz,-rhs_Riesz);
-    arma::mat return_gradient(pcell_gp,3,arma::fill::zeros);
+    arma::mat return_gradient(number_cells_position,3,arma::fill::zeros);
 
     //    std::cout << "Solution elliptic equation:" << std::endl;
     std::cout << gradient_Riesz << std::endl;
 
-    for(int j = 0; j < pcell_gp; j++) {
+    for(unsigned long j = 0; j < number_cells_position; j++) {
         if (j>start_control-2 && j<end_control) {
             return_gradient(j,0) = gradient_Riesz(j-start_control+1,0);
             return_gradient(j,1) = gradient_Riesz(j-start_control+1,1);
@@ -446,7 +443,6 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm_plasma(st
                                                                               std::vector<std::unordered_map<coordinate_phase_space_time, double>> backwardPDF_time_electrons,
                                                                               arma::mat control)
 {
-
     std::map<std::string, double> optimizationParameters = this->getData_provider_optim().getOptimizationParameters();
     std::map<int,std::vector<double>> barycenters = this->getData_provider_optim().getMesh_barycenters();
 
@@ -455,24 +451,22 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm_plasma(st
     pdf_control.setData_provider_optim(this->getData_provider_optim());
     equation_solving_controller model_solver = equation_solving_controller();
     model_solver.setData_provider_optim(this->getData_provider_optim());
-    output_control_update outController = output_control_update();
-    outController.setData_provider_optim(this->getData_provider_optim());
+    output_diagnostics outDiag = output_diagnostics();
+    outDiag.setData_provider_optim(this->getData_provider_optim());
 
-    unsigned int pcell_gp = static_cast<unsigned int>(optimizationParameters.find("pcell_gp")->second);
+    unsigned int number_cells_position = static_cast<unsigned int>(optimizationParameters.find("number_cells_position")->second);
     unsigned int vcell_gp = static_cast<unsigned int>(optimizationParameters.find("vcell_gp")->second);
     unsigned int ntimesteps_gp = static_cast<unsigned int>(optimizationParameters.find("ntimesteps_gp")->second);
     unsigned int dimensionOfControl_gp = static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second);
     double dv_gp = static_cast<double>(optimizationParameters.find("dv_gp")->second);
     double dt_gp = static_cast<double>(optimizationParameters.find("dt_gp")->second);
-    double db_gp = static_cast<double>(optimizationParameters.find("db_gp")->second);
+    double small_discr_sidelength = static_cast<double>(optimizationParameters.find("small_discr_sidelength")->second);
     double weight_control_gp = static_cast<double>(optimizationParameters.find("weight_control_gp")->second);
     double local_control_x_min_gp = static_cast<double>(optimizationParameters.find("local_control_x_min_gp")->second);
     double local_control_x_max_gp = static_cast<double>(optimizationParameters.find("local_control_x_max_gp")->second);
 
-    int start_control = static_cast<int>(optimizationParameters.find("start_control_gp")->second);
-    int end_control = static_cast<int>(optimizationParameters.find("end_control_gp")->second);
-
-    int simulating_plasma = static_cast<int>(optimizationParameters.find("simulating_plasma")->second);
+    unsigned long start_control = static_cast<unsigned long>(optimizationParameters.find("start_control_gp")->second);
+    unsigned long end_control = static_cast<unsigned long>(optimizationParameters.find("end_control_gp")->second);
 
     arma::mat Laplace = model_solver.Laplacian_3D();
     arma::mat Laplace_Squared = model_solver.Laplacian_Squared_3D();
@@ -480,13 +474,13 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm_plasma(st
     //std::cout << Laplace << std::endl;
     //std::cout << Laplace_Squared << std::endl;
 
-    arma::mat gradient(pcell_gp,3,arma::fill::zeros);
-    arma::mat gradient_2(pcell_gp,3,arma::fill::zeros);
+    arma::mat gradient(number_cells_position,3,arma::fill::zeros);
+    arma::mat gradient_2(number_cells_position,3,arma::fill::zeros);
     arma::mat gradient_Riesz(dimensionOfControl_gp,3,arma::fill::zeros);
     arma::mat rhs_Riesz(dimensionOfControl_gp,3,arma::fill::zeros);
 
     //Caculate integral in gradient
-    const unsigned int n = pcell_gp;
+    const unsigned int n = number_cells_position;
 
 #pragma omp parallel for
     for(unsigned int i = 1; i< n+1; i++) {
@@ -512,11 +506,6 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm_plasma(st
             double firstDerivativeForwardPDF_V1_current_electrons = 0.0;
             double firstDerivativeForwardPDF_V2_current_electrons = 0.0;
             double firstDerivativeForwardPDF_V3_current_electrons = 0.0;
-
-            double firstDerivativeBackwardPDF_V1_current = 0.0;
-            double firstDerivativeBackwardPDF_V2_current = 0.0;
-            double firstDerivativeBackwardPDF_V3_current = 0.0;
-
 
             for(unsigned int o = 0; o<ntimesteps_gp; o++) {
                 for(unsigned int l = 0; l<vcell_gp; l++) {
@@ -558,7 +547,6 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm_plasma(st
 
 
             forwardPDFdouble = pdf_control.relaxating_GaussSeidel_4D(forwardPDFdouble,1000);
-
 
             for (unsigned int o = 0; o<ntimesteps_gp; o++) {
                 for(unsigned int l = 0; l<vcell_gp; l++) {
@@ -639,7 +627,7 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm_plasma(st
     //    std::cout << gradient << std::endl;
 
 
-    for(int j = 0; j < pcell_gp; j++) {
+    for(unsigned long j = 0; j < number_cells_position; j++) {
         if (j>start_control-2 && j<end_control) {
             rhs_Riesz(j-start_control+1,0) = gradient(j,0);
             rhs_Riesz(j-start_control+1,1) = gradient(j,1);
@@ -651,13 +639,13 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm_plasma(st
     std::cout << rhs_Riesz << std::endl;
 
     // std::cout << "Riesz Matrix" << std::endl;
-    arma::mat Riesz = weight_control_gp*(arma::eye(dimensionOfControl_gp,dimensionOfControl_gp) - 1.0/(pow(db_gp,2))*Laplace + 1.0/(pow(db_gp,4))*Laplace_Squared);
+    arma::mat Riesz = weight_control_gp*(arma::eye(dimensionOfControl_gp,dimensionOfControl_gp) - 1.0/(pow(small_discr_sidelength,2))*Laplace + 1.0/(pow(small_discr_sidelength,4))*Laplace_Squared);
     //std::cout << Riesz << std::endl;
-    outController.writeArmaMatrixToFile(Riesz,"RiesMatrix");
+    outDiag.writeArmaMatrixToFile(Riesz,"RiesMatrix");
     //std::cout << "Condition number Matrix Riesz: " << arma::cond(Riesz) << std::endl;
 
     arma::mat   Riesz_control(dimensionOfControl_gp,3,arma::fill::zeros);
-    for(int j = 0; j < pcell_gp; j++) {
+    for(unsigned long j = 0; j < number_cells_position; j++) {
         if (j>start_control-2 && j<end_control) {
             Riesz_control(j-start_control+1,0) = control(j,0);
             Riesz_control(j-start_control+1,1) = control(j,1);
@@ -667,12 +655,12 @@ arma::mat gradient_calculator::calculateGradient_forceControl_space_Hm_plasma(st
 
     gradient_Riesz = arma::solve(Riesz,Riesz*Riesz_control+rhs_Riesz);
     //gradient_Riesz = arma::solve(Riesz,-rhs_Riesz);
-    arma::mat return_gradient(pcell_gp,3,arma::fill::zeros);
+    arma::mat return_gradient(number_cells_position,3,arma::fill::zeros);
 
     //    std::cout << "Solution elliptic equation:" << std::endl;
     std::cout << gradient_Riesz << std::endl;
 
-    for(int j = 0; j < pcell_gp; j++) {
+    for(unsigned long j = 0; j < number_cells_position; j++) {
         if (j>start_control-2 && j<end_control) {
             return_gradient(j,0) = gradient_Riesz(j-start_control+1,0);
             return_gradient(j,1) = gradient_Riesz(j-start_control+1,1);

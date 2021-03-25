@@ -1,0 +1,9 @@
+<map id="equation_solving_controller::Laplacian_3D" name="equation_solving_controller::Laplacian_3D">
+<area shape="rect" id="node2" href="$classgradient__calculator.html#a62952c354762514d88d70e323957fb34" title="calculateGradient_forceControl_space_Hm_not_parallel calculates the gradient without using any parall..." alt="" coords="232,5,403,76"/>
+<area shape="rect" id="node3" href="$classgradient__calculator.html#a8381a8497dfe88bcb04ff40ce1e235e0" title="calculateGradient_forceControl_space_Hm calculates the gradient with parallelization ..." alt="" coords="451,49,621,105"/>
+<area shape="rect" id="node6" href="$classgradient__calculator.html#a3a53b6132184c796ef3aca1e306e2211" title="calculateGradient_forceControl_space_Hm_plasma calculates the gradient with two different species (io..." alt="" coords="451,129,621,200"/>
+<area shape="rect" id="node7" href="$classinner__products.html#a403653f09d10e5cc0f1f5c718b66aeb9" title="inner_products::H2\l_inner_product" alt="" coords="251,213,383,255"/>
+<area shape="rect" id="node4" href="$classoptim__controller.html#aa2c0fefd82a319ebc1f4407abb17476a" title="main_optimization_algorithm is the core optimization algorithm which uses the paramteres defined in t..." alt="" coords="669,144,828,185"/>
+<area shape="rect" id="node5" href="$classoptim__controller.html#a239f21ed616ef8f350b386cea9be81c1" title="start_optimizer reads in the command line command and starts the optimizer " alt="" coords="876,144,1024,185"/>
+<area shape="rect" id="node8" href="$classstepdirection__controller.html#ab2d76b39009f8d6c0121288d79c42a9d" title="get_stepdirection is a generic method called in the main optimizer algorithm " alt="" coords="458,224,614,265"/>
+</map>

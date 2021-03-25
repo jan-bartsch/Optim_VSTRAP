@@ -2,7 +2,7 @@
 
 output_diagnostics::output_diagnostics() { }
 
-int output_diagnostics::writeArmaMatrixToFile(arma::mat gradient, std::string filename)
+int output_diagnostics::writeGradientMatrixToFile(arma::mat gradient, std::string filename)
 {
     std::map<std::string, std::string> paths = this->getData_provider_optim().getPaths();
     std::string RESULTS_DIRECTORY = paths.find("RESULTS_DIRECTORY")->second;
@@ -13,6 +13,20 @@ int output_diagnostics::writeArmaMatrixToFile(arma::mat gradient, std::string fi
 
     for(unsigned int i = 0; i < gradient.n_rows; i++) {
         outstream << gradient(i,0) << "," << gradient(i,1) << "," << gradient(i,2) << std::endl;
+    }
+
+    return 0;
+}
+
+int output_diagnostics::writeArmaMatrixToFile(arma::mat input, std::string filename) {
+
+    std::ofstream outputFile(filename + ".txt");
+
+    for(unsigned int j = 0; j<input.n_rows; j++) {
+        for(unsigned int k = 0; k < input.n_cols; k++) {
+            outputFile << input(j,k) << " ";
+        }
+        outputFile << std::endl;
     }
 
     return 0;

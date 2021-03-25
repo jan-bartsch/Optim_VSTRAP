@@ -24,11 +24,11 @@ TEST(io,controlUpdate) {
     std::string CONTROL_FIELD_CELLS_NAME =provider.getPaths().find("CONTROL_FIELD_CELLS_NAME")->second;
     std::string input_directory_control = PATH_TO_SHARED_FILES + CONTROL_FIELD_CELLS_NAME;
 
-    int pcell_gp = static_cast<int>(provider.getOptimizationParameters().find("pcell_gp")->second);
+    int number_cells_position = static_cast<int>(provider.getOptimizationParameters().find("number_cells_position")->second);
 
     const char * filename_control_in = input_directory_control.c_str();
 
-    arma::mat control_in = in.readControl(filename_control_in,pcell_gp);
+    arma::mat control_in = in.readControl(filename_control_in,number_cells_position);
     std::cout << control_in << std::endl;
     std::cout << control_in- control_out << std::endl;
 

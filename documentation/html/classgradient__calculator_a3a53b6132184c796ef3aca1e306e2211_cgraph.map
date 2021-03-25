@@ -1,0 +1,5 @@
+<map id="gradient_calculator::calculateGradient_forceControl_space_Hm_plasma" name="gradient_calculator::calculateGradient_forceControl_space_Hm_plasma">
+<area shape="rect" id="node2" href="$classequation__solving__controller.html#a3488080edc0c9a8cf8579fcd466ca429" title="Laplacian_3D calculates the Laplacion in position in three dimensions. " alt="" coords="224,5,403,47"/>
+<area shape="rect" id="node3" href="$classequation__solving__controller.html#a3ecc85d3b88fd0350ed0af025638de1c" title="Laplacian_Squared_3D. " alt="" coords="224,71,403,112"/>
+<area shape="rect" id="node4" href="$classpdf__controller.html#a62405be0f34d4625fbb0f78c6abecbc0" title="relaxating_GaussSeidel_4D relaxes/smoothes the probability distribution according to denoising techni..." alt="" coords="231,136,395,177"/>
+</map>

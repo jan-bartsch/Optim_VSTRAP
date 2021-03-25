@@ -43,7 +43,7 @@ int gradient_validation::landau_validation(int argc, char **argv) {
 
     unsigned int dimensionOfControl_gp = static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second);
     unsigned int ntimesteps_gp = static_cast<unsigned int>(optimizationParameters.find("ntimesteps_gp")->second);
-    double pcell_gp = static_cast<unsigned int>(optimizationParameters.find("pcell_gp")->second);
+    double number_cells_position = static_cast<unsigned int>(optimizationParameters.find("number_cells_position")->second);
 
     std::vector<std::vector<particle>> forwardParticles(ntimesteps_gp);
     std::vector<std::unordered_map<coordinate_phase_space_time,double>> forwardPDF;
@@ -68,9 +68,9 @@ int gradient_validation::landau_validation(int argc, char **argv) {
     std::string START_VSTRAP_BACKWARD = BUILD_DIRECTORY_VSTRAP + "vstrap" + " " + PATH_TO_SHARED_FILES + INPUT_BACKWARD;
     int backward_return = 0;
 
-    arma::mat control0(pcell_gp,3,arma::fill::zeros);
+    arma::mat control0(number_cells_position,3,arma::fill::zeros);
 //    control0 = -10.0*control0;
-    arma::mat gradient(pcell_gp,3,arma::fill::zeros);
+    arma::mat gradient(number_cells_position,3,arma::fill::zeros);
 
     outController.writeControl_XML(control0);
     outDiag.writeDoubleToFile(arma::norm(control0,"fro"),"normControlTrack");
@@ -119,13 +119,13 @@ int gradient_validation::landau_validation(int argc, char **argv) {
     arma::mat gradient0 = gradient_calculator_opt.calculateGradient_forceControl_space_Hm(forwardPDF,backwardPDF,control0);
     outDiag.writeDoubleToFile(arma::norm(gradient,"fro"),"normGradientTrack");
 
-    arma::mat delta_control(pcell_gp,3,arma::fill::ones);
+    arma::mat delta_control(number_cells_position,3,arma::fill::ones);
     double t = -10.0;
     delta_control = t*delta_control;
 
     unsigned long iteration_number = 10;
     double reducing_factor = 0.5;
-    double dp_gp = static_cast<double>(optimizationParameters.find("dp_gp")->second);
+    double small_discr_volume = static_cast<double>(optimizationParameters.find("small_discr_volume")->second);
 
     std::vector<double> functional_values(iteration_number,0.0);
     std::vector<double> difference(iteration_number,0.0);

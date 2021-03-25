@@ -14,17 +14,17 @@ TEST(stepdirection,noSuchMethod) {
     subs.insert(std::pair<std::string,std::string>("control_update","FAIL_SAFE"));
 
     std::map<std::string, double> optimizationParameters = provider.getOptimizationParameters();
-    unsigned int pcell_gp = static_cast<unsigned int>(optimizationParameters.find("pcell_gp")->second);
+    unsigned int number_cells_position = static_cast<unsigned int>(optimizationParameters.find("number_cells_position")->second);
     unsigned int ntimesteps_gp = static_cast<unsigned int>(optimizationParameters.find("ntimesteps_gp")->second);
 
     provider.setSubroutines(subs);
 
     size_contr.setData_provider_optim(provider);
 
-    arma::mat gradient(pcell_gp,3,arma::fill::randn);
-    arma::mat control(pcell_gp,3,arma::fill::randu);
+    arma::mat gradient(number_cells_position,3,arma::fill::randn);
+    arma::mat control(number_cells_position,3,arma::fill::randu);
     double J0 = -1.0;
-    arma::mat stepdirection(pcell_gp,3,arma::fill::randn);
+    arma::mat stepdirection(number_cells_position,3,arma::fill::randn);
 
     std::vector<particle> inputParticles(ntimesteps_gp);
     double stepsize0 = 0.1;
@@ -48,17 +48,17 @@ TEST(stepdirection,gradientDescentNoThrow) {
     size_contr.setData_provider_optim(provider);
 
     std::map<std::string, double> optimizationParameters = provider.getOptimizationParameters();
-    unsigned int pcell_gp = static_cast<unsigned int>(optimizationParameters.find("pcell_gp")->second);
+    unsigned int number_cells_position = static_cast<unsigned int>(optimizationParameters.find("number_cells_position")->second);
     unsigned int ntimesteps_gp = static_cast<unsigned int>(optimizationParameters.find("ntimesteps_gp")->second);
 
 
-    arma::mat gradient(pcell_gp,3,arma::fill::randn);
-    arma::mat control_test(pcell_gp,3,arma::fill::randu);
+    arma::mat gradient(number_cells_position,3,arma::fill::randn);
+    arma::mat control_test(number_cells_position,3,arma::fill::randu);
     double J0 = -1.0;
     std::vector<particle> inputParticles(ntimesteps_gp);
     double stepsize0 = 0.1;
 
-    arma::mat stepdirection(pcell_gp,3,arma::fill::randu);
+    arma::mat stepdirection(number_cells_position,3,arma::fill::randu);
     arma::mat control = control_test;
     double stepsize = 0.1;
 
@@ -83,16 +83,16 @@ TEST(stepdirection,armijoLinesearchNoThrow) {
     size_contr.setData_provider_optim(provider);
 
     std::map<std::string, double> optimizationParameters = provider.getOptimizationParameters();
-    unsigned int pcell_gp = static_cast<unsigned int>(optimizationParameters.find("pcell_gp")->second);
+    unsigned int number_cells_position = static_cast<unsigned int>(optimizationParameters.find("number_cells_position")->second);
     unsigned int ntimesteps_gp = static_cast<unsigned int>(optimizationParameters.find("ntimesteps_gp")->second);
 
-    arma::mat gradient(pcell_gp,3,arma::fill::randn);
-    arma::mat control_test(pcell_gp,3,arma::fill::randu);
+    arma::mat gradient(number_cells_position,3,arma::fill::randn);
+    arma::mat control_test(number_cells_position,3,arma::fill::randu);
     double J0 = -1.0;
     std::vector<particle> inputParticles(ntimesteps_gp);
     double stepsize0 = 0.1;
 
-    arma::mat stepdirection(pcell_gp,3,arma::fill::randu);
+    arma::mat stepdirection(number_cells_position,3,arma::fill::randu);
     arma::mat control = control_test;
     double stepsize = 0.1;
 
@@ -115,16 +115,16 @@ TEST(stepdirection,successiveApproximationNoThrow) {
     size_contr.setData_provider_optim(provider);
 
     std::map<std::string, double> optimizationParameters = provider.getOptimizationParameters();
-    unsigned int pcell_gp = static_cast<unsigned int>(optimizationParameters.find("pcell_gp")->second);
+    unsigned int number_cells_position = static_cast<unsigned int>(optimizationParameters.find("number_cells_position")->second);
     unsigned int ntimesteps_gp = static_cast<unsigned int>(optimizationParameters.find("ntimesteps_gp")->second);
 
-    arma::mat gradient(pcell_gp,3,arma::fill::randn);
-    arma::mat control_test(pcell_gp,3,arma::fill::randu);
+    arma::mat gradient(number_cells_position,3,arma::fill::randn);
+    arma::mat control_test(number_cells_position,3,arma::fill::randu);
     double J0 = -1.0;
     std::vector<particle> inputParticles(ntimesteps_gp);
     double stepsize0 = 0.1;
 
-    arma::mat stepdirection(pcell_gp,3,arma::fill::randu);
+    arma::mat stepdirection(number_cells_position,3,arma::fill::randu);
     arma::mat control = control_test;
     double stepsize = 0.1;
 

@@ -1,4 +1,6 @@
 <map id="stepdirection_controller::get_stepdirection" name="stepdirection_controller::get_stepdirection">
-<area shape="rect" id="node2" href="$classinner__products.html#aa134d04eb9c9bab2fc8965fe2f4563c9" title="inner_products::H1\l_inner_product" alt="" coords="389,5,521,47"/>
-<area shape="rect" id="node3" href="$classinner__products.html#a403653f09d10e5cc0f1f5c718b66aeb9" title="inner_products::H2\l_inner_product" alt="" coords="209,35,341,76"/>
+<area shape="rect" id="node2" href="$classinner__products.html#aa134d04eb9c9bab2fc8965fe2f4563c9" title="inner_products::H1\l_inner_product" alt="" coords="413,5,545,47"/>
+<area shape="rect" id="node4" href="$classinner__products.html#a403653f09d10e5cc0f1f5c718b66aeb9" title="inner_products::H2\l_inner_product" alt="" coords="209,64,341,105"/>
+<area shape="rect" id="node3" href="$classequation__solving__controller.html#ae7fa9058be2e5580569a723cfe4040fc" title="D1_second_order calculates the first derivative with respect to position with a seconr oder accuracy ..." alt="" coords="616,5,795,47"/>
+<area shape="rect" id="node5" href="$classequation__solving__controller.html#a3488080edc0c9a8cf8579fcd466ca429" title="Laplacian_3D calculates the Laplacion in position in three dimensions. " alt="" coords="389,71,568,112"/>
 </map>

@@ -80,30 +80,30 @@
     <parameter name="armijo_iterative_exp" value="1.0"/>     <!--  1.0: no decreasing stepsize  -->
 
     <!--  DOMAIN PARAMETERS  -->
-    <parameter name="pcell_gp" value="64"/>
-    <parameter name="dp_gp" value="0.000015625"/> <!-- box-volume/pcell--> <!-- discretization size position 64:0.0156 1000:0.0001 512:0.002  216:0.00462963 (per m^3)-->
-    <parameter name="db_gp" value="0.025"/> <!-- third root of dp_gp -->
+    <parameter name="number_cells_position" value="64"/>
+    <parameter name="small_discr_volume" value="0.000015625"/> <!-- box-volume/pcell--> <!-- discretization size position 64:0.0156 1000:0.0001 512:0.002  216:0.00462963 (per m^3)-->
+    <parameter name="small_discr_sidelength" value="0.025"/> <!-- third root of small_discr_volume -->
      <parameter name="dimensionOfControl_gp" value="64"/>    <!--  number of elements of the control  -->
     <parameter name="end_control_gp" value="64"/>
     <parameter name="start_control_gp" value="1"/>
     
-    <parameter name="pcell_gp" value="216"/>
-    <parameter name="dp_gp" value="4.62962962962963e-6"/>
-    <parameter name="db_gp" value="0.016666667"/>
+    <parameter name="number_cells_position" value="216"/>
+    <parameter name="small_discr_volume" value="4.62962962962963e-6"/>
+    <parameter name="small_discr_sidelength" value="0.016666667"/>
      <parameter name="dimensionOfControl_gp" value="216"/>    <!--  number of elements of the control  -->
     <parameter name="end_control_gp" value="216"/>
     <parameter name="start_control_gp" value="1"/>
     
-    <parameter name="pcell_gp" value="512"/>
-    <parameter name="dp_gp" value="1.953125e-6"/> 
-    <parameter name="db_gp" value="0.0125"/>
+    <parameter name="number_cells_position" value="512"/>
+    <parameter name="small_discr_volume" value="1.953125e-6"/> 
+    <parameter name="small_discr_sidelength" value="0.0125"/>
      <parameter name="dimensionOfControl_gp" value="512"/>    <!--  number of elements of the control  -->
     <parameter name="end_control_gp" value="512"/>
     <parameter name="start_control_gp" value="1"/>
     
     
     
-    <parameter name="pmax_gp" value="0.05"/> 
+    <parameter name="position_max_gp" value="0.05"/> 
     <parameter name="dt_gp" value="1e-6"/>     <!--  discretization size time  -->
     <parameter name="ntimesteps_gp" value="40"/>
     <parameter name="dt_gp" value="5e-6"/>     <!--  discretization size time  -->

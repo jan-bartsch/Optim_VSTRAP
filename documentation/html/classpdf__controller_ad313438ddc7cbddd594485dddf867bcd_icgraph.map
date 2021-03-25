@@ -1,0 +1,4 @@
+<map id="pdf_controller::assemblingMultiDim_parallel" name="pdf_controller::assemblingMultiDim_parallel">
+<area shape="rect" id="node2" href="$classoptim__controller.html#aa2c0fefd82a319ebc1f4407abb17476a" title="main_optimization_algorithm is the core optimization algorithm which uses the paramteres defined in t..." alt="" coords="228,5,387,47"/>
+<area shape="rect" id="node3" href="$classoptim__controller.html#a239f21ed616ef8f350b386cea9be81c1" title="start_optimizer reads in the command line command and starts the optimizer " alt="" coords="435,5,583,47"/>
+</map>

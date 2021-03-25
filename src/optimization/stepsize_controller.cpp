@@ -55,7 +55,7 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
     unsigned int ntimesteps_gp = static_cast<unsigned int>(optimizationParameters.find("ntimesteps_gp")->second);
     unsigned int linesearchIteration_max_gp = static_cast<unsigned int>(optimizationParameters.find("linesearchIteration_max_gp")->second);
     double dt_gp = static_cast<double>(optimizationParameters.find("dt_gp")->second);
-     double db_gp = static_cast<double>(optimizationParameters.find("db_gp")->second);
+     double small_discr_sidelength = static_cast<double>(optimizationParameters.find("small_discr_sidelength")->second);
     double armijo_descent_fraction = static_cast<double>(optimizationParameters.find("armijo_descent_fraction")->second);
     double tolerance = static_cast<double>(optimizationParameters.find("tolerance_gp")->second);
     double armijio_base_exp = static_cast<double>(optimizationParameters.find("armijio_base_exp")->second);
@@ -78,11 +78,11 @@ int stepsize_controller::armijo_linesearch(arma::mat &gradient, double J0, arma:
 
     double scalarProduct = (arma::dot(gradient.col(0),stepdirection.col(0))
                             + arma::dot(gradient.col(1),stepdirection.col(1))+
-                            arma::dot(gradient.col(2),stepdirection.col(2)))*db_gp;
+                            arma::dot(gradient.col(2),stepdirection.col(2)))*small_discr_sidelength;
 
     double scalarProduct_Stepdirection = (arma::dot(stepdirection.col(0),stepdirection.col(0))
                             + arma::dot(stepdirection.col(1),stepdirection.col(1))+
-                            arma::dot(stepdirection.col(2),stepdirection.col(2)))*db_gp;
+                            arma::dot(stepdirection.col(2),stepdirection.col(2)))*small_discr_sidelength;
 
     inner_products pro = inner_products();
     pro.setData_provider_optim(this->getData_provider_optim());

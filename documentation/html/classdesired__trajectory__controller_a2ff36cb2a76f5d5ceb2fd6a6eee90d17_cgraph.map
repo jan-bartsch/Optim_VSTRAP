@@ -1,0 +1,4 @@
+<map id="desired_trajectory_controller::trajectory_desired" name="desired_trajectory_controller::trajectory_desired">
+<area shape="rect" id="node2" href="$classdesired__trajectory__controller.html#a0b8b0c2fe70f9d5980d1376e68662c8a" title="trajectory_desired_brockett provides the desired trajectory using a time dependent vector as input..." alt="" coords="197,5,341,61"/>
+<area shape="rect" id="node3" href="$classdesired__trajectory__controller.html#a8c0bba500110378d498054a045063c5e" title="trajectory_desired_parameters uses the parameters defined in the input file of the optimizer ..." alt="" coords="197,85,341,141"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="input::readControl" name="input::readControl">
+<area shape="rect" id="node2" href="$classoptim__controller.html#a13e9d1f3242d17fb59bdb7c3f3cec85a" title="start_with_given_control delets only the txt and csv files and starts with the control that is curren..." alt="" coords="179,5,327,47"/>
+<area shape="rect" id="node3" href="$classoptim__controller.html#aa2c0fefd82a319ebc1f4407abb17476a" title="main_optimization_algorithm is the core optimization algorithm which uses the paramteres defined in t..." alt="" coords="375,5,533,47"/>
+<area shape="rect" id="node4" href="$classoptim__controller.html#a239f21ed616ef8f350b386cea9be81c1" title="start_optimizer reads in the command line command and starts the optimizer " alt="" coords="581,5,729,47"/>
+</map>

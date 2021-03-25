@@ -28,7 +28,7 @@ public:
      * @return 0 if processed successfully
      */
     int writeControl_XML(arma::mat control);
-    int writeArmaMatrixToFile(arma::mat input, std::string filename);
+
 
     static int interpolate_control(data_provider provider);
 };

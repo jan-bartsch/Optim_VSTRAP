@@ -1,0 +1,5 @@
+Refactoring parameter names:
+pcell_gp -> number_cells_position
+dp_gp -> small_discr_volume
+db_gp -> small_discr_sidelength
+pmax_gp -> position_max_gp

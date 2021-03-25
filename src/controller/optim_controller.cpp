@@ -121,7 +121,6 @@ int optim_controller::main_optimization_algorithm(const char * input_xml_path)
     /*
      * Check consistency and sanity of input files
      */
-    //check_input_py(data_provider_opt, input_xml_path);
     parameter_sanity ps = parameter_sanity();
     ps.check_adjoint_velocity(data_provider_opt);
     ps.check_adjoint_velocity(data_provider_opt);
@@ -153,8 +152,8 @@ int optim_controller::main_optimization_algorithm(const char * input_xml_path)
 
     arma::mat gradient(static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second),3,arma::fill::zeros);
     arma::mat gradient_old(static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second),3,arma::fill::zeros);
-    arma::mat stepDirection(static_cast<unsigned int>(optimizationParameters.find("pcell_gp")->second),3,arma::fill::zeros);
-    arma::mat stepDirection_old(static_cast<unsigned int>(optimizationParameters.find("pcell_gp")->second),3,arma::fill::zeros);
+    arma::mat stepDirection(static_cast<unsigned int>(optimizationParameters.find("number_cells_position")->second),3,arma::fill::zeros);
+    arma::mat stepDirection_old(static_cast<unsigned int>(optimizationParameters.find("number_cells_position")->second),3,arma::fill::zeros);
     double value_objective = 0.0;
     int stepsize_flag;
     double stepsize = fixed_gradient_descent_stepsize;
@@ -165,11 +164,7 @@ int optim_controller::main_optimization_algorithm(const char * input_xml_path)
 
     unsigned int optimizationIteration_max_gp = static_cast<unsigned int>(optimizationParameters.find("optimizationIteration_max_gp")->second);
 
-    //input_control.readBrockettFile(PATH_TO_SHARED_FILES+"brockett.csv",",",ntimesteps_gp);
-
     for(unsigned int r = 1; r <= optimizationIteration_max_gp; r++) {
-
-
         logger::Info("Starting VSTRAP (foward)... ");
         forward_return = model_solver.start_solving_forward(START_VSTRAP_FORWARD);
         if (forward_return != 0) {
@@ -183,13 +178,6 @@ int optim_controller::main_optimization_algorithm(const char * input_xml_path)
         if (simulating_plasma==1) {
             input_control.read_plasma_state_forward(forwardParticles_electrons,"plasma_state_batch_e_forward_particles_electrons_CPU_");
         }
-
-
-        /*assembling_flag = pdf_control.assemblingMultiDim_parallel(forwardParticles,0,pdf_time);
-        forwardPDF = pdf_time;
-        value_objective = objective.calculate_objective(forwardPDF,control);
-        */
-
 
         logger::Info("Finished reading files...");
         logger::Info("Starting VSTRAP (backward)...");
@@ -238,7 +226,7 @@ int optim_controller::main_optimization_algorithm(const char * input_xml_path)
             gradient = gradient_calculator_opt.calculateGradient_forceControl_space_Hm(forwardPDF,backwardPDF,control);
         }
         outDiag.writeDoubleToFile(arma::norm(gradient,"fro"),"normGradientTrack");
-        outDiag.writeArmaMatrixToFile(gradient,"gradient_"+std::to_string(r));
+        outDiag.writeGradientMatrixToFile(gradient,"gradient_"+std::to_string(r));
         norm_Gradient = arma::norm(gradient,"fro");
 
         if (r == 0) {
@@ -297,7 +285,7 @@ int optim_controller::main_optimization_algorithm(const char * input_xml_path)
 
         std::cout << "Control in iteration " << r << std::endl;
         std::cout << control << std::endl;
-        outDiag.writeArmaMatrixToFile(control,"control_"+std::to_string(r));
+        outDiag.writeGradientMatrixToFile(control,"control_"+std::to_string(r));
 
         if (stepsize_flag == 1) {
             std::string small_stepsize = "Linesearch returned too small stepsize; Found minimum after " + std::to_string(r) + " iterations";
@@ -325,7 +313,7 @@ int optim_controller::main_optimization_algorithm(const char * input_xml_path)
     return 0;
 }
 
-int optim_controller::check_input_py(data_provider provider, const char *filePathOptimInput)
+/*int optim_controller::check_input_py(data_provider provider, const char *filePathOptimInput)
 {
     std::map<std::string, std::string> paths = provider.getPaths();
     std::string PATH_TO_SHARED_FILES = paths.find("PATH_TO_SHARED_FILES")->second;
@@ -349,7 +337,7 @@ int optim_controller::check_input_py(data_provider provider, const char *filePat
     }
 
     return check_input_flag;
-}
+}*/
 
 arma::mat optim_controller::start_with_zero_control(const char *input_xml_path)
 {
@@ -364,9 +352,9 @@ arma::mat optim_controller::start_with_zero_control(const char *input_xml_path)
     std::string BGF_CONTROL = paths.find("BGF_CONTROL")->second;
     std::string CONTROL_FIELD_CELLS_NAME = paths.find("CONTROL_FIELD_CELLS_NAME")->second;
 
-    unsigned int pcell_gp = static_cast<unsigned int>(optimizationParameters.find("pcell_gp")->second);
+    unsigned int number_cells_position = static_cast<unsigned int>(optimizationParameters.find("number_cells_position")->second);
 
-    arma::mat control(pcell_gp,3,arma::fill::zeros);
+    arma::mat control(number_cells_position,3,arma::fill::zeros);
 
     logger::Info("Deleting old files");
     std::string COMMAND_RM_RESULTS = "rm -r results/";
@@ -394,7 +382,7 @@ arma::mat optim_controller::start_with_given_control(const char *input_xml_path)
     std::map<std::string, std::string> paths = data_provider_opt.getPaths();
     std::string START_WITH_EXISTING_CONTROL = paths.find("START_WITH_EXISTING_CONTROL")->second;
     double fraction_of_optimal_control = static_cast<double>(optimizationParameters.find("fraction_of_optimal_control")->second);
-     int pcell_gp = static_cast<int>(optimizationParameters.find("pcell_gp")->second);
+     int number_cells_position = static_cast<int>(optimizationParameters.find("number_cells_position")->second);
 
     logger::Info("Deleting old .txt and .csv files");
     std::string COMMAND_RM_RESULTS = "rm *.csv && rm *.txt";
@@ -402,7 +390,7 @@ arma::mat optim_controller::start_with_given_control(const char *input_xml_path)
 
     logger::Info("Starting with existing control (multiplied by a positive constant)");
     std::string READ_CONTROL = START_WITH_EXISTING_CONTROL;
-    arma::mat control = in.readControl(&READ_CONTROL[0],pcell_gp);
+    arma::mat control = in.readControl(&READ_CONTROL[0],number_cells_position);
     outController.writeControl_XML(fraction_of_optimal_control*control);
     outController.interpolate_control(data_provider_opt);
 
@@ -458,7 +446,7 @@ int optim_controller::visualize_control(data_provider provider)
     std::string VISUALIZING_STRING = "python3 " + DIRECTORY_TOOLSET + "visualize_control.py "
             + PATH_TO_SHARED_FILES_ABSOLUTE + BGF_CONTROL + " ../../Optim_VSTRAP/data/global/"
             + DOMAIN_MESH_FILE + " " + std::to_string(visalization_scaling) + " " + PATH_TO_SHARED_FILES_ABSOLUTE + " "
-            + std::to_string(parameters.find("pmax_gp")->second);
+            + std::to_string(parameters.find("position_max_gp")->second);
 
     logger::Info("Visualize control ... using command " + VISUALIZING_STRING);
     try {

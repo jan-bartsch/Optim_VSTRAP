@@ -10,7 +10,8 @@
 
 /**
  * @brief The stepdirection_controller class provides different methods for finding the step-direction,
- * as gradient descent and NCG schemes with different update rules
+ * as gradient descent and non-linear conjugate gradient (NCG) schemes with different update rules;
+ * see e.g. https://www.caam.rice.edu/~yzhang/caam554/pdf/cgsurvey.pdf
  */
 class stepdirection_controller : public abstract_controller
 {
@@ -18,7 +19,7 @@ public:
     stepdirection_controller(const char * filename);
 
     /**
-     * @brief get_stepdirection generic method called in the main optimizer algorithm
+     * @brief get_stepdirection is a generic method called in the main optimizer algorithm
      * @param gradient
      * @param gradient_old
      * @param stepdirectionOld

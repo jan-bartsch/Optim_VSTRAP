@@ -1,0 +1,7 @@
+<map id="pdf_controller::relaxating_GaussSeidel_4D" name="pdf_controller::relaxating_GaussSeidel_4D">
+<area shape="rect" id="node2" href="$classgradient__calculator.html#a62952c354762514d88d70e323957fb34" title="calculateGradient_forceControl_space_Hm_not_parallel calculates the gradient without using any parall..." alt="" coords="217,5,388,76"/>
+<area shape="rect" id="node3" href="$classgradient__calculator.html#a8381a8497dfe88bcb04ff40ce1e235e0" title="calculateGradient_forceControl_space_Hm calculates the gradient with parallelization ..." alt="" coords="217,101,388,157"/>
+<area shape="rect" id="node6" href="$classgradient__calculator.html#a3a53b6132184c796ef3aca1e306e2211" title="calculateGradient_forceControl_space_Hm_plasma calculates the gradient with two different species (io..." alt="" coords="217,181,388,252"/>
+<area shape="rect" id="node4" href="$classoptim__controller.html#aa2c0fefd82a319ebc1f4407abb17476a" title="main_optimization_algorithm is the core optimization algorithm which uses the paramteres defined in t..." alt="" coords="436,152,595,193"/>
+<area shape="rect" id="node5" href="$classoptim__controller.html#a239f21ed616ef8f350b386cea9be81c1" title="start_optimizer reads in the command line command and starts the optimizer " alt="" coords="643,152,791,193"/>
+</map>

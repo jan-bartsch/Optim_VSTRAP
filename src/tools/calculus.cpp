@@ -7,8 +7,8 @@ double calculus::divergence_vector(arma::mat input)
     data_provider optim_provider = this->getData_provider_optim();
     std::map<std::string,double> parameters = optim_provider.getOptimizationParameters();
 
-    double db_gp = static_cast<double>(parameters.find("db_gp")->second);
-    double dp_gp = static_cast<double>(parameters.find("dp_gp")->second);
+    double small_discr_sidelength = static_cast<double>(parameters.find("small_discr_sidelength")->second);
+    double small_discr_volume = static_cast<double>(parameters.find("small_discr_volume")->second);
 
     equation_solving_controller solver = equation_solving_controller();
     solver.setData_provider_optim(optim_provider);
@@ -23,11 +23,11 @@ double calculus::divergence_vector(arma::mat input)
 
     double div = 0.0;
 
-    div += arma::accu(control_x1)/db_gp;
-    div += arma::accu(control_x2)/db_gp;
-    div += arma::accu(control_x3)/db_gp;
+    div += arma::accu(control_x1)/small_discr_sidelength;
+    div += arma::accu(control_x2)/small_discr_sidelength;
+    div += arma::accu(control_x3)/small_discr_sidelength;
 
-    div *= (db_gp*db_gp*db_gp);
+    div *= (small_discr_sidelength*small_discr_sidelength*small_discr_sidelength);
 
     return div;
 }

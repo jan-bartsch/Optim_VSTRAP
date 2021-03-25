@@ -13,15 +13,15 @@ TEST(innerProducts,L2Norm) {
     pro.setData_provider_optim(provider);
 
     std::map<std::string, double> optimizationParameters = provider.getOptimizationParameters();
-    double dp_gp = static_cast<double>(optimizationParameters.find("dp_gp")->second);
+    double small_discr_volume = static_cast<double>(optimizationParameters.find("small_discr_volume")->second);
     unsigned int dimensionOfControl_gp = static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second);
-    unsigned int pcell_gp = static_cast<unsigned int>(optimizationParameters.find("pcell_gp")->second);
+    unsigned int number_cells_position = static_cast<unsigned int>(optimizationParameters.find("number_cells_position")->second);
     unsigned int ntimesteps_gp = static_cast<unsigned int>(optimizationParameters.find("ntimesteps_gp")->second);
 
-    arma::mat control(pcell_gp,3,arma::fill::randu);
+    arma::mat control(number_cells_position,3,arma::fill::randu);
 
     double inner_product_norm = std::sqrt(pro.L2_inner_product(control,control));
-    double arma_norm = arma::norm(control,"fro")*std::sqrt(dp_gp);
+    double arma_norm = arma::norm(control,"fro")*std::sqrt(small_discr_volume);
 
     ASSERT_DOUBLE_EQ(inner_product_norm,arma_norm);
 }

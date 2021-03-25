@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Optim_VSTRAP: desired_trajectory_controller Class Reference</title>
+<title>MOTIONS: desired_trajectory_controller Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Optim_VSTRAP
+   <div id="projectname">MOTIONS
    </div>
   </td>
  </tr>
@@ -60,6 +60,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="classdesired__trajectory__controller-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">desired_trajectory_controller Class Reference</div>  </div>
@@ -70,31 +71,21 @@ $(function() {
  <a href="classdesired__trajectory__controller.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="src_2controller_2desired__trajectory__controller_8h_source.html">desired_trajectory_controller.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for desired_trajectory_controller:</div>
-<div class="dyncontent">
-<div class="center"><img src="classdesired__trajectory__controller__inherit__graph.png" border="0" usemap="#desired__trajectory__controller_inherit__map" alt="Inheritance graph"/></div>
-<map name="desired__trajectory__controller_inherit__map" id="desired__trajectory__controller_inherit__map">
-<area shape="rect" id="node2" href="classabstract__controller.html" title="The abstract_controller class is inherited by all controller classes. " alt="" coords="5,5,135,32"/>
-</map>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
-<div class="dynheader">
-Collaboration diagram for desired_trajectory_controller:</div>
-<div class="dyncontent">
-<div class="center"><img src="classdesired__trajectory__controller__coll__graph.png" border="0" usemap="#desired__trajectory__controller_coll__map" alt="Collaboration graph"/></div>
-<map name="desired__trajectory__controller_coll__map" id="desired__trajectory__controller_coll__map">
-<area shape="rect" id="node2" href="classabstract__controller.html" title="The abstract_controller class is inherited by all controller classes. " alt="" coords="5,5,135,32"/>
-</map>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a2ff36cb2a76f5d5ceb2fd6a6eee90d17"><td class="memItemLeft" align="right" valign="top"><a id="a2ff36cb2a76f5d5ceb2fd6a6eee90d17"></a>
-std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>trajectory_desired</b> (std::vector&lt; double &gt; barycenter, unsigned int l, unsigned int m, unsigned int n, unsigned int o, std::vector&lt; std::vector&lt; double &gt; &gt; brockettVector, unsigned int plasma_state_output_interval)</td></tr>
+<tr class="memitem:a2ff36cb2a76f5d5ceb2fd6a6eee90d17"><td class="memItemLeft" align="right" valign="top">std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdesired__trajectory__controller.html#a2ff36cb2a76f5d5ceb2fd6a6eee90d17">trajectory_desired</a> (std::vector&lt; double &gt; barycenter, unsigned int l, unsigned int m, unsigned int n, unsigned int o, std::vector&lt; std::vector&lt; double &gt; &gt; brockettVector, unsigned int plasma_state_output_interval)</td></tr>
+<tr class="memdesc:a2ff36cb2a76f5d5ceb2fd6a6eee90d17"><td class="mdescLeft">&#160;</td><td class="mdescRight">trajectory_desired is the generic function for calling the desired trajectory  <a href="#a2ff36cb2a76f5d5ceb2fd6a6eee90d17">More...</a><br /></td></tr>
 <tr class="separator:a2ff36cb2a76f5d5ceb2fd6a6eee90d17"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0b8b0c2fe70f9d5980d1376e68662c8a"><td class="memItemLeft" align="right" valign="top">std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdesired__trajectory__controller.html#a0b8b0c2fe70f9d5980d1376e68662c8a">trajectory_desired_brockett</a> (std::vector&lt; std::vector&lt; double &gt; &gt; brockettVector, unsigned int o, unsigned int plasma_state_output_interval)</td></tr>
-<tr class="memdesc:a0b8b0c2fe70f9d5980d1376e68662c8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">trajectory_desired_brockett provides the desired trajectory using a time dependent vector as input  <a href="#a0b8b0c2fe70f9d5980d1376e68662c8a">More...</a><br /></td></tr>
+<tr class="memdesc:a0b8b0c2fe70f9d5980d1376e68662c8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">trajectory_desired_brockett provides the desired trajectory using a time dependent vector as input</p><ul>
+<li></li>
+</ul>
+ <a href="#a0b8b0c2fe70f9d5980d1376e68662c8a">More...</a><br /></td></tr>
 <tr class="separator:a0b8b0c2fe70f9d5980d1376e68662c8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c0bba500110378d498054a045063c5e"><td class="memItemLeft" align="right" valign="top">std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdesired__trajectory__controller.html#a8c0bba500110378d498054a045063c5e">trajectory_desired_parameters</a> (std::vector&lt; double &gt; barycenter, unsigned int l, unsigned int m, unsigned int n, unsigned int o, unsigned int plasma_state_output_interval)</td></tr>
+<tr class="memdesc:a8c0bba500110378d498054a045063c5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">trajectory_desired_parameters uses the parameters defined in the input file of the optimizer  <a href="#a8c0bba500110378d498054a045063c5e">More...</a><br /></td></tr>
+<tr class="separator:a8c0bba500110378d498054a045063c5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classabstract__controller"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classabstract__controller')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classabstract__controller.html">abstract_controller</a></td></tr>
 <tr class="memitem:ae4a15450620978e51c578666d359349c inherit pub_methods_classabstract__controller"><td class="memItemLeft" align="right" valign="top"><a id="ae4a15450620978e51c578666d359349c"></a>
 <a class="el" href="classdata__provider.html">data_provider</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getData_provider_optim</b> () const</td></tr>
@@ -102,10 +93,100 @@ std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><
 <tr class="memitem:a35988272a58784db06c9d1e48f0a3292 inherit pub_methods_classabstract__controller"><td class="memItemLeft" align="right" valign="top"><a id="a35988272a58784db06c9d1e48f0a3292"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setData_provider_optim</b> (const <a class="el" href="classdata__provider.html">data_provider</a> &amp;value)</td></tr>
 <tr class="separator:a35988272a58784db06c9d1e48f0a3292 inherit pub_methods_classabstract__controller"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a5b915ffbc41117e7bf1accd960bba352"><td class="memItemLeft" align="right" valign="top"><a id="a5b915ffbc41117e7bf1accd960bba352"></a>
+std::map&lt; int, std::vector&lt; double &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>barycenters</b></td></tr>
+<tr class="separator:a5b915ffbc41117e7bf1accd960bba352"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="classdesired__trajectory__controller.html" title="The desired_trajectory_controller class provides the trajectory of the mean value in phase space...">desired_trajectory_controller</a> class provides the trajectory of the mean value in phase space. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a2ff36cb2a76f5d5ceb2fd6a6eee90d17"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ff36cb2a76f5d5ceb2fd6a6eee90d17">&#9670;&nbsp;</a></span>trajectory_desired()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; double &gt; desired_trajectory_controller::trajectory_desired </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; double &gt;&#160;</td>
+          <td class="paramname"><em>barycenter</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>l</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>m</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>n</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>o</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; std::vector&lt; double &gt; &gt;&#160;</td>
+          <td class="paramname"><em>brockettVector</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>plasma_state_output_interval</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>trajectory_desired is the generic function for calling the desired trajectory </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">barycenter</td><td></td></tr>
+    <tr><td class="paramname">l</td><td></td></tr>
+    <tr><td class="paramname">m</td><td></td></tr>
+    <tr><td class="paramname">n</td><td></td></tr>
+    <tr><td class="paramname">o</td><td></td></tr>
+    <tr><td class="paramname">brockettVector</td><td></td></tr>
+    <tr><td class="paramname">plasma_state_output_interval</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+
+<p class="reference">References <a class="el" href="classdesired__trajectory__controller.html#a0b8b0c2fe70f9d5980d1376e68662c8a">trajectory_desired_brockett()</a>, and <a class="el" href="classdesired__trajectory__controller.html#a8c0bba500110378d498054a045063c5e">trajectory_desired_parameters()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classdesired__trajectory__controller_a2ff36cb2a76f5d5ceb2fd6a6eee90d17_cgraph.png" border="0" usemap="#classdesired__trajectory__controller_a2ff36cb2a76f5d5ceb2fd6a6eee90d17_cgraph" alt=""/></div>
+<map name="classdesired__trajectory__controller_a2ff36cb2a76f5d5ceb2fd6a6eee90d17_cgraph" id="classdesired__trajectory__controller_a2ff36cb2a76f5d5ceb2fd6a6eee90d17_cgraph">
+<area shape="rect" id="node2" href="classdesired__trajectory__controller.html#a0b8b0c2fe70f9d5980d1376e68662c8a" title="trajectory_desired_brockett provides the desired trajectory using a time dependent vector as input..." alt="" coords="197,5,341,61"/>
+<area shape="rect" id="node3" href="classdesired__trajectory__controller.html#a8c0bba500110378d498054a045063c5e" title="trajectory_desired_parameters uses the parameters defined in the input file of the optimizer ..." alt="" coords="197,85,341,141"/>
+</map>
+</div>
+
+</div>
+</div>
 <a id="a0b8b0c2fe70f9d5980d1376e68662c8a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0b8b0c2fe70f9d5980d1376e68662c8a">&#9670;&nbsp;</a></span>trajectory_desired_brockett()</h2>
 
@@ -138,7 +219,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setData_provider_opti
       </table>
 </div><div class="memdoc">
 
-<p>trajectory_desired_brockett provides the desired trajectory using a time dependent vector as input </p>
+<p>trajectory_desired_brockett provides the desired trajectory using a time dependent vector as input</p><ul>
+<li></li>
+</ul>
+</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">brockettVector</td><td></td></tr>
@@ -148,6 +232,88 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setData_provider_opti
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd></dd></dl>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classdesired__trajectory__controller_a0b8b0c2fe70f9d5980d1376e68662c8a_icgraph.png" border="0" usemap="#classdesired__trajectory__controller_a0b8b0c2fe70f9d5980d1376e68662c8a_icgraph" alt=""/></div>
+<map name="classdesired__trajectory__controller_a0b8b0c2fe70f9d5980d1376e68662c8a_icgraph" id="classdesired__trajectory__controller_a0b8b0c2fe70f9d5980d1376e68662c8a_icgraph">
+<area shape="rect" id="node2" href="classdesired__trajectory__controller.html#a2ff36cb2a76f5d5ceb2fd6a6eee90d17" title="trajectory_desired is the generic function for calling the desired trajectory " alt="" coords="197,5,341,61"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a8c0bba500110378d498054a045063c5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c0bba500110378d498054a045063c5e">&#9670;&nbsp;</a></span>trajectory_desired_parameters()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; double &gt; desired_trajectory_controller::trajectory_desired_parameters </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; double &gt;&#160;</td>
+          <td class="paramname"><em>barycenter</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>l</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>m</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>n</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>o</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>plasma_state_output_interval</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>trajectory_desired_parameters uses the parameters defined in the input file of the optimizer </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">barycenter</td><td></td></tr>
+    <tr><td class="paramname">l</td><td></td></tr>
+    <tr><td class="paramname">m</td><td></td></tr>
+    <tr><td class="paramname">n</td><td></td></tr>
+    <tr><td class="paramname">o</td><td></td></tr>
+    <tr><td class="paramname">plasma_state_output_interval</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classdesired__trajectory__controller_a8c0bba500110378d498054a045063c5e_icgraph.png" border="0" usemap="#classdesired__trajectory__controller_a8c0bba500110378d498054a045063c5e_icgraph" alt=""/></div>
+<map name="classdesired__trajectory__controller_a8c0bba500110378d498054a045063c5e_icgraph" id="classdesired__trajectory__controller_a8c0bba500110378d498054a045063c5e_icgraph">
+<area shape="rect" id="node2" href="classdesired__trajectory__controller.html#a2ff36cb2a76f5d5ceb2fd6a6eee90d17" title="trajectory_desired is the generic function for calling the desired trajectory " alt="" coords="197,5,341,61"/>
+</map>
+</div>
 
 </div>
 </div>

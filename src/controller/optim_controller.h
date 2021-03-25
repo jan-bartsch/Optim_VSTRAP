@@ -31,6 +31,10 @@
 #include "../tools/parameter_sanity.h"
 #include "../tools/calculus.h"
 
+/**
+ * @brief The optim_controller class provides methods for starting and
+ * the optimizer and visualizing the results
+ */
 class optim_controller : public abstract_controller
 {
 public:
@@ -55,15 +59,60 @@ public:
     static int main_optimization_algorithm(const char * input_xml_path);
 
 
-    static int check_input_py(data_provider provider, const char * filePathOptimInput);
+    //static int check_input_py(data_provider provider, const char * filePathOptimInput);
 
+    /**
+     * @brief start_with_zero_control deletes the whole folder containing the files from
+     * the last optimization run, creates a new initial guess that is zero everywhere
+     *
+     * @param input_xml_path
+     * @return
+     */
     static arma::mat start_with_zero_control(const char * input_xml_path);
+
+    /**
+     * @brief start_with_given_control delets only the txt and csv files and
+     * starts with the control that is currently in the results folder
+     *
+     * @param input_xml_path
+     * @return
+     */
     static arma::mat start_with_given_control(const char * input_xml_path);
 
+    /**
+     * @brief generate_input_files starts the generation of the VSTRAP input files for
+     * forward, backward and adjoint_creation
+     *
+     * @param input_xml_path
+     * @return
+     */
     static int generate_input_files(const char * input_xml_path);
 
+    /**
+     * @brief post_processing_convergence starts the python post-processing method
+     *
+     * @param provider
+     * @return
+     */
     static int post_processing_convergence(data_provider provider);
+
+    /**
+     * @brief visualize_control starts the python method for visualizing the control
+     * in three dimensions
+     *
+     * @param provider
+     * @return
+     */
     static int visualize_control(data_provider provider);
+
+    /**
+     * @brief paraview_plot_forward starts the python routine for displaying the
+     * evolution of the solution to the forward equation using a python script
+     * for paraview
+     *
+     * @param provider
+     * @return
+     */
     static int paraview_plot_forward(data_provider provider);
 };
 
