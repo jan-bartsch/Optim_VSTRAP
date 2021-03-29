@@ -4,29 +4,29 @@ control_verification::control_verification() { }
 
 int control_verification::start_verification(int argc, char **argv)
 {
-    data_provider validation_provider = data_provider(argv[1]);
+    DataProvider validation_provider = DataProvider(argv[1]);
     std::map<std::string,std::string> validation_paths = validation_provider.getPaths();
     std::map<std::string,double> validation_params = validation_provider.getOptimizationParameters();
     std::map<std::string,std::string> validation_routines = validation_provider.getSubroutines();
 
-    std::string DIRECTORY_OPTIM_INPUT = validation_paths.find("DIRECTORY_OPTIM_INPUT")->second;
-    data_provider optimization_provider = data_provider(DIRECTORY_OPTIM_INPUT.c_str());
+    std::string DIRECTORY_OPTIM_Input = validation_paths.find("DIRECTORY_OPTIM_Input")->second;
+    DataProvider optimization_provider = DataProvider(DIRECTORY_OPTIM_Input.c_str());
     std::map<std::string, double> optimizationParameters = optimization_provider.getOptimizationParameters();
     std::map<std::string,std::string> paths = optimization_provider.getPaths();
 
     int number_cells_position = static_cast<int>(optimizationParameters.find("number_cells_position")->second);
 
-    input in = input();
-    in.setData_provider_optim(optimization_provider);
+    Input in = Input();
+    in.set_DataProviderOptim(optimization_provider);
 
-    output_diagnostics out = output_diagnostics();
-    out.setData_provider_optim(optimization_provider);
+    OutputDiagnostics out = OutputDiagnostics();
+    out.set_DataProviderOptim(optimization_provider);
 
-    equation_solving_controller solver = equation_solving_controller();
-    solver.setData_provider_optim(optimization_provider);
+    EquationSolvingController solver = EquationSolvingController();
+    solver.set_DataProviderOptim(optimization_provider);
 
-    inner_products pro = inner_products();
-    pro.setData_provider_optim(optimization_provider);
+    InnerProducts pro = InnerProducts();
+    pro.set_DataProviderOptim(optimization_provider);
 
 
     unsigned long iterations = static_cast<unsigned long>(validation_params.find("number_controls")->second);
@@ -42,7 +42,7 @@ int control_verification::start_verification(int argc, char **argv)
     std::vector<double> control_difference(iterations-1,0.0);
 
     std::string discretization_file = CONTROLS_DIRECTORY + "discretization_vector.txt";
-    std::vector<double> discretization_vector = in.readDoubleVector(discretization_file.c_str());
+    std::vector<double> discretization_vector = in.ReadDoubleVector(discretization_file.c_str());
 
     if(static_cast<int>(discretization_vector.size()) != static_cast<int>(iterations)) {
         throw std::invalid_argument("Number of weights and controls does not match");
@@ -65,13 +65,13 @@ int control_verification::start_verification(int argc, char **argv)
     std::vector<double> norms;
     arma::mat control;
 
-    std::map<int, std::vector<double> > barycenters = optimization_provider.getMesh_barycenters();
-    arma::mat bary = data_provider::convert_barycenters_toArmaMat(barycenters);
+    std::map<int, std::vector<double> > barycenters = optimization_provider.getMeshBarycenters();
+    arma::mat bary = DataProvider::ConvertBarycentersToArmaMat(barycenters);
 
     std::vector<double> valide_vector;
 
     std::string barycenter_mesh_path = "";
-    std::map<int, std::vector<double> > current_barycenters = optimization_provider.getMesh_barycenters();
+    std::map<int, std::vector<double> > current_barycenters = optimization_provider.getMeshBarycenters();
 
 
     for (unsigned long i = 0; i < iterations; i++) {
@@ -79,10 +79,10 @@ int control_verification::start_verification(int argc, char **argv)
         file = CONTROLS_DIRECTORY +"control_" + number + ".xml";
         std::cout << "Open file with name " << file << std::endl;
         if (VALIDATION_TYPE.compare("position")==0) {
-            arma::mat control =  in.readControl(file.c_str(),static_cast<int>(discretization_vector[i]));
+            arma::mat control =  in.ReadControl(file.c_str(),static_cast<int>(discretization_vector[i]));
             barycenter_mesh_path = "../../Optim_VSTRAP/data/global/mesh_barycenters_small_" + std::to_string(static_cast<int>(discretization_vector[i])) + ".xml" ;
-            current_barycenters = optimization_provider.read_mesh_barycenters(&barycenter_mesh_path[0]);
-            bary = data_provider::convert_barycenters_toArmaMat(current_barycenters);
+            current_barycenters = optimization_provider.ReadMeshBarycenters(&barycenter_mesh_path[0]);
+            bary = DataProvider::ConvertBarycentersToArmaMat(current_barycenters);
             //means.insert_rows(i,arma::mean(calculate_cross_error(control,bary,valide_vector))*1.0/(static_cast<double>(discretization_vector[i])) );
             means.insert_rows(i,arma::mean(control)*0.001);
             //calculate_mean(control);
@@ -90,7 +90,7 @@ int control_verification::start_verification(int argc, char **argv)
             norms.push_back(arma::norm(means.row(i))*0.001);
             valide_vector.push_back(1.0);
         } else if (VALIDATION_TYPE.compare("weight")==0) {
-            control =  in.readControl(file.c_str(),number_cells_position);
+            control =  in.ReadControl(file.c_str(),number_cells_position);
             means.insert_rows(i,arma::mean(calculate_cross_error(control,bary,valide_vector)) );
             norms.push_back(arma::norm(means.row(i))*valide_vector[i]);
         } else {

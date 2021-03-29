@@ -1,0 +1,75 @@
+#include "desiredtrajectorycontroller.h"
+
+DesiredTrajectoryController::DesiredTrajectoryController() { }
+
+std::vector<double> DesiredTrajectoryController::TrajectoryDesired(std::vector<double> barycenter,
+                                                                      unsigned int l, unsigned int m, unsigned int n,
+                                                                      unsigned int o, std::vector<std::vector<double> > brockett_vector,
+                                                                       unsigned int plasma_state_output_interval)
+{
+    std::vector<double> p_d(6,0.0);
+    std::map<std::string,std::string> subroutines = this->get_DataProviderOptim().getSubroutines();
+    std::string desired_traj = subroutines.find("desired_trajectory")->second;
+    std::string objective_calculation = subroutines.find("objective_calculation")->second;
+
+
+    if(desired_traj.compare("parameters")==0) {
+        p_d = this->TrajectoryDesiredParameters(barycenter,l,m,n,o, plasma_state_output_interval);
+    } else if (desired_traj.compare("brockett")==0) {
+        p_d = this->TrajectoryDesiredBrockett(brockett_vector, o, plasma_state_output_interval);
+    } else {
+        std::invalid_argument("No such desired_trajectory subroutine");
+        throw std::runtime_error("No such desired_trajectory subroutine");
+    }
+
+    return p_d;
+}
+
+std::vector<double> DesiredTrajectoryController::TrajectoryDesiredParameters(std::vector<double> barycenter, unsigned int l, unsigned int m, unsigned int n,
+                                                                               unsigned int o, unsigned int plasma_state_output_interval)
+{
+    std::vector<double> p_d(6,0.0);
+
+    DataProvider optim_provider = this->get_DataProviderOptim();
+    std::map<std::string,double> parameters = optim_provider.getOptimizationParameters();
+
+    double expected_speed = parameters.find("expected_speed")->second;
+    double desired_position_x = parameters.find("desired_position_x")->second;
+    double desired_position_y = parameters.find("desired_position_y")->second;
+    double desired_position_z = parameters.find("desired_position_z")->second;
+
+    double desired_velocity_x = parameters.find("adjoint_vx")->second;
+    double desired_velocity_y = parameters.find("adjoint_vy")->second;
+    double desired_velocity_z = parameters.find("adjoint_vz")->second;
+
+    p_d[0] = desired_position_x;
+    p_d[1] = desired_position_y;
+    p_d[2] = desired_position_z;
+
+    p_d[3] = desired_velocity_x;
+    p_d[4] = desired_velocity_y;
+    p_d[5] = desired_velocity_z;
+
+    return p_d;
+}
+
+std::vector<double> DesiredTrajectoryController::TrajectoryDesiredBrockett(std::vector<std::vector<double> > brockett_vector,
+                                                                           unsigned int o,
+                                                                           unsigned int plasma_state_output_interval)
+{
+    Input in = Input();
+
+    std::vector<double> p_d(6,0.0);
+
+    //position
+    p_d[0] = brockett_vector[o*plasma_state_output_interval][0];
+    p_d[1] = brockett_vector[o*plasma_state_output_interval][1];
+    p_d[2] = brockett_vector[o*plasma_state_output_interval][2];
+
+    //velocity
+    p_d[3] = brockett_vector[o*plasma_state_output_interval][6];
+    p_d[4] = brockett_vector[o*plasma_state_output_interval][7];
+    p_d[5] = brockett_vector[o*plasma_state_output_interval][8];
+
+    return p_d;
+}

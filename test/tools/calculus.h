@@ -1,16 +1,16 @@
 #include <gtest/gtest.h>
 
-#include "../../src/objects/data_provider.h"
+#include "../../src/objects/dataprovider.h"
 #include "../../src/tools/calculus.h"
 
 TEST(calc,divergence) {
-    std::string input_directory = "./data/Optim_input_gTest.xml";
-    const char *  filename = input_directory.c_str();
+    std::string Input_directory = "./data/Optim_Input_gTest.xml";
+    const char *  filename = Input_directory.c_str();
 
-    data_provider provider = data_provider(filename);
+    DataProvider provider = DataProvider(filename);
 
-    calculus calc = calculus();
-    calc.setData_provider_optim(provider);
+    Calculus calc = Calculus();
+    calc.set_DataProviderOptim(provider);
 
     std::map<std::string, double> optimizationParameters = provider.getOptimizationParameters();
     double small_discr_volume = static_cast<double>(optimizationParameters.find("small_discr_volume")->second);
@@ -20,7 +20,7 @@ TEST(calc,divergence) {
 
     arma::mat control(number_cells_position,3,arma::fill::zeros);
 
-    double divergence = calc.divergence_vector(control);
+    double divergence = calc.DivergenceVector(control);
 
     ASSERT_DOUBLE_EQ(divergence,0.0);
 }

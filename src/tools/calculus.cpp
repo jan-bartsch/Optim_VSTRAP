@@ -1,25 +1,25 @@
 #include "calculus.h"
 
-calculus::calculus() { }
+Calculus::Calculus() { }
 
-double calculus::divergence_vector(arma::mat input)
+double Calculus::DivergenceVector(arma::mat Input)
 {
-    data_provider optim_provider = this->getData_provider_optim();
+    DataProvider optim_provider = this->get_DataProviderOptim();
     std::map<std::string,double> parameters = optim_provider.getOptimizationParameters();
 
     double small_discr_sidelength = static_cast<double>(parameters.find("small_discr_sidelength")->second);
     double small_discr_volume = static_cast<double>(parameters.find("small_discr_volume")->second);
 
-    equation_solving_controller solver = equation_solving_controller();
-    solver.setData_provider_optim(optim_provider);
+    EquationSolvingController solver = EquationSolvingController();
+    solver.set_DataProviderOptim(optim_provider);
 
-    arma::mat D1X1 = solver.D1X1_second_order();
-    arma::mat D1X2 = solver.D1X2_second_order();
-    arma::mat D1X3 = solver.D1X3_second_order();
+    arma::mat D1X1 = solver.D1x1SecondOrder();
+    arma::mat D1X2 = solver.D1x2SecondOrder();
+    arma::mat D1X3 = solver.D1x3SecondOrder();
 
-    arma::vec control_x1 = D1X1*input.col(0);
-    arma::vec control_x2 = D1X2*input.col(1);
-    arma::vec control_x3 = D1X3*input.col(2);
+    arma::vec control_x1 = D1X1*Input.col(0);
+    arma::vec control_x2 = D1X2*Input.col(1);
+    arma::vec control_x3 = D1X3*Input.col(2);
 
     double div = 0.0;
 
