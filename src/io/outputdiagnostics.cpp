@@ -2,7 +2,7 @@
 
 OutputDiagnostics::OutputDiagnostics() { }
 
-int OutputDiagnostics::WriteGradientMatrixToFile(arma::mat gradient, std::string filename)
+int OutputDiagnostics::writeGradientMatrixToFile(arma::mat gradient, std::string filename)
 {
     std::map<std::string, std::string> paths = this->get_DataProviderOptim().getPaths();
     std::string RESULTS_DIRECTORY = paths.find("RESULTS_DIRECTORY")->second;

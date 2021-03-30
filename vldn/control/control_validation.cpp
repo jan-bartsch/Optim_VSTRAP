@@ -100,7 +100,7 @@ int control_verification::start_verification(int argc, char **argv)
         control_vector.push_back(control);
         //calculate_cross_error(control,bary,valide_vector);
         //std::cout << arma::mean(calculate_cross_error(control,bary,valide_vector)) << std::endl;
-        //std::cout << "L2 norm: " << std::sqrt(pro.L2_inner_product(control,control)) << std::endl;
+        //std::cout << "L2 norm: " << std::sqrt(pro.L2InnerProduct(control,control)) << std::endl;
         //std::cout << "norm: " << arma::norm(control,"fro")*std::sqrt(0.001/discretization_file[i]) << std::endl; //*0.001/discretization_vector[i]
     }
 
@@ -112,9 +112,9 @@ int control_verification::start_verification(int argc, char **argv)
     std::cout << means << std::endl;
 
 
-    out.writeDoubleVectorToFile(norms,"Norms");
+    out.WriteDoubleVectorToFile(norms,"Norms");
     out.writeGradientMatrixToFile(means,"Means");
-    out.writeDoubleVectorToFile(valide_vector,"Valide");
+    out.WriteDoubleVectorToFile(valide_vector,"Valide");
 
     std::string DIRECTORY_TOOLSET = paths.find("DIRECTORY_TOOLSET")->second;
     std::string PATH_TO_SHARED_FILES_ABSOLUTE  = paths.find("PATH_TO_SHARED_FILES_ABSOLUTE")->second;
@@ -127,31 +127,31 @@ int control_verification::start_verification(int argc, char **argv)
 
 
     for (unsigned long i = 0; i < iterations-1; i++) {
-        //        control_difference[i] = std::sqrt(pro.H1_inner_product(control_vector[i+1]*discretization_vector[i+1]-control_vector[i]*discretization_vector[i],
+        //        control_difference[i] = std::sqrt(pro.H1InnerProduct(control_vector[i+1]*discretization_vector[i+1]-control_vector[i]*discretization_vector[i],
         //                control_vector[i+1]*discretization_vector[i+1]-control_vector[i]*discretization_vector[i]));
-        control_difference[i] = std::sqrt(pro.H1_inner_product(control_vector[i+1]-control_vector[i],control_vector[i+1]-control_vector[i]));
+        control_difference[i] = std::sqrt(pro.H1InnerProduct(control_vector[i+1]-control_vector[i],control_vector[i+1]-control_vector[i]));
         std::cout << control_difference[i] << std::endl;
     }
 
-    out.writeDoubleVectorToFile(control_difference,"H1-difference");
+    out.WriteDoubleVectorToFile(control_difference,"H1-difference");
 
     for (unsigned long i = 0; i < iterations-1; i++) {
-        //        control_difference[i] = std::sqrt(pro.L2_inner_product(control_vector[i+1]*discretization_vector[i+1]-control_vector[i]*discretization_vector[i],
+        //        control_difference[i] = std::sqrt(pro.L2InnerProduct(control_vector[i+1]*discretization_vector[i+1]-control_vector[i]*discretization_vector[i],
         //                control_vector[i+1]*discretization_vector[i+1]-control_vector[i]*discretization_vector[i]));
-        control_difference[i] = std::sqrt(pro.L2_inner_product(control_vector[i+1]-control_vector[i],control_vector[i+1]-control_vector[i]));
+        control_difference[i] = std::sqrt(pro.L2InnerProduct(control_vector[i+1]-control_vector[i],control_vector[i+1]-control_vector[i]));
         std::cout << control_difference[i] << std::endl;
     }
 
-    out.writeDoubleVectorToFile(control_difference,"L2-difference");
+    out.WriteDoubleVectorToFile(control_difference,"L2-difference");
 
     for (unsigned long i = 0; i < iterations-1; i++) {
-        control_difference[i] = std::sqrt(pro.H2_inner_product(control_vector[i+1]-control_vector[i],
+        control_difference[i] = std::sqrt(pro.H2InnerProduct(control_vector[i+1]-control_vector[i],
                                           control_vector[i+1]-control_vector[i]));
         //control_difference[i] = std::sqrt(pro.H2_inner_product(control_vector[i+1]-control_vector[i],control_vector[i+1]-control_vector[i]));
         std::cout << control_difference[i] << std::endl;
     }
 
-    out.writeDoubleVectorToFile(control_difference,"H2-difference");
+    out.WriteDoubleVectorToFile(control_difference,"H2-difference");
 
     return 0;
 }

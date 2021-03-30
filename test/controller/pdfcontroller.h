@@ -29,7 +29,7 @@ TEST(pdf,assembling) {
 
 #pragma omp parallel for
     for(unsigned int o = 1; o<=ntimesteps_gp; o++) {
-        forwardParticles[o-1] = Input::readParticleVector("./data/vstrap_test_output/plasma_state_batch_1_forward_particles_CPU_"+std::to_string(o)+".csv",",");
+        forwardParticles[o-1] = Input::ReadParticleVector("./data/vstrap_test_output/plasma_state_batch_1_forward_particles_CPU_"+std::to_string(o)+".csv",",");
     }
 
     assembling_flag = pdf_control.AssemblingMultidimParallel(forwardParticles,0,pdf_time);

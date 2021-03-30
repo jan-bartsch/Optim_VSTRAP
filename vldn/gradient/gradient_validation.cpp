@@ -116,7 +116,7 @@ int gradient_validation::landau_validation(int argc, char **argv) {
 
 
     logger::Info("Building gradient...");
-    arma::mat gradient0 = gradient_calculator_opt.calculateGradient_forceControl_space_Hm(forwardPDF,backwardPDF,control0);
+    arma::mat gradient0 = gradient_calculator_opt.CalculategradientForcecontrolSpaceHm(forwardPDF,backwardPDF,control0);
     outDiag.WriteDoubleToFile(arma::norm(gradient,"fro"),"normGradientTrack");
 
     arma::mat delta_control(number_cells_position,3,arma::fill::ones);
