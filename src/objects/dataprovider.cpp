@@ -16,9 +16,9 @@ DataProvider::DataProvider(const char *filename)
 
 }
 
-std::map<std::string, double> DataProvider::ReadOptimizationParameters(const char* filename)
+std::map<std::string, std::string> DataProvider::ReadOptimizationParameters(const char* filename)
 {
-    std::map<std::string,double> globalParameters;
+    std::map<std::string, std::string> globalParameters;
 
     TiXmlDocument InputFile(filename);
     if (!InputFile.LoadFile()) {
@@ -39,9 +39,9 @@ std::map<std::string, double> DataProvider::ReadOptimizationParameters(const cha
         std::string name_string(name->Value());
 
         TiXmlAttribute *value = name->Next();
-        double value_double = std::atof(value->Value());
+        std::string value_string(value->Value());
 
-        globalParameters.insert(std::pair<std::string,double>(name_string,value_double));
+        globalParameters.insert(std::pair<std::string,std::string>(name_string,value_string));
         parameter = parameter->NextSiblingElement();
         i++;
     }
@@ -181,13 +181,13 @@ std::map<std::string, std::string> DataProvider::ReadPaths(const char *filename)
     return InputParameters;
 }
 
-std::map<std::string, std::string> DataProvider::getPaths() const { return paths; }
+std::map<std::string, std::string> DataProvider::getPaths() const { return paths_; }
 
-void DataProvider::setPaths(const std::map<std::string, std::string> &value) { paths = value; }
+void DataProvider::setPaths(const std::map<std::string, std::string> &value) { paths_ = value; }
 
-std::map<std::string, double> DataProvider::getOptimizationParameters() const { return optimizationParameters; }
+std::map<std::string, std::string> DataProvider::getOptimizationParameters() const { return optimizationParameters; }
 
-void DataProvider::setOptimizationParameters(const std::map<std::string, double> &value) { optimizationParameters = value; }
+void DataProvider::setOptimizationParameters(const std::map<std::string, std::string> &value) { optimizationParameters = value; }
 
 std::map<std::string, std::string> DataProvider::getSubroutines() const
 {

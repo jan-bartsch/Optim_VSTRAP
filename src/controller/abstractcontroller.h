@@ -5,6 +5,8 @@
 #include <exception>
 
 #include "../objects/dataprovider.h"
+#include "../objects/MOTIONS.h"
+
 #include "../logger/logger.h"
 
 

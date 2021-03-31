@@ -60,17 +60,6 @@ std::string Particle::toString() {
             + " " + std::to_string(this->getVx()) + " " + std::to_string(this->getVy()) + " " + std::to_string(this->getVz());
 }
 
-/*bool particle::operator==(const particle &particle) const
-{
-    return (particle.getPx() == this->getPx() && particle.getPy() == this->getPy()
-            && particle.getPz() == this->getPz() && particle.getVx() == this->getVx()
-            && particle.getVy() == this->getVy() && particle.getVz() == this->getVz()
-            && particle.getTimestep() == this->getTimestep()
-            && particle.getWeight() == this->getWeight() && particle.getCell_id() == this->getCell_id()
-            );
-
-}*/
-
 double Particle::getPx() const {  return px; }
 
 void Particle::setPx(double value) {  px = value; }
@@ -94,10 +83,6 @@ double Particle::getVz() const { return vz;}
 void Particle::setVz(double value) {  vz = value;}
 
 void Particle::setVy(double value) {  vy = value;}
-
-//double particle::getTimestep() const { return timestep; }
-
-//void particle::setTimestep(double value) { timestep = value;}
 
 int Particle::getCell_id() const { return cell_id; }
 

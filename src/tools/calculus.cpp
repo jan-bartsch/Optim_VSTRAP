@@ -2,7 +2,7 @@
 
 Calculus::Calculus() { }
 
-double Calculus::DivergenceVector(arma::mat Input)
+double Calculus::DivergenceVector(arma::mat &Input)
 {
     DataProvider optim_provider = this->get_DataProviderOptim();
     std::map<std::string,double> parameters = optim_provider.getOptimizationParameters();

@@ -8,10 +8,7 @@ std::vector<double> DesiredTrajectoryController::TrajectoryDesired(std::vector<d
                                                                        unsigned int plasma_state_output_interval)
 {
     std::vector<double> p_d(6,0.0);
-    std::map<std::string,std::string> subroutines = this->get_DataProviderOptim().getSubroutines();
-    std::string desired_traj = subroutines.find("desired_trajectory")->second;
-    std::string objective_calculation = subroutines.find("objective_calculation")->second;
-
+    std::string desired_traj = MOTIONS::subroutines::desired_trajectory;
 
     if(desired_traj.compare("parameters")==0) {
         p_d = this->TrajectoryDesiredParameters(barycenter,l,m,n,o, plasma_state_output_interval);
@@ -30,25 +27,13 @@ std::vector<double> DesiredTrajectoryController::TrajectoryDesiredParameters(std
 {
     std::vector<double> p_d(6,0.0);
 
-    DataProvider optim_provider = this->get_DataProviderOptim();
-    std::map<std::string,double> parameters = optim_provider.getOptimizationParameters();
+    p_d[0] = MOTIONS::params::desired_position_x;
+    p_d[1] = MOTIONS::params::desired_position_y;
+    p_d[2] = MOTIONS::params::desired_position_z;
 
-    double expected_speed = parameters.find("expected_speed")->second;
-    double desired_position_x = parameters.find("desired_position_x")->second;
-    double desired_position_y = parameters.find("desired_position_y")->second;
-    double desired_position_z = parameters.find("desired_position_z")->second;
-
-    double desired_velocity_x = parameters.find("adjoint_vx")->second;
-    double desired_velocity_y = parameters.find("adjoint_vy")->second;
-    double desired_velocity_z = parameters.find("adjoint_vz")->second;
-
-    p_d[0] = desired_position_x;
-    p_d[1] = desired_position_y;
-    p_d[2] = desired_position_z;
-
-    p_d[3] = desired_velocity_x;
-    p_d[4] = desired_velocity_y;
-    p_d[5] = desired_velocity_z;
+    p_d[3] = MOTIONS::params::adjoint_vx;
+    p_d[4] = MOTIONS::params::adjoint_vy;
+    p_d[5] = MOTIONS::params::adjoint_vz;
 
     return p_d;
 }

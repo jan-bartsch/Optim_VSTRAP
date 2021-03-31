@@ -18,9 +18,9 @@ class ParameterSanity
 public:
     ParameterSanity();
 
-    int CheckAdjointVelocity(DataProvider provider);
+    int CheckAdjointVelocity();
 
-    int CheckVelocityDiscretization(DataProvider provider);
+    int CheckVelocityDiscretization();
 };
 
 #endif // PARAMETER_SANITY_H

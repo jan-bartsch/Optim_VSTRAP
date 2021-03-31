@@ -58,76 +58,34 @@ int OptimController::MainOptimizationAlgorithm(const char * Input_xml_path)
     StepsizeController stepsize_contr = StepsizeController(Input_xml_path);
 
     PdfController pdf_control = PdfController();
-    pdf_control.set_DataProviderOptim(data_provider_opt);
-
     Input Input_control = Input();
-    Input_control.set_DataProviderOptim(data_provider_opt);
-
     OutputDiagnostics outDiag = OutputDiagnostics();
-    outDiag.set_DataProviderOptim(data_provider_opt);
 
     EquationSolvingController model_solver = EquationSolvingController();
-    model_solver.set_DataProviderOptim(data_provider_opt);
 
-    std::map<std::string, double> optimizationParameters = data_provider_opt.getOptimizationParameters();
-    std::map<std::string, std::string> paths = data_provider_opt.getPaths();
-    std::map<std::string,std::string> subroutines = data_provider_opt.getSubroutines();
+    //parameters used often
+    std::string build_directory_vstrap = MOTIONS::paths::build_directory_vstrap;
+    std::string path_to_shared_files = MOTIONS::paths::path_to_shared_files;
 
-
-    unsigned int ntimesteps_gp = static_cast<unsigned int>(optimizationParameters.find("ntimesteps_gp")->second);
-    int zero_control = static_cast<int>(optimizationParameters.find("start_zero_control")->second);
-    unsigned int calculation_functional = static_cast<unsigned int>(optimizationParameters.find("calculation_functional")->second);
-    unsigned int calculation_wasserstein = static_cast<unsigned int>(optimizationParameters.find("calculation_wasserstein")->second);
-    double fixed_gradient_descent_stepsize = static_cast<double>(optimizationParameters.find("fixed_gradient_descent_stepsize")->second);
-    double fraction_of_optimal_control = static_cast<double>(optimizationParameters.find("fraction_of_optimal_control")->second);
-    double fabs_tol_gp = static_cast<double>(optimizationParameters.find("fabs_tol_gp")->second);
-
-    int simulating_plasma = static_cast<int>(optimizationParameters.find("simulating_plasma")->second);
-
-    std::string BUILD_DIRECTORY_VSTRAP = paths.find("BUILD_DIRECTORY_VSTRAP")->second;
-    std::string BUILD_DIRECTORY_OPTIM = paths.find("BUILD_DIRECTORY_OPTIM")->second;
-    std::string DIRECTORY_TOOLSET = paths.find("DIRECTORY_TOOLSET")->second;
-    std::string Input_FORWARD = paths.find("Input_FORWARD")->second;
-    std::string Input_BACKWARD = paths.find("Input_BACKWARD")->second;
-
-    std::string PATH_TO_SHARED_FILES = paths.find("PATH_TO_SHARED_FILES")->second;
-    std::string DOMAIN_MESH = paths.find("DOMAIN_MESH")->second;
+    unsigned int ntimesteps_gp = MOTIONS::params::ntimesteps_gp;
+    unsigned int dimension_control = MOTIONS::params::dimension_control;
+    unsigned int number_cells_position = MOTIONS::params::number_cells_position;
+    int simulating_plasma = MOTIONS::params::simulating_plasma;
+    int calculation_functional = MOTIONS::params::calculation_functional;
 
 
-    std::string START_VSTRAP_FORWARD = BUILD_DIRECTORY_VSTRAP + "vstrap" + " " + PATH_TO_SHARED_FILES + Input_FORWARD;
+    std::string start_vstrap_forward = build_directory_vstrap + "vstrap" + " " + path_to_shared_files + MOTIONS::paths::input_forward;
     int forward_return = 0;
-    std::string START_VSTRAP_BACKWARD = BUILD_DIRECTORY_VSTRAP + "vstrap" + " " + PATH_TO_SHARED_FILES + Input_BACKWARD;
+    std::string START_VSTRAP_BACKWARD = build_directory_vstrap + "vstrap" + " " + path_to_shared_files + MOTIONS::paths::input_backward;
     int backward_return = 0;
 
     double wasserstein_distance = 0.0;
 
     logger::Info("Reading paramters done");
 
-    arma::mat control(static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second),3,arma::fill::zeros);
-    if(zero_control == 1) {
-        control = StartWithZeroControl(Input_xml_path);
-        GenerateInputFiles(Input_xml_path);
-    } else if (zero_control == 0) {
-        control = StartWithGivenControl(Input_xml_path);
-        std::cout << control << std::endl;
-    } else if (zero_control == 2) {
-        logger::Info("Starting with zero control but not deleting old files");
-        outController.InterpolateControl(data_provider_opt);
-        outController.WritecontrolXml(control);
-    }else {
-        logger::Info("Starting without control_field_cells");
-    }
+    arma::mat control(dimension_control,3,arma::fill::zeros);
 
-    /*
-     * Check consistency and sanity of Input files
-     */
-    ParameterSanity ps = ParameterSanity();
-    ps.CheckAdjointVelocity(data_provider_opt);
-    ps.CheckAdjointVelocity(data_provider_opt);
-
-    Calculus calc = Calculus();
-    calc.set_DataProviderOptim(data_provider_opt);
-    calc.DivergenceVector(control);
+    OptimController::Initialize(Input_xml_path,control);
 
 
 
@@ -150,23 +108,22 @@ int OptimController::MainOptimizationAlgorithm(const char * Input_xml_path)
     std::vector<std::unordered_map<CoordinatePhaseSpaceTime,double>> pdf_time(ntimesteps_gp);
     int assembling_flag;
 
-    arma::mat gradient(static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second),3,arma::fill::zeros);
-    arma::mat gradient_old(static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second),3,arma::fill::zeros);
-    arma::mat stepDirection(static_cast<unsigned int>(optimizationParameters.find("number_cells_position")->second),3,arma::fill::zeros);
-    arma::mat stepDirection_old(static_cast<unsigned int>(optimizationParameters.find("number_cells_position")->second),3,arma::fill::zeros);
+    arma::mat gradient(dimension_control,3,arma::fill::zeros);
+    arma::mat gradient_old(dimension_control,3,arma::fill::zeros);
+    arma::mat stepDirection(number_cells_position,3,arma::fill::zeros);
+    arma::mat stepDirection_old(number_cells_position,3,arma::fill::zeros);
     double value_objective = 0.0;
     int stepsize_flag;
-    double stepsize = fixed_gradient_descent_stepsize;
+    double stepsize = MOTIONS::params::fixed_gradient_descent_stepsize;
     double stepsize_before;
     double norm_Gradient = 0.0;
 
     std::chrono::time_point<std::chrono::system_clock> start, end;
 
-    unsigned int optimizationIteration_max_gp = static_cast<unsigned int>(optimizationParameters.find("optimizationIteration_max_gp")->second);
 
-    for(unsigned int r = 1; r <= optimizationIteration_max_gp; r++) {
+    for(unsigned int r = 1; r <= MOTIONS::params::optimization_iteration_max; r++) {
         logger::Info("Starting VSTRAP (foward)... ");
-        forward_return = model_solver.StartSolvingForward(START_VSTRAP_FORWARD);
+        forward_return = model_solver.StartSolvingForward(start_vstrap_forward);
         if (forward_return != 0) {
             logger::Info("Forward VSTRAP returned non-zero value: " + std::to_string(forward_return));
             throw  std::system_error();
@@ -217,8 +174,6 @@ int OptimController::MainOptimizationAlgorithm(const char * Input_xml_path)
         logger::Info("Assembling of pdfs took: " + std::to_string(std::chrono::duration_cast<std::chrono::seconds>
                                                                   (end-start).count()) + " second(s)");
 
-
-
         logger::Info("Building gradient...");
         if (simulating_plasma == 1) {
             gradient = gradient_calculator_opt.CalculategradientForcecontrolSpaceHmPlasma(forwardPDF,backwardPDF,forwardPDF_electrons,backwardPDF_electrons,control);
@@ -235,7 +190,7 @@ int OptimController::MainOptimizationAlgorithm(const char * Input_xml_path)
             forward_particles_initialControl = forward_particles;
             assembling_flag = pdf_control.AssemblingMultidimParallel(forward_particles,0,pdf_time);
             forwardPDF_initial = pdf_time;
-        } else if (fmod(r,calculation_wasserstein) == 0.0) {
+        } else if (fmod(r,MOTIONS::params::calculation_wasserstein) == 0.0) {
             wasserstein_distance = pdf_control.CalculateWassersteinMetric(forward_particles_initialControl,forward_particles);
             //wasserstein_distance = pdf_control.calculate_wasserstein_metric_histogramm(forwardPDF_initial,forwardPDF);
             std::cout << "Wasserstein distance: " << wasserstein_distance << std::endl;
@@ -266,10 +221,10 @@ int OptimController::MainOptimizationAlgorithm(const char * Input_xml_path)
         if (r == 1) {
             double norm_gradient = arma::norm(gradient);
             std::cout << "Norm of gradient: " + std::to_string(arma::norm(gradient)) << std::endl;
-            if (arma::norm(gradient) < optimizationParameters.find("tolerance_gp")->second) {
-                throw std::runtime_error("Too small first gradient. Norm was smaller than tolerance_gp <" + std::to_string(optimizationParameters.find("tolerance_gp")->second) +">");
+            if (arma::norm(gradient) < MOTIONS::params::tolerance_gp) {
+                throw std::runtime_error("Too small first gradient. Norm was smaller than tolerance_gp <" + std::to_string(MOTIONS::params::tolerance_gp) +">");
             }
-            stepsize = fixed_gradient_descent_stepsize/norm_gradient;
+            stepsize = MOTIONS::params::fixed_gradient_descent_stepsize/norm_gradient;
         }
 
         logger::Info("Updating the control...");
@@ -278,8 +233,8 @@ int OptimController::MainOptimizationAlgorithm(const char * Input_xml_path)
         gradient_old = gradient;
         stepsize_before = stepsize;
         stepsize_flag = stepsize_contr.CalculateStepsize(gradient,value_objective,control,
-                                                          stepDirection,forward_particles[0],stepsize);
-        if (std::fabs(stepsize - stepsize_before) < fabs_tol_gp ) {
+                                                         stepDirection,forward_particles[0],stepsize);
+        if (std::fabs(stepsize - stepsize_before) < MOTIONS::params::fabs_tol_gp ) {
             stepsize = 2.0*stepsize; //Increase stepsize if too small (orthwise start with last stepsize)
         }
 
@@ -293,19 +248,19 @@ int OptimController::MainOptimizationAlgorithm(const char * Input_xml_path)
             return 0;
         } else if (stepsize_flag == 2) {
             std::string iteration_depth_reached = "Linesearch reached maximum iteration depth ("
-                    + std::to_string(optimizationIteration_max_gp) + "), try to increase tolerance_gp";
+                    + std::to_string(MOTIONS::params::optimization_iteration_max) + "), try to increase tolerance_gp";
             logger::Info(iteration_depth_reached);
             return 1;
         }
 
         outController.WritecontrolXml(control);
         outDiag.WriteDoubleToFile(arma::norm(control,"fro"),"normControlTrack");
-        outController.InterpolateControl(data_provider_opt);
+        outController.InterpolateControl();
 
         logger::Info("Starting post_processing");
-        PostProcessingConvergence(data_provider_opt);
-        VisualizeControl(data_provider_opt);
-        ParaviewPlotForward(data_provider_opt);
+        PostProcessingConvergence();
+        VisualizeControl();
+        ParaviewPlotForward();
 
         logger::Info("Starting " + std::to_string(r+1) + " iteration");
     }
@@ -313,58 +268,62 @@ int OptimController::MainOptimizationAlgorithm(const char * Input_xml_path)
     return 0;
 }
 
-/*int optim_controller::check_Input_py(data_provider provider, const char *filePathOptimInput)
+int OptimController::Initialize(const char * Input_xml_path, arma::mat &control)
 {
-    std::map<std::string, std::string> paths = provider.getPaths();
-    std::string PATH_TO_SHARED_FILES = paths.find("PATH_TO_SHARED_FILES")->second;
-    std::string DIRECTORY_TOOLSET = paths.find("DIRECTORY_TOOLSET")->second;
-    std::string Input_FORWARD = paths.find("Input_FORWARD")->second;
-    std::string Input_BACKWARD = paths.find("Input_BACKWARD")->second;
+    int zero_control = MOTIONS::params::start_zero_control;
+    OutputControlUpdate outController = OutputControlUpdate(Input_xml_path);
 
-    std::string CHECK_Input_PYHTON = "python3 " + DIRECTORY_TOOLSET + "check_Input.py "
-            + PATH_TO_SHARED_FILES + Input_FORWARD + " " + PATH_TO_SHARED_FILES
-            + Input_BACKWARD + " " + &filePathOptimInput[0];
-
-    int check_Input_flag = system(&CHECK_Input_PYHTON[0]);
-
-    //output is in 16 bit value
-    if(check_Input_flag == 512) {
-        throw std::runtime_error("File not found in Python check");
-    } else if (check_Input_flag == 256) {
-        throw std::runtime_error("Encountered inconsitency in Input files OR File not found");
-    } else {
-        logger::Info("Python check: **ALL CLEAR**");
+    if(zero_control == 1) {
+        control = StartWithZeroControl(Input_xml_path);
+        GenerateInputFiles(Input_xml_path);
+    } else if (zero_control == 0) {
+        control = StartWithGivenControl(Input_xml_path);
+        std::cout << control << std::endl;
+    } else if (zero_control == 2) {
+        logger::Info("Starting with zero control but not deleting old files");
+        outController.InterpolateControl();
+        outController.WritecontrolXml(control);
+    }else {
+        logger::Info("Starting without control_field_cells");
     }
 
-    return check_Input_flag;
-}*/
+    /*
+     * Check consistency and sanity of Input files
+     */
+    ParameterSanity ps = ParameterSanity();
+    ps.CheckAdjointVelocity();
+    ps.CheckAdjointVelocity();
+
+    Calculus calc = Calculus();
+    calc.DivergenceVector(control);
+
+    return 0;
+}
 
 arma::mat OptimController::StartWithZeroControl(const char *Input_xml_path)
 {
     DataProvider data_provider_opt = DataProvider(Input_xml_path);
     OutputControlUpdate outController = OutputControlUpdate(Input_xml_path);
 
-    std::map<std::string, double> optimizationParameters = data_provider_opt.getOptimizationParameters();
-    std::map<std::string, std::string> paths = data_provider_opt.getPaths();
-    std::string PATH_TO_SHARED_FILES = paths.find("PATH_TO_SHARED_FILES")->second;
+    /*std::string PATH_TO_SHARED_FILES = paths.find("PATH_TO_SHARED_FILES")->second;
     std::string DIRECTORY_TOOLSET = paths.find("DIRECTORY_TOOLSET")->second;
     std::string DOMAIN_MESH = paths.find("DOMAIN_MESH")->second;
     std::string BGF_CONTROL = paths.find("BGF_CONTROL")->second;
     std::string CONTROL_FIELD_CELLS_NAME = paths.find("CONTROL_FIELD_CELLS_NAME")->second;
+    */
 
-    unsigned int number_cells_position = static_cast<unsigned int>(optimizationParameters.find("number_cells_position")->second);
 
-    arma::mat control(number_cells_position,3,arma::fill::zeros);
+    arma::mat control(MOTIONS::params::number_cells_position,3,arma::fill::zeros);
 
     logger::Info("Deleting old files");
     std::string COMMAND_RM_RESULTS = "rm -r results/";
     system(&COMMAND_RM_RESULTS[0]);
-    std::string COMMAND_MKDIR_RESULTS = "mkdir results && mkdir -p results/" + paths.find("mesh_2d_path")->second +
-            " && mkdir -p results/"+ paths.find("mesh_3d_path")->second;
+    std::string COMMAND_MKDIR_RESULTS = "mkdir results && mkdir -p results/" + MOTIONS::paths::mesh_2d_path +
+            " && mkdir -p results/"+ MOTIONS::paths::mesh_3d_path;
     system(&COMMAND_MKDIR_RESULTS[0]);
     logger::Info("Starting with zero control");
     outController.WritecontrolXml(control);
-    outController.InterpolateControl(data_provider_opt);
+    outController.InterpolateControl();
 
     return control;
 }
@@ -377,99 +336,80 @@ arma::mat OptimController::StartWithGivenControl(const char *Input_xml_path)
     Input in = Input();
     in.set_DataProviderOptim(data_provider_opt);
 
-
-    std::map<std::string, double> optimizationParameters = data_provider_opt.getOptimizationParameters();
-    std::map<std::string, std::string> paths = data_provider_opt.getPaths();
-    std::string START_WITH_EXISTING_CONTROL = paths.find("START_WITH_EXISTING_CONTROL")->second;
-    double fraction_of_optimal_control = static_cast<double>(optimizationParameters.find("fraction_of_optimal_control")->second);
-     int number_cells_position = static_cast<int>(optimizationParameters.find("number_cells_position")->second);
-
     logger::Info("Deleting old .txt and .csv files");
-    std::string COMMAND_RM_RESULTS = "rm *.csv && rm *.txt";
-    system(&COMMAND_RM_RESULTS[0]);
+    std::string command_rm_results = "rm *.csv && rm *.txt";
+    system(&command_rm_results[0]);
 
     logger::Info("Starting with existing control (multiplied by a positive constant)");
-    std::string READ_CONTROL = START_WITH_EXISTING_CONTROL;
-    arma::mat control = in.ReadControl(&READ_CONTROL[0],number_cells_position);
-    outController.WritecontrolXml(fraction_of_optimal_control*control);
-    outController.InterpolateControl(data_provider_opt);
+    std::string read_control = MOTIONS::paths::start_with_existing_control;
+    arma::mat control = in.ReadControl(&read_control[0],MOTIONS::params::number_cells_position);
+    outController.WritecontrolXml(MOTIONS::params::fraction_of_optimal_control*control);
+    outController.InterpolateControl();
 
     return control;
 }
 
 int OptimController::GenerateInputFiles(const char *Input_xml_path)
 {
-    DataProvider data_provider_opt = DataProvider(Input_xml_path);
+    std::string path_to_shared_files_absolute = MOTIONS::paths::path_to_shared_files_absolute;
+    std::string directory_toolset = MOTIONS::paths::directory_toolset;
 
-    std::map<std::string, std::string> paths = data_provider_opt.getPaths();
-    std::string PATH_TO_SHARED_FILES_ABSOLUTE = paths.find("PATH_TO_SHARED_FILES_ABSOLUTE")->second;
-    std::string DIRECTORY_TOOLSET = paths.find("DIRECTORY_TOOLSET")->second;
-
-    std::string generation_string = "python3 " + DIRECTORY_TOOLSET + "generate_forward_Input.py" + " " + &Input_xml_path[0];
-    generation_string += " && python3 " + DIRECTORY_TOOLSET + "generate_backward_Input.py" + " " + &Input_xml_path[0];
-    generation_string += " && python3 " + DIRECTORY_TOOLSET + "generate_adjoint_particle_creation.py" + " " + &Input_xml_path[0] + " " + PATH_TO_SHARED_FILES_ABSOLUTE;
+    std::string generation_string = "python3 " + directory_toolset + "generate_forward_Input.py" + " " + &Input_xml_path[0];
+    generation_string += " && python3 " + directory_toolset + "generate_backward_Input.py" + " " + &Input_xml_path[0];
+    generation_string += " && python3 " + directory_toolset + "generate_adjoint_particle_creation.py" + " " + &Input_xml_path[0] + " " + path_to_shared_files_absolute;
     logger::Info("Running " + generation_string);
     system(&generation_string[0]);
 
     return 0;
 }
 
-int OptimController::PostProcessingConvergence(DataProvider provider)
+int OptimController::PostProcessingConvergence()
 {
-    std::map<std::string, std::string> paths = provider.getPaths();
-    std::string PATH_TO_SHARED_FILES_ABSOLUTE = paths.find("PATH_TO_SHARED_FILES_ABSOLUTE")->second;
-    std::string DIRECTORY_TOOLSET = paths.find("DIRECTORY_TOOLSET")->second;
+    std::string postprocessing_string = "python3 " + MOTIONS::paths::directory_toolset
+            + "post_processing_convergence.py " + MOTIONS::paths::path_to_shared_files_absolute;
 
-    std::string POSTPROCESSING_STRING = "python3 " + DIRECTORY_TOOLSET + "post_processing_convergence.py " + PATH_TO_SHARED_FILES_ABSOLUTE;
-
-    logger::Info("Postprocessing ... using command " + POSTPROCESSING_STRING);
+    logger::Info("Postprocessing ... using command " + postprocessing_string);
     try {
-        system(&POSTPROCESSING_STRING[0]);
+        system(&postprocessing_string[0]);
     } catch (std::exception e) {
         throw std::runtime_error(e.what());
     }
     return 0;
 }
 
-int OptimController::VisualizeControl(DataProvider provider)
+int OptimController::VisualizeControl()
 {
-    std::map<std::string, std::string> paths = provider.getPaths();
-    std::map<std::string, double> parameters = provider.getOptimizationParameters();
 
-    std::string PATH_TO_SHARED_FILES_ABSOLUTE = paths.find("PATH_TO_SHARED_FILES_ABSOLUTE")->second;
-    std::string DIRECTORY_TOOLSET = paths.find("DIRECTORY_TOOLSET")->second;
-    std::string BGF_CONTROL = paths.find("BGF_CONTROL")->second;
-    std::string DOMAIN_MESH_FILE = paths.find("DOMAIN_MESH_FILE")->second;
+    std::string path_to_shared_files_absolute = MOTIONS::paths::path_to_shared_files_absolute;
+    std::string directory_toolset = MOTIONS::paths::directory_toolset;
 
-    double visalization_scaling = parameters.find("visalization_scaling")->second;
+    std::string bgf_control = MOTIONS::paths::bgf_control;
+    std::string domain_mesh_file = MOTIONS::paths::domain_mesh_file;
 
-    std::string VISUALIZING_STRING = "python3 " + DIRECTORY_TOOLSET + "visualize_control.py "
-            + PATH_TO_SHARED_FILES_ABSOLUTE + BGF_CONTROL + " ../../Optim_VSTRAP/data/global/"
-            + DOMAIN_MESH_FILE + " " + std::to_string(visalization_scaling) + " " + PATH_TO_SHARED_FILES_ABSOLUTE + " "
-            + std::to_string(parameters.find("position_max_gp")->second);
+    double visalization_scaling = MOTIONS::params::visalization_scaling;
 
-    logger::Info("Visualize control ... using command " + VISUALIZING_STRING);
+    std::string visualizing_string = "python3 " + directory_toolset + "visualize_control.py "
+            + path_to_shared_files_absolute + bgf_control + " ../../Optim_VSTRAP/data/global/"
+            + domain_mesh_file + " " + std::to_string(visalization_scaling) + " " + path_to_shared_files_absolute + " "
+            + std::to_string(MOTIONS::params::position_max_gp);
+
+    logger::Info("Visualize control ... using command " + visualizing_string);
     try {
-        system(&VISUALIZING_STRING[0]);
+        system(&visualizing_string[0]);
     } catch (std::exception e) {
         throw std::runtime_error(e.what());
     }
     return 0;
 }
 
-int OptimController::ParaviewPlotForward(DataProvider provider)
+int OptimController::ParaviewPlotForward()
 {
-    std::map<std::string, std::string> paths = provider.getPaths();
-    std::string PATH_TO_SHARED_FILES_ABSOLUTE = paths.find("PATH_TO_SHARED_FILES_ABSOLUTE")->second;
-    std::string DIRECTORY_TOOLSET = paths.find("DIRECTORY_TOOLSET")->second;
-
-    std::string PVPYTHON_ABSOLUTE_DIR = paths.find("PVPYTHON_ABSOLUTE_DIR")->second;
-
-    std::string PARAVIEW_ANIMATION = "cd results && mkdir -p animation && cd animation && " + PVPYTHON_ABSOLUTE_DIR + " ../../" + DIRECTORY_TOOLSET
-            + "python_current_iteration_forward_plasma_state.py" + " " + PATH_TO_SHARED_FILES_ABSOLUTE;
+    std::string paraview_animation = "cd results && mkdir -p animation && cd animation && "
+            + MOTIONS::paths::pvpython_absolute_dir + " ../../" + MOTIONS::paths::directory_toolset
+            + "python_current_iteration_forward_plasma_state.py" + " " + MOTIONS::paths::path_to_shared_files_absolute;
 
     try{
-        system(&PARAVIEW_ANIMATION[0]);
+        system(&paraview_animation[0]);
     } catch(std::exception e) {
         logger::Info("Exception final postprocessing");
         logger::Warning(e.what());

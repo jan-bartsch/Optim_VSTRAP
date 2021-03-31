@@ -1,9 +1,6 @@
 #include "objectivecalculator.h"
 
-ObjectiveCalculator::ObjectiveCalculator()
-{
-
-}
+ObjectiveCalculator::ObjectiveCalculator() { }
 
 ObjectiveCalculator::ObjectiveCalculator(const char *filename)
 {
@@ -201,5 +198,4 @@ double ObjectiveCalculator::CalculateObjective(std::vector<std::unordered_map<Co
     std::cout << "Value of objective: " << objective << std::endl;
 
     return objective;
-
 }

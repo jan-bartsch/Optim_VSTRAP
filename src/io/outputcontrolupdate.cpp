@@ -55,7 +55,7 @@ int OutputControlUpdate::WritecontrolXml(arma::mat control)
     return 0;
 }
 
-int OutputControlUpdate::InterpolateControl(DataProvider provider)
+int OutputControlUpdate::InterpolateControl()
 {
     std::map<std::string, std::string> paths = provider.getPaths();
     std::map<std::string, double> parameters = provider.getOptimizationParameters();

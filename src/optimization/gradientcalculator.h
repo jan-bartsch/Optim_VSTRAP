@@ -4,9 +4,11 @@
 #include <vector>
 #include <map>
 
-#include "../objects/particle.h"
-#include "../objects/dataprovider.h"
 #include "../objects/coordinatephasespacetime.h"
+#include "../objects/dataprovider.h"
+#include "../objects/doublepdf.h"
+#include "../objects/MOTIONS.h"
+#include "../objects/particle.h"
 
 #include "../controller/abstractcontroller.h"
 #include "../controller/pdfcontroller.h"

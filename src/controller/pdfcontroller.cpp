@@ -3,30 +3,26 @@
 PdfController::PdfController() { }
 
 int PdfController::AssemblingMultiDim(std::vector<std::vector<Particle> > &particles_time, unsigned int equation_type,
-                                       std::vector<std::unordered_map<CoordinatePhaseSpaceTime, double> > &pdf_time)
+                                      std::vector<std::unordered_map<CoordinatePhaseSpaceTime, double> > &pdf_time)
 {
-    unsigned int ntimesteps_gp = static_cast<unsigned int>(this->get_DataProviderOptim().getOptimizationParameters().find("ntimesteps_gp")->second);
-    double vmax_gp = this->get_DataProviderOptim().getOptimizationParameters().find("vmax_gp")->second;
-
-    double fraction_fast_particles_gp = this->get_DataProviderOptim().getOptimizationParameters().find("fraction_fast_particles_gp")->second;
     int too_fast_particles = 0;
     int too_fast_adjoint_particles = 0;
 
-    double dv_gp = this->get_DataProviderOptim().getOptimizationParameters().find("dv_gp")->second;
-    double vcell_gp = this->get_DataProviderOptim().getOptimizationParameters().find("vcell_gp")->second;
-
     pdf_time.clear();
-    pdf_time.resize(ntimesteps_gp);
+    pdf_time.resize(MOTIONS::params::ntimesteps_gp);
 
-    std::vector<std::unordered_map<CoordinatePhaseSpaceTime, double>> pdf_time_test(ntimesteps_gp);
+    std::vector<std::unordered_map<CoordinatePhaseSpaceTime, double>> pdf_time_test(MOTIONS::params::ntimesteps_gp);
 
-    std::vector<double> sizeParticles(ntimesteps_gp);
+    std::vector<double> sizeParticles(MOTIONS::params::ntimesteps_gp);
 
     int return_flag=0;
     unsigned int o=0;
 
+    double dv_gp = MOTIONS::params::dv_gp;
+    double vcell_gp = static_cast<double>(MOTIONS::params::vcell_gp);
 
-    while( o<ntimesteps_gp && return_flag == 0) {
+
+    while( o<MOTIONS::params::ntimesteps_gp && return_flag == 0) {
         //std::cout << "Assembling pdf in timestep " << o << std::endl;
         double px,py,pz,vx,vy,vz;
         std::vector<Particle> particles = particles_time[o];;
@@ -40,7 +36,7 @@ int PdfController::AssemblingMultiDim(std::vector<std::vector<Particle> > &parti
             px = particles[i].getPx(); py = particles[i].getPy(); pz = particles[i].getPz();
             vx = particles[i].getVx(); vy = particles[i].getVy(); vz = particles[i].getVz();
 
-            if (sqrt(vx*vx+vy*vy+vz*vz) <= vmax_gp ) { //else not needed
+            if (sqrt(vx*vx+vy*vy+vz*vz) <= MOTIONS::params::ntimesteps_gp ) { //else not needed
 
 
                 binNumberTime = static_cast<int>(o);
@@ -67,7 +63,7 @@ int PdfController::AssemblingMultiDim(std::vector<std::vector<Particle> > &parti
                 if (equation_type == 0) {
                     too_fast_particles++;
                     std::cout << "particle at " << coordinate.toString() << " has speed " << sqrt(vx*vx+vy*vy+vz*vz) << std::endl;
-                    if (too_fast_particles >= fraction_fast_particles_gp*particles.size()) {
+                    if (too_fast_particles >= MOTIONS::params::fraction_fast_particles_gp*particles.size()) {
                         //logger::Trace("Too many too fast particles, try to increase velocity bound");
                         return_flag = 1;
                     }
@@ -81,7 +77,7 @@ int PdfController::AssemblingMultiDim(std::vector<std::vector<Particle> > &parti
     }
 
     if (equation_type == 0 && too_fast_particles>0) {
-        logger::Info("Particles faster than " + std::to_string(vmax_gp) + ": " + std::to_string(too_fast_particles));
+        logger::Info("Particles faster than " + std::to_string(MOTIONS::params::vmax_gp) + ": " + std::to_string(too_fast_particles));
     }
     if (equation_type == 1 && too_fast_adjoint_particles>0) {
         logger::Info("Too fast adjoint particles: " + std::to_string(too_fast_adjoint_particles));
@@ -95,17 +91,16 @@ int PdfController::AssemblingMultiDim(std::vector<std::vector<Particle> > &parti
 }
 
 int PdfController::AssemblingMultidimParallel(std::vector<std::vector<Particle>> &particles_time, unsigned int equation_type,
-                                                std::vector<std::unordered_map<CoordinatePhaseSpaceTime, double>> &pdf_time)
+                                              std::vector<std::unordered_map<CoordinatePhaseSpaceTime, double>> &pdf_time)
 {
-    unsigned int ntimesteps_gp = static_cast<unsigned int>(this->get_DataProviderOptim().getOptimizationParameters().find("ntimesteps_gp")->second);
-    double vmax_gp = this->get_DataProviderOptim().getOptimizationParameters().find("vmax_gp")->second;
+    unsigned int ntimesteps_gp = MOTIONS::params::ntimesteps_gp;
+    double vmax_gp = MOTIONS::params::vmax_gp;
 
-    double fraction_fast_particles_gp = this->get_DataProviderOptim().getOptimizationParameters().find("fraction_fast_particles_gp")->second;
     std::vector<int> too_fast_particles(ntimesteps_gp,0);
     int too_fast_adjoint_particles = 0;
 
-    double dv_gp = this->get_DataProviderOptim().getOptimizationParameters().find("dv_gp")->second;
-    double vcell_gp = this->get_DataProviderOptim().getOptimizationParameters().find("vcell_gp")->second;
+    double dv_gp = MOTIONS::params::dv_gp;
+    double vcell_gp = static_cast<double>(MOTIONS::params::vcell_gp);
 
     pdf_time.clear();
     pdf_time.resize(ntimesteps_gp);
@@ -161,7 +156,7 @@ int PdfController::AssemblingMultidimParallel(std::vector<std::vector<Particle>>
                 if (equation_type == 0) {
                     too_fast_particles[o]++;
                     //std::cout << "particle at " << coordinate.toString() << " has speed " << sqrt(vx*vx+vy*vy+vz*vz) << std::endl;
-                    if (too_fast_particles[o] >= fraction_fast_particles_gp*particles.size()) {
+                    if (too_fast_particles[o] >= MOTIONS::params::fraction_fast_particles_gp*particles.size()) {
                         //logger::Trace("Too many too fast particles, try to increase velocity bound");
                         too_fast_particles[o]++;
                         //return_flag = 1;
@@ -198,11 +193,11 @@ std::vector<std::vector<std::vector<std::vector<double> > > > PdfController::Rel
                                                                                                      unsigned int number_relaxation_steps)
 {
 
-    double tolerance_relaxation_gp = this->get_DataProviderOptim().getOptimizationParameters().find("tolerance_relaxation_gp")->second;
-    unsigned int ntimesteps_gp = static_cast<unsigned int>(this->get_DataProviderOptim().getOptimizationParameters().find("ntimesteps_gp")->second);
-    double dt_gp = this->get_DataProviderOptim().getOptimizationParameters().find("dt_gp")->second;
-    double dv_gp = this->get_DataProviderOptim().getOptimizationParameters().find("dv_gp")->second;
-    double vcell_gp = this->get_DataProviderOptim().getOptimizationParameters().find("vcell_gp")->second;
+    double tolerance_relaxation_gp = MOTIONS::params::tolerance_relaxation_gp;
+    unsigned int ntimesteps_gp = MOTIONS::params::ntimesteps_gp;
+    double dt_gp = MOTIONS::params::dt_gp;
+    double dv_gp = MOTIONS::params::dv_gp;
+    double vcell_gp = MOTIONS::params::vcell_gp;
 
 
     std::vector<std::vector<std::vector<std::vector<double> > > > rhs = pdf;
@@ -217,13 +212,13 @@ std::vector<std::vector<std::vector<std::vector<double> > > > PdfController::Rel
     double c_s = 1000.0;
 
     while(n <= number_relaxation_steps && norm > tolerance_relaxation_gp  ) {
-        //relaxated_pdf_New.assign(relaxated_pdf_Old.begin(),relaxated_pdf_Old.end());
         for(unsigned int o = 1; o <= ntimesteps_gp -2; o++) {
             for (unsigned int l = 1; l <= vcell_gp - 2; l++) {
                 for (unsigned int m = 1; m <= vcell_gp - 2; m++) {
                     for (unsigned int n = 1; n <= vcell_gp - 2; n++) {
                         relaxated_pdf_New[o][l][m][n] = 1.0/(1.0+c_s*2.0/(dt_gp*dt_gp)+c_s*6.0/(dv_gp*dv_gp))*(rhs[o][l][m][n]
-                                                                                                               +c_s/(dv_gp*dv_gp)*(relaxated_pdf_New[o][l+1][m][n] + relaxated_pdf_New[o][l-1][m][n]
+                                                                                                               + c_s/(dv_gp*dv_gp)*(relaxated_pdf_New[o][l+1][m][n]
+                                                                                                               + relaxated_pdf_New[o][l-1][m][n]
                                 +relaxated_pdf_New[o][l][m+1][n] + relaxated_pdf_New[o][l][m-1][n]
                                 +relaxated_pdf_New[o][l][m][n+1] + relaxated_pdf_New[o][l][m][n-1])
                                 +c_s/(dt_gp*dt_gp)*(relaxated_pdf_New[o+1][l][m][n]+relaxated_pdf_New[o-1][l][m][n]));
@@ -252,14 +247,10 @@ std::vector<std::vector<std::vector<std::vector<double> > > > PdfController::Rel
 
 double PdfController::CalculateWassersteinMetric(std::vector<std::vector<Particle> > dist1, std::vector<std::vector<Particle> > dist2)
 {
-
-
-    unsigned int ntimesteps_gp = static_cast<unsigned int>(this->get_DataProviderOptim().getOptimizationParameters().find("ntimesteps_gp")->second);
-    unsigned int numberParticles = static_cast<unsigned int>(dist1[0].size());
-
     double wasserstein_value = 0.0;
 
-    for(unsigned int o = 0; o<ntimesteps_gp; o++) {
+    unsigned int numberParticles = static_cast<unsigned int>(dist1[0].size());
+    for(unsigned int o = 0; o<MOTIONS::params::ntimesteps_gp; o++) {
         for(unsigned int p = 0; p<numberParticles; p++) {
             wasserstein_value += pow(dist1[o][p].getPx()-dist2[o][p].getPx(),2.0) +
                     pow(dist1[o][p].getPy()-dist2[o][p].getPy(),2.0)+
@@ -276,23 +267,21 @@ double PdfController::CalculateWassersteinMetric(std::vector<std::vector<Particl
 double PdfController::CalculateWassersteinMetricHistogramm(std::vector<std::unordered_map<CoordinatePhaseSpaceTime, double> > dist1, std::vector<std::unordered_map<CoordinatePhaseSpaceTime, double> > dist2)
 {
     double wasserstein_value = 0.0;
-    std::map<std::string,double> optimization_parameters =this->get_DataProviderOptim().getOptimizationParameters();
 
-    unsigned int ntimesteps_gp = static_cast<unsigned int>(optimization_parameters.find("ntimesteps_gp")->second);
-    double vcell_gp = static_cast<unsigned int>(optimization_parameters.find("vcell_gp")->second);
-    double dv_gp = static_cast<unsigned int>(optimization_parameters.find("dv_gp")->second);
-    double vmax_gp = static_cast<unsigned int>(optimization_parameters.find("vmax_gp")->second);
-    double number_cells_position = static_cast<unsigned int>(optimization_parameters.find("number_cells_position")->second);
+    uint vcell_gp = MOTIONS::params::vcell_gp;
+    double dv_gp = MOTIONS::params::dv_gp;
+    //double vmax_gp = MOTIONS::params::vmax_gp;
+    uint number_cells_position = MOTIONS::params::number_cells_position;
 
     std::map<int,std::vector<double>> barycenters = this->get_DataProviderOptim().getMeshBarycenters();
 
 #pragma omp parallel for
-    for (unsigned int o = 0; o < ntimesteps_gp; o++) {
+    for (uint o = 0; o < MOTIONS::params::ntimesteps_gp; o++) {
         std::cout << "Wasserstein in " << o << std::endl;
-        for (unsigned int i1 = 1; i1<=number_cells_position; i1++) {
-            for (unsigned int l1 = 0; l1<vcell_gp; l1++) {
-                for (unsigned int m1 = 0; m1<vcell_gp; m1++ ) {
-                    for (unsigned int n1 = 0; n1<vcell_gp; n1++) {
+        for (uint i1 = 1; i1 <= number_cells_position; i1++) {
+            for (uint l1 = 0; l1 < vcell_gp; l1++) {
+                for (uint m1 = 0; m1 < vcell_gp; m1++ ) {
+                    for (uint n1 = 0; n1 < vcell_gp; n1++) {
 
                         CoordinatePhaseSpaceTime c1(o,i1,l1,m1,n1);
 

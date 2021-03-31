@@ -19,7 +19,7 @@ public:
     static std::vector<double> cross_product(std::vector<double> v1, std::vector<double> v2);
 
     [[deprecated]]
-    double DivergenceVector(arma::mat Input);
+    double DivergenceVector(arma::mat &Input);
 };
 
 #endif // CALCULUS_H

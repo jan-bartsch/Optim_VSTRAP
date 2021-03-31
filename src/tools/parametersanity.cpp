@@ -2,7 +2,7 @@
 
 ParameterSanity::ParameterSanity() { }
 
-int ParameterSanity::CheckAdjointVelocity(DataProvider provider)
+int ParameterSanity::CheckAdjointVelocity()
 {
     std::ostringstream streamObj;
 
@@ -33,7 +33,7 @@ int ParameterSanity::CheckAdjointVelocity(DataProvider provider)
     return 0;
 }
 
-int ParameterSanity::CheckVelocityDiscretization(DataProvider provider)
+int ParameterSanity::CheckVelocityDiscretization()
 {
     std::ostringstream streamObj;
 

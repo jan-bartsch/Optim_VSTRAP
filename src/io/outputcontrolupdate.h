@@ -30,7 +30,7 @@ public:
     int WritecontrolXml(arma::mat control);
 
 
-    static int InterpolateControl(DataProvider provider);
+    static int InterpolateControl();
 };
 
 #endif // OUTPUT_CONTROL_UPDATE_H

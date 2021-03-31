@@ -58,8 +58,9 @@ public:
      */
     static int MainOptimizationAlgorithm(const char * Input_xml_path);
 
+    static int Initialize(const char * Input_xml_path, arma::mat &control);
 
-    //static int check_Input_py(data_provider provider, const char * filePathOptimInput);
+
 
     /**
      * @brief start_with_zero_control deletes the whole folder containing the files from
@@ -94,7 +95,7 @@ public:
      * @param provider
      * @return
      */
-    static int PostProcessingConvergence(DataProvider provider);
+    static int PostProcessingConvergence();
 
     /**
      * @brief visualize_control starts the python method for visualizing the control
@@ -103,7 +104,7 @@ public:
      * @param provider
      * @return
      */
-    static int VisualizeControl(DataProvider provider);
+    static int VisualizeControl();
 
     /**
      * @brief paraview_plot_forward starts the python routine for displaying the
@@ -113,7 +114,7 @@ public:
      * @param provider
      * @return
      */
-    static int ParaviewPlotForward(DataProvider provider);
+    static int ParaviewPlotForward();
 };
 
 #endif // OPTIM_CONTROLLER_H

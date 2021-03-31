@@ -5,6 +5,9 @@
 
 #include "abstractcontroller.h"
 #include "../objects/comparator.h"
+#include "../objects/MOTIONS.h"
+
+using uint = unsigned int;
 
 class EquationSolvingController : public AbstractController
 {

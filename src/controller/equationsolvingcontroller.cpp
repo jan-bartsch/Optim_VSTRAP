@@ -16,31 +16,29 @@ arma::mat EquationSolvingController::D1SecondOrder()
 {
     Comparator comp = Comparator();
 
-    std::map<std::string, double> optimizationParameters = this->get_DataProviderOptim().getOptimizationParameters();
     std::map<int,std::vector<double>> barycenters = this->get_DataProviderOptim().getMeshBarycenters();
 
-    unsigned int dimensionOfControl_gp = static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second);
-    double small_discr_sidelength = static_cast<double>(optimizationParameters.find("small_discr_sidelength")->second);
-    double position_max_gp = static_cast<double>(optimizationParameters.find("position_max_gp")->second);
+    unsigned int dimension_control = MOTIONS::params::dimension_control;
+    double small_discr_sidelength = MOTIONS::params::small_discr_sidelength;
+    double position_max_gp = MOTIONS::params::position_max_gp;
 
     std::vector<double> current_barycenter;
     std::vector<double> next_cell_xm; std::vector<double> next_cell_xp;
     std::vector<double> next_cell_ym;std::vector<double> next_cell_yp;
     std::vector<double> next_cell_zm;std::vector<double> next_cell_zp;
 
-    arma::mat gradient(dimensionOfControl_gp,3,arma::fill::zeros);
-    arma::mat D1(dimensionOfControl_gp,dimensionOfControl_gp,arma::fill::zeros);
+    arma::mat gradient(dimension_control,3,arma::fill::zeros);
+    arma::mat D1(dimension_control,dimension_control,arma::fill::zeros);
 
-    int start_control = static_cast<int>(optimizationParameters.find("start_control_gp")->second);
-    int end_control = static_cast<int>(optimizationParameters.find("end_control_gp")->second);
+    uint start_control = MOTIONS::params::start_control_gp;
+    uint end_control = MOTIONS::params::end_control_gp;
+    double fabs_tol_gp = MOTIONS::params::fabs_tol_gp;
 
-    double fabs_tol_gp = static_cast<double>(optimizationParameters.find("fabs_tol_gp")->second);
-
-    if (barycenters.size() < dimensionOfControl_gp) {
+    if (barycenters.size() < dimension_control) {
         throw  std::invalid_argument("Dimension of control bigger than number of barycenters");
     }
 
-    for(int i = start_control; i<=end_control; i++) {
+    for(uint i = start_control; i<=end_control; i++) {
         //for(int i = 1; i<=dimensionOfControl_gp; i++) {
         current_barycenter = barycenters.find(static_cast<int>(i))->second;
         D1(i-start_control,i-start_control) = 0;
@@ -78,8 +76,8 @@ arma::mat EquationSolvingController::D1SecondOrder()
         double zm = -1.0;
         double zp = 1.0;
 
-        for(int l = start_control; l<=end_control;l++) {
-            std::vector<double> temp = barycenters.find(l)->second;
+        for(uint l = start_control; l<=end_control;l++) {
+            std::vector<double> temp = barycenters.at(static_cast<int>(l));
             if (comp.NormDifferenceDoublevector(temp,next_cell_xp) < fabs_tol_gp) {
                 if (i != l) {
                     xp = 0.0;
@@ -126,32 +124,30 @@ arma::mat EquationSolvingController::D1Forward()
 {
     Comparator comp = Comparator();
 
-    std::map<std::string, double> optimizationParameters = this->get_DataProviderOptim().getOptimizationParameters();
     std::map<int,std::vector<double>> barycenters = this->get_DataProviderOptim().getMeshBarycenters();
 
-    unsigned int dimensionOfControl_gp = static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second);
-    double small_discr_sidelength = static_cast<double>(optimizationParameters.find("small_discr_sidelength")->second);
-    double position_max_gp = static_cast<double>(optimizationParameters.find("position_max_gp")->second);
+    uint dimension_control = MOTIONS::params::dimension_control;
+    double small_discr_sidelength = MOTIONS::params::small_discr_sidelength;
+    double position_max_gp = MOTIONS::params::position_max_gp;
 
     std::vector<double> current_barycenter;
     std::vector<double> next_cell_xm; std::vector<double> next_cell_xp;
     std::vector<double> next_cell_ym;std::vector<double> next_cell_yp;
     std::vector<double> next_cell_zm;std::vector<double> next_cell_zp;
 
-    arma::mat gradient(dimensionOfControl_gp,3,arma::fill::zeros);
-    arma::mat D1(dimensionOfControl_gp,dimensionOfControl_gp,arma::fill::zeros);
+    arma::mat gradient(dimension_control,3,arma::fill::zeros);
+    arma::mat D1(dimension_control,dimension_control,arma::fill::zeros);
 
-    int start_control = static_cast<int>(optimizationParameters.find("start_control_gp")->second);
-    int end_control = static_cast<int>(optimizationParameters.find("end_control_gp")->second);
+    uint start_control = MOTIONS::params::start_control_gp;
+    uint end_control = MOTIONS::params::end_control_gp;
+    double fabs_tol_gp = MOTIONS::params::fabs_tol_gp;
 
-    double fabs_tol_gp = static_cast<double>(optimizationParameters.find("fabs_tol_gp")->second);
-
-    if (barycenters.size() < dimensionOfControl_gp) {
-        throw  std::invalid_argument("Dimension of control <"+ std::to_string(dimensionOfControl_gp)
+    if (barycenters.size() < dimension_control) {
+        throw  std::invalid_argument("Dimension of control <"+ std::to_string(dimension_control)
                                      +"> bigger than number of barycenters <"+ std::to_string(barycenters.size()) +">");
     }
 
-    for(int i = start_control; i<=end_control; i++) {
+    for(uint i = start_control; i<=end_control; i++) {
         //for(int i = 1; i<=dimensionOfControl_gp; i++) {
         current_barycenter = barycenters.find(static_cast<int>(i))->second;
         D1(i-start_control,i-start_control) += 0.0;
@@ -189,8 +185,8 @@ arma::mat EquationSolvingController::D1Forward()
         double zm = 0.0;
         double zp = 0.0;
 
-        for(int l = start_control; l<=end_control;l++) {
-            std::vector<double> temp = barycenters.find(l)->second;
+        for(uint l = start_control; l<=end_control;l++) {
+            std::vector<double> temp = barycenters.at(static_cast<int>(l));
             if (comp.NormDifferenceDoublevector(temp,next_cell_xp) < fabs_tol_gp) {
                 if (i != l) {
                     xp = -1.0;
@@ -219,32 +215,30 @@ arma::mat EquationSolvingController::D1Backward()
 {
     Comparator comp = Comparator();
 
-    std::map<std::string, double> optimizationParameters = this->get_DataProviderOptim().getOptimizationParameters();
     std::map<int,std::vector<double>> barycenters = this->get_DataProviderOptim().getMeshBarycenters();
 
-    unsigned int dimensionOfControl_gp = static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second);
-    double small_discr_sidelength = static_cast<double>(optimizationParameters.find("small_discr_sidelength")->second);
-    double position_max_gp = static_cast<double>(optimizationParameters.find("position_max_gp")->second);
+    uint dimension_control = MOTIONS::params::dimension_control;
+    double small_discr_sidelength = MOTIONS::params::small_discr_sidelength;
+    double position_max_gp = MOTIONS::params::position_max_gp;
 
     std::vector<double> current_barycenter;
     std::vector<double> next_cell_xm; std::vector<double> next_cell_xp;
     std::vector<double> next_cell_ym;std::vector<double> next_cell_yp;
     std::vector<double> next_cell_zm;std::vector<double> next_cell_zp;
 
-    arma::mat gradient(dimensionOfControl_gp,3,arma::fill::zeros);
-    arma::mat D1(dimensionOfControl_gp,dimensionOfControl_gp,arma::fill::zeros);
+    arma::mat gradient(dimension_control,3,arma::fill::zeros);
+    arma::mat D1(dimension_control,dimension_control,arma::fill::zeros);
 
-    int start_control = static_cast<int>(optimizationParameters.find("start_control_gp")->second);
-    int end_control = static_cast<int>(optimizationParameters.find("end_control_gp")->second);
+    uint start_control = MOTIONS::params::start_control_gp;
+    uint end_control = MOTIONS::params::end_control_gp;
+    double fabs_tol_gp = MOTIONS::params::fabs_tol_gp;
 
-    double fabs_tol_gp = static_cast<double>(optimizationParameters.find("fabs_tol_gp")->second);
-
-    if (barycenters.size() < dimensionOfControl_gp) {
-        throw  std::invalid_argument("Dimension of control <"+ std::to_string(dimensionOfControl_gp)
+    if (barycenters.size() < dimension_control) {
+        throw  std::invalid_argument("Dimension of control <"+ std::to_string(dimension_control)
                                      +"> bigger than number of barycenters <"+ std::to_string(barycenters.size()) +">");
     }
 
-    for(int i = start_control; i<=end_control; i++) {
+    for(uint i = start_control; i<=end_control; i++) {
         //for(int i = 1; i<=dimensionOfControl_gp; i++) {
         current_barycenter = barycenters.find(static_cast<int>(i))->second;
         D1(i-start_control,i-start_control) = 3;
@@ -282,8 +276,8 @@ arma::mat EquationSolvingController::D1Backward()
         double zm = 0.0;
         double zp = 0.0;
 
-        for(int l = start_control; l<=end_control;l++) {
-            std::vector<double> temp = barycenters.find(l)->second;
+        for(uint l = start_control; l<=end_control;l++) {
+            std::vector<double> temp = barycenters.at(static_cast<int>(l));
             if (comp.NormDifferenceDoublevector(temp,next_cell_xm) < fabs_tol_gp) {
                 if (i != l) {
                     xm = 1.0;
@@ -311,36 +305,34 @@ arma::mat EquationSolvingController::D1Backward()
 arma::mat EquationSolvingController::Laplacian3D()
 {
     Comparator comp = Comparator();
-
-    std::map<std::string, double> optimizationParameters = this->get_DataProviderOptim().getOptimizationParameters();
     std::map<int,std::vector<double>> barycenters = this->get_DataProviderOptim().getMeshBarycenters();
 
-    unsigned int dimensionOfControl_gp = static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second);
-    double small_discr_sidelength = static_cast<double>(optimizationParameters.find("small_discr_sidelength")->second);
-    double position_max_gp = static_cast<double>(optimizationParameters.find("position_max_gp")->second);
+    uint dimension_control = MOTIONS::params::dimension_control;
+    double small_discr_sidelength = MOTIONS::params::small_discr_sidelength;
+    double position_max_gp = MOTIONS::params::position_max_gp;
+    uint start_control = MOTIONS::params::start_control_gp;
+    uint end_control = MOTIONS::params::end_control_gp;
+    double fabs_tol_gp = MOTIONS::params::fabs_tol_gp;
+
 
     std::vector<double> current_barycenter;
     std::vector<double> next_cell_xm; std::vector<double> next_cell_xp;
     std::vector<double> next_cell_ym;std::vector<double> next_cell_yp;
     std::vector<double> next_cell_zm;std::vector<double> next_cell_zp;
 
-    arma::mat gradient(dimensionOfControl_gp,3,arma::fill::zeros);
-    arma::mat Laplace(dimensionOfControl_gp,dimensionOfControl_gp,arma::fill::zeros);
+    arma::mat gradient(dimension_control,3,arma::fill::zeros);
+    arma::mat Laplace(dimension_control,dimension_control,arma::fill::zeros);
 
-    int start_control = static_cast<int>(optimizationParameters.find("start_control_gp")->second);
-    int end_control = static_cast<int>(optimizationParameters.find("end_control_gp")->second);
 
-    double fabs_tol_gp = static_cast<double>(optimizationParameters.find("fabs_tol_gp")->second);
-
-    if (barycenters.size() < dimensionOfControl_gp) {
-        throw  std::invalid_argument("Dimension of control <"+ std::to_string(dimensionOfControl_gp)
+    if (barycenters.size() < dimension_control) {
+        throw  std::invalid_argument("Dimension of control <"+ std::to_string(dimension_control)
                                      +"> bigger than number of barycenters <"+ std::to_string(barycenters.size()) +">");
     }
 
 
-    for(int i = start_control; i<=end_control; i++) {
+    for(uint i = start_control; i<=end_control; i++) {
         //for(int i = 1; i<=dimensionOfControl_gp; i++) {
-        current_barycenter = barycenters.find(static_cast<int>(i))->second;
+        current_barycenter = barycenters.at(static_cast<int>(i));
         Laplace(i-start_control,i-start_control) = -6.0;
 
         next_cell_xm = current_barycenter;
@@ -369,8 +361,8 @@ arma::mat EquationSolvingController::Laplacian3D()
             next_cell_zp[2] = current_barycenter[2]+small_discr_sidelength;
         }
 
-        for(int l = start_control; l<=end_control;l++) {
-            std::vector<double> temp = barycenters.find(l)->second;
+        for(uint l = start_control; l<=end_control;l++) {
+            std::vector<double> temp = barycenters.at(static_cast<int>(l));
             if (comp.NormDifferenceDoublevector(temp,next_cell_xm) < fabs_tol_gp ||
                     comp.NormDifferenceDoublevector(temp,next_cell_xp) < fabs_tol_gp ||
                     comp.NormDifferenceDoublevector(temp, next_cell_ym) < fabs_tol_gp ||
@@ -391,14 +383,14 @@ arma::mat EquationSolvingController::Laplacian3D()
 arma::mat EquationSolvingController::LaplacianSquared3D()
 {
     Comparator comp = Comparator();
-
-    std::map<std::string, double> optimizationParameters = this->get_DataProviderOptim().getOptimizationParameters();
     std::map<int,std::vector<double>> barycenters = this->get_DataProviderOptim().getMeshBarycenters();
 
-    unsigned int dimensionOfControl_gp = static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second);
-    double small_discr_sidelength = static_cast<double>(optimizationParameters.find("small_discr_sidelength")->second);
-    double position_max_gp = static_cast<double>(optimizationParameters.find("position_max_gp")->second);
-    double fabs_tol_gp = static_cast<double>(optimizationParameters.find("fabs_tol_gp")->second);
+    uint dimension_control = MOTIONS::params::dimension_control;
+    double small_discr_sidelength = MOTIONS::params::small_discr_sidelength;
+    double position_max_gp = MOTIONS::params::position_max_gp;
+    uint start_control = MOTIONS::params::start_control_gp;
+    uint end_control = MOTIONS::params::end_control_gp;
+    double fabs_tol_gp = MOTIONS::params::fabs_tol_gp;
 
     std::vector<double> current_barycenter;
     std::vector<double> next_cell_xm; std::vector<double> next_cell_xp;
@@ -410,13 +402,11 @@ arma::mat EquationSolvingController::LaplacianSquared3D()
     std::vector<double> next_cell_zmm;std::vector<double> next_cell_zpp;
 
 
-    arma::mat Laplace(dimensionOfControl_gp,dimensionOfControl_gp,arma::fill::zeros);
-
-    int start_control = static_cast<int>(optimizationParameters.find("start_control_gp")->second);
-    int end_control = static_cast<int>(optimizationParameters.find("end_control_gp")->second);
+    arma::mat Laplace(dimension_control,dimension_control,arma::fill::zeros);
 
 
-    for(int i = start_control; i<=end_control; i++) {
+
+    for(uint i = start_control; i<=end_control; i++) {
         //for(int i = 1; i<=dimensionOfControl_gp; i++) {
         current_barycenter = barycenters.find(static_cast<int>(i))->second;
         Laplace(i-start_control,i-start_control) = 18.0;
@@ -473,8 +463,8 @@ arma::mat EquationSolvingController::LaplacianSquared3D()
             next_cell_zpp[2] = current_barycenter[2]+2.0*small_discr_sidelength;
         }
 
-        for(int l = start_control; l<=end_control;l++) {
-            std::vector<double> temp = barycenters.find(l)->second;
+        for(uint l = start_control; l<=end_control;l++) {
+            std::vector<double> temp = barycenters.at(static_cast<int>(l));
             if (comp.NormDifferenceDoublevector(temp,next_cell_xm) < fabs_tol_gp ||
                     comp.NormDifferenceDoublevector(temp,next_cell_xp) < fabs_tol_gp ||
                     comp.NormDifferenceDoublevector(temp, next_cell_ym) < fabs_tol_gp ||
@@ -503,30 +493,26 @@ arma::mat EquationSolvingController::LaplacianSquared3D()
 arma::mat EquationSolvingController::D1x1SecondOrder()
 {
     Comparator comp = Comparator();
-
-    std::map<std::string, double> optimizationParameters = this->get_DataProviderOptim().getOptimizationParameters();
     std::map<int,std::vector<double>> barycenters = this->get_DataProviderOptim().getMeshBarycenters();
 
-    unsigned int dimensionOfControl_gp = static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second);
-    double small_discr_sidelength = static_cast<double>(optimizationParameters.find("small_discr_sidelength")->second);
-    double position_max_gp = static_cast<double>(optimizationParameters.find("position_max_gp")->second);
+    uint dimension_control = MOTIONS::params::dimension_control;
+    double small_discr_sidelength = MOTIONS::params::small_discr_sidelength;
+    double position_max_gp = MOTIONS::params::position_max_gp;
+    uint start_control = MOTIONS::params::start_control_gp;
+    uint end_control = MOTIONS::params::end_control_gp;
+    double fabs_tol_gp = MOTIONS::params::fabs_tol_gp;
 
     std::vector<double> current_barycenter;
     std::vector<double> next_cell_xm; std::vector<double> next_cell_xp;
 
-    arma::mat gradient(dimensionOfControl_gp,3,arma::fill::zeros);
-    arma::mat D1(dimensionOfControl_gp,dimensionOfControl_gp,arma::fill::zeros);
+    arma::mat gradient(dimension_control,3,arma::fill::zeros);
+    arma::mat D1(dimension_control,dimension_control,arma::fill::zeros);
 
-    int start_control = static_cast<int>(optimizationParameters.find("start_control_gp")->second);
-    int end_control = static_cast<int>(optimizationParameters.find("end_control_gp")->second);
-
-    double fabs_tol_gp = static_cast<double>(optimizationParameters.find("fabs_tol_gp")->second);
-
-    if (barycenters.size() < dimensionOfControl_gp) {
+    if (barycenters.size() < dimension_control) {
         throw  std::invalid_argument("Dimension of control bigger than number of barycenters");
     }
 
-    for(int i = start_control; i<=end_control; i++) {
+    for(uint i = start_control; i<=end_control; i++) {
         //for(int i = 1; i<=dimensionOfControl_gp; i++) {
         current_barycenter = barycenters.find(static_cast<int>(i))->second;
         D1(i-start_control,i-start_control) = 0;
@@ -544,8 +530,8 @@ arma::mat EquationSolvingController::D1x1SecondOrder()
         double xm = -1.0;
         double xp = 1.0;
 
-        for(int l = start_control; l<=end_control;l++) {
-            std::vector<double> temp = barycenters.find(l)->second;
+        for(uint l = start_control; l<=end_control;l++) {
+            std::vector<double> temp = barycenters.at(static_cast<int>(l));
             if (comp.NormDifferenceDoublevector(temp,next_cell_xp) < fabs_tol_gp) {
                 if (i != l) {
                     xp = 0.0;
@@ -567,30 +553,26 @@ arma::mat EquationSolvingController::D1x1SecondOrder()
 arma::mat EquationSolvingController::D1x2SecondOrder()
 {
     Comparator comp = Comparator();
-
-    std::map<std::string, double> optimizationParameters = this->get_DataProviderOptim().getOptimizationParameters();
     std::map<int,std::vector<double>> barycenters = this->get_DataProviderOptim().getMeshBarycenters();
 
-    unsigned int dimensionOfControl_gp = static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second);
-    double small_discr_sidelength = static_cast<double>(optimizationParameters.find("small_discr_sidelength")->second);
-    double position_max_gp = static_cast<double>(optimizationParameters.find("position_max_gp")->second);
+    uint dimension_control = MOTIONS::params::dimension_control;
+    double small_discr_sidelength = MOTIONS::params::small_discr_sidelength;
+    double position_max_gp = MOTIONS::params::position_max_gp;
+    uint start_control = MOTIONS::params::start_control_gp;
+    uint end_control = MOTIONS::params::end_control_gp;
+    double fabs_tol_gp = MOTIONS::params::fabs_tol_gp;
 
     std::vector<double> current_barycenter;
     std::vector<double> next_cell_ym;std::vector<double> next_cell_yp;
 
-    arma::mat gradient(dimensionOfControl_gp,3,arma::fill::zeros);
-    arma::mat D1(dimensionOfControl_gp,dimensionOfControl_gp,arma::fill::zeros);
+    arma::mat gradient(dimension_control,3,arma::fill::zeros);
+    arma::mat D1(dimension_control,dimension_control,arma::fill::zeros);
 
-    int start_control = static_cast<int>(optimizationParameters.find("start_control_gp")->second);
-    int end_control = static_cast<int>(optimizationParameters.find("end_control_gp")->second);
-
-    double fabs_tol_gp = static_cast<double>(optimizationParameters.find("fabs_tol_gp")->second);
-
-    if (barycenters.size() < dimensionOfControl_gp) {
+    if (barycenters.size() < dimension_control) {
         throw  std::invalid_argument("Dimension of control bigger than number of barycenters");
     }
 
-    for(int i = start_control; i<=end_control; i++) {
+    for(uint i = start_control; i<=end_control; i++) {
         //for(int i = 1; i<=dimensionOfControl_gp; i++) {
         current_barycenter = barycenters.find(static_cast<int>(i))->second;
         D1(i-start_control,i-start_control) = 0;
@@ -608,8 +590,8 @@ arma::mat EquationSolvingController::D1x2SecondOrder()
         double ym = -1.0;
         double yp = 1.0;
 
-        for(int l = start_control; l<=end_control;l++) {
-            std::vector<double> temp = barycenters.find(l)->second;
+        for(uint l = start_control; l<=end_control;l++) {
+            std::vector<double> temp = barycenters.at(static_cast<int>(l));
             if (comp.NormDifferenceDoublevector(temp, next_cell_yp) < fabs_tol_gp) {
                 if (i != l) {
                     yp = 0.0;
@@ -631,30 +613,26 @@ arma::mat EquationSolvingController::D1x2SecondOrder()
 arma::mat EquationSolvingController::D1x3SecondOrder()
 {
     Comparator comp = Comparator();
-
-    std::map<std::string, double> optimizationParameters = this->get_DataProviderOptim().getOptimizationParameters();
     std::map<int,std::vector<double>> barycenters = this->get_DataProviderOptim().getMeshBarycenters();
 
-    unsigned int dimensionOfControl_gp = static_cast<unsigned int>(optimizationParameters.find("dimensionOfControl_gp")->second);
-    double small_discr_sidelength = static_cast<double>(optimizationParameters.find("small_discr_sidelength")->second);
-    double position_max_gp = static_cast<double>(optimizationParameters.find("position_max_gp")->second);
+    uint dimension_control = MOTIONS::params::dimension_control;
+    double small_discr_sidelength = MOTIONS::params::small_discr_sidelength;
+    double position_max_gp = MOTIONS::params::position_max_gp;
+    uint start_control = MOTIONS::params::start_control_gp;
+    uint end_control = MOTIONS::params::end_control_gp;
+    double fabs_tol_gp = MOTIONS::params::fabs_tol_gp;
 
     std::vector<double> current_barycenter;
     std::vector<double> next_cell_zm;std::vector<double> next_cell_zp;
 
-    arma::mat gradient(dimensionOfControl_gp,3,arma::fill::zeros);
-    arma::mat D1(dimensionOfControl_gp,dimensionOfControl_gp,arma::fill::zeros);
+    arma::mat gradient(dimension_control,3,arma::fill::zeros);
+    arma::mat D1(dimension_control,dimension_control,arma::fill::zeros);
 
-    int start_control = static_cast<int>(optimizationParameters.find("start_control_gp")->second);
-    int end_control = static_cast<int>(optimizationParameters.find("end_control_gp")->second);
-
-    double fabs_tol_gp = static_cast<double>(optimizationParameters.find("fabs_tol_gp")->second);
-
-    if (barycenters.size() < dimensionOfControl_gp) {
+    if (barycenters.size() < dimension_control) {
         throw  std::invalid_argument("Dimension of control bigger than number of barycenters");
     }
 
-    for(int i = start_control; i<=end_control; i++) {
+    for(uint i = start_control; i<=end_control; i++) {
         //for(int i = 1; i<=dimensionOfControl_gp; i++) {
         current_barycenter = barycenters.find(static_cast<int>(i))->second;
         D1(i-start_control,i-start_control) = 0;
@@ -672,8 +650,8 @@ arma::mat EquationSolvingController::D1x3SecondOrder()
         double zm = -1.0;
         double zp = 1.0;
 
-        for(int l = start_control; l<=end_control;l++) {
-            std::vector<double> temp = barycenters.find(l)->second;
+        for(uint l = start_control; l<=end_control;l++) {
+            std::vector<double> temp = barycenters.at(static_cast<int>(l));
             if (comp.NormDifferenceDoublevector(temp, next_cell_zp) < fabs_tol_gp) {
                 if (i != l) {
                     zp = 0.0;

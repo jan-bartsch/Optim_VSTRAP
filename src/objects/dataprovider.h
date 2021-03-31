@@ -24,15 +24,15 @@ public:
     ~DataProvider() = default;
 
     std::map<std::string, std::string> ReadPaths(const char *filename);
-    std::map<std::string, double> ReadOptimizationParameters(const char* filename);
+    std::map<std::string, std::string> ReadOptimizationParameters(const char* filename);
     std::map<std::string,std::string> ReadSubroutines(const char* filename);
     std::map<int,std::vector<double>> ReadMeshBarycenters(const char* filename);
 
     std::map<std::string, std::string> getPaths() const;
     void setPaths(const std::map<std::string, std::string> &value);
 
-    std::map<std::string, double> getOptimizationParameters() const;
-    void setOptimizationParameters(const std::map<std::string, double> &value);
+    std::map<std::string, std::string> getOptimizationParameters() const;
+    void setOptimizationParameters(const std::map<std::string, std::string> &value);
 
     std::map<std::string, std::string> getSubroutines() const;
     void setSubroutines(const std::map<std::string, std::string> &value);
@@ -43,8 +43,8 @@ public:
     static arma::mat ConvertBarycentersToArmaMat(std::map<int,std::vector<double> >  barycenters);
 
 private:
-    std::map<std::string,std::string> paths;
-    std::map<std::string,double> optimizationParameters;
+    std::map<std::string,std::string> paths_;
+    std::map<std::string,std::string> optimizationParameters;
     std::map<std::string,std::string> subroutines;
     std::map<int,std::vector<double>> mesh_barycenters;
 

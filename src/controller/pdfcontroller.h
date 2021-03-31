@@ -7,8 +7,9 @@
 #include "../objects/coordinatephasespacetime.h"
 #include "../objects/particle.h"
 
-
 #include "abstractcontroller.h"
+
+using uint = unsigned int;
 
 /**
  * @brief The PdfController class provides important method for assembling and smoothing
