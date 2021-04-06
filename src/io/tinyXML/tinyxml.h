@@ -391,7 +391,7 @@ protected:
 			return tolower( v );
 		}
 	}
-	static void ConvertUTF32ToUTF8( unsigned long input, char* output, int* length );
+	static void ConvertUTF32ToUTF8( unsigned long Input, char* output, int* length );
 
 private:
 	TiXmlBase( const TiXmlBase& );				// not implemented.
@@ -428,7 +428,7 @@ class TiXmlNode : public TiXmlBase
 public:
 	#ifdef TIXML_USE_STL	
 
-	    /** An input stream operator, for every class. Tolerant of newlines and
+	    /** An Input stream operator, for every class. Tolerant of newlines and
 		    formatting, but doesn't expect them.
 	    */
 	    friend std::istream& operator >> (std::istream& in, TiXmlNode& base);
@@ -442,9 +442,9 @@ public:
 		    of output, without any extra whitespace or newlines.
 		    
 		    But reading is not as well defined. (As it always is.) If you create
-		    a TiXmlElement (for example) and read that from an input stream,
+		    a TiXmlElement (for example) and read that from an Input stream,
 		    the text needs to define an element or junk will result. This is
-		    true of all input streams, but it's worth keeping in mind.
+		    true of all Input streams, but it's worth keeping in mind.
 
 		    A TiXmlDocument will read nodes until it reads a root element, and
 			all the children of that root element.
@@ -555,7 +555,7 @@ public:
 			while( child = parent->IterateChildren( child ) )
 		@endverbatim
 
-		IterateChildren takes the previous child as input and finds
+		IterateChildren takes the previous child as Input and finds
 		the next one. If the previous child is null, it returns the
 		first. IterateChildren will return null when done.
 	*/
@@ -745,7 +745,7 @@ protected:
 	void CopyTo( TiXmlNode* target ) const;
 
 	#ifdef TIXML_USE_STL
-	    // The real work of the input operator.
+	    // The real work of the Input operator.
 	virtual void StreamIn( std::istream* in, TIXML_STRING* tag ) = 0;
 	#endif
 
@@ -1265,7 +1265,7 @@ protected :
 	#endif
 
 private:
-	bool cdata;			// true if this should be input and output as a CDATA style text element
+	bool cdata;			// true if this should be Input and output as a CDATA style text element
 };
 
 
@@ -1479,7 +1479,7 @@ public:
 
 	/** SetTabSize() allows the error reporting functions (ErrorRow() and ErrorCol())
 		to report the correct values for row and column. It does not change the output
-		or input in any way.
+		or Input in any way.
 		
 		By calling this method, with a tab size
 		greater than 0, the row and column of each node and attribute is stored

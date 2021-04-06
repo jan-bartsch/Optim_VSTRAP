@@ -1,8 +1,8 @@
 #include "comparator.h"
 
-comparator::comparator() { }
+Comparator::Comparator() { }
 
-double comparator::norm_difference_doubleVector(std::vector<double> v1, std::vector<double> v2)
+double Comparator::NormDifferenceDoublevector(std::vector<double> v1, std::vector<double> v2)
 {
     unsigned long length_v1 = v1.size();
     unsigned long length_v2 =v2.size();

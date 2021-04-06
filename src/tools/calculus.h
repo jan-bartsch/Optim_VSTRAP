@@ -5,20 +5,21 @@
 #include <map>
 #include <vector>
 
-#include "../controller/abstract_controller.h"
-#include "../controller/equation_solving_controller.h"
+#include "../controller/abstractcontroller.h"
+#include "../controller/equationsolvingcontroller.h"
 
 /**
  * @brief The calculus class provides method from analysis
  */
-class calculus : public abstract_controller
+class Calculus : public AbstractController
 {
 public:
-    calculus();
+    Calculus();
 
     static std::vector<double> cross_product(std::vector<double> v1, std::vector<double> v2);
 
-    double divergence_vector(arma::mat input);
+    [[deprecated]]
+    double DivergenceVector(arma::mat &Input);
 };
 
 #endif // CALCULUS_H

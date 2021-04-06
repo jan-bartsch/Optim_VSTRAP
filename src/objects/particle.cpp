@@ -2,44 +2,44 @@
 
 #include <cmath>
 
-particle::particle() { vx = 0.0; vy = 0.0; vz = 0.0; px = 0.0; py = 0.0; pz = 0.0;
+Particle::Particle() { vx = 0.0; vy = 0.0; vz = 0.0; px = 0.0; py = 0.0; pz = 0.0;
                        //timestep = 0.0;
                        cell_id = -1; weight = 0.0; }
 
-particle::particle(double vx, double vy, double vz) {
-    particle::setVx(vx);
-    particle::setVy(vy);
-    particle::setVz(vz);
+Particle::Particle(double vx, double vy, double vz) {
+    Particle::setVx(vx);
+    Particle::setVy(vy);
+    Particle::setVz(vz);
     //particle::setTimestep(timestep);
     px = 0.0; py = 0.0; pz = 0.0;
     cell_id = -1; weight = 0.0;
 }
 
-particle::particle(double px, double py, double pz, double vx, double vy, double vz) {
-    particle::setPx(px);
-    particle::setPy(py);
-    particle::setPz(pz);
-    particle::setVx(vx);
-    particle::setVy(vy);
-    particle::setVz(vz);
-    particle::setWeight(weight);
+Particle::Particle(double px, double py, double pz, double vx, double vy, double vz) {
+    Particle::setPx(px);
+    Particle::setPy(py);
+    Particle::setPz(pz);
+    Particle::setVx(vx);
+    Particle::setVy(vy);
+    Particle::setVz(vz);
+    Particle::setWeight(weight);
     cell_id = -1;
 
 }
 
-particle::particle(double px, double py, double pz, double vx, double vy, double vz, int cell_id)
+Particle::Particle(double px, double py, double pz, double vx, double vy, double vz, int cell_id)
 {
-    particle::setPx(px);
-    particle::setPy(py);
-    particle::setPz(pz);
-    particle::setVx(vx);
-    particle::setVy(vy);
-    particle::setVz(vz);
-    particle::setCell_id(cell_id);
+    Particle::setPx(px);
+    Particle::setPy(py);
+    Particle::setPz(pz);
+    Particle::setVx(vx);
+    Particle::setVy(vy);
+    Particle::setVz(vz);
+    Particle::setCell_id(cell_id);
 
 }
 
-bool particle::operator==(const particle &particle) const
+bool Particle::operator==(const Particle &particle) const
 {
     double tol = std::pow(10.0,-10);
     return (std::fabs(particle.getPx() - this->getPx()) < tol &&
@@ -51,59 +51,44 @@ bool particle::operator==(const particle &particle) const
             particle.getCell_id() == this->getCell_id());
 }
 
-double particle::getVelocityMagnitudeParticle() {
+double Particle::getVelocityMagnitudeParticle() {
     return sqrt(pow(vx,2.0)+pow(vy,2)+pow(vz,2.0));
 }
 
-std::string particle::toString() {
+std::string Particle::toString() {
     return std::to_string(this->getPx()) + " " + std::to_string(this->getPy()) + " " + std::to_string(this->getPz())
             + " " + std::to_string(this->getVx()) + " " + std::to_string(this->getVy()) + " " + std::to_string(this->getVz());
 }
 
-/*bool particle::operator==(const particle &particle) const
-{
-    return (particle.getPx() == this->getPx() && particle.getPy() == this->getPy()
-            && particle.getPz() == this->getPz() && particle.getVx() == this->getVx()
-            && particle.getVy() == this->getVy() && particle.getVz() == this->getVz()
-            && particle.getTimestep() == this->getTimestep()
-            && particle.getWeight() == this->getWeight() && particle.getCell_id() == this->getCell_id()
-            );
+double Particle::getPx() const {  return px; }
 
-}*/
+void Particle::setPx(double value) {  px = value; }
 
-double particle::getPx() const {  return px; }
+double Particle::getPy() const { return py;}
 
-void particle::setPx(double value) {  px = value; }
+void Particle::setPy(double value) {  py = value; }
 
-double particle::getPy() const { return py;}
+double Particle::getPz() const {  return pz;}
 
-void particle::setPy(double value) {  py = value; }
+void Particle::setPz(double value) {  pz = value;}
 
-double particle::getPz() const {  return pz;}
+double Particle::getVx() const {   return vx;}
 
-void particle::setPz(double value) {  pz = value;}
+void Particle::setVx(double value) { vx = value;}
 
-double particle::getVx() const {   return vx;}
+double Particle::getVy() const {  return vy;}
 
-void particle::setVx(double value) { vx = value;}
+double Particle::getVz() const { return vz;}
 
-double particle::getVy() const {  return vy;}
+void Particle::setVz(double value) {  vz = value;}
 
-double particle::getVz() const { return vz;}
+void Particle::setVy(double value) {  vy = value;}
 
-void particle::setVz(double value) {  vz = value;}
+int Particle::getCell_id() const { return cell_id; }
 
-void particle::setVy(double value) {  vy = value;}
+void Particle::setCell_id(int value) { cell_id = value; }
 
-//double particle::getTimestep() const { return timestep; }
+double Particle::getWeight() const { return weight; }
 
-//void particle::setTimestep(double value) { timestep = value;}
-
-int particle::getCell_id() const { return cell_id; }
-
-void particle::setCell_id(int value) { cell_id = value; }
-
-double particle::getWeight() const { return weight; }
-
-void particle::setWeight(double value) { weight = value; }
+void Particle::setWeight(double value) { weight = value; }
 

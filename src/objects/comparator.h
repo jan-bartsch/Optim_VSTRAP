@@ -5,14 +5,14 @@
 #include <stdexcept>
 #include <cmath>
 
-#include "../controller/abstract_controller.h"
+#include "../controller/abstractcontroller.h"
 
-class comparator : public abstract_controller
+class Comparator : public AbstractController
 {
 public:
-    comparator();
+    Comparator();
 
-    double norm_difference_doubleVector(std::vector<double> v1, std::vector<double> v2);
+    double NormDifferenceDoublevector(std::vector<double> v1, std::vector<double> v2);
 };
 
 #endif // COMPARATOR_H

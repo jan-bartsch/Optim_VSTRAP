@@ -6,7 +6,7 @@
 /**
  * @brief The particle class defines a particle using its position, velocity and weight
  */
-class particle
+class Particle
 {
 
 public:
@@ -14,11 +14,11 @@ public:
     /*
      * Constructors
      */
-    particle();
+    Particle();
 
-    particle(double vx, double vy, double vz);
-    particle(double px, double py, double pz, double vx, double vy, double vz);
-    particle(double px, double py, double pz, double vx, double vy, double vz, int cell_id);
+    Particle(double vx, double vy, double vz);
+    Particle(double px, double py, double pz, double vx, double vy, double vz);
+    Particle(double px, double py, double pz, double vx, double vy, double vz, int cell_id);
 
     /**
      * @brief operator == overloads the compare operator. Two particles
@@ -28,7 +28,7 @@ public:
      * @param particle
      * @return
      */
-    bool operator==(const particle &particle) const;
+    bool operator==(const Particle &Particle) const;
 
 
     /**

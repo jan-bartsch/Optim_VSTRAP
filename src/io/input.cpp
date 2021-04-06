@@ -2,42 +2,41 @@
 
 #include <iostream>
 
-input::input() { }
+Input::Input() { }
 
-unsigned int input::read_plasma_state_forward(std::vector<std::vector<particle> > &forwardParticles, std::string file_name)
+unsigned int Input::ReadPlasmaStateForward(std::vector<std::vector<Particle> > &forward_particles, std::string file_name)
 {
-    std::map<std::string, std::string> paths = this->getData_provider_optim().getPaths();
+    std::map<std::string, std::string> paths = this->get_DataProviderOptim().getPaths();
     std::string BUILD_DIRECTORY_OPTIM = paths.find("BUILD_DIRECTORY_OPTIM")->second;
     std::string RESULTS_DIRECTORY = paths.find("RESULTS_DIRECTORY")->second;
 
-    std::map<std::string, double> optimizationParameters = this->getData_provider_optim().getOptimizationParameters();
+    std::map<std::string, double> optimizationParameters = this->get_DataProviderOptim().getOptimizationParameters();
     unsigned int ntimesteps_gp = static_cast<unsigned int>(optimizationParameters.find("ntimesteps_gp")->second);
     unsigned int plasma_state_output_interval = static_cast<unsigned int>(optimizationParameters.find("plasma_state_output_interval")->second);
 
 #pragma omp parallel for
     for(unsigned int o = 1; o<=ntimesteps_gp; o++) {
         try {
-            forwardParticles[o-1] = input::readParticleVector(BUILD_DIRECTORY_OPTIM+RESULTS_DIRECTORY+file_name+std::to_string(o*plasma_state_output_interval)+".csv",",");
+            forward_particles[o-1] = Input::ReadParticleVector(BUILD_DIRECTORY_OPTIM+RESULTS_DIRECTORY+file_name+std::to_string(o*plasma_state_output_interval)+".csv",",");
         } catch (std::exception e) {
             logger::Warning("Iteration: " + std::to_string(o));
             logger::Warning("BUILD_DIRECTORY_OPTIM: " + BUILD_DIRECTORY_OPTIM);
             logger::Warning("RESULTS_DIRECTORY: " + RESULTS_DIRECTORY);
             throw std::invalid_argument("Could not read VSTRAP output forward");
         }
-
     }
 
     return 0;
 }
 
-unsigned int input::read_plasma_state_backward(std::vector<std::vector<particle> > &backwardParticles, std::string file_name)
+unsigned int Input::ReadPlasmaStateBackward(std::vector<std::vector<Particle> > &backward_particles, std::string file_name)
 {
-    std::map<std::string, std::string> paths = this->getData_provider_optim().getPaths();
+    std::map<std::string, std::string> paths = this->get_DataProviderOptim().getPaths();
     std::string BUILD_DIRECTORY_OPTIM = paths.find("BUILD_DIRECTORY_OPTIM")->second;
     std::string RESULTS_DIRECTORY = paths.find("RESULTS_DIRECTORY")->second;
 
 
-    std::map<std::string, double> optimizationParameters = this->getData_provider_optim().getOptimizationParameters();
+    std::map<std::string, double> optimizationParameters = this->get_DataProviderOptim().getOptimizationParameters();
     unsigned int ntimesteps_gp = static_cast<unsigned int>(optimizationParameters.find("ntimesteps_gp")->second);
     unsigned int plasma_state_output_interval = static_cast<unsigned int>(optimizationParameters.find("plasma_state_output_interval")->second);
 
@@ -45,7 +44,7 @@ unsigned int input::read_plasma_state_backward(std::vector<std::vector<particle>
 #pragma omp parallel for
     for(unsigned int o = 1; o<=ntimesteps_gp; o++) {
         try {
-            backwardParticles[ntimesteps_gp - o] = input::readParticleVector(BUILD_DIRECTORY_OPTIM+RESULTS_DIRECTORY+file_name+std::to_string(o*plasma_state_output_interval)+".csv",",");
+            backward_particles[ntimesteps_gp - o] = Input::ReadParticleVector(BUILD_DIRECTORY_OPTIM+RESULTS_DIRECTORY+file_name+std::to_string(o*plasma_state_output_interval)+".csv",",");
         } catch (std::exception e) {
             logger::Warning("BUILD_DIRECTORY_OPTIM: " + BUILD_DIRECTORY_OPTIM);
             logger::Warning("RESULTS_DIRECTORY: " + RESULTS_DIRECTORY);
@@ -57,9 +56,9 @@ unsigned int input::read_plasma_state_backward(std::vector<std::vector<particle>
 }
 
 
-std::vector<particle> input::readParticleVector(std::string filename, std::string delimiter)
+std::vector<Particle> Input::ReadParticleVector(std::string filename, std::string delimiter)
 {
-    std::vector<particle> particleVector;
+    std::vector<Particle> particleVector;
     int counter = 0;
 
     std::ifstream file(filename);
@@ -94,7 +93,7 @@ std::vector<particle> input::readParticleVector(std::string filename, std::strin
         }
 
         if (counter != 0) {
-            particle particleTemp = particle();
+            Particle particleTemp = Particle();
             particleTemp.setPx(std::stod(vec[0]));
             particleTemp.setPy(std::stod(vec[1]));
             particleTemp.setPz(std::stod(vec[2]));
@@ -110,17 +109,17 @@ std::vector<particle> input::readParticleVector(std::string filename, std::strin
     return particleVector;
 }
 
-arma::mat input::readControl(const char *filename, int number_cells_position)
+arma::mat Input::ReadControl(const char *filename, int number_cells_position)
 {       
     arma::mat control(static_cast<unsigned long long>(number_cells_position),3,arma::fill::zeros);
 
-    TiXmlDocument inputFile(filename);
-    if (!inputFile.LoadFile()) {
+    TiXmlDocument InputFile(filename);
+    if (!InputFile.LoadFile()) {
         std::cout << filename << std::endl;
         throw std::runtime_error("File could not be opened. Check if directory and syntax are correct!");
     }
 
-    TiXmlElement *fieldRoot = inputFile.RootElement();
+    TiXmlElement *fieldRoot = InputFile.RootElement();
     //std::cout << parameterRoot->Value() << std::endl;
     TiXmlElement *value_control = fieldRoot->FirstChildElement("value");
     int i = 0; // for sorting the entries
@@ -162,7 +161,7 @@ arma::mat input::readControl(const char *filename, int number_cells_position)
     return control;
 }
 
-std::vector<std::vector<double> > input::readDoubleMatrix(std::string filename, int number_cells_position,std::string delimiter)
+std::vector<std::vector<double> > Input::ReadDoubleMatrix(std::string filename, int number_cells_position,std::string delimiter)
 {
     std::vector<std::vector<double>> matrix;
     matrix.resize(number_cells_position);
@@ -212,7 +211,7 @@ std::vector<std::vector<double> > input::readDoubleMatrix(std::string filename, 
     return matrix;
 }
 
-std::vector<double> input::readDoubleVector(const char *filename)
+std::vector<double> Input::ReadDoubleVector(const char *filename)
 {
     std::ifstream ifile(filename, std::ios::in);
     std::vector<double> out;
@@ -220,7 +219,7 @@ std::vector<double> input::readDoubleVector(const char *filename)
     //check to see that the file was opened correctly:
     if (!ifile.is_open()) {
         std::cout << filename << std::endl;
-        std::cerr << "There was a problem opening the input file with name!\n";
+        std::cerr << "There was a problem opening the Input file with name!\n";
     }
 
     double num = 0.0;
@@ -239,7 +238,7 @@ std::vector<double> input::readDoubleVector(const char *filename)
     return out;
 }
 
-std::vector<std::vector<double>> input::readBrockettFile(std::string filename,std::string delimiter, unsigned int lines)
+std::vector<std::vector<double>> Input::ReadBrockettFile(std::string filename,std::string delimiter, unsigned int lines)
 {
     std::vector<std::vector<double>> brockettVector;
     brockettVector.resize(lines);

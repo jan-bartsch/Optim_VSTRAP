@@ -1,5 +1,5 @@
-#ifndef INPUT_H
-#define INPUT_H
+#ifndef Input_H
+#define Input_H
 
 #include <armadillo>
 
@@ -11,31 +11,31 @@
 #include "../objects/particle.h"
 #include "../io/tinyXML/tinyxml.h"
 
-#include "../controller/abstract_controller.h"
+#include "../controller/abstractcontroller.h"
 
 
-class input : public abstract_controller
+class Input : public AbstractController
 {
 public:
-    input();
+    Input();
 
-    unsigned int read_plasma_state_forward(std::vector<std::vector<particle>> &forwardParticles, std::string file_name);
+    unsigned int ReadPlasmaStateForward(std::vector<std::vector<Particle> > &forward_particles, std::string file_name);
 
-    unsigned int read_plasma_state_backward(std::vector<std::vector<particle>> &backwardParticles, std::string file_name);
+    unsigned int ReadPlasmaStateBackward(std::vector<std::vector<Particle> > &backward_particles, std::string file_name);
 
-    static std::vector<particle> readParticleVector(std::string filename, std::string delimiter);
+    static std::vector<Particle> ReadParticleVector(std::string filename, std::string delimiter);
 
     /**
-     * @brief readControl reads in control cells (control in volume, xml format)
+     * @brief ReadControl reads in control cells (control in volume, xml format)
      * @param filename
      * @param number_cells_position
      * @return
      */
-    arma::mat readControl(const char *filename, int number_cells_position);
+    arma::mat ReadControl(const char *filename, int number_cells_position);
 
-    static std::vector<std::vector<double> > readDoubleMatrix(std::string filename, int number_cells_position, std::string delimiter);
+    static std::vector<std::vector<double> > ReadDoubleMatrix(std::string filename, int number_cells_position, std::string delimiter);
 
-    static std::vector<double> readDoubleVector(const char *filename);
+    static std::vector<double> ReadDoubleVector(const char *filename);
 
     /**
      * @brief readBrockettFile reads file with time-dependent desired trajectory of the mean
@@ -45,7 +45,7 @@ public:
      * @param lines
      * @return
      */
-    static std::vector<std::vector<double> > readBrockettFile(std::string filename, std::string delimiter, unsigned int lines);
+    static std::vector<std::vector<double> > ReadBrockettFile(std::string filename, std::string delimiter, unsigned int lines);
 };
 
-#endif // INPUT_H
+#endif // Input_H

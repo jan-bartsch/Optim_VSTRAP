@@ -6,19 +6,19 @@
 
 #include "../controller/abstract_validation.h"
 
-#include "../../src/controller/pdf_controller.h"
-#include "../../src/controller/equation_solving_controller.h"
-#include "../../src/controller/optim_controller.h"
+#include "../../src/controller/pdfcontroller.h"
+#include "../../src/controller/equationsolvingcontroller.h"
+#include "../../src/controller/optimcontroller.h"
 
 #include "../../src/io/input.h"
-#include "../../src/io/output_diagnostics.h"
+#include "../../src/io/outputdiagnostics.h"
 
-#include "../../src/objects/data_provider.h"
+#include "../../src/objects/dataprovider.h"
 
-#include "../../src/optimization/gradient_calculator.h"
-#include "../../src/optimization/objective_calculator.h"
+#include "../../src/optimization/gradientcalculator.h"
+#include "../../src/optimization/objectivecalculator.h"
 
-#include "../../src/tools/inner_products.h"
+#include "../../src/tools/innerproducts.h"
 
 
 class gradient_validation : public abstract_verification

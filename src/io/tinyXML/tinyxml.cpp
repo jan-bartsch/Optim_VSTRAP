@@ -1013,7 +1013,7 @@ bool TiXmlDocument::LoadFile( FILE* file, TiXmlEncoding encoding )
 	// <snip>
 	// <quote>
 	// ...the XML processor MUST behave as if it normalized all line breaks in external 
-	// parsed entities (including the document entity) on input, before parsing, by translating 
+	// parsed entities (including the document entity) on Input, before parsing, by translating 
 	// both the two-character sequence #xD #xA and any #xD that is not followed by #xA to 
 	// a single #xA character.
 	// </quote>

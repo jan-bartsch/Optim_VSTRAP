@@ -3,7 +3,7 @@
 
 #include "../../src/objects/particle.h"
 
-TEST(particle,constructor) {
+TEST(Particle,constructor) {
     double px = 0.1;
     double py = -0.1;
     double pz = -0.4;
@@ -14,8 +14,8 @@ TEST(particle,constructor) {
 
     bool all_clear(true);
 
-    particle p1_vel =  particle(vx,vy, vz);
-    particle p2_vel_pos = particle(px,py,pz,vx,vy,vz);
+    Particle p1_vel =  Particle(vx,vy, vz);
+    Particle p2_vel_pos = Particle(px,py,pz,vx,vy,vz);
 
     if(p1_vel.getVx() != vx || p1_vel.getVy() != vy || p1_vel.getVz() != vz) {
         all_clear = false;
@@ -28,7 +28,7 @@ TEST(particle,constructor) {
     ASSERT_TRUE(all_clear);
 }
 
-TEST(particle,magnitudeVelocity) {
+TEST(Particle,magnitudeVelocity) {
     double px = 0.1;
     double py = -0.1;
     double pz = -0.4;
@@ -40,8 +40,8 @@ TEST(particle,magnitudeVelocity) {
 
     bool all_clear(true);
 
-    particle p1_vel =  particle(vx,vy, vz);
-    particle p2_vel_pos = particle(px,py,pz,vx,vy,vz);
+    Particle p1_vel =  Particle(vx,vy, vz);
+    Particle p2_vel_pos = Particle(px,py,pz,vx,vy,vz);
 
     double p1_velocityMag = p1_vel.getVelocityMagnitudeParticle();
     double p2_velocityMag = p2_vel_pos.getVelocityMagnitudeParticle();
