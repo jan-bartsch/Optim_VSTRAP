@@ -26,13 +26,13 @@ public:
      * @param optimization_iteration
      * @return
      */
-    arma::mat GetStepdirection(arma::mat gradient, arma::mat gradient_old, arma::mat stepdirection_old, unsigned int optimization_iteration);
+    arma::mat GetStepdirection(arma::mat &gradient, arma::mat gradient_old, arma::mat &stepdirection_old, unsigned int &optimization_iteration);
 
 private:
     arma::mat FixedGradientDescent(arma::mat gradient, unsigned int optimization_iteration);
-    arma::mat NcgSchemeFR(arma::mat gradient, arma::mat gradient_old, arma::mat stepdirection_old, unsigned int optimization_iteration);
-    arma::mat NcgSchemePR(arma::mat gradient, arma::mat gradient_old, arma::mat stepdirection_old, unsigned int optimization_iteration);
-    arma::mat NcgSchemeHZ(arma::mat gradient, arma::mat gradient_old, arma::mat stepdirection_old, unsigned int optimization_iteration);
+    arma::mat NcgSchemeFR(arma::mat &gradient, arma::mat &gradient_old, arma::mat &stepdirection_old, unsigned int &optimization_iteration);
+    arma::mat NcgSchemePR(arma::mat &gradient, arma::mat &gradient_old, arma::mat &stepdirection_old, unsigned int &optimization_iteration);
+    arma::mat NcgSchemeHZ(arma::mat &gradient, arma::mat &gradient_old, arma::mat &stepdirection_old, unsigned int &optimization_iteration);
 };
 
 #endif // STEPDIRECTION_CONTROLLER_H

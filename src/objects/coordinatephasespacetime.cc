@@ -31,7 +31,7 @@ bool CoordinatePhaseSpaceTime::operator==(const CoordinatePhaseSpaceTime &coordi
 CoordinatePhaseSpaceTime CoordinatePhaseSpaceTime::operator-(const CoordinatePhaseSpaceTime &coordinate) const
 {
     return CoordinatePhaseSpaceTime(
-               this->getCell_id() - coordinate.getCell_id(),
+                this->getCell_id() - coordinate.getCell_id(),
                 this->getVx() - coordinate.getVx(),
                 this->getVy() - coordinate.getVy(),
                 this->getVz() - coordinate.getVz(),

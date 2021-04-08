@@ -45,10 +45,10 @@ int OutputControlUpdate::WritecontrolXml(arma::mat control)
         headelement->LinkEndChild( node );
     }
 
-    std::string path_to_shared_files = this->get_DataProviderOptim().getPaths().find("PATH_TO_SHARED_FILES")->second;
-    std::string CONTROL_FIELD_CELLS_NAME = this->get_DataProviderOptim().getPaths().find("CONTROL_FIELD_CELLS_NAME")->second;
+    std::string path_to_shared_files = MOTIONS::paths::path_to_shared_files;
+    std::string control_field_cells_namme = MOTIONS::paths::control_field_cells_name;
 
-    std::string saveFile = path_to_shared_files + CONTROL_FIELD_CELLS_NAME;
+    std::string saveFile = path_to_shared_files + control_field_cells_namme;
 
     doc.SaveFile(&saveFile[0]);
 
@@ -57,32 +57,29 @@ int OutputControlUpdate::WritecontrolXml(arma::mat control)
 
 int OutputControlUpdate::InterpolateControl()
 {
-    std::map<std::string, std::string> paths = provider.getPaths();
-    std::map<std::string, double> parameters = provider.getOptimizationParameters();
-    std::string PATH_TO_SHARED_FILES = paths.find("PATH_TO_SHARED_FILES")->second;
-    std::string DIRECTORY_TOOLSET = paths.find("DIRECTORY_TOOLSET")->second;
-    std::string DOMAIN_MESH = paths.find("DOMAIN_MESH")->second;
-    std::string CHECK_Input_PYHTON = "python3 " + DIRECTORY_TOOLSET + "check_Input.py " + PATH_TO_SHARED_FILES;
+    std::string path_to_shared_files = MOTIONS::paths::path_to_shared_files;
+    std::string directory_toolset = MOTIONS::paths::directory_toolset;
+    std::string domain_mesh = MOTIONS::paths::domain_mesh;
 
-    int magnetic_force = static_cast<int>(parameters.find("magnetic_force")->second);
-    int electric_force = static_cast<int>(parameters.find("electric_force")->second);
+    int magnetic_force = MOTIONS::params::magnetic_force;
+    int electric_force = MOTIONS::params::electric_force;
 
-    std::string CONTROL_TYPE = "";
+    std::string control_type = "";
 
     if (magnetic_force == 1 && electric_force == 0) {
-        CONTROL_TYPE = "magnetic_field";
+        control_type = "magnetic_field";
     } else if (magnetic_force == 0 && electric_force == 1) {
-        CONTROL_TYPE = "electric_field";
+        control_type = "electric_field";
     } else {
         std::cerr << "Force field not valid specified" << std::endl;
         throw std::runtime_error("Force field not valid specified");
     }
 
 
-    std::string BGF_CONTROL = paths.find("BGF_CONTROL")->second;
-    std::string CONTROL_FIELD_CELLS_NAME = paths.find("CONTROL_FIELD_CELLS_NAME")->second;
-    std::string interpolating_control_python = "python3 " + DIRECTORY_TOOLSET + "GenerateControlField.py" + " " +  PATH_TO_SHARED_FILES + DOMAIN_MESH +
-            " " + PATH_TO_SHARED_FILES + CONTROL_FIELD_CELLS_NAME + " " + PATH_TO_SHARED_FILES + BGF_CONTROL + " " + CONTROL_TYPE;
+    std::string bgf_control = MOTIONS::paths::bgf_control;
+    std::string control_field_cells_name = MOTIONS::paths::control_field_cells_name;
+    std::string interpolating_control_python = "python3 " + directory_toolset + "GenerateControlField.py" + " " +  path_to_shared_files + domain_mesh +
+            " " + path_to_shared_files + control_field_cells_name + " " + path_to_shared_files + bgf_control + " " + control_type;
 
     int interpolating_flag = system(&interpolating_control_python[0]);
     if(interpolating_flag == 512) {

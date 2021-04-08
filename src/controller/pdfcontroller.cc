@@ -189,10 +189,8 @@ int PdfController::AssemblingMultidimParallel(std::vector<std::vector<Particle>>
     return return_flag;
 }
 
-std::vector<std::vector<std::vector<std::vector<double> > > > PdfController::RelaxatingGaussseidel4D(std::vector<std::vector<std::vector<std::vector<double> > > > pdf,
-                                                                                                     unsigned int number_relaxation_steps)
+DoublePDF PdfController::RelaxatingGaussseidel4D(DoublePDF pdf, unsigned int number_relaxation_steps)
 {
-
     double tolerance_relaxation_gp = MOTIONS::params::tolerance_relaxation_gp;
     unsigned int ntimesteps_gp = MOTIONS::params::ntimesteps_gp;
     double dt_gp = MOTIONS::params::dt_gp;
@@ -200,10 +198,10 @@ std::vector<std::vector<std::vector<std::vector<double> > > > PdfController::Rel
     double vcell_gp = MOTIONS::params::vcell_gp;
 
 
-    std::vector<std::vector<std::vector<std::vector<double> > > > rhs = pdf;
+    DoublePDF rhs = pdf;
 
-    std::vector<std::vector<std::vector<std::vector<double> > > > relaxated_pdf_New = rhs;
-    std::vector<std::vector<std::vector<std::vector<double> > > > relaxated_pdf_Old = rhs;
+    DoublePDF relaxated_pdf_New = rhs;
+    DoublePDF relaxated_pdf_Old = rhs;
 
     unsigned int n = 0;
     double norm = 1.0;
@@ -216,12 +214,12 @@ std::vector<std::vector<std::vector<std::vector<double> > > > PdfController::Rel
             for (unsigned int l = 1; l <= vcell_gp - 2; l++) {
                 for (unsigned int m = 1; m <= vcell_gp - 2; m++) {
                     for (unsigned int n = 1; n <= vcell_gp - 2; n++) {
-                        relaxated_pdf_New[o][l][m][n] = 1.0/(1.0+c_s*2.0/(dt_gp*dt_gp)+c_s*6.0/(dv_gp*dv_gp))*(rhs[o][l][m][n]
-                                                                                                               + c_s/(dv_gp*dv_gp)*(relaxated_pdf_New[o][l+1][m][n]
-                                                                                                               + relaxated_pdf_New[o][l-1][m][n]
-                                +relaxated_pdf_New[o][l][m+1][n] + relaxated_pdf_New[o][l][m-1][n]
-                                +relaxated_pdf_New[o][l][m][n+1] + relaxated_pdf_New[o][l][m][n-1])
-                                +c_s/(dt_gp*dt_gp)*(relaxated_pdf_New[o+1][l][m][n]+relaxated_pdf_New[o-1][l][m][n]));
+                        relaxated_pdf_New.at(o,l,m,n) = 1.0/(1.0+c_s*2.0/(dt_gp*dt_gp)+c_s*6.0/(dv_gp*dv_gp))*(rhs.at(o,l,m,n)
+                                                                                                               + c_s/(dv_gp*dv_gp)*(relaxated_pdf_New.at(o,l+1,m,n)
+                                                                                                               + relaxated_pdf_New.at(o,l-1,m,n)
+                                +relaxated_pdf_New.at(o,l,m+1,n) + relaxated_pdf_New.at(o,l,m-1,n)
+                                +relaxated_pdf_New.at(o,l,m,n+1) + relaxated_pdf_New.at(o,l,m,n-1))
+                                +c_s/(dt_gp*dt_gp)*(relaxated_pdf_New.at(o+1,l,m,n)+relaxated_pdf_New.at(o-1,l,m,n)));
                         //Savitzky Golay filter ?
                     }
                 }
@@ -232,13 +230,13 @@ std::vector<std::vector<std::vector<std::vector<double> > > > PdfController::Rel
             for (unsigned int l = 1; l <= vcell_gp - 2; l++) {
                 for (unsigned int m = 1; m <= vcell_gp - 2; m++) {
                     for (unsigned int n = 1; n <= vcell_gp - 2; n++) {
-                        norm += pow(relaxated_pdf_New[o][l][m][n]-relaxated_pdf_Old[o][l][m][n],2.0);
+                        norm += pow(relaxated_pdf_New.at(o,l,m,n)-relaxated_pdf_Old.at(o,l,m,n),2.0);
                     }
                 }
             }
         }
         norm = std::sqrt(norm);
-        relaxated_pdf_Old.assign(relaxated_pdf_New.begin(),relaxated_pdf_New.end());
+        relaxated_pdf_Old = relaxated_pdf_New; //.assign(relaxated_pdf_New.begin(),relaxated_pdf_New.end());
         ++n;
     }
 

@@ -7,6 +7,8 @@
 #include "../objects/coordinatephasespacetime.h"
 #include "../objects/particle.h"
 
+#include "../objects/doublepdf.h"
+
 #include "abstractcontroller.h"
 
 using uint = unsigned int;
@@ -55,8 +57,7 @@ public:
      * @param number_relaxation_steps
      * @return
      */
-    std::vector<std::vector<std::vector<std::vector<double> > > > RelaxatingGaussseidel4D(std::vector<std::vector<std::vector<std::vector<double> > > > pdf,
-                                                                                         unsigned int number_relaxation_steps);
+    DoublePDF RelaxatingGaussseidel4D(DoublePDF pdf, unsigned int number_relaxation_steps);
 
     /** currently not used*/
 

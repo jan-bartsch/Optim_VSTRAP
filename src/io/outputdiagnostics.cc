@@ -34,12 +34,8 @@ int OutputDiagnostics::WriteArmaMatrixToFile(arma::mat Input, std::string filena
 
 int OutputDiagnostics::WriteDoubleToFile(double value, std::string filename)
 {
-
-    std::map<std::string, std::string> paths = this->get_DataProviderOptim().getPaths();
-    std::string RESULTS_DIRECTORY = paths.find("RESULTS_DIRECTORY")->second;
-
     std::ofstream outstream;
-    outstream.open(RESULTS_DIRECTORY + filename + ".txt", std::ios_base::app); // append instead of overwrite
+    outstream.open(MOTIONS::paths::results_directory + filename + ".txt", std::ios_base::app); // append instead of overwrite
     outstream << value << std::endl;
 
     return 0;
@@ -47,11 +43,8 @@ int OutputDiagnostics::WriteDoubleToFile(double value, std::string filename)
 
 int OutputDiagnostics::WriteDoubleVectorToFile(std::vector<double> vector, std::string filename)
 {
-    std::map<std::string, std::string> paths = this->get_DataProviderOptim().getPaths();
-    std::string RESULTS_DIRECTORY = paths.find("RESULTS_DIRECTORY")->second;
-
     std::ofstream outstream;
-    outstream.open(RESULTS_DIRECTORY + filename + ".txt", std::ios_base::app); // append instead of overwrite
+    outstream.open(MOTIONS::paths::results_directory + filename + ".txt", std::ios_base::app); // append instead of overwrite
     for (unsigned int i = 0; i < vector.size(); i++) {
         outstream << vector[i] << std::endl;
     }

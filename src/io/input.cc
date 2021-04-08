@@ -7,21 +7,20 @@ Input::Input() { }
 unsigned int Input::ReadPlasmaStateForward(std::vector<std::vector<Particle> > &forward_particles, std::string file_name)
 {
     std::map<std::string, std::string> paths = this->get_DataProviderOptim().getPaths();
-    std::string BUILD_DIRECTORY_OPTIM = paths.find("BUILD_DIRECTORY_OPTIM")->second;
-    std::string RESULTS_DIRECTORY = paths.find("RESULTS_DIRECTORY")->second;
+    std::string build_directory_optim = MOTIONS::paths::build_directory_optim;
+    std::string results_directory = MOTIONS::paths::results_directory;
 
-    std::map<std::string, double> optimizationParameters = this->get_DataProviderOptim().getOptimizationParameters();
-    unsigned int ntimesteps_gp = static_cast<unsigned int>(optimizationParameters.find("ntimesteps_gp")->second);
-    unsigned int plasma_state_output_interval = static_cast<unsigned int>(optimizationParameters.find("plasma_state_output_interval")->second);
+    unsigned int ntimesteps_gp = MOTIONS::params::ntimesteps_gp;
+    unsigned int plasma_state_output_interval = MOTIONS::params::plasma_state_output_interval;
 
 #pragma omp parallel for
     for(unsigned int o = 1; o<=ntimesteps_gp; o++) {
         try {
-            forward_particles[o-1] = Input::ReadParticleVector(BUILD_DIRECTORY_OPTIM+RESULTS_DIRECTORY+file_name+std::to_string(o*plasma_state_output_interval)+".csv",",");
+            forward_particles[o-1] = Input::ReadParticleVector(build_directory_optim+results_directory+file_name+std::to_string(o*plasma_state_output_interval)+".csv",",");
         } catch (std::exception e) {
             logger::Warning("Iteration: " + std::to_string(o));
-            logger::Warning("BUILD_DIRECTORY_OPTIM: " + BUILD_DIRECTORY_OPTIM);
-            logger::Warning("RESULTS_DIRECTORY: " + RESULTS_DIRECTORY);
+            logger::Warning("BUILD_DIRECTORY_OPTIM: " + build_directory_optim);
+            logger::Warning("RESULTS_DIRECTORY: " + results_directory);
             throw std::invalid_argument("Could not read VSTRAP output forward");
         }
     }
@@ -32,22 +31,21 @@ unsigned int Input::ReadPlasmaStateForward(std::vector<std::vector<Particle> > &
 unsigned int Input::ReadPlasmaStateBackward(std::vector<std::vector<Particle> > &backward_particles, std::string file_name)
 {
     std::map<std::string, std::string> paths = this->get_DataProviderOptim().getPaths();
-    std::string BUILD_DIRECTORY_OPTIM = paths.find("BUILD_DIRECTORY_OPTIM")->second;
-    std::string RESULTS_DIRECTORY = paths.find("RESULTS_DIRECTORY")->second;
+    std::string build_directory_optim = MOTIONS::paths::build_directory_optim;
+    std::string results_directory = MOTIONS::paths::results_directory;
 
 
-    std::map<std::string, double> optimizationParameters = this->get_DataProviderOptim().getOptimizationParameters();
-    unsigned int ntimesteps_gp = static_cast<unsigned int>(optimizationParameters.find("ntimesteps_gp")->second);
-    unsigned int plasma_state_output_interval = static_cast<unsigned int>(optimizationParameters.find("plasma_state_output_interval")->second);
+    unsigned int ntimesteps_gp = MOTIONS::params::ntimesteps_gp;
+    unsigned int plasma_state_output_interval = MOTIONS::params::plasma_state_output_interval;
 
 
 #pragma omp parallel for
     for(unsigned int o = 1; o<=ntimesteps_gp; o++) {
         try {
-            backward_particles[ntimesteps_gp - o] = Input::ReadParticleVector(BUILD_DIRECTORY_OPTIM+RESULTS_DIRECTORY+file_name+std::to_string(o*plasma_state_output_interval)+".csv",",");
+            backward_particles[ntimesteps_gp - o] = Input::ReadParticleVector(build_directory_optim+results_directory+file_name+std::to_string(o*plasma_state_output_interval)+".csv",",");
         } catch (std::exception e) {
-            logger::Warning("BUILD_DIRECTORY_OPTIM: " + BUILD_DIRECTORY_OPTIM);
-            logger::Warning("RESULTS_DIRECTORY: " + RESULTS_DIRECTORY);
+            logger::Warning("BUILD_DIRECTORY_OPTIM: " + build_directory_optim);
+            logger::Warning("RESULTS_DIRECTORY: " + results_directory);
             throw std::invalid_argument("Could not read VSTRAP output backward");
         }
     }
