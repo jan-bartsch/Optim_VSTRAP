@@ -12,12 +12,12 @@ CoordinatePhaseSpaceTime::CoordinatePhaseSpaceTime(int cell_id, int vx, int vy, 
 
 std::string CoordinatePhaseSpaceTime::toString() const
 {
-    return "{" + std::to_string(time) + ", " + std::to_string(px) + ", "
-            + std::to_string(py) + ", "
-            + std::to_string(pz) + ", "
-            + std::to_string(vx) + ", "
-            + std::to_string(vy) + ", "
-            + std::to_string(vz) + "}";
+    return "{" + std::to_string(time_) + ", " + std::to_string(px_) + ", "
+            + std::to_string(py_) + ", "
+            + std::to_string(pz_) + ", "
+            + std::to_string(vx_) + ", "
+            + std::to_string(vy_) + ", "
+            + std::to_string(vz_) + "}";
 }
 
 bool CoordinatePhaseSpaceTime::operator==(const CoordinatePhaseSpaceTime &coordinate) const
@@ -43,80 +43,80 @@ CoordinatePhaseSpaceTime CoordinatePhaseSpaceTime::operator-(const CoordinatePha
 
 int CoordinatePhaseSpaceTime::getPx() const
 {
-    return px;
+    return px_;
 }
 
 int CoordinatePhaseSpaceTime::getPy() const
 {
-    return py;
+    return py_;
 }
 
 void CoordinatePhaseSpaceTime::setPy(int value)
 {
-    py = value;
+    py_ = value;
 }
 
 int CoordinatePhaseSpaceTime::getPz() const
 {
-    return pz;
+    return pz_;
 }
 
 int CoordinatePhaseSpaceTime::getVx() const
 {
-    return vx;
+    return vx_;
 }
 
 void CoordinatePhaseSpaceTime::setVx(int value)
 {
-    vx = value;
+    vx_ = value;
 }
 
 int CoordinatePhaseSpaceTime::getVy() const
 {
-    return vy;
+    return vy_;
 }
 
 void CoordinatePhaseSpaceTime::setVy(int value)
 {
-    vy = value;
+    vy_ = value;
 }
 
 int CoordinatePhaseSpaceTime::getVz() const
 {
-    return vz;
+    return vz_;
 }
 
 void CoordinatePhaseSpaceTime::setVz(int value)
 {
-    vz = value;
+    vz_ = value;
 }
 
 int CoordinatePhaseSpaceTime::getTime() const
 {
-    return time;
+    return time_;
 }
 
 void CoordinatePhaseSpaceTime::setTime(int value)
 {
-    time = value;
+    time_ = value;
 }
 
 int CoordinatePhaseSpaceTime::getCell_id() const
 {
-    return cell_id;
+    return cell_id_;
 }
 
 void CoordinatePhaseSpaceTime::setCell_id(int value)
 {
-    cell_id = value;
+    cell_id_ = value;
 }
 
 void CoordinatePhaseSpaceTime::setPz(int value)
 {
-    pz = value;
+    pz_ = value;
 }
 
 void CoordinatePhaseSpaceTime::setPx(int value)
 {
-    px = value;
+    px_ = value;
 }

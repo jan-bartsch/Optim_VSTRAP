@@ -2,17 +2,17 @@
 
 #include <cmath>
 
-Particle::Particle() { vx = 0.0; vy = 0.0; vz = 0.0; px = 0.0; py = 0.0; pz = 0.0;
+Particle::Particle() { vx_ = 0.0; vy_ = 0.0; vz_ = 0.0; px_ = 0.0; py_ = 0.0; pz_ = 0.0;
                        //timestep = 0.0;
-                       cell_id = -1; weight = 0.0; }
+                       cell_id_ = -1; weight_ = 0.0; }
 
 Particle::Particle(double vx, double vy, double vz) {
     Particle::setVx(vx);
     Particle::setVy(vy);
     Particle::setVz(vz);
     //particle::setTimestep(timestep);
-    px = 0.0; py = 0.0; pz = 0.0;
-    cell_id = -1; weight = 0.0;
+    px_ = 0.0; py_ = 0.0; pz_ = 0.0;
+    cell_id_ = -1; weight_ = 0.0;
 }
 
 Particle::Particle(double px, double py, double pz, double vx, double vy, double vz) {
@@ -22,8 +22,8 @@ Particle::Particle(double px, double py, double pz, double vx, double vy, double
     Particle::setVx(vx);
     Particle::setVy(vy);
     Particle::setVz(vz);
-    Particle::setWeight(weight);
-    cell_id = -1;
+    Particle::setWeight(weight_);
+    cell_id_ = -1;
 
 }
 
@@ -52,7 +52,7 @@ bool Particle::operator==(const Particle &particle) const
 }
 
 double Particle::getVelocityMagnitudeParticle() {
-    return sqrt(pow(vx,2.0)+pow(vy,2)+pow(vz,2.0));
+    return sqrt(pow(vx_,2.0)+pow(vy_,2)+pow(vz_,2.0));
 }
 
 std::string Particle::toString() {
@@ -60,35 +60,35 @@ std::string Particle::toString() {
             + " " + std::to_string(this->getVx()) + " " + std::to_string(this->getVy()) + " " + std::to_string(this->getVz());
 }
 
-double Particle::getPx() const {  return px; }
+double Particle::getPx() const {  return px_; }
 
-void Particle::setPx(double value) {  px = value; }
+void Particle::setPx(double value) {  px_ = value; }
 
-double Particle::getPy() const { return py;}
+double Particle::getPy() const { return py_;}
 
-void Particle::setPy(double value) {  py = value; }
+void Particle::setPy(double value) {  py_ = value; }
 
-double Particle::getPz() const {  return pz;}
+double Particle::getPz() const {  return pz_;}
 
-void Particle::setPz(double value) {  pz = value;}
+void Particle::setPz(double value) {  pz_ = value;}
 
-double Particle::getVx() const {   return vx;}
+double Particle::getVx() const {   return vx_;}
 
-void Particle::setVx(double value) { vx = value;}
+void Particle::setVx(double value) { vx_ = value;}
 
-double Particle::getVy() const {  return vy;}
+double Particle::getVy() const {  return vy_;}
 
-double Particle::getVz() const { return vz;}
+double Particle::getVz() const { return vz_;}
 
-void Particle::setVz(double value) {  vz = value;}
+void Particle::setVz(double value) {  vz_ = value;}
 
-void Particle::setVy(double value) {  vy = value;}
+void Particle::setVy(double value) {  vy_ = value;}
 
-int Particle::getCell_id() const { return cell_id; }
+int Particle::getCell_id() const { return cell_id_; }
 
-void Particle::setCell_id(int value) { cell_id = value; }
+void Particle::setCell_id(int value) { cell_id_ = value; }
 
-double Particle::getWeight() const { return weight; }
+double Particle::getWeight() const { return weight_; }
 
-void Particle::setWeight(double value) { weight = value; }
+void Particle::setWeight(double value) { weight_ = value; }
 

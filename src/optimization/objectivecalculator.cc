@@ -7,7 +7,7 @@ ObjectiveCalculator::ObjectiveCalculator(const char *filename)
     this->set_DataProviderOptim(DataProvider(filename));
 }
 
-double ObjectiveCalculator::CalculateObjective(std::vector<std::unordered_map<CoordinatePhaseSpaceTime, double> > forwardPDF_time, arma::mat control)
+double ObjectiveCalculator::CalculateObjective(std::vector<std::unordered_map<CoordinatePhaseSpaceTime, double> > &forwardPDF_time, arma::mat &control)
 {
 
     EquationSolvingController solver = EquationSolvingController();

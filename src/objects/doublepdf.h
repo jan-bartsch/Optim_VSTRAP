@@ -15,7 +15,7 @@ public:
     double &at(uint o, uint l, uint m, uint n);
 
 private:
-    std::vector<std::vector<std::vector<std::vector<double>>>> pdf_;
+    std::vector<std::vector<std::vector<std::vector<double> > > > pdf_;
 };
 
 #endif // DOUBLEPDF_H

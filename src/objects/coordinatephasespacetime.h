@@ -14,7 +14,7 @@ class CoordinatePhaseSpaceTime
 public:
     CoordinatePhaseSpaceTime();
 
-    CoordinatePhaseSpaceTime(int cell_id, int vx, int vy, int vz, int time);
+    CoordinatePhaseSpaceTime(int cell_id_, int vx_, int vy_, int vz_, int time_);
 
     std::string toString() const;
 
@@ -54,18 +54,18 @@ public:
 
 private:
     //positions
-    int px;
-    int py;
-    int pz;
+    int px_;
+    int py_;
+    int pz_;
 
-    int cell_id;
+    int cell_id_;
     //velocities
-    int vx;
-    int vy;
-    int vz;
+    int vx_;
+    int vy_;
+    int vz_;
 
     //time
-    int time;
+    int time_;
 
 };
 

@@ -44,9 +44,9 @@ public:
 
 private:
     std::map<std::string,std::string> paths_;
-    std::map<std::string,std::string> optimizationParameters;
-    std::map<std::string,std::string> subroutines;
-    std::map<int,std::vector<double>> mesh_barycenters;
+    std::map<std::string,std::string> optimizationParameters_;
+    std::map<std::string,std::string> subroutines_;
+    std::map<int,std::vector<double>> mesh_barycenters_;
 
 };
 

@@ -31,7 +31,7 @@ public:
     ObjectiveCalculator();
     ObjectiveCalculator(const char * filename);
 
-    double CalculateObjective(std::vector<std::unordered_map<CoordinatePhaseSpaceTime,double>> forwardPDF_time, arma::mat control);
+    double CalculateObjective(std::vector<std::unordered_map<CoordinatePhaseSpaceTime,double> > forwardPDF_time, arma::mat control);
 };
 
 #endif // OBJECTIVE_CALCULATOR_H

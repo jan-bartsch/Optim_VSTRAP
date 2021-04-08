@@ -23,7 +23,7 @@ public:
     void set_DataProviderOptim(const DataProvider &value);
 
 private:
-    DataProvider data_provider_optim;
+    DataProvider data_provider_optim_;
 };
 
 #endif // ABSTRACT_CONTROLLER_H

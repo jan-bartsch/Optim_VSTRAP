@@ -6,7 +6,7 @@ StepdirectionController::StepdirectionController(const char *filename)
 
 }
 
-arma::mat StepdirectionController::GetStepdirection(arma::mat gradient, arma::mat gradient_old, arma::mat stepdirection_old, unsigned int optimization_iteration)
+arma::mat StepdirectionController::GetStepdirection(arma::mat &gradient, arma::mat gradient_old, arma::mat &stepdirection_old, unsigned int &optimization_iteration)
 {
 
     std::map<std::string,std::string> subroutines = this->get_DataProviderOptim().getSubroutines();
@@ -50,7 +50,7 @@ arma::mat StepdirectionController::FixedGradientDescent(arma::mat gradient, unsi
     return -gradient;
 }
 
-arma::mat StepdirectionController::NcgSchemeFR(arma::mat gradient, arma::mat gradient_old, arma::mat stepdirection_old, unsigned int optimization_iteration)
+arma::mat StepdirectionController::NcgSchemeFR(arma::mat &gradient, arma::mat &gradient_old, arma::mat &stepdirection_old, unsigned int &optimization_iteration)
 {
     arma::mat stepdirection_new;
     InnerProducts pro = InnerProducts();
@@ -64,7 +64,7 @@ arma::mat StepdirectionController::NcgSchemeFR(arma::mat gradient, arma::mat gra
     return stepdirection_new;
 }
 
-arma::mat StepdirectionController::NcgSchemePR(arma::mat gradient, arma::mat gradient_old, arma::mat stepdirection_old, unsigned int optimization_iteration)
+arma::mat StepdirectionController::NcgSchemePR(arma::mat &gradient, arma::mat &gradient_old, arma::mat &stepdirection_old, unsigned int &optimization_iteration)
 {
     arma::mat stepdirection_new;
     double beta = arma::dot(gradient, gradient - gradient_old)/arma::dot(gradient_old,gradient_old);
@@ -74,7 +74,7 @@ arma::mat StepdirectionController::NcgSchemePR(arma::mat gradient, arma::mat gra
     return stepdirection_new;
 }
 
-arma::mat StepdirectionController::NcgSchemeHZ(arma::mat gradient, arma::mat gradient_old, arma::mat stepdirection_old, unsigned int optimization_iteration)
+arma::mat StepdirectionController::NcgSchemeHZ(arma::mat &gradient, arma::mat &gradient_old, arma::mat &stepdirection_old, unsigned int &optimization_iteration)
 {
     arma::mat stepdirection_new;
     arma::mat y = gradient-gradient_old;

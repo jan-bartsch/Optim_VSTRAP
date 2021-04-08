@@ -185,26 +185,26 @@ std::map<std::string, std::string> DataProvider::getPaths() const { return paths
 
 void DataProvider::setPaths(const std::map<std::string, std::string> &value) { paths_ = value; }
 
-std::map<std::string, std::string> DataProvider::getOptimizationParameters() const { return optimizationParameters; }
+std::map<std::string, std::string> DataProvider::getOptimizationParameters() const { return optimizationParameters_; }
 
-void DataProvider::setOptimizationParameters(const std::map<std::string, std::string> &value) { optimizationParameters = value; }
+void DataProvider::setOptimizationParameters(const std::map<std::string, std::string> &value) { optimizationParameters_ = value; }
 
 std::map<std::string, std::string> DataProvider::getSubroutines() const
 {
-    return subroutines;
+    return subroutines_;
 }
 
 void DataProvider::setSubroutines(const std::map<std::string, std::string> &value)
 {
-    subroutines = value;
+    subroutines_ = value;
 }
 
 std::map<int, std::vector<double> > DataProvider::getMeshBarycenters() const
 {
-    return mesh_barycenters;
+    return mesh_barycenters_;
 }
 
 void DataProvider::setMesh_barycenters(const std::map<int, std::vector<double> > &value)
 {
-    mesh_barycenters = value;
+    mesh_barycenters_ = value;
 }

@@ -16,9 +16,9 @@ public:
      */
     Particle();
 
-    Particle(double vx, double vy, double vz);
-    Particle(double px, double py, double pz, double vx, double vy, double vz);
-    Particle(double px, double py, double pz, double vx, double vy, double vz, int cell_id);
+    Particle(double vx_, double vy_, double vz_);
+    Particle(double px_, double py_, double pz_, double vx_, double vy_, double vz_);
+    Particle(double px_, double py_, double pz_, double vx_, double vy_, double vz_, int cell_id_);
 
     /**
      * @brief operator == overloads the compare operator. Two particles
@@ -62,16 +62,16 @@ public:
     void setWeight(double value);
 
 private:
-    double px;
-    double py;
-    double pz;
+    double px_;
+    double py_;
+    double pz_;
 
-    double vx;
-    double vy;
-    double vz;
+    double vx_;
+    double vy_;
+    double vz_;
 
-    int cell_id;
-    double weight;
+    int cell_id_;
+    double weight_;
 };
 
 #endif // PARTICLE_H
