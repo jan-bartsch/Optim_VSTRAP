@@ -45,16 +45,11 @@ int StepsizeController::ArmijoLinesearch(arma::mat &gradient, double J0,
     int return_flag = 0;
     std::ostringstream streamObj;
 
-    OutputControlUpdate outController = OutputControlUpdate();
-    outController.set_DataProviderOptim(this->get_DataProviderOptim());
-    ObjectiveCalculator objective = ObjectiveCalculator();
-    objective.set_DataProviderOptim(this->get_DataProviderOptim());
-    OutputDiagnostics outDiag = OutputDiagnostics();
-    outDiag.set_DataProviderOptim(this->get_DataProviderOptim());
-    PdfController pdf_control = PdfController();
-    pdf_control.set_DataProviderOptim(this->get_DataProviderOptim());
-    Input Input_control = Input();
-    Input_control.set_DataProviderOptim(this->get_DataProviderOptim());
+    OutputControlUpdate outController = OutputControlUpdate(input_data_);
+    ObjectiveCalculator objective = ObjectiveCalculator(input_data_);
+    OutputDiagnostics outDiag = OutputDiagnostics(input_data_);
+    PdfController pdf_control = PdfController(input_data_);
+    Input Input_control = Input(input_data_);
 
     double small_discr_sidelength = input_data_->small_discr_sidelength;
 
@@ -76,8 +71,7 @@ int StepsizeController::ArmijoLinesearch(arma::mat &gradient, double J0,
              arma::dot(stepdirection.col(2), stepdirection.col(2))) *
             small_discr_sidelength;
 
-    InnerProducts pro = InnerProducts();
-    pro.set_DataProviderOptim(this->get_DataProviderOptim());
+    InnerProducts pro = InnerProducts(input_data_);
     double scalarProduct_Hm = pro.H1InnerProduct(gradient, stepdirection);
 
     std::cout << "scalarProduct: " << scalarProduct << std::endl;
@@ -108,7 +102,7 @@ int StepsizeController::ArmijoLinesearch(arma::mat &gradient, double J0,
    */
     control = control0 + alpha * stepdirection;
     outController.WritecontrolXml(control);
-    outController.InterpolateControl();
+    outController.InterpolateControl(input_data_);
 
     forward_return = system(&start_vstrap_forward[0]);
 
@@ -138,7 +132,7 @@ int StepsizeController::ArmijoLinesearch(arma::mat &gradient, double J0,
 
         control = control0 + alpha * stepdirection;
         outController.WritecontrolXml(control0 + alpha * stepdirection);
-        outController.InterpolateControl();
+        outController.InterpolateControl(input_data_);
 
         forward_return = system(&start_vstrap_forward[0]);
 
@@ -173,7 +167,7 @@ int StepsizeController::ArmijoLinesearch(arma::mat &gradient, double J0,
         // Calculate with old control
         control = control0;
         outController.WritecontrolXml(control0);
-        outController.InterpolateControl();
+        outController.InterpolateControl(input_data_);
 
         forward_return = system(&start_vstrap_forward[0]);
         streamObj << input_data_->tolerance_gp;
@@ -185,7 +179,7 @@ int StepsizeController::ArmijoLinesearch(arma::mat &gradient, double J0,
     } else if (counter > input_data_->linesearchIteration_max_gp) {
         control = control0;
         outController.WritecontrolXml(control0);
-        outController.InterpolateControl();
+        outController.InterpolateControl(input_data_);
         logger::Info("Maximum interation depth ( " +
                      std::to_string(input_data_->linesearchIteration_max_gp) +
                      " ) reached without decrease!");
@@ -210,12 +204,9 @@ int StepsizeController::GradientDescent(arma::mat &control,
 
     int return_flag = 0;
 
-    OutputControlUpdate outController = OutputControlUpdate();
-    outController.set_DataProviderOptim(this->get_DataProviderOptim());
-    PdfController pdf_control = PdfController();
-    pdf_control.set_DataProviderOptim(this->get_DataProviderOptim());
-    Input Input_control = Input();
-    Input_control.set_DataProviderOptim(this->get_DataProviderOptim());
+    OutputControlUpdate outController = OutputControlUpdate(input_data_);
+    PdfController pdf_control = PdfController(input_data_);
+    Input Input_control = Input(input_data_);
 
     std::string start_vstrap_forward = input_data_->build_directory_vstrap + "vstrap" + " " +
             input_data_->path_to_shared_files + input_data_->input_forward;
@@ -242,7 +233,7 @@ int StepsizeController::GradientDescent(arma::mat &control,
         control = control0 + alpha / counter * input_data_->fixed_gradient_descent_stepsize * stepdirection /
                 arma::norm(stepdirection);
         outController.WritecontrolXml(control);
-        outController.InterpolateControl();
+        outController.InterpolateControl(input_data_);
 
         forward_return = system(&start_vstrap_forward[0]);
 

@@ -14,9 +14,10 @@ int main(int argc, const char **argv) {
 
 
   DataProvider provider = DataProvider(MOTIONS::InitializeMotions::GenerateInputPath(argc, argv));
-  //MOTIONS::InputData input_data = MOTIONS::InitializeMotions::Load_MOTIONS(provider) ;
+  MOTIONS::InputData input_data = MOTIONS::InitializeMotions::Load_MOTIONS(provider) ;
+  input_data.input_path_xml = MOTIONS::InitializeMotions::GenerateInputPath(argc, argv);
 
-  auto shared_input_data = std::make_shared<MOTIONS::InputData>(MOTIONS::InitializeMotions::Load_MOTIONS(provider));
+  auto shared_input_data = std::make_shared<MOTIONS::InputData>(input_data);
 
   int optim_flag = driver.StartOptimizer(shared_input_data);
 }

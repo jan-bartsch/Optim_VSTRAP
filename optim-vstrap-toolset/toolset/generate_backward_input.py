@@ -33,15 +33,15 @@ for p in paths.getElementsByTagName('path'):
 # backward input
 #####
 
-print("Creating file " + str(pathsList["PATH_TO_SHARED_FILES_ABSOLUTE"]) + str(pathsList["INPUT_BACKWARD"]))
-file_backward_input = open(str(pathsList["PATH_TO_SHARED_FILES_ABSOLUTE"]) + str(pathsList["INPUT_BACKWARD"]), 'w+')
+print("Creating file " + str(pathsList["path_to_shared_files_absolute"]) + str(pathsList["input_backward"]))
+file_backward_input = open(str(pathsList["path_to_shared_files_absolute"]) + str(pathsList["input_backward"]), 'w+')
 
 file_backward_input.write("<simulation>\n")
 file_backward_input.write("\t <global_values> \n \t\t <time_step value=\"" + str(params["dt_VSTRAP"]) + "\"/> \n \t </global_values> \n")
 file_backward_input.write("\t <abort_criterium> \n \t\t <max_itterations value=\"" + str(params["ntimesteps_gp_VSTRAP"]) + "\" /> \n \t </abort_criterium>\n")
 
-optim_vMesh = pathsList["DOMAIN_MESH"]
-optim_sMesh = pathsList["SURFACE_MESH"]
+optim_vMesh = pathsList["domain_mesh"]
+optim_sMesh = pathsList["surface_mesh"]
 #optim_vMesh = optim_vMesh.replace("../../Optim_VSTRAP/data/","../")
 
 file_backward_input.write("\t<executables>\n")
@@ -63,7 +63,7 @@ file_backward_input.write("\t\t\t <particle_group name=\"adjoint_particles\" typ
                           +"\" mass=\""+ str(params['adjoint_mass']) +"\" species=\""+str(params['adjoint_species'])+"\" /> \n")
 #file_backward_input.write("\t\t\t <particle_group name=\"adjoint_particles_electrons\" type=\"electrons\" number_density=\""+str(params['adjoint_number_density'])
 #                          +"\" weight=\""+str(params['adjoint_weight'])+"\" charge_number=\"-1\" mass=\"9.109e-31\" species=\"e-\" /> \n")
-file_backward_input.write("\t\t\t <load>"+str(pathsList["CREATION_ADJOINT_PARTCLES"])+"</load> \n \t\t </executable> \n")
+file_backward_input.write("\t\t\t <load>"+str(pathsList["creation_adjoint_partcles"])+"</load> \n \t\t </executable> \n")
 
 
 #########
@@ -86,7 +86,7 @@ file_backward_input.write("\t\t </executable> \n")
 
 
 file_backward_input.write("\t\t <executable name=\"bgf\" mode=\"CPU\"> \n \t\t\t<volume_mesh name=\"vol_mesh\"/>\n")
-file_backward_input.write("\t\t\t <load>./"+ str(pathsList["BGF_CONTROL"]) +"</load>\n  ")
+file_backward_input.write("\t\t\t <load>./"+ str(pathsList["bgf_control"]) +"</load>\n  ")
 file_backward_input.write("\t\t\t <particle_batch> \n \t\t\t\t <field name=\"interpolated_control_field\"/> \n \t\t\t\t <particle_group name=\"adjoint_particles\"/> \n \t\t\t </particle_batch>\n \t\t </executable>\n")
 
 file_backward_input.write("\t\t <executable name=\"pusher\" mode=\"CPU\" type=\"adjoint\">\n")

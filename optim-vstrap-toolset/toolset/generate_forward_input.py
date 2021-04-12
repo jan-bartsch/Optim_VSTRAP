@@ -33,15 +33,15 @@ for p in paths.getElementsByTagName('path'):
 # forward input
 #####
 
-print("Creating file " + str(pathsList["PATH_TO_SHARED_FILES_ABSOLUTE"]) + str(pathsList["INPUT_FORWARD"]))
-file_forward_input = open(str(pathsList["PATH_TO_SHARED_FILES_ABSOLUTE"]) + str(pathsList["INPUT_FORWARD"]), 'w+')
+print("Creating file " + str(pathsList["path_to_shared_files_absolute"]) + str(pathsList["input_forward"]))
+file_forward_input = open(str(pathsList["path_to_shared_files_absolute"]) + str(pathsList["input_forward"]), 'w+')
 
 file_forward_input.write("<simulation>\n")
 file_forward_input.write("\t <global_values> \n \t\t <time_step value=\"" + str(params["dt_VSTRAP"]) + "\"/> \n \t </global_values> \n")
 file_forward_input.write("\t <abort_criterium> \n \t\t <max_itterations value=\"" + str(params["ntimesteps_gp_VSTRAP"]) + "\" /> \n \t </abort_criterium>\n")
 
-optim_vMesh = pathsList["DOMAIN_MESH"]
-optim_sMesh = pathsList["SURFACE_MESH"]
+optim_vMesh = pathsList["domain_mesh"]
+optim_sMesh = pathsList["surface_mesh"]
 #optim_vMesh = optim_vMesh.replace("../../Optim_VSTRAP/data/","../")
 
 file_forward_input.write("\t <executables> \n \t \t <executable name=\"mesh_initializer\" mode=\"CPU\"> \n \t\t\t <mesh name=\"vol_mesh\">\n")
@@ -87,7 +87,7 @@ else:
 file_forward_input.write("\t\t </executable> \n")
 
 file_forward_input.write("\t\t <executable name=\"bgf\" mode=\"CPU\"> \n \t\t\t<volume_mesh name=\"vol_mesh\"/>\n")
-file_forward_input.write("\t\t\t <load>./"+ str(pathsList["BGF_CONTROL"]) +"</load>\n  ")
+file_forward_input.write("\t\t\t <load>./"+ str(pathsList["bgf_control"]) +"</load>\n  ")
 file_forward_input.write("\t\t\t <particle_batch> \n \t\t\t\t <field name=\"interpolated_control_field\"/> \n \t\t\t\t <particle_group name=\"forward_particles\"/> \n \t\t\t </particle_batch>\n \t\t </executable>\n")
 
 file_forward_input.write("\t\t <executable name=\"pusher\" mode=\"CPU\" type=\"forward\">\n")

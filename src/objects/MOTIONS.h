@@ -5,6 +5,8 @@
 
 #include "../objects/dataprovider.h"
 
+using uint = unsigned int;
+
 namespace MOTIONS {
 
 
@@ -39,13 +41,13 @@ struct InputData {
     double adjoint_weight;
     double adjoint_charge_number;
     double adjoint_mass;
-    double adjoint_species;
+    std::string adjoint_species;
     double expected_speed;
     double most_probable_speed;
 
     // MCC parameters
     double MCC_temperature;
-    double MCC_species;
+    std::string MCC_species;
     double MCC_mass;
     double MCC_fixed_number_density;
 
@@ -60,7 +62,7 @@ struct InputData {
     double weight_forward;
     double charge_number_forward;
     double mass_forward;
-    double species_forward;
+    std::string species_forward;
     double temperature_x_val;
     double temperature_y_val;
     double temperature_z_val;
@@ -136,6 +138,8 @@ struct InputData {
     double visalization_scaling;
     double fabs_tol_gp;
 
+    //PATHS
+
     std::string build_directory_vstrap;
     std::string build_directory_optim;
     std::string path_to_shared_files_absolute;
@@ -171,6 +175,9 @@ struct InputData {
     std::string direction_update;
     std::string desired_trajectory;
     std::string objective_calculation;
+
+    std::map<int, std::vector<double>> barycenters_list;
+    const char* input_path_xml;
 };
 
 class InitializeMotions {
@@ -181,6 +188,7 @@ public:
 
 private:
     static  MOTIONS::InputData LoadInputData(DataProvider &data_provider_opt);
+    static uint stringToUnsigendInt(std::string string);
 };
 
 

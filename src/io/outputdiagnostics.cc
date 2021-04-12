@@ -6,12 +6,9 @@ OutputDiagnostics::OutputDiagnostics(std::shared_ptr<MOTIONS::InputData> &input_
 
 int OutputDiagnostics::writeGradientMatrixToFile(arma::mat gradient,
                                                  std::string filename) {
-  std::map<std::string, std::string> paths =
-      this->get_DataProviderOptim().getPaths();
-  std::string RESULTS_DIRECTORY = paths.find("RESULTS_DIRECTORY")->second;
 
   std::ofstream outstream;
-  outstream.open(RESULTS_DIRECTORY + filename + ".csv",
+  outstream.open(input_data_->results_directory + filename + ".csv",
                  std::ios_base::app); // append instead of overwrite
   // outstream  << "g_x,g_y,g_z" << std::endl;
 
@@ -40,7 +37,7 @@ int OutputDiagnostics::WriteArmaMatrixToFile(arma::mat Input,
 
 int OutputDiagnostics::WriteDoubleToFile(double value, std::string filename) {
   std::ofstream outstream;
-  outstream.open(MOTIONS::InputData::results_directory + filename + ".txt",
+  outstream.open(input_data_->results_directory + filename + ".txt",
                  std::ios_base::app); // append instead of overwrite
   outstream << value << std::endl;
 
@@ -50,7 +47,7 @@ int OutputDiagnostics::WriteDoubleToFile(double value, std::string filename) {
 int OutputDiagnostics::WriteDoubleVectorToFile(std::vector<double> vector,
                                                std::string filename) {
   std::ofstream outstream;
-  outstream.open(MOTIONS::InputData::results_directory + filename + ".txt",
+  outstream.open(input_data_->results_directory  + filename + ".txt",
                  std::ios_base::app); // append instead of overwrite
   for (unsigned int i = 0; i < vector.size(); i++) {
     outstream << vector[i] << std::endl;

@@ -9,8 +9,9 @@ MOTIONS::InputData InitializeMotions::Load_MOTIONS(DataProvider &data_provider_o
     MOTIONS::InputData input;
     try {
         input = LoadInputData(data_provider_opt);
+        input.barycenters_list = data_provider_opt.getMeshBarycenters();
     } catch (std::exception e) {
-        std::cout << e.what() << std::endl;
+        std::cerr << "Error loading MOTION parameters" << std::endl;
     }
 
     return input;
@@ -64,10 +65,10 @@ InputData InitializeMotions::LoadInputData(DataProvider &data_provider_opt) {
             std::stod(optimizationParameters.at("armijo_descent_fraction"));
     input_data.calculation_functional =
             std::stoi(optimizationParameters.at("calculation_functional"));
-    input_data.C_theta = std::stod(optimizationParameters.at("C_theta"));
-    input_data.C_phi = std::stod(optimizationParameters.at("C_phi"));
-    input_data.sigma_x = std::stod(optimizationParameters.at("sigma_x"));
-    input_data.sigma_v = std::stod(optimizationParameters.at("sigma_v"));
+    input_data.C_theta = std::stod(optimizationParameters.at("C_theta_gp"));
+    input_data.C_phi = std::stod(optimizationParameters.at("C_phi_gp"));
+    input_data.sigma_x = std::stod(optimizationParameters.at("sigma_x_gp"));
+    input_data.sigma_v = std::stod(optimizationParameters.at("sigma_v_gp"));
 
     // create adjoint particles and trajectory
     input_data.adjoint_mu_x =
@@ -102,8 +103,7 @@ InputData InitializeMotions::LoadInputData(DataProvider &data_provider_opt) {
             std::stod(optimizationParameters.at("adjoint_charge_number"));
     input_data.adjoint_mass =
             std::stod(optimizationParameters.at("adjoint_mass"));
-    input_data.adjoint_species =
-            std::stod(optimizationParameters.at("adjoint_species"));
+    input_data.adjoint_species = optimizationParameters.at("adjoint_species");
     input_data.expected_speed =
             std::stod(optimizationParameters.at("expected_speed"));
     input_data.most_probable_speed =
@@ -112,8 +112,7 @@ InputData InitializeMotions::LoadInputData(DataProvider &data_provider_opt) {
     // MCC parameters
     input_data.MCC_temperature =
             std::stod(optimizationParameters.at("MCC_temperature"));
-    input_data.MCC_species =
-            std::stod(optimizationParameters.at("MCC_species"));
+    input_data.MCC_species = optimizationParameters.at("MCC_species");
     input_data.MCC_mass = std::stod(optimizationParameters.at("MCC_mass"));
     input_data.MCC_fixed_number_density =
             std::stod(optimizationParameters.at("MCC_fixed_number_density"));
@@ -131,8 +130,7 @@ InputData InitializeMotions::LoadInputData(DataProvider &data_provider_opt) {
             std::stod(optimizationParameters.at("charge_number_forward"));
     input_data.mass_forward =
             std::stod(optimizationParameters.at("mass_forward"));
-    input_data.species_forward =
-            std::stod(optimizationParameters.at("species_forward"));
+    input_data.species_forward = optimizationParameters.at("species_forward");
     input_data.temperature_x_val =
             std::stod(optimizationParameters.at("temperature_x_val"));
     input_data.temperature_y_val =
@@ -168,8 +166,7 @@ InputData InitializeMotions::LoadInputData(DataProvider &data_provider_opt) {
             std::stoi(optimizationParameters.at("charge_number_forward_inflow"));
     input_data.mass_forward_inflow =
             std::stod(optimizationParameters.at("mass_forward_inflow"));
-    input_data.species_forward_inflow =
-            optimizationParameters.at("species_forward_inflow");
+    input_data.species_forward_inflow = optimizationParameters.at("species_forward_inflow");
     input_data.temperature_x_val_inflow =
             std::stod(optimizationParameters.at("temperature_x_val_inflow"));
     input_data.temperature_y_val_inflow =
@@ -188,7 +185,7 @@ InputData InitializeMotions::LoadInputData(DataProvider &data_provider_opt) {
             std::stod(optimizationParameters.at("fixed_gradient_descent_stepsize"));
     input_data.fraction_of_optimal_control =
             std::stod(optimizationParameters.at("fraction_of_optimal_control"));
-    static unsigned int optimization_iteration_max;
+   input_data.optimization_iteration_max = MOTIONS::InitializeMotions::stringToUnsigendInt(optimizationParameters.at("optimizationIteration_max_gp"));
     input_data.linesearchIteration_max_gp =
             std::stoi(optimizationParameters.at("linesearchIteration_max_gp"));
     input_data.numberParticles_gp =
@@ -208,26 +205,25 @@ InputData InitializeMotions::LoadInputData(DataProvider &data_provider_opt) {
     input_data.position_max_gp =
             std::stod(optimizationParameters.at("position_max_gp"));
 
-    static unsigned int number_cells_position;
+    input_data.number_cells_position = MOTIONS::InitializeMotions::stringToUnsigendInt(optimizationParameters.at("number_cells_position"));
     input_data.small_discr_volume =
             std::stod(optimizationParameters.at("small_discr_volume"));
     input_data.small_discr_sidelength =
             std::stod(optimizationParameters.at("small_discr_sidelength"));
-    static unsigned int dimension_control;
-    static unsigned int end_control_gp;
-    static unsigned int start_control_gp;
+  input_data.dimension_control = MOTIONS::InitializeMotions::stringToUnsigendInt(optimizationParameters.at("dimensionOfControl_gp"));
+   input_data.end_control_gp = MOTIONS::InitializeMotions::stringToUnsigendInt(optimizationParameters.at("end_control_gp"));
+   input_data.start_control_gp = MOTIONS::InitializeMotions::stringToUnsigendInt(optimizationParameters.at("start_control_gp"));
 
     input_data.dt_gp = std::stod(optimizationParameters.at("dt_gp"));
     input_data.dt_VSTRAP =
             std::stod(optimizationParameters.at("dt_VSTRAP"));
-    static unsigned int ntimesteps_gp;
+    input_data.ntimesteps_gp = MOTIONS::InitializeMotions::stringToUnsigendInt(optimizationParameters.at("ntimesteps_gp"));
     input_data.plasma_state_output_interval =
             std::stoi(optimizationParameters.at("plasma_state_output_interval"));
-    static unsigned int
-            ntimesteps_gp_VSTRAP; // ntimesteps_gp*plasma_state_output_interval -->
+    input_data.ntimesteps_gp_VSTRAP = MOTIONS::InitializeMotions::stringToUnsigendInt(optimizationParameters.at("ntimesteps_gp_VSTRAP")) ; // ntimesteps_gp*plasma_state_output_interval -->
 
     input_data.dv_gp = std::stod(optimizationParameters.at("dv_gp"));
-    static unsigned int vcell_gp;
+    input_data.vcell_gp = MOTIONS::InitializeMotions::stringToUnsigendInt(optimizationParameters.at("vcell_gp"));
     input_data.vmax_gp = std::stod(optimizationParameters.at("vmax_gp"));
 
     input_data.fraction_fast_particles_gp =
@@ -295,6 +291,17 @@ InputData InitializeMotions::LoadInputData(DataProvider &data_provider_opt) {
             subroutines.at("objective_calculation");
 
     return input_data;
+}
+
+uint InitializeMotions::stringToUnsigendInt(std::string string)
+{
+    int integer = std::stoi(string);
+
+    if(integer>= 0) {
+        return static_cast<uint>(integer);
+    } else {
+        throw std::invalid_argument("Invalid argument for converting string to uint");
+    }
 }
 
 }

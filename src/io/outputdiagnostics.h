@@ -14,7 +14,7 @@
  */
 class OutputDiagnostics : public AbstractController {
 public:
-  OutputDiagnostics();
+  OutputDiagnostics(std::shared_ptr<MOTIONS::InputData> &input_data);
 
   int writeGradientMatrixToFile(arma::mat gradient, std::string filename);
 

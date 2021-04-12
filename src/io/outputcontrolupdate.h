@@ -26,7 +26,7 @@ public:
    */
   int WritecontrolXml(arma::mat control);
 
-  static int InterpolateControl();
+  static int InterpolateControl(std::shared_ptr<MOTIONS::InputData> &input_data);
 };
 
 #endif // OUTPUT_CONTROL_UPDATE_H

@@ -8,13 +8,10 @@ double ObjectiveCalculator::CalculateObjective(std::vector<std::unordered_map<Co
         &forwardPDF_time,
     arma::mat control) {
 
-  EquationSolvingController solver = EquationSolvingController();
-  solver.set_DataProviderOptim(this->get_DataProviderOptim());
-  Input in = Input();
-  in.set_DataProviderOptim(this->get_DataProviderOptim());
+  EquationSolvingController solver = EquationSolvingController(input_data_);
+  Input in = Input(input_data_);
   DesiredTrajectoryController trajectory_controller =
-      DesiredTrajectoryController();
-  trajectory_controller.set_DataProviderOptim(this->get_DataProviderOptim());
+      DesiredTrajectoryController(input_data_);
 
   unsigned int number_cells_position = input_data_->number_cells_position;
   double vmax_gp = input_data_->vmax_gp;
@@ -31,8 +28,7 @@ double ObjectiveCalculator::CalculateObjective(std::vector<std::unordered_map<Co
   static arma::vec velocityDiscr_gp =
       arma::linspace<arma::vec>(-vmax_gp, vmax_gp, vcell_gp);
 
-  std::map<int, std::vector<double>> baryc =
-      trajectory_controller.get_DataProviderOptim().getMeshBarycenters();
+  std::map<int, std::vector<double>> baryc = input_data_->barycenters_list;
 
   // std::cout << baryc.at(0)[0] << std::endl;
 
@@ -81,12 +77,8 @@ double ObjectiveCalculator::CalculateObjective(std::vector<std::unordered_map<Co
   /*
    * Add tracking integral using first-order(?) RULE
    */
-
-  std::map<std::string, std::string> subroutines =
-      this->get_DataProviderOptim().getSubroutines();
-  std::string desired_traj = subroutines.find("desired_trajectory")->second;
-  std::string objective_calculation =
-      subroutines.find("objective_calculation")->second;
+  std::string desired_traj = input_data_->desired_trajectory;
+  std::string objective_calculation = input_data_-> objective_calculation;
 
   std::cout << "Using <" << desired_traj << "> for desired trajectory"
             << std::endl;
@@ -201,16 +193,7 @@ double ObjectiveCalculator::CalculateObjective(std::vector<std::unordered_map<Co
     objective += objective_time[o];
   }
 
-  // add control, no trapezodial rule needed since control is zero at the
-  // boundary (?) std::cout << control << std::endl;
-  //    costOfControl
-  //    += 1.0/2.0*arma::norm(control.rows(start_control-1,end_control-1),"fro")*arma::norm(control.rows(start_control-1,end_control-1),"fro")*pow(small_discr_volume,1.0);
-
-  //    arma::mat second_derivative = solver.Laplacian_3D();
-  //    costOfControl +=
-  //    arma::accu(second_derivative*control.rows(start_control-1,end_control-1))/(small_discr_sidelength*small_discr_sidelength)*small_discr_volume;
-  InnerProducts product = InnerProducts();
-  product.set_DataProviderOptim(this->get_DataProviderOptim());
+  InnerProducts product = InnerProducts(input_data_);
 
   costOfControl += std::sqrt(product.H2InnerProduct(control, control));
 

@@ -112,7 +112,7 @@ public:
    * @param provider
    * @return
    */
-  static int ParaviewPlotForward();
+  static int ParaviewPlotForward(std::shared_ptr<MOTIONS::InputData> &input_data);
 };
 
 #endif // OPTIM_CONTROLLER_H

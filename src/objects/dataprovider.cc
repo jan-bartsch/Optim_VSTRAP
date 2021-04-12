@@ -8,7 +8,7 @@ DataProvider::DataProvider(const char *filename) {
   this->setSubroutines(this->ReadSubroutines(filename));
   try {
     std::string barycenter_mesh_path =
-        this->getPaths().find("BARYCENTERS_MESH")->second;
+        this->getPaths().find("barycenters_mesh")->second;
     this->setMesh_barycenters(
         this->ReadMeshBarycenters(&barycenter_mesh_path[0]));
   } catch (std::exception e) {

@@ -5,13 +5,11 @@ Calculus::Calculus(std::shared_ptr<MOTIONS::InputData> &input_data) {
 }
 
 double Calculus::DivergenceVector(arma::mat &Input) {
-  DataProvider optim_provider = this->get_DataProviderOptim();
 
   double small_discr_sidelength = input_data_->small_discr_sidelength;
   double small_discr_volume = input_data_->small_discr_volume;
 
-  EquationSolvingController solver = EquationSolvingController();
-  solver.set_DataProviderOptim(optim_provider);
+  EquationSolvingController solver = EquationSolvingController(input_data_);
 
   arma::mat D1X1 = solver.D1x1SecondOrder();
   arma::mat D1X2 = solver.D1x2SecondOrder();

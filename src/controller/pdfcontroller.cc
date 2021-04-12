@@ -333,8 +333,7 @@ double PdfController::CalculateWassersteinMetricHistogramm(
   // double vmax_gp = MOTIONS::params::vmax_gp;
   uint number_cells_position = input_data_->number_cells_position;
 
-  std::map<int, std::vector<double>> barycenters =
-      this->get_DataProviderOptim().getMeshBarycenters();
+ std::map<int, std::vector<double>> barycenters = input_data_->barycenters_list;
 
 #pragma omp parallel for
   for (uint o = 0; o < input_data_->ntimesteps_gp; o++) {

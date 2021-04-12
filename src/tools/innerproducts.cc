@@ -29,8 +29,7 @@ double InnerProducts::L2InnerProduct(arma::mat m1, arma::mat m2) {
 }
 
 double InnerProducts::H1InnerProduct(arma::mat m1, arma::mat m2) {
-  EquationSolvingController solver = EquationSolvingController();
-  solver.set_DataProviderOptim(this->get_DataProviderOptim());
+  EquationSolvingController solver = EquationSolvingController(input_data_);
 
   arma::mat D1 = solver.D1SecondOrder();
 
@@ -74,8 +73,7 @@ double InnerProducts::H1InnerProduct(arma::mat m1, arma::mat m2) {
 }
 
 double InnerProducts::H2InnerProduct(arma::mat m1, arma::mat m2) {
-  EquationSolvingController solver = EquationSolvingController();
-  solver.set_DataProviderOptim(this->get_DataProviderOptim());
+  EquationSolvingController solver = EquationSolvingController(input_data_);
 
   arma::mat D2 = solver.Laplacian3D();
 

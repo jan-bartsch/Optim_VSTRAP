@@ -11,46 +11,11 @@ arma::mat GradientCalculator::CalculategradientForcecontrolSpaceHmNotParallel(
         backwardPDF_time,
     arma::mat control) {
 
-  std::map<int, std::vector<double>> barycenters =
-      this->get_DataProviderOptim().getMeshBarycenters();
+  std::map<int, std::vector<double>> barycenters = input_data_->barycenters_list;
 
-  PdfController pdf_control = PdfController();
-  pdf_control.set_DataProviderOptim(this->get_DataProviderOptim());
-  EquationSolvingController model_solver = EquationSolvingController();
-  model_solver.set_DataProviderOptim(this->get_DataProviderOptim());
-  OutputDiagnostics outDiag = OutputDiagnostics();
-  outDiag.set_DataProviderOptim(this->get_DataProviderOptim());
-
-  /*unsigned int number_cells_position = static_cast<unsigned
-  int>(optimizationParameters.find("number_cells_position")->second); unsigned
-  int vcell_gp = static_cast<unsigned
-  int>(optimizationParameters.find("vcell_gp")->second); unsigned int
-  ntimesteps_gp = static_cast<unsigned
-  int>(optimizationParameters.find("ntimesteps_gp")->second); unsigned int
-  dimensionOfControl_gp = static_cast<unsigned
-  int>(optimizationParameters.find("dimensionOfControl_gp")->second); double
-  dv_gp = static_cast<double>(optimizationParameters.find("dv_gp")->second);
-  double dt_gp =
-  static_cast<double>(optimizationParameters.find("dt_gp")->second); double
-  small_discr_sidelength =
-  static_cast<double>(optimizationParameters.find("small_discr_sidelength")->second);
-  double weight_control_gp =
-  static_cast<double>(optimizationParameters.find("weight_control_gp")->second);
-  double local_control_x_min_gp =
-  static_cast<double>(optimizationParameters.find("local_control_x_min_gp")->second);
-  double local_control_x_max_gp =
-  static_cast<double>(optimizationParameters.find("local_control_x_max_gp")->second);
-
-  unsigned long start_control = static_cast<unsigned
-  long>(optimizationParameters.find("start_control_gp")->second); unsigned long
-  end_control = static_cast<unsigned
-  long>(optimizationParameters.find("end_control_gp")->second);
-
-  int magnetic_force =
-  static_cast<int>(optimizationParameters.find("magnetic_force")->second); int
-  electric_force =
-  static_cast<int>(optimizationParameters.find("electric_force")->second);
-  */
+  PdfController pdf_control = PdfController(input_data_);
+  EquationSolvingController model_solver = EquationSolvingController(input_data_);
+  OutputDiagnostics outDiag = OutputDiagnostics(input_data_);
 
   if (input_data_->magnetic_force == 1 &&
       input_data_->electric_force == 1) {
@@ -95,18 +60,7 @@ arma::mat GradientCalculator::CalculategradientForcecontrolSpaceHmNotParallel(
           DoublePDF(input_data_->ntimesteps_gp, input_data_->vcell_gp);
       DoublePDF backwardPDFdouble =
           DoublePDF(input_data_->ntimesteps_gp, input_data_->vcell_gp);
-      /*std::vector<std::vector<std::vector<std::vector<double>>>>
-      forwardPDFdouble(ntimesteps_gp,
-      std::vector<std::vector<std::vector<double>>> (vcell_gp,
-      std::vector<std::vector<double>> (vcell_gp, std::vector<double>
-      (vcell_gp,0.0))));
-      std::vector<std::vector<std::vector<std::vector<double>>>>
-      backwardPDFdouble(ntimesteps_gp,
-      std::vector<std::vector<std::vector<double>>> (vcell_gp,
-      std::vector<std::vector<double>> (vcell_gp, std::vector<double>
-      (vcell_gp,0.0))));
 
-                                                                                   */
       double firstDerivativeForwardPDF_V1_current,
           firstDerivativeForwardPDF_V2_current,
           firstDerivativeForwardPDF_V3_current;
@@ -223,6 +177,8 @@ arma::mat GradientCalculator::CalculategradientForcecontrolSpaceHmNotParallel(
                      velocity_Discr[l] * firstDerivativeForwardPDF_V2_current) *
                     pow(dv_gp, 3.0) * pow(dt_gp, 1.0);
               }
+
+
             }
           }
         }
@@ -230,18 +186,19 @@ arma::mat GradientCalculator::CalculategradientForcecontrolSpaceHmNotParallel(
     } else {
       std::cout << "Cell_id " << i << ": Gradient stays zero here" << std::endl;
     }
+    std::cout << gradient(i-1,0) << std::endl;
   }
 
   /*
    * Assemble gradient
    */
 
-  //    std::cout << "Gradient:" << std::endl;
-  //    std::cout << gradient << std::endl;
+  std::cout << "Gradient:" << std::endl;
+  std::cout << gradient << std::endl;
 
-  for (unsigned long j = 0; j < input_data_->number_cells_position; j++) {
-    if (j > input_data_->start_control_gp - 2 &&
-        j < input_data_->end_control_gp) {
+  for ( int j = 0; j < input_data_->number_cells_position; j++) {
+    if (j > static_cast<int>(input_data_->start_control_gp) - 2 &&
+        j < static_cast<int>(input_data_->end_control_gp)) {
       rhs_Riesz(j - input_data_->start_control_gp + 1, 0) = gradient(j, 0);
       rhs_Riesz(j - input_data_->start_control_gp + 1, 1) = gradient(j, 1);
       rhs_Riesz(j - input_data_->start_control_gp + 1, 2) = gradient(j, 2);
@@ -309,49 +266,12 @@ arma::mat GradientCalculator::CalculategradientForcecontrolSpaceHm(
         backwardPDF_time,
     arma::mat control) {
 
-  std::map<int, std::vector<double>> barycenters =
-      this->get_DataProviderOptim().getMeshBarycenters();
+  std::map<int, std::vector<double>> barycenters = input_data_->barycenters_list;
 
-  PdfController pdf_control = PdfController();
-  pdf_control.set_DataProviderOptim(this->get_DataProviderOptim());
-  EquationSolvingController model_solver = EquationSolvingController();
-  model_solver.set_DataProviderOptim(this->get_DataProviderOptim());
-  OutputDiagnostics outDiag = OutputDiagnostics();
-  outDiag.set_DataProviderOptim(this->get_DataProviderOptim());
+  PdfController pdf_control = PdfController(input_data_);
+  EquationSolvingController model_solver = EquationSolvingController(input_data_);
+  OutputDiagnostics outDiag = OutputDiagnostics(input_data_);
 
-  /*
-  unsigned int number_cells_position = static_cast<unsigned
-  int>(optimizationParameters.find("number_cells_position")->second); unsigned
-  int vcell_gp = static_cast<unsigned
-  int>(optimizationParameters.find("vcell_gp")->second); unsigned int
-  ntimesteps_gp = static_cast<unsigned
-  int>(optimizationParameters.find("ntimesteps_gp")->second); unsigned int
-  dimensionOfControl_gp = static_cast<unsigned
-  int>(optimizationParameters.find("dimensionOfControl_gp")->second); double
-  dv_gp = static_cast<double>(optimizationParameters.find("dv_gp")->second);
-  double dt_gp =
-  static_cast<double>(optimizationParameters.find("dt_gp")->second); double
-  small_discr_sidelength =
-  static_cast<double>(optimizationParameters.find("small_discr_sidelength")->second);
-  double vmax_gp =
-  static_cast<double>(optimizationParameters.find("vmax_gp")->second); double
-  weight_control_gp =
-  static_cast<double>(optimizationParameters.find("weight_control_gp")->second);
-  double local_control_x_min_gp =
-  static_cast<double>(optimizationParameters.find("local_control_x_min_gp")->second);
-  double local_control_x_max_gp =
-  static_cast<double>(optimizationParameters.find("local_control_x_max_gp")->second);
-
-  unsigned long start_control = static_cast<unsigned
-  long>(optimizationParameters.find("start_control_gp")->second); unsigned long
-  end_control = static_cast<unsigned
-  long>(optimizationParameters.find("end_control_gp")->second);
-
-  int magnetic_force =
-  static_cast<int>(optimizationParameters.find("magnetic_force")->second); int
-  electric_force =
-  static_cast<int>(optimizationParameters.find("electric_force")->second);
-  */
 
   if (input_data_->magnetic_force == 1 &&
       input_data_->electric_force == 1) {
@@ -399,18 +319,7 @@ arma::mat GradientCalculator::CalculategradientForcecontrolSpaceHm(
           DoublePDF(input_data_->ntimesteps_gp, input_data_->vcell_gp);
       DoublePDF backwardPDFdouble =
           DoublePDF(input_data_->ntimesteps_gp, input_data_->vcell_gp);
-      /*
-      std::vector<std::vector<std::vector<std::vector<double>>>>
-      forwardPDFdouble(ntimesteps_gp,
-      std::vector<std::vector<std::vector<double>>> (vcell_gp,
-      std::vector<std::vector<double>> (vcell_gp, std::vector<double>
-      (vcell_gp,0.0))));
-      std::vector<std::vector<std::vector<std::vector<double>>>>
-      backwardPDFdouble(ntimesteps_gp,
-      std::vector<std::vector<std::vector<double>>> (vcell_gp,
-      std::vector<std::vector<double>> (vcell_gp, std::vector<double>
-      (vcell_gp,0.0))));
-          */
+
       double firstDerivativeForwardPDF_V1_current = 0.0;
       double firstDerivativeForwardPDF_V2_current = 0.0;
       double firstDerivativeForwardPDF_V3_current = 0.0;
@@ -570,7 +479,7 @@ arma::mat GradientCalculator::CalculategradientForcecontrolSpaceHm(
     }
   }
 
-  // std::cout << "rhs_Riesz:" << std::endl;
+  std::cout << "rhs_Riesz:" << std::endl;
   std::cout << rhs_Riesz << std::endl;
 
   // std::cout << "Riesz Matrix" << std::endl;
@@ -581,7 +490,7 @@ arma::mat GradientCalculator::CalculategradientForcecontrolSpaceHm(
        1.0 / (pow(input_data_->small_discr_sidelength, 2)) * Laplace +
        1.0 / (pow(input_data_->small_discr_sidelength, 4)) *
            Laplace_Squared);
-  // std::cout << Riesz << std::endl;
+  //std::cout << Riesz << std::endl;
   outDiag.WriteArmaMatrixToFile(Riesz, "RiesMatrix");
   // std::cout << "Condition number Matrix Riesz: " << arma::cond(Riesz) <<
   // std::endl;

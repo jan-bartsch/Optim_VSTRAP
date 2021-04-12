@@ -40,7 +40,7 @@ int OptimController::MainOptimizationAlgorithm(std::shared_ptr<MOTIONS::InputDat
 
   PdfController pdf_control = PdfController(input_data);
   Input Input_control = Input(input_data);
-  OutputDiagnostics outDiag = OutputDiagnostics();
+  OutputDiagnostics outDiag = OutputDiagnostics(input_data);
 
   EquationSolvingController model_solver = EquationSolvingController(input_data);
 
@@ -175,12 +175,14 @@ int OptimController::MainOptimizationAlgorithm(std::shared_ptr<MOTIONS::InputDat
 
     logger::Info("Building gradient...");
     if (simulating_plasma == 1) {
-      gradient =
+      /*gradient =
           gradient_calculator_opt.CalculategradientForcecontrolSpaceHmPlasma(
               forwardPDF, backwardPDF, forwardPDF_electrons,
               backwardPDF_electrons, control);
+              */
+        throw std::invalid_argument("Plasma gradient not defined");
     } else {
-      gradient = gradient_calculator_opt.CalculategradientForcecontrolSpaceHm(
+      gradient = gradient_calculator_opt.CalculategradientForcecontrolSpaceHmNotParallel(
           forwardPDF, backwardPDF, control);
     }
     outDiag.WriteDoubleToFile(arma::norm(gradient, "fro"), "normGradientTrack");
@@ -278,12 +280,12 @@ int OptimController::MainOptimizationAlgorithm(std::shared_ptr<MOTIONS::InputDat
 
     outController.WritecontrolXml(control);
     outDiag.WriteDoubleToFile(arma::norm(control, "fro"), "normControlTrack");
-    outController.InterpolateControl();
+    outController.InterpolateControl(input_data);
 
     logger::Info("Starting post_processing");
     PostProcessingConvergence(input_data);
     VisualizeControl(input_data);
-    ParaviewPlotForward();
+    ParaviewPlotForward(input_data);
 
     logger::Info("Starting " + std::to_string(r + 1) + " iteration");
   }
@@ -304,7 +306,7 @@ int OptimController::Initialize(std::shared_ptr<MOTIONS::InputData> &input_data,
     std::cout << control << std::endl;
   } else if (zero_control == 2) {
     logger::Info("Starting with zero control but not deleting old files");
-    outController.InterpolateControl();
+    outController.InterpolateControl(input_data);
     outController.WritecontrolXml(control);
   } else {
     logger::Info("Starting without control_field_cells");
@@ -338,7 +340,7 @@ arma::mat OptimController::StartWithZeroControl(std::shared_ptr<MOTIONS::InputDa
   system(&COMMAND_MKDIR_RESULTS[0]);
   logger::Info("Starting with zero control");
   outController.WritecontrolXml(control);
-  outController.InterpolateControl();
+  outController.InterpolateControl(input_data);
 
   return control;
 }
@@ -360,7 +362,7 @@ arma::mat OptimController::StartWithGivenControl(std::shared_ptr<MOTIONS::InputD
       in.ReadControl(&read_control[0], input_data->number_cells_position);
   outController.WritecontrolXml(input_data->fraction_of_optimal_control *
                                 control);
-  outController.InterpolateControl();
+  outController.InterpolateControl(input_data);
 
   return control;
 }
@@ -369,15 +371,17 @@ int OptimController::GenerateInputFiles(std::shared_ptr<MOTIONS::InputData> &inp
   std::string path_to_shared_files_absolute =
       input_data->path_to_shared_files_absolute;
   std::string directory_toolset = input_data->directory_toolset;
+  const char* input_xml_path = input_data->input_path_xml;
+
 
   std::string generation_string = "python3 " + directory_toolset +
-                                  "generate_forward_Input.py" + " " +
-                                  &Input_xml_path[0];
+                                  "generate_forward_input.py" + " " +
+                                  &input_xml_path[0];
   generation_string += " && python3 " + directory_toolset +
-                       "generate_backward_Input.py" + " " + &Input_xml_path[0];
+                       "generate_backward_input.py" + " " + &input_xml_path[0];
   generation_string += " && python3 " + directory_toolset +
                        "generate_adjoint_particle_creation.py" + " " +
-                       &Input_xml_path[0] + " " + path_to_shared_files_absolute;
+                       &input_xml_path[0] + " " + path_to_shared_files_absolute;
   logger::Info("Running " + generation_string);
   system(&generation_string[0]);
 
@@ -427,7 +431,7 @@ int OptimController::VisualizeControl(std::shared_ptr<MOTIONS::InputData> &input
   return 0;
 }
 
-int OptimController::ParaviewPlotForward() {
+int OptimController::ParaviewPlotForward(std::shared_ptr<MOTIONS::InputData> &input_data) {
   std::string paraview_animation =
       "cd results && mkdir -p animation && cd animation && " +
       input_data->pvpython_absolute_dir + " ../../" +

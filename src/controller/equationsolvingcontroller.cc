@@ -16,8 +16,7 @@ int EquationSolvingController::StartSolvingBackward(
 arma::mat EquationSolvingController::D1SecondOrder() {
   Comparator comp = Comparator();
 
-  std::map<int, std::vector<double>> barycenters =
-      this->get_DataProviderOptim().getMeshBarycenters();
+   std::map<int, std::vector<double>> barycenters = input_data_->barycenters_list;
 
   unsigned int dimension_control = input_data_->dimension_control; // input_data_->dimension_control;
   double small_discr_sidelength = input_data_->small_discr_sidelength;
@@ -134,8 +133,7 @@ arma::mat EquationSolvingController::D1SecondOrder() {
 arma::mat EquationSolvingController::D1Forward() {
   Comparator comp = Comparator();
 
-  std::map<int, std::vector<double>> barycenters =
-      this->get_DataProviderOptim().getMeshBarycenters();
+   std::map<int, std::vector<double>> barycenters = input_data_->barycenters_list;
 
   uint dimension_control = input_data_->dimension_control;
   double small_discr_sidelength = input_data_->small_discr_sidelength;
@@ -236,8 +234,7 @@ arma::mat EquationSolvingController::D1Forward() {
 arma::mat EquationSolvingController::D1Backward() {
   Comparator comp = Comparator();
 
-  std::map<int, std::vector<double>> barycenters =
-      this->get_DataProviderOptim().getMeshBarycenters();
+   std::map<int, std::vector<double>> barycenters = input_data_->barycenters_list;
 
   uint dimension_control = input_data_->dimension_control;
   double small_discr_sidelength = input_data_->small_discr_sidelength;
@@ -337,8 +334,7 @@ arma::mat EquationSolvingController::D1Backward() {
 
 arma::mat EquationSolvingController::Laplacian3D() {
   Comparator comp = Comparator();
-  std::map<int, std::vector<double>> barycenters =
-      this->get_DataProviderOptim().getMeshBarycenters();
+  std::map<int, std::vector<double>> barycenters = input_data_->barycenters_list;
 
   uint dimension_control = input_data_->dimension_control;
   double small_discr_sidelength = input_data_->small_discr_sidelength;
@@ -423,8 +419,7 @@ arma::mat EquationSolvingController::Laplacian3D() {
 
 arma::mat EquationSolvingController::LaplacianSquared3D() {
   Comparator comp = Comparator();
-  std::map<int, std::vector<double>> barycenters =
-      this->get_DataProviderOptim().getMeshBarycenters();
+  std::map<int, std::vector<double>> barycenters = input_data_->barycenters_list;
 
   uint dimension_control = input_data_->dimension_control;
   double small_discr_sidelength = input_data_->small_discr_sidelength;
@@ -548,8 +543,7 @@ arma::mat EquationSolvingController::LaplacianSquared3D() {
 
 arma::mat EquationSolvingController::D1x1SecondOrder() {
   Comparator comp = Comparator();
-  std::map<int, std::vector<double>> barycenters =
-      this->get_DataProviderOptim().getMeshBarycenters();
+  std::map<int, std::vector<double>> barycenters = input_data_->barycenters_list;
 
   uint dimension_control = input_data_->dimension_control;
   double small_discr_sidelength = input_data_->small_discr_sidelength;
@@ -612,9 +606,7 @@ arma::mat EquationSolvingController::D1x1SecondOrder() {
 
 arma::mat EquationSolvingController::D1x2SecondOrder() {
   Comparator comp = Comparator();
-  std::map<int, std::vector<double>> barycenters =
-      this->get_DataProviderOptim().getMeshBarycenters();
-
+   std::map<int, std::vector<double>> barycenters = input_data_->barycenters_list;
   uint dimension_control = input_data_->dimension_control;
   double small_discr_sidelength = input_data_->small_discr_sidelength;
   double position_max_gp = input_data_->position_max_gp;
@@ -676,8 +668,8 @@ arma::mat EquationSolvingController::D1x2SecondOrder() {
 
 arma::mat EquationSolvingController::D1x3SecondOrder() {
   Comparator comp = Comparator();
-  std::map<int, std::vector<double>> barycenters =
-      this->get_DataProviderOptim().getMeshBarycenters();
+
+   std::map<int, std::vector<double>> barycenters = input_data_->barycenters_list;
 
   uint dimension_control = input_data_->dimension_control;
   double small_discr_sidelength = input_data_->small_discr_sidelength;

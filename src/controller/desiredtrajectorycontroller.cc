@@ -46,7 +46,7 @@ std::vector<double> DesiredTrajectoryController::TrajectoryDesiredParameters(
 std::vector<double> DesiredTrajectoryController::TrajectoryDesiredBrockett(
     std::vector<std::vector<double>> brockett_vector, unsigned int o,
     unsigned int plasma_state_output_interval) {
-  Input in = Input();
+  Input in = Input(input_data_);
 
   std::vector<double> p_d(6, 0.0);
 

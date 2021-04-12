@@ -25,7 +25,7 @@ for p in parameters.getElementsByTagName('parameter'):
 for p in paths.getElementsByTagName('path'):
 	pathsList[p.getAttribute("name")] = p.getAttribute("value")
 
-file = open(args.target_folder + str(pathsList["CREATION_ADJOINT_PARTCLES"]), 'w+');
+file = open(args.target_folder + str(pathsList["creation_adjoint_partcles"]), 'w+');
 
 ntimesteps = int(params["ntimesteps_gp_VSTRAP"])
 mu_x = float(params["adjoint_mu_x"])

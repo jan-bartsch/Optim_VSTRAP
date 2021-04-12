@@ -55,8 +55,7 @@ arma::mat StepdirectionController::NcgSchemeFR(
     arma::mat &gradient, arma::mat &gradient_old, arma::mat &stepdirection_old,
     unsigned int &optimization_iteration) {
   arma::mat stepdirection_new;
-  InnerProducts pro = InnerProducts();
-  pro.set_DataProviderOptim(this->get_DataProviderOptim());
+  InnerProducts pro = InnerProducts(input_data_);
 
   // double beta =
   // arma::dot(gradient,gradient)/arma::dot(gradient_old,gradient_old);

@@ -9,8 +9,7 @@ Input::Input(std::shared_ptr<MOTIONS::InputData> &input_data) {
 unsigned int Input::ReadPlasmaStateForward(
     std::vector<std::vector<Particle>> &forward_particles,
     std::string file_name) {
-  std::map<std::string, std::string> paths =
-      this->get_DataProviderOptim().getPaths();
+
   std::string build_directory_optim = input_data_->build_directory_optim;
   std::string results_directory = input_data_->results_directory;
 
@@ -39,8 +38,7 @@ unsigned int Input::ReadPlasmaStateForward(
 unsigned int Input::ReadPlasmaStateBackward(
     std::vector<std::vector<Particle>> &backward_particles,
     std::string file_name) {
-  std::map<std::string, std::string> paths =
-      this->get_DataProviderOptim().getPaths();
+
   std::string build_directory_optim = input_data_->build_directory_optim;
   std::string results_directory = input_data_->results_directory;
 

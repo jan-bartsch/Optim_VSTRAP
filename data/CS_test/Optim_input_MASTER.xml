@@ -90,7 +90,7 @@
     <parameter name="optimizationIteration_max_gp" value="100"/>     <!--  number of maximal interations  -->
      <parameter name="linesearchIteration_max_gp" value="50"/>     <!--  number of maximal interations  -->
     <parameter name="numberParticles_gp" value="2000"/>
-    <parameter name="start_zero_control" value="0"/>     <!--  1=true, 0=false (start with given control) , 2: start with given files  -->
+    <parameter name="start_zero_control" value="1"/>     <!--  1=true, 0=false (start with given control) , 2: start with given files  -->
     <parameter name="tolerance_gp" value="1e-14"/>
     <parameter name="tolerance_relaxation_gp" value="1e-10"/>     <!--  for Gauß-Seidel smoothing -->
     <parameter name="armijio_base_exp" value="0.8"/>     <!--  1.0: there is no exponential diminishing of fraction of new stepsize -->
@@ -99,19 +99,19 @@
     <!--  DOMAIN PARAMETERS  -->
     <parameter name="position_max_gp" value="0.05"/>
 
-    <!--parameter name="number_cells_position" value="64"/>
+    <parameter name="number_cells_position" value="64"/>
     <parameter name="small_discr_volume" value="0.000015625"/>
     <parameter name="small_discr_sidelength" value="0.025"/>
     <parameter name="dimensionOfControl_gp" value="64"/>
     <parameter name="end_control_gp" value="64"/>
-    <parameter name="start_control_gp" value="1"/-->
+    <parameter name="start_control_gp" value="1"/>
 
-    <parameter name="number_cells_position" value="216"/>
+    <!--parameter name="number_cells_position" value="216"/>
     <parameter name="small_discr_volume" value="4.62962962962963e-6"/>
     <parameter name="small_discr_sidelength" value="0.016666667"/>
      <parameter name="dimensionOfControl_gp" value="216"/>
     <parameter name="end_control_gp" value="216"/>
-    <parameter name="start_control_gp" value="1"/>
+    <parameter name="start_control_gp" value="1"/-->
 
     <!--parameter name="number_cells_position" value="512"/>
     <parameter name="small_discr_volume" value="1.953125e-6"/>
@@ -122,11 +122,11 @@
 
 
 
-    <parameter name="dt_gp" value="1e-8"/>
-    <parameter name="dt_VSTRAP" value="1e-8" />
-    <parameter name="ntimesteps_gp" value="40"/>
+    <parameter name="dt_gp" value="1e-5"/>
+    <parameter name="dt_VSTRAP" value="1e-5" />
+    <parameter name="ntimesteps_gp" value="20"/>
     <parameter name="plasma_state_output_interval" value="1"/>
-    <parameter name="ntimesteps_gp_VSTRAP" value="40"/> <!-- ntimesteps_gp*plasma_state_output_interval -->
+    <parameter name="ntimesteps_gp_VSTRAP" value="20"/> <!-- ntimesteps_gp*plasma_state_output_interval -->
 
     <!--parameter name="dt_gp" value="5e-6"/>
     <parameter name="ntimesteps_gp" value="8"/-->
@@ -162,47 +162,47 @@
 </globalParameters>
 
 <paths>
-	<!--path name="BUILD_DIRECTORY_VSTRAP" value="/HOME/bartsch/SPARC/build-vstrap-Desktop/src/" />
-	<path name="BUILD_DIRECTORY_OPTIM" value="/HOME/bartsch/SPARC/build-Optim-Desktop/src/" />
-	<path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/HOME/bartsch/SPARC/build-Optim-Desktop/src/results/"/-->
+	<!--path name="build_directory_vstrap" value="/HOME/bartsch/SPARC/build-vstrap-Desktop/src/" />
+	<path name="build_directory_optim" value="/HOME/bartsch/SPARC/build-Optim-Desktop/src/" />
+	<path name="path_to_shared_files_absolute" value="/HOME/bartsch/SPARC/build-Optim-Desktop/src/results/"/-->
 
-    <!--path name="BUILD_DIRECTORY_VSTRAP" value="/LocalData/bartsch/build-vstrap-CSMC/src/" />
-	<path name="BUILD_DIRECTORY_OPTIM" value="/LocalData/bartsch/build-Optim-CSMC/src/" />
-	<path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/LocalData/bartsch/build-Optim-CSMC/src/results/" /-->
+    <!--path name="build_directory_vstrap" value="/LocalData/bartsch/build-vstrap-CSMC/src/" />
+	<path name="build_directory_optim" value="/LocalData/bartsch/build-Optim-CSMC/src/" />
+	<path name="path_to_shared_files_absolute" value="/LocalData/bartsch/build-Optim-CSMC/src/results/" /-->
 
-    <path name="BUILD_DIRECTORY_VSTRAP" value="/home/jan/Promotion_linuxPC/build-vstrap/src/" />
-    <path name="BUILD_DIRECTORY_OPTIM" value="/home/jan/Promotion_linuxPC/build-Optim/src/" />
-    <path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/home/jan/Promotion_linuxPC/build-Optim/src/results/" />
+    <path name="build_directory_vstrap" value="/home/jan/Promotion_linuxPC/build-vstrap/src/" />
+    <path name="build_directory_optim" value="/home/jan/Promotion_linuxPC/build-Optim/src/" />
+    <path name="path_to_shared_files_absolute" value="/home/jan/Promotion_linuxPC/build-Optim/src/results/" />
 
-	<!--path name="PVPYTHON_ABSOLUTE_DIR" value="/usr/bin/pvpython" /-->
-    <path name="PVPYTHON_ABSOLUTE_DIR" value="/home/jan/ParaView-5.8.0-MPI-Linux-Python3.7-64bit/bin/pvpython" />
+	<!--path name="pvpython_absolute_dir" value="/usr/bin/pvpython" /-->
+    <path name="pvpython_absolute_dir" value="/home/jan/ParaView-5.8.0-MPI-Linux-Python3.7-64bit/bin/pvpython" />
 
-    <!--path name="BARYCENTERS_MESH" value="../../Optim_VSTRAP/data/global/mesh_barycenters_small_64.xml"/>
-    <path name="DOMAIN_MESH" value="../../../Optim_VSTRAP/data/global/box_vol_regular_small.xml"/>
-    <path name="DOMAIN_MESH_FILE" value="box_vol_regular_small.xml"/-->
+    <path name="barycenters_mesh" value="../../Optim_VSTRAP/data/global/mesh_barycenters_small_64.xml"/>
+    <path name="domain_mesh" value="../../../Optim_VSTRAP/data/global/box_vol_regular_small_64.xml"/>
+    <path name="domain_mesh_file" value="box_vol_regular_small.xml"/>
 
-	<path name="BARYCENTERS_MESH" value="../../Optim_VSTRAP/data/global/mesh_barycenters_small_216.xml"/>
-	<path name="DOMAIN_MESH" value="../../../Optim_VSTRAP/data/global/box_vol_regular_small_216.xml"/>
-    <path name="DOMAIN_MESH_FILE" value="box_vol_regular_small_216.xml"/>
+	<!--path name="barycenters_mesh" value="../../Optim_VSTRAP/data/global/mesh_barycenters_small_216.xml"/>
+	<path name="domain_mesh" value="../../../Optim_VSTRAP/data/global/box_vol_regular_small_216.xml"/>
+    <path name="domain_mesh_file" value="box_vol_regular_small_216.xml"/-->
 
 
-    <!--path name="BARYCENTERS_MESH" value="../../Optim_VSTRAP/data/global/mesh_barycenters_small_512.xml"/>
-	<path name="DOMAIN_MESH" value="../../../Optim_VSTRAP/data/global/box_vol_regular_small_512.xml"/>
-    <path name="DOMAIN_MESH_FILE" value="box_vol_regular_small_512.xml"/-->
+    <!--path name="barycenters_mesh" value="../../Optim_VSTRAP/data/global/mesh_barycenters_small_512.xml"/>
+	<path name="domain_mesh" value="../../../Optim_VSTRAP/data/global/box_vol_regular_small_512.xml"/>
+    <path name="domain_mesh_file" value="box_vol_regular_small_512.xml"/-->
 
-    <path name="SURFACE_MESH" value="../../../Optim_VSTRAP/data/global/mesh/box_surf.xml"/>
+    <path name="surface_mesh" value="../../../Optim_VSTRAP/data/global/mesh/box_surf.xml"/>
     <!-- shared  -->
-    <path name="INPUT_FORWARD" value="input_forward.xml"/>
-	<path name="INPUT_BACKWARD" value="input_backward.xml"/>
-    <path name="RESULTS_DIRECTORY" value="results/"/>
-    <path name="PATH_TO_SHARED_FILES" value="./results/" />
-    <path name="DIRECTORY_TOOLSET" value="../../Optim_VSTRAP/optim-vstrap-toolset/toolset/"/>
+    <path name="input_forward" value="input_forward.xml"/>
+	<path name="input_backward" value="input_backward.xml"/>
+    <path name="results_directory" value="results/"/>
+    <path name="path_to_shared_files" value="./results/" />
+    <path name="directory_toolset" value="../../Optim_VSTRAP/optim-vstrap-toolset/toolset/"/>
 
-	<path name="CREATION_ADJOINT_PARTCLES" value="./creation_adjoint_particles_new.xml"/>
-	<path name="BGF_CONTROL" value="interpolated_control_field.xml"/>
-    <path name="CONTROL_FIELD_CELLS_NAME" valie="control_field_cells.xml"/>
+	<path name="creation_adjoint_partcles" value="./creation_adjoint_particles_new.xml"/>
+	<path name="bgf_control" value="interpolated_control_field.xml"/>
+    <path name="control_field_cells_name" valie="control_field_cells.xml"/>
 
-    <path name="START_WITH_EXISTING_CONTROL" value="/home/jan/Promotion_linuxPC/build-Optim/src/results/control_field_cells.xml"/>
+    <path name="start_with_existing_control" value="/home/jan/Promotion_linuxPC/build-Optim/src/results/control_field_cells.xml"/>
     <!--path name="START_WITH_EXISTING_CONTROL" value="/HOME/bartsch/SPARC/build-Optim-Desktop/src/results/control_field_cells.xml"/-->
 
 	<path name="DSMC_interaction" value="../../../Optim_VSTRAP/data/global/interaction_data.xml"/>
