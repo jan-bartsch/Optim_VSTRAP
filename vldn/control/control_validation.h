@@ -1,8 +1,8 @@
 #ifndef CONTROL_VERIFICATION_H
 #define CONTROL_VERIFICATION_H
 
-#include <vector>
 #include <map>
+#include <vector>
 
 #include "../controller/abstract_validation.h"
 
@@ -15,21 +15,21 @@
 
 #include "../../src/objects/dataprovider.h"
 
-
-
-class control_verification : public abstract_verification
-{
+class control_verification : public abstract_verification {
 
 public:
-    control_verification();
+  control_verification();
 
-    static int start_verification(int argc, char **argv);
+  static int start_verification(int argc, char **argv);
 
-    static std::vector<double> calculate_mean(arma::mat control);
+  static std::vector<double> calculate_mean(arma::mat control);
 
-    static std::vector<double> calculate_mean_doubleMatrix(std::vector<std::vector<double>> control);
+  static std::vector<double>
+  calculate_mean_doubleMatrix(std::vector<std::vector<double>> control);
 
-    static arma::mat calculate_cross_error(arma::mat control, arma::mat barycenters, std::vector<double> &valide_vector);
+  static arma::mat calculate_cross_error(arma::mat control,
+                                         arma::mat barycenters,
+                                         std::vector<double> &valide_vector);
 };
 
 #endif // CONTROL_VERIFICATION_H

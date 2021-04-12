@@ -2,10 +2,10 @@
 
 #include <armadillo>
 
-#include "controller/pdfcontroller.h"
-#include "controller/optimcontroller.h"
-#include "controller/equationsolvingcontroller.h"
 #include "controller/desiredtrajectorycontroller.h"
+#include "controller/equationsolvingcontroller.h"
+#include "controller/optimcontroller.h"
+#include "controller/pdfcontroller.h"
 
 #include "io/input_test.h"
 #include "io/outputcontrolupdate.h"
@@ -20,14 +20,14 @@
 #include "optimization/stepdirectioncontroller.h"
 #include "optimization/stepsizecontroller.h"
 
-#include "tools/innerproducts.h"
 #include "tools/calculus.h"
+#include "tools/innerproducts.h"
 #include "tools/parametersanity.h"
 
 int main(int argc, char **argv) {
-    testing::InitGoogleTest(&argc, argv);
-    //testing::GTEST_FLAG(filter) = "sanity.discr";
-    //testing::GTEST_FLAG(filter) = "traj.brockett";
-//    testing::GTEST_FLAG(filter) = "io.controlUpdate";
-    return RUN_ALL_TESTS();
+  testing::InitGoogleTest(&argc, argv);
+  // testing::GTEST_FLAG(filter) = "sanity.discr";
+  // testing::GTEST_FLAG(filter) = "traj.brockett";
+  //    testing::GTEST_FLAG(filter) = "io.controlUpdate";
+  return RUN_ALL_TESTS();
 }

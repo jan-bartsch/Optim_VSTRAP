@@ -1,0 +1,4 @@
+find . -regex '.*.(cpp|h|cc|cxx)' -exec clang-format -style=file -i {} ;
+
+find . -name '*.cc' -exec clang-format-6.0 -style=file -i {} \;
+find . -name '*.h' -exec clang-format-6.0 -style=file -i {} \;

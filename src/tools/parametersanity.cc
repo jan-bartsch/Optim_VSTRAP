@@ -1,54 +1,43 @@
 #include "parametersanity.h"
 
-ParameterSanity::ParameterSanity() { }
-
-int ParameterSanity::CheckAdjointVelocity()
-{
-    std::ostringstream streamObj;
-
-    std::map<std::string,double> parameters = provider.getOptimizationParameters();
-
-    double kb = 1.38064852*std::pow(10,-23);
-
-    double mass_gp = parameters.find("mass_forward")->second;
-    double temperature_gp = parameters.find("temperature_x_val")->second;
-
-    double expected_speed = parameters.find("expected_speed")->second;
-    double most_probable_speed = parameters.find("most_probable_speed")->second;
-
-    double vmax_gp = parameters.find("vmax_gp")->second;
-
-    double sigma_v_forward = std::sqrt(2.0*kb*temperature_gp/mass_gp);
-    double lowerBound_expectedSpeed = sigma_v_forward/std::sqrt(M_PI/8.0);
-    double upperBound_expectedSpeed = vmax_gp-sigma_v_forward;
-
-    std::cout << "For the expected adjoint speed it shoud hold: " << lowerBound_expectedSpeed << " <= " << expected_speed << " <= " << upperBound_expectedSpeed << std::endl;
-
-    if (lowerBound_expectedSpeed >= expected_speed || upperBound_expectedSpeed <= expected_speed) {
-        std::string error_string = "Warning! Expected speed does not obey its bounds!";
-        std::cout << error_string << std::endl;
-        return 1;
-    }
-
-    return 0;
+ParameterSanity::ParameterSanity(std::shared_ptr<MOTIONS::InputData> &input_data) {
+    this->setInput_data(input_data);
 }
 
-int ParameterSanity::CheckVelocityDiscretization()
-{
-    std::ostringstream streamObj;
+int ParameterSanity::CheckAdjointVelocity() {
+  std::ostringstream streamObj;
 
-    std::map<std::string,double> parameters = provider.getOptimizationParameters();
+  double kb = 1.38064852 * std::pow(10, -23);
 
-    double dv_gp = parameters.find("dv_gp")->second;
-    double vcell_gp = parameters.find("vcell_gp")->second;
-    double vmax_gp = parameters.find("vmax_gp")->second;
 
-    double max = dv_gp*vcell_gp;
+  double sigma_v_forward = std::sqrt(2.0 * kb * input_data_->temperature_x_val / input_data_->mass_forward);
+  double lowerBound_expectedSpeed = sigma_v_forward / std::sqrt(M_PI / 8.0);
+  double upperBound_expectedSpeed = input_data_->vmax_gp - sigma_v_forward;
 
-    if (max != 2.0*vmax_gp) {
-        std::cerr << "Discretization of velocity space is erroneous" << std::endl;
-        return 1;
-    }
+  std::cout << "For the expected adjoint speed it shoud hold: "
+            << lowerBound_expectedSpeed << " <= " << input_data_->expected_speed
+            << " <= " << upperBound_expectedSpeed << std::endl;
 
-    return 0;
+  if (lowerBound_expectedSpeed >= input_data_->expected_speed ||
+      upperBound_expectedSpeed <= input_data_->expected_speed) {
+    std::string error_string =
+        "Warning! Expected speed does not obey its bounds!";
+    std::cout << error_string << std::endl;
+    return 1;
+  }
+
+  return 0;
+}
+
+int ParameterSanity::CheckVelocityDiscretization() {
+  std::ostringstream streamObj;
+
+  double max = input_data_->dv_gp * input_data_->vcell_gp;
+
+  if (std::fabs(max - 2.0 * input_data_->vmax_gp)>input_data_->fabs_tol_gp) {
+    std::cerr << "Discretization of velocity space is erroneous" << std::endl;
+    return 1;
+  }
+
+  return 0;
 }

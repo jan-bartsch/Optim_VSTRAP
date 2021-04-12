@@ -1,13 +1,13 @@
 #include "abstractcontroller.h"
 
-AbstractController::AbstractController() { }
+AbstractController::AbstractController() {}
 
-DataProvider AbstractController::get_DataProviderOptim() const
+std::shared_ptr<MOTIONS::InputData> AbstractController::getInput_data() const
 {
-    return data_provider_optim_;
+    return input_data_;
 }
 
-void AbstractController::set_DataProviderOptim(const DataProvider &value)
+void AbstractController::setInput_data(const std::shared_ptr<MOTIONS::InputData> &input_data)
 {
-    data_provider_optim_ = value;
+    input_data_ = input_data;
 }

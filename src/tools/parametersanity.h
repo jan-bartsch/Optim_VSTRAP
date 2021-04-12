@@ -1,26 +1,27 @@
 #ifndef PARAMETER_SANITY_H
 #define PARAMETER_SANITY_H
 
-#include <map>
-#include <vector>
 #include <cmath>
+#include <map>
 #include <sstream>
+#include <vector>
+
+#include "../controller/abstractcontroller.h"
 
 #include "../objects/dataprovider.h"
-
+#include "../objects/MOTIONS.h"
 
 /**
  * @brief The parameter_sanity class provides sanity checks for parameters
  * definied in the Input file of the optimizer
  */
-class ParameterSanity
-{
+class ParameterSanity : AbstractController {
 public:
-    ParameterSanity();
+  ParameterSanity(std::shared_ptr<MOTIONS::InputData> &input_data);
 
-    int CheckAdjointVelocity();
+  int CheckAdjointVelocity();
 
-    int CheckVelocityDiscretization();
+  int CheckVelocityDiscretization();
 };
 
 #endif // PARAMETER_SANITY_H

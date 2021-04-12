@@ -1,122 +1,129 @@
 #include <gtest/gtest.h>
 
-#include "../../src/io/input.h"
 #include "../../src/controller/desiredtrajectorycontroller.h"
+#include "../../src/io/input.h"
 
-TEST(traj,parameter) {
-    std::string Input_directory = "./data/Optim_Input_gTest.xml";
-    const char *  Input_xml_path = Input_directory.c_str();
+TEST(traj, parameter) {
+  std::string Input_directory = "./data/Optim_Input_gTest.xml";
+  const char *Input_xml_path = Input_directory.c_str();
 
-    DataProvider provider = DataProvider(Input_xml_path);
+  DataProvider provider = DataProvider(Input_xml_path);
 
-    DesiredTrajectoryController trajContr = DesiredTrajectoryController();
-    trajContr.set_DataProviderOptim(DataProvider(Input_xml_path));
+  DesiredTrajectoryController trajContr = DesiredTrajectoryController();
+  trajContr.set_DataProviderOptim(DataProvider(Input_xml_path));
 
+  std::map<std::string, double> optimizationParameters =
+      provider.getOptimizationParameters();
 
-    std::map<std::string, double> optimizationParameters = provider.getOptimizationParameters();
+  std::map<std::string, std::string> subs = provider.getSubroutines();
+  subs.erase("desired_trajectory");
+  subs.insert(
+      std::pair<std::string, std::string>("desired_trajectory", "parameters"));
+  provider.setSubroutines(subs);
+  trajContr.set_DataProviderOptim(provider);
 
-    std::map<std::string, std::string> subs = provider.getSubroutines();
-    subs.erase("desired_trajectory");
-    subs.insert(std::pair<std::string,std::string>("desired_trajectory","parameters"));
-    provider.setSubroutines(subs);
-    trajContr.set_DataProviderOptim(provider);
+  std::map<std::string, double> parameters =
+      provider.getOptimizationParameters();
 
+  std::vector<double> bc(6, 0.0);
+  std::vector<double> p_d(6, 0.0);
 
-    std::map<std::string, double> parameters = provider.getOptimizationParameters();
+  double expected_speed = parameters.find("expected_speed")->second;
+  double desired_position_x = parameters.find("desired_position_x")->second;
+  double desired_position_y = parameters.find("desired_position_y")->second;
+  double desired_position_z = parameters.find("desired_position_z")->second;
 
-    std::vector<double> bc(6,0.0);
-    std::vector<double> p_d(6,0.0);
+  double desired_velocity_x = parameters.find("adjoint_vx")->second;
+  double desired_velocity_y = parameters.find("adjoint_vy")->second;
+  double desired_velocity_z = parameters.find("adjoint_vz")->second;
 
-    double expected_speed = parameters.find("expected_speed")->second;
-    double desired_position_x = parameters.find("desired_position_x")->second;
-    double desired_position_y = parameters.find("desired_position_y")->second;
-    double desired_position_z = parameters.find("desired_position_z")->second;
+  p_d[0] = desired_position_x;
+  p_d[1] = desired_position_y;
+  p_d[2] = desired_position_z;
 
-    double desired_velocity_x = parameters.find("adjoint_vx")->second;
-    double desired_velocity_y = parameters.find("adjoint_vy")->second;
-    double desired_velocity_z = parameters.find("adjoint_vz")->second;
+  p_d[3] = desired_velocity_x;
+  p_d[4] = desired_velocity_y;
+  p_d[5] = desired_velocity_z;
 
-    p_d[0] = desired_position_x;
-    p_d[1] = desired_position_y;
-    p_d[2] = desired_position_z;
+  std::vector<std::vector<double>> brockett_file_dummy;
+  unsigned int plasma_state_output_interval_dummy = 1;
 
-    p_d[3] = desired_velocity_x;
-    p_d[4] = desired_velocity_y;
-    p_d[5] = desired_velocity_z;
+  std::vector<double> p_d_trajectory = trajContr.TrajectoryDesired(
+      bc, 0, 0, 0, 0, brockett_file_dummy, plasma_state_output_interval_dummy);
 
-    std::vector<std::vector<double> > brockett_file_dummy;
-    unsigned int plasma_state_output_interval_dummy = 1;
+  double diff = 0.0;
 
-    std::vector<double> p_d_trajectory = trajContr.TrajectoryDesired(bc,0,0,0,0,brockett_file_dummy,plasma_state_output_interval_dummy);
+  if (p_d_trajectory.size() != p_d.size()) {
+    throw std::runtime_error("Size of vectors do not match");
+  }
 
-    double diff = 0.0;
+  for (unsigned int i = 0; i < p_d.size(); i++) {
+    diff += p_d[i] - p_d_trajectory[i];
+  }
 
-    if(p_d_trajectory.size() != p_d.size()) {
-        throw std::runtime_error("Size of vectors do not match");
-    }
-
-    for(unsigned int i = 0; i<p_d.size(); i++) {
-        diff += p_d[i]-p_d_trajectory[i];
-    }
-
-    ASSERT_DOUBLE_EQ(diff,0.0);
+  ASSERT_DOUBLE_EQ(diff, 0.0);
 }
 
-TEST(traj,brockett) {
-    std::string Input_directory = "./data/Optim_Input_gTest.xml";
-    const char *  Input_xml_path = Input_directory.c_str();
+TEST(traj, brockett) {
+  std::string Input_directory = "./data/Optim_Input_gTest.xml";
+  const char *Input_xml_path = Input_directory.c_str();
 
-    DataProvider provider = DataProvider(Input_xml_path);
+  DataProvider provider = DataProvider(Input_xml_path);
 
-    DesiredTrajectoryController trajContr = DesiredTrajectoryController();
-    trajContr.set_DataProviderOptim(DataProvider(Input_xml_path));
+  DesiredTrajectoryController trajContr = DesiredTrajectoryController();
+  trajContr.set_DataProviderOptim(DataProvider(Input_xml_path));
 
-    Input in = Input();
-    in.set_DataProviderOptim(provider);
+  Input in = Input();
+  in.set_DataProviderOptim(provider);
 
+  std::map<std::string, double> optimizationParameters =
+      provider.getOptimizationParameters();
+  std::map<std::string, std::string> paths = provider.getPaths();
 
-    std::map<std::string, double> optimizationParameters = provider.getOptimizationParameters();
-    std::map<std::string, std::string> paths = provider.getPaths();
+  std::map<std::string, std::string> subs = provider.getSubroutines();
+  subs.erase("desired_trajectory");
+  subs.insert(
+      std::pair<std::string, std::string>("desired_trajectory", "brockett"));
+  provider.setSubroutines(subs);
+  trajContr.set_DataProviderOptim(provider);
 
-    std::map<std::string, std::string> subs = provider.getSubroutines();
-    subs.erase("desired_trajectory");
-    subs.insert(std::pair<std::string,std::string>("desired_trajectory","brockett"));
-    provider.setSubroutines(subs);
-    trajContr.set_DataProviderOptim(provider);
+  std::map<std::string, double> parameters =
+      provider.getOptimizationParameters();
+  int ntimesteps_gp =
+      static_cast<unsigned int>(parameters.find("ntimesteps_gp")->second);
+  unsigned int plasma_state_output_interval = static_cast<unsigned int>(
+      parameters.find("plasma_state_output_interval")->second);
 
+  std::vector<double> bc(6, 0.0);
+  std::vector<double> p_d(6, 0.0);
+  double diff = 0.0;
 
-    std::map<std::string, double> parameters = provider.getOptimizationParameters();
-    int ntimesteps_gp = static_cast<unsigned int>(parameters.find("ntimesteps_gp")->second);
-    unsigned int plasma_state_output_interval = static_cast<unsigned int>(parameters.find("plasma_state_output_interval")->second);
+  std::vector<std::vector<double>> brockettVector =
+      in.ReadBrockettFile("./data/brockett.csv", ",", ntimesteps_gp);
 
-    std::vector<double> bc(6,0.0);
-    std::vector<double> p_d(6,0.0);
-    double diff = 0.0;
+  for (unsigned int o = 0; o < ntimesteps_gp; o++) {
 
-    std::vector<std::vector<double>> brockettVector = in.ReadBrockettFile("./data/brockett.csv",",", ntimesteps_gp);
+    std::vector<double> p_d_trajectory = trajContr.TrajectoryDesired(
+        bc, 0, 0, 0, o, brockettVector, plasma_state_output_interval);
 
-    for(unsigned int o= 0; o<ntimesteps_gp; o++) {
+    // position
+    p_d[0] = brockettVector[o * plasma_state_output_interval][0];
+    p_d[1] = brockettVector[o * plasma_state_output_interval][1];
+    p_d[2] = brockettVector[o * plasma_state_output_interval][2];
 
-        std::vector<double> p_d_trajectory = trajContr.TrajectoryDesired(bc,0,0,0,o,brockettVector,plasma_state_output_interval);
+    // velocity
+    p_d[3] = brockettVector[o * plasma_state_output_interval][6];
+    p_d[4] = brockettVector[o * plasma_state_output_interval][7];
+    p_d[5] = brockettVector[o * plasma_state_output_interval][8];
 
-        //position
-        p_d[0] = brockettVector[o*plasma_state_output_interval][0];
-        p_d[1] = brockettVector[o*plasma_state_output_interval][1];
-        p_d[2] = brockettVector[o*plasma_state_output_interval][2];
-
-        //velocity
-        p_d[3] = brockettVector[o*plasma_state_output_interval][6];
-        p_d[4] = brockettVector[o*plasma_state_output_interval][7];
-        p_d[5] = brockettVector[o*plasma_state_output_interval][8];
-
-        if(p_d_trajectory.size() != p_d.size()) {
-            throw std::runtime_error("Size of vectors do not match");
-        }
-
-        for(unsigned int i = 0; i<p_d.size(); i++) {
-            diff += p_d[i]-p_d_trajectory[i];
-        }
+    if (p_d_trajectory.size() != p_d.size()) {
+      throw std::runtime_error("Size of vectors do not match");
     }
 
-    ASSERT_DOUBLE_EQ(diff,0.0);
+    for (unsigned int i = 0; i < p_d.size(); i++) {
+      diff += p_d[i] - p_d_trajectory[i];
+    }
+  }
+
+  ASSERT_DOUBLE_EQ(diff, 0.0);
 }

@@ -11,15 +11,14 @@
 /**
  * @brief The calculus class provides method from analysis
  */
-class Calculus : public AbstractController
-{
+class Calculus : public AbstractController {
 public:
-    Calculus();
+  Calculus(std::shared_ptr<MOTIONS::InputData> &input_data);
 
-    static std::vector<double> cross_product(std::vector<double> v1, std::vector<double> v2);
+  static std::vector<double> cross_product(std::vector<double> v1,
+                                           std::vector<double> v2);
 
-    [[deprecated]]
-    double DivergenceVector(arma::mat &Input);
+  [[deprecated]] double DivergenceVector(arma::mat &Input);
 };
 
 #endif // CALCULUS_H

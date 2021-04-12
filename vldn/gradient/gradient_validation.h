@@ -6,9 +6,9 @@
 
 #include "../controller/abstract_validation.h"
 
-#include "../../src/controller/pdfcontroller.h"
 #include "../../src/controller/equationsolvingcontroller.h"
 #include "../../src/controller/optimcontroller.h"
+#include "../../src/controller/pdfcontroller.h"
 
 #include "../../src/io/input.h"
 #include "../../src/io/outputdiagnostics.h"
@@ -20,13 +20,11 @@
 
 #include "../../src/tools/innerproducts.h"
 
-
-class gradient_validation : public abstract_verification
-{
+class gradient_validation : public abstract_verification {
 public:
-    gradient_validation();
+  gradient_validation();
 
-    static int landau_validation(int argc, char **argv);
+  static int landau_validation(int argc, char **argv);
 };
 
 #endif // GRADIENT_VALIDATION_H
