@@ -47,6 +47,7 @@ arma::mat GradientCalculator::CalculategradientForcecontrolSpaceHmNotParallel(
 
   // Caculate integral in gradient
   const unsigned int n = input_data_->number_cells_position;
+  int start_control = static_cast<int>(input_data_->start_control_gp);
 
   //#pragma omp parallel for
   for (unsigned int i = 1; i < n + 1; i++) {
@@ -196,12 +197,14 @@ arma::mat GradientCalculator::CalculategradientForcecontrolSpaceHmNotParallel(
   std::cout << "Gradient:" << std::endl;
   std::cout << gradient << std::endl;
 
+
+
   for ( int j = 0; j < input_data_->number_cells_position; j++) {
-    if (j > static_cast<int>(input_data_->start_control_gp) - 2 &&
+    if (j > start_control - 2 &&
         j < static_cast<int>(input_data_->end_control_gp)) {
-      rhs_Riesz(j - input_data_->start_control_gp + 1, 0) = gradient(j, 0);
-      rhs_Riesz(j - input_data_->start_control_gp + 1, 1) = gradient(j, 1);
-      rhs_Riesz(j - input_data_->start_control_gp + 1, 2) = gradient(j, 2);
+      rhs_Riesz(j - start_control + 1, 0) = gradient(j, 0);
+      rhs_Riesz(j - start_control + 1, 1) = gradient(j, 1);
+      rhs_Riesz(j - start_control + 1, 2) = gradient(j, 2);
     }
   }
 
@@ -223,14 +226,14 @@ arma::mat GradientCalculator::CalculategradientForcecontrolSpaceHmNotParallel(
 
   arma::mat Riesz_control(input_data_->dimension_control, 3,
                           arma::fill::zeros);
-  for (unsigned long j = 0; j < input_data_->number_cells_position; j++) {
-    if (j > input_data_->start_control_gp - 2 &&
+  for (int j = 0; j < input_data_->number_cells_position; j++) {
+    if (j > start_control - 2 &&
         j < input_data_->end_control_gp) {
-      Riesz_control(j - input_data_->start_control_gp + 1, 0) =
+      Riesz_control(j - start_control + 1, 0) =
           control(j, 0);
-      Riesz_control(j - input_data_->start_control_gp + 1, 1) =
+      Riesz_control(j - start_control + 1, 1) =
           control(j, 1);
-      Riesz_control(j - input_data_->start_control_gp + 1, 2) =
+      Riesz_control(j - start_control + 1, 2) =
           control(j, 2);
     }
   }
@@ -242,15 +245,15 @@ arma::mat GradientCalculator::CalculategradientForcecontrolSpaceHmNotParallel(
   //    std::cout << "Solution elliptic equation:" << std::endl;
   std::cout << gradient_Riesz << std::endl;
 
-  for (unsigned long j = 0; j < input_data_->number_cells_position; j++) {
-    if (j > input_data_->start_control_gp - 2 &&
+  for (int j = 0; j < input_data_->number_cells_position; j++) {
+    if (j > start_control - 2 &&
         j < input_data_->end_control_gp) {
       return_gradient(j, 0) =
-          gradient_Riesz(j - input_data_->start_control_gp + 1, 0);
+          gradient_Riesz(j - start_control + 1, 0);
       return_gradient(j, 1) =
-          gradient_Riesz(j - input_data_->start_control_gp + 1, 1);
+          gradient_Riesz(j - start_control + 1, 1);
       return_gradient(j, 2) =
-          gradient_Riesz(j - input_data_->start_control_gp + 1, 2);
+          gradient_Riesz(j - start_control + 1, 2);
     }
   }
   std::cout << "Return_Gradient:" << std::endl;
@@ -470,12 +473,14 @@ arma::mat GradientCalculator::CalculategradientForcecontrolSpaceHm(
   //    std::cout << "Gradient:" << std::endl;
   //    std::cout << gradient << std::endl;
 
-  for (unsigned long j = 0; j < input_data_->number_cells_position; j++) {
-    if (j > input_data_->start_control_gp - 2 &&
+  int start_control = static_cast<int>(input_data_->start_control_gp);
+
+  for (int j = 0; j < input_data_->number_cells_position; j++) {
+    if (j > start_control - 2 &&
         j < input_data_->end_control_gp) {
-      rhs_Riesz(j - input_data_->start_control_gp + 1, 0) = gradient(j, 0);
-      rhs_Riesz(j - input_data_->start_control_gp + 1, 1) = gradient(j, 1);
-      rhs_Riesz(j - input_data_->start_control_gp + 1, 2) = gradient(j, 2);
+      rhs_Riesz(j - start_control + 1, 0) = gradient(j, 0);
+      rhs_Riesz(j - start_control + 1, 1) = gradient(j, 1);
+      rhs_Riesz(j - start_control + 1, 2) = gradient(j, 2);
     }
   }
 
@@ -497,14 +502,14 @@ arma::mat GradientCalculator::CalculategradientForcecontrolSpaceHm(
 
   arma::mat Riesz_control(input_data_->dimension_control, 3,
                           arma::fill::zeros);
-  for (unsigned long j = 0; j < input_data_->number_cells_position; j++) {
-    if (j > input_data_->start_control_gp - 2 &&
+  for (int j = 0; j < input_data_->number_cells_position; j++) {
+    if (j > start_control - 2 &&
         j < input_data_->end_control_gp) {
-      Riesz_control(j - input_data_->start_control_gp + 1, 0) =
+      Riesz_control(j - start_control + 1, 0) =
           control(j, 0);
-      Riesz_control(j - input_data_->start_control_gp + 1, 1) =
+      Riesz_control(j - start_control + 1, 1) =
           control(j, 1);
-      Riesz_control(j - input_data_->start_control_gp + 1, 2) =
+      Riesz_control(j - start_control + 1, 2) =
           control(j, 2);
     }
   }
@@ -517,15 +522,15 @@ arma::mat GradientCalculator::CalculategradientForcecontrolSpaceHm(
   //    std::cout << "Solution elliptic equation:" << std::endl;
   std::cout << gradient_Riesz << std::endl;
 
-  for (unsigned long j = 0; j < input_data_->number_cells_position; j++) {
-    if (j > input_data_->start_control_gp - 2 &&
+  for (int j = 0; j < input_data_->number_cells_position; j++) {
+    if (j > start_control - 2 &&
         j < input_data_->end_control_gp) {
       return_gradient(j, 0) =
-          gradient_Riesz(j - input_data_->start_control_gp + 1, 0);
+          gradient_Riesz(j - start_control + 1, 0);
       return_gradient(j, 1) =
-          gradient_Riesz(j - input_data_->start_control_gp + 1, 1);
+          gradient_Riesz(j - start_control + 1, 1);
       return_gradient(j, 2) =
-          gradient_Riesz(j - input_data_->start_control_gp + 1, 2);
+          gradient_Riesz(j - start_control + 1, 2);
     }
   }
   std::cout << "Return_Gradient:" << std::endl;

@@ -25,6 +25,7 @@ int PdfController::AssemblingMultiDim(
 
   double dv_gp = input_data_->dv_gp;
   double vcell_gp = static_cast<double>(input_data_->vcell_gp);
+   double vmax_gp = input_data_->vmax_gp;
 
   while (o < input_data_->ntimesteps_gp && return_flag == 0) {
     // std::cout << "Assembling pdf in timestep " << o << std::endl;
@@ -45,8 +46,7 @@ int PdfController::AssemblingMultiDim(
       vy = particles[i].getVy();
       vz = particles[i].getVz();
 
-      if (sqrt(vx * vx + vy * vy + vz * vz) <=
-          input_data_->ntimesteps_gp) { // else not needed
+       if (vx < vmax_gp && vy < vmax_gp && vz < vmax_gp) {
 
         binNumberTime = static_cast<int>(o);
 

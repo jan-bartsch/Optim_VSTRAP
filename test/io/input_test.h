@@ -3,9 +3,19 @@
 #include "../../src/io/input.h"
 #include "../../src/logger/logger.h"
 
+#include "../../src/objects/MOTIONS.h"
+
 TEST(io, readParticlesLengthError) {
+    std::string Input_directory = "./data/Optim_input_gTest.xml";
+    const char *Input_xml_path = Input_directory.c_str();
+
+    DataProvider provider = DataProvider(Input_xml_path);
+
+
+    auto shared_input_data = std::make_shared<MOTIONS::InputData>(MOTIONS::InitializeMotions::Load_MOTIONS(provider));
+
   bool expected_exception(false);
-  Input InputController = Input();
+  Input InputController = Input(shared_input_data);
 
   try {
     std::vector<Particle> particlesInput = InputController.ReadParticleVector(
@@ -19,7 +29,16 @@ TEST(io, readParticlesLengthError) {
 
 TEST(io, readParticleCellId) {
   bool all_correct(true);
-  Input InputController = Input();
+
+  std::string Input_directory = "./data/Optim_input_gTest.xml";
+  const char *Input_xml_path = Input_directory.c_str();
+
+  DataProvider provider = DataProvider(Input_xml_path);
+
+
+  auto shared_input_data = std::make_shared<MOTIONS::InputData>(MOTIONS::InitializeMotions::Load_MOTIONS(provider));
+
+  Input InputController = Input(shared_input_data);
 
   std::vector<Particle> particlesInput = InputController.ReadParticleVector(
       "./data/test_particle_reader.csv", ",");

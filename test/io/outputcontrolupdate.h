@@ -3,15 +3,18 @@
 #include "../../src/io/input.h"
 #include "../../src/io/outputcontrolupdate.h"
 
+#include "../../src/objects/MOTIONS.h"
+
 TEST(io, controlUpdate) {
   bool all_clear(false);
-  std::string Input_directory = "./data/Optim_Input_gTest.xml";
-  const char *filename = Input_directory.c_str();
+  std::string Input_directory = "./data/Optim_input_gTest.xml";
+  const char *Input_xml_path = Input_directory.c_str();
 
-  DataProvider provider = DataProvider(filename);
-  OutputControlUpdate out = OutputControlUpdate(filename);
-  Input in = Input();
-  in.set_DataProviderOptim(provider);
+  DataProvider provider = DataProvider(Input_xml_path);
+  auto shared_input_data = std::make_shared<MOTIONS::InputData>(MOTIONS::InitializeMotions::Load_MOTIONS(provider));
+
+  OutputControlUpdate out = OutputControlUpdate(shared_input_data);
+  Input in = Input(shared_input_data);
 
   double norm_difference = 1.0;
 
@@ -20,22 +23,13 @@ TEST(io, controlUpdate) {
   out.WritecontrolXml(control_out);
 
   std::cout << control_out << std::endl;
-  std::string PATH_TO_SHARED_FILES =
-      provider.getPaths().find("PATH_TO_SHARED_FILES")->second;
-  std::string CONTROL_FIELD_CELLS_NAME =
-      provider.getPaths().find("CONTROL_FIELD_CELLS_NAME")->second;
-  std::string Input_directory_control =
-      PATH_TO_SHARED_FILES + CONTROL_FIELD_CELLS_NAME;
+  std::string Input_directory_control = shared_input_data->path_to_shared_files + shared_input_data->control_field_cells_name;
 
-  int number_cells_position =
-      static_cast<int>(provider.getOptimizationParameters()
-                           .find("number_cells_position")
-                           ->second);
 
   const char *filename_control_in = Input_directory_control.c_str();
 
   arma::mat control_in =
-      in.ReadControl(filename_control_in, number_cells_position);
+      in.ReadControl(filename_control_in, shared_input_data->number_cells_position);
   std::cout << control_in << std::endl;
   std::cout << control_in - control_out << std::endl;
 

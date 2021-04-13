@@ -3,28 +3,21 @@
 #include "../../src/io/input.h"
 #include "../../src/optimization/objectivecalculator.h"
 
+#include "../../src/objects/MOTIONS.h"
+
 TEST(objective, calculationNR1) {
 
-  std::string Input_directory = "./data/Optim_Input_gTest.xml";
+  std::string Input_directory = "./data/Optim_input_gTest.xml";
   const char *filename = Input_directory.c_str();
 
   DataProvider provider = DataProvider(filename);
+   auto shared_input_data = std::make_shared<MOTIONS::InputData>(MOTIONS::InitializeMotions::Load_MOTIONS(provider));
 
-  ObjectiveCalculator calculator = ObjectiveCalculator();
-  calculator.set_DataProviderOptim(provider);
-  PdfController pdf_control = PdfController();
-  pdf_control.set_DataProviderOptim(provider);
-  Input Input_control = Input();
-  Input_control.set_DataProviderOptim(provider);
+  ObjectiveCalculator calculator = ObjectiveCalculator(shared_input_data);
+  PdfController pdf_control = PdfController(shared_input_data);
+  Input Input_control = Input(shared_input_data);
 
-  std::map<std::string, std::string> paths = provider.getPaths();
-  std::string BUILD_DIRECTORY_OPTIM =
-      paths.find("BUILD_DIRECTORY_OPTIM")->second;
-
-  std::map<std::string, double> optimizationParameters =
-      provider.getOptimizationParameters();
-  unsigned int ntimesteps_gp = static_cast<unsigned int>(
-      optimizationParameters.find("ntimesteps_gp")->second);
+  unsigned int ntimesteps_gp = shared_input_data->ntimesteps_gp;
 
   std::vector<std::vector<Particle>> forwardParticles(ntimesteps_gp);
   std::vector<std::unordered_map<CoordinatePhaseSpaceTime, double>> forwardPDF(

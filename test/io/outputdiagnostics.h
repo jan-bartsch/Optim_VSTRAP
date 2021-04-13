@@ -3,24 +3,26 @@
 #include "../../src/io/outputdiagnostics.h"
 #include "../../src/objects/dataprovider.h"
 
+#include "../../src/objects/MOTIONS.h"
+
 TEST(diagnostics, gradientOutput) {
   bool all_clear(false);
 
-  std::string Input_directory = "./data/Optim_Input_gTest.xml";
+  std::string Input_directory = "./data/Optim_input_gTest.xml";
   const char *filename = Input_directory.c_str();
 
   DataProvider provider = DataProvider(filename);
-  std::map<std::string, std::string> paths = provider.getPaths();
+   auto shared_input_data = std::make_shared<MOTIONS::InputData>(MOTIONS::InitializeMotions::Load_MOTIONS(provider));
 
-  std::string RESULTS = paths.find("RESULTS_DIRECTORY")->second;
 
-  OutputDiagnostics out = OutputDiagnostics();
-  out.set_DataProviderOptim(provider);
+  std::string results = shared_input_data->results_directory;
+
+  OutputDiagnostics out = OutputDiagnostics(shared_input_data);
 
   arma::mat gradient_out(64, 3, arma::fill::randu);
 
-  std::string COMMAND_DELETE_FILES = "rm ./" + RESULTS + "testGradient.csv";
-  system(&COMMAND_DELETE_FILES[0]);
+  std::string command_delete_files = "rm ./" + results + "testGradient.csv";
+  system(&command_delete_files[0]);
 
   try {
     out.writeGradientMatrixToFile(gradient_out, "testGradient");
@@ -31,7 +33,7 @@ TEST(diagnostics, gradientOutput) {
   arma::mat gradient_in(64, 3, arma::fill::zeros);
   int counter = 0;
 
-  std::ifstream file("./" + RESULTS + "testGradient.csv");
+  std::ifstream file("./" + results + "testGradient.csv");
 
   std::string line = "";
   std::string delimiter = ",";

@@ -18,8 +18,8 @@ find_package(GTest REQUIRED)
 find_package(Armadillo REQUIRED)
 
 include_directories(${Boost_INCLUDE_DIRS} ${GTEST_INCLUDE_DIRS} ${ARMADILLO_INCLUDE_DIR})
-file(GLOB_RECURSE sources ../src/*.cc ../src/*.cpp *.cpp)
-list(FILTER sources EXCLUDE REGEX "../src/main.cpp")
+file(GLOB_RECURSE sources ../src/*.cc *.cc)
+list(FILTER sources EXCLUDE REGEX "../src/main.cc")
 add_executable(run_tests ${sources})
 target_link_libraries(run_tests ${Boost_LIBRARIES} OpenMP::OpenMP_CXX ${GTEST_LIBRARIES}
     ${ARMADILLO_LIBRARY} -lstdc++fs pthread --coverage -llapack -lblas -ltbb -ltbbmalloc -fopenmp libpthread.so.0 librt.so)

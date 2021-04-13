@@ -3,47 +3,29 @@
 #include "../../src/controller/desiredtrajectorycontroller.h"
 #include "../../src/io/input.h"
 
+#include "../../src/objects/MOTIONS.h"
+
 TEST(traj, parameter) {
-  std::string Input_directory = "./data/Optim_Input_gTest.xml";
+  std::string Input_directory = "./data/Optim_input_gTest.xml";
   const char *Input_xml_path = Input_directory.c_str();
 
   DataProvider provider = DataProvider(Input_xml_path);
 
-  DesiredTrajectoryController trajContr = DesiredTrajectoryController();
-  trajContr.set_DataProviderOptim(DataProvider(Input_xml_path));
+  auto shared_input_data = std::make_shared<MOTIONS::InputData>(MOTIONS::InitializeMotions::Load_MOTIONS(provider));
+  DesiredTrajectoryController trajContr = DesiredTrajectoryController(shared_input_data);
 
-  std::map<std::string, double> optimizationParameters =
-      provider.getOptimizationParameters();
-
-  std::map<std::string, std::string> subs = provider.getSubroutines();
-  subs.erase("desired_trajectory");
-  subs.insert(
-      std::pair<std::string, std::string>("desired_trajectory", "parameters"));
-  provider.setSubroutines(subs);
-  trajContr.set_DataProviderOptim(provider);
-
-  std::map<std::string, double> parameters =
-      provider.getOptimizationParameters();
+  shared_input_data->desired_trajectory = "parameters";
 
   std::vector<double> bc(6, 0.0);
   std::vector<double> p_d(6, 0.0);
 
-  double expected_speed = parameters.find("expected_speed")->second;
-  double desired_position_x = parameters.find("desired_position_x")->second;
-  double desired_position_y = parameters.find("desired_position_y")->second;
-  double desired_position_z = parameters.find("desired_position_z")->second;
+  p_d[0] = shared_input_data->desired_position_x;
+  p_d[1] = shared_input_data->desired_position_y;
+  p_d[2] = shared_input_data->desired_position_z;
 
-  double desired_velocity_x = parameters.find("adjoint_vx")->second;
-  double desired_velocity_y = parameters.find("adjoint_vy")->second;
-  double desired_velocity_z = parameters.find("adjoint_vz")->second;
-
-  p_d[0] = desired_position_x;
-  p_d[1] = desired_position_y;
-  p_d[2] = desired_position_z;
-
-  p_d[3] = desired_velocity_x;
-  p_d[4] = desired_velocity_y;
-  p_d[5] = desired_velocity_z;
+  p_d[3] = shared_input_data->adjoint_vx;
+  p_d[4] = shared_input_data->adjoint_vy;
+  p_d[5] = shared_input_data->adjoint_vz;
 
   std::vector<std::vector<double>> brockett_file_dummy;
   unsigned int plasma_state_output_interval_dummy = 1;
@@ -65,34 +47,21 @@ TEST(traj, parameter) {
 }
 
 TEST(traj, brockett) {
-  std::string Input_directory = "./data/Optim_Input_gTest.xml";
+  std::string Input_directory = "./data/Optim_input_gTest.xml";
   const char *Input_xml_path = Input_directory.c_str();
 
   DataProvider provider = DataProvider(Input_xml_path);
 
-  DesiredTrajectoryController trajContr = DesiredTrajectoryController();
-  trajContr.set_DataProviderOptim(DataProvider(Input_xml_path));
 
-  Input in = Input();
-  in.set_DataProviderOptim(provider);
+  auto shared_input_data = std::make_shared<MOTIONS::InputData>(MOTIONS::InitializeMotions::Load_MOTIONS(provider));
+  DesiredTrajectoryController trajContr = DesiredTrajectoryController(shared_input_data);
+  Input in = Input(shared_input_data);
 
-  std::map<std::string, double> optimizationParameters =
-      provider.getOptimizationParameters();
-  std::map<std::string, std::string> paths = provider.getPaths();
 
-  std::map<std::string, std::string> subs = provider.getSubroutines();
-  subs.erase("desired_trajectory");
-  subs.insert(
-      std::pair<std::string, std::string>("desired_trajectory", "brockett"));
-  provider.setSubroutines(subs);
-  trajContr.set_DataProviderOptim(provider);
+  shared_input_data->desired_trajectory = "brockett";
 
-  std::map<std::string, double> parameters =
-      provider.getOptimizationParameters();
-  int ntimesteps_gp =
-      static_cast<unsigned int>(parameters.find("ntimesteps_gp")->second);
-  unsigned int plasma_state_output_interval = static_cast<unsigned int>(
-      parameters.find("plasma_state_output_interval")->second);
+  unsigned int ntimesteps_gp = shared_input_data->ntimesteps_gp;
+  unsigned int plasma_state_output_interval = shared_input_data->plasma_state_output_interval;
 
   std::vector<double> bc(6, 0.0);
   std::vector<double> p_d(6, 0.0);
@@ -105,6 +74,8 @@ TEST(traj, brockett) {
 
     std::vector<double> p_d_trajectory = trajContr.TrajectoryDesired(
         bc, 0, 0, 0, o, brockettVector, plasma_state_output_interval);
+
+
 
     // position
     p_d[0] = brockettVector[o * plasma_state_output_interval][0];

@@ -1,29 +1,21 @@
 #include <gtest/gtest.h>
 
 #include "../../src/optimization/stepsizecontroller.h"
+#include "../../src/objects/MOTIONS.h"
 
 TEST(stepdirection, noSuchMethod) {
-  std::string Input_directory = "./data/Optim_Input_gTest.xml";
+  std::string Input_directory = "./data/Optim_input_gTest.xml";
   const char *filename = Input_directory.c_str();
 
   DataProvider provider = DataProvider(filename);
-  StepsizeController size_contr = StepsizeController(filename);
+   auto shared_input_data = std::make_shared<MOTIONS::InputData>(MOTIONS::InitializeMotions::Load_MOTIONS(provider));
+  StepsizeController size_contr = StepsizeController(shared_input_data);
 
-  std::map<std::string, std::string> subs = provider.getSubroutines();
-  subs.erase("control_update");
-  subs.insert(
-      std::pair<std::string, std::string>("control_update", "FAIL_SAFE"));
+  shared_input_data->control_update = "FAIL_SAFE";
 
-  std::map<std::string, double> optimizationParameters =
-      provider.getOptimizationParameters();
-  unsigned int number_cells_position = static_cast<unsigned int>(
-      optimizationParameters.find("number_cells_position")->second);
-  unsigned int ntimesteps_gp = static_cast<unsigned int>(
-      optimizationParameters.find("ntimesteps_gp")->second);
+  unsigned int number_cells_position = shared_input_data->number_cells_position;
+  unsigned int ntimesteps_gp = shared_input_data->ntimesteps_gp;
 
-  provider.setSubroutines(subs);
-
-  size_contr.set_DataProviderOptim(provider);
 
   arma::mat gradient(number_cells_position, 3, arma::fill::randn);
   arma::mat control(number_cells_position, 3, arma::fill::randu);
@@ -40,25 +32,17 @@ TEST(stepdirection, noSuchMethod) {
 }
 
 TEST(stepdirection, gradientDescentNoThrow) {
-  std::string Input_directory = "./data/Optim_Input_gTest.xml";
+  std::string Input_directory = "./data/Optim_input_gTest.xml";
   const char *filename = Input_directory.c_str();
 
   DataProvider provider = DataProvider(filename);
-  StepsizeController size_contr = StepsizeController(filename);
+   auto shared_input_data = std::make_shared<MOTIONS::InputData>(MOTIONS::InitializeMotions::Load_MOTIONS(provider));
+  StepsizeController size_contr = StepsizeController(shared_input_data);
 
-  std::map<std::string, std::string> subs = provider.getSubroutines();
-  subs.erase("control_update");
-  subs.insert(std::pair<std::string, std::string>("control_update",
-                                                  "gradient_descent"));
-  provider.setSubroutines(subs);
-  size_contr.set_DataProviderOptim(provider);
+  shared_input_data->control_update = "gradient_descent";
 
-  std::map<std::string, double> optimizationParameters =
-      provider.getOptimizationParameters();
-  unsigned int number_cells_position = static_cast<unsigned int>(
-      optimizationParameters.find("number_cells_position")->second);
-  unsigned int ntimesteps_gp = static_cast<unsigned int>(
-      optimizationParameters.find("ntimesteps_gp")->second);
+  unsigned int number_cells_position = shared_input_data->number_cells_position;
+  unsigned int ntimesteps_gp = shared_input_data->ntimesteps_gp;
 
   arma::mat gradient(number_cells_position, 3, arma::fill::randn);
   arma::mat control_test(number_cells_position, 3, arma::fill::randu);
@@ -79,7 +63,7 @@ TEST(stepdirection, gradientDescentNoThrow) {
 
 /*
 TEST(stepdirection,armijoLinesearchNoThrow) {
-    std::string Input_directory = "./data/Optim_Input_gTest.xml";
+    std::string Input_directory = "./data/Optim_input_gTest.xml";
     const char *  filename = Input_directory.c_str();
 
     data_provider provider = data_provider(filename);
@@ -114,25 +98,17 @@ int>(optimizationParameters.find("ntimesteps_gp")->second);
 */
 
 TEST(stepdirection, successiveApproximationNoThrow) {
-  std::string Input_directory = "./data/Optim_Input_gTest.xml";
+  std::string Input_directory = "./data/Optim_input_gTest.xml";
   const char *filename = Input_directory.c_str();
 
   DataProvider provider = DataProvider(filename);
-  StepsizeController size_contr = StepsizeController(filename);
+   auto shared_input_data = std::make_shared<MOTIONS::InputData>(MOTIONS::InitializeMotions::Load_MOTIONS(provider));
+  StepsizeController size_contr = StepsizeController(shared_input_data);
 
-  std::map<std::string, std::string> subs = provider.getSubroutines();
-  subs.erase("control_update");
-  subs.insert(std::pair<std::string, std::string>("control_update",
-                                                  "successive_approximation"));
-  provider.setSubroutines(subs);
-  size_contr.set_DataProviderOptim(provider);
+  shared_input_data->control_update = "successive_approximation";
 
-  std::map<std::string, double> optimizationParameters =
-      provider.getOptimizationParameters();
-  unsigned int number_cells_position = static_cast<unsigned int>(
-      optimizationParameters.find("number_cells_position")->second);
-  unsigned int ntimesteps_gp = static_cast<unsigned int>(
-      optimizationParameters.find("ntimesteps_gp")->second);
+  unsigned int number_cells_position = shared_input_data->number_cells_position;
+  unsigned int ntimesteps_gp = shared_input_data->ntimesteps_gp;
 
   arma::mat gradient(number_cells_position, 3, arma::fill::randn);
   arma::mat control_test(number_cells_position, 3, arma::fill::randu);

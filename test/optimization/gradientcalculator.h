@@ -10,29 +10,25 @@
 #include "../../src/optimization/objectivecalculator.h"
 #include "../../src/tools/innerproducts.h"
 
+#include "../../src/objects/MOTIONS.h"
+
 TEST(gradient, calculationNR1) {
 
-  std::string Input_directory = "./data/Optim_Input_gTest.xml";
+  std::string Input_directory = "./data/Optim_input_gTest.xml";
   const char *filename = Input_directory.c_str();
 
   DataProvider provider = DataProvider(filename);
-  InnerProducts pro = InnerProducts();
-  pro.set_DataProviderOptim(provider);
+  auto shared_input_data = std::make_shared<MOTIONS::InputData>(MOTIONS::InitializeMotions::Load_MOTIONS(provider));
 
-  std::map<std::string, double> optimizationParameters =
-      provider.getOptimizationParameters();
-  unsigned int dimensionOfControl_gp = static_cast<unsigned int>(
-      optimizationParameters.find("dimensionOfControl_gp")->second);
-  unsigned int number_cells_position = static_cast<unsigned int>(
-      optimizationParameters.find("number_cells_position")->second);
-  unsigned int ntimesteps_gp = static_cast<unsigned int>(
-      optimizationParameters.find("ntimesteps_gp")->second);
+  InnerProducts pro = InnerProducts(shared_input_data);
 
-  GradientCalculator gradient_calculator_opt = GradientCalculator(filename);
-  Input Input_control = Input();
-  Input_control.set_DataProviderOptim(provider);
-  PdfController pdf_control = PdfController();
-  pdf_control.set_DataProviderOptim(provider);
+
+  unsigned int number_cells_position = shared_input_data->number_cells_position;
+  unsigned int ntimesteps_gp = shared_input_data->ntimesteps_gp;
+
+  GradientCalculator gradient_calculator_opt = GradientCalculator(shared_input_data);
+  Input Input_control = Input(shared_input_data);
+  PdfController pdf_control = PdfController(shared_input_data);
 
   arma::mat gradient(number_cells_position, 3, arma::fill::zeros);
   arma::mat gradient_not_parallel(number_cells_position, 3, arma::fill::zeros);

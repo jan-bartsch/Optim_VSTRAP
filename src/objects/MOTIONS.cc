@@ -12,6 +12,7 @@ MOTIONS::InputData InitializeMotions::Load_MOTIONS(DataProvider &data_provider_o
         input.barycenters_list = data_provider_opt.getMeshBarycenters();
     } catch (std::exception e) {
         std::cerr << "Error loading MOTION parameters" << std::endl;
+        throw std::runtime_error("Error loading MOTIONS parameters");
     }
 
     return input;
@@ -26,14 +27,14 @@ const char* InitializeMotions::GenerateInputPath(int argc, const char **argv)
 
     switch (argc) {
     case 1:
-      Input_directory = current_directory + "/Optim_Input.xml";
-      Input_xml_path = Input_directory.c_str();
-      break;
+        Input_directory = current_directory + "/Optim_Input.xml";
+        Input_xml_path = Input_directory.c_str();
+        break;
     case 2:
-      Input_xml_path = argv[1];
-      break;
+        Input_xml_path = argv[1];
+        break;
     default:
-      throw std::runtime_error("To much input parameters to start MOTIONS");
+        throw std::runtime_error("To much input parameters to start MOTIONS");
     }
     return Input_xml_path;
 }
@@ -50,7 +51,6 @@ InputData InitializeMotions::LoadInputData(DataProvider &data_provider_opt) {
             data_provider_opt.getSubroutines();
 
     MOTIONS::InputData input_data;
-
 
     input_data.simulating_plasma = std::stoi(optimizationParameters.at("simulating_plasma"));
 
@@ -185,7 +185,7 @@ InputData InitializeMotions::LoadInputData(DataProvider &data_provider_opt) {
             std::stod(optimizationParameters.at("fixed_gradient_descent_stepsize"));
     input_data.fraction_of_optimal_control =
             std::stod(optimizationParameters.at("fraction_of_optimal_control"));
-   input_data.optimization_iteration_max = MOTIONS::InitializeMotions::stringToUnsigendInt(optimizationParameters.at("optimizationIteration_max_gp"));
+    input_data.optimization_iteration_max = MOTIONS::InitializeMotions::stringToUnsigendInt(optimizationParameters.at("optimizationIteration_max_gp"));
     input_data.linesearchIteration_max_gp =
             std::stoi(optimizationParameters.at("linesearchIteration_max_gp"));
     input_data.numberParticles_gp =
@@ -210,9 +210,9 @@ InputData InitializeMotions::LoadInputData(DataProvider &data_provider_opt) {
             std::stod(optimizationParameters.at("small_discr_volume"));
     input_data.small_discr_sidelength =
             std::stod(optimizationParameters.at("small_discr_sidelength"));
-  input_data.dimension_control = MOTIONS::InitializeMotions::stringToUnsigendInt(optimizationParameters.at("dimensionOfControl_gp"));
-   input_data.end_control_gp = MOTIONS::InitializeMotions::stringToUnsigendInt(optimizationParameters.at("end_control_gp"));
-   input_data.start_control_gp = MOTIONS::InitializeMotions::stringToUnsigendInt(optimizationParameters.at("start_control_gp"));
+    input_data.dimension_control = MOTIONS::InitializeMotions::stringToUnsigendInt(optimizationParameters.at("dimensionOfControl_gp"));
+    input_data.end_control_gp = MOTIONS::InitializeMotions::stringToUnsigendInt(optimizationParameters.at("end_control_gp"));
+    input_data.start_control_gp = MOTIONS::InitializeMotions::stringToUnsigendInt(optimizationParameters.at("start_control_gp"));
 
     input_data.dt_gp = std::stod(optimizationParameters.at("dt_gp"));
     input_data.dt_VSTRAP =
@@ -289,6 +289,7 @@ InputData InitializeMotions::LoadInputData(DataProvider &data_provider_opt) {
             subroutines.at("desired_trajectory");
     input_data.objective_calculation =
             subroutines.at("objective_calculation");
+
 
     return input_data;
 }

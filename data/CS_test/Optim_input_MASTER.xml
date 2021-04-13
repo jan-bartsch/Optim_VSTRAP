@@ -162,24 +162,24 @@
 </globalParameters>
 
 <paths>
-	<!--path name="build_directory_vstrap" value="/HOME/bartsch/SPARC/build-vstrap-Desktop/src/" />
+	<path name="build_directory_vstrap" value="/HOME/bartsch/SPARC/build-vstrap-Desktop/src/" />
 	<path name="build_directory_optim" value="/HOME/bartsch/SPARC/build-Optim-Desktop/src/" />
-	<path name="path_to_shared_files_absolute" value="/HOME/bartsch/SPARC/build-Optim-Desktop/src/results/"/-->
+	<path name="path_to_shared_files_absolute" value="/HOME/bartsch/SPARC/build-Optim-Desktop/src/results/"/>
 
     <!--path name="build_directory_vstrap" value="/LocalData/bartsch/build-vstrap-CSMC/src/" />
 	<path name="build_directory_optim" value="/LocalData/bartsch/build-Optim-CSMC/src/" />
 	<path name="path_to_shared_files_absolute" value="/LocalData/bartsch/build-Optim-CSMC/src/results/" /-->
 
-    <path name="build_directory_vstrap" value="/home/jan/Promotion_linuxPC/build-vstrap/src/" />
+    <!--path name="build_directory_vstrap" value="/home/jan/Promotion_linuxPC/build-vstrap/src/" />
     <path name="build_directory_optim" value="/home/jan/Promotion_linuxPC/build-Optim/src/" />
-    <path name="path_to_shared_files_absolute" value="/home/jan/Promotion_linuxPC/build-Optim/src/results/" />
+    <path name="path_to_shared_files_absolute" value="/home/jan/Promotion_linuxPC/build-Optim/src/results/" /-->
 
 	<!--path name="pvpython_absolute_dir" value="/usr/bin/pvpython" /-->
     <path name="pvpython_absolute_dir" value="/home/jan/ParaView-5.8.0-MPI-Linux-Python3.7-64bit/bin/pvpython" />
 
     <path name="barycenters_mesh" value="../../Optim_VSTRAP/data/global/mesh_barycenters_small_64.xml"/>
     <path name="domain_mesh" value="../../../Optim_VSTRAP/data/global/box_vol_regular_small_64.xml"/>
-    <path name="domain_mesh_file" value="box_vol_regular_small.xml"/>
+    <path name="domain_mesh_file" value="box_vol_regular_small_64.xml"/>
 
 	<!--path name="barycenters_mesh" value="../../Optim_VSTRAP/data/global/mesh_barycenters_small_216.xml"/>
 	<path name="domain_mesh" value="../../../Optim_VSTRAP/data/global/box_vol_regular_small_216.xml"/>
@@ -218,7 +218,7 @@
 	<subroutine group="control_update" name="armijo_linesearch"/>
 	<!--  subroutine group="direction_update" name="negative_gradient" /  -->
 	<subroutine group="direction_update" name="ncg_FR"/> <!-- ncg_FR ncg_PR ncg_HZ-->
-<subroutine group="desired_trajectory" name="parameters"/> <!-- parameters brockett-->
+<subroutine group="desired_trajectory" name="brockett"/> <!-- parameters brockett-->
 	<subroutine group="objective_calculation" name="magnitude"/> <!-- components -->
 </subroutines>
 </optimizer_input>

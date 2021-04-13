@@ -4,6 +4,8 @@
 #include "../../src/io/outputcontrolupdate.h"
 #include "../../src/objects/dataprovider.h"
 
+#include "../../src/objects/MOTIONS.h"
+
 // TEST(optContr,startup) {
 //    optim_controller contr = optim_controller();
 
@@ -25,30 +27,29 @@
 //}
 
 TEST(optContr, interpolateControl) {
-  std::string Input_directory = "./data/Optim_Input_gTest.xml";
+  std::string Input_directory = "./data/Optim_input_gTest.xml";
   const char *filename = Input_directory.c_str();
 
   DataProvider provider = DataProvider(filename);
-  OutputControlUpdate outContr = OutputControlUpdate();
-  outContr.set_DataProviderOptim(provider);
+   auto shared_input_data = std::make_shared<MOTIONS::InputData>(MOTIONS::InitializeMotions::Load_MOTIONS(provider));
 
-  ASSERT_NO_THROW(outContr.InterpolateControl(provider));
+  OutputControlUpdate outContr = OutputControlUpdate(shared_input_data);
+
+  ASSERT_NO_THROW(outContr.InterpolateControl(shared_input_data));
 }
 
 TEST(optContr, startZeroControl) {
-  std::string Input_directory = "./data/Optim_Input_gTest.xml";
+  std::string Input_directory = "./data/Optim_input_gTest.xml";
   const char *filename = Input_directory.c_str();
 
   DataProvider provider = DataProvider(filename);
+   auto shared_input_data = std::make_shared<MOTIONS::InputData>(MOTIONS::InitializeMotions::Load_MOTIONS(provider));
+
   OptimController contr = OptimController();
 
-  std::map<std::string, double> optimizationParameters =
-      provider.getOptimizationParameters();
-  unsigned int dimensionOfControl_gp = static_cast<unsigned int>(
-      optimizationParameters.find("number_cells_position")->second);
-  arma::mat zero(dimensionOfControl_gp, 3, arma::fill::zeros);
+  arma::mat zero(shared_input_data->dimension_control, 3, arma::fill::zeros);
 
-  arma::mat control = contr.StartWithZeroControl(filename);
+  arma::mat control = contr.StartWithZeroControl(shared_input_data);
 
   double norm_difference = arma::norm(zero - control);
 
@@ -56,26 +57,22 @@ TEST(optContr, startZeroControl) {
 }
 
 TEST(optContr, startReadInControl) {
-  std::string Input_directory = "./data/Optim_Input_gTest.xml";
+  std::string Input_directory = "./data/Optim_input_gTest.xml";
   const char *filename = Input_directory.c_str();
 
   DataProvider provider = DataProvider(filename);
+   auto shared_input_data = std::make_shared<MOTIONS::InputData>(MOTIONS::InitializeMotions::Load_MOTIONS(provider));
   OptimController contr = OptimController();
 
-  OutputControlUpdate updater = OutputControlUpdate();
-  updater.set_DataProviderOptim(provider);
+  OutputControlUpdate updater = OutputControlUpdate(shared_input_data);
 
-  std::map<std::string, double> optimizationParameters =
-      provider.getOptimizationParameters();
-  unsigned int dimensionOfControl_gp = static_cast<unsigned int>(
-      optimizationParameters.find("number_cells_position")->second);
-  arma::mat control_rand(dimensionOfControl_gp, 3, arma::fill::randu);
+  arma::mat control_rand(shared_input_data->dimension_control, 3, arma::fill::randu);
 
   updater.WritecontrolXml(control_rand);
 
   std::cout << control_rand << std::endl;
 
-  arma::mat control = contr.StartWithGivenControl(filename);
+  arma::mat control = contr.StartWithGivenControl(shared_input_data);
 
   std::cout << control << std::endl;
 
@@ -86,7 +83,7 @@ TEST(optContr, startReadInControl) {
 
 /*
 TEST(optContr,runIterationMaxDepth) {
-    std::string Input_directory = "./data/Optim_Input_gTest.xml";
+    std::string Input_directory = "./data/Optim_input_gTest.xml";
     const char *  filename = Input_directory.c_str();
 
     data_provider provider = data_provider(filename);

@@ -157,6 +157,8 @@ int OptimController::MainOptimizationAlgorithm(std::shared_ptr<MOTIONS::InputDat
         pdf_control.AssemblingMultidimParallel(backward_particles, 1, pdf_time);
     backwardPDF = pdf_time;
 
+    value_objective = objective.CalculateObjective(forwardPDF, control);
+
     if (simulating_plasma == 1) {
       assembling_flag = pdf_control.AssemblingMultidimParallel(
           forward_particles_electrons, 0, pdf_time);
@@ -182,7 +184,7 @@ int OptimController::MainOptimizationAlgorithm(std::shared_ptr<MOTIONS::InputDat
               */
         throw std::invalid_argument("Plasma gradient not defined");
     } else {
-      gradient = gradient_calculator_opt.CalculategradientForcecontrolSpaceHmNotParallel(
+      gradient = gradient_calculator_opt.CalculategradientForcecontrolSpaceHm(
           forwardPDF, backwardPDF, control);
     }
     outDiag.WriteDoubleToFile(arma::norm(gradient, "fro"), "normGradientTrack");
