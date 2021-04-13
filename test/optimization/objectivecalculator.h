@@ -37,6 +37,7 @@ TEST(objective, calculationNR1) {
 
   try {
     double value = calculator.CalculateObjective(forwardPDF, control);
+    std::cout << "Functional value " << value << std::endl;
   } catch (std::exception e) {
     std::cout << e.what() << std::endl;
   }

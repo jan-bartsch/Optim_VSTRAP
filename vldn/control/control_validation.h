@@ -14,6 +14,7 @@
 #include "../../src/io/outputdiagnostics.h"
 
 #include "../../src/objects/dataprovider.h"
+#include "../../src/objects/MOTIONS.h"
 
 class control_verification : public abstract_verification {
 

@@ -3,9 +3,9 @@
 		<parameter name="number_controls" value="3" />
 	</globalParameters>
 	<paths>
-		<path name="DIRECTORY_OPTIM_INPUT" value="/HOME/bartsch/SPARC/Optim_VSTRAP/vldn/data/Optim_input.xml" />
-		<!--path name="PATH_TO_CONTROLS" value="/HOME/bartsch/SPARC/Optim_VSTRAP/vldn/data/controls-20201126-weight/" /-->
-        <path name="PATH_TO_CONTROLS" value="/HOME/bartsch/SPARC/Optim_VSTRAP/vldn/data/controls-20210311-spatial_sameAdjoint/" />
+		<path name="directory_optim_input" value="/HOME/bartsch/SPARC/Optim_VSTRAP/vldn/data/Optim_input.xml" />
+		<!--path name="path_to_controls" value="/HOME/bartsch/SPARC/Optim_VSTRAP/vldn/data/controls-20201126-weight/" /-->
+        <path name="path_to_controls" value="/HOME/bartsch/SPARC/Optim_VSTRAP/vldn/data/controls-20210311-spatial_sameAdjoint/" />
 	</paths>
 	<subroutines>
 		<subroutine name="gradient_landau_verification" value="FALSE" />

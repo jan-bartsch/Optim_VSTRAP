@@ -1,47 +1,39 @@
 #include "control_validation.h"
 
+
+
 control_verification::control_verification() {}
 
 int control_verification::start_verification(int argc, char **argv) {
   DataProvider validation_provider = DataProvider(argv[1]);
   std::map<std::string, std::string> validation_paths =
       validation_provider.getPaths();
-  std::map<std::string, double> validation_params =
+  std::map<std::string, std::string> validation_params =
       validation_provider.getOptimizationParameters();
   std::map<std::string, std::string> validation_routines =
       validation_provider.getSubroutines();
 
-  std::string DIRECTORY_OPTIM_Input =
-      validation_paths.find("DIRECTORY_OPTIM_Input")->second;
+  std::string directory_optim_input =
+      validation_paths.at("directory_optim_input");
   DataProvider optimization_provider =
-      DataProvider(DIRECTORY_OPTIM_Input.c_str());
-  std::map<std::string, double> optimizationParameters =
-      optimization_provider.getOptimizationParameters();
-  std::map<std::string, std::string> paths = optimization_provider.getPaths();
+      DataProvider(directory_optim_input.c_str());
 
-  int number_cells_position = static_cast<int>(
-      optimizationParameters.find("number_cells_position")->second);
+  auto shared_optim_input_data = std::make_shared<MOTIONS::InputData>(MOTIONS::InitializeMotions::Load_MOTIONS(optimization_provider));
 
-  Input in = Input();
-  in.set_DataProviderOptim(optimization_provider);
+  int number_cells_position = shared_optim_input_data->number_cells_position;
 
-  OutputDiagnostics out = OutputDiagnostics();
-  out.set_DataProviderOptim(optimization_provider);
+  Input in = Input(shared_optim_input_data);
+  OutputDiagnostics out = OutputDiagnostics(shared_optim_input_data);
+  EquationSolvingController solver = EquationSolvingController(shared_optim_input_data);
+  InnerProducts pro = InnerProducts(shared_optim_input_data);
 
-  EquationSolvingController solver = EquationSolvingController();
-  solver.set_DataProviderOptim(optimization_provider);
-
-  InnerProducts pro = InnerProducts();
-  pro.set_DataProviderOptim(optimization_provider);
-
-  unsigned long iterations = static_cast<unsigned long>(
-      validation_params.find("number_controls")->second);
+  int iterations = std::stoi(validation_params.at("number_controls"));
   std::cout << "Running " << iterations << " validation iterations"
             << std::endl;
 
-  std::string CONTROLS_DIRECTORY =
-      validation_paths.find("PATH_TO_CONTROLS")->second;
-  std::string VALIDATION_TYPE =
+  std::string controls_directory =
+      validation_paths.find("path_to_controls")->second;
+  std::string validation_type =
       validation_routines.find("type_control_verification")->second;
   std::string number = "";
   std::string file = "";
@@ -50,7 +42,7 @@ int control_verification::start_verification(int argc, char **argv) {
   std::vector<double> control_difference(iterations - 1, 0.0);
 
   std::string discretization_file =
-      CONTROLS_DIRECTORY + "discretization_vector.txt";
+      controls_directory + "discretization_vector.txt";
   std::vector<double> discretization_vector =
       in.ReadDoubleVector(discretization_file.c_str());
 
@@ -89,9 +81,9 @@ int control_verification::start_verification(int argc, char **argv) {
 
   for (unsigned long i = 0; i < iterations; i++) {
     number = std::to_string(i);
-    file = CONTROLS_DIRECTORY + "control_" + number + ".xml";
+    file = controls_directory + "control_" + number + ".xml";
     std::cout << "Open file with name " << file << std::endl;
-    if (VALIDATION_TYPE.compare("position") == 0) {
+    if (validation_type.compare("position") == 0) {
       arma::mat control = in.ReadControl(
           file.c_str(), static_cast<int>(discretization_vector[i]));
       barycenter_mesh_path =
@@ -107,7 +99,7 @@ int control_verification::start_verification(int argc, char **argv) {
       std::cout << means << std::endl;
       norms.push_back(arma::norm(means.row(i)) * 0.001);
       valide_vector.push_back(1.0);
-    } else if (VALIDATION_TYPE.compare("weight") == 0) {
+    } else if (validation_type.compare("weight") == 0) {
       control = in.ReadControl(file.c_str(), number_cells_position);
       means.insert_rows(
           i, arma::mean(calculate_cross_error(control, bary, valide_vector)));
@@ -138,13 +130,10 @@ int control_verification::start_verification(int argc, char **argv) {
   out.writeGradientMatrixToFile(means, "Means");
   out.WriteDoubleVectorToFile(valide_vector, "Valide");
 
-  std::string DIRECTORY_TOOLSET = paths.find("DIRECTORY_TOOLSET")->second;
-  std::string PATH_TO_SHARED_FILES_ABSOLUTE =
-      paths.find("PATH_TO_SHARED_FILES_ABSOLUTE")->second;
 
-  std::string visualize_control_pyhton = "python3 " + DIRECTORY_TOOLSET +
+  std::string visualize_control_pyhton = "python3 " + shared_optim_input_data->directory_toolset +
                                          "vldn/" + "test_controls_mean.py " +
-                                         PATH_TO_SHARED_FILES_ABSOLUTE;
+                                         shared_optim_input_data->path_to_shared_files_absolute;
 
   logger::Info("Calling command " + visualize_control_pyhton);
   system(&visualize_control_pyhton[0]);

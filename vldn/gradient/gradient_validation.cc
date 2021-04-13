@@ -1,60 +1,38 @@
 #include "gradient_validation.h"
 
+
 gradient_validation::gradient_validation() {}
 
 int gradient_validation::landau_validation(int argc, char **argv) {
   DataProvider validation_provider = DataProvider(argv[1]);
   std::map<std::string, std::string> validation_paths =
       validation_provider.getPaths();
-  std::map<std::string, double> validation_params =
-      validation_provider.getOptimizationParameters();
 
-  std::string DIRECTORY_OPTIM_Input =
-      validation_paths.find("DIRECTORY_OPTIM_Input")->second;
-  DataProvider optimization_provider =
-      DataProvider(DIRECTORY_OPTIM_Input.c_str());
+  std::string directory_optim_input =
+        validation_paths.at("directory_optim_input");
+    DataProvider optimization_provider =
+        DataProvider(directory_optim_input.c_str());
 
-  Input in = Input();
-  in.set_DataProviderOptim(optimization_provider);
+   auto shared_optim_input_data = std::make_shared<MOTIONS::InputData>(MOTIONS::InitializeMotions::Load_MOTIONS(optimization_provider));
 
-  PdfController pdf_control = PdfController();
-  pdf_control.set_DataProviderOptim(optimization_provider);
-
-  OutputDiagnostics outDiag = OutputDiagnostics();
-  outDiag.set_DataProviderOptim(optimization_provider);
-
-  EquationSolvingController model_solver = EquationSolvingController();
-  model_solver.set_DataProviderOptim(optimization_provider);
+  Input in = Input(shared_optim_input_data);
+  PdfController pdf_control = PdfController(shared_optim_input_data);
+  OutputDiagnostics outDiag = OutputDiagnostics(shared_optim_input_data);
+  EquationSolvingController model_solver = EquationSolvingController(shared_optim_input_data);
+  InnerProducts product = InnerProducts(shared_optim_input_data);
+  GradientCalculator gradient_calculator_opt =
+      GradientCalculator(shared_optim_input_data);
+  ObjectiveCalculator objective =
+      ObjectiveCalculator(shared_optim_input_data);
+  OutputControlUpdate outController =
+      OutputControlUpdate(shared_optim_input_data);
 
   arma::mat control(32, 3, arma::fill::ones);
 
   std::cout << model_solver.Laplacian3D() << std::endl;
 
-  OptimController contr = OptimController();
-  contr.set_DataProviderOptim(optimization_provider);
-
-  InnerProducts product = InnerProducts();
-  product.set_DataProviderOptim(optimization_provider);
-
-  // contr.generate_Input_files(DIRECTORY_OPTIM_Input.c_str());
-
-  GradientCalculator gradient_calculator_opt =
-      GradientCalculator(DIRECTORY_OPTIM_Input.c_str());
-  ObjectiveCalculator objective =
-      ObjectiveCalculator(DIRECTORY_OPTIM_Input.c_str());
-  OutputControlUpdate outController =
-      OutputControlUpdate(DIRECTORY_OPTIM_Input.c_str());
-
-  std::map<std::string, double> optimizationParameters =
-      optimization_provider.getOptimizationParameters();
-  std::map<std::string, std::string> paths = optimization_provider.getPaths();
-
-  unsigned int dimensionOfControl_gp = static_cast<unsigned int>(
-      optimizationParameters.find("dimensionOfControl_gp")->second);
-  unsigned int ntimesteps_gp = static_cast<unsigned int>(
-      optimizationParameters.find("ntimesteps_gp")->second);
-  double number_cells_position = static_cast<unsigned int>(
-      optimizationParameters.find("number_cells_position")->second);
+  unsigned int ntimesteps_gp = shared_optim_input_data->ntimesteps_gp;
+  double number_cells_position = shared_optim_input_data->number_cells_position;
 
   std::vector<std::vector<Particle>> forwardParticles(ntimesteps_gp);
   std::vector<std::unordered_map<CoordinatePhaseSpaceTime, double>> forwardPDF;
@@ -66,22 +44,15 @@ int gradient_validation::landau_validation(int argc, char **argv) {
       ntimesteps_gp);
   int assembling_flag;
 
-  std::string BUILD_DIRECTORY_VSTRAP =
-      paths.find("BUILD_DIRECTORY_VSTRAP")->second;
-  std::string BUILD_DIRECTORY_OPTIM =
-      paths.find("BUILD_DIRECTORY_OPTIM")->second;
-  std::string DIRECTORY_TOOLSET = paths.find("DIRECTORY_TOOLSET")->second;
-  std::string Input_FORWARD = paths.find("Input_FORWARD")->second;
-  std::string Input_BACKWARD = paths.find("Input_BACKWARD")->second;
+  std::string build_directory_vstrap = shared_optim_input_data->build_directory_vstrap;
+  std::string path_to_shared_files = shared_optim_input_data->path_to_shared_files;
 
-  std::string PATH_TO_SHARED_FILES = paths.find("PATH_TO_SHARED_FILES")->second;
-  std::string DOMAIN_MESH = paths.find("DOMAIN_MESH")->second;
 
-  std::string START_VSTRAP_FORWARD = BUILD_DIRECTORY_VSTRAP + "vstrap" + " " +
-                                     PATH_TO_SHARED_FILES + Input_FORWARD;
+  std::string start_vstrap_forward = build_directory_vstrap + "vstrap" + " " +
+                                     path_to_shared_files + shared_optim_input_data->input_forward;
   int forward_return = 0;
-  std::string START_VSTRAP_BACKWARD = BUILD_DIRECTORY_VSTRAP + "vstrap" + " " +
-                                      PATH_TO_SHARED_FILES + Input_BACKWARD;
+  std::string start_vstrap_backward = build_directory_vstrap + "vstrap" + " " +
+                                      path_to_shared_files + shared_optim_input_data->input_backward;
   int backward_return = 0;
 
   arma::mat control0(number_cells_position, 3, arma::fill::zeros);
@@ -90,13 +61,13 @@ int gradient_validation::landau_validation(int argc, char **argv) {
 
   outController.WritecontrolXml(control0);
   outDiag.WriteDoubleToFile(arma::norm(control0, "fro"), "normControlTrack");
-  outController.InterpolateControl(optimization_provider);
+  outController.InterpolateControl(shared_optim_input_data);
 
   /*
    * calculat J^(u0)
    */
   logger::Info("Starting VSTRAP (foward)... ");
-  forward_return = model_solver.StartSolvingForward(START_VSTRAP_FORWARD);
+  forward_return = model_solver.StartSolvingForward(start_vstrap_forward);
   if (forward_return != 0) {
     logger::Info("Forward VSTRAP returned non-zero value: " +
                  std::to_string(forward_return));
@@ -109,7 +80,7 @@ int gradient_validation::landau_validation(int argc, char **argv) {
   logger::Info("Finished reading files...");
   logger::Info("Starting VSTRAP (backward)...");
 
-  backward_return = model_solver.StartSolvingBackward(START_VSTRAP_BACKWARD);
+  backward_return = model_solver.StartSolvingBackward(start_vstrap_backward);
   if (backward_return != 0) {
     logger::Info("Backward VSTRAP returned non-zero value: " +
                  std::to_string(backward_return));
@@ -147,8 +118,6 @@ int gradient_validation::landau_validation(int argc, char **argv) {
 
   unsigned long iteration_number = 10;
   double reducing_factor = 0.5;
-  double small_discr_volume = static_cast<double>(
-      optimizationParameters.find("small_discr_volume")->second);
 
   std::vector<double> functional_values(iteration_number, 0.0);
   std::vector<double> difference(iteration_number, 0.0);
@@ -159,10 +128,10 @@ int gradient_validation::landau_validation(int argc, char **argv) {
        i++) {
     control_temp = control0 + pow(reducing_factor, i) * delta_control;
     outController.WritecontrolXml(control_temp);
-    outController.InterpolateControl(optimization_provider);
+    outController.InterpolateControl(shared_optim_input_data);
 
     logger::Info("Starting VSTRAP (foward)... ");
-    forward_return = model_solver.StartSolvingForward(START_VSTRAP_FORWARD);
+    forward_return = model_solver.StartSolvingForward(start_vstrap_forward);
     if (forward_return != 0) {
       logger::Info("Forward VSTRAP returned non-zero value: " +
                    std::to_string(forward_return));

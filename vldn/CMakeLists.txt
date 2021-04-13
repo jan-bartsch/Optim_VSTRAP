@@ -16,8 +16,8 @@ find_package(Armadillo REQUIRED)
 
 if(Boost_FOUND)
     include_directories(${Boost_INCLUDE_DIRS} ${ARMADILLO_INCLUDE_DIR})
-    file(GLOB_RECURSE sources ../src/*.cc ../src/*.cpp *.cpp)
-    list(FILTER sources EXCLUDE REGEX "../src/main.cpp")
+    file(GLOB_RECURSE sources ../src/*.cc *.cc)
+    list(FILTER sources EXCLUDE REGEX "../src/main.cc")
     add_executable(run_vldn ${sources})
     target_link_libraries(run_vldn ${Boost_LIBRARIES} ${ARMADILLO_LIBRARY} OpenMP::OpenMP_CXX
       libpthread.so.0 librt.so -llapack -lblas -ltbb -ltbbmalloc -fopenmp)

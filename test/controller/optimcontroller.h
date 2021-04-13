@@ -81,6 +81,21 @@ TEST(optContr, startReadInControl) {
   ASSERT_LE(norm_difference, pow(10, -5));
 }
 
+
+TEST(optContr, generateInputFiles) {
+    std::string Input_directory = "./data/Optim_input_gTest.xml";
+    const char *filename = Input_directory.c_str();
+
+    DataProvider provider = DataProvider(filename);
+     auto shared_input_data = std::make_shared<MOTIONS::InputData>(MOTIONS::InitializeMotions::Load_MOTIONS(provider));
+     shared_input_data->input_path_xml = filename;
+
+    OptimController contr = OptimController();
+
+    ASSERT_NO_THROW(contr.GenerateInputFiles(shared_input_data));
+}
+
+
 /*
 TEST(optContr,runIterationMaxDepth) {
     std::string Input_directory = "./data/Optim_input_gTest.xml";
