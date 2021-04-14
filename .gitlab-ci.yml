@@ -19,7 +19,10 @@ compile:
 run_unit_tests:
   stage: unit_test
   script:
+    - pwd
+    - ls
     - cd test 
+    - ls
     - ./run_test 
     - mkdir test-results
 
