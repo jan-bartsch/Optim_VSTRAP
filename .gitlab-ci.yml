@@ -13,7 +13,7 @@ compile:
   script:
     - mkdir build-OPTIM 
     - cd build-OPTIM 
-    - cmake3 -DCMAKE_BUILD_TYPE=DEBUG  
+    - cmake3 -DCMAKE_BUILD_TYPE=DEBUG ..
     - make -j12
 
 run_unit_tests:
