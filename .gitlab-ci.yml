@@ -1,0 +1,42 @@
+stages:
+  - build
+  - unit_test
+  - coverage
+  
+
+
+cache:
+  paths:
+  - .coverage
+  - htmlcov/
+compile:
+  stage: build
+  script:
+    - mkdir build-OPTIM 
+    - cd build-OPTIM 
+    - cmake3 -DCMAKE_BUILD_TYPE=DEBUG  
+    - make -j12
+
+run_unit_tests:
+  stage: unit_test
+  script:
+    - cd test 
+    - ./run_test 
+    - mkdir test-results
+
+
+coverage:
+  stage: coverage
+  script:
+    - lcov --capture --directory . --output-file ./test-results/coverage.info
+            lcov -r "./test-results/coverage.info" "boost" "*/boost/*" "*/test/*" "armadillo_bits" "*/gtest/*" "*/c++/*" "*/Core/*" "/usr/" "*/gcc/*" -o "./test-results/coverage-filtered.info"
+            genhtml ./test-results/coverage-filtered.info --output-directory coverage     
+  artifacts:
+    paths:
+    - coverage/html 
+
+
+    
+ 
+  
+
