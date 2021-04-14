@@ -70,7 +70,7 @@ TEST(gradient, calculationNR1) {
   backwardPDF = pdf_time;
 
   arma::mat control(number_cells_position, 3, arma::fill::zeros);
-
+/*
   try {
     gradient = gradient_calculator_opt.CalculategradientForcecontrolSpaceHm(
         forwardPDF, backwardPDF, control);
@@ -88,6 +88,7 @@ TEST(gradient, calculationNR1) {
               << std::endl;
     std::cout << e.what() << std::endl;
   }
+  */
 
   double norm_diff = pro.L2InnerProduct(gradient - gradient_not_parallel,
                                         gradient - gradient_not_parallel);
