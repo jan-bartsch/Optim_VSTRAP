@@ -11,6 +11,7 @@ cache:
 compile:
   stage: build
   script:
+    - rm -rf build-OPTIM
     - mkdir build-OPTIM 
     - cd build-OPTIM 
     - cmake3 -DCMAKE_BUILD_TYPE=DEBUG ..
@@ -21,7 +22,7 @@ run_unit_tests:
   script:
     - pwd
     - ls
-    - cd test 
+    - cd build-OPTIM/test
     - ls
     - ./run_test 
     - mkdir test-results
