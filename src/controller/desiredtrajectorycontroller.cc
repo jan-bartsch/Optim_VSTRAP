@@ -1,8 +1,9 @@
 #include "desiredtrajectorycontroller.h"
 #include "../objects/MOTIONS.h"
 
-DesiredTrajectoryController::DesiredTrajectoryController(std::shared_ptr<MOTIONS::InputData> &input_data) {
-    this->setInput_data(input_data);
+DesiredTrajectoryController::DesiredTrajectoryController(
+    std::shared_ptr<MOTIONS::InputData> &input_data) {
+  this->setInput_data(input_data);
 }
 
 std::vector<double> DesiredTrajectoryController::TrajectoryDesired(
@@ -11,7 +12,8 @@ std::vector<double> DesiredTrajectoryController::TrajectoryDesired(
     std::vector<std::vector<double>> brockett_vector,
     unsigned int plasma_state_output_interval) {
   std::vector<double> p_d(6, 0.0);
-  std::string desired_traj = input_data_->desired_trajectory; // input_data_->desired_trajectory;
+  std::string desired_traj =
+      input_data_->desired_trajectory; // input_data_->desired_trajectory;
 
   if (desired_traj.compare("parameters") == 0) {
     p_d = this->TrajectoryDesiredParameters(barycenter, l, m, n, o,

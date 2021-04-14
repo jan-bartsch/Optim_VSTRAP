@@ -1,6 +1,7 @@
 #include "stepdirectioncontroller.h"
 
-StepdirectionController::StepdirectionController(std::shared_ptr<MOTIONS::InputData> &input_data) {
+StepdirectionController::StepdirectionController(
+    std::shared_ptr<MOTIONS::InputData> &input_data) {
   this->setInput_data(input_data);
 }
 
@@ -47,7 +48,8 @@ arma::mat StepdirectionController::GetStepdirection(
   }
 }
 
-arma::mat StepdirectionController::FixedGradientDescent(arma::mat &gradient, unsigned int optimization_iteration) {
+arma::mat StepdirectionController::FixedGradientDescent(
+    arma::mat &gradient, unsigned int optimization_iteration) {
   return -gradient;
 }
 

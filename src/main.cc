@@ -12,10 +12,12 @@ int main(int argc, const char **argv) {
 
   // Set parameters
 
-
-  DataProvider provider = DataProvider(MOTIONS::InitializeMotions::GenerateInputPath(argc, argv));
-  MOTIONS::InputData input_data = MOTIONS::InitializeMotions::Load_MOTIONS(provider) ;
-  input_data.input_path_xml = MOTIONS::InitializeMotions::GenerateInputPath(argc, argv);
+  DataProvider provider =
+      DataProvider(MOTIONS::InitializeMotions::GenerateInputPath(argc, argv));
+  MOTIONS::InputData input_data =
+      MOTIONS::InitializeMotions::Load_MOTIONS(provider);
+  input_data.input_path_xml =
+      MOTIONS::InitializeMotions::GenerateInputPath(argc, argv);
 
   auto shared_input_data = std::make_shared<MOTIONS::InputData>(input_data);
 

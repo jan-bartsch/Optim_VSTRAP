@@ -149,7 +149,7 @@
   
   
 	<path name="BARYCENTERS_MESH" value="../../Optim_VSTRAP/data/global/mesh_barycenters_small_216.xml"/>
-	<path name="DIRECTORY_TOOLSET" value="../../Optim_VSTRAP/optim-vstrap-toolset/toolset/"/>
+	<path name="DIRECTORY_TOOLSET" value="../../Optim_VSTRAP/MOTIONS-toolset/toolset/"/>
 	<path name="DOMAIN_MESH" value="../../../Optim_VSTRAP/data/global/box_vol_regular_small_216.xml"/>
     <path name="DOMAIN_MESH_FILE" value="box_vol_regular_small_216.xml"/>
     <!--  shared forward/backward  -->

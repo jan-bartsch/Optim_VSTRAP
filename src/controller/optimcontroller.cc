@@ -2,7 +2,8 @@
 
 OptimController::OptimController() { logger::InitLog(); }
 
-int OptimController::StartOptimizer(std::shared_ptr<MOTIONS::InputData> &input_data) {
+int OptimController::StartOptimizer(
+    std::shared_ptr<MOTIONS::InputData> &input_data) {
   logger::Info("Starting optimizer...");
 
   std::chrono::time_point<std::chrono::system_clock> start_optim =
@@ -15,7 +16,8 @@ int OptimController::StartOptimizer(std::shared_ptr<MOTIONS::InputData> &input_d
   logger::Info("Optimization took: " +
                std::to_string(std::chrono::duration_cast<std::chrono::minutes>(
                                   end_optim - start_optim)
-                                  .count()) + " minutes");
+                                  .count()) +
+               " minutes");
 
   if (optim_flag == 0) {
     logger::Info("Optimization ended without errors");
@@ -28,21 +30,21 @@ int OptimController::StartOptimizer(std::shared_ptr<MOTIONS::InputData> &input_d
   return 0;
 }
 
-int OptimController::MainOptimizationAlgorithm(std::shared_ptr<MOTIONS::InputData> &input_data) {
+int OptimController::MainOptimizationAlgorithm(
+    std::shared_ptr<MOTIONS::InputData> &input_data) {
 
-  GradientCalculator gradient_calculator_opt =
-      GradientCalculator(input_data);
+  GradientCalculator gradient_calculator_opt = GradientCalculator(input_data);
   ObjectiveCalculator objective = ObjectiveCalculator(input_data);
   OutputControlUpdate outController = OutputControlUpdate(input_data);
-  StepdirectionController stepdir_contr =
-      StepdirectionController(input_data);
+  StepdirectionController stepdir_contr = StepdirectionController(input_data);
   StepsizeController stepsize_contr = StepsizeController(input_data);
 
   PdfController pdf_control = PdfController(input_data);
   Input Input_control = Input(input_data);
   OutputDiagnostics outDiag = OutputDiagnostics(input_data);
 
-  EquationSolvingController model_solver = EquationSolvingController(input_data);
+  EquationSolvingController model_solver =
+      EquationSolvingController(input_data);
 
   // parameters used often
   std::string build_directory_vstrap = input_data->build_directory_vstrap;
@@ -108,8 +110,7 @@ int OptimController::MainOptimizationAlgorithm(std::shared_ptr<MOTIONS::InputDat
 
   std::chrono::time_point<std::chrono::system_clock> start, end;
 
-  for (unsigned int r = 1; r <= input_data->optimization_iteration_max;
-       r++) {
+  for (unsigned int r = 1; r <= input_data->optimization_iteration_max; r++) {
     logger::Info("Starting VSTRAP (foward)... ");
     forward_return = model_solver.StartSolvingForward(start_vstrap_forward);
     if (forward_return != 0) {
@@ -182,7 +183,7 @@ int OptimController::MainOptimizationAlgorithm(std::shared_ptr<MOTIONS::InputDat
               forwardPDF, backwardPDF, forwardPDF_electrons,
               backwardPDF_electrons, control);
               */
-        throw std::invalid_argument("Plasma gradient not defined");
+      throw std::invalid_argument("Plasma gradient not defined");
     } else {
       gradient = gradient_calculator_opt.CalculategradientForcecontrolSpaceHm(
           forwardPDF, backwardPDF, control);
@@ -243,8 +244,7 @@ int OptimController::MainOptimizationAlgorithm(std::shared_ptr<MOTIONS::InputDat
             "Too small first gradient. Norm was smaller than tolerance_gp <" +
             std::to_string(input_data->tolerance_gp) + ">");
       }
-      stepsize =
-          input_data->fixed_gradient_descent_stepsize / norm_gradient;
+      stepsize = input_data->fixed_gradient_descent_stepsize / norm_gradient;
     }
 
     logger::Info("Updating the control...");
@@ -297,7 +297,8 @@ int OptimController::MainOptimizationAlgorithm(std::shared_ptr<MOTIONS::InputDat
 
 int OptimController::Initialize(std::shared_ptr<MOTIONS::InputData> &input_data,
                                 arma::mat &control) {
-  int zero_control = input_data.get()->start_zero_control; // input_data->start_zero_control;
+  int zero_control =
+      input_data.get()->start_zero_control; // input_data->start_zero_control;
   OutputControlUpdate outController = OutputControlUpdate(input_data);
 
   if (zero_control == 1) {
@@ -327,11 +328,11 @@ int OptimController::Initialize(std::shared_ptr<MOTIONS::InputData> &input_data,
   return 0;
 }
 
-arma::mat OptimController::StartWithZeroControl(std::shared_ptr<MOTIONS::InputData> &input_data) {
+arma::mat OptimController::StartWithZeroControl(
+    std::shared_ptr<MOTIONS::InputData> &input_data) {
   OutputControlUpdate outController = OutputControlUpdate(input_data);
 
-  arma::mat control(input_data->number_cells_position, 3,
-                    arma::fill::zeros);
+  arma::mat control(input_data->number_cells_position, 3, arma::fill::zeros);
 
   logger::Info("Deleting old files");
   std::string COMMAND_RM_RESULTS = "rm -r results/";
@@ -347,7 +348,8 @@ arma::mat OptimController::StartWithZeroControl(std::shared_ptr<MOTIONS::InputDa
   return control;
 }
 
-arma::mat OptimController::StartWithGivenControl(std::shared_ptr<MOTIONS::InputData> &input_data) {
+arma::mat OptimController::StartWithGivenControl(
+    std::shared_ptr<MOTIONS::InputData> &input_data) {
 
   OutputControlUpdate outController = OutputControlUpdate(input_data);
 
@@ -369,12 +371,12 @@ arma::mat OptimController::StartWithGivenControl(std::shared_ptr<MOTIONS::InputD
   return control;
 }
 
-int OptimController::GenerateInputFiles(std::shared_ptr<MOTIONS::InputData> &input_data) {
+int OptimController::GenerateInputFiles(
+    std::shared_ptr<MOTIONS::InputData> &input_data) {
   std::string path_to_shared_files_absolute =
       input_data->path_to_shared_files_absolute;
   std::string directory_toolset = input_data->directory_toolset;
-  const char* input_xml_path = input_data->input_path_xml;
-
+  const char *input_xml_path = input_data->input_path_xml;
 
   std::string generation_string = "python3 " + directory_toolset +
                                   "generate_forward_input.py" + " " +
@@ -390,11 +392,12 @@ int OptimController::GenerateInputFiles(std::shared_ptr<MOTIONS::InputData> &inp
   return 0;
 }
 
-int OptimController::PostProcessingConvergence(std::shared_ptr<MOTIONS::InputData> &input_data) {
-  std::string postprocessing_string =
-      "python3 " + input_data->directory_toolset +
-      "post_processing_convergence.py " +
-      input_data->path_to_shared_files_absolute;
+int OptimController::PostProcessingConvergence(
+    std::shared_ptr<MOTIONS::InputData> &input_data) {
+  std::string postprocessing_string = "python3 " +
+                                      input_data->directory_toolset +
+                                      "post_processing_convergence.py " +
+                                      input_data->path_to_shared_files_absolute;
 
   logger::Info("Postprocessing ... using command " + postprocessing_string);
   try {
@@ -405,7 +408,8 @@ int OptimController::PostProcessingConvergence(std::shared_ptr<MOTIONS::InputDat
   return 0;
 }
 
-int OptimController::VisualizeControl(std::shared_ptr<MOTIONS::InputData> &input_data) {
+int OptimController::VisualizeControl(
+    std::shared_ptr<MOTIONS::InputData> &input_data) {
 
   std::string path_to_shared_files_absolute =
       input_data->path_to_shared_files_absolute;
@@ -433,7 +437,8 @@ int OptimController::VisualizeControl(std::shared_ptr<MOTIONS::InputData> &input
   return 0;
 }
 
-int OptimController::ParaviewPlotForward(std::shared_ptr<MOTIONS::InputData> &input_data) {
+int OptimController::ParaviewPlotForward(
+    std::shared_ptr<MOTIONS::InputData> &input_data) {
   std::string paraview_animation =
       "cd results && mkdir -p animation && cd animation && " +
       input_data->pvpython_absolute_dir + " ../../" +

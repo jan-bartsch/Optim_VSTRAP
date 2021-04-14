@@ -18,15 +18,16 @@ TEST(gradient, calculationNR1) {
   const char *filename = Input_directory.c_str();
 
   DataProvider provider = DataProvider(filename);
-  auto shared_input_data = std::make_shared<MOTIONS::InputData>(MOTIONS::InitializeMotions::Load_MOTIONS(provider));
+  auto shared_input_data = std::make_shared<MOTIONS::InputData>(
+      MOTIONS::InitializeMotions::Load_MOTIONS(provider));
 
   InnerProducts pro = InnerProducts(shared_input_data);
-
 
   unsigned int number_cells_position = shared_input_data->number_cells_position;
   unsigned int ntimesteps_gp = shared_input_data->ntimesteps_gp;
 
-  GradientCalculator gradient_calculator_opt = GradientCalculator(shared_input_data);
+  GradientCalculator gradient_calculator_opt =
+      GradientCalculator(shared_input_data);
   Input Input_control = Input(shared_input_data);
   PdfController pdf_control = PdfController(shared_input_data);
 

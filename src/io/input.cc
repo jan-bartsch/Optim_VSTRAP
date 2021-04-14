@@ -3,7 +3,7 @@
 #include <iostream>
 
 Input::Input(std::shared_ptr<MOTIONS::InputData> &input_data) {
-    this->setInput_data(input_data);
+  this->setInput_data(input_data);
 }
 
 unsigned int Input::ReadPlasmaStateForward(

@@ -12,8 +12,8 @@ TEST(diagnostics, gradientOutput) {
   const char *filename = Input_directory.c_str();
 
   DataProvider provider = DataProvider(filename);
-   auto shared_input_data = std::make_shared<MOTIONS::InputData>(MOTIONS::InitializeMotions::Load_MOTIONS(provider));
-
+  auto shared_input_data = std::make_shared<MOTIONS::InputData>(
+      MOTIONS::InitializeMotions::Load_MOTIONS(provider));
 
   std::string results = shared_input_data->results_directory;
 

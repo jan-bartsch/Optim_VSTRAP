@@ -31,7 +31,8 @@ TEST(optContr, interpolateControl) {
   const char *filename = Input_directory.c_str();
 
   DataProvider provider = DataProvider(filename);
-   auto shared_input_data = std::make_shared<MOTIONS::InputData>(MOTIONS::InitializeMotions::Load_MOTIONS(provider));
+  auto shared_input_data = std::make_shared<MOTIONS::InputData>(
+      MOTIONS::InitializeMotions::Load_MOTIONS(provider));
 
   OutputControlUpdate outContr = OutputControlUpdate(shared_input_data);
 
@@ -43,7 +44,8 @@ TEST(optContr, startZeroControl) {
   const char *filename = Input_directory.c_str();
 
   DataProvider provider = DataProvider(filename);
-   auto shared_input_data = std::make_shared<MOTIONS::InputData>(MOTIONS::InitializeMotions::Load_MOTIONS(provider));
+  auto shared_input_data = std::make_shared<MOTIONS::InputData>(
+      MOTIONS::InitializeMotions::Load_MOTIONS(provider));
 
   OptimController contr = OptimController();
 
@@ -61,12 +63,14 @@ TEST(optContr, startReadInControl) {
   const char *filename = Input_directory.c_str();
 
   DataProvider provider = DataProvider(filename);
-   auto shared_input_data = std::make_shared<MOTIONS::InputData>(MOTIONS::InitializeMotions::Load_MOTIONS(provider));
+  auto shared_input_data = std::make_shared<MOTIONS::InputData>(
+      MOTIONS::InitializeMotions::Load_MOTIONS(provider));
   OptimController contr = OptimController();
 
   OutputControlUpdate updater = OutputControlUpdate(shared_input_data);
 
-  arma::mat control_rand(shared_input_data->dimension_control, 3, arma::fill::randu);
+  arma::mat control_rand(shared_input_data->dimension_control, 3,
+                         arma::fill::randu);
 
   updater.WritecontrolXml(control_rand);
 
@@ -81,20 +85,19 @@ TEST(optContr, startReadInControl) {
   ASSERT_LE(norm_difference, pow(10, -5));
 }
 
-
 TEST(optContr, generateInputFiles) {
-    std::string Input_directory = "./data/Optim_input_gTest.xml";
-    const char *filename = Input_directory.c_str();
+  std::string Input_directory = "./data/Optim_input_gTest.xml";
+  const char *filename = Input_directory.c_str();
 
-    DataProvider provider = DataProvider(filename);
-     auto shared_input_data = std::make_shared<MOTIONS::InputData>(MOTIONS::InitializeMotions::Load_MOTIONS(provider));
-     shared_input_data->input_path_xml = filename;
+  DataProvider provider = DataProvider(filename);
+  auto shared_input_data = std::make_shared<MOTIONS::InputData>(
+      MOTIONS::InitializeMotions::Load_MOTIONS(provider));
+  shared_input_data->input_path_xml = filename;
 
-    OptimController contr = OptimController();
+  OptimController contr = OptimController();
 
-    ASSERT_NO_THROW(contr.GenerateInputFiles(shared_input_data));
+  ASSERT_NO_THROW(contr.GenerateInputFiles(shared_input_data));
 }
-
 
 /*
 TEST(optContr,runIterationMaxDepth) {

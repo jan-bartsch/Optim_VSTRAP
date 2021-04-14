@@ -62,8 +62,9 @@ const unsigned char TIXML_UTF_LEAD_1 = 0xbbU;
 const unsigned char TIXML_UTF_LEAD_2 = 0xbfU;
 
 const int TiXmlBase::utf8ByteTable[256] = {
-    //	0	1	2	3	4	5	6	7	8	9	a	b	c	d	e
-    //f
+    //	0	1	2	3	4	5	6	7	8	9	a	b	c	d
+    //e
+    // f
     1, 1, 1, 1, 1, 1, 1, 1,
     1, 1, 1, 1, 1, 1, 1, 1, // 0x00
     1, 1, 1, 1, 1, 1, 1, 1,
@@ -503,7 +504,7 @@ const char *TiXmlBase::GetEntity(const char *p, char *value, int *length,
   // So it wasn't an entity, its unrecognized, or something like that.
   *value = *p; // Don't put back the last one, since we return it!
   //*length = 1;	// Leave unrecognized entities - this doesn't really
-  //work.
+  // work.
   // Just writes strange XML.
   return p + 1;
 }

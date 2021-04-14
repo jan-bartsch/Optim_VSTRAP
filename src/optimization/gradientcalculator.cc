@@ -1,7 +1,8 @@
 #include "gradientcalculator.h"
 
-GradientCalculator::GradientCalculator(std::shared_ptr<MOTIONS::InputData> &input_data) {
-    this->setInput_data(input_data);
+GradientCalculator::GradientCalculator(
+    std::shared_ptr<MOTIONS::InputData> &input_data) {
+  this->setInput_data(input_data);
 }
 
 arma::mat GradientCalculator::CalculategradientForcecontrolSpaceHmNotParallel(
@@ -11,19 +12,19 @@ arma::mat GradientCalculator::CalculategradientForcecontrolSpaceHmNotParallel(
         backwardPDF_time,
     arma::mat control) {
 
-  std::map<int, std::vector<double>> barycenters = input_data_->barycenters_list;
+  std::map<int, std::vector<double>> barycenters =
+      input_data_->barycenters_list;
 
   PdfController pdf_control = PdfController(input_data_);
-  EquationSolvingController model_solver = EquationSolvingController(input_data_);
+  EquationSolvingController model_solver =
+      EquationSolvingController(input_data_);
   OutputDiagnostics outDiag = OutputDiagnostics(input_data_);
 
-  if (input_data_->magnetic_force == 1 &&
-      input_data_->electric_force == 1) {
+  if (input_data_->magnetic_force == 1 && input_data_->electric_force == 1) {
     std::cerr << "Magnetic and electric force combined is not implemented yet"
               << std::endl;
   }
-  if (input_data_->magnetic_force == 0 &&
-      input_data_->electric_force == 0) {
+  if (input_data_->magnetic_force == 0 && input_data_->electric_force == 0) {
     std::cerr << "Force/Control should be either magnetic or electric. Nothing "
                  "was specified"
               << std::endl;
@@ -32,8 +33,7 @@ arma::mat GradientCalculator::CalculategradientForcecontrolSpaceHmNotParallel(
   arma::mat Laplace = model_solver.Laplacian3D();
   arma::mat Laplace_Squared = model_solver.LaplacianSquared3D();
 
-  arma::mat gradient(input_data_->number_cells_position, 3,
-                     arma::fill::zeros);
+  arma::mat gradient(input_data_->number_cells_position, 3, arma::fill::zeros);
   arma::mat gradient_Riesz(input_data_->dimension_control, 3,
                            arma::fill::zeros);
   arma::mat rhs_Riesz(input_data_->dimension_control, 3, arma::fill::zeros);
@@ -178,8 +178,6 @@ arma::mat GradientCalculator::CalculategradientForcecontrolSpaceHmNotParallel(
                      velocity_Discr[l] * firstDerivativeForwardPDF_V2_current) *
                     pow(dv_gp, 3.0) * pow(dt_gp, 1.0);
               }
-
-
             }
           }
         }
@@ -187,7 +185,7 @@ arma::mat GradientCalculator::CalculategradientForcecontrolSpaceHmNotParallel(
     } else {
       std::cout << "Cell_id " << i << ": Gradient stays zero here" << std::endl;
     }
-    std::cout << gradient(i-1,0) << std::endl;
+    std::cout << gradient(i - 1, 0) << std::endl;
   }
 
   /*
@@ -197,9 +195,7 @@ arma::mat GradientCalculator::CalculategradientForcecontrolSpaceHmNotParallel(
   std::cout << "Gradient:" << std::endl;
   std::cout << gradient << std::endl;
 
-
-
-  for ( int j = 0; j < input_data_->number_cells_position; j++) {
+  for (int j = 0; j < input_data_->number_cells_position; j++) {
     if (j > start_control - 2 &&
         j < static_cast<int>(input_data_->end_control_gp)) {
       rhs_Riesz(j - start_control + 1, 0) = gradient(j, 0);
@@ -217,24 +213,18 @@ arma::mat GradientCalculator::CalculategradientForcecontrolSpaceHmNotParallel(
       (arma::eye(input_data_->dimension_control,
                  input_data_->dimension_control) -
        1.0 / (pow(input_data_->small_discr_sidelength, 2)) * Laplace +
-       1.0 / (pow(input_data_->small_discr_sidelength, 4)) *
-           Laplace_Squared);
+       1.0 / (pow(input_data_->small_discr_sidelength, 4)) * Laplace_Squared);
   // std::cout << Riesz << std::endl;
   outDiag.WriteArmaMatrixToFile(Riesz, "RiesMatrix");
   // std::cout << "Condition number Matrix Riesz: " << arma::cond(Riesz) <<
   // std::endl;
 
-  arma::mat Riesz_control(input_data_->dimension_control, 3,
-                          arma::fill::zeros);
+  arma::mat Riesz_control(input_data_->dimension_control, 3, arma::fill::zeros);
   for (int j = 0; j < input_data_->number_cells_position; j++) {
-    if (j > start_control - 2 &&
-        j < input_data_->end_control_gp) {
-      Riesz_control(j - start_control + 1, 0) =
-          control(j, 0);
-      Riesz_control(j - start_control + 1, 1) =
-          control(j, 1);
-      Riesz_control(j - start_control + 1, 2) =
-          control(j, 2);
+    if (j > start_control - 2 && j < input_data_->end_control_gp) {
+      Riesz_control(j - start_control + 1, 0) = control(j, 0);
+      Riesz_control(j - start_control + 1, 1) = control(j, 1);
+      Riesz_control(j - start_control + 1, 2) = control(j, 2);
     }
   }
 
@@ -246,14 +236,10 @@ arma::mat GradientCalculator::CalculategradientForcecontrolSpaceHmNotParallel(
   std::cout << gradient_Riesz << std::endl;
 
   for (int j = 0; j < input_data_->number_cells_position; j++) {
-    if (j > start_control - 2 &&
-        j < input_data_->end_control_gp) {
-      return_gradient(j, 0) =
-          gradient_Riesz(j - start_control + 1, 0);
-      return_gradient(j, 1) =
-          gradient_Riesz(j - start_control + 1, 1);
-      return_gradient(j, 2) =
-          gradient_Riesz(j - start_control + 1, 2);
+    if (j > start_control - 2 && j < input_data_->end_control_gp) {
+      return_gradient(j, 0) = gradient_Riesz(j - start_control + 1, 0);
+      return_gradient(j, 1) = gradient_Riesz(j - start_control + 1, 1);
+      return_gradient(j, 2) = gradient_Riesz(j - start_control + 1, 2);
     }
   }
   std::cout << "Return_Gradient:" << std::endl;
@@ -269,20 +255,19 @@ arma::mat GradientCalculator::CalculategradientForcecontrolSpaceHm(
         backwardPDF_time,
     arma::mat control) {
 
-  std::map<int, std::vector<double>> barycenters = input_data_->barycenters_list;
+  std::map<int, std::vector<double>> barycenters =
+      input_data_->barycenters_list;
 
   PdfController pdf_control = PdfController(input_data_);
-  EquationSolvingController model_solver = EquationSolvingController(input_data_);
+  EquationSolvingController model_solver =
+      EquationSolvingController(input_data_);
   OutputDiagnostics outDiag = OutputDiagnostics(input_data_);
 
-
-  if (input_data_->magnetic_force == 1 &&
-      input_data_->electric_force == 1) {
+  if (input_data_->magnetic_force == 1 && input_data_->electric_force == 1) {
     std::cerr << "Magnetic and electric force combined is not implemented yet"
               << std::endl;
   }
-  if (input_data_->magnetic_force == 0 &&
-      input_data_->electric_force == 0) {
+  if (input_data_->magnetic_force == 0 && input_data_->electric_force == 0) {
     std::cerr << "Force/Control should be either magnetic or electric. Nothing "
                  "was specified"
               << std::endl;
@@ -291,8 +276,7 @@ arma::mat GradientCalculator::CalculategradientForcecontrolSpaceHm(
   arma::mat Laplace = model_solver.Laplacian3D();
   arma::mat Laplace_Squared = model_solver.LaplacianSquared3D();
 
-  arma::mat gradient(input_data_->number_cells_position, 3,
-                     arma::fill::zeros);
+  arma::mat gradient(input_data_->number_cells_position, 3, arma::fill::zeros);
   arma::mat gradient_Riesz(input_data_->dimension_control, 3,
                            arma::fill::zeros);
   arma::mat rhs_Riesz(input_data_->dimension_control, 3, arma::fill::zeros);
@@ -476,8 +460,7 @@ arma::mat GradientCalculator::CalculategradientForcecontrolSpaceHm(
   int start_control = static_cast<int>(input_data_->start_control_gp);
 
   for (int j = 0; j < input_data_->number_cells_position; j++) {
-    if (j > start_control - 2 &&
-        j < input_data_->end_control_gp) {
+    if (j > start_control - 2 && j < input_data_->end_control_gp) {
       rhs_Riesz(j - start_control + 1, 0) = gradient(j, 0);
       rhs_Riesz(j - start_control + 1, 1) = gradient(j, 1);
       rhs_Riesz(j - start_control + 1, 2) = gradient(j, 2);
@@ -493,24 +476,18 @@ arma::mat GradientCalculator::CalculategradientForcecontrolSpaceHm(
       (arma::eye(input_data_->dimension_control,
                  input_data_->dimension_control) -
        1.0 / (pow(input_data_->small_discr_sidelength, 2)) * Laplace +
-       1.0 / (pow(input_data_->small_discr_sidelength, 4)) *
-           Laplace_Squared);
-  //std::cout << Riesz << std::endl;
+       1.0 / (pow(input_data_->small_discr_sidelength, 4)) * Laplace_Squared);
+  // std::cout << Riesz << std::endl;
   outDiag.WriteArmaMatrixToFile(Riesz, "RiesMatrix");
   // std::cout << "Condition number Matrix Riesz: " << arma::cond(Riesz) <<
   // std::endl;
 
-  arma::mat Riesz_control(input_data_->dimension_control, 3,
-                          arma::fill::zeros);
+  arma::mat Riesz_control(input_data_->dimension_control, 3, arma::fill::zeros);
   for (int j = 0; j < input_data_->number_cells_position; j++) {
-    if (j > start_control - 2 &&
-        j < input_data_->end_control_gp) {
-      Riesz_control(j - start_control + 1, 0) =
-          control(j, 0);
-      Riesz_control(j - start_control + 1, 1) =
-          control(j, 1);
-      Riesz_control(j - start_control + 1, 2) =
-          control(j, 2);
+    if (j > start_control - 2 && j < input_data_->end_control_gp) {
+      Riesz_control(j - start_control + 1, 0) = control(j, 0);
+      Riesz_control(j - start_control + 1, 1) = control(j, 1);
+      Riesz_control(j - start_control + 1, 2) = control(j, 2);
     }
   }
 
@@ -523,14 +500,10 @@ arma::mat GradientCalculator::CalculategradientForcecontrolSpaceHm(
   std::cout << gradient_Riesz << std::endl;
 
   for (int j = 0; j < input_data_->number_cells_position; j++) {
-    if (j > start_control - 2 &&
-        j < input_data_->end_control_gp) {
-      return_gradient(j, 0) =
-          gradient_Riesz(j - start_control + 1, 0);
-      return_gradient(j, 1) =
-          gradient_Riesz(j - start_control + 1, 1);
-      return_gradient(j, 2) =
-          gradient_Riesz(j - start_control + 1, 2);
+    if (j > start_control - 2 && j < input_data_->end_control_gp) {
+      return_gradient(j, 0) = gradient_Riesz(j - start_control + 1, 0);
+      return_gradient(j, 1) = gradient_Riesz(j - start_control + 1, 1);
+      return_gradient(j, 2) = gradient_Riesz(j - start_control + 1, 2);
     }
   }
   std::cout << "Return_Gradient:" << std::endl;

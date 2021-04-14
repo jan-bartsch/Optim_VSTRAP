@@ -93,7 +93,7 @@
 <path name="PATH_TO_SHARED_FILES_ABSOLUTE" value="/HOME/bartsch/SPARC/build-Optim-CSMC5/src/results/" />
 <path name="PATH_TO_SHARED_FILES" value="./results/" />
 <path name="BARYCENTERS_MESH" value="../../Optim_VSTRAP/data/global/mesh_barycenters_216.xml"/>
-<path name="DIRECTORY_TOOLSET" value="../../Optim_VSTRAP/optim-vstrap-toolset/toolset/"/>
+<path name="DIRECTORY_TOOLSET" value="../../Optim_VSTRAP/MOTIONS-toolset/toolset/"/>
 <path name="DOMAIN_MESH" value="../../../Optim_VSTRAP/data/global/box_vol_regular_216.xml"/>
 <path name="RESULTS_DIRECTORY" value="results/"/>
 <path name="INPUT_FORWARD" value="input_forward_64.xml"/>

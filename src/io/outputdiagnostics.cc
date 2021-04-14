@@ -1,7 +1,8 @@
 #include "outputdiagnostics.h"
 
-OutputDiagnostics::OutputDiagnostics(std::shared_ptr<MOTIONS::InputData> &input_data) {
-    this->setInput_data(input_data);
+OutputDiagnostics::OutputDiagnostics(
+    std::shared_ptr<MOTIONS::InputData> &input_data) {
+  this->setInput_data(input_data);
 }
 
 int OutputDiagnostics::writeGradientMatrixToFile(arma::mat gradient,
@@ -47,7 +48,7 @@ int OutputDiagnostics::WriteDoubleToFile(double value, std::string filename) {
 int OutputDiagnostics::WriteDoubleVectorToFile(std::vector<double> vector,
                                                std::string filename) {
   std::ofstream outstream;
-  outstream.open(input_data_->results_directory  + filename + ".txt",
+  outstream.open(input_data_->results_directory + filename + ".txt",
                  std::ios_base::app); // append instead of overwrite
   for (unsigned int i = 0; i < vector.size(); i++) {
     outstream << vector[i] << std::endl;

@@ -1,15 +1,16 @@
 #include <gtest/gtest.h>
 
+#include "../../src/objects/MOTIONS.h"
 #include "../../src/objects/dataprovider.h"
 #include "../../src/tools/calculus.h"
-#include "../../src/objects/MOTIONS.h"
 
 TEST(calc, divergence) {
   std::string Input_directory = "./data/Optim_input_gTest.xml";
   const char *filename = Input_directory.c_str();
 
   DataProvider provider = DataProvider(filename);
-   auto shared_input_data = std::make_shared<MOTIONS::InputData>(MOTIONS::InitializeMotions::Load_MOTIONS(provider));
+  auto shared_input_data = std::make_shared<MOTIONS::InputData>(
+      MOTIONS::InitializeMotions::Load_MOTIONS(provider));
 
   Calculus calc = Calculus(shared_input_data);
 

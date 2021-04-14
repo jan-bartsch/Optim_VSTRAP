@@ -1,7 +1,5 @@
 #include "control_validation.h"
 
-
-
 control_verification::control_verification() {}
 
 int control_verification::start_verification(int argc, char **argv) {
@@ -18,13 +16,15 @@ int control_verification::start_verification(int argc, char **argv) {
   DataProvider optimization_provider =
       DataProvider(directory_optim_input.c_str());
 
-  auto shared_optim_input_data = std::make_shared<MOTIONS::InputData>(MOTIONS::InitializeMotions::Load_MOTIONS(optimization_provider));
+  auto shared_optim_input_data = std::make_shared<MOTIONS::InputData>(
+      MOTIONS::InitializeMotions::Load_MOTIONS(optimization_provider));
 
   int number_cells_position = shared_optim_input_data->number_cells_position;
 
   Input in = Input(shared_optim_input_data);
   OutputDiagnostics out = OutputDiagnostics(shared_optim_input_data);
-  EquationSolvingController solver = EquationSolvingController(shared_optim_input_data);
+  EquationSolvingController solver =
+      EquationSolvingController(shared_optim_input_data);
   InnerProducts pro = InnerProducts(shared_optim_input_data);
 
   int iterations = std::stoi(validation_params.at("number_controls"));
@@ -130,10 +130,10 @@ int control_verification::start_verification(int argc, char **argv) {
   out.writeGradientMatrixToFile(means, "Means");
   out.WriteDoubleVectorToFile(valide_vector, "Valide");
 
-
-  std::string visualize_control_pyhton = "python3 " + shared_optim_input_data->directory_toolset +
-                                         "vldn/" + "test_controls_mean.py " +
-                                         shared_optim_input_data->path_to_shared_files_absolute;
+  std::string visualize_control_pyhton =
+      "python3 " + shared_optim_input_data->directory_toolset + "vldn/" +
+      "test_controls_mean.py " +
+      shared_optim_input_data->path_to_shared_files_absolute;
 
   logger::Info("Calling command " + visualize_control_pyhton);
   system(&visualize_control_pyhton[0]);

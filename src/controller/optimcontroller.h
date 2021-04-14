@@ -55,9 +55,11 @@ public:
    * @param Input_xml_path
    * @return
    */
-  static int MainOptimizationAlgorithm(std::shared_ptr<MOTIONS::InputData> &input_data);
+  static int
+  MainOptimizationAlgorithm(std::shared_ptr<MOTIONS::InputData> &input_data);
 
-  static int Initialize(std::shared_ptr<MOTIONS::InputData> &input_data, arma::mat &control);
+  static int Initialize(std::shared_ptr<MOTIONS::InputData> &input_data,
+                        arma::mat &control);
 
   /**
    * @brief start_with_zero_control deletes the whole folder containing the
@@ -67,7 +69,8 @@ public:
    * @param Input_xml_path
    * @return
    */
-  static arma::mat StartWithZeroControl(std::shared_ptr<MOTIONS::InputData> &input_data);
+  static arma::mat
+  StartWithZeroControl(std::shared_ptr<MOTIONS::InputData> &input_data);
 
   /**
    * @brief start_with_given_control delets only the txt and csv files and
@@ -76,7 +79,8 @@ public:
    * @param Input_xml_path
    * @return
    */
-  static arma::mat StartWithGivenControl(std::shared_ptr<MOTIONS::InputData> &input_data);
+  static arma::mat
+  StartWithGivenControl(std::shared_ptr<MOTIONS::InputData> &input_data);
 
   /**
    * @brief generate_Input_files starts the generation of the VSTRAP Input files
@@ -85,7 +89,8 @@ public:
    * @param Input_xml_path
    * @return
    */
-  static int GenerateInputFiles(std::shared_ptr<MOTIONS::InputData> &input_data);
+  static int
+  GenerateInputFiles(std::shared_ptr<MOTIONS::InputData> &input_data);
 
   /**
    * @brief post_processing_convergence starts the python post-processing method
@@ -93,7 +98,8 @@ public:
    * @param provider
    * @return
    */
-  static int PostProcessingConvergence(std::shared_ptr<MOTIONS::InputData> &input_data);
+  static int
+  PostProcessingConvergence(std::shared_ptr<MOTIONS::InputData> &input_data);
 
   /**
    * @brief visualize_control starts the python method for visualizing the
@@ -112,7 +118,8 @@ public:
    * @param provider
    * @return
    */
-  static int ParaviewPlotForward(std::shared_ptr<MOTIONS::InputData> &input_data);
+  static int
+  ParaviewPlotForward(std::shared_ptr<MOTIONS::InputData> &input_data);
 };
 
 #endif // OPTIM_CONTROLLER_H

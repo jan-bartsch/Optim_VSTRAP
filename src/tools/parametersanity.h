@@ -8,8 +8,8 @@
 
 #include "../controller/abstractcontroller.h"
 
-#include "../objects/dataprovider.h"
 #include "../objects/MOTIONS.h"
+#include "../objects/dataprovider.h"
 
 /**
  * @brief The parameter_sanity class provides sanity checks for parameters

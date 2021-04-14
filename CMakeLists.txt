@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.3)
 
-project(Optim_VSTRAP_CMAKE)
+project(MOTIONS)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_BUILD_TYPE DEBUG)

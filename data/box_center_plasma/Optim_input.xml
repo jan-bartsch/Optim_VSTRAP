@@ -113,7 +113,7 @@
 	<path name="PATH_TO_SHARED_FILES" value="./results/" />
 	<path name="PVPYTHON_ABSOLUTE_DIR" value="/home/jan/ParaView-5.8.0-MPI-Linux-Python3.7-64bit/bin/pvpython" />
 	<path name="BARYCENTERS_MESH" value="../../Optim_VSTRAP/data/global/mesh_barycenters_small_64.xml"/>
-	<path name="DIRECTORY_TOOLSET" value="../../Optim_VSTRAP/optim-vstrap-toolset/toolset/"/>
+	<path name="DIRECTORY_TOOLSET" value="../../Optim_VSTRAP/MOTIONS-toolset/toolset/"/>
 	<path name="DOMAIN_MESH" value="../../../Optim_VSTRAP/data/global/box_vol_regular_small.xml"/>
     <path name="DOMAIN_MESH_FILE" value="box_vol_regular_small.xml"/>
 	<path name="RESULTS_DIRECTORY" value="results/"/>

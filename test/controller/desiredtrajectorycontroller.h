@@ -11,8 +11,10 @@ TEST(traj, parameter) {
 
   DataProvider provider = DataProvider(Input_xml_path);
 
-  auto shared_input_data = std::make_shared<MOTIONS::InputData>(MOTIONS::InitializeMotions::Load_MOTIONS(provider));
-  DesiredTrajectoryController trajContr = DesiredTrajectoryController(shared_input_data);
+  auto shared_input_data = std::make_shared<MOTIONS::InputData>(
+      MOTIONS::InitializeMotions::Load_MOTIONS(provider));
+  DesiredTrajectoryController trajContr =
+      DesiredTrajectoryController(shared_input_data);
 
   shared_input_data->desired_trajectory = "parameters";
 
@@ -52,16 +54,17 @@ TEST(traj, brockett) {
 
   DataProvider provider = DataProvider(Input_xml_path);
 
-
-  auto shared_input_data = std::make_shared<MOTIONS::InputData>(MOTIONS::InitializeMotions::Load_MOTIONS(provider));
-  DesiredTrajectoryController trajContr = DesiredTrajectoryController(shared_input_data);
+  auto shared_input_data = std::make_shared<MOTIONS::InputData>(
+      MOTIONS::InitializeMotions::Load_MOTIONS(provider));
+  DesiredTrajectoryController trajContr =
+      DesiredTrajectoryController(shared_input_data);
   Input in = Input(shared_input_data);
-
 
   shared_input_data->desired_trajectory = "brockett";
 
   unsigned int ntimesteps_gp = shared_input_data->ntimesteps_gp;
-  unsigned int plasma_state_output_interval = shared_input_data->plasma_state_output_interval;
+  unsigned int plasma_state_output_interval =
+      shared_input_data->plasma_state_output_interval;
 
   std::vector<double> bc(6, 0.0);
   std::vector<double> p_d(6, 0.0);
@@ -74,8 +77,6 @@ TEST(traj, brockett) {
 
     std::vector<double> p_d_trajectory = trajContr.TrajectoryDesired(
         bc, 0, 0, 0, o, brockettVector, plasma_state_output_interval);
-
-
 
     // position
     p_d[0] = brockettVector[o * plasma_state_output_interval][0];

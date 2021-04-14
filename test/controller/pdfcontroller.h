@@ -10,8 +10,8 @@ TEST(pdf, assembling) {
   std::string Input_directory = "./data/Optim_input_gTest.xml";
   const char *Input_xml_path = Input_directory.c_str();
   DataProvider provider = DataProvider(Input_xml_path);
-   auto shared_input_data = std::make_shared<MOTIONS::InputData>(MOTIONS::InitializeMotions::Load_MOTIONS(provider));
-
+  auto shared_input_data = std::make_shared<MOTIONS::InputData>(
+      MOTIONS::InitializeMotions::Load_MOTIONS(provider));
 
   bool all_checked(true);
 
@@ -37,7 +37,7 @@ TEST(pdf, assembling) {
         ",");
   }
 
- int assembling_flag_parallel =
+  int assembling_flag_parallel =
       pdf_control.AssemblingMultidimParallel(forwardParticles, 0, pdf_time);
   forwardPDF_1 = pdf_time;
   int assembling_flag_notparallel =
@@ -45,7 +45,7 @@ TEST(pdf, assembling) {
   forwardPDF_2 = pdf_time;
 
   if (assembling_flag_notparallel != 0 || assembling_flag_parallel != 0) {
-      all_checked = false;
+    all_checked = false;
   }
 
   for (unsigned int i = 0; i < forwardPDF_1.size(); i++) {

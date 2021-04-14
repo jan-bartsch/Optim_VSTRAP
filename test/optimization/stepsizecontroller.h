@@ -1,91 +1,87 @@
 #include <gtest/gtest.h>
 
-#include "../../src/optimization/stepsizecontroller.h"
 #include "../../src/objects/MOTIONS.h"
+#include "../../src/optimization/stepsizecontroller.h"
 
 TEST(stepdirection, noSuchMethod) {
-  std::string Input_directory = "./data/Optim_input_gTest.xml";
-  const char *filename = Input_directory.c_str();
+    std::string Input_directory = "./data/Optim_input_gTest.xml";
+    const char *filename = Input_directory.c_str();
 
-  DataProvider provider = DataProvider(filename);
-   auto shared_input_data = std::make_shared<MOTIONS::InputData>(MOTIONS::InitializeMotions::Load_MOTIONS(provider));
-  StepsizeController size_contr = StepsizeController(shared_input_data);
+    DataProvider provider = DataProvider(filename);
+    auto shared_input_data = std::make_shared<MOTIONS::InputData>(
+                MOTIONS::InitializeMotions::Load_MOTIONS(provider));
+    StepsizeController size_contr = StepsizeController(shared_input_data);
 
-  shared_input_data->control_update = "FAIL_SAFE";
+    shared_input_data->control_update = "FAIL_SAFE";
 
-  unsigned int number_cells_position = shared_input_data->number_cells_position;
-  unsigned int ntimesteps_gp = shared_input_data->ntimesteps_gp;
+    unsigned int number_cells_position = shared_input_data->number_cells_position;
+    unsigned int ntimesteps_gp = shared_input_data->ntimesteps_gp;
 
+    arma::mat gradient(number_cells_position, 3, arma::fill::randn);
+    arma::mat control(number_cells_position, 3, arma::fill::randu);
+    double J0 = -1.0;
+    arma::mat stepdirection(number_cells_position, 3, arma::fill::randn);
 
-  arma::mat gradient(number_cells_position, 3, arma::fill::randn);
-  arma::mat control(number_cells_position, 3, arma::fill::randu);
-  double J0 = -1.0;
-  arma::mat stepdirection(number_cells_position, 3, arma::fill::randn);
+    std::vector<Particle> Input_particles(ntimesteps_gp);
+    double stepsize0 = 0.1;
 
-  std::vector<Particle> Input_particles(ntimesteps_gp);
-  double stepsize0 = 0.1;
+    int stepsize_flag = size_contr.CalculateStepsize(
+                gradient, J0, control, stepdirection, Input_particles, stepsize0);
 
-  int stepsize_flag = size_contr.CalculateStepsize(
-      gradient, J0, control, stepdirection, Input_particles, stepsize0);
-
-  EXPECT_EQ(stepsize_flag, 1);
+    EXPECT_EQ(stepsize_flag, 1);
 }
 
 TEST(stepdirection, gradientDescentNoThrow) {
-  std::string Input_directory = "./data/Optim_input_gTest.xml";
-  const char *filename = Input_directory.c_str();
+    std::string Input_directory = "./data/Optim_input_gTest.xml";
+    const char *filename = Input_directory.c_str();
 
-  DataProvider provider = DataProvider(filename);
-   auto shared_input_data = std::make_shared<MOTIONS::InputData>(MOTIONS::InitializeMotions::Load_MOTIONS(provider));
-  StepsizeController size_contr = StepsizeController(shared_input_data);
+    DataProvider provider = DataProvider(filename);
+    auto shared_input_data = std::make_shared<MOTIONS::InputData>(
+                MOTIONS::InitializeMotions::Load_MOTIONS(provider));
+    StepsizeController size_contr = StepsizeController(shared_input_data);
 
-  shared_input_data->control_update = "gradient_descent";
+    shared_input_data->control_update = "gradient_descent";
 
-  unsigned int number_cells_position = shared_input_data->number_cells_position;
-  unsigned int ntimesteps_gp = shared_input_data->ntimesteps_gp;
+    unsigned int number_cells_position = shared_input_data->number_cells_position;
+    unsigned int ntimesteps_gp = shared_input_data->ntimesteps_gp;
 
-  arma::mat gradient(number_cells_position, 3, arma::fill::randn);
-  arma::mat control_test(number_cells_position, 3, arma::fill::randu);
-  double J0 = -1.0;
-  std::vector<Particle> Input_particles(ntimesteps_gp);
-  double stepsize0 = 0.1;
+    arma::mat gradient(number_cells_position, 3, arma::fill::randn);
+    arma::mat control_test(number_cells_position, 3, arma::fill::randu);
+    double J0 = -1.0;
+    std::vector<Particle> Input_particles(ntimesteps_gp);
+    double stepsize0 = 0.1;
 
-  arma::mat stepdirection(number_cells_position, 3, arma::fill::randu);
-  arma::mat control = control_test;
-  double stepsize = 0.1;
+    arma::mat stepdirection(number_cells_position, 3, arma::fill::randu);
+    arma::mat control = control_test;
+    double stepsize = 0.1;
 
-  arma::mat updated_control_test = control_test + stepsize * stepdirection;
-  int return_flag = size_contr.CalculateStepsize(
-      gradient, J0, control, stepdirection, Input_particles, stepsize0);
+    arma::mat updated_control_test = control_test + stepsize * stepdirection;
+    int return_flag = size_contr.CalculateStepsize(
+                gradient, J0, control, stepdirection, Input_particles, stepsize0);
 
-  EXPECT_EQ(return_flag, 0);
+    EXPECT_EQ(return_flag, 0);
 }
 
-/*
-TEST(stepdirection,armijoLinesearchNoThrow) {
+
+TEST(stepdirection,armijoLinesearchVSTRAPnotFoundThrow) {
     std::string Input_directory = "./data/Optim_input_gTest.xml";
     const char *  filename = Input_directory.c_str();
 
-    data_provider provider = data_provider(filename);
-    stepsize_controller size_contr = stepsize_controller(filename);
+    DataProvider provider = DataProvider(filename);
+    auto shared_input_data = std::make_shared<MOTIONS::InputData>(
+                MOTIONS::InitializeMotions::Load_MOTIONS(provider));
 
-    std::map<std::string, std::string> subs = provider.getSubroutines();
-    subs.erase("control_update");
-    subs.insert(std::pair<std::string,std::string>("control_update","armijo_linesearch"));
-    provider.setSubroutines(subs);
-    size_contr.set_DataProviderOptim(provider);
+    StepsizeController size_contr = StepsizeController(shared_input_data);
+    shared_input_data->control_update = "armijo_linesearch";
 
-    std::map<std::string, double> optimizationParameters =
-provider.getOptimizationParameters(); unsigned int number_cells_position =
-static_cast<unsigned
-int>(optimizationParameters.find("number_cells_position")->second); unsigned int
-ntimesteps_gp = static_cast<unsigned
-int>(optimizationParameters.find("ntimesteps_gp")->second);
+    unsigned int number_cells_position = shared_input_data->number_cells_position;
+    unsigned int
+            ntimesteps_gp = shared_input_data->ntimesteps_gp;
 
     arma::mat gradient(number_cells_position,3,arma::fill::randn);
     arma::mat control_test(number_cells_position,3,arma::fill::randu);
     double J0 = -1.0;
-    std::vector<particle> Input_particles(ntimesteps_gp);
+    std::vector<Particle> input_particles(ntimesteps_gp);
     double stepsize0 = 0.1;
 
     arma::mat stepdirection(number_cells_position,3,arma::fill::randu);
@@ -93,36 +89,37 @@ int>(optimizationParameters.find("ntimesteps_gp")->second);
     double stepsize = 0.1;
 
     arma::mat updated_control_test = control_test + stepsize*stepdirection;
-    EXPECT_NO_THROW(size_contr.calculate_stepsize(gradient,J0,control,stepdirection,Input_particles,stepsize0));
+    EXPECT_ANY_THROW(size_contr.CalculateStepsize(gradient,J0,control,stepdirection,input_particles,stepsize0));
 }
-*/
+
 
 TEST(stepdirection, successiveApproximationNoThrow) {
-  std::string Input_directory = "./data/Optim_input_gTest.xml";
-  const char *filename = Input_directory.c_str();
+    std::string Input_directory = "./data/Optim_input_gTest.xml";
+    const char *filename = Input_directory.c_str();
 
-  DataProvider provider = DataProvider(filename);
-   auto shared_input_data = std::make_shared<MOTIONS::InputData>(MOTIONS::InitializeMotions::Load_MOTIONS(provider));
-  StepsizeController size_contr = StepsizeController(shared_input_data);
+    DataProvider provider = DataProvider(filename);
+    auto shared_input_data = std::make_shared<MOTIONS::InputData>(
+                MOTIONS::InitializeMotions::Load_MOTIONS(provider));
+    StepsizeController size_contr = StepsizeController(shared_input_data);
 
-  shared_input_data->control_update = "successive_approximation";
+    shared_input_data->control_update = "successive_approximation";
 
-  unsigned int number_cells_position = shared_input_data->number_cells_position;
-  unsigned int ntimesteps_gp = shared_input_data->ntimesteps_gp;
+    unsigned int number_cells_position = shared_input_data->number_cells_position;
+    unsigned int ntimesteps_gp = shared_input_data->ntimesteps_gp;
 
-  arma::mat gradient(number_cells_position, 3, arma::fill::randn);
-  arma::mat control_test(number_cells_position, 3, arma::fill::randu);
-  double J0 = -1.0;
-  std::vector<Particle> Input_particles(ntimesteps_gp);
-  double stepsize0 = 0.1;
+    arma::mat gradient(number_cells_position, 3, arma::fill::randn);
+    arma::mat control_test(number_cells_position, 3, arma::fill::randu);
+    double J0 = -1.0;
+    std::vector<Particle> Input_particles(ntimesteps_gp);
+    double stepsize0 = 0.1;
 
-  arma::mat stepdirection(number_cells_position, 3, arma::fill::randu);
-  arma::mat control = control_test;
-  double stepsize = 0.1;
+    arma::mat stepdirection(number_cells_position, 3, arma::fill::randu);
+    arma::mat control = control_test;
+    double stepsize = 0.1;
 
-  arma::mat updated_control_test = control_test + stepsize * stepdirection;
-  int return_flag = size_contr.CalculateStepsize(
-      gradient, J0, control, stepdirection, Input_particles, stepsize0);
+    arma::mat updated_control_test = control_test + stepsize * stepdirection;
+    int return_flag = size_contr.CalculateStepsize(
+                gradient, J0, control, stepdirection, Input_particles, stepsize0);
 
-  EXPECT_EQ(return_flag, 0);
+    EXPECT_EQ(return_flag, 0);
 }

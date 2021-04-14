@@ -1,6 +1,5 @@
 #include "gradient_validation.h"
 
-
 gradient_validation::gradient_validation() {}
 
 int gradient_validation::landau_validation(int argc, char **argv) {
@@ -9,21 +8,22 @@ int gradient_validation::landau_validation(int argc, char **argv) {
       validation_provider.getPaths();
 
   std::string directory_optim_input =
-        validation_paths.at("directory_optim_input");
-    DataProvider optimization_provider =
-        DataProvider(directory_optim_input.c_str());
+      validation_paths.at("directory_optim_input");
+  DataProvider optimization_provider =
+      DataProvider(directory_optim_input.c_str());
 
-   auto shared_optim_input_data = std::make_shared<MOTIONS::InputData>(MOTIONS::InitializeMotions::Load_MOTIONS(optimization_provider));
+  auto shared_optim_input_data = std::make_shared<MOTIONS::InputData>(
+      MOTIONS::InitializeMotions::Load_MOTIONS(optimization_provider));
 
   Input in = Input(shared_optim_input_data);
   PdfController pdf_control = PdfController(shared_optim_input_data);
   OutputDiagnostics outDiag = OutputDiagnostics(shared_optim_input_data);
-  EquationSolvingController model_solver = EquationSolvingController(shared_optim_input_data);
+  EquationSolvingController model_solver =
+      EquationSolvingController(shared_optim_input_data);
   InnerProducts product = InnerProducts(shared_optim_input_data);
   GradientCalculator gradient_calculator_opt =
       GradientCalculator(shared_optim_input_data);
-  ObjectiveCalculator objective =
-      ObjectiveCalculator(shared_optim_input_data);
+  ObjectiveCalculator objective = ObjectiveCalculator(shared_optim_input_data);
   OutputControlUpdate outController =
       OutputControlUpdate(shared_optim_input_data);
 
@@ -44,15 +44,18 @@ int gradient_validation::landau_validation(int argc, char **argv) {
       ntimesteps_gp);
   int assembling_flag;
 
-  std::string build_directory_vstrap = shared_optim_input_data->build_directory_vstrap;
-  std::string path_to_shared_files = shared_optim_input_data->path_to_shared_files;
-
+  std::string build_directory_vstrap =
+      shared_optim_input_data->build_directory_vstrap;
+  std::string path_to_shared_files =
+      shared_optim_input_data->path_to_shared_files;
 
   std::string start_vstrap_forward = build_directory_vstrap + "vstrap" + " " +
-                                     path_to_shared_files + shared_optim_input_data->input_forward;
+                                     path_to_shared_files +
+                                     shared_optim_input_data->input_forward;
   int forward_return = 0;
   std::string start_vstrap_backward = build_directory_vstrap + "vstrap" + " " +
-                                      path_to_shared_files + shared_optim_input_data->input_backward;
+                                      path_to_shared_files +
+                                      shared_optim_input_data->input_backward;
   int backward_return = 0;
 
   arma::mat control0(number_cells_position, 3, arma::fill::zeros);

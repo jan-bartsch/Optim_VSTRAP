@@ -1,10 +1,12 @@
 #include "objectivecalculator.h"
 
-ObjectiveCalculator::ObjectiveCalculator(std::shared_ptr<MOTIONS::InputData> &input_data) {
+ObjectiveCalculator::ObjectiveCalculator(
+    std::shared_ptr<MOTIONS::InputData> &input_data) {
   this->setInput_data(input_data);
 }
 
-double ObjectiveCalculator::CalculateObjective(std::vector<std::unordered_map<CoordinatePhaseSpaceTime, double>>
+double ObjectiveCalculator::CalculateObjective(
+    std::vector<std::unordered_map<CoordinatePhaseSpaceTime, double>>
         &forwardPDF_time,
     arma::mat control) {
 
@@ -78,7 +80,7 @@ double ObjectiveCalculator::CalculateObjective(std::vector<std::unordered_map<Co
    * Add tracking integral using first-order(?) RULE
    */
   std::string desired_traj = input_data_->desired_trajectory;
-  std::string objective_calculation = input_data_-> objective_calculation;
+  std::string objective_calculation = input_data_->objective_calculation;
 
   std::cout << "Using <" << desired_traj << "> for desired trajectory"
             << std::endl;
@@ -197,8 +199,8 @@ double ObjectiveCalculator::CalculateObjective(std::vector<std::unordered_map<Co
 
   costOfControl += std::sqrt(product.H2InnerProduct(control, control));
 
-  objective += 1.0 / input_data_->C_theta *
-               input_data_->weight_control_gp * costOfControl;
+  objective += 1.0 / input_data_->C_theta * input_data_->weight_control_gp *
+               costOfControl;
 
   if (objective > 0) {
     logger::Info(

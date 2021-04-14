@@ -1,17 +1,19 @@
 #include <gtest/gtest.h>
 
-#include "../../src/optimization/stepdirectioncontroller.h"
 #include "../../src/objects/MOTIONS.h"
+#include "../../src/optimization/stepdirectioncontroller.h"
 
 TEST(stepdirection, negativeGradient) {
   std::string Input_directory = "./data/Optim_input_gTest.xml";
   const char *filename = Input_directory.c_str();
 
   DataProvider provider = DataProvider(filename);
-   auto shared_input_data = std::make_shared<MOTIONS::InputData>(MOTIONS::InitializeMotions::Load_MOTIONS(provider));
-  StepdirectionController stepdir_contr = StepdirectionController(shared_input_data);
+  auto shared_input_data = std::make_shared<MOTIONS::InputData>(
+      MOTIONS::InitializeMotions::Load_MOTIONS(provider));
+  StepdirectionController stepdir_contr =
+      StepdirectionController(shared_input_data);
 
- shared_input_data->direction_update = "negative_gradient";
+  shared_input_data->direction_update = "negative_gradient";
 
   unsigned int dimensionOfControl_gp = shared_input_data->dimension_control;
 
@@ -32,10 +34,11 @@ TEST(ncgFR, noException) {
   const char *filename = Input_directory.c_str();
 
   DataProvider provider = DataProvider(filename);
-  auto shared_input_data = std::make_shared<MOTIONS::InputData>(MOTIONS::InitializeMotions::Load_MOTIONS(provider));
-  StepdirectionController stepdir_contr = StepdirectionController(shared_input_data);
+  auto shared_input_data = std::make_shared<MOTIONS::InputData>(
+      MOTIONS::InitializeMotions::Load_MOTIONS(provider));
+  StepdirectionController stepdir_contr =
+      StepdirectionController(shared_input_data);
   shared_input_data->direction_update = "ncg_FR";
-
 
   unsigned int r = 2;
 
@@ -54,12 +57,13 @@ TEST(ncgPR, noException) {
   const char *filename = Input_directory.c_str();
 
   DataProvider provider = DataProvider(filename);
-  auto shared_input_data = std::make_shared<MOTIONS::InputData>(MOTIONS::InitializeMotions::Load_MOTIONS(provider));
-  StepdirectionController stepdir_contr = StepdirectionController(shared_input_data);
+  auto shared_input_data = std::make_shared<MOTIONS::InputData>(
+      MOTIONS::InitializeMotions::Load_MOTIONS(provider));
+  StepdirectionController stepdir_contr =
+      StepdirectionController(shared_input_data);
   shared_input_data->direction_update = "ncg_PR";
 
   unsigned int r = 2;
-
 
   unsigned int dimensionOfControl_gp = shared_input_data->dimension_control;
 
@@ -76,8 +80,10 @@ TEST(ncgHZ, noException) {
   const char *filename = Input_directory.c_str();
 
   DataProvider provider = DataProvider(filename);
-  auto shared_input_data = std::make_shared<MOTIONS::InputData>(MOTIONS::InitializeMotions::Load_MOTIONS(provider));
-  StepdirectionController stepdir_contr = StepdirectionController(shared_input_data);
+  auto shared_input_data = std::make_shared<MOTIONS::InputData>(
+      MOTIONS::InitializeMotions::Load_MOTIONS(provider));
+  StepdirectionController stepdir_contr =
+      StepdirectionController(shared_input_data);
   shared_input_data->direction_update = "ncg_HZ";
 
   unsigned int r = 2;

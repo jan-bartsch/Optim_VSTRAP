@@ -101,7 +101,7 @@
 
 
 
-        
+
         <!--  DOMAIN PARAMETERS  -->
         <parameter name="position_max_gp" value="0.05"/>
 
@@ -176,7 +176,7 @@
 
         <path name="pvpython_absolute_dir" value="/home/jan/ParaView-5.8.0-MPI-Linux-Python3.7-64bit/bin/pvpython" />
 
-        <path name="barycenters_mesh" value="./data/global/mesh_barycenters.xml" />
+        <path name="barycenters_mesh" value="./data/global/mesh_barycenters_small.xml" />
         <path name="directory_toolset" value="./toolset/" />
         <path name="domain_mesh" value="../data/global/box_coarse.xml" />
         <path name="domain_mesh_file" value="box_coarse.xml" />

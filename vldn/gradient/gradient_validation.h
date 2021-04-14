@@ -13,8 +13,8 @@
 #include "../../src/io/input.h"
 #include "../../src/io/outputdiagnostics.h"
 
-#include "../../src/objects/dataprovider.h"
 #include "../../src/objects/MOTIONS.h"
+#include "../../src/objects/dataprovider.h"
 
 #include "../../src/optimization/gradientcalculator.h"
 #include "../../src/optimization/objectivecalculator.h"

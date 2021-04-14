@@ -1,7 +1,7 @@
 #include "innerproducts.h"
 
 InnerProducts::InnerProducts(std::shared_ptr<MOTIONS::InputData> &input_data) {
-    this->setInput_data(input_data);
+  this->setInput_data(input_data);
 }
 
 double InnerProducts::L2InnerProduct(arma::mat m1, arma::mat m2) {
@@ -58,9 +58,13 @@ double InnerProducts::H1InnerProduct(arma::mat m1, arma::mat m2) {
   /*
    * first derivative
    */
-  arma::mat D1mat1 = D1 * m1.rows(input_data_->start_control_gp - 1, input_data_->end_control_gp - 1) /
+  arma::mat D1mat1 = D1 *
+                     m1.rows(input_data_->start_control_gp - 1,
+                             input_data_->end_control_gp - 1) /
                      (2.0 * small_discr_sidelength);
-  arma::mat D1mat2 = D1 * m2.rows(input_data_->start_control_gp - 1, input_data_->end_control_gp - 1) /
+  arma::mat D1mat2 = D1 *
+                     m2.rows(input_data_->start_control_gp - 1,
+                             input_data_->end_control_gp - 1) /
                      (2.0 * small_discr_sidelength);
 
   for (unsigned int i = 0; i < D1mat1.n_cols; i++) {
@@ -100,9 +104,13 @@ double InnerProducts::H2InnerProduct(arma::mat m1, arma::mat m2) {
   /*
    * second derivative
    */
-  arma::mat D2mat1 = D2 * m1.rows(input_data_->start_control_gp - 1, input_data_->end_control_gp - 1) /
+  arma::mat D2mat1 = D2 *
+                     m1.rows(input_data_->start_control_gp - 1,
+                             input_data_->end_control_gp - 1) /
                      (small_discr_sidelength * small_discr_sidelength);
-  arma::mat D2mat2 = D2 * m2.rows(input_data_->start_control_gp - 1, input_data_->end_control_gp - 1) /
+  arma::mat D2mat2 = D2 *
+                     m2.rows(input_data_->start_control_gp - 1,
+                             input_data_->end_control_gp - 1) /
                      (small_discr_sidelength * small_discr_sidelength);
 
   for (unsigned int i = 0; i < m1.n_cols; i++) {

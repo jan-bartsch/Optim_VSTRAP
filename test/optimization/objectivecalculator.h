@@ -11,7 +11,8 @@ TEST(objective, calculationNR1) {
   const char *filename = Input_directory.c_str();
 
   DataProvider provider = DataProvider(filename);
-   auto shared_input_data = std::make_shared<MOTIONS::InputData>(MOTIONS::InitializeMotions::Load_MOTIONS(provider));
+  auto shared_input_data = std::make_shared<MOTIONS::InputData>(
+      MOTIONS::InitializeMotions::Load_MOTIONS(provider));
 
   ObjectiveCalculator calculator = ObjectiveCalculator(shared_input_data);
   PdfController pdf_control = PdfController(shared_input_data);

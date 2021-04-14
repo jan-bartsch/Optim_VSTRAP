@@ -1,7 +1,7 @@
 #include "calculus.h"
 
 Calculus::Calculus(std::shared_ptr<MOTIONS::InputData> &input_data) {
-    this->setInput_data(input_data);
+  this->setInput_data(input_data);
 }
 
 double Calculus::DivergenceVector(arma::mat &Input) {
