@@ -6,8 +6,8 @@ stages:
 
 cache:
   paths:
-  - .coverage
-  - htmlcov/
+  - build-OPTIM/
+  - 
 compile:
   stage: build
   script:
@@ -36,7 +36,7 @@ coverage:
             genhtml ./test-results/coverage-filtered.info --output-directory coverage     
   artifacts:
     paths:
-    - coverage/html 
+    - test-results/coverage/html 
 
 
     
