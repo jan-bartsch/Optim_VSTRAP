@@ -28,12 +28,11 @@ run_unit_tests:
 coverage:
   stage: coverage
   script:
-    - lcov --capture --directory . --output-file ./test-results/coverage.info
-            lcov -r "./test-results/coverage.info" "boost" "*/boost/*" "*/test/*" "armadillo_bits" "*/gtest/*" "*/c++/*" "*/Core/*" "/usr/" "*/gcc/*" -o "./test-results/coverage-filtered.info"
-            genhtml ./test-results/coverage-filtered.info     
+    - ./runCoverage.sh
+
   artifacts:
     paths:
-    - test-results/coverage/html 
+    - coverage/html 
 
 
     
