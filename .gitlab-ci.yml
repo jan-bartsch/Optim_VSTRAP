@@ -20,11 +20,8 @@ compile:
 run_unit_tests:
   stage: unit_test
   script:
-    - pwd
-    - ls
     - cd build-OPTIM/test
-    - ls
-    - ./run_test 
+    - ./run_tests
     - mkdir test-results
 
 
