@@ -29,6 +29,8 @@ coverage:
   stage: coverage
   script:
     - mv build-OPTIM build
+    - pwd
+    - ls
     - ./runCoverage.sh
 
   artifacts:
