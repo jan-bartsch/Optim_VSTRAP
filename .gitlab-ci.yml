@@ -2,18 +2,18 @@ stages:
   - build
   - unit_test
   - coverage
-  
+
 
 cache:
   paths:
   - build-OPTIM/
-  - test-results/coverage/html 
+  - test-results/coverage/html
 compile:
   stage: build
   script:
     - rm -rf build-OPTIM
-    - mkdir build-OPTIM 
-    - cd build-OPTIM 
+    - mkdir build-OPTIM
+    - cd build-OPTIM
     - cmake3 -DCMAKE_BUILD_TYPE=DEBUG ..
     - make -j12
 
@@ -28,17 +28,9 @@ run_unit_tests:
 coverage:
   stage: coverage
   script:
-    - mv build-OPTIM build
-    - pwd
-    - ls
-    - ./runCoverage.sh
+    - lcov -r "./test-results/coverage.info" "boost" "*/boost/*" "*/test/*" "armadillo_bits" "*/gtest/*" "*/c++/*" "*/Core/*" "/usr/" "*/gcc/*" -o "./test-results/coverage-filtered.info"
+    genhtml ./test-results/coverage-filtered.info --output-directory coverage
 
   artifacts:
     paths:
-    - coverage/html 
-
-
-    
- 
-  
-
+    - coverage/html
