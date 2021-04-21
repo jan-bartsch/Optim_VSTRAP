@@ -28,6 +28,7 @@ run_unit_tests:
 coverage:
   stage: coverage
   script:
+    - mv build-OPTIM build
     - ./runCoverage.sh
 
   artifacts:
