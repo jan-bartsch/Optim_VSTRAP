@@ -162,7 +162,8 @@
 </globalParameters>
 
 <paths>
-	<path name="build_directory_vstrap" value="/HOME/bartsch/SPARC/build-vstrap-Desktop/src/" />
+	<!--path name="build_directory_vstrap" value="/HOME/bartsch/SPARC/build-vstrap-Desktop/src/" /-->
+    <path name="build_directory_vstrap" value="/HOME/bartsch/SPARC/Optim_VSTRAP/build/" />
 	<path name="build_directory_optim" value="/HOME/bartsch/SPARC/build-Optim-Desktop/src/" />
 	<path name="path_to_shared_files_absolute" value="/HOME/bartsch/SPARC/build-Optim-Desktop/src/results/"/>
 
