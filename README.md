@@ -6,18 +6,19 @@ The program solves optimal control problems governed by the non-linear kinetic e
 ## Dependencies and required libraries
 The code was optimized for Ubuntu 18.04 LTS. Before downloading the dependencies, make sure that Ubuntu is up-to-date  using ```sudo apt-get update``` and ```sudo apt-get upgrade```.
 
+
 To use the optimizer, ```vstrap``` must be installed on the machine.
 
 Before compiling the code the following dependencies and libraries must be installed:
-+ [Armadillo](http://arma.sourceforge.net/docs.html) (this includes lapacke and blas): install using
++ [Armadillo](http://arma.sourceforge.net/docs.html) (this includes lapacke and blas): install using (version 9.900.2)
 ```sudo apt install liblapack-dev libblas-dev libarmadillo-dev```
 + openMP: install using
 ```sudo apt install libomp-dev```
-+ boost: install using
++ boost: install using (at least version 1.36)
 ```sudo apt install boost-dev```
 + build-essentials: install using
 + ```sudo apt-get install build-essential```
-+ cmake: install using
++ cmake: install using (minimum required version 3.3)
 ```sudo apt install cmake```
 
 For **optional** postprocessing ```python3``` should be installed including the packages
