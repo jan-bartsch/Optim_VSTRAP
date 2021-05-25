@@ -80,9 +80,9 @@ class Control_field:
 		fig = plt.figure(figsize=(10,10))
 		ax = fig.add_subplot(111, projection='3d')
 		ax.set(xlim=(-boxlim,boxlim), ylim=(-boxlim, boxlim),zlim=(-boxlim,boxlim))
-		ax.set_xlabel('x axis')
-		ax.set_ylabel('y axis')
-		ax.set_zlabel('z axis')
+		ax.set_xlabel('x1 axis')
+		ax.set_ylabel('x2 axis')
+		ax.set_zlabel('x3 axis')
 		ax.view_init(azim=180, elev=0) #centering electric azim=-90
 
 		for n in range(1,len(nodesMesh)):
