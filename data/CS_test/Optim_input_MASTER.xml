@@ -99,19 +99,19 @@
     <!--  DOMAIN PARAMETERS  -->
     <parameter name="position_max_gp" value="0.05"/>
 
-    <parameter name="number_cells_position" value="64"/>
+    <!--parameter name="number_cells_position" value="64"/>
     <parameter name="small_discr_volume" value="0.000015625"/>
     <parameter name="small_discr_sidelength" value="0.025"/>
     <parameter name="dimensionOfControl_gp" value="64"/>
     <parameter name="end_control_gp" value="64"/>
-    <parameter name="start_control_gp" value="1"/>
+    <parameter name="start_control_gp" value="1"/-->
 
-    <!--parameter name="number_cells_position" value="216"/>
+    <parameter name="number_cells_position" value="216"/>
     <parameter name="small_discr_volume" value="4.62962962962963e-6"/>
     <parameter name="small_discr_sidelength" value="0.016666667"/>
      <parameter name="dimensionOfControl_gp" value="216"/>
     <parameter name="end_control_gp" value="216"/>
-    <parameter name="start_control_gp" value="1"/-->
+    <parameter name="start_control_gp" value="1"/>
 
     <!--parameter name="number_cells_position" value="512"/>
     <parameter name="small_discr_volume" value="1.953125e-6"/>
@@ -122,11 +122,11 @@
 
 
 
-    <parameter name="dt_gp" value="1e-5"/>
-    <parameter name="dt_VSTRAP" value="1e-5" />
-    <parameter name="ntimesteps_gp" value="20"/>
+    <parameter name="dt_gp" value="1e-6"/>
+    <parameter name="dt_VSTRAP" value="1e-6" />
+    <parameter name="ntimesteps_gp" value="40"/>
     <parameter name="plasma_state_output_interval" value="1"/>
-    <parameter name="ntimesteps_gp_VSTRAP" value="20"/> <!-- ntimesteps_gp*plasma_state_output_interval -->
+    <parameter name="ntimesteps_gp_VSTRAP" value="40"/> <!-- ntimesteps_gp*plasma_state_output_interval -->
 
     <!--parameter name="dt_gp" value="5e-6"/>
     <parameter name="ntimesteps_gp" value="8"/-->
@@ -177,13 +177,13 @@
 	<!--path name="pvpython_absolute_dir" value="/usr/bin/pvpython" /-->
     <path name="pvpython_absolute_dir" value="/home/jan/ParaView-5.8.0-MPI-Linux-Python3.7-64bit/bin/pvpython" />
 
-    <path name="barycenters_mesh" value="../../Optim_VSTRAP/data/global/mesh_barycenters_small_64.xml"/>
+    <!--path name="barycenters_mesh" value="../../Optim_VSTRAP/data/global/mesh_barycenters_small_64.xml"/>
     <path name="domain_mesh" value="../../../Optim_VSTRAP/data/global/box_vol_regular_small_64.xml"/>
-    <path name="domain_mesh_file" value="box_vol_regular_small_64.xml"/>
+    <path name="domain_mesh_file" value="box_vol_regular_small_64.xml"/-->
 
-	<!--path name="barycenters_mesh" value="../../Optim_VSTRAP/data/global/mesh_barycenters_small_216.xml"/>
+	<path name="barycenters_mesh" value="../../Optim_VSTRAP/data/global/mesh_barycenters_small_216.xml"/>
 	<path name="domain_mesh" value="../../../Optim_VSTRAP/data/global/box_vol_regular_small_216.xml"/>
-    <path name="domain_mesh_file" value="box_vol_regular_small_216.xml"/-->
+    <path name="domain_mesh_file" value="box_vol_regular_small_216.xml"/>
 
 
     <!--path name="barycenters_mesh" value="../../Optim_VSTRAP/data/global/mesh_barycenters_small_512.xml"/>

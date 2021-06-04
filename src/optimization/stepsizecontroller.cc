@@ -195,7 +195,7 @@ int StepsizeController::ArmijoLinesearch(arma::mat &gradient, double J0,
   } else {
     streamObj << alpha;
     logger::Info("Armijo-linesearch found stepsize " + streamObj.str() +
-                 " after " + std::to_string(counter - 1) + " iterations.");
+                 " after " + std::to_string(counter) + " iterations.");
   }
 
   outDiag.WriteDoubleToFile(alpha, "stepsizeTrack");
