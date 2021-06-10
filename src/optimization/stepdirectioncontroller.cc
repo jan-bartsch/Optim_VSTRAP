@@ -59,10 +59,10 @@ arma::mat StepdirectionController::NcgSchemeFR(
   arma::mat stepdirection_new;
   InnerProducts pro = InnerProducts(input_data_);
 
-  // double beta =
-  // arma::dot(gradient,gradient)/arma::dot(gradient_old,gradient_old);
+  double beta_old =
+  arma::dot(gradient,gradient)/arma::dot(gradient_old,gradient_old);
   double beta = pro.H1InnerProduct(gradient, gradient) /
-                pro.H2InnerProduct(gradient_old, gradient_old);
+                pro.H1InnerProduct(gradient_old, gradient_old);
 
   stepdirection_new = -gradient + beta * stepdirection_old;
 

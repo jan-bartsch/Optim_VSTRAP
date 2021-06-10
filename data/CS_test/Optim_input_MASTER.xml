@@ -8,8 +8,8 @@
     <parameter name="armijo_descent_fraction" value="1e-30"/>
     <parameter name="calculation_functional" value="1"/>
     <parameter name="calculation_wasserstein" value="0"/>
-    <parameter name="C_theta_gp" value="1e+20"/>
-    <parameter name="C_phi_gp" value="1e+20"/>
+    <parameter name="C_theta_gp" value="1e+30"/>
+    <parameter name="C_phi_gp" value="1e+30"/>
     <parameter name="sigma_x_gp" value="0.015"/>
     <parameter name="sigma_v_gp" value="375.99424119465004"/> <!-- 62.66570686577501-->
 
@@ -49,7 +49,7 @@
     <parameter name="initial_condition_file" value="plasma_state_batch_1_forward_particles_CPU_1.csv"/> <!-- only in effect if create_existing-->
     <parameter name="number_density_forward" value="1e+16"/>
     <!--parameter name="weight_forward" value="1e+10"/-->
-    <parameter name="weight_forward" value="1e+9"/>
+    <parameter name="weight_forward" value="1e+8"/>
     <!--parameter name="weight_forward" value="1e+8"/-->
     <!--parameter name="weight_forward" value="1e+7"/-->
      <!--parameter name="weight_forward" value="1e+6"/-->
@@ -85,7 +85,7 @@
     <parameter name="v_drift_z_val_inflow" value="0"/>
 
     <!--  optimization techniques  -->
-    <parameter name="fixed_gradient_descent_stepsize" value="1e+2"/>
+    <parameter name="fixed_gradient_descent_stepsize" value="1e+1"/>
     <parameter name="fraction_of_optimal_control" value="5e+0"/>
     <parameter name="optimizationIteration_max_gp" value="100"/>     <!--  number of maximal interations  -->
      <parameter name="linesearchIteration_max_gp" value="50"/>     <!--  number of maximal interations  -->
@@ -99,19 +99,19 @@
     <!--  DOMAIN PARAMETERS  -->
     <parameter name="position_max_gp" value="0.05"/>
 
-    <!--parameter name="number_cells_position" value="64"/>
+    <parameter name="number_cells_position" value="64"/>
     <parameter name="small_discr_volume" value="0.000015625"/>
     <parameter name="small_discr_sidelength" value="0.025"/>
     <parameter name="dimensionOfControl_gp" value="64"/>
     <parameter name="end_control_gp" value="64"/>
-    <parameter name="start_control_gp" value="1"/-->
+    <parameter name="start_control_gp" value="1"/>
 
-    <parameter name="number_cells_position" value="216"/>
+    <!--parameter name="number_cells_position" value="216"/>
     <parameter name="small_discr_volume" value="4.62962962962963e-6"/>
     <parameter name="small_discr_sidelength" value="0.016666667"/>
      <parameter name="dimensionOfControl_gp" value="216"/>
     <parameter name="end_control_gp" value="216"/>
-    <parameter name="start_control_gp" value="1"/>
+    <parameter name="start_control_gp" value="1"/-->
 
     <!--parameter name="number_cells_position" value="512"/>
     <parameter name="small_discr_volume" value="1.953125e-6"/>
@@ -177,13 +177,13 @@
 	<!--path name="pvpython_absolute_dir" value="/usr/bin/pvpython" /-->
     <path name="pvpython_absolute_dir" value="/home/jan/ParaView-5.8.0-MPI-Linux-Python3.7-64bit/bin/pvpython" />
 
-    <!--path name="barycenters_mesh" value="../../Optim_VSTRAP/data/global/mesh_barycenters_small_64.xml"/>
+    <path name="barycenters_mesh" value="../../Optim_VSTRAP/data/global/mesh_barycenters_small_64.xml"/>
     <path name="domain_mesh" value="../../../Optim_VSTRAP/data/global/box_vol_regular_small_64.xml"/>
-    <path name="domain_mesh_file" value="box_vol_regular_small_64.xml"/-->
+    <path name="domain_mesh_file" value="box_vol_regular_small_64.xml"/>
 
-	<path name="barycenters_mesh" value="../../Optim_VSTRAP/data/global/mesh_barycenters_small_216.xml"/>
+	<!--path name="barycenters_mesh" value="../../Optim_VSTRAP/data/global/mesh_barycenters_small_216.xml"/>
 	<path name="domain_mesh" value="../../../Optim_VSTRAP/data/global/box_vol_regular_small_216.xml"/>
-    <path name="domain_mesh_file" value="box_vol_regular_small_216.xml"/>
+    <path name="domain_mesh_file" value="box_vol_regular_small_216.xml"/-->
 
 
     <!--path name="barycenters_mesh" value="../../Optim_VSTRAP/data/global/mesh_barycenters_small_512.xml"/>
