@@ -8,7 +8,7 @@ set(CMAKE_BUILD_TYPE DEBUG)
 message("INFO: CMAKE_SYSTEM IS ${CMAKE_SYSTEM}")
 
 if(("${CMAKE_SYSTEM}" STREQUAL "Linux-5.3.18-lp152.66-preempt") OR ("${CMAKE_SYSTEM}" STREQUAL "Linux-4.12.14-lp151.28.79-default")
-        OR ("${CMAKE_SYSTEM}" STREQUAL "Linux-5.3.18-lp152.50-default") OR ("${CMAKE_SYSTEM}" STREQUAL "Linux-4.12.14-lp151.28.91-default") )
+        OR ("${CMAKE_SYSTEM}" STREQUAL "Linux-5.3.18-lp152.50-default") OR ("${CMAKE_SYSTEM}" STREQUAL "Linux-5.3.18-lp152.78-preempt") )
 
 message("INFO: some libraries are included manually")
 SET(CMAKE_INCLUDE_PATH ${CMAKE_INCLUDE_PATH} "/HOME/bartsch/include/boost_1_72_0/boost/builddirectory/include/")

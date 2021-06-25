@@ -20,7 +20,7 @@ int OptimController::StartOptimizer(
                " minutes");
 
   if (optim_flag == 0) {
-    logger::Info("Optimization ended without errors");
+    logger::Info("Optimization terminated without errors");
   } else {
     std::string return_string =
         "Optimization returned non-zero value: " + std::to_string(optim_flag);
@@ -333,6 +333,10 @@ arma::mat OptimController::StartWithZeroControl(
   OutputControlUpdate outController = OutputControlUpdate(input_data);
 
   arma::mat control(input_data->number_cells_position, 3, arma::fill::zeros);
+
+//  for (int i = 0; i< input_data->number_cells_position; i++) {
+//      control(i,1) = -0.05;
+//  }
 
   logger::Info("Deleting old files");
   std::string COMMAND_RM_RESULTS = "rm -r results/";

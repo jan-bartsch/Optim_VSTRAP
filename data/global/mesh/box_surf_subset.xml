@@ -1,0 +1,1508 @@
+<mesh  type="Gmsh">
+
+<mesh  version_number ="2.2" file_type ="0" data_size ="8" mesh_type="surface_mesh"/>
+
+<physical_names number_of_names="7">
+
+<physical_name physical_dimension="2" physical_number="1" physical_name="Plus"/>
+<physical_name physical_dimension="2" physical_number="2" physical_name="Minus"/>
+<physical_name physical_dimension="2" physical_number="3" physical_name="Other1"/>
+<physical_name physical_dimension="2" physical_number="4" physical_name="Other2"/>
+<physical_name physical_dimension="2" physical_number="5" physical_name="Other3"/>
+<physical_name physical_dimension="2" physical_number="6" physical_name="Other4"/>
+<physical_name physical_dimension="2" physical_number="7" physical_name="Hole"/>
+
+</physical_names>
+
+<nodes number_of_nodes="89">
+
+<node node_number="1" x_coord="-50" y_coord="-50" z_coord="-50"/>
+<node node_number="2" x_coord="50" y_coord="-50" z_coord="-50"/>
+<node node_number="3" x_coord="50" y_coord="50" z_coord="-50"/>
+<node node_number="4" x_coord="-50" y_coord="50" z_coord="-50"/>
+<node node_number="5" x_coord="-50" y_coord="-50" z_coord="50"/>
+<node node_number="6" x_coord="50" y_coord="-50" z_coord="50"/>
+<node node_number="7" x_coord="50" y_coord="50" z_coord="50"/>
+<node node_number="8" x_coord="-50" y_coord="50" z_coord="50"/>
+<node node_number="9" x_coord="-50" y_coord="-25" z_coord="20"/>
+<node node_number="10" x_coord="-50" y_coord="25" z_coord="20"/>
+<node node_number="11" x_coord="-50" y_coord="25" z_coord="40"/>
+<node node_number="12" x_coord="-50" y_coord="-25" z_coord="40"/>
+<node node_number="13" x_coord="-16.66666666666666" y_coord="-50" z_coord="-50"/>
+<node node_number="14" x_coord="16.66666666666667" y_coord="-50" z_coord="-50"/>
+<node node_number="15" x_coord="50" y_coord="-16.66666666666666" z_coord="-50"/>
+<node node_number="16" x_coord="50" y_coord="16.66666666666667" z_coord="-50"/>
+<node node_number="17" x_coord="16.66666666666666" y_coord="50" z_coord="-50"/>
+<node node_number="18" x_coord="-16.66666666666667" y_coord="50" z_coord="-50"/>
+<node node_number="19" x_coord="-50" y_coord="16.66666666666666" z_coord="-50"/>
+<node node_number="20" x_coord="-50" y_coord="-16.66666666666667" z_coord="-50"/>
+<node node_number="21" x_coord="-16.66666666666666" y_coord="-50" z_coord="50"/>
+<node node_number="22" x_coord="16.66666666666667" y_coord="-50" z_coord="50"/>
+<node node_number="23" x_coord="50" y_coord="-16.66666666666666" z_coord="50"/>
+<node node_number="24" x_coord="50" y_coord="16.66666666666667" z_coord="50"/>
+<node node_number="25" x_coord="16.66666666666666" y_coord="50" z_coord="50"/>
+<node node_number="26" x_coord="-16.66666666666667" y_coord="50" z_coord="50"/>
+<node node_number="27" x_coord="-50" y_coord="16.66666666666666" z_coord="50"/>
+<node node_number="28" x_coord="-50" y_coord="-16.66666666666667" z_coord="50"/>
+<node node_number="29" x_coord="-50" y_coord="-50" z_coord="-16.66666666666666"/>
+<node node_number="30" x_coord="-50" y_coord="-50" z_coord="16.66666666666667"/>
+<node node_number="31" x_coord="50" y_coord="-50" z_coord="-16.66666666666666"/>
+<node node_number="32" x_coord="50" y_coord="-50" z_coord="16.66666666666667"/>
+<node node_number="33" x_coord="50" y_coord="50" z_coord="-16.66666666666666"/>
+<node node_number="34" x_coord="50" y_coord="50" z_coord="16.66666666666667"/>
+<node node_number="35" x_coord="-50" y_coord="50" z_coord="-16.66666666666666"/>
+<node node_number="36" x_coord="-50" y_coord="50" z_coord="16.66666666666667"/>
+<node node_number="37" x_coord="-50" y_coord="0" z_coord="20"/>
+<node node_number="38" x_coord="-50" y_coord="0" z_coord="40"/>
+<node node_number="39" x_coord="2.476751100328059e-15" y_coord="-19.85523848698469" z_coord="-50"/>
+<node node_number="40" x_coord="-2.735306518251313e-15" y_coord="20.28666213188935" z_coord="-50"/>
+<node node_number="41" x_coord="25.25600817161048" y_coord="0.07190394081744778" z_coord="-50"/>
+<node node_number="42" x_coord="-25.25600817161048" y_coord="0.07190394081744007" z_coord="-50"/>
+<node node_number="43" x_coord="-25.76802451483144" y_coord="-25.76802451483145" z_coord="-50"/>
+<node node_number="44" x_coord="25.76802451483144" y_coord="25.76802451483145" z_coord="-50"/>
+<node node_number="45" x_coord="25.76802451483145" y_coord="-25.76802451483144" z_coord="-50"/>
+<node node_number="46" x_coord="-25.76802451483145" y_coord="25.76802451483144" z_coord="-50"/>
+<node node_number="47" x_coord="2.030175494135895e-15" y_coord="-19.85523848698469" z_coord="50"/>
+<node node_number="48" x_coord="-2.735306518251313e-15" y_coord="20.28666213188935" z_coord="50"/>
+<node node_number="49" x_coord="25.25600817161048" y_coord="0.07190394081744778" z_coord="50"/>
+<node node_number="50" x_coord="-25.25600817161048" y_coord="0.07190394081744007" z_coord="50"/>
+<node node_number="51" x_coord="-25.76802451483144" y_coord="-25.76802451483145" z_coord="50"/>
+<node node_number="52" x_coord="25.76802451483144" y_coord="25.76802451483145" z_coord="50"/>
+<node node_number="53" x_coord="25.76802451483145" y_coord="-25.76802451483144" z_coord="50"/>
+<node node_number="54" x_coord="-25.76802451483145" y_coord="25.76802451483144" z_coord="50"/>
+<node node_number="55" x_coord="20.4808293703483" y_coord="-50" z_coord="3.095681543891549e-15"/>
+<node node_number="56" x_coord="-20.50506247151784" y_coord="-50" z_coord="3.066096327446556e-15"/>
+<node node_number="57" x_coord="-0.004038850194922597" y_coord="-50" z_coord="25.25600817161048"/>
+<node node_number="58" x_coord="-0.004038850194922006" y_coord="-50" z_coord="-25.25600817161048"/>
+<node node_number="59" x_coord="-25.76802451483145" y_coord="-50" z_coord="-25.76802451483145"/>
+<node node_number="60" x_coord="25.76802451483145" y_coord="-50" z_coord="-25.76802451483144"/>
+<node node_number="61" x_coord="25.76802451483144" y_coord="-50" z_coord="25.76802451483144"/>
+<node node_number="62" x_coord="-25.76802451483144" y_coord="-50" z_coord="25.76802451483145"/>
+<node node_number="63" x_coord="50" y_coord="-20.4808293703483" z_coord="1.639144229205326e-15"/>
+<node node_number="64" x_coord="50" y_coord="20.50506247151784" z_coord="2.933981967403103e-15"/>
+<node node_number="65" x_coord="50" y_coord="0.004038850194924374" z_coord="25.25600817161048"/>
+<node node_number="66" x_coord="50" y_coord="0.00403885019492615" z_coord="-25.25600817161048"/>
+<node node_number="67" x_coord="50" y_coord="25.76802451483145" z_coord="-25.76802451483144"/>
+<node node_number="68" x_coord="50" y_coord="25.76802451483144" z_coord="25.76802451483144"/>
+<node node_number="69" x_coord="50" y_coord="-25.76802451483145" z_coord="-25.76802451483145"/>
+<node node_number="70" x_coord="50" y_coord="-25.76802451483144" z_coord="25.76802451483145"/>
+<node node_number="71" x_coord="-2.699338463761191e-15" y_coord="50" z_coord="-20.4808293703483"/>
+<node node_number="72" x_coord="-2.801867607359651e-15" y_coord="50" z_coord="20.50506247151784"/>
+<node node_number="73" x_coord="25.25600817161048" y_coord="50" z_coord="0.004038850194923782"/>
+<node node_number="74" x_coord="-25.25600817161048" y_coord="50" z_coord="0.004038850194924966"/>
+<node node_number="75" x_coord="25.76802451483145" y_coord="50" z_coord="-25.76802451483145"/>
+<node node_number="76" x_coord="-25.76802451483145" y_coord="50" z_coord="-25.76802451483144"/>
+<node node_number="77" x_coord="25.76802451483144" y_coord="50" z_coord="25.76802451483145"/>
+<node node_number="78" x_coord="-25.76802451483144" y_coord="50" z_coord="25.76802451483144"/>
+<node node_number="79" x_coord="-50" y_coord="12.72008269415015" z_coord="-1.289867337892764"/>
+<node node_number="80" x_coord="-50" y_coord="-11.53864920398799" z_coord="-1.597451543309804"/>
+<node node_number="81" x_coord="-50" y_coord="1.027285854683162" z_coord="-24.60213602819399"/>
+<node node_number="82" x_coord="-50" y_coord="37.50000000000001" z_coord="31.66666666666667"/>
+<node node_number="83" x_coord="-50" y_coord="-37.50000000000001" z_coord="31.66666666666667"/>
+<node node_number="84" x_coord="-50" y_coord="-24.77637287554855" z_coord="-24.64156957448799"/>
+<node node_number="85" x_coord="-50" y_coord="-32.2630044159073" z_coord="-1.247804223559558"/>
+<node node_number="86" x_coord="-50" y_coord="32.82941190737044" z_coord="-0.8120504352688024"/>
+<node node_number="87" x_coord="-50" y_coord="27.20724118714506" z_coord="-23.8951200780037"/>
+<node node_number="88" x_coord="-50" y_coord="-12.5" z_coord="30"/>
+<node node_number="89" x_coord="-50" y_coord="12.5" z_coord="30"/>
+
+</nodes>
+
+<elements number_of_elements="174">
+
+<element elem_number="1" elm_type="2">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+39,40,41
+</nodes>
+</element>
+<element elem_number="2" elm_type="2">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+40,39,42
+</nodes>
+</element>
+<element elem_number="3" elm_type="2">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+14,13,39
+</nodes>
+</element>
+<element elem_number="4" elm_type="2">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+18,17,40
+</nodes>
+</element>
+<element elem_number="5" elm_type="2">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+16,15,41
+</nodes>
+</element>
+<element elem_number="6" elm_type="2">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+20,19,42
+</nodes>
+</element>
+<element elem_number="7" elm_type="2">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+13,1,43
+</nodes>
+</element>
+<element elem_number="8" elm_type="2">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+15,2,45
+</nodes>
+</element>
+<element elem_number="9" elm_type="2">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+17,3,44
+</nodes>
+</element>
+<element elem_number="10" elm_type="2">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+19,4,46
+</nodes>
+</element>
+<element elem_number="11" elm_type="2">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+2,14,45
+</nodes>
+</element>
+<element elem_number="12" elm_type="2">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+4,18,46
+</nodes>
+</element>
+<element elem_number="13" elm_type="2">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+1,20,43
+</nodes>
+</element>
+<element elem_number="14" elm_type="2">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+3,16,44
+</nodes>
+</element>
+<element elem_number="15" elm_type="2">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+14,39,45
+</nodes>
+</element>
+<element elem_number="16" elm_type="2">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+18,40,46
+</nodes>
+</element>
+<element elem_number="17" elm_type="2">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+39,13,43
+</nodes>
+</element>
+<element elem_number="18" elm_type="2">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+40,17,44
+</nodes>
+</element>
+<element elem_number="19" elm_type="2">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+42,39,43
+</nodes>
+</element>
+<element elem_number="20" elm_type="2">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+41,40,44
+</nodes>
+</element>
+<element elem_number="21" elm_type="2">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+39,41,45
+</nodes>
+</element>
+<element elem_number="22" elm_type="2">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+40,42,46
+</nodes>
+</element>
+<element elem_number="23" elm_type="2">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+16,41,44
+</nodes>
+</element>
+<element elem_number="24" elm_type="2">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+20,42,43
+</nodes>
+</element>
+<element elem_number="25" elm_type="2">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+41,15,45
+</nodes>
+</element>
+<element elem_number="26" elm_type="2">
+<tags number_of_tags="2">
+1,1
+</tags>
+<nodes>
+42,19,46
+</nodes>
+</element>
+<element elem_number="27" elm_type="2">
+<tags number_of_tags="2">
+2,2
+</tags>
+<nodes>
+48,50,47
+</nodes>
+</element>
+<element elem_number="28" elm_type="2">
+<tags number_of_tags="2">
+2,2
+</tags>
+<nodes>
+47,49,48
+</nodes>
+</element>
+<element elem_number="29" elm_type="2">
+<tags number_of_tags="2">
+2,2
+</tags>
+<nodes>
+26,48,25
+</nodes>
+</element>
+<element elem_number="30" elm_type="2">
+<tags number_of_tags="2">
+2,2
+</tags>
+<nodes>
+22,47,21
+</nodes>
+</element>
+<element elem_number="31" elm_type="2">
+<tags number_of_tags="2">
+2,2
+</tags>
+<nodes>
+24,49,23
+</nodes>
+</element>
+<element elem_number="32" elm_type="2">
+<tags number_of_tags="2">
+2,2
+</tags>
+<nodes>
+28,50,27
+</nodes>
+</element>
+<element elem_number="33" elm_type="2">
+<tags number_of_tags="2">
+2,2
+</tags>
+<nodes>
+21,51,5
+</nodes>
+</element>
+<element elem_number="34" elm_type="2">
+<tags number_of_tags="2">
+2,2
+</tags>
+<nodes>
+23,53,6
+</nodes>
+</element>
+<element elem_number="35" elm_type="2">
+<tags number_of_tags="2">
+2,2
+</tags>
+<nodes>
+25,52,7
+</nodes>
+</element>
+<element elem_number="36" elm_type="2">
+<tags number_of_tags="2">
+2,2
+</tags>
+<nodes>
+27,54,8
+</nodes>
+</element>
+<element elem_number="37" elm_type="2">
+<tags number_of_tags="2">
+2,2
+</tags>
+<nodes>
+6,53,22
+</nodes>
+</element>
+<element elem_number="38" elm_type="2">
+<tags number_of_tags="2">
+2,2
+</tags>
+<nodes>
+8,54,26
+</nodes>
+</element>
+<element elem_number="39" elm_type="2">
+<tags number_of_tags="2">
+2,2
+</tags>
+<nodes>
+5,51,28
+</nodes>
+</element>
+<element elem_number="40" elm_type="2">
+<tags number_of_tags="2">
+2,2
+</tags>
+<nodes>
+7,52,24
+</nodes>
+</element>
+<element elem_number="41" elm_type="2">
+<tags number_of_tags="2">
+2,2
+</tags>
+<nodes>
+47,51,21
+</nodes>
+</element>
+<element elem_number="42" elm_type="2">
+<tags number_of_tags="2">
+2,2
+</tags>
+<nodes>
+26,54,48
+</nodes>
+</element>
+<element elem_number="43" elm_type="2">
+<tags number_of_tags="2">
+2,2
+</tags>
+<nodes>
+22,53,47
+</nodes>
+</element>
+<element elem_number="44" elm_type="2">
+<tags number_of_tags="2">
+2,2
+</tags>
+<nodes>
+48,52,25
+</nodes>
+</element>
+<element elem_number="45" elm_type="2">
+<tags number_of_tags="2">
+2,2
+</tags>
+<nodes>
+47,53,49
+</nodes>
+</element>
+<element elem_number="46" elm_type="2">
+<tags number_of_tags="2">
+2,2
+</tags>
+<nodes>
+50,51,47
+</nodes>
+</element>
+<element elem_number="47" elm_type="2">
+<tags number_of_tags="2">
+2,2
+</tags>
+<nodes>
+49,52,48
+</nodes>
+</element>
+<element elem_number="48" elm_type="2">
+<tags number_of_tags="2">
+2,2
+</tags>
+<nodes>
+48,54,50
+</nodes>
+</element>
+<element elem_number="49" elm_type="2">
+<tags number_of_tags="2">
+2,2
+</tags>
+<nodes>
+24,52,49
+</nodes>
+</element>
+<element elem_number="50" elm_type="2">
+<tags number_of_tags="2">
+2,2
+</tags>
+<nodes>
+28,51,50
+</nodes>
+</element>
+<element elem_number="51" elm_type="2">
+<tags number_of_tags="2">
+2,2
+</tags>
+<nodes>
+49,53,23
+</nodes>
+</element>
+<element elem_number="52" elm_type="2">
+<tags number_of_tags="2">
+2,2
+</tags>
+<nodes>
+50,54,27
+</nodes>
+</element>
+<element elem_number="53" elm_type="2">
+<tags number_of_tags="2">
+3,3
+</tags>
+<nodes>
+55,57,56
+</nodes>
+</element>
+<element elem_number="54" elm_type="2">
+<tags number_of_tags="2">
+3,3
+</tags>
+<nodes>
+56,58,55
+</nodes>
+</element>
+<element elem_number="55" elm_type="2">
+<tags number_of_tags="2">
+3,3
+</tags>
+<nodes>
+29,56,30
+</nodes>
+</element>
+<element elem_number="56" elm_type="2">
+<tags number_of_tags="2">
+3,3
+</tags>
+<nodes>
+32,55,31
+</nodes>
+</element>
+<element elem_number="57" elm_type="2">
+<tags number_of_tags="2">
+3,3
+</tags>
+<nodes>
+14,58,13
+</nodes>
+</element>
+<element elem_number="58" elm_type="2">
+<tags number_of_tags="2">
+3,3
+</tags>
+<nodes>
+21,57,22
+</nodes>
+</element>
+<element elem_number="59" elm_type="2">
+<tags number_of_tags="2">
+3,3
+</tags>
+<nodes>
+31,60,2
+</nodes>
+</element>
+<element elem_number="60" elm_type="2">
+<tags number_of_tags="2">
+3,3
+</tags>
+<nodes>
+5,62,21
+</nodes>
+</element>
+<element elem_number="61" elm_type="2">
+<tags number_of_tags="2">
+3,3
+</tags>
+<nodes>
+13,59,1
+</nodes>
+</element>
+<element elem_number="62" elm_type="2">
+<tags number_of_tags="2">
+3,3
+</tags>
+<nodes>
+1,59,29
+</nodes>
+</element>
+<element elem_number="63" elm_type="2">
+<tags number_of_tags="2">
+3,3
+</tags>
+<nodes>
+30,62,5
+</nodes>
+</element>
+<element elem_number="64" elm_type="2">
+<tags number_of_tags="2">
+3,3
+</tags>
+<nodes>
+22,61,6
+</nodes>
+</element>
+<element elem_number="65" elm_type="2">
+<tags number_of_tags="2">
+3,3
+</tags>
+<nodes>
+6,61,32
+</nodes>
+</element>
+<element elem_number="66" elm_type="2">
+<tags number_of_tags="2">
+3,3
+</tags>
+<nodes>
+2,60,14
+</nodes>
+</element>
+<element elem_number="67" elm_type="2">
+<tags number_of_tags="2">
+3,3
+</tags>
+<nodes>
+56,62,30
+</nodes>
+</element>
+<element elem_number="68" elm_type="2">
+<tags number_of_tags="2">
+3,3
+</tags>
+<nodes>
+55,60,31
+</nodes>
+</element>
+<element elem_number="69" elm_type="2">
+<tags number_of_tags="2">
+3,3
+</tags>
+<nodes>
+32,61,55
+</nodes>
+</element>
+<element elem_number="70" elm_type="2">
+<tags number_of_tags="2">
+3,3
+</tags>
+<nodes>
+29,59,56
+</nodes>
+</element>
+<element elem_number="71" elm_type="2">
+<tags number_of_tags="2">
+3,3
+</tags>
+<nodes>
+58,60,55
+</nodes>
+</element>
+<element elem_number="72" elm_type="2">
+<tags number_of_tags="2">
+3,3
+</tags>
+<nodes>
+56,59,58
+</nodes>
+</element>
+<element elem_number="73" elm_type="2">
+<tags number_of_tags="2">
+3,3
+</tags>
+<nodes>
+55,61,57
+</nodes>
+</element>
+<element elem_number="74" elm_type="2">
+<tags number_of_tags="2">
+3,3
+</tags>
+<nodes>
+57,62,56
+</nodes>
+</element>
+<element elem_number="75" elm_type="2">
+<tags number_of_tags="2">
+3,3
+</tags>
+<nodes>
+58,59,13
+</nodes>
+</element>
+<element elem_number="76" elm_type="2">
+<tags number_of_tags="2">
+3,3
+</tags>
+<nodes>
+14,60,58
+</nodes>
+</element>
+<element elem_number="77" elm_type="2">
+<tags number_of_tags="2">
+3,3
+</tags>
+<nodes>
+21,62,57
+</nodes>
+</element>
+<element elem_number="78" elm_type="2">
+<tags number_of_tags="2">
+3,3
+</tags>
+<nodes>
+57,61,22
+</nodes>
+</element>
+<element elem_number="79" elm_type="2">
+<tags number_of_tags="2">
+4,4
+</tags>
+<nodes>
+64,65,63
+</nodes>
+</element>
+<element elem_number="80" elm_type="2">
+<tags number_of_tags="2">
+4,4
+</tags>
+<nodes>
+63,66,64
+</nodes>
+</element>
+<element elem_number="81" elm_type="2">
+<tags number_of_tags="2">
+4,4
+</tags>
+<nodes>
+31,63,32
+</nodes>
+</element>
+<element elem_number="82" elm_type="2">
+<tags number_of_tags="2">
+4,4
+</tags>
+<nodes>
+34,64,33
+</nodes>
+</element>
+<element elem_number="83" elm_type="2">
+<tags number_of_tags="2">
+4,4
+</tags>
+<nodes>
+16,66,15
+</nodes>
+</element>
+<element elem_number="84" elm_type="2">
+<tags number_of_tags="2">
+4,4
+</tags>
+<nodes>
+23,65,24
+</nodes>
+</element>
+<element elem_number="85" elm_type="2">
+<tags number_of_tags="2">
+4,4
+</tags>
+<nodes>
+15,69,2
+</nodes>
+</element>
+<element elem_number="86" elm_type="2">
+<tags number_of_tags="2">
+4,4
+</tags>
+<nodes>
+2,69,31
+</nodes>
+</element>
+<element elem_number="87" elm_type="2">
+<tags number_of_tags="2">
+4,4
+</tags>
+<nodes>
+33,67,3
+</nodes>
+</element>
+<element elem_number="88" elm_type="2">
+<tags number_of_tags="2">
+4,4
+</tags>
+<nodes>
+6,70,23
+</nodes>
+</element>
+<element elem_number="89" elm_type="2">
+<tags number_of_tags="2">
+4,4
+</tags>
+<nodes>
+32,70,6
+</nodes>
+</element>
+<element elem_number="90" elm_type="2">
+<tags number_of_tags="2">
+4,4
+</tags>
+<nodes>
+24,68,7
+</nodes>
+</element>
+<element elem_number="91" elm_type="2">
+<tags number_of_tags="2">
+4,4
+</tags>
+<nodes>
+7,68,34
+</nodes>
+</element>
+<element elem_number="92" elm_type="2">
+<tags number_of_tags="2">
+4,4
+</tags>
+<nodes>
+3,67,16
+</nodes>
+</element>
+<element elem_number="93" elm_type="2">
+<tags number_of_tags="2">
+4,4
+</tags>
+<nodes>
+63,70,32
+</nodes>
+</element>
+<element elem_number="94" elm_type="2">
+<tags number_of_tags="2">
+4,4
+</tags>
+<nodes>
+64,67,33
+</nodes>
+</element>
+<element elem_number="95" elm_type="2">
+<tags number_of_tags="2">
+4,4
+</tags>
+<nodes>
+34,68,64
+</nodes>
+</element>
+<element elem_number="96" elm_type="2">
+<tags number_of_tags="2">
+4,4
+</tags>
+<nodes>
+31,69,63
+</nodes>
+</element>
+<element elem_number="97" elm_type="2">
+<tags number_of_tags="2">
+4,4
+</tags>
+<nodes>
+65,70,63
+</nodes>
+</element>
+<element elem_number="98" elm_type="2">
+<tags number_of_tags="2">
+4,4
+</tags>
+<nodes>
+63,69,66
+</nodes>
+</element>
+<element elem_number="99" elm_type="2">
+<tags number_of_tags="2">
+4,4
+</tags>
+<nodes>
+66,67,64
+</nodes>
+</element>
+<element elem_number="100" elm_type="2">
+<tags number_of_tags="2">
+4,4
+</tags>
+<nodes>
+64,68,65
+</nodes>
+</element>
+<element elem_number="101" elm_type="2">
+<tags number_of_tags="2">
+4,4
+</tags>
+<nodes>
+16,67,66
+</nodes>
+</element>
+<element elem_number="102" elm_type="2">
+<tags number_of_tags="2">
+4,4
+</tags>
+<nodes>
+66,69,15
+</nodes>
+</element>
+<element elem_number="103" elm_type="2">
+<tags number_of_tags="2">
+4,4
+</tags>
+<nodes>
+23,70,65
+</nodes>
+</element>
+<element elem_number="104" elm_type="2">
+<tags number_of_tags="2">
+4,4
+</tags>
+<nodes>
+65,68,24
+</nodes>
+</element>
+<element elem_number="105" elm_type="2">
+<tags number_of_tags="2">
+5,5
+</tags>
+<nodes>
+71,74,72
+</nodes>
+</element>
+<element elem_number="106" elm_type="2">
+<tags number_of_tags="2">
+5,5
+</tags>
+<nodes>
+72,73,71
+</nodes>
+</element>
+<element elem_number="107" elm_type="2">
+<tags number_of_tags="2">
+5,5
+</tags>
+<nodes>
+18,71,17
+</nodes>
+</element>
+<element elem_number="108" elm_type="2">
+<tags number_of_tags="2">
+5,5
+</tags>
+<nodes>
+25,72,26
+</nodes>
+</element>
+<element elem_number="109" elm_type="2">
+<tags number_of_tags="2">
+5,5
+</tags>
+<nodes>
+33,73,34
+</nodes>
+</element>
+<element elem_number="110" elm_type="2">
+<tags number_of_tags="2">
+5,5
+</tags>
+<nodes>
+36,74,35
+</nodes>
+</element>
+<element elem_number="111" elm_type="2">
+<tags number_of_tags="2">
+5,5
+</tags>
+<nodes>
+35,76,4
+</nodes>
+</element>
+<element elem_number="112" elm_type="2">
+<tags number_of_tags="2">
+5,5
+</tags>
+<nodes>
+7,77,25
+</nodes>
+</element>
+<element elem_number="113" elm_type="2">
+<tags number_of_tags="2">
+5,5
+</tags>
+<nodes>
+17,75,3
+</nodes>
+</element>
+<element elem_number="114" elm_type="2">
+<tags number_of_tags="2">
+5,5
+</tags>
+<nodes>
+3,75,33
+</nodes>
+</element>
+<element elem_number="115" elm_type="2">
+<tags number_of_tags="2">
+5,5
+</tags>
+<nodes>
+4,76,18
+</nodes>
+</element>
+<element elem_number="116" elm_type="2">
+<tags number_of_tags="2">
+5,5
+</tags>
+<nodes>
+26,78,8
+</nodes>
+</element>
+<element elem_number="117" elm_type="2">
+<tags number_of_tags="2">
+5,5
+</tags>
+<nodes>
+8,78,36
+</nodes>
+</element>
+<element elem_number="118" elm_type="2">
+<tags number_of_tags="2">
+5,5
+</tags>
+<nodes>
+34,77,7
+</nodes>
+</element>
+<element elem_number="119" elm_type="2">
+<tags number_of_tags="2">
+5,5
+</tags>
+<nodes>
+71,75,17
+</nodes>
+</element>
+<element elem_number="120" elm_type="2">
+<tags number_of_tags="2">
+5,5
+</tags>
+<nodes>
+18,76,71
+</nodes>
+</element>
+<element elem_number="121" elm_type="2">
+<tags number_of_tags="2">
+5,5
+</tags>
+<nodes>
+25,77,72
+</nodes>
+</element>
+<element elem_number="122" elm_type="2">
+<tags number_of_tags="2">
+5,5
+</tags>
+<nodes>
+72,78,26
+</nodes>
+</element>
+<element elem_number="123" elm_type="2">
+<tags number_of_tags="2">
+5,5
+</tags>
+<nodes>
+73,75,71
+</nodes>
+</element>
+<element elem_number="124" elm_type="2">
+<tags number_of_tags="2">
+5,5
+</tags>
+<nodes>
+72,77,73
+</nodes>
+</element>
+<element elem_number="125" elm_type="2">
+<tags number_of_tags="2">
+5,5
+</tags>
+<nodes>
+71,76,74
+</nodes>
+</element>
+<element elem_number="126" elm_type="2">
+<tags number_of_tags="2">
+5,5
+</tags>
+<nodes>
+74,78,72
+</nodes>
+</element>
+<element elem_number="127" elm_type="2">
+<tags number_of_tags="2">
+5,5
+</tags>
+<nodes>
+33,75,73
+</nodes>
+</element>
+<element elem_number="128" elm_type="2">
+<tags number_of_tags="2">
+5,5
+</tags>
+<nodes>
+36,78,74
+</nodes>
+</element>
+<element elem_number="129" elm_type="2">
+<tags number_of_tags="2">
+5,5
+</tags>
+<nodes>
+73,77,34
+</nodes>
+</element>
+<element elem_number="130" elm_type="2">
+<tags number_of_tags="2">
+5,5
+</tags>
+<nodes>
+74,76,35
+</nodes>
+</element>
+<element elem_number="131" elm_type="2">
+<tags number_of_tags="2">
+6,6
+</tags>
+<nodes>
+8,82,11
+</nodes>
+</element>
+<element elem_number="132" elm_type="2">
+<tags number_of_tags="2">
+6,6
+</tags>
+<nodes>
+12,83,5
+</nodes>
+</element>
+<element elem_number="133" elm_type="2">
+<tags number_of_tags="2">
+6,6
+</tags>
+<nodes>
+37,80,9
+</nodes>
+</element>
+<element elem_number="134" elm_type="2">
+<tags number_of_tags="2">
+6,6
+</tags>
+<nodes>
+9,83,12
+</nodes>
+</element>
+<element elem_number="135" elm_type="2">
+<tags number_of_tags="2">
+6,6
+</tags>
+<nodes>
+11,82,10
+</nodes>
+</element>
+<element elem_number="136" elm_type="2">
+<tags number_of_tags="2">
+6,6
+</tags>
+<nodes>
+35,86,36
+</nodes>
+</element>
+<element elem_number="137" elm_type="2">
+<tags number_of_tags="2">
+6,6
+</tags>
+<nodes>
+30,85,29
+</nodes>
+</element>
+<element elem_number="138" elm_type="2">
+<tags number_of_tags="2">
+6,6
+</tags>
+<nodes>
+10,79,37
+</nodes>
+</element>
+<element elem_number="139" elm_type="2">
+<tags number_of_tags="2">
+6,6
+</tags>
+<nodes>
+19,87,4
+</nodes>
+</element>
+<element elem_number="140" elm_type="2">
+<tags number_of_tags="2">
+6,6
+</tags>
+<nodes>
+30,83,9
+</nodes>
+</element>
+<element elem_number="141" elm_type="2">
+<tags number_of_tags="2">
+6,6
+</tags>
+<nodes>
+10,82,36
+</nodes>
+</element>
+<element elem_number="142" elm_type="2">
+<tags number_of_tags="2">
+6,6
+</tags>
+<nodes>
+29,84,1
+</nodes>
+</element>
+<element elem_number="143" elm_type="2">
+<tags number_of_tags="2">
+6,6
+</tags>
+<nodes>
+20,81,19
+</nodes>
+</element>
+<element elem_number="144" elm_type="2">
+<tags number_of_tags="2">
+6,6
+</tags>
+<nodes>
+1,84,20
+</nodes>
+</element>
+<element elem_number="145" elm_type="2">
+<tags number_of_tags="2">
+6,6
+</tags>
+<nodes>
+4,87,35
+</nodes>
+</element>
+<element elem_number="146" elm_type="2">
+<tags number_of_tags="2">
+6,6
+</tags>
+<nodes>
+36,86,10
+</nodes>
+</element>
+<element elem_number="147" elm_type="2">
+<tags number_of_tags="2">
+6,6
+</tags>
+<nodes>
+9,85,30
+</nodes>
+</element>
+<element elem_number="148" elm_type="2">
+<tags number_of_tags="2">
+6,6
+</tags>
+<nodes>
+80,85,9
+</nodes>
+</element>
+<element elem_number="149" elm_type="2">
+<tags number_of_tags="2">
+6,6
+</tags>
+<nodes>
+79,80,37
+</nodes>
+</element>
+<element elem_number="150" elm_type="2">
+<tags number_of_tags="2">
+6,6
+</tags>
+<nodes>
+10,86,79
+</nodes>
+</element>
+<element elem_number="151" elm_type="2">
+<tags number_of_tags="2">
+6,6
+</tags>
+<nodes>
+79,81,80
+</nodes>
+</element>
+<element elem_number="152" elm_type="2">
+<tags number_of_tags="2">
+6,6
+</tags>
+<nodes>
+20,84,81
+</nodes>
+</element>
+<element elem_number="153" elm_type="2">
+<tags number_of_tags="2">
+6,6
+</tags>
+<nodes>
+84,85,80
+</nodes>
+</element>
+<element elem_number="154" elm_type="2">
+<tags number_of_tags="2">
+6,6
+</tags>
+<nodes>
+81,87,19
+</nodes>
+</element>
+<element elem_number="155" elm_type="2">
+<tags number_of_tags="2">
+6,6
+</tags>
+<nodes>
+79,87,81
+</nodes>
+</element>
+<element elem_number="156" elm_type="2">
+<tags number_of_tags="2">
+6,6
+</tags>
+<nodes>
+81,84,80
+</nodes>
+</element>
+<element elem_number="157" elm_type="2">
+<tags number_of_tags="2">
+6,6
+</tags>
+<nodes>
+86,87,79
+</nodes>
+</element>
+<element elem_number="158" elm_type="2">
+<tags number_of_tags="2">
+6,6
+</tags>
+<nodes>
+29,85,84
+</nodes>
+</element>
+<element elem_number="159" elm_type="2">
+<tags number_of_tags="2">
+6,6
+</tags>
+<nodes>
+35,87,86
+</nodes>
+</element>
+<element elem_number="160" elm_type="2">
+<tags number_of_tags="2">
+6,6
+</tags>
+<nodes>
+5,83,30
+</nodes>
+</element>
+<element elem_number="161" elm_type="2">
+<tags number_of_tags="2">
+6,6
+</tags>
+<nodes>
+36,82,8
+</nodes>
+</element>
+<element elem_number="162" elm_type="2">
+<tags number_of_tags="2">
+6,6
+</tags>
+<nodes>
+28,12,5
+</nodes>
+</element>
+<element elem_number="163" elm_type="2">
+<tags number_of_tags="2">
+6,6
+</tags>
+<nodes>
+27,8,11
+</nodes>
+</element>
+<element elem_number="164" elm_type="2">
+<tags number_of_tags="2">
+6,6
+</tags>
+<nodes>
+27,11,38
+</nodes>
+</element>
+<element elem_number="165" elm_type="2">
+<tags number_of_tags="2">
+6,6
+</tags>
+<nodes>
+28,38,12
+</nodes>
+</element>
+<element elem_number="166" elm_type="2">
+<tags number_of_tags="2">
+6,6
+</tags>
+<nodes>
+28,27,38
+</nodes>
+</element>
+<element elem_number="167" elm_type="2">
+<tags number_of_tags="2">
+7,7
+</tags>
+<nodes>
+37,9,88
+</nodes>
+</element>
+<element elem_number="168" elm_type="2">
+<tags number_of_tags="2">
+7,7
+</tags>
+<nodes>
+10,37,89
+</nodes>
+</element>
+<element elem_number="169" elm_type="2">
+<tags number_of_tags="2">
+7,7
+</tags>
+<nodes>
+38,11,89
+</nodes>
+</element>
+<element elem_number="170" elm_type="2">
+<tags number_of_tags="2">
+7,7
+</tags>
+<nodes>
+12,38,88
+</nodes>
+</element>
+<element elem_number="171" elm_type="2">
+<tags number_of_tags="2">
+7,7
+</tags>
+<nodes>
+9,12,88
+</nodes>
+</element>
+<element elem_number="172" elm_type="2">
+<tags number_of_tags="2">
+7,7
+</tags>
+<nodes>
+11,10,89
+</nodes>
+</element>
+<element elem_number="173" elm_type="2">
+<tags number_of_tags="2">
+7,7
+</tags>
+<nodes>
+38,37,88
+</nodes>
+</element>
+<element elem_number="174" elm_type="2">
+<tags number_of_tags="2">
+7,7
+</tags>
+<nodes>
+37,38,89
+</nodes>
+</element>
+
+</elements>
+
+</mesh>

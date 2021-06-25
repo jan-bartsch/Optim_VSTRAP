@@ -167,6 +167,7 @@ int StepsizeController::ArmijoLinesearch(arma::mat &gradient, double J0,
               << "Stepsize " << alpha << " in " << counter << ". iteration"
               << std::endl;
 
+
     counter++;
   }
 

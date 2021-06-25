@@ -123,7 +123,7 @@ if(float(params['inflow_included'])==1):
     file_forward_input.write("\t\t\t\t <values number_density=\" "+ str(params["number_density_forward_inflow"]) +" \" weight=\""+ str(params["weight_forward_inflow"]) +"\" charge_number=\""+ str(params["charge_number_forward_inflow"]) +"\" mass=\"" + str(params["mass_forward_inflow"]) + "\" species=\"" + str(params["species_forward_inflow"]) + "\"/>\n")
     file_forward_input.write("\t\t\t\t <temperature x_val=\"" + str(params["temperature_x_val_inflow"]) + "\" y_val=\"" + str(params["temperature_y_val_inflow"]) + "\" z_val=\"" + str(params["temperature_z_val_inflow"]) + "\"/> \n ")
     file_forward_input.write("\t\t\t\t <v_drift x_val=\"" + str(params["v_drift_x_val_inflow"]) + "\" y_val=\"" + str(params["v_drift_y_val_inflow"]) + "\" z_val=\"" + str(params["v_drift_z_val_inflow"]) + "\"/> \n ")
-    file_forward_input.write("\t\t\t\t <physical_surface tag=\"6\"/>\n \t\t\t </batch>\n \t\t\t <mesh name=\"surf_mesh\"/> \n \t\t </executable>\n")
+    file_forward_input.write("\t\t\t\t <physical_surface tag=\"7\"/>\n \t\t\t </batch>\n \t\t\t <mesh name=\"surf_mesh\"/> \n \t\t </executable>\n")
 
 file_forward_input.write("\t\t <executable name=\"fmm\" mode=\"CPU\">\n \t\t\t <smearing_radius value=\"0.0\"/>\n \t\t\t <method name=\"fmm\"/>\n \t\t\t <particle_group name=\"forward_particles\"/>\n \t\t </executable>\n")
 

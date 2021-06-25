@@ -28,6 +28,7 @@ for p in paths.getElementsByTagName('path'):
 file = open(args.target_folder + str(pathsList["creation_adjoint_partcles"]), 'w+');
 
 ntimesteps = int(params["ntimesteps_gp_VSTRAP"])
+del_time = float(params["dt_VSTRAP"])
 mu_x = float(params["adjoint_mu_x"])
 mu_y = float(params["adjoint_mu_y"])
 mu_z = float(params["adjoint_mu_z"])
@@ -55,7 +56,7 @@ v_s_z = sigma_v;
 
 file.write("<parameraters>\n")
 
-if (float(params["electric_force"])==1):
+if (float(params["electric_force"])==2):
 	for timestep in range(0,ntimesteps):
 		file.write("\t<set iteration=\"" + str(timestep) + "\">\n")
 		file.write("\t\t<particle_values number_density=\""+str(params["adjoint_number_density"])+" \" weight=\""+str(params["adjoint_weight"])+"\" charge_number=\""+str(params["adjoint_charge_number"])+"\" mass=\""+str(params["adjoint_mass"])+"\" species=\""+str(params["adjoint_species"])+"\"/>\n")
@@ -67,7 +68,7 @@ if (float(params["electric_force"])==1):
 		brockett_file.write(str(mu_x)+","+str(mu_y)+","+str(mu_z)+","+str(s_x)+","+str(s_y)+","+str(s_z)+","+str(v_x)+","+str(v_y)+","+str(v_z)+","+str(v_s_x)+","+str(v_s_y)+","+str(v_s_z)+"\n")
 	file.write("</parameraters>")
 
-v_x = 1000; #2.0*float(params['position_max_gp'])/(float(params['ntimesteps_gp'])*float(params['dt_gp']))
+v_x = 0.0; #2.0*float(params['position_max_gp'])/(float(params['ntimesteps_gp'])*float(params['dt_gp']))
 v_y = 0.0;
 v_z = 0.0;
 
@@ -77,13 +78,37 @@ mu_z = 0.0;
 
 dt_gp = float(params['dt_VSTRAP']);
 
-if (float(params["magnetic_force"])==1):
+if (float(params["magnetic_force"])==2):
 	for timestep in range(0,ntimesteps):
 		s_x = 0.025; #0.001
 		s_y = 0.01; #2*0.00015/(-0.05+0.1/(float(params['ntimesteps_gp']))*timestep+0.06); #8*5*0.000015/(-0.05+0.1/(float(params['ntimesteps_gp']))*timestep+0.06)
 		s_z = 0.01; #2*0.00015/(-0.05+0.1/(float(params['ntimesteps_gp']))*timestep+0.06); #8*5*0.000015/(-0.05+0.1/(float(params['ntimesteps_gp']))*timestep+0.06)
 		mu_x = 0.0; #-0.05+0.1/ntimesteps*timestep
 		print(mu_x)
+		file.write("\t<set iteration=\"" + str(timestep) + "\">\n")
+		file.write("\t\t<particle_values number_density=\""+str(params["adjoint_number_density"])+" \" weight=\""+str(params["adjoint_weight"])+"\" charge_number=\""+str(params["adjoint_charge_number"])+"\" mass=\""+str(params["adjoint_mass"])+"\" species=\""+str(params["adjoint_species"])+"\"/>\n")
+		file.write("\t\t<position>\n \t\t\t<mu x_val = \"" + str(mu_x) + "\" y_val = \"" + str(mu_y) + "\" z_val = \"" + str(mu_z) + "\" />\n")
+		file.write("\t\t\t<sigma x_val = \"" + str(s_x) +"\" y_val = \"" + str(s_y)+ "\" z_val = \"" + str(s_z) +"\"/> \n \t\t</position>\n")
+		file.write("\t\t<velocity> \n \t\t\t<mu x_val = \"" + str(v_x) + " \" y_val = \"" + str(v_y) + "\" z_val = \"" + str(v_z) + "\" />\n")
+		file.write("\t\t\t<sigma x_val = \"" + str(v_s_x) +"\" y_val = \"" + str(v_s_y)+ "\" z_val = \"" + str(v_s_z) +"\"/> \n \t\t</velocity>\n")
+		file.write("\t</set>\n")
+		brockett_file.write(str(mu_x)+","+str(mu_y)+","+str(mu_z)+","+str(s_x)+","+str(s_y)+","+str(s_z)+","+str(v_x)+","+str(v_y)+","+str(v_z)+","+str(v_s_x)+","+str(v_s_y)+","+str(v_s_z)+"\n")
+	file.write("</parameraters>")
+
+
+periodicity = 2*math.pi/(del_time*float(params['ntimesteps_gp_VSTRAP']))
+
+if (float(params["magnetic_force"])==1):
+	for timestep in range(0,ntimesteps):
+		#s_x = 0.005; #0.001
+		#s_y = 0.025; 
+		#s_z = 0.005;
+		mu_x = 1/20*math.sin((del_time*timestep-math.pi/(4*periodicity))*periodicity)
+		mu_z = 1/25*math.cos((del_time*timestep-math.pi/(4*periodicity))*periodicity)
+		v_x = periodicity/200*math.cos((del_time*timestep-math.pi/(4*periodicity))*periodicity)
+		v_z = -periodicity/250*math.sin((del_time*timestep-math.pi/(4*periodicity))*periodicity)
+		print(str(mu_x) + " , " + str(mu_z))  
+		print(str(v_x) + " , " + str(v_z))  
 		file.write("\t<set iteration=\"" + str(timestep) + "\">\n")
 		file.write("\t\t<particle_values number_density=\""+str(params["adjoint_number_density"])+" \" weight=\""+str(params["adjoint_weight"])+"\" charge_number=\""+str(params["adjoint_charge_number"])+"\" mass=\""+str(params["adjoint_mass"])+"\" species=\""+str(params["adjoint_species"])+"\"/>\n")
 		file.write("\t\t<position>\n \t\t\t<mu x_val = \"" + str(mu_x) + "\" y_val = \"" + str(mu_y) + "\" z_val = \"" + str(mu_z) + "\" />\n")
