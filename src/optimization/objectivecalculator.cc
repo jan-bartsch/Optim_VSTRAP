@@ -197,7 +197,7 @@ double ObjectiveCalculator::CalculateObjective(
 
   InnerProducts product = InnerProducts(input_data_);
 
-   costOfControl += std::sqrt(product.H2InnerProduct(control, control));
+   costOfControl += std::sqrt(product.H1InnerProduct(control, control));
 
   objective += 1.0 / input_data_->C_theta * input_data_->weight_control_gp *
                costOfControl;

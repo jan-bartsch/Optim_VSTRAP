@@ -83,7 +83,7 @@ class Control_field:
 		ax.set_xlabel('x1 axis')
 		ax.set_ylabel('x2 axis')
 		ax.set_zlabel('x3 axis')
-		ax.view_init(azim=180, elev=0) #centering electric azim=-90
+		ax.view_init(azim=-90, elev=0) #magnetic azim=180 #centering electric azim=-90
 
 		for n in range(1,len(nodesMesh)):
 			a = Arrow3D([nodesMesh[n-1][0], endPoints[n-1][0]], [nodesMesh[n-1][1], endPoints[n-1][1]], [nodesMesh[n-1][2], endPoints[n-1][2]], mutation_scale=20, lw=1, arrowstyle="-|>", color="k")

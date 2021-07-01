@@ -366,11 +366,15 @@ arma::mat OptimController::StartWithGivenControl(
   logger::Info(
       "Starting with existing control (multiplied by a positive constant)");
   std::string read_control = input_data->start_with_existing_control;
-  arma::mat control =
+ arma::mat control =
       in.ReadControl(&read_control[0], input_data->number_cells_position);
   outController.WritecontrolXml(input_data->fraction_of_optimal_control *
                                 control);
   outController.InterpolateControl(input_data);
+
+ control =
+      in.ReadControl(&read_control[0], input_data->number_cells_position);
+
 
   return control;
 }
