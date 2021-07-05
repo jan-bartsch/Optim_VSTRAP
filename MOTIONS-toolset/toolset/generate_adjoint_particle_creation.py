@@ -83,7 +83,7 @@ if (float(params["magnetic_force"])==0):
 		s_x = 0.025; #0.001
 		s_y = 0.01; #2*0.00015/(-0.05+0.1/(float(params['ntimesteps_gp']))*timestep+0.06); #8*5*0.000015/(-0.05+0.1/(float(params['ntimesteps_gp']))*timestep+0.06)
 		s_z = 0.01; #2*0.00015/(-0.05+0.1/(float(params['ntimesteps_gp']))*timestep+0.06); #8*5*0.000015/(-0.05+0.1/(float(params['ntimesteps_gp']))*timestep+0.06)
-		mu_x = 0.0; # -0.05+0.1/ntimesteps*timestep
+		mu_x =0.0; # -0.05+0.1/ntimesteps*timestep
 		print(mu_x)
 		file.write("\t<set iteration=\"" + str(timestep) + "\">\n")
 		file.write("\t\t<particle_values number_density=\""+str(params["adjoint_number_density"])+" \" weight=\""+str(params["adjoint_weight"])+"\" charge_number=\""+str(params["adjoint_charge_number"])+"\" mass=\""+str(params["adjoint_mass"])+"\" species=\""+str(params["adjoint_species"])+"\"/>\n")

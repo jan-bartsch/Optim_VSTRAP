@@ -86,10 +86,10 @@
     <parameter name="v_drift_z_val_inflow" value="0"/>
 
     <!--  optimization techniques  -->
-    <parameter name="fixed_gradient_descent_stepsize" value="1e+0"/>
+    <parameter name="fixed_gradient_descent_stepsize" value="5e-2"/>
     <parameter name="fraction_of_optimal_control" value="1"/>
-    <parameter name="optimizationIteration_max_gp" value="100"/>     <!--  number of maximal interations  -->
-     <parameter name="linesearchIteration_max_gp" value="50"/>     <!--  number of maximal interations  -->
+    <parameter name="optimizationIteration_max_gp" value="10"/>     <!--  number of mal interations  -->
+     <parameter name="linesearchIteration_max_gp" value="500"/>     <!--  number of maximal interations  -->
     <parameter name="numberParticles_gp" value="2000"/>
     <parameter name="start_zero_control" value="1"/>     <!--  1=true, 0=false (start with given control and input files) , 2: start with given input files but zero control  -->
     <parameter name="tolerance_gp" value="1e-5"/>
@@ -123,7 +123,7 @@
 
 
 
-    <parameter name="dt_gp" value="1e-5"/>
+    <parameter name="dt_gp" value="1e-6"/>
     <parameter name="dt_VSTRAP" value="1e-6" />
     <parameter name="ntimesteps_gp" value="50"/>
     <parameter name="plasma_state_output_interval" value="1"/>
@@ -155,7 +155,7 @@
     <parameter name="local_control_x_min_gp" value="-0.05"/>
     <parameter name="local_control_x_max_gp" value="0.05"/>
     <parameter name="weight_control_gp" value="1e+1"/>
-    <parameter name="velocity_part_objective" value="1e+2"/> <!-- 1e-9 -->
+    <parameter name="velocity_part_objective" value="1e+4"/> <!-- 1e-9 -->
     <parameter name="shifting_objective" value="0.5"/>
     <parameter name="visalization_scaling" value="1e+1" />
 
