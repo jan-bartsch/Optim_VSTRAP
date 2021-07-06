@@ -77,6 +77,7 @@ int PdfController::AssemblingMultiDim(
                 }
             } else {
                 if (equation_type == 0) {
+                	std::cout << too_fast_particles << std::endl;
                     too_fast_particles++;
                     std::cout << "particle at " << coordinate.toString() << " has speed "
                               << sqrt(vx * vx + vy * vy + vz * vz) << std::endl;
@@ -85,6 +86,7 @@ int PdfController::AssemblingMultiDim(
                         std::cerr << "Too many too fast particles, try to increase velocity bound" << std::endl;
                         logger::Trace("Too many too fast particles, try to increase velocity bound");
                         return_flag = 1;
+			throw std::runtime_error("Too many to fast particles");
                     }
                 } else if (equation_type == 1) {
                     too_fast_adjoint_particles++;

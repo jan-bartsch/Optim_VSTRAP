@@ -244,7 +244,7 @@ int OptimController::MainOptimizationAlgorithm(
             "Too small first gradient. Norm was smaller than tolerance_gp <" +
             std::to_string(input_data->tolerance_gp) + ">");
       }
-      stepsize = input_data->fixed_gradient_descent_stepsize / norm_gradient;
+      stepsize = input_data->fixed_gradient_descent_stepsize; // / norm_gradient;
     }
 
     logger::Info("Updating the control...");

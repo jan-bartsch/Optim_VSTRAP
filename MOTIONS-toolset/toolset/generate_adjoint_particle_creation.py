@@ -68,7 +68,7 @@ if (float(params["electric_force"])==2):
 		brockett_file.write(str(mu_x)+","+str(mu_y)+","+str(mu_z)+","+str(s_x)+","+str(s_y)+","+str(s_z)+","+str(v_x)+","+str(v_y)+","+str(v_z)+","+str(v_s_x)+","+str(v_s_y)+","+str(v_s_z)+"\n")
 	file.write("</parameraters>")
 
-v_x = 100.0; #2.0*float(params['position_max_gp'])/(float(params['ntimesteps_gp'])*float(params['dt_gp']))
+v_x = 1000.0; #2.0*float(params['position_max_gp'])/(float(params['ntimesteps_gp'])*float(params['dt_gp']))
 v_y = 0.0;
 v_z = 0.0;
 
@@ -83,7 +83,7 @@ if (float(params["magnetic_force"])==0):
 		s_x = 0.025; #0.001
 		s_y = 0.01; #2*0.00015/(-0.05+0.1/(float(params['ntimesteps_gp']))*timestep+0.06); #8*5*0.000015/(-0.05+0.1/(float(params['ntimesteps_gp']))*timestep+0.06)
 		s_z = 0.01; #2*0.00015/(-0.05+0.1/(float(params['ntimesteps_gp']))*timestep+0.06); #8*5*0.000015/(-0.05+0.1/(float(params['ntimesteps_gp']))*timestep+0.06)
-		mu_x =0.0; # -0.05+0.1/ntimesteps*timestep
+		mu_x = 0.025; # -0.05+0.1/ntimesteps*timestep
 		print(mu_x)
 		file.write("\t<set iteration=\"" + str(timestep) + "\">\n")
 		file.write("\t\t<particle_values number_density=\""+str(params["adjoint_number_density"])+" \" weight=\""+str(params["adjoint_weight"])+"\" charge_number=\""+str(params["adjoint_charge_number"])+"\" mass=\""+str(params["adjoint_mass"])+"\" species=\""+str(params["adjoint_species"])+"\"/>\n")
