@@ -1,0 +1,86 @@
+<simulation>
+	 <global_values> 
+ 		 <time_step value="1e-6"/> 
+ 	 </global_values> 
+	 <abort_criterium> 
+ 		 <max_itterations value="50" /> 
+ 	 </abort_criterium>
+	 <executables> 
+ 	 	 <executable name="mesh_initializer" mode="CPU"> 
+ 			 <mesh name="vol_mesh">
+				 <load>../../../Optim_VSTRAP/data/global/box_vol_regular_small_216.xml</load> 
+ 			 </mesh> 
+			<mesh name="surf_mesh">
+				 <load>../../../Optim_VSTRAP/data/global/mesh/box_surf.xml</load> 
+ 				 <face_data name="surface_charging" type="double"/>
+ 			 </mesh> 
+		 </executable>
+		 <executable name="particle_initializer" mode="CPU"> 
+ 			<group name="forward_particles" empty="true"/>
+		 </executable> 
+ 		 <executable name="pwi" mode="CPU">
+			<boundary_type name="mesh"/>
+			<mesh name="surf_mesh"/>
+			<outlet_surface tag= "4"/>
+			<batch name="forward_particles">
+				<species name ="40Ar+"/>
+			</batch>
+		 </executable> 
+		 <executable name="bgf" mode="CPU"> 
+ 			<volume_mesh name="vol_mesh"/>
+			 <load>./interpolated_control_field.xml</load>
+  			 <particle_batch> 
+ 				 <field name="interpolated_control_field"/> 
+ 				 <particle_group name="forward_particles"/> 
+ 			 </particle_batch>
+ 		 </executable>
+		 <executable name="pusher" mode="CPU" type="forward">
+			 <particle_group name="forward_particles"/> 
+ 		 </executable> 
+		  <executable name="dsmc" mode="CPU"> 
+ 			 <particle_group name="forward_particles"/> 
+ 			 <load>../../../Optim_VSTRAP/data/global/interaction_data.xml</load> 
+ 		 </executable>
+		 <executable name="plasma_state" mode="CPU"> 
+ 			 <batch file_name="batch_1" format="csv" output_interval="1"> 
+ 			 <particle_group name="forward_particles"/> 
+ 			 </batch> 
+			<file path = "./results/" name="plasma_state" format="csv" output_interval="1"/> 
+ 		 </executable>
+		 <executable name="inflow" mode="CPU">
+ 			 <batch name="static" type="static"> 
+				 <particle_group name="forward_particles"/>
+				 <values number_density=" 1e+16 " weight="1e+7" charge_number="+1" mass="6.63e-26" species="40Ar+"/>
+				 <temperature x_val="300" y_val="300" z_val="300"/> 
+ 				 <v_drift x_val="1e+3" y_val="0" z_val="0"/> 
+ 				 <physical_surface tag="6"/>
+ 			 </batch>
+ 			 <mesh name="surf_mesh"/> 
+ 		 </executable>
+		 <executable name="fmm" mode="CPU">
+ 			 <smearing_radius value="0.0"/>
+ 			 <method name="fmm"/>
+ 			 <particle_group name="forward_particles"/>
+ 		 </executable>
+	 </executables>
+	 <schedule> 
+ 		 <init> 
+			 <executable name="mesh_initializer"/> 
+			 <executable name="particle_initializer"/> 
+			 <executable name="inflow"/> 
+			 <executable name="plasma_state"/> 
+			 <executable name="pusher"/> 
+			 <executable name="pwi"/> 
+			 <executable name="dsmc"/> 
+			 <executable name="bgf"/> 
+ 		</init> 
+		 <exec> 
+			 <executable name="inflow"/> 
+			 <executable name="dsmc"/> 
+			 <executable name="pwi"/> 
+			 <executable name="bgf"/> 
+			 <executable name="pusher"/> 
+			 <executable name="plasma_state"/> 
+ 		 </exec> 
+	</schedule>
+</simulation>
